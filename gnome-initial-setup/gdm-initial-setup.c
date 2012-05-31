@@ -171,13 +171,11 @@ build_eula_text_view (GFile *eula,
         if (error != NULL)
                 goto out;
 
-        /* apply monospace and center */
+        /* monospace the text */
         gtk_text_buffer_create_tag (buffer, "monospace", "family", "monospace", NULL);
-        gtk_text_buffer_create_tag (buffer, "center", "justification", GTK_JUSTIFY_CENTER, NULL);
         gtk_text_buffer_get_start_iter (buffer, &start);
         gtk_text_buffer_get_end_iter (buffer, &end);
         gtk_text_buffer_apply_tag_by_name (buffer, "monospace", &start, &end);
-        gtk_text_buffer_apply_tag_by_name (buffer, "center", &start, &end);
 
         widget = gtk_text_view_new_with_buffer (buffer);
         gtk_text_view_set_editable (GTK_TEXT_VIEW (widget), FALSE);
