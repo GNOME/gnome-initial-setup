@@ -58,5 +58,3 @@ EXTRA_DIST = \
 	welcome-tour.desktop
 
 BUILT_SOURCES = $(dbus_built_sources) setup_resources.c
-
--include $(top_srcdir)/git.mk
