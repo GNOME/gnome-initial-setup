@@ -139,7 +139,7 @@ splice_buffer (GInputStream  *stream,
                         break;
 
                 gtk_text_buffer_get_end_iter (buffer, &iter);
-                gtk_text_buffer_insert (buffer, &iter, contents, sizeof (contents));
+                gtk_text_buffer_insert (buffer, &iter, contents, n_read);
         }
 }
 
@@ -147,8 +147,8 @@ static GtkWidget *
 build_eula_text_view (GFile *eula,
                       char **title_out)
 {
-        GInputStream *input_stream;
-        GDataInputStream *data_input_stream;
+        GInputStream *input_stream = NULL;
+        GDataInputStream *data_input_stream = NULL;
         GError *error = NULL;
         GtkWidget *widget = NULL;
         GtkTextBuffer *buffer;
@@ -170,8 +170,7 @@ build_eula_text_view (GFile *eula,
         }
 
         buffer = gtk_text_buffer_new (NULL);
-        g_object_unref (data_input_stream);
-        splice_buffer (input_stream, buffer, &error);
+        splice_buffer (G_INPUT_STREAM (data_input_stream), buffer, &error);
         if (error != NULL) {
                 g_printerr (error->message);
                 goto out;
@@ -180,8 +179,7 @@ build_eula_text_view (GFile *eula,
         widget = gtk_text_view_new_with_buffer (buffer);
 
  out:
-        if (data_input_stream != NULL)
-                g_object_unref (data_input_stream);
+        g_clear_object (&data_input_stream);
         g_clear_error (&error);
         return widget;
 }
