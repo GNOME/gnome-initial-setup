@@ -154,33 +154,31 @@ build_eula_text_view (GFile *eula,
         GtkTextBuffer *buffer;
 
         input_stream = G_INPUT_STREAM (g_file_read (eula, NULL, &error));
-        if (error != NULL) {
-                g_printerr (error->message);
+        if (error != NULL)
                 goto out;
-        }
 
         data_input_stream = g_data_input_stream_new (input_stream);
         g_object_unref (input_stream);
 
         *title_out = g_data_input_stream_read_line (data_input_stream,
                                                     NULL, NULL, &error);
-        if (error != NULL) {
-                g_printerr (error->message);
+        if (error != NULL)
                 goto out;
-        }
 
         buffer = gtk_text_buffer_new (NULL);
         splice_buffer (G_INPUT_STREAM (data_input_stream), buffer, &error);
-        if (error != NULL) {
-                g_printerr (error->message);
+        if (error != NULL)
                 goto out;
-        }
 
         widget = gtk_text_view_new_with_buffer (buffer);
 
  out:
+        if (error != NULL) {
+                g_printerr ("Error while reading EULA: %s", error->message);
+                g_error_free (error);
+        }
+
         g_clear_object (&data_input_stream);
-        g_clear_error (&error);
         return widget;
 }
 
@@ -231,9 +229,8 @@ prepare_eula_pages (SetupData *setup)
         eulas_dir = g_file_new_for_path (eulas_dir_path);
         g_free (eulas_dir_path);
 
-        if (!g_file_query_exists (eulas_dir, NULL)) {
+        if (!g_file_query_exists (eulas_dir, NULL))
                 goto out;
-        }
 
         enumerator = g_file_enumerate_children (eulas_dir,
                                                 G_FILE_ATTRIBUTE_STANDARD_NAME,
@@ -241,23 +238,23 @@ prepare_eula_pages (SetupData *setup)
                                                 NULL,
                                                 &error);
 
-        if (error != NULL) {
-                g_printerr (error->message);
+        if (error != NULL)
                 goto out;
-        }
 
         while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
                 GFile *eula = g_file_get_child (eulas_dir, g_file_info_get_name (info));
                 build_eula_page (setup, eula);
         }
 
-        if (error != NULL) {
-                g_printerr (error->message);
+        if (error != NULL)
                 goto out;
-        }
 
  out:
-        g_clear_error (&error);
+        if (error != NULL) {
+                g_printerr ("Error while parsing eulas: %s", error->message);
+                g_error_free (error);
+        }
+
         g_object_unref (eulas_dir);
         g_clear_object (&enumerator);
 }
