@@ -9,10 +9,9 @@ AM_CPPFLAGS = \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMECC_DATA_DIR="\"$(datadir)/gnome-control-center\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
-	-DDATADIR="\"$(datadir)/gnome-control-center/ui/datetime\"" \
-	-I../libgdmgreeter
+	-DDATADIR="\"$(datadir)/gnome-control-center/ui/datetime\""
 
-LIBS = $(INITIAL_SETUP_LIBS) -lm ../libgdmgreeter/libgdmgreeter.la
+LIBS = $(INITIAL_SETUP_LIBS) -lm
 
 libexec_PROGRAMS = gdm-initial-setup
 
@@ -44,7 +43,6 @@ gdm_initial_setup_SOURCES =	\
 	um-crop-area.c um-crop-area.h \
 	um-photo-dialog.c um-photo-dialog.h \
 	tz.c tz.h \
-	../libgdmgreeter/gdm-greeter-client.c ../libgdmgreeter/gdm-greeter-client.h \
 	$(dbus_built_sources) \
 	setup_resources.c
 
