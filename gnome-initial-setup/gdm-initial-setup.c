@@ -226,7 +226,7 @@ prepare_eula_pages (SetupData *setup)
         gchar *eulas_dir_path;
         GFile *eulas_dir;
         GError *error = NULL;
-        GFileEnumerator *enumerator;
+        GFileEnumerator *enumerator = NULL;
         GFileInfo *info;
 
         eulas_dir_path = g_build_filename (UIDIR, "eulas", NULL);
@@ -261,7 +261,7 @@ prepare_eula_pages (SetupData *setup)
  out:
         g_clear_error (&error);
         g_object_unref (eulas_dir);
-        g_object_unref (enumerator);
+        g_clear_object (&enumerator);
 }
 
 /* Network page {{{1 */
