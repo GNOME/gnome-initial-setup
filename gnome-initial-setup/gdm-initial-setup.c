@@ -203,10 +203,10 @@ build_eula_page (SetupData *setup,
         scrolled_window = gtk_scrolled_window_new (NULL, NULL);
         gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
 
-        checkbox = gtk_check_button_new_with_label (_("I have &agreed to the "
-                                                      "terms and conditions in "
-                                                      "this end user license "
-                                                      "agreement."));
+        checkbox = gtk_check_button_new_with_mnemonic (_("I have _agreed to the "
+                                                         "terms and conditions in "
+                                                         "this end user license "
+                                                         "agreement."));
 
         vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
         gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
