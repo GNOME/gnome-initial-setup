@@ -1,0 +1,1 @@
+. gnome-autogen.sh
