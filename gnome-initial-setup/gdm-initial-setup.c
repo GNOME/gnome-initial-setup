@@ -399,7 +399,7 @@ refresh_wireless_list (SetupData *setup)
         NMAccessPoint *ap;
         const GPtrArray *aps;
         GPtrArray *unique_aps;
-        gint i;
+        guint i;
         GtkWidget *label;
         GtkWidget *spinner;
         GtkWidget *swin;
@@ -643,7 +643,7 @@ static void
 active_connections_changed (NMClient *client, GParamSpec *pspec, SetupData *setup)
 {
         const GPtrArray *connections;
-        int i;
+        guint i;
 
         connections = nm_client_get_active_connections (client);
         for (i = 0; connections && (i < connections->len); i++) {
@@ -693,7 +693,7 @@ prepare_network_page (SetupData *setup)
         GtkTreeSelection *selection;
         const GPtrArray *devices;
         NMDevice *device;
-        gint i;
+        guint i;
         DBusGConnection *bus;
         GError *error;
 

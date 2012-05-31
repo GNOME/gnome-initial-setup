@@ -469,7 +469,7 @@ button_press_event (GtkWidget      *widget,
   guchar r, g, b, a;
   guchar *pixels;
   gint rowstride;
-  gint i;
+  gsize i;
 
   const GPtrArray *array;
   gint width, height;
