@@ -171,6 +171,8 @@ build_eula_text_view (GFile *eula,
                 goto out;
 
         widget = gtk_text_view_new_with_buffer (buffer);
+        gtk_text_view_set_editable (GTK_TEXT_VIEW (widget), FALSE);
+        gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (widget), FALSE);
 
  out:
         if (error != NULL) {
