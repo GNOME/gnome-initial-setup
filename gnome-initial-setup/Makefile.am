@@ -1,4 +1,4 @@
-uidir = $(datadir)/gdm/initial-setup
+uidir = $(datadir)/gnome-initial-setup
 
 # GNOMECC_DATA_DIR is used in tz.c
 # DATADIR is used in cc-timezone-map.c
