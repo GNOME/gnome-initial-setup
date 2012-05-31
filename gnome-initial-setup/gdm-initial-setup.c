@@ -194,6 +194,15 @@ build_eula_text_view (GFile *eula,
 }
 
 static void
+eula_checkbox_toggled (GtkToggleButton *checkbox,
+                       SetupData       *setup)
+{
+        gtk_assistant_set_page_complete (setup->assistant,
+                                         g_object_get_data (G_OBJECT (checkbox), "assistant-page"),
+                                         gtk_toggle_button_get_active (checkbox));
+}
+
+static void
 build_eula_page (SetupData *setup,
                  GFile     *eula)
 {
@@ -225,9 +234,14 @@ build_eula_page (SetupData *setup,
         /* XXX: 1 is the location after the welcome page.
          * Remove this hardcoded thing. */
         gtk_assistant_insert_page (setup->assistant, vbox, 1);
+        gtk_assistant_set_page_complete (setup->assistant, vbox, FALSE);
         gtk_assistant_set_page_title (setup->assistant, vbox, title);
 
         gtk_widget_show_all (GTK_WIDGET (vbox));
+        g_signal_connect (checkbox, "toggled",
+                          G_CALLBACK (eula_checkbox_toggled),
+                          setup);
+        g_object_set_data (G_OBJECT (checkbox), "assistant-page", vbox);
 }
 
 static void
@@ -2395,9 +2409,6 @@ static void
 prepare_cb (GtkAssistant *assi, GtkWidget *page, SetupData *setup)
 {
         g_debug ("Preparing page %s", gtk_widget_get_name (page));
-
-        if (page != WID("account-page"))
-                gtk_assistant_set_page_complete (assi, page, TRUE);
 
         save_account_data (setup);
 
