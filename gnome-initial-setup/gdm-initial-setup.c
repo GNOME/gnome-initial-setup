@@ -215,6 +215,9 @@ build_eula_page (SetupData *setup,
         /* XXX: 1 is the location after the welcome page.
          * Remove this hardcoded thing. */
         gtk_assistant_insert_page (setup->assistant, vbox, 1);
+        gtk_assistant_set_page_title (setup->assistant, vbox, title);
+
+        gtk_widget_show_all (GTK_WIDGET (vbox));
 }
 
 static void
