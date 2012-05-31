@@ -120,7 +120,147 @@ prepare_welcome_page (SetupData *setup)
                 gtk_label_set_text (GTK_LABEL (WID ("welcome-subtitle")), s);
         g_free (s);
 }
- 
+
+/* heavily lifted from g_output_stream_splice */
+static void
+splice_buffer (GInputStream  *stream,
+               GtkTextBuffer *buffer,
+               GError       **error)
+{
+        char contents[8192];
+        gssize n_read;
+        GtkTextIter iter;
+
+        while (TRUE) {
+                n_read = g_input_stream_read (stream, contents, sizeof (contents), NULL, error);
+
+                /* error or eof */
+                if (n_read <= 0)
+                        break;
+
+                gtk_text_buffer_get_end_iter (buffer, &iter);
+                gtk_text_buffer_insert (buffer, &iter, contents, sizeof (contents));
+        }
+}
+
+static GtkWidget *
+build_eula_text_view (GFile *eula,
+                      char **title_out)
+{
+        GInputStream *input_stream;
+        GDataInputStream *data_input_stream;
+        GError *error = NULL;
+        GtkWidget *widget = NULL;
+        GtkTextBuffer *buffer;
+
+        input_stream = G_INPUT_STREAM (g_file_read (eula, NULL, &error));
+        if (error != NULL) {
+                g_printerr (error->message);
+                goto out;
+        }
+
+        data_input_stream = g_data_input_stream_new (input_stream);
+        g_object_unref (input_stream);
+
+        *title_out = g_data_input_stream_read_line (data_input_stream,
+                                                    NULL, NULL, &error);
+        if (error != NULL) {
+                g_printerr (error->message);
+                goto out;
+        }
+
+        buffer = gtk_text_buffer_new (NULL);
+        g_object_unref (data_input_stream);
+        splice_buffer (input_stream, buffer, &error);
+        if (error != NULL) {
+                g_printerr (error->message);
+                goto out;
+        }
+
+        widget = gtk_text_view_new_with_buffer (buffer);
+
+ out:
+        if (data_input_stream != NULL)
+                g_object_unref (data_input_stream);
+        g_clear_error (&error);
+        return widget;
+}
+
+static void
+build_eula_page (SetupData *setup,
+                 GFile     *eula)
+{
+        GtkWidget *text_view;
+        GtkWidget *vbox;
+        GtkWidget *scrolled_window;
+        GtkWidget *checkbox;
+        char *title;
+
+        text_view = build_eula_text_view (eula, &title);
+        if (text_view == NULL)
+                return;
+
+        scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+        gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
+
+        checkbox = gtk_check_button_new_with_label (_("I have &agreed to the "
+                                                      "terms and conditions in "
+                                                      "this end user license "
+                                                      "agreement."));
+
+        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
+        gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
+        gtk_container_add (GTK_CONTAINER (vbox), checkbox);
+
+        /* XXX: 1 is the location after the welcome page.
+         * Remove this hardcoded thing. */
+        gtk_assistant_insert_page (setup->assistant, vbox, 1);
+}
+
+static void
+prepare_eula_pages (SetupData *setup)
+{
+        gchar *eulas_dir_path;
+        GFile *eulas_dir;
+        GError *error = NULL;
+        GFileEnumerator *enumerator;
+        GFileInfo *info;
+
+        eulas_dir_path = g_build_filename (UIDIR, "eulas", NULL);
+        eulas_dir = g_file_new_for_path (eulas_dir_path);
+        g_free (eulas_dir_path);
+
+        if (!g_file_query_exists (eulas_dir, NULL)) {
+                goto out;
+        }
+
+        enumerator = g_file_enumerate_children (eulas_dir,
+                                                G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                                G_FILE_QUERY_INFO_NONE,
+                                                NULL,
+                                                &error);
+
+        if (error != NULL) {
+                g_printerr (error->message);
+                goto out;
+        }
+
+        while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
+                GFile *eula = g_file_get_child (eulas_dir, g_file_info_get_name (info));
+                build_eula_page (setup, eula);
+        }
+
+        if (error != NULL) {
+                g_printerr (error->message);
+                goto out;
+        }
+
+ out:
+        g_clear_error (&error);
+        g_object_unref (eulas_dir);
+        g_object_unref (enumerator);
+}
+
 /* Network page {{{1 */
 
 enum {
@@ -2275,6 +2415,7 @@ prepare_assistant (SetupData *setup)
         connect_to_slave (setup);
 
         prepare_welcome_page (setup);
+        prepare_eula_pages (setup);
         prepare_network_page (setup);
         prepare_account_page (setup);
         prepare_location_page (setup);
