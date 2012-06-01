@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 
 LIBS = $(INITIAL_SETUP_LIBS) -lm
 
-libexec_PROGRAMS = gdm-initial-setup
+libexec_PROGRAMS = gnome-initial-setup
 
 dbus_built_sources = timedated.c timedated.h
 timedated.c: timedated.h
@@ -32,8 +32,8 @@ else
 pw_utils_sources = pw-utils.c pw-utils.h
 endif
 
-gdm_initial_setup_SOURCES =	\
-	gdm-initial-setup.c \
+gnome_initial_setup_SOURCES =	\
+	gnome-initial-setup.c \
 	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
 	panel-cell-renderer-mode.c panel-cell-renderer-mode.h \
 	panel-cell-renderer-security.c panel-cell-renderer-security.h \
