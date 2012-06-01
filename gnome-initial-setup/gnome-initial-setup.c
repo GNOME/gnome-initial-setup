@@ -1,7 +1,6 @@
 #include <config.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-#include <gio/gunixoutputstream.h>
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
@@ -1184,10 +1183,10 @@ confirm_entry_focus_out (GtkWidget     *entry,
 static void
 set_user_avatar (SetupData *setup)
 {
-        gchar *path;
-        gint fd;
-        GOutputStream *stream;
-        GError *error;
+        GFile *file = NULL;
+        GFileIOStream *io_stream = NULL;
+        GOutputStream *stream = NULL;
+        GError *error = NULL;
 
         if (setup->avatar_filename != NULL) {
                 act_user_set_icon_file (setup->act_user, setup->avatar_filename);
@@ -1198,27 +1197,24 @@ set_user_avatar (SetupData *setup)
                 return;
         }
 
-        path = g_build_filename (g_get_tmp_dir (), "usericonXXXXXX", NULL);
-        fd = g_mkstemp (path);
-        if (fd == -1) {
-                g_warning ("failed to create temporary file for image data");
-                g_free (path);
-                return;
-        }
+        file = g_file_new_tmp ("usericonXXXXXX", &io_stream, &error);
+        if (error != NULL)
+                goto out;
 
-        stream = g_unix_output_stream_new (fd, TRUE);
+        stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
+        if (!gdk_pixbuf_save_to_stream (setup->avatar_pixbuf, stream, "png", NULL, &error, NULL))
+                goto out;
 
-        error = NULL;
-        if (!gdk_pixbuf_save_to_stream (setup->avatar_pixbuf, stream, "png", NULL, &error, NULL)) {
+        act_user_set_icon_file (setup->act_user, g_file_get_path (file)); 
+
+ out:
+        if (error != NULL) {
                 g_warning ("failed to save image: %s", error->message);
                 g_error_free (error);
-                g_object_unref (stream);
-                return;
         }
-
-        g_object_unref (stream);
-
-        act_user_set_icon_file (setup->act_user, path); 
+        g_clear_object (&stream);
+        g_clear_object (&io_stream);
+        g_clear_object (&file);
 }
 
 static void
