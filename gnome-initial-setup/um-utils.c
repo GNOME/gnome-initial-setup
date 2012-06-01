@@ -509,17 +509,17 @@ is_valid_username (const gchar *username, gchar **tip)
 
         if (!empty && (in_use || too_long || !valid)) {
                 if (in_use) {
-                        *tip = g_strdup_printf (_("A user with the username '%s' already exists"),
+                        *tip = g_strdup_printf (_("A user with the user name '%s' already exists"),
                                                username);
                 }
                 else if (too_long) {
-                        *tip = g_strdup_printf (_("The username is too long"));
+                        *tip = g_strdup_printf (_("The user name is too long"));
                 }
                 else if (username[0] == '-') {
-                        *tip = g_strdup (_("The username cannot start with a '-'"));
+                        *tip = g_strdup (_("The user name cannot start with a '-'"));
                 }
                 else {
-                        *tip = g_strdup (_("The username must consist of:\n"
+                        *tip = g_strdup (_("The user name must consist of:\n"
                                           " \xe2\x9e\xa3 letters from the English alphabet\n"
                                           " \xe2\x9e\xa3 digits\n"
                                           " \xe2\x9e\xa3 any of the characters '.', '-' and '_'"));
