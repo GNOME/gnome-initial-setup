@@ -144,11 +144,9 @@ splice_buffer (GInputStream  *stream,
 }
 
 static GtkWidget *
-build_eula_text_view (GFile *eula,
-                      char **title_out)
+build_eula_text_view (GFile *eula)
 {
         GInputStream *input_stream = NULL;
-        GDataInputStream *data_input_stream = NULL;
         GError *error = NULL;
         GtkWidget *widget = NULL;
         GtkTextBuffer *buffer;
@@ -158,16 +156,8 @@ build_eula_text_view (GFile *eula,
         if (error != NULL)
                 goto out;
 
-        data_input_stream = g_data_input_stream_new (input_stream);
-        g_object_unref (input_stream);
-
-        *title_out = g_data_input_stream_read_line (data_input_stream,
-                                                    NULL, NULL, &error);
-        if (error != NULL)
-                goto out;
-
         buffer = gtk_text_buffer_new (NULL);
-        splice_buffer (G_INPUT_STREAM (data_input_stream), buffer, &error);
+        splice_buffer (input_stream, buffer, &error);
         if (error != NULL)
                 goto out;
 
@@ -187,7 +177,7 @@ build_eula_text_view (GFile *eula,
                 g_error_free (error);
         }
 
-        g_clear_object (&data_input_stream);
+        g_clear_object (&input_stream);
         return widget;
 }
 
@@ -208,9 +198,8 @@ build_eula_page (SetupData *setup,
         GtkWidget *vbox;
         GtkWidget *scrolled_window;
         GtkWidget *checkbox;
-        char *title;
 
-        text_view = build_eula_text_view (eula, &title);
+        text_view = build_eula_text_view (eula);
         if (text_view == NULL)
                 return;
 
@@ -233,7 +222,6 @@ build_eula_page (SetupData *setup,
          * Remove this hardcoded thing. */
         gtk_assistant_insert_page (setup->assistant, vbox, 1);
         gtk_assistant_set_page_complete (setup->assistant, vbox, FALSE);
-        gtk_assistant_set_page_title (setup->assistant, vbox, title);
 
         gtk_widget_show_all (GTK_WIDGET (vbox));
         g_signal_connect (checkbox, "toggled",
