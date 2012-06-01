@@ -143,6 +143,7 @@ position_callback (GeocluePosition      *pos,
 		   GError               *error,
 		   SetupData            *setup)
 {
+#if 0
 	if (error) {
 		g_printerr ("Error getting position: %s\n", error->message);
 		g_error_free (error);
@@ -155,6 +156,9 @@ position_callback (GeocluePosition      *pos,
 			g_print ("Position not available.\n");
 		}
 	}
+#else
+        g_print ("Position not available.\n");
+#endif
 }
 
 static void
