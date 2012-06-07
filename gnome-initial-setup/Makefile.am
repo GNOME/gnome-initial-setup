@@ -49,12 +49,22 @@ gnome_initial_setup_SOURCES =	\
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = welcome-tour.desktop
 
+included_source_files = \
+	gis-welcome-page.c \
+	gis-eula-pages.c \
+	gis-network-page.c \
+	gis-account-page.c \
+	gis-location-page.c \
+	gis-goa-page.c \
+	gis-summary-page.c
+
 EXTRA_DIST = \
 	$(sys_DATA) \
+	$(included_source_files) \
 	timedated1-interface.xml \
 	setup.ui \
 	welcome-image.png \
-	application.gresource.xml \
+	setup.gresource.xml \
 	welcome-tour.desktop
 
 BUILT_SOURCES = $(dbus_built_sources) setup_resources.c
