@@ -5,4 +5,6 @@ SUBDIRS = gnome-initial-setup
 
 EXTRA_DIST = \
     autogen.sh \
+    COPYING \
+    AUTHORS \
     NEWS
