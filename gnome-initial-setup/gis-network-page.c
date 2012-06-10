@@ -274,10 +274,33 @@ refresh_again (gpointer data)
 }
 
 static void
+refresh_without_device (SetupData *setup)
+{
+        GtkWidget *label;
+        GtkWidget *spinner;
+        GtkWidget *swin;
+
+        swin = WID("network-scrolledwindow");
+        label = WID("no-network-label");
+        spinner = WID("no-network-spinner");
+
+        if (nm_client_get_state (setup->nm_client) == NM_STATE_CONNECTED_GLOBAL)
+                gtk_label_set_text (GTK_LABEL (label), _("Wireless network is not available, but we are connected anyway."));
+        else if (setup->nm_device != NULL)
+                gtk_label_set_text (GTK_LABEL (label), _("Network is not available, make sure to turn airplane mode off."));
+        else
+                gtk_label_set_text (GTK_LABEL (label), _("No network devices found"));
+
+        gtk_widget_hide (swin);
+        gtk_widget_hide (spinner);
+        gtk_widget_show (label);
+}
+
+static void
 refresh_wireless_list (SetupData *setup)
 {
-        NMDeviceState state;
-        NMAccessPoint *active_ap;
+        NMDeviceState state = NM_DEVICE_STATE_UNAVAILABLE;
+        NMAccessPoint *active_ap = NULL;
         NMAccessPoint *ap;
         const GPtrArray *aps;
         GPtrArray *unique_aps;
@@ -288,19 +311,20 @@ refresh_wireless_list (SetupData *setup)
 
         setup->refreshing = TRUE;
 
-        state = nm_device_get_state (setup->nm_device);
+        if (NM_IS_DEVICE_WIFI (setup->nm_device)) {
+                state = nm_device_get_state (setup->nm_device);
 
-        active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (setup->nm_device));
+                active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (setup->nm_device));
 
-        g_object_ref (setup->ap_list);
-        gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), NULL);
-        gtk_list_store_clear (setup->ap_list);
-        if (setup->row) {
-                gtk_tree_row_reference_free (setup->row);
-                setup->row = NULL;
+                gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), NULL);
+                gtk_list_store_clear (setup->ap_list);
+                if (setup->row) {
+                        gtk_tree_row_reference_free (setup->row);
+                        setup->row = NULL;
+                }
+
+                aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (setup->nm_device));
         }
-
-        aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (setup->nm_device));
 
         swin = WID("network-scrolledwindow");
         label = WID("no-network-label");
@@ -308,13 +332,7 @@ refresh_wireless_list (SetupData *setup)
 
         if (state == NM_DEVICE_STATE_UNMANAGED ||
             state == NM_DEVICE_STATE_UNAVAILABLE) {
-                if (nm_client_get_state (setup->nm_client) == NM_STATE_CONNECTED_GLOBAL)
-                        gtk_label_set_text (GTK_LABEL (label), _("Wireless network is not available, but we are connected anyway."));
-                else
-                        gtk_label_set_text (GTK_LABEL (label), _("Network is not available, make sure to turn airplane mode off."));
-                gtk_widget_hide (swin);
-                gtk_widget_hide (spinner);
-                gtk_widget_show (label);
+                refresh_without_device (setup);
                 goto out;
         }
         else if (aps == NULL || aps->len == 0) {
@@ -342,7 +360,6 @@ refresh_wireless_list (SetupData *setup)
 
 out:
         gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), (GtkTreeModel*)setup->ap_list);
-        g_object_unref (setup->ap_list);
 
         if (active_ap)
                 select_and_scroll_to_ap (setup, active_ap);
@@ -627,7 +644,7 @@ prepare_network_page (SetupData *setup)
                                         "signal", PANEL_WIRELESS_COLUMN_STRENGTH,
                                         NULL);
 
-        setup->ap_list = OBJ(GtkListStore *, "liststore-wireless");
+        setup->ap_list = g_object_ref (OBJ(GtkListStore *, "liststore-wireless"));
         sortable = GTK_TREE_SORTABLE (setup->ap_list);
         gtk_tree_sortable_set_sort_column_id (sortable,
                                               PANEL_WIRELESS_COLUMN_SORT,
@@ -662,20 +679,7 @@ prepare_network_page (SetupData *setup)
         }
 
         if (setup->nm_device == NULL) {
-                GtkWidget *swin;
-                GtkWidget *label;
-                GtkWidget *spinner;
-
-                swin = WID("network-scrolledwindow");
-                label = WID("no-network-label");
-                spinner = WID("no-network-spinner");
-
-                gtk_widget_hide (swin);
-                gtk_widget_hide (spinner);
-
-                gtk_label_set_text (GTK_LABEL (label), _("No network devices found"));
-                gtk_widget_show (label);
-
+                refresh_without_device (setup);
                 goto out;
         }
 
