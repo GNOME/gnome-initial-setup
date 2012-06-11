@@ -6,6 +6,8 @@ AM_SILENT_RULES([yes])
 LT_INIT
 AC_PROG_CC
 
+IT_PROG_INTLTOOL([0.40])
+
 GETTEXT_PACKAGE=gnome-initial-setup
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [gettext package])
@@ -60,6 +62,8 @@ AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_FILES([
 Makefile
+data/Makefile
 gnome-initial-setup/Makefile
+po/Makefile.in
 ])
 AC_OUTPUT
