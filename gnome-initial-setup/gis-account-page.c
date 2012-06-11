@@ -287,7 +287,6 @@ set_account_model_row (SetupData *setup, gint row, gboolean active, const gchar 
 {
         GtkTreeModel *model;
         GtkTreeIter iter;
-        gchar *n = NULL;
 
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (WID("account-list")));
 
@@ -295,17 +294,15 @@ set_account_model_row (SetupData *setup, gint row, gboolean active, const gchar 
         if (row == PANEL_ACCOUNT_ROW_REMOTE)
                 gtk_tree_model_iter_next (model, &iter);
 
-        if (name == NULL) {
-                gtk_tree_model_get (model, &iter, PANEL_ACCOUNT_COLUMN_NAME, &n, -1);
-                name = (const gchar *)n;
-        }
-
         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                             PANEL_ACCOUNT_COLUMN_ACTIVE, active,
-                            PANEL_ACCOUNT_COLUMN_NAME, name,
                             -1);
 
-        g_free (n);
+        if (name != NULL) {
+            gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                                PANEL_ACCOUNT_COLUMN_NAME, name,
+                                -1);
+        }
 }
 
 static void
