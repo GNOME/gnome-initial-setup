@@ -630,18 +630,18 @@ prepare_network_page (SetupData *setup)
                                         "mode", PANEL_WIRELESS_COLUMN_MODE,
                                         NULL);
 
-        cell = panel_cell_renderer_security_new ();
-        gtk_cell_renderer_set_padding (cell, 4, 0);
-        gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-        gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                        "security", PANEL_WIRELESS_COLUMN_SECURITY,
-                                        NULL);
-
         cell = panel_cell_renderer_signal_new ();
         gtk_cell_renderer_set_padding (cell, 4, 0);
         gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
         gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
                                         "signal", PANEL_WIRELESS_COLUMN_STRENGTH,
+                                        NULL);
+
+        cell = panel_cell_renderer_security_new ();
+        gtk_cell_renderer_set_padding (cell, 4, 0);
+        gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
+        gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
+                                        "security", PANEL_WIRELESS_COLUMN_SECURITY,
                                         NULL);
 
         setup->ap_list = g_object_ref (OBJ(GtkListStore *, "liststore-wireless"));
