@@ -22,6 +22,11 @@ polkit_DATA =						\
 	org.gnome.initial-setup.policy			\
 	$(NULL)
 
+sessiondir = $(datadir)/gnome-session/sessions
+session_DATA =						\
+	gnome-initial-setup.session			\
+	$(NULL)
+
 desktopdir = $(pkgdatadir)/applications
 desktop_DATA =						\
 	gnome-initial-setup.desktop			\
