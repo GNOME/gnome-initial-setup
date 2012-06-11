@@ -132,6 +132,9 @@ location_changed (GObject *object, GParamSpec *param, SetupData *setup)
         gweather_location_unref (gloc);
 }
 
+#define WANT_GEOCLUE 0
+
+#if WANT_GEOCLUE
 static void
 position_callback (GeocluePosition      *pos,
 		   GeocluePositionFields fields,
@@ -143,7 +146,6 @@ position_callback (GeocluePosition      *pos,
 		   GError               *error,
 		   SetupData            *setup)
 {
-#if 0
 	if (error) {
 		g_printerr ("Error getting position: %s\n", error->message);
 		g_error_free (error);
@@ -156,9 +158,6 @@ position_callback (GeocluePosition      *pos,
 			g_print ("Position not available.\n");
 		}
 	}
-#else
-        g_print ("Position not available.\n");
-#endif
 }
 
 static void
@@ -198,6 +197,7 @@ determine_location (GtkWidget *widget,
         g_object_unref (client);
         g_object_unref (position);
 }
+#endif
 
 static void
 prepare_location_page (SetupData *setup)
@@ -259,6 +259,10 @@ prepare_location_page (SetupData *setup)
         g_signal_connect (setup->map, "location-changed",
                           G_CALLBACK (location_changed_cb), setup);
 
+#if WANT_GEOCLUE
         g_signal_connect (WID ("location-auto-button"), "clicked",
                           G_CALLBACK (determine_location), setup);
+#else
+        gtk_widget_hide (WID ("location-auto-button"));
+#endif
 }
