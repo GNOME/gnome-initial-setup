@@ -460,18 +460,44 @@ account_row_activated (GtkTreeView       *tv,
                        gpointer           data)
 {
         SetupData *setup = data;
+        GtkTreeModel *model;
+        GtkTreeIter iter;
+        gboolean valid;
         gint type;
+
+        model = gtk_tree_view_get_model (tv);
+        valid = gtk_tree_model_get_iter_first (model, &iter);
+
+        while (valid) {
+            GtkTreePath *iter_path = gtk_tree_model_get_path (model, &iter);
+
+            if (gtk_tree_path_compare (path, iter_path) == 0) {
+                gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                                    PANEL_ACCOUNT_COLUMN_ACTIVE, TRUE,
+                                    -1);
+            } else {
+                gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                                    PANEL_ACCOUNT_COLUMN_ACTIVE, FALSE,
+                                    PANEL_ACCOUNT_COLUMN_NAME, "",
+                                    -1);
+            }
+
+            gtk_tree_path_free (iter_path);
+
+            valid = gtk_tree_model_iter_next (model, &iter);
+        }
 
         type = gtk_tree_path_get_indices (path)[0];
 
-        if (type == PANEL_ACCOUNT_ROW_LOCAL) {
-                set_account_model_row (setup, PANEL_ACCOUNT_ROW_LOCAL, TRUE, NULL);
-                set_account_model_row (setup, PANEL_ACCOUNT_ROW_REMOTE, FALSE, "");
-                show_local_account_dialog (setup);
-        } else {
-                set_account_model_row (setup, PANEL_ACCOUNT_ROW_LOCAL, FALSE, "");
-                set_account_model_row (setup, PANEL_ACCOUNT_ROW_REMOTE, TRUE, NULL);
-                clear_account_page (setup);
+        switch (type) {
+        case PANEL_ACCOUNT_ROW_LOCAL:
+            show_local_account_dialog (setup);
+            break;
+        case PANEL_ACCOUNT_ROW_REMOTE:
+            clear_account_page (setup);
+            break;
+        default:
+            break;
         }
 }
 
