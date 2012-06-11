@@ -471,8 +471,7 @@ account_row_activated (GtkTreeView       *tv,
                 set_account_model_row (setup, PANEL_ACCOUNT_ROW_LOCAL, TRUE, NULL);
                 set_account_model_row (setup, PANEL_ACCOUNT_ROW_REMOTE, FALSE, "");
                 show_local_account_dialog (setup);
-        }
-        else {
+        } else {
                 set_account_model_row (setup, PANEL_ACCOUNT_ROW_LOCAL, FALSE, "");
                 set_account_model_row (setup, PANEL_ACCOUNT_ROW_REMOTE, TRUE, NULL);
                 clear_account_page (setup);
