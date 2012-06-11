@@ -12,12 +12,24 @@ edit = $(AM_V_GEN) sed \
 
 @INTLTOOL_DESKTOP_RULE@
 
+policydir = $(datadir)/gnome-initial-setup
+policy_DATA =						\
+	20-gnome-initial-setup.rules			\
+	$(NULL)
+
+polkitdir = $(datadir)/polkit-1/actions
+polkit_DATA =						\
+	org.gnome.initial-setup.policy			\
+	$(NULL)
+
 desktopdir = $(pkgdatadir)/applications
 desktop_DATA =						\
 	gnome-initial-setup.desktop			\
 	$(NULL)
 
 EXTRA_DIST =						\
+	20-gnome-initial-setup.rules			\
+	org.gnome.initial-setup.policy			\
 	gnome-initial-setup.desktop.in.in		\
 	$(NULL)
 
