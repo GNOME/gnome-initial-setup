@@ -23,11 +23,6 @@
 #include "pw-utils.h"
 #include "gdm-greeter-client.h"
 
-#define GOA_API_IS_SUBJECT_TO_CHANGE
-#include <goa/goa.h>
-#define GOA_BACKEND_API_IS_SUBJECT_TO_CHANGE
-#include <goabackend/goabackend.h>
-
 #ifdef HAVE_CHEESE
 #include <cheese-gtk.h>
 #endif
@@ -38,6 +33,7 @@
 #include "gis-eula-pages.h"
 #include "gis-location-page.h"
 #include "gis-network-page.h"
+#include "gis-goa-page.h"
 
 /* Setup data {{{1 */
 struct _SetupData {
@@ -69,13 +65,10 @@ struct _SetupData {
         EulasData eulas_data;
         LocationData location_data;
         NetworkData network_data;
-
-        /* online data */
-        GoaClient *goa_client;
+        GoaData goa_data;
 };
 
 #include "gis-account-page.c"
-#include "gis-goa-page.c"
 #include "gis-summary-page.c"
 
 static void
@@ -124,7 +117,9 @@ prepare_assistant (SetupData *setup)
         setup->location_data.setup = setup;
         gis_prepare_location_page (&setup->location_data);
 
-        prepare_online_page (setup);
+        setup->goa_data.setup = setup;
+        gis_prepare_online_page (&setup->goa_data);
+
         prepare_summary_page (setup);
 }
 

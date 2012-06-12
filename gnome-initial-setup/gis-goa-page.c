@@ -1,5 +1,12 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
 /* Online accounts page {{{1 */
+
+#include "config.h"
+#include "gis-goa-page.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
 
 static GtkWidget *
 create_provider_button (const gchar *type, const gchar *name, GIcon *icon)
@@ -32,15 +39,16 @@ create_provider_button (const gchar *type, const gchar *name, GIcon *icon)
 }
 
 static void
-add_account (GtkButton *button, gpointer data)
+add_account (GtkButton *button, gpointer user_data)
 {
-  SetupData *setup = data;
+  GoaData *data = user_data;
   GtkWidget *dialog;
   GtkWidget *goa_dialog;
   GtkWidget *vbox;
   const gchar *provider_type;
   GoaProvider *provider;
   GError *error;
+  SetupData *setup = data->setup;
 
   dialog = WID("online-accounts-dialog");
   gtk_widget_hide (dialog);
@@ -56,7 +64,7 @@ add_account (GtkButton *button, gpointer data)
   gtk_container_set_border_width (GTK_CONTAINER (goa_dialog), 12);
   gtk_window_set_modal (GTK_WINDOW (goa_dialog), TRUE);
   gtk_window_set_resizable (GTK_WINDOW (goa_dialog), TRUE);
-  gtk_window_set_transient_for (GTK_WINDOW (goa_dialog), GTK_WINDOW (setup->assistant));
+  gtk_window_set_transient_for (GTK_WINDOW (goa_dialog), GTK_WINDOW (gis_get_assistant (setup)));
   /* translators: This is the title of the "Add Account" dialogue.
    * The title is not visible when using GNOME Shell
    */
@@ -72,7 +80,7 @@ add_account (GtkButton *button, gpointer data)
 
   error = NULL;
   goa_provider_add_account (provider,
-                            setup->goa_client,
+                            data->goa_client,
                             GTK_DIALOG (goa_dialog),
                             GTK_BOX (vbox),
                             &error);
@@ -81,7 +89,7 @@ add_account (GtkButton *button, gpointer data)
   if (error &&
       !(error->domain == GOA_ERROR && error->code == GOA_ERROR_DIALOG_DISMISSED))
         {
-          dialog = gtk_message_dialog_new (GTK_WINDOW (setup->assistant),
+          dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_assistant (setup)),
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
                                            GTK_BUTTONS_CLOSE,
@@ -96,7 +104,7 @@ add_account (GtkButton *button, gpointer data)
 }
 
 static void
-populate_online_account_dialog (SetupData *setup)
+populate_online_account_dialog (GoaData *data)
 {
   GtkWidget *dialog;
   GtkWidget *content_area;
@@ -106,7 +114,7 @@ populate_online_account_dialog (SetupData *setup)
   const gchar *provider_type;
   GIcon *provider_icon;
   GtkWidget *button;
-
+  SetupData *setup = data->setup;
 
   dialog = WID("online-accounts-dialog");
   content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
@@ -131,9 +139,10 @@ populate_online_account_dialog (SetupData *setup)
 }
 
 static void
-show_online_account_dialog (GtkButton *button, gpointer data)
+show_online_account_dialog (GtkButton *button, gpointer user_data)
 {
-  SetupData *setup = data;
+  GoaData *data = user_data;
+  SetupData *setup = data->setup;
   GtkWidget *dialog;
 
   dialog = WID("online-accounts-dialog");
@@ -146,14 +155,14 @@ remove_account_cb (GoaAccount   *account,
                    GAsyncResult *res,
                    gpointer      user_data)
 {
-  SetupData *setup = user_data;
+  GoaData *data = user_data;
   GError *error;
 
   error = NULL;
   if (!goa_account_call_remove_finish (account, res, &error))
     {
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (GTK_WINDOW (setup->assistant),
+      dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_assistant (data->setup)),
                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
@@ -170,16 +179,16 @@ remove_account_cb (GoaAccount   *account,
 
 
 static void
-confirm_remove_account (GtkButton *button, gpointer data)
+confirm_remove_account (GtkButton *button, gpointer user_data)
 {
-  SetupData *setup = data;
+  GoaData *data = user_data;
   GtkWidget *dialog;
   GoaObject *object;
   gint response;
 
   object = g_object_get_data (G_OBJECT (button), "goa-object");
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (setup->assistant),
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_assistant (data->setup)),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_CANCEL,
@@ -196,13 +205,13 @@ confirm_remove_account (GtkButton *button, gpointer data)
       goa_account_call_remove (goa_object_peek_account (object),
                                NULL, /* GCancellable */
                                (GAsyncReadyCallback) remove_account_cb,
-                               setup);
+                               data);
     }
 }
 
 
 static void
-add_account_to_list (SetupData *setup, GoaObject *object)
+add_account_to_list (GoaData *data, GoaObject *object)
 {
   GtkWidget *list;
   GtkWidget *box;
@@ -212,6 +221,7 @@ add_account_to_list (SetupData *setup, GoaObject *object)
   GoaAccount *account;
   GIcon *icon;
   gchar *markup;
+  SetupData *setup = data->setup;
 
   account = goa_object_peek_account (object);
 
@@ -252,13 +262,14 @@ add_account_to_list (SetupData *setup, GoaObject *object)
 }
 
 static void
-remove_account_from_list (SetupData *setup, GoaObject *object)
+remove_account_from_list (GoaData *data, GoaObject *object)
 {
   GtkWidget *list;
   GList *children, *l;
   GtkWidget *child;
   GoaAccount *account;
   const gchar *account_id, *id;
+  SetupData *setup = data->setup;
 
   account = goa_object_peek_account (object);
 
@@ -283,64 +294,65 @@ remove_account_from_list (SetupData *setup, GoaObject *object)
 }
 
 static void
-populate_account_list (SetupData *setup)
+populate_account_list (GoaData *data)
 {
   GList *accounts, *l;
   GoaObject *object;
 
-  accounts = goa_client_get_accounts (setup->goa_client);
+  accounts = goa_client_get_accounts (data->goa_client);
   for (l = accounts; l; l = l->next)
     {
       object = GOA_OBJECT (l->data);
-      add_account_to_list (setup, object);
+      add_account_to_list (data, object);
     }
 
   g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
 }
 
 static void
-goa_account_added (GoaClient *client, GoaObject *object, gpointer data)
+goa_account_added (GoaClient *client, GoaObject *object, gpointer user_data)
 {
-  SetupData *setup = data;
+  GoaData *data = user_data;
 
   g_debug ("Online account added");
 
-  add_account_to_list (setup, object);
+  add_account_to_list (data, object);
 }
 
 static void
-goa_account_removed (GoaClient *client, GoaObject *object, gpointer data)
+goa_account_removed (GoaClient *client, GoaObject *object, gpointer user_data)
 {
-  SetupData *setup = data;
+  GoaData *data = user_data;
 
   g_debug ("Online account removed");
 
-  remove_account_from_list (setup, object);
+  remove_account_from_list (data, object);
 }
 
-static void
-prepare_online_page (SetupData *setup)
+void
+gis_prepare_online_page (GoaData *data)
 {
   GtkWidget *button;
   GError *error = NULL;
+  SetupData *setup = data->setup;
 
-  setup->goa_client = goa_client_new_sync (NULL, &error);
-  if (setup->goa_client == NULL)
+  data->goa_client = goa_client_new_sync (NULL, &error);
+  if (data->goa_client == NULL)
     {
        g_error ("Failed to get a GoaClient: %s", error->message);
        g_error_free (error);
        return;
     }
 
-  populate_online_account_dialog (setup);
-  populate_account_list (setup);
+  populate_online_account_dialog (data);
+  populate_account_list (data);
 
   button = WID("online-add-button");
   g_signal_connect (button, "clicked",
-                    G_CALLBACK (show_online_account_dialog), setup);
+                    G_CALLBACK (show_online_account_dialog), data);
 
-  g_signal_connect (setup->goa_client, "account-added",
-                    G_CALLBACK (goa_account_added), setup);
-  g_signal_connect (setup->goa_client, "account-removed",
-                    G_CALLBACK (goa_account_removed), setup);
+  g_signal_connect (data->goa_client, "account-added",
+                    G_CALLBACK (goa_account_added), data);
+  g_signal_connect (data->goa_client, "account-removed",
+                    G_CALLBACK (goa_account_removed), data);
 }
