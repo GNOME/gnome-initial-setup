@@ -16,6 +16,17 @@
 
 #define DEFAULT_TZ "Europe/London"
 
+typedef struct _LocationData LocationData;
+
+struct _LocationData {
+  SetupData *setup;
+
+  /* location data */
+  CcTimezoneMap *map;
+  TzLocation *current_location;
+  Timedate1 *dtm;
+};
+
 static void
 set_timezone_cb (GObject      *source,
                  GAsyncResult *res,
@@ -217,13 +228,14 @@ determine_location (GtkWidget    *widget,
 #endif
 
 void
-gis_prepare_location_page (LocationData *data)
+gis_prepare_location_page (SetupData *setup)
 {
   GtkWidget *frame, *map, *entry;
   GWeatherLocation *world;
   GError *error;
   const gchar *timezone;
-  SetupData *setup = data->setup;
+  LocationData *data = g_slice_new (LocationData);
+  data->setup = setup;
 
   frame = WID("location-map-frame");
 

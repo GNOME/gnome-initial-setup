@@ -7,13 +7,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _WelcomeData WelcomeData;
-
-struct _WelcomeData {
-  SetupData *setup;
-};
-
-void gis_prepare_welcome_page (WelcomeData *data);
+void gis_prepare_welcome_page (SetupData *setup);
 
 G_END_DECLS
 

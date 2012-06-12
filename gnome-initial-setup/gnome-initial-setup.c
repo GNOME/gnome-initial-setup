@@ -60,12 +60,6 @@ struct _SetupData {
         GtkWidget *photo_dialog;
         GdkPixbuf *avatar_pixbuf;
         gchar *avatar_filename;
-
-        WelcomeData welcome_data;
-        EulasData eulas_data;
-        LocationData location_data;
-        NetworkData network_data;
-        GoaData goa_data;
 };
 
 #include "gis-account-page.c"
@@ -103,23 +97,12 @@ prepare_assistant (SetupData *setup)
         /* connect to gdm slave */
         connect_to_slave (setup);
 
-        setup->welcome_data.setup = setup;
-        gis_prepare_welcome_page (&setup->welcome_data);
-
-        setup->eulas_data.setup = setup;
-        gis_prepare_eula_pages (&setup->eulas_data);
-
-        setup->network_data.setup = setup;
-        gis_prepare_network_page (&setup->network_data);
-
+        gis_prepare_welcome_page (setup);
+        gis_prepare_eula_pages (setup);
+        gis_prepare_network_page (setup);
         prepare_account_page (setup);
-
-        setup->location_data.setup = setup;
-        gis_prepare_location_page (&setup->location_data);
-
-        setup->goa_data.setup = setup;
-        gis_prepare_online_page (&setup->goa_data);
-
+        gis_prepare_location_page (setup);
+        gis_prepare_online_page (setup);
         prepare_summary_page (setup);
 }
 

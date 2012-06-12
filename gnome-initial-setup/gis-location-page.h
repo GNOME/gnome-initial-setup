@@ -13,18 +13,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _LocationData LocationData;
-
-struct _LocationData {
-  SetupData *setup;
-
-  /* location data */
-  CcTimezoneMap *map;
-  TzLocation *current_location;
-  Timedate1 *dtm;
-};
-
-void gis_prepare_location_page (LocationData *data);
+void gis_prepare_location_page (SetupData *setup);
 
 G_END_DECLS
 

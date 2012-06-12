@@ -8,6 +8,14 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+typedef struct _GoaData GoaData;
+
+struct _GoaData {
+  SetupData *setup;
+  /* online data */
+  GoaClient *goa_client;
+};
+
 static GtkWidget *
 create_provider_button (const gchar *type, const gchar *name, GIcon *icon)
 {
@@ -330,11 +338,12 @@ goa_account_removed (GoaClient *client, GoaObject *object, gpointer user_data)
 }
 
 void
-gis_prepare_online_page (GoaData *data)
+gis_prepare_online_page (SetupData *setup)
 {
   GtkWidget *button;
   GError *error = NULL;
-  SetupData *setup = data->setup;
+  GoaData *data = g_slice_new (GoaData);
+  data->setup = setup;
 
   data->goa_client = goa_client_new_sync (NULL, &error);
   if (data->goa_client == NULL)

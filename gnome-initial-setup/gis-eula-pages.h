@@ -7,13 +7,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _EulasData EulasData;
-
-struct _EulasData {
-  SetupData *setup;
-};
-
-void gis_prepare_eula_pages (EulasData *data);
+void gis_prepare_eula_pages (SetupData *setup);
 
 G_END_DECLS
 

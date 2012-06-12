@@ -14,6 +14,22 @@
 #include "panel-cell-renderer-mode.h"
 #include "panel-cell-renderer-security.h"
 
+typedef struct _NetworkData NetworkData;
+
+struct _NetworkData {
+  SetupData *setup;
+
+  /* network data */
+  NMClient *nm_client;
+  NMRemoteSettings *nm_settings;
+  NMDevice *nm_device;
+  GtkListStore *ap_list;
+  gboolean refreshing;
+
+  GtkTreeRowReference *row;
+  guint pulse;
+};
+
 enum {
   PANEL_WIRELESS_COLUMN_ID,
   PANEL_WIRELESS_COLUMN_TITLE,
@@ -596,7 +612,7 @@ bump_pulse (gpointer user_data)
 }
 
 void
-gis_prepare_network_page (NetworkData *data)
+gis_prepare_network_page (SetupData *setup)
 {
   GtkTreeViewColumn *col;
   GtkCellRenderer *cell;
@@ -607,7 +623,8 @@ gis_prepare_network_page (NetworkData *data)
   guint i;
   DBusGConnection *bus;
   GError *error;
-  SetupData *setup = data->setup;
+  NetworkData *data = g_slice_new (NetworkData);
+  data->setup = setup;
 
   col = OBJ(GtkTreeViewColumn*, "network-list-column");
 

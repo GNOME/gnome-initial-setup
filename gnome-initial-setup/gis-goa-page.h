@@ -12,15 +12,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _GoaData GoaData;
-
-struct _GoaData {
-  SetupData *setup;
-  /* online data */
-  GoaClient *goa_client;
-};
-
-void gis_prepare_online_page (GoaData *data);
+void gis_prepare_online_page (SetupData *setup);
 
 G_END_DECLS
 

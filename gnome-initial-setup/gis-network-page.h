@@ -13,23 +13,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _NetworkData NetworkData;
-
-struct _NetworkData {
-  SetupData *setup;
-
-  /* network data */
-  NMClient *nm_client;
-  NMRemoteSettings *nm_settings;
-  NMDevice *nm_device;
-  GtkListStore *ap_list;
-  gboolean refreshing;
-
-  GtkTreeRowReference *row;
-  guint pulse;
-};
-
-void gis_prepare_network_page (NetworkData *data);
+void gis_prepare_network_page (SetupData *setup);
 
 G_END_DECLS
 

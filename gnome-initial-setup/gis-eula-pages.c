@@ -121,14 +121,13 @@ build_eula_page (SetupData *setup,
 }
 
 void
-gis_prepare_eula_pages (EulasData *data)
+gis_prepare_eula_pages (SetupData *setup)
 {
   gchar *eulas_dir_path;
   GFile *eulas_dir;
   GError *error = NULL;
   GFileEnumerator *enumerator = NULL;
   GFileInfo *info;
-  SetupData *setup = data->setup;
 
   eulas_dir_path = g_build_filename (UIDIR, "eulas", NULL);
   eulas_dir = g_file_new_for_path (eulas_dir_path);

@@ -11,10 +11,9 @@
 #include <gtk/gtk.h>
 
 void
-gis_prepare_welcome_page (WelcomeData *data)
+gis_prepare_welcome_page (SetupData *setup)
 {
   gchar *s;
-  SetupData *setup = data->setup;
   GKeyFile *overrides = gis_get_overrides (setup);
 
   s = g_key_file_get_locale_string (overrides,
