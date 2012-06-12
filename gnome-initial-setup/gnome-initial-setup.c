@@ -1,6 +1,16 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
 #include "config.h"
+
+#define GIS_COMP
+#include "gnome-initial-setup.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+
+#include <stdlib.h>
+#include <gtk/gtk.h>
+
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
@@ -15,15 +25,10 @@
 
 #include <act/act-user-manager.h>
 
-#include "cc-timezone-map.h"
-#include "timedated.h"
 #include "um-utils.h"
 #include "um-photo-dialog.h"
 #include "pw-utils.h"
 #include "gdm-greeter-client.h"
-
-#define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
-#include <libgweather/location-entry.h>
 
 #define GOA_API_IS_SUBJECT_TO_CHANGE
 #include <goa/goa.h>
@@ -39,18 +44,7 @@
 
 #include <gnome-keyring.h>
 
-#define DEFAULT_TZ "Europe/London"
-
-typedef struct _SetupData SetupData;
-typedef struct _LocationData LocationData;
-
-struct _LocationData {
-        /* location data */
-        CcTimezoneMap *map;
-        TzLocation *current_location;
-        Timedate1 *dtm;
-        SetupData *setup;
-};
+#include "gis-location-page.h"
 
 /* Setup data {{{1 */
 struct _SetupData {
@@ -92,14 +86,10 @@ struct _SetupData {
         GoaClient *goa_client;
 };
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(setup->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
-
 #include "gis-welcome-page.c"
 #include "gis-eula-pages.c"
 #include "gis-network-page.c"
 #include "gis-account-page.c"
-#include "gis-location-page.c"
 #include "gis-goa-page.c"
 #include "gis-summary-page.c"
 
@@ -139,7 +129,10 @@ prepare_assistant (SetupData *setup)
         prepare_eula_pages (setup);
         prepare_network_page (setup);
         prepare_account_page (setup);
-        prepare_location_page (setup);
+
+        setup->location_data.setup = setup;
+        gis_prepare_location_page (&setup->location_data);
+
         prepare_online_page (setup);
         prepare_summary_page (setup);
 }

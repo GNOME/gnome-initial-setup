@@ -1,5 +1,17 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
 /* Location page {{{1 */
+
+#include "config.h"
+#include "gis-location-page.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+
+#include <stdlib.h>
+#include <string.h>
+
+#define DEFAULT_TZ "Europe/London"
 
 static void
 set_timezone_cb (GObject      *source,
@@ -201,16 +213,14 @@ determine_location (GtkWidget    *widget,
 }
 #endif
 
-static void
-prepare_location_page (SetupData *setup)
+void
+gis_prepare_location_page (LocationData *data)
 {
         GtkWidget *frame, *map, *entry;
         GWeatherLocation *world;
         GError *error;
         const gchar *timezone;
-        LocationData *data = &(setup->location_data);
-
-        data->setup = setup;
+        SetupData *setup = data->setup;
 
         frame = WID("location-map-frame");
 

@@ -33,7 +33,8 @@ pw_utils_sources = pw-utils.c pw-utils.h
 endif
 
 gnome_initial_setup_SOURCES =	\
-	gnome-initial-setup.c \
+	gnome-initial-setup.c gnome-initial-setup.h \
+	gis-location-page.c gis-location-page.h \
 	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
 	panel-cell-renderer-mode.c panel-cell-renderer-mode.h \
 	panel-cell-renderer-security.c panel-cell-renderer-security.h \
@@ -54,7 +55,6 @@ included_source_files = \
 	gis-eula-pages.c \
 	gis-network-page.c \
 	gis-account-page.c \
-	gis-location-page.c \
 	gis-goa-page.c \
 	gis-summary-page.c
 
