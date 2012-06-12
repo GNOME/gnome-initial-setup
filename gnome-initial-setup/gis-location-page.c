@@ -11,6 +11,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <geoclue/geoclue-master.h>
+#include <geoclue/geoclue-position.h>
+
 #define DEFAULT_TZ "Europe/London"
 
 static void

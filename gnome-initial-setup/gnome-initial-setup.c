@@ -32,9 +32,6 @@
 #include <cheese-gtk.h>
 #endif
 
-#include <geoclue/geoclue-master.h>
-#include <geoclue/geoclue-position.h>
-
 #include <gnome-keyring.h>
 
 #include "gis-welcome-page.h"
