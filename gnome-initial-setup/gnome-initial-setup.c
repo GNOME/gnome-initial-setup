@@ -44,6 +44,7 @@
 
 #include <gnome-keyring.h>
 
+#include "gis-welcome-page.h"
 #include "gis-eula-pages.h"
 #include "gis-location-page.h"
 
@@ -53,6 +54,7 @@ struct _SetupData {
         GtkAssistant *assistant;
 
         GKeyFile *overrides;
+
         GdmGreeterClient *greeter_client;
 
         /* network data */
@@ -82,6 +84,7 @@ struct _SetupData {
         GdkPixbuf *avatar_pixbuf;
         gchar *avatar_filename;
 
+        WelcomeData welcome_data;
         EulasData eulas_data;
         LocationData location_data;
 
@@ -89,7 +92,6 @@ struct _SetupData {
         GoaClient *goa_client;
 };
 
-#include "gis-welcome-page.c"
 #include "gis-network-page.c"
 #include "gis-account-page.c"
 #include "gis-goa-page.c"
@@ -127,7 +129,8 @@ prepare_assistant (SetupData *setup)
         /* connect to gdm slave */
         connect_to_slave (setup);
 
-        prepare_welcome_page (setup);
+        setup->welcome_data.setup = setup;
+        gis_prepare_welcome_page (&setup->welcome_data);
 
         setup->eulas_data.setup = setup;
         gis_prepare_eula_pages (&setup->eulas_data);
@@ -140,6 +143,12 @@ prepare_assistant (SetupData *setup)
 
         prepare_online_page (setup);
         prepare_summary_page (setup);
+}
+
+GKeyFile *
+gis_get_overrides (SetupData *data)
+{
+        return g_key_file_ref (data->overrides);
 }
 
 /* main {{{1 */

@@ -17,6 +17,8 @@ struct _SetupData {
 };
 #endif
 
+GKeyFile *gis_get_overrides (SetupData *data);
+
 #define OBJ(type,name) ((type)gtk_builder_get_object(setup->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 

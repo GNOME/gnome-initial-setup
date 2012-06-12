@@ -1,12 +1,23 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
 /* Welcome page {{{1 */
 
-static void
-prepare_welcome_page (SetupData *setup)
+#include "config.h"
+#include "gis-welcome-page.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+
+#include <gtk/gtk.h>
+
+void
+gis_prepare_welcome_page (WelcomeData *data)
 {
         gchar *s;
+        SetupData *setup = data->setup;
+        GKeyFile *overrides = gis_get_overrides (setup);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Welcome", "welcome-image",
                                           NULL, NULL);
 
@@ -15,17 +26,19 @@ prepare_welcome_page (SetupData *setup)
 
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Welcome", "welcome-title",
                                           NULL, NULL);
         if (s)
                 gtk_label_set_text (GTK_LABEL (WID ("welcome-title")), s);
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Welcome", "welcome-subtitle",
                                           NULL, NULL);
         if (s)
                 gtk_label_set_text (GTK_LABEL (WID ("welcome-subtitle")), s);
         g_free (s);
+
+        g_key_file_unref (overrides);
 }
