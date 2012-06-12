@@ -39,8 +39,19 @@
 
 #define DEFAULT_TZ "Europe/London"
 
+typedef struct _SetupData SetupData;
+typedef struct _LocationData LocationData;
+
+struct _LocationData {
+        /* location data */
+        CcTimezoneMap *map;
+        TzLocation *current_location;
+        Timedate1 *dtm;
+        SetupData *setup;
+};
+
 /* Setup data {{{1 */
-typedef struct {
+struct _SetupData {
         GtkBuilder *builder;
         GKeyFile *overrides;
         GtkAssistant *assistant;
@@ -73,14 +84,11 @@ typedef struct {
         GdkPixbuf *avatar_pixbuf;
         gchar *avatar_filename;
 
-        /* location data */
-        CcTimezoneMap *map;
-        TzLocation *current_location;
-        Timedate1 *dtm;
+        LocationData location_data;
 
         /* online data */
         GoaClient *goa_client;
-} SetupData;
+};
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(setup->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)

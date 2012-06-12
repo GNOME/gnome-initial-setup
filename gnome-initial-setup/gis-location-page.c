@@ -6,11 +6,11 @@ set_timezone_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      user_data)
 {
-        SetupData *setup = user_data;
+        LocationData *data = user_data;
         GError *error;
 
         error = NULL;
-        if (!timedate1_call_set_timezone_finish (setup->dtm,
+        if (!timedate1_call_set_timezone_finish (data->dtm,
                                                  res,
                                                  &error)) {
                 /* TODO: display any error in a user friendly way */
@@ -21,29 +21,30 @@ set_timezone_cb (GObject      *source,
 
 
 static void
-queue_set_timezone (SetupData *setup)
+queue_set_timezone (LocationData *data)
 {
         /* for now just do it */
-        if (setup->current_location) {
-                timedate1_call_set_timezone (setup->dtm,
-                                             setup->current_location->zone,
+        if (data->current_location) {
+                timedate1_call_set_timezone (data->dtm,
+                                             data->current_location->zone,
                                              TRUE,
                                              NULL,
                                              set_timezone_cb,
-                                             setup);
+                                             data);
         }
 }
 
 static void
-update_timezone (SetupData *setup)
+update_timezone (LocationData *data)
 {
+        SetupData *setup = data->setup;
         GString *str;
         gchar *location;
         gchar *timezone;
         gchar *c;
 
         str = g_string_new ("");
-        for (c = setup->current_location->zone; *c; c++) {
+        for (c = data->current_location->zone; *c; c++) {
                 switch (*c) {
                 case '_':
                         g_string_append_c (str, ' ');
@@ -72,21 +73,22 @@ update_timezone (SetupData *setup)
 static void
 location_changed_cb (CcTimezoneMap *map,
                      TzLocation    *location,
-                     SetupData     *setup)
+                     LocationData  *data)
 {
   g_debug ("location changed to %s/%s", location->country, location->zone);
 
-  setup->current_location = location;
+  data->current_location = location;
 
-  update_timezone (setup);
+  update_timezone (data);
 
-  queue_set_timezone (setup);
+  queue_set_timezone (data);
 }
 
 static void
-set_location_from_gweather_location (SetupData        *setup,
+set_location_from_gweather_location (LocationData     *data,
                                      GWeatherLocation *gloc)
 {
+        SetupData *setup = data->setup;
         GWeatherTimezone *zone = gweather_location_get_timezone (gloc);
         gchar *city = gweather_location_get_city_name (gloc);
 
@@ -104,7 +106,7 @@ set_location_from_gweather_location (SetupData        *setup,
                         name = id;
                 }
                 gtk_label_set_label (label, name);
-                cc_timezone_map_set_timezone (setup->map, id);
+                cc_timezone_map_set_timezone (data->map, id);
         }
 
         if (city != NULL) {
@@ -118,7 +120,7 @@ set_location_from_gweather_location (SetupData        *setup,
 }
 
 static void
-location_changed (GObject *object, GParamSpec *param, SetupData *setup)
+location_changed (GObject *object, GParamSpec *param, LocationData *data)
 {
         GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
         GWeatherLocation *gloc;
@@ -127,7 +129,7 @@ location_changed (GObject *object, GParamSpec *param, SetupData *setup)
         if (gloc == NULL)
                 return;
 
-        set_location_from_gweather_location (setup, gloc);
+        set_location_from_gweather_location (data, gloc);
 
         gweather_location_unref (gloc);
 }
@@ -144,7 +146,7 @@ position_callback (GeocluePosition      *pos,
 		   double                altitude,
 		   GeoclueAccuracy      *accuracy,
 		   GError               *error,
-		   SetupData            *setup)
+		   LocationData         *data)
 {
 	if (error) {
 		g_printerr ("Error getting position: %s\n", error->message);
@@ -153,7 +155,7 @@ position_callback (GeocluePosition      *pos,
 		if (fields & GEOCLUE_POSITION_FIELDS_LATITUDE &&
 		    fields & GEOCLUE_POSITION_FIELDS_LONGITUDE) {
                         GWeatherLocation *city = gweather_location_find_nearest_city (latitude, longitude);
-                        set_location_from_gweather_location (setup, city);
+                        set_location_from_gweather_location (data, city);
 		} else {
 			g_print ("Position not available.\n");
 		}
@@ -161,8 +163,8 @@ position_callback (GeocluePosition      *pos,
 }
 
 static void
-determine_location (GtkWidget *widget,
-                    SetupData *setup)
+determine_location (GtkWidget    *widget,
+                    LocationData *data)
 {
 	GeoclueMaster *master;
 	GeoclueMasterClient *client;
@@ -190,7 +192,7 @@ determine_location (GtkWidget *widget,
 
 	geoclue_position_get_position_async (position,
 	                                     (GeocluePositionCallback) position_callback,
-	                                     setup);
+	                                     data);
 
  out:
         g_clear_error (&error);
@@ -206,23 +208,26 @@ prepare_location_page (SetupData *setup)
         GWeatherLocation *world;
         GError *error;
         const gchar *timezone;
+        LocationData *data = &(setup->location_data);
+
+        data->setup = setup;
 
         frame = WID("location-map-frame");
 
         error = NULL;
-        setup->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                                       G_DBUS_PROXY_FLAGS_NONE,
-                                                       "org.freedesktop.timedate1",
-                                                       "/org/freedesktop/timedate1",
-                                                       NULL,
-                                                       &error);
-        if (setup->dtm == NULL) {
+        data->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                                      G_DBUS_PROXY_FLAGS_NONE,
+                                                      "org.freedesktop.timedate1",
+                                                      "/org/freedesktop/timedate1",
+                                                      NULL,
+                                                      &error);
+        if (data->dtm == NULL) {
                 g_error ("Failed to create proxy for timedated: %s", error->message);
                 exit (1);
         }
 
-        setup->map = cc_timezone_map_new ();
-        map = (GtkWidget *)setup->map;
+        data->map = cc_timezone_map_new ();
+        map = (GtkWidget *)data->map;
         gtk_widget_set_hexpand (map, TRUE);
         gtk_widget_set_vexpand (map, TRUE);
         gtk_widget_set_halign (map, GTK_ALIGN_FILL);
@@ -240,28 +245,28 @@ prepare_location_page (SetupData *setup)
         frame = WID("location-page");
         gtk_grid_attach (GTK_GRID (frame), entry, 1, 1, 1, 1);
 
-        timezone = timedate1_get_timezone (setup->dtm);
+        timezone = timedate1_get_timezone (data->dtm);
 
-        if (!cc_timezone_map_set_timezone (setup->map, timezone)) {
+        if (!cc_timezone_map_set_timezone (data->map, timezone)) {
                 g_warning ("Timezone '%s' is unhandled, setting %s as default", timezone, DEFAULT_TZ);
-                cc_timezone_map_set_timezone (setup->map, DEFAULT_TZ);
+                cc_timezone_map_set_timezone (data->map, DEFAULT_TZ);
         }
         else {
                 g_debug ("System timezone is '%s'", timezone);
         }
 
-        setup->current_location = cc_timezone_map_get_location (setup->map);
-        update_timezone (setup);
+        data->current_location = cc_timezone_map_get_location (data->map);
+        update_timezone (data);
 
         g_signal_connect (G_OBJECT (entry), "notify::location",
-                          G_CALLBACK (location_changed), setup);
+                          G_CALLBACK (location_changed), data);
 
-        g_signal_connect (setup->map, "location-changed",
-                          G_CALLBACK (location_changed_cb), setup);
+        g_signal_connect (map, "location-changed",
+                          G_CALLBACK (location_changed_cb), data);
 
 #if WANT_GEOCLUE
         g_signal_connect (WID ("location-auto-button"), "clicked",
-                          G_CALLBACK (determine_location), setup);
+                          G_CALLBACK (determine_location), data);
 #else
         gtk_widget_hide (WID ("location-auto-button"));
 #endif
