@@ -32,7 +32,7 @@ show_online_account_dialog (GtkButton *button,
 
   providers = NULL;
 
-  parent = GTK_WINDOW (gis_get_assistant (data->setup));
+  parent = GTK_WINDOW (gis_get_main_window (data->setup));
 
   dialog = goa_panel_add_account_dialog_new (data->goa_client);
   gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
@@ -94,7 +94,7 @@ remove_account_cb (GoaAccount   *account,
   if (!goa_account_call_remove_finish (account, res, &error))
     {
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_assistant (data->setup)),
+      dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_main_window (data->setup)),
                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
@@ -120,7 +120,7 @@ confirm_remove_account (GtkButton *button, gpointer user_data)
 
   object = g_object_get_data (G_OBJECT (button), "goa-object");
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_assistant (data->setup)),
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_main_window (data->setup)),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_CANCEL,

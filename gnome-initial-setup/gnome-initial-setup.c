@@ -8,13 +8,9 @@
 #include <gio/gio.h>
 
 #include <stdlib.h>
-#include <gtk/gtk.h>
 
-#include <glib/gi18n.h>
-#include <gio/gio.h>
-
-#include <stdlib.h>
 #include <gtk/gtk.h>
+#include <clutter-gtk/clutter-gtk.h>
 
 #include <act/act-user-manager.h>
 
@@ -29,6 +25,8 @@
 
 #include <gnome-keyring.h>
 
+#include "gis-assistant.h"
+
 #include "gis-welcome-page.h"
 #include "gis-eula-pages.h"
 #include "gis-location-page.h"
@@ -38,11 +36,13 @@
 /* Setup data {{{1 */
 struct _SetupData {
         GtkBuilder *builder;
-        GtkAssistant *assistant;
+        GtkWindow *main_window;
 
         GKeyFile *overrides;
 
         GdmGreeterClient *greeter_client;
+
+        GisAssistant *assistant;
 
         /* account data */
         ActUserManager *act_client;
@@ -66,7 +66,7 @@ struct _SetupData {
 #include "gis-summary-page.c"
 
 static void
-prepare_cb (GtkAssistant *assi, GtkWidget *page, SetupData *setup)
+prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 {
         g_debug ("Preparing page %s", gtk_widget_get_name (page));
 
@@ -77,21 +77,12 @@ prepare_cb (GtkAssistant *assi, GtkWidget *page, SetupData *setup)
 }
 
 static void
-prepare_assistant (SetupData *setup)
+prepare_main_window (SetupData *setup)
 {
-        GList *list;
+        setup->main_window = OBJ(GtkWindow*, "main-window");
+        setup->assistant = OBJ(GisAssistant*, "assistant");
 
-        setup->assistant = OBJ(GtkAssistant*, "gnome-setup-assistant");
-
-        /* small hack to get rid of cancel button */
-        gtk_assistant_commit (setup->assistant);
-
-        /* another small hack to hide the sidebar */
-        list = gtk_container_get_children (GTK_CONTAINER (gtk_bin_get_child (GTK_BIN (setup->assistant))));
-        gtk_widget_hide (GTK_WIDGET (list->data));
-        g_list_free (list);
-
-        g_signal_connect (G_OBJECT (setup->assistant), "prepare",
+        g_signal_connect (setup->assistant, "prepare",
                           G_CALLBACK (prepare_cb), setup);
 
         /* connect to gdm slave */
@@ -118,7 +109,13 @@ gis_get_builder (SetupData *data)
         return data->builder;
 }
 
-GtkAssistant *
+GtkWindow *
+gis_get_main_window (SetupData *data)
+{
+        return data->main_window;
+}
+
+GisAssistant *
 gis_get_assistant (SetupData *data)
 {
         return data->assistant;
@@ -148,11 +145,19 @@ main (int argc, char *argv[])
 
         gtk_init_with_args (&argc, &argv, "", entries, GETTEXT_PACKAGE, NULL);
 
+        if (gtk_clutter_init (NULL, NULL) != CLUTTER_INIT_SUCCESS) {
+                g_critical ("Clutter-GTK init failed");
+                exit (1);
+        }
+
         error = NULL;
         if (g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error) == NULL) {
                 g_error ("Couldn't get on session bus: %s", error->message);
                 exit (1);
         };
+
+        /* Make sure GisAssistant is initialized. */
+        g_debug ("Registering: %s\n", g_type_name (gis_assistant_get_type ()));
 
         setup->builder = gtk_builder_new ();
         if (g_file_test ("setup.ui", G_FILE_TEST_EXISTS)) {
@@ -177,9 +182,9 @@ main (int argc, char *argv[])
         }
         g_free (filename);
 
-        prepare_assistant (setup);
+        prepare_main_window (setup);
 
-        gtk_window_present (GTK_WINDOW (setup->assistant));
+        gtk_window_present (GTK_WINDOW (setup->main_window));
 
         gtk_main ();
 

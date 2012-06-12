@@ -5,13 +5,16 @@
 
 #include <gtk/gtk.h>
 
+#include "gis-assistant.h"
+
 G_BEGIN_DECLS
 
 typedef struct _SetupData SetupData;
 
 GtkBuilder *gis_get_builder (SetupData *data);
-GtkAssistant *gis_get_assistant (SetupData *data);
+GtkWindow *gis_get_main_window (SetupData *data);
 GKeyFile *gis_get_overrides (SetupData *data);
+GisAssistant * gis_get_assistant (SetupData *data);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(gis_get_builder(setup),(name)))
 #define WID(name) OBJ(GtkWidget*,name)

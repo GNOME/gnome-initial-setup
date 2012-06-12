@@ -23,7 +23,7 @@ update_account_page_status (SetupData *setup)
                    (setup->valid_password ||
                     setup->password_mode == ACT_USER_PASSWORD_MODE_NONE);
 
-        gtk_assistant_set_page_complete (setup->assistant, WID("account-page"), complete);
+        gis_assistant_set_page_complete (gis_get_assistant (setup), WID("account-page"), complete);
         gtk_widget_set_sensitive (WID("local-account-done-button"), complete);
 }
 

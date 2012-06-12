@@ -17,6 +17,7 @@ AM_GLIB_GNU_GETTEXT
 NETWORK_MANAGER_REQUIRED_VERSION=0.8.992
 GLIB_REQUIRED_VERSION=2.29.4
 GTK_REQUIRED_VERSION=3.1.2
+CLUTTER_REQUIRED_VERSION=1.11.3
 
 PKG_CHECK_MODULES(INITIAL_SETUP,
                   NetworkManager >= $NETWORK_MANAGER_REQUIRED_VERSION
@@ -28,6 +29,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gstreamer-0.10
                   cheese
                   cheese-gtk >= 3.3.5
+                  clutter-gtk-1.0
+                  clutter-1.0 >= $CLUTTER_REQUIRED_VERSION
                   geoclue
                   gweather-3.0
                   goa-1.0
