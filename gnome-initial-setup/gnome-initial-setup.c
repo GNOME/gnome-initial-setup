@@ -157,9 +157,12 @@ main (int argc, char *argv[])
         setup->builder = gtk_builder_new ();
         if (g_file_test ("setup.ui", G_FILE_TEST_EXISTS)) {
                 gtk_builder_add_from_file (setup->builder, "setup.ui", &error);
+        } else {
+                gtk_builder_add_from_resource (setup->builder, "/ui/setup.ui", &error);
         }
-        else if (!gtk_builder_add_from_resource (setup->builder, "/ui/setup.ui", &error)) {
-                g_error ("%s", error->message);
+
+        if (error != NULL) {
+                g_printerr ("%s", error->message);
                 exit (1);
         }
 
