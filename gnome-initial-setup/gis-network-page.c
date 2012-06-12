@@ -623,7 +623,7 @@ gis_prepare_network_page (SetupData *setup)
   guint i;
   DBusGConnection *bus;
   GError *error;
-  NetworkData *data = g_slice_new (NetworkData);
+  NetworkData *data = g_slice_new0 (NetworkData);
   data->setup = setup;
 
   col = OBJ(GtkTreeViewColumn*, "network-list-column");
