@@ -37,6 +37,7 @@ gnome_initial_setup_SOURCES =	\
 	gis-welcome-page.c gis-welcome-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
 	gis-location-page.c gis-location-page.h \
+	gis-network-page.c gis-network-page.h \
 	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
 	panel-cell-renderer-mode.c panel-cell-renderer-mode.h \
 	panel-cell-renderer-security.c panel-cell-renderer-security.h \

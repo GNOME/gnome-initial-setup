@@ -16,12 +16,6 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
-#include <nm-client.h>
-#include <nm-device-wifi.h>
-#include <nm-access-point.h>
-#include <nm-utils.h>
-#include <nm-remote-settings.h>
-
 #include <act/act-user-manager.h>
 
 #include "um-utils.h"
@@ -46,6 +40,7 @@
 #include "gis-welcome-page.h"
 #include "gis-eula-pages.h"
 #include "gis-location-page.h"
+#include "gis-network-page.h"
 
 /* Setup data {{{1 */
 struct _SetupData {
@@ -55,16 +50,6 @@ struct _SetupData {
         GKeyFile *overrides;
 
         GdmGreeterClient *greeter_client;
-
-        /* network data */
-        NMClient *nm_client;
-        NMRemoteSettings *nm_settings;
-        NMDevice *nm_device;
-        GtkListStore *ap_list;
-        gboolean refreshing;
-
-        GtkTreeRowReference *row;
-        guint pulse;
 
         /* account data */
         ActUserManager *act_client;
@@ -86,12 +71,12 @@ struct _SetupData {
         WelcomeData welcome_data;
         EulasData eulas_data;
         LocationData location_data;
+        NetworkData network_data;
 
         /* online data */
         GoaClient *goa_client;
 };
 
-#include "gis-network-page.c"
 #include "gis-account-page.c"
 #include "gis-goa-page.c"
 #include "gis-summary-page.c"
@@ -134,7 +119,9 @@ prepare_assistant (SetupData *setup)
         setup->eulas_data.setup = setup;
         gis_prepare_eula_pages (&setup->eulas_data);
 
-        prepare_network_page (setup);
+        setup->network_data.setup = setup;
+        gis_prepare_network_page (&setup->network_data);
+
         prepare_account_page (setup);
 
         setup->location_data.setup = setup;

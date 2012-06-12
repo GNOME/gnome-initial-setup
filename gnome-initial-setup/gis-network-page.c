@@ -1,9 +1,18 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
+
+/* Network page {{{1 */
+
+#include "config.h"
+#include "gis-network-page.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+
+#include <gtk/gtk.h>
 
 #include "panel-cell-renderer-signal.h"
 #include "panel-cell-renderer-mode.h"
 #include "panel-cell-renderer-security.h"
-
-/* Network page {{{1 */
 
 enum {
         PANEL_WIRELESS_COLUMN_ID,
@@ -130,7 +139,7 @@ get_access_point_security (NMAccessPoint *ap)
 }
 
 static void
-add_access_point (SetupData *setup, NMAccessPoint *ap, NMAccessPoint *active)
+add_access_point (NetworkData *data, NMAccessPoint *ap, NMAccessPoint *active)
 {
         const GByteArray *ssid;
         const gchar *ssid_text;
@@ -147,7 +156,7 @@ add_access_point (SetupData *setup, NMAccessPoint *ap, NMAccessPoint *active)
 
         if (active &&
             nm_utils_same_ssid (ssid, nm_access_point_get_ssid (active), TRUE)) {
-                switch (nm_device_get_state (setup->nm_device))
+                switch (nm_device_get_state (data->nm_device))
                 {
                 case NM_DEVICE_STATE_PREPARE:
                 case NM_DEVICE_STATE_CONFIG:
@@ -171,8 +180,8 @@ add_access_point (SetupData *setup, NMAccessPoint *ap, NMAccessPoint *active)
                 activating = FALSE;
         }
 
-        gtk_list_store_append (setup->ap_list, &iter);
-        gtk_list_store_set (setup->ap_list, &iter,
+        gtk_list_store_append (data->ap_list, &iter);
+        gtk_list_store_set (data->ap_list, &iter,
                             PANEL_WIRELESS_COLUMN_ID, object_path,
                             PANEL_WIRELESS_COLUMN_TITLE, ssid_text,
                             PANEL_WIRELESS_COLUMN_SORT, ssid_text,
@@ -181,27 +190,27 @@ add_access_point (SetupData *setup, NMAccessPoint *ap, NMAccessPoint *active)
                             PANEL_WIRELESS_COLUMN_SECURITY, get_access_point_security (ap),
                             PANEL_WIRELESS_COLUMN_ACTIVATING, activating,
                             PANEL_WIRELESS_COLUMN_ACTIVE, activated,
-                            PANEL_WIRELESS_COLUMN_PULSE, setup->pulse,
+                            PANEL_WIRELESS_COLUMN_PULSE, data->pulse,
                             -1);
         if (activating) {
                 GtkTreePath *path;
                 GtkTreeModel *model;
 
-                model = (GtkTreeModel*)setup->ap_list;
+                model = (GtkTreeModel*)data->ap_list;
                 path = gtk_tree_model_get_path (model, &iter);
-                setup->row = gtk_tree_row_reference_new (model, path);
+                data->row = gtk_tree_row_reference_new (model, path);
                 gtk_tree_path_free (path);
         }
 
 }
 
 static void
-add_access_point_other (SetupData *setup)
+add_access_point_other (NetworkData *data)
 {
         GtkTreeIter iter;
 
-        gtk_list_store_append (setup->ap_list, &iter);
-        gtk_list_store_set (setup->ap_list, &iter,
+        gtk_list_store_append (data->ap_list, &iter);
+        gtk_list_store_set (data->ap_list, &iter,
                             PANEL_WIRELESS_COLUMN_ID, "ap-other...",
                             /* TRANSLATORS: this is when the access point is not listed
  *                           * in the dropdown (or hidden) and the user has to select
@@ -215,12 +224,12 @@ add_access_point_other (SetupData *setup)
                             PANEL_WIRELESS_COLUMN_SECURITY, NM_AP_SEC_UNKNOWN,
                             PANEL_WIRELESS_COLUMN_ACTIVATING, FALSE,
                             PANEL_WIRELESS_COLUMN_ACTIVE, FALSE,
-                            PANEL_WIRELESS_COLUMN_PULSE, setup->pulse,
+                            PANEL_WIRELESS_COLUMN_PULSE, data->pulse,
                             -1);
 }
 
 static void
-select_and_scroll_to_ap (SetupData *setup, NMAccessPoint *ap)
+select_and_scroll_to_ap (NetworkData *data, NMAccessPoint *ap)
 {
         GtkTreeModel *model;
         GtkTreeView *tv;
@@ -231,8 +240,9 @@ select_and_scroll_to_ap (SetupData *setup, NMAccessPoint *ap)
         gchar *ssid_target;
         const GByteArray *ssid;
         const gchar *ssid_text;
+        SetupData *setup = data->setup;
 
-        model = (GtkTreeModel *)setup->ap_list;
+        model = (GtkTreeModel *)data->ap_list;
 
         if (!gtk_tree_model_get_iter_first (model, &iter))
                 return;
@@ -261,32 +271,33 @@ select_and_scroll_to_ap (SetupData *setup, NMAccessPoint *ap)
         } while (gtk_tree_model_iter_next (model, &iter));
 }
 
-static void refresh_wireless_list (SetupData *setup);
+static void refresh_wireless_list (NetworkData *data);
 
 static gboolean
-refresh_again (gpointer data)
+refresh_again (gpointer user_data)
 {
-        SetupData *setup = data;
+        NetworkData *data = user_data;
 
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 
         return FALSE;
 }
 
 static void
-refresh_without_device (SetupData *setup)
+refresh_without_device (NetworkData *data)
 {
         GtkWidget *label;
         GtkWidget *spinner;
         GtkWidget *swin;
+        SetupData *setup = data->setup;
 
         swin = WID("network-scrolledwindow");
         label = WID("no-network-label");
         spinner = WID("no-network-spinner");
 
-        if (nm_client_get_state (setup->nm_client) == NM_STATE_CONNECTED_GLOBAL)
+        if (nm_client_get_state (data->nm_client) == NM_STATE_CONNECTED_GLOBAL)
                 gtk_label_set_text (GTK_LABEL (label), _("Wireless network is not available, but we are connected anyway."));
-        else if (setup->nm_device != NULL)
+        else if (data->nm_device != NULL)
                 gtk_label_set_text (GTK_LABEL (label), _("Network is not available, make sure to turn airplane mode off."));
         else
                 gtk_label_set_text (GTK_LABEL (label), _("No network devices found"));
@@ -297,7 +308,7 @@ refresh_without_device (SetupData *setup)
 }
 
 static void
-refresh_wireless_list (SetupData *setup)
+refresh_wireless_list (NetworkData *data)
 {
         NMDeviceState state = NM_DEVICE_STATE_UNAVAILABLE;
         NMAccessPoint *active_ap = NULL;
@@ -308,22 +319,23 @@ refresh_wireless_list (SetupData *setup)
         GtkWidget *label;
         GtkWidget *spinner;
         GtkWidget *swin;
+        SetupData *setup = data->setup;
 
-        setup->refreshing = TRUE;
+        data->refreshing = TRUE;
 
-        if (NM_IS_DEVICE_WIFI (setup->nm_device)) {
-                state = nm_device_get_state (setup->nm_device);
+        if (NM_IS_DEVICE_WIFI (data->nm_device)) {
+                state = nm_device_get_state (data->nm_device);
 
-                active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (setup->nm_device));
+                active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (data->nm_device));
 
                 gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), NULL);
-                gtk_list_store_clear (setup->ap_list);
-                if (setup->row) {
-                        gtk_tree_row_reference_free (setup->row);
-                        setup->row = NULL;
+                gtk_list_store_clear (data->ap_list);
+                if (data->row) {
+                        gtk_tree_row_reference_free (data->row);
+                        data->row = NULL;
                 }
 
-                aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (setup->nm_device));
+                aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (data->nm_device));
         }
 
         swin = WID("network-scrolledwindow");
@@ -332,7 +344,7 @@ refresh_wireless_list (SetupData *setup)
 
         if (state == NM_DEVICE_STATE_UNMANAGED ||
             state == NM_DEVICE_STATE_UNAVAILABLE) {
-                refresh_without_device (setup);
+                refresh_without_device (data);
                 goto out;
         }
         else if (aps == NULL || aps->len == 0) {
@@ -340,7 +352,7 @@ refresh_wireless_list (SetupData *setup)
                 gtk_widget_hide (swin);
                 gtk_widget_show (spinner);
                 gtk_widget_show (label);
-                g_timeout_add_seconds (1, refresh_again, setup);
+                g_timeout_add_seconds (1, refresh_again, data);
 
                 goto out;
         }
@@ -353,24 +365,24 @@ refresh_wireless_list (SetupData *setup)
         unique_aps = get_strongest_unique_aps (aps);
         for (i = 0; i < unique_aps->len; i++) {
                 ap = NM_ACCESS_POINT (g_ptr_array_index (unique_aps, i));
-                add_access_point (setup, ap, active_ap);
+                add_access_point (data, ap, active_ap);
         }
         g_ptr_array_unref (unique_aps);
-        add_access_point_other (setup);
+        add_access_point_other (data);
 
 out:
-        gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), (GtkTreeModel*)setup->ap_list);
+        gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), (GtkTreeModel*)data->ap_list);
 
         if (active_ap)
-                select_and_scroll_to_ap (setup, active_ap);
+                select_and_scroll_to_ap (data, active_ap);
 
-        setup->refreshing = FALSE;
+        data->refreshing = FALSE;
 }
 
 static void
-device_state_changed (NMDevice *device, GParamSpec *pspec, SetupData *setup)
+device_state_changed (NMDevice *device, GParamSpec *pspec, NetworkData *data)
 {
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 }
 
 static void
@@ -379,11 +391,11 @@ connection_activate_cb (NMClient *client,
                         GError *error,
                         gpointer user_data)
 {
-        SetupData *setup = user_data;
+        NetworkData *data = user_data;
 
         if (connection == NULL) {
                 /* failed to activate */
-                refresh_wireless_list (setup);
+                refresh_wireless_list (data);
         }
 }
 
@@ -398,9 +410,9 @@ connection_add_activate_cb (NMClient *client,
 }
 
 static void
-connect_to_hidden_network_cb (GObject *source_object, GAsyncResult *res, gpointer data)
+connect_to_hidden_network_cb (GObject *source_object, GAsyncResult *res, gpointer user_data)
 {
-        SetupData *setup = data;
+        NetworkData *data = data;
         GError *error = NULL;
         GVariant *result = NULL;
 
@@ -411,11 +423,11 @@ connect_to_hidden_network_cb (GObject *source_object, GAsyncResult *res, gpointe
                 g_error_free (error);
         }
 
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 }
 
 static void
-connect_to_hidden_network (SetupData *setup)
+connect_to_hidden_network (NetworkData *data)
 {
         GDBusProxy *proxy;
         GVariant *res = NULL;
@@ -446,7 +458,7 @@ connect_to_hidden_network (SetupData *setup)
                            5000, /* don't wait forever */
                            NULL,
                            connect_to_hidden_network_cb,
-                           setup);
+                           data);
 
 out:
         if (proxy != NULL)
@@ -456,7 +468,7 @@ out:
 }
 
 static void
-wireless_selection_changed (GtkTreeSelection *selection, SetupData *setup)
+wireless_selection_changed (GtkTreeSelection *selection, NetworkData *data)
 {
         GtkTreeModel *model;
         GtkTreeIter iter;
@@ -469,7 +481,7 @@ wireless_selection_changed (GtkTreeSelection *selection, SetupData *setup)
         const GByteArray *ssid;
         const gchar *ssid_tmp;
 
-        if (setup->refreshing)
+        if (data->refreshing)
                 return;
 
         if (!gtk_tree_selection_get_selected (selection, &model, &iter))
@@ -480,17 +492,17 @@ wireless_selection_changed (GtkTreeSelection *selection, SetupData *setup)
                             PANEL_WIRELESS_COLUMN_TITLE, &ssid_target,
                             -1);
 
-        gtk_list_store_set (setup->ap_list, &iter,
+        gtk_list_store_set (data->ap_list, &iter,
                             PANEL_WIRELESS_COLUMN_ACTIVATING, TRUE,
                             -1);
 
         if (g_strcmp0 (object_path, "ap-other...") == 0) {
-                connect_to_hidden_network (setup);
+                connect_to_hidden_network (data);
                 goto out;
         }
 
-        list = nm_remote_settings_list_connections (setup->nm_settings);
-        filtered = nm_device_filter_connections (setup->nm_device, list);
+        list = nm_remote_settings_list_connections (data->nm_settings);
+        filtered = nm_device_filter_connections (data->nm_device, list);
 
         connection_to_activate = NULL;
 
@@ -513,33 +525,33 @@ wireless_selection_changed (GtkTreeSelection *selection, SetupData *setup)
         g_slist_free (filtered);
 
         if (connection_to_activate != NULL) {
-                nm_client_activate_connection (setup->nm_client,
+                nm_client_activate_connection (data->nm_client,
                                                connection_to_activate,
-                                               setup->nm_device, NULL,
-                                               connection_activate_cb, setup);
+                                               data->nm_device, NULL,
+                                               connection_activate_cb, data);
                 goto out;
         }
 
-        nm_client_add_and_activate_connection (setup->nm_client,
+        nm_client_add_and_activate_connection (data->nm_client,
                                                NULL,
-                                               setup->nm_device, object_path,
-                                               connection_add_activate_cb, setup);
+                                               data->nm_device, object_path,
+                                               connection_add_activate_cb, data);
 
 out:
         g_free (object_path);
         g_free (ssid_target);
 
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 }
 
 static void
-connection_state_changed (NMActiveConnection *c, GParamSpec *pspec, SetupData *setup)
+connection_state_changed (NMActiveConnection *c, GParamSpec *pspec, NetworkData *data)
 {
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 }
 
 static void
-active_connections_changed (NMClient *client, GParamSpec *pspec, SetupData *setup)
+active_connections_changed (NMClient *client, GParamSpec *pspec, NetworkData *data)
 {
         const GPtrArray *connections;
         guint i;
@@ -551,40 +563,40 @@ active_connections_changed (NMClient *client, GParamSpec *pspec, SetupData *setu
                 connection = g_ptr_array_index (connections, i);
                 if (!g_object_get_data (G_OBJECT (connection), "has-state-changed-handler")) {
                         g_signal_connect (connection, "notify::state",
-                                          G_CALLBACK (connection_state_changed), setup);
+                                          G_CALLBACK (connection_state_changed), data);
                         g_object_set_data (G_OBJECT (connection), "has-state-changed-handler", GINT_TO_POINTER (1));
                 }
         }
 
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 }
 
 static gboolean
-bump_pulse (gpointer data)
+bump_pulse (gpointer user_data)
 {
-        SetupData *setup = data;
+        NetworkData *data = user_data;
         GtkTreeIter iter;
         GtkTreePath *path;
         GtkTreeModel *model;
 
-        setup->pulse++;
+        data->pulse++;
 
-        if (!setup->refreshing &&
-            gtk_tree_row_reference_valid (setup->row)) {
-                model = (GtkTreeModel *)setup->ap_list;
-                path = gtk_tree_row_reference_get_path (setup->row);
+        if (!data->refreshing &&
+            gtk_tree_row_reference_valid (data->row)) {
+                model = (GtkTreeModel *)data->ap_list;
+                path = gtk_tree_row_reference_get_path (data->row);
                 gtk_tree_model_get_iter (model, &iter, path);
                 gtk_tree_path_free (path);
-                gtk_list_store_set (setup->ap_list, &iter,
-                                    PANEL_WIRELESS_COLUMN_PULSE, setup->pulse,
+                gtk_list_store_set (data->ap_list, &iter,
+                                    PANEL_WIRELESS_COLUMN_PULSE, data->pulse,
                                     -1);
         }
 
         return TRUE;
 }
 
-static void
-prepare_network_page (SetupData *setup)
+void
+gis_prepare_network_page (NetworkData *data)
 {
         GtkTreeViewColumn *col;
         GtkCellRenderer *cell;
@@ -595,6 +607,7 @@ prepare_network_page (SetupData *setup)
         guint i;
         DBusGConnection *bus;
         GError *error;
+        SetupData *setup = data->setup;
 
         col = OBJ(GtkTreeViewColumn*, "network-list-column");
 
@@ -613,7 +626,7 @@ prepare_network_page (SetupData *setup)
                                         "visible", PANEL_WIRELESS_COLUMN_ACTIVATING,
                                         "pulse", PANEL_WIRELESS_COLUMN_PULSE,
                                         NULL);
-        g_timeout_add (80, bump_pulse, setup);
+        g_timeout_add (80, bump_pulse, data);
 
         cell = gtk_cell_renderer_text_new ();
         g_object_set (cell, "width", 400, "width-chars", 45, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
@@ -644,8 +657,8 @@ prepare_network_page (SetupData *setup)
                                         "security", PANEL_WIRELESS_COLUMN_SECURITY,
                                         NULL);
 
-        setup->ap_list = g_object_ref (OBJ(GtkListStore *, "liststore-wireless"));
-        sortable = GTK_TREE_SORTABLE (setup->ap_list);
+        data->ap_list = g_object_ref (OBJ(GtkListStore *, "liststore-wireless"));
+        sortable = GTK_TREE_SORTABLE (data->ap_list);
         gtk_tree_sortable_set_sort_column_id (sortable,
                                               PANEL_WIRELESS_COLUMN_SORT,
                                               GTK_SORT_ASCENDING);
@@ -655,12 +668,12 @@ prepare_network_page (SetupData *setup)
                                          sortable,
                                          NULL);
 
-        setup->nm_client = nm_client_new ();
+        data->nm_client = nm_client_new ();
 
-        g_signal_connect (setup->nm_client, "notify::active-connections",
-                          G_CALLBACK (active_connections_changed), setup);
+        g_signal_connect (data->nm_client, "notify::active-connections",
+                          G_CALLBACK (active_connections_changed), data);
 
-        devices = nm_client_get_devices (setup->nm_client);
+        devices = nm_client_get_devices (data->nm_client);
         if (devices) {
                 for (i = 0; i < devices->len; i++) {
                         device = g_ptr_array_index (devices, i);
@@ -670,16 +683,16 @@ prepare_network_page (SetupData *setup)
 
                         if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
                                 /* FIXME deal with multiple, dynamic devices */
-                                setup->nm_device = device;
+                                data->nm_device = device;
                                 g_signal_connect (G_OBJECT (device), "notify::state",
-                                                  G_CALLBACK (device_state_changed), setup);
+                                                  G_CALLBACK (device_state_changed), data);
                                 break;
                         }
                 }
         }
 
-        if (setup->nm_device == NULL) {
-                refresh_without_device (setup);
+        if (data->nm_device == NULL) {
+                refresh_without_device (data);
                 goto out;
         }
 
@@ -690,14 +703,14 @@ prepare_network_page (SetupData *setup)
                            error->message);
                 g_error_free (error);
         }
-        setup->nm_settings = nm_remote_settings_new (bus);
+        data->nm_settings = nm_remote_settings_new (bus);
 
         selection = OBJ(GtkTreeSelection*, "network-list-selection");
 
         g_signal_connect (selection, "changed",
-                          G_CALLBACK (wireless_selection_changed), setup);
+                          G_CALLBACK (wireless_selection_changed), data);
 
-        refresh_wireless_list (setup);
+        refresh_wireless_list (data);
 
 out: ;
 }
