@@ -34,6 +34,7 @@ endif
 
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
+	gis-eula-pages.c gis-eula-pages.h \
 	gis-location-page.c gis-location-page.h \
 	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
 	panel-cell-renderer-mode.c panel-cell-renderer-mode.h \

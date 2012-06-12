@@ -12,7 +12,8 @@ typedef struct _SetupData SetupData;
 /* ugly hacks ugghh */
 #ifndef GIS_COMP
 struct _SetupData {
-    GtkBuilder *builder;
+  GtkBuilder *builder;
+  GtkAssistant *assistant;
 };
 #endif
 

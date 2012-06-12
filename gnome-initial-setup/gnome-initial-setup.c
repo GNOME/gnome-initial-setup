@@ -44,13 +44,15 @@
 
 #include <gnome-keyring.h>
 
+#include "gis-eula-pages.h"
 #include "gis-location-page.h"
 
 /* Setup data {{{1 */
 struct _SetupData {
         GtkBuilder *builder;
-        GKeyFile *overrides;
         GtkAssistant *assistant;
+
+        GKeyFile *overrides;
         GdmGreeterClient *greeter_client;
 
         /* network data */
@@ -80,6 +82,7 @@ struct _SetupData {
         GdkPixbuf *avatar_pixbuf;
         gchar *avatar_filename;
 
+        EulasData eulas_data;
         LocationData location_data;
 
         /* online data */
@@ -87,7 +90,6 @@ struct _SetupData {
 };
 
 #include "gis-welcome-page.c"
-#include "gis-eula-pages.c"
 #include "gis-network-page.c"
 #include "gis-account-page.c"
 #include "gis-goa-page.c"
@@ -126,7 +128,10 @@ prepare_assistant (SetupData *setup)
         connect_to_slave (setup);
 
         prepare_welcome_page (setup);
-        prepare_eula_pages (setup);
+
+        setup->eulas_data.setup = setup;
+        gis_prepare_eula_pages (&setup->eulas_data);
+
         prepare_network_page (setup);
         prepare_account_page (setup);
 

@@ -1,5 +1,14 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
 /* EULA pages {{{1 */
+
+#include "config.h"
+#include "gis-eula-pages.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+
+#include <gtk/gtk.h>
 
 /* heavily lifted from g_output_stream_splice */
 static void
@@ -110,14 +119,15 @@ build_eula_page (SetupData *setup,
         g_object_set_data (G_OBJECT (checkbox), "assistant-page", vbox);
 }
 
-static void
-prepare_eula_pages (SetupData *setup)
+void
+gis_prepare_eula_pages (EulasData *data)
 {
         gchar *eulas_dir_path;
         GFile *eulas_dir;
         GError *error = NULL;
         GFileEnumerator *enumerator = NULL;
         GFileInfo *info;
+        SetupData *setup = data->setup;
 
         eulas_dir_path = g_build_filename (UIDIR, "eulas", NULL);
         eulas_dir = g_file_new_for_path (eulas_dir_path);
