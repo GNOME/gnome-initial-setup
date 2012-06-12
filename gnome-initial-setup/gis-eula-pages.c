@@ -74,7 +74,7 @@ static void
 eula_checkbox_toggled (GtkToggleButton *checkbox,
                        SetupData       *setup)
 {
-        gtk_assistant_set_page_complete (setup->assistant,
+        gtk_assistant_set_page_complete (gis_get_assistant (setup),
                                          g_object_get_data (G_OBJECT (checkbox), "assistant-page"),
                                          gtk_toggle_button_get_active (checkbox));
 }
@@ -87,6 +87,7 @@ build_eula_page (SetupData *setup,
         GtkWidget *vbox;
         GtkWidget *scrolled_window;
         GtkWidget *checkbox;
+        GtkAssistant *assistant = gis_get_assistant (setup);
 
         text_view = build_eula_text_view (eula);
         if (text_view == NULL)
@@ -109,8 +110,8 @@ build_eula_page (SetupData *setup,
 
         /* XXX: 1 is the location after the welcome page.
          * Remove this hardcoded thing. */
-        gtk_assistant_insert_page (setup->assistant, vbox, 1);
-        gtk_assistant_set_page_complete (setup->assistant, vbox, FALSE);
+        gtk_assistant_insert_page (assistant, vbox, 1);
+        gtk_assistant_set_page_complete (assistant, vbox, FALSE);
 
         gtk_widget_show_all (GTK_WIDGET (vbox));
         g_signal_connect (checkbox, "toggled",

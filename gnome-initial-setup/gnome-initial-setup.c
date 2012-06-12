@@ -2,7 +2,6 @@
 
 #include "config.h"
 
-#define GIS_COMP
 #include "gnome-initial-setup.h"
 
 #include <glib/gi18n.h>
@@ -149,6 +148,18 @@ GKeyFile *
 gis_get_overrides (SetupData *data)
 {
         return g_key_file_ref (data->overrides);
+}
+
+GtkBuilder *
+gis_get_builder (SetupData *data)
+{
+        return data->builder;
+}
+
+GtkAssistant *
+gis_get_assistant (SetupData *data)
+{
+        return data->assistant;
 }
 
 /* main {{{1 */
