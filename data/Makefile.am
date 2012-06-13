@@ -36,8 +36,10 @@ EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
 	org.gnome.initial-setup.policy			\
 	gnome-initial-setup.desktop.in.in		\
+	gnome-initial-setup.session			\
 	$(NULL)
 
 CLEANFILES =						\
 	gnome-initial-setup.desktop.in			\
+	gnome-initial-setup.desktop			\
 	$(NULL)
