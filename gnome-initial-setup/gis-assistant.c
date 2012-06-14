@@ -89,8 +89,8 @@ gis_assistant_previous_page (GisAssistant *assistant)
 }
 
 static void
-gis_assistant_prepare (GisAssistant *assistant,
-                       GtkWidget    *page)
+update_buttons_state (GisAssistant *assistant,
+                      GtkWidget    *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
   gboolean can_go_backward, can_go_forward;
@@ -103,10 +103,10 @@ gis_assistant_prepare (GisAssistant *assistant,
 }
 
 static void
-prepare (GisAssistant *assistant)
+gis_assistant_prepare (GisAssistant *assistant,
+                       GtkWidget    *page)
 {
-  GisAssistantPrivate *priv = assistant->priv;
-  g_signal_emit (assistant, signals[PREPARE], 0, priv->current_page->data);
+  update_buttons_state (assistant, page);
 }
 
 void
@@ -123,7 +123,7 @@ gis_assistant_add_page (GisAssistant *assistant,
   cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
 
   if (link->prev == priv->current_page)
-    prepare (assistant);
+    update_buttons_state (assistant, priv->current_page->data);
 }
 
 static void
@@ -167,7 +167,7 @@ gis_assistant_set_page_complete (GisAssistant *assistant,
   set_boolean (G_OBJECT (page), "gis-assistant-complete", complete);
 
   if (page == priv->current_page->data)
-    prepare (assistant);
+    update_buttons_state (assistant, page);
 }
 
 gboolean
@@ -193,7 +193,7 @@ current_page_changed (CcNotebook   *notebook,
 
   if (priv->current_page != link) {
     priv->current_page = link;
-    prepare (assistant);
+    g_signal_emit (assistant, signals[PREPARE], 0, priv->current_page->data);
   }
 }
 
