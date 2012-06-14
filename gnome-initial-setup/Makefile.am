@@ -15,16 +15,18 @@ LIBS = $(INITIAL_SETUP_LIBS) -lm
 
 libexec_PROGRAMS = gnome-initial-setup
 
-dbus_built_sources = timedated.c timedated.h
+BUILT_SOURCES =
+
 timedated.c: timedated.h
-timedated.h: Makefile.am timedated1-interface.xml
+timedated.h: $(srcdir)/timedated1-interface.xml
 	gdbus-codegen \
 		--interface-prefix org.freedesktop. \
-		--generate-c-code timedated \
-		$(srcdir)/timedated1-interface.xml
+		--generate-c-code timedated $<
+BUILT_SOURCES += timedated.c timedated.h
 
 setup_resources.c: setup.gresource.xml setup.ui welcome-image.png
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
+BUILT_SOURCES += setup_resources.c
 
 if HAVE_PWQUALITY
 pw_utils_sources = pw-utils-pwquality.c pw-utils.h
@@ -51,18 +53,13 @@ gnome_initial_setup_SOURCES =	\
 	um-crop-area.c um-crop-area.h \
 	um-photo-dialog.c um-photo-dialog.h \
 	tz.c tz.h \
-	$(dbus_built_sources) \
-	setup_resources.c
+	$(BUILT_SOURCES)
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = welcome-tour.desktop
 
 included_source_files = \
-	gis-welcome-page.c \
-	gis-eula-pages.c \
-	gis-network-page.c \
 	gis-account-page.c \
-	gis-goa-page.c \
 	gis-summary-page.c
 
 EXTRA_DIST = \
@@ -73,5 +70,3 @@ EXTRA_DIST = \
 	welcome-image.png \
 	setup.gresource.xml \
 	welcome-tour.desktop
-
-BUILT_SOURCES = $(dbus_built_sources) setup_resources.c
