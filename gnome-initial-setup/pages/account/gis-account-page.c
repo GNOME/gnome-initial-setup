@@ -10,6 +10,7 @@
 
 #include <act/act-user-manager.h>
 
+#include "um-realm-manager.h"
 #include "um-utils.h"
 #include "um-photo-dialog.h"
 #include "pw-utils.h"
@@ -23,6 +24,12 @@
 
 typedef struct _AccountData AccountData;
 
+typedef enum {
+  UM_LOCAL,
+  UM_ENTERPRISE,
+  NUM_MODES,
+} UmAccountMode;
+
 struct _AccountData {
   SetupData *setup;
   GtkWidget *widget;
@@ -30,6 +37,8 @@ struct _AccountData {
 
   ActUser *act_user;
   ActUserManager *act_client;
+
+  UmAccountMode mode;
 
   gboolean valid_name;
   gboolean valid_username;
@@ -43,18 +52,152 @@ struct _AccountData {
   GtkWidget *photo_dialog;
   GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
+
+  gboolean has_enterprise;
+  guint realmd_watch;
+  UmRealmManager *realm_manager;
+  gboolean domain_chosen;
 };
+
+static void
+show_error_dialog (AccountData *data,
+                   const gchar *message,
+                   GError *error)
+{
+  GtkWidget *dialog;
+
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (data->widget)),
+                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                   GTK_MESSAGE_ERROR,
+                                   GTK_BUTTONS_CLOSE,
+                                   "%s", message);
+
+  if (error != NULL) {
+    g_dbus_error_strip_remote_error (error);
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                              "%s", error->message);
+  }
+
+  g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+  gtk_window_present (GTK_WINDOW (dialog));
+}
+
+static void
+clear_account_page (AccountData *data)
+{
+  GtkWidget *fullname_entry;
+  GtkWidget *username_combo;
+  GtkWidget *password_check;
+  GtkWidget *admin_check;
+  GtkWidget *password_entry;
+  GtkWidget *confirm_entry;
+  gboolean need_password;
+
+  fullname_entry = WID("account-fullname-entry");
+  username_combo = WID("account-username-combo");
+  password_check = WID("account-password-check");
+  admin_check = WID("account-admin-check");
+  password_entry = WID("account-password-entry");
+  confirm_entry = WID("account-confirm-entry");
+
+  data->valid_name = FALSE;
+  data->valid_username = FALSE;
+  data->valid_password = TRUE;
+  data->password_mode = ACT_USER_PASSWORD_MODE_NONE;
+  data->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+  data->user_data_unsaved = FALSE;
+
+  need_password = data->password_mode != ACT_USER_PASSWORD_MODE_NONE;
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (password_check), need_password);
+  gtk_widget_set_sensitive (password_entry, need_password);
+  gtk_widget_set_sensitive (confirm_entry, need_password);
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), data->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+
+  gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
+  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
+  gtk_entry_set_text (GTK_ENTRY (password_entry), "");
+  gtk_entry_set_text (GTK_ENTRY (confirm_entry), "");
+}
+
+static gboolean
+local_validate (AccountData *data)
+{
+  return data->valid_name && data->valid_username &&
+    (data->valid_password ||
+     data->password_mode == ACT_USER_PASSWORD_MODE_NONE);
+}
+
+static gboolean
+enterprise_validate (AccountData *data)
+{
+  const gchar *name;
+  gboolean valid_name;
+  gboolean valid_domain;
+  GtkTreeIter iter;
+  GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
+
+  name = gtk_entry_get_text (OBJ(GtkEntry*, "enterprise-login"));
+  valid_name = is_valid_name (name);
+
+  if (gtk_combo_box_get_active_iter (domain, &iter)) {
+    gtk_tree_model_get (gtk_combo_box_get_model (domain),
+                        &iter, 0, &name, -1);
+  } else {
+    name = gtk_entry_get_text (OBJ(GtkEntry*, "enterprise-domain-entry"));
+  }
+
+  valid_domain = is_valid_name (name);
+  return valid_name && valid_domain;
+}
+
+static gboolean
+page_validate (AccountData *data)
+{
+  switch (data->mode) {
+  case UM_LOCAL:
+    return local_validate (data);
+  case UM_ENTERPRISE:
+    return enterprise_validate (data);
+  default:
+    g_assert_not_reached ();
+  }
+}
 
 static void
 update_account_page_status (AccountData *data)
 {
-  gboolean complete;
+  gis_assistant_set_page_complete (gis_get_assistant (data->setup), data->widget, page_validate (data));
+}
 
-  complete = data->valid_name && data->valid_username &&
-    (data->valid_password ||
-     data->password_mode == ACT_USER_PASSWORD_MODE_NONE);
+static void
+set_mode (AccountData   *data,
+          UmAccountMode  mode)
+{
+  if (data->mode == mode)
+    return;
 
-  gis_assistant_set_page_complete (gis_get_assistant (data->setup), data->widget, complete);
+  data->mode = mode;
+  gtk_widget_set_visible (WID ("local-area"), (mode == UM_LOCAL));
+  gtk_widget_set_visible (WID ("enterprise-area"), (mode == UM_ENTERPRISE));
+  gtk_toggle_button_set_active (OBJ (GtkToggleButton *, "local-button"), (mode == UM_LOCAL));
+  gtk_toggle_button_set_active (OBJ (GtkToggleButton *, "enterprise-button"), (mode == UM_ENTERPRISE));
+
+  update_account_page_status (data);
+}
+
+static void
+set_has_enterprise (AccountData *data,
+                    gboolean     has_enterprise)
+{
+  if (data->has_enterprise == has_enterprise)
+    return;
+
+  data->has_enterprise = has_enterprise;
+  gtk_widget_set_visible (WID ("account-mode"), has_enterprise);
+
+  if (!has_enterprise)
+    set_mode (data, UM_LOCAL);
 }
 
 static void
@@ -267,7 +410,7 @@ set_user_avatar (AccountData *data)
   if (!gdk_pixbuf_save_to_stream (data->avatar_pixbuf, stream, "png", NULL, &error, NULL))
     goto out;
 
-  act_user_set_icon_file (data->act_user, g_file_get_path (file)); 
+  act_user_set_icon_file (data->act_user, g_file_get_path (file));
 
  out:
   if (error != NULL) {
@@ -314,45 +457,7 @@ save_when_loaded (ActUser *user, GParamSpec *pspec, AccountData *data)
 }
 
 static void
-clear_account_page (AccountData *data)
-{
-  GtkWidget *fullname_entry;
-  GtkWidget *username_combo;
-  GtkWidget *password_check;
-  GtkWidget *admin_check;
-  GtkWidget *password_entry;
-  GtkWidget *confirm_entry;
-  gboolean need_password;
-
-  fullname_entry = WID("account-fullname-entry");
-  username_combo = WID("account-username-combo");
-  password_check = WID("account-password-check");
-  admin_check = WID("account-admin-check");
-  password_entry = WID("account-password-entry");
-  confirm_entry = WID("account-confirm-entry");
-
-  data->valid_name = FALSE;
-  data->valid_username = FALSE;
-  data->valid_password = TRUE;
-  data->password_mode = ACT_USER_PASSWORD_MODE_NONE;
-  data->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
-  data->user_data_unsaved = FALSE;
-
-  need_password = data->password_mode != ACT_USER_PASSWORD_MODE_NONE;
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (password_check), need_password);
-  gtk_widget_set_sensitive (password_entry, need_password);
-  gtk_widget_set_sensitive (confirm_entry, need_password);
-
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), data->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
-
-  gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
-  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
-  gtk_entry_set_text (GTK_ENTRY (password_entry), "");
-  gtk_entry_set_text (GTK_ENTRY (confirm_entry), "");
-}
-
-static void
-save_account_data (AccountData *data)
+local_create_user (AccountData *data)
 {
   const gchar *realname;
   const gchar *username;
@@ -406,6 +511,240 @@ save_account_data (AccountData *data)
 }
 
 static void
+on_permit_user_login (GObject *source,
+                      GAsyncResult *result,
+                      gpointer user_data)
+{
+  AccountData *data = user_data;
+  UmRealmCommon *common;
+  GError *error = NULL;
+  gchar *login;
+
+  common = UM_REALM_COMMON (source);
+  um_realm_common_call_change_login_policy_finish (common, result, &error);
+  if (error == NULL) {
+
+    /*
+     * Now tell the account service about this user. The account service
+     * should also lookup information about this via the realm and make
+     * sure all that is functional.
+     */
+    login = um_realm_calculate_login (common, gtk_entry_get_text (OBJ (GtkEntry*, "enterprise-login")));
+    g_return_if_fail (login != NULL);
+
+    g_debug ("Caching remote user: %s", login);
+
+    data->act_user = act_user_manager_cache_user (data->act_client, login, NULL);
+
+    g_free (login);
+  } else {
+    show_error_dialog (data, _("Failed to register account"), error);
+    g_message ("Couldn't permit logins on account: %s", error->message);
+    g_error_free (error);
+  }
+}
+
+static void
+enterprise_permit_user_login (AccountData *data, UmRealmObject *realm)
+{
+  UmRealmCommon *common;
+  gchar *login;
+  const gchar *add[2];
+  const gchar *remove[1];
+  GVariant *options;
+
+  common = um_realm_object_get_common (realm);
+
+  login = um_realm_calculate_login (common, gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")));
+  g_return_if_fail (login != NULL);
+
+  add[0] = login;
+  add[1] = NULL;
+  remove[0] = NULL;
+
+  g_debug ("Permitting login for: %s", login);
+  options = g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0);
+
+  um_realm_common_call_change_login_policy (common, "",
+                                            add, remove, options,
+                                            NULL,
+                                            on_permit_user_login,
+                                            data);
+
+  g_object_unref (common);
+  g_free (login);
+}
+
+static void
+on_realm_joined (GObject *source,
+                 GAsyncResult *result,
+                 gpointer user_data)
+{
+  AccountData *data = user_data;
+  UmRealmObject *realm = UM_REALM_OBJECT (source);
+  GError *error = NULL;
+
+  um_realm_join_finish (realm, result, &error);
+
+  /* Yay, joined the domain, register the user locally */
+  if (error == NULL) {
+    g_debug ("Joining realm completed successfully");
+    enterprise_permit_user_login (data, realm);
+
+    /* Credential failure while joining domain, prompt for admin creds */
+  } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN) ||
+             g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
+    g_debug ("Joining realm failed due to credentials");
+
+    /* XXX */
+    /* join_show_prompt (self, error); */
+
+    /* Other failure */
+  } else {
+    show_error_dialog (data, _("Failed to join domain"), error);
+    g_message ("Failed to join the domain: %s", error->message);
+  }
+
+  g_clear_error (&error);
+}
+
+static void
+on_realm_login (GObject *source,
+                GAsyncResult *result,
+                gpointer user_data)
+{
+  AccountData *data = user_data;
+  UmRealmObject *realm = UM_REALM_OBJECT (source);
+  GError *error = NULL;
+  GBytes *creds;
+
+  um_realm_login_finish (result, &creds, &error);
+  if (error == NULL) {
+
+    /* Already joined to the domain, just register this user */
+    if (um_realm_is_configured (realm)) {
+      g_debug ("Already joined to this realm");
+      enterprise_permit_user_login (data, realm);
+
+      /* Join the domain, try using the user's creds */
+    } else if (!um_realm_join_as_user (realm,
+                                       gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
+                                       gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
+                                       creds, NULL,
+                                       on_realm_joined,
+                                       data)) {
+
+      /* If we can't do user auth, try to authenticate as admin */
+      g_debug ("Cannot join with user credentials");
+
+      /* XXX: creds */
+      /* join_show_prompt (self, NULL); */
+    }
+
+    g_bytes_unref (creds);
+
+    /* A problem with the user's login name or password */
+  } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN)) {
+    g_debug ("Problem with the user's login: %s", error->message);
+    set_entry_validation_error (OBJ (GtkEntry *, "enterprise-login"), error->message);
+    gtk_widget_grab_focus (WID ("enterprise-login"));
+
+  } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
+    g_debug ("Problem with the user's password: %s", error->message);
+    set_entry_validation_error (OBJ (GtkEntry *, "enterprise-password"), error->message);
+    gtk_widget_grab_focus (WID ("enterprise-password"));
+
+    /* Other login failure */
+  } else {
+    show_error_dialog (data, _("Failed to log into domain"), error);
+    g_message ("Couldn't log in as user: %s", error->message);
+  }
+
+  g_clear_error (&error);
+}
+
+static void
+enterprise_check_login (AccountData *data, UmRealmObject *realm)
+{
+  g_assert (realm);
+
+  um_realm_login (realm,
+                  gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
+                  gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
+                  NULL,
+                  on_realm_login,
+                  data);
+}
+
+static void
+on_realm_discover_input (GObject *source,
+                         GAsyncResult *result,
+                         gpointer user_data)
+{
+  AccountData *data = user_data;
+  GError *error = NULL;
+  GList *realms;
+
+  realms = um_realm_manager_discover_finish (data->realm_manager,
+                                             result, &error);
+
+  /* Found a realm, log user into domain */
+  if (error == NULL) {
+    UmRealmObject *realm;
+    g_assert (realms != NULL);
+    realm = g_object_ref (realms->data);
+    enterprise_check_login (data, realm);
+    g_list_free_full (realms, g_object_unref);
+
+  } else {
+    /* The domain is likely invalid */
+    g_dbus_error_strip_remote_error (error);
+    g_message ("Couldn't discover domain: %s", error->message);
+    gtk_widget_grab_focus (WID ("enterprise-domain-entry"));
+    set_entry_validation_error (OBJ (GtkEntry*, "enterprise-domain-entry"), error->message);
+    g_error_free (error);
+  }
+}
+
+static void
+enterprise_add_user (AccountData *data)
+{
+  UmRealmObject *realm;
+  GtkTreeIter iter;
+  GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
+
+  /* Already know about this realm, try to login as user */
+  if (gtk_combo_box_get_active_iter (domain, &iter)) {
+    gtk_tree_model_get (gtk_combo_box_get_model (domain),
+                        &iter, 1, &realm, -1);
+    enterprise_check_login (data, realm);
+
+    /* Something the user typed, we need to discover realm */
+  } else {
+    um_realm_manager_discover (data->realm_manager,
+                               gtk_entry_get_text (OBJ (GtkEntry*, "enterprise-domain-entry")),
+                               NULL,
+                               on_realm_discover_input,
+                               data);
+  }
+}
+
+static void
+save_account_data (AccountData *data)
+{
+  switch (data->mode) {
+  case UM_LOCAL:
+    local_create_user (data);
+    break;
+  case UM_ENTERPRISE:
+    enterprise_add_user (data);
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+}
+
+static void
 avatar_callback (GdkPixbuf   *pixbuf,
                  const gchar *filename,
                  gpointer     user_data)
@@ -439,6 +778,139 @@ avatar_callback (GdkPixbuf   *pixbuf,
 }
 
 static void
+enterprise_add_realm (AccountData *data,
+                      UmRealmObject *realm)
+{
+  GtkTreeIter iter;
+  UmRealmCommon *common;
+  GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
+  GtkListStore *model = OBJ(GtkListStore*, "enterprise-realms-model");
+
+  g_debug ("Adding new realm to drop down: %s",
+           g_dbus_object_get_object_path (G_DBUS_OBJECT (realm)));
+
+  common = um_realm_object_get_common (realm);
+
+  gtk_list_store_append (model, &iter);
+  gtk_list_store_set (model, &iter,
+                      0, um_realm_common_get_name (common),
+                      1, realm,
+                      -1);
+
+  if (!data->domain_chosen && um_realm_is_configured (realm))
+    gtk_combo_box_set_active_iter (domain, &iter);
+
+  g_object_unref (common);
+}
+
+static void
+on_manager_realm_added (UmRealmManager  *manager,
+                        UmRealmObject   *realm,
+                        gpointer         user_data)
+{
+  AccountData *data = user_data;
+  enterprise_add_realm (data, realm);
+}
+
+static void
+on_realm_manager_created (GObject *source,
+                          GAsyncResult *result,
+                          gpointer user_data)
+{
+  AccountData *data = user_data;
+  GError *error = NULL;
+  GList *realms, *l;
+
+  g_clear_object (&data->realm_manager);
+  data->realm_manager = um_realm_manager_new_finish (result, &error);
+
+  if (error != NULL) {
+    g_warning ("Couldn't contact realmd service: %s", error->message);
+    g_error_free (error);
+    return;
+  }
+
+  /* Lookup all the realm objects */
+  realms = um_realm_manager_get_realms (data->realm_manager);
+  for (l = realms; l != NULL; l = g_list_next (l))
+    enterprise_add_realm (data, l->data);
+
+  g_list_free (realms);
+  g_signal_connect (data->realm_manager, "realm-added",
+                    G_CALLBACK (on_manager_realm_added), data);
+
+  /* When no realms try to discover a sensible default, triggers realm-added signal */
+  um_realm_manager_discover (data->realm_manager, "", NULL, NULL, NULL);
+  set_has_enterprise (data, TRUE);
+}
+
+static void
+on_realmd_appeared (GDBusConnection *connection,
+                    const gchar *name,
+                    const gchar *name_owner,
+                    gpointer user_data)
+{
+  AccountData *data = user_data;
+  um_realm_manager_new (NULL, on_realm_manager_created, data);
+}
+
+static void
+on_realmd_disappeared (GDBusConnection *unused1,
+                       const gchar *unused2,
+                       gpointer user_data)
+{
+  AccountData *data = user_data;
+
+  if (data->realm_manager != NULL) {
+    g_signal_handlers_disconnect_by_func (data->realm_manager,
+                                          on_manager_realm_added,
+                                          data);
+    g_clear_object (&data->realm_manager);
+  }
+
+  set_has_enterprise (data, FALSE);
+}
+
+static void
+on_domain_changed (GtkComboBox *widget,
+                   gpointer user_data)
+{
+  AccountData *data = user_data;
+  data->domain_chosen = TRUE;
+  update_account_page_status (data);
+  clear_entry_validation_error (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (widget))));
+}
+
+static void
+on_entry_changed (GtkEditable *editable,
+                  gpointer user_data)
+{
+  AccountData *data = user_data;
+  update_account_page_status (data);
+  clear_entry_validation_error (GTK_ENTRY (editable));
+}
+
+static void
+on_local_toggle (GtkToggleButton *toggle,
+                 gpointer         user_data)
+{
+  AccountData *data = user_data;
+  if (gtk_toggle_button_get_active (toggle)) {
+    set_mode (data, UM_LOCAL);
+  }
+}
+
+static void
+on_enterprise_toggle (GtkToggleButton *toggle,
+                      gpointer         user_data)
+{
+  AccountData *data = user_data;
+  if (gtk_toggle_button_get_active (toggle)) {
+    set_mode (data, UM_ENTERPRISE);
+  }
+}
+
+static void
 next_page_cb (GisAssistant *assistant, GtkWidget *page, AccountData *data)
 {
   if (page == data->widget)
@@ -462,6 +934,11 @@ gis_prepare_account_page (SetupData *setup)
   data->widget = WID("account-page");
 
   gtk_widget_show (data->widget);
+
+  data->realmd_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM, "org.freedesktop.realmd",
+                                         G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
+                                         on_realmd_appeared, on_realmd_disappeared,
+                                         data, NULL);
 
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
@@ -489,6 +966,15 @@ gis_prepare_account_page (SetupData *setup)
   g_signal_connect_after (confirm_entry, "focus-out-event",
                           G_CALLBACK (confirm_entry_focus_out), data);
 
+  g_signal_connect (WID("enterprise-domain"), "changed",
+                    G_CALLBACK (on_domain_changed), data);
+  g_signal_connect (WID("enterprise-login"), "changed",
+                    G_CALLBACK (on_entry_changed), data);
+  g_signal_connect (WID("local-button"), "toggled",
+                    G_CALLBACK (on_local_toggle), data);
+  g_signal_connect (WID("enterprise-button"), "toggled",
+                    G_CALLBACK (on_enterprise_toggle), data);
+
   data->act_client = act_user_manager_get_default ();
 
   gis_assistant_add_page (assistant, data->widget);
@@ -498,4 +984,10 @@ gis_prepare_account_page (SetupData *setup)
 
   clear_account_page (data);
   update_account_page_status (data);
+
+  data->has_enterprise = FALSE;
+
+  /* force a refresh by setting to an invalid value */
+  data->mode = NUM_MODES;
+  set_mode (data, UM_LOCAL);
 }

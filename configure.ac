@@ -49,6 +49,23 @@ if test x$have_clutter = xyes; then
   AC_DEFINE(HAVE_CLUTTER, 1, [Build with Clutter support?])
 fi
 
+# Kerberos kerberos support
+AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
+if test "$KRB5_CONFIG" = "no"; then
+  AC_MSG_ERROR([krb5-config executable not found in your path - should be installed with the kerberos libraries])
+fi
+
+AC_MSG_CHECKING(for krb5 libraries and flags)
+KRB5_CFLAGS="`$KRB5_CONFIG --cflags`"
+KRB5_LIBS="`$KRB5_CONFIG --libs`"
+AC_MSG_RESULT($KRB5_CFLAGS $KRB5_LIBS)
+
+AC_SUBST(KRB5_CFLAGS)
+AC_SUBST(KRB5_LIBS)
+
+INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $KRB5_CFLAGS"
+INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $KRB5_LIBS"
+
 AC_CHECK_HEADER([pwquality.h], [have_pwquality=yes], [have_pwquality=no])
 AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])
 if test x$have_pwquality = xyes ; then
