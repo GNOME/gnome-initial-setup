@@ -428,7 +428,7 @@ connection_add_activate_cb (NMClient *client,
 static void
 connect_to_hidden_network_cb (GObject *source_object, GAsyncResult *res, gpointer user_data)
 {
-  NetworkData *data = data;
+  NetworkData *data = user_data;
   GError *error = NULL;
   GVariant *result = NULL;
 
