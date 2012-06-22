@@ -14,6 +14,12 @@
 #include <geoclue/geoclue-master.h>
 #include <geoclue/geoclue-position.h>
 
+#define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
+#include <libgweather/location-entry.h>
+
+#include "cc-timezone-map.h"
+#include "timedated.h"
+
 #define DEFAULT_TZ "Europe/London"
 
 typedef struct _LocationData LocationData;

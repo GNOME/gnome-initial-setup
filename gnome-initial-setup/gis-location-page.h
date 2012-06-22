@@ -5,12 +5,6 @@
 
 #include "gnome-initial-setup.h"
 
-#define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
-#include <libgweather/location-entry.h>
-
-#include "cc-timezone-map.h"
-#include "timedated.h"
-
 G_BEGIN_DECLS
 
 void gis_prepare_location_page (SetupData *setup);

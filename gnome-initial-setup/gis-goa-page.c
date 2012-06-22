@@ -4,6 +4,12 @@
 
 #include "config.h"
 #include "gis-goa-page.h"
+
+#define GOA_API_IS_SUBJECT_TO_CHANGE
+#include <goa/goa.h>
+#define GOA_BACKEND_API_IS_SUBJECT_TO_CHANGE
+#include <goabackend/goabackend.h>
+
 #include "cc-online-accounts-add-account-dialog.h"
 
 #include <glib/gi18n.h>

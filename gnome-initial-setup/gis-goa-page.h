@@ -5,11 +5,6 @@
 
 #include "gnome-initial-setup.h"
 
-#define GOA_API_IS_SUBJECT_TO_CHANGE
-#include <goa/goa.h>
-#define GOA_BACKEND_API_IS_SUBJECT_TO_CHANGE
-#include <goabackend/goabackend.h>
-
 G_BEGIN_DECLS
 
 void gis_prepare_online_page (SetupData *setup);

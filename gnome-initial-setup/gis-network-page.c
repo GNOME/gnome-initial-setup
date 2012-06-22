@@ -10,6 +10,12 @@
 
 #include <gtk/gtk.h>
 
+#include <nm-client.h>
+#include <nm-device-wifi.h>
+#include <nm-access-point.h>
+#include <nm-utils.h>
+#include <nm-remote-settings.h>
+
 #include "panel-cell-renderer-signal.h"
 #include "panel-cell-renderer-mode.h"
 #include "panel-cell-renderer-security.h"

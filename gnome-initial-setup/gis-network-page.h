@@ -5,12 +5,6 @@
 
 #include "gnome-initial-setup.h"
 
-#include <nm-client.h>
-#include <nm-device-wifi.h>
-#include <nm-access-point.h>
-#include <nm-utils.h>
-#include <nm-remote-settings.h>
-
 G_BEGIN_DECLS
 
 void gis_prepare_network_page (SetupData *setup);
