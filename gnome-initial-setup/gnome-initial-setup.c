@@ -72,14 +72,31 @@ prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 
         save_account_data (setup);
 
-        if (page == WID("summary-page"))
+        if (page == WID("welcome-page")) {
+                gtk_window_set_title (setup->main_window, _("Welcome"));
+        }
+        else if (page == WID("network-page")) {
+                gtk_window_set_title (setup->main_window, _("Network"));
+        }
+        else if (page == WID("account-page")) {
+                gtk_window_set_title (setup->main_window, _("Login"));
+        }
+        else if (page == WID("location-page")) {
+                gtk_window_set_title (setup->main_window, _("Location"));
+        }
+        else if (page == WID("online-page")) {
+                gtk_window_set_title (setup->main_window, _("Online Accounts"));
+        }
+        else if (page == WID("summary-page")) {
                 copy_account_data (setup);
+                gtk_window_set_title (setup->main_window, _("Thank You"));
+        }
 }
 
 static void
 recenter_window (GdkScreen *screen, SetupData *setup)
 {
-  gtk_window_set_position (setup->main_window, GTK_WIN_POS_CENTER_ALWAYS);
+        gtk_window_set_position (setup->main_window, GTK_WIN_POS_CENTER_ALWAYS);
 }
 
 static void
