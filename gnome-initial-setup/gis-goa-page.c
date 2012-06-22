@@ -188,7 +188,7 @@ add_account_to_list (GoaData *data, GoaObject *object)
                           g_object_ref (object), g_object_unref);
 
   g_signal_connect (button, "clicked",
-                    G_CALLBACK (confirm_remove_account), setup);
+                    G_CALLBACK (confirm_remove_account), data);
 
   gtk_box_pack_start (GTK_BOX (box), image, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
