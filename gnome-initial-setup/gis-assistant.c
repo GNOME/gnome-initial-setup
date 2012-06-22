@@ -213,12 +213,12 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
   gtk_widget_set_halign (priv->action_area, GTK_ALIGN_END);
 
-  priv->forward = gtk_button_new_with_mnemonic (_("C_ontinue"));
+  priv->forward = gtk_button_new_with_mnemonic (_("_Next"));
   gtk_button_set_image (GTK_BUTTON (priv->forward),
                         gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
   gtk_widget_set_can_default (priv->forward, TRUE);
 
-  priv->back = gtk_button_new_with_mnemonic (_("Go _Back"));
+  priv->back = gtk_button_new_with_mnemonic (_("_Back"));
   gtk_button_set_image (GTK_BUTTON (priv->back),
                         gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
 
