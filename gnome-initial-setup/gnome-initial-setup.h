@@ -11,10 +11,10 @@ G_BEGIN_DECLS
 
 typedef struct _SetupData SetupData;
 
-GtkBuilder *gis_get_builder (SetupData *data);
-GtkWindow *gis_get_main_window (SetupData *data);
-GKeyFile *gis_get_overrides (SetupData *data);
-GisAssistant * gis_get_assistant (SetupData *data);
+GtkBuilder *gis_get_builder (SetupData *setup);
+GtkWindow *gis_get_main_window (SetupData *setup);
+GKeyFile *gis_get_overrides (SetupData *setup);
+GisAssistant * gis_get_assistant (SetupData *setup);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(gis_get_builder(setup),(name)))
 #define WID(name) OBJ(GtkWidget*,name)

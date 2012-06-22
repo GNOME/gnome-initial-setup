@@ -124,27 +124,27 @@ prepare_main_window (SetupData *setup)
 }
 
 GKeyFile *
-gis_get_overrides (SetupData *data)
+gis_get_overrides (SetupData *setup)
 {
-        return g_key_file_ref (data->overrides);
+        return g_key_file_ref (setup->overrides);
 }
 
 GtkBuilder *
-gis_get_builder (SetupData *data)
+gis_get_builder (SetupData *setup)
 {
-        return data->builder;
+        return setup->builder;
 }
 
 GtkWindow *
-gis_get_main_window (SetupData *data)
+gis_get_main_window (SetupData *setup)
 {
-        return data->main_window;
+        return setup->main_window;
 }
 
 GisAssistant *
-gis_get_assistant (SetupData *data)
+gis_get_assistant (SetupData *setup)
 {
-        return data->assistant;
+        return setup->assistant;
 }
 
 /* main {{{1 */

@@ -174,16 +174,17 @@ static void
 prepare_summary_page (SetupData *setup)
 {
         GtkWidget *button;
+        GKeyFile *overrides = gis_get_overrides (setup);
         gchar *s;
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Summary", "summary-title",
                                           NULL, NULL);
         if (s)
                 gtk_label_set_text (GTK_LABEL (WID ("summary-title")), s);
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Summary", "summary-details",
                                           NULL, NULL);
         if (s) {
@@ -191,28 +192,28 @@ prepare_summary_page (SetupData *setup)
         }
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Summary", "summary-details2",
                                           NULL, NULL);
         if (s)
                 gtk_label_set_text (GTK_LABEL (WID ("summary-details2")), s);
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Summary", "summary-start-button",
                                           NULL, NULL);
         if (s)
                 gtk_button_set_label (GTK_BUTTON (WID ("summary-start-button")), s);
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Summary", "summary-tour-details",
                                           NULL, NULL);
         if (s)
                 gtk_label_set_text (GTK_LABEL (WID ("summary-tour-details")), s);
         g_free (s);
 
-        s = g_key_file_get_locale_string (setup->overrides,
+        s = g_key_file_get_locale_string (overrides,
                                           "Summary", "summary-tour-button",
                                           NULL, NULL);
         if (s)
