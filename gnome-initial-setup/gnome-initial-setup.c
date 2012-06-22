@@ -202,11 +202,7 @@ main (int argc, char *argv[])
         g_debug ("Registering: %s\n", g_type_name (gis_assistant_get_type ()));
 
         setup->builder = gtk_builder_new ();
-        if (g_file_test ("setup.ui", G_FILE_TEST_EXISTS)) {
-                gtk_builder_add_from_file (setup->builder, "setup.ui", &error);
-        } else {
-                gtk_builder_add_from_resource (setup->builder, "/ui/setup.ui", &error);
-        }
+        gtk_builder_add_from_resource (setup->builder, "/ui/setup.ui", &error);
 
         if (error != NULL) {
                 g_printerr ("%s", error->message);
