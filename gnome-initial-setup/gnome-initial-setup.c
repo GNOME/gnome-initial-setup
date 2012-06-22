@@ -12,12 +12,9 @@
 #include <gtk/gtk.h>
 #include <clutter-gtk/clutter-gtk.h>
 
-#include <act/act-user-manager.h>
-
 #include "um-utils.h"
 #include "um-photo-dialog.h"
 #include "pw-utils.h"
-#include "gdm-greeter-client.h"
 
 #ifdef HAVE_CHEESE
 #include <cheese-gtk.h>
@@ -32,6 +29,9 @@
 #include "gis-location-page.h"
 #include "gis-network-page.h"
 #include "gis-goa-page.h"
+#include "gis-summary-page.h"
+
+#include "gis-utils.h"
 
 /* Setup data {{{1 */
 struct _SetupData {
@@ -39,8 +39,6 @@ struct _SetupData {
         GtkWindow *main_window;
 
         GKeyFile *overrides;
-
-        GdmGreeterClient *greeter_client;
 
         GisAssistant *assistant;
 
@@ -63,7 +61,22 @@ struct _SetupData {
 };
 
 #include "gis-account-page.c"
-#include "gis-summary-page.c"
+
+static void
+copy_account_data (SetupData *setup)
+{
+        ActUser *user = setup->act_user;
+        /* here is where we copy all the things we just
+         * configured, from the current users home dir to the
+         * account that was created in the first step
+         */
+        g_debug ("Copying account data");
+        g_settings_sync ();
+
+        gis_copy_account_file (user, ".config/dconf/user");
+        gis_copy_account_file (user, ".config/goa-1.0/accounts.conf");
+        gis_copy_account_file (user, ".gnome2/keyrings/Default.keyring");
+}
 
 static void
 prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
@@ -111,16 +124,13 @@ prepare_main_window (SetupData *setup)
         g_signal_connect (setup->assistant, "prepare",
                           G_CALLBACK (prepare_cb), setup);
 
-        /* connect to gdm slave */
-        connect_to_slave (setup);
-
         gis_prepare_welcome_page (setup);
         gis_prepare_eula_pages (setup);
         gis_prepare_network_page (setup);
         prepare_account_page (setup);
         gis_prepare_location_page (setup);
         gis_prepare_online_page (setup);
-        prepare_summary_page (setup);
+        gis_prepare_summary_page (setup);
 }
 
 GKeyFile *
@@ -145,6 +155,12 @@ GisAssistant *
 gis_get_assistant (SetupData *setup)
 {
         return setup->assistant;
+}
+
+ActUser *
+gis_get_act_user (SetupData *setup)
+{
+        return setup->act_user;
 }
 
 /* main {{{1 */

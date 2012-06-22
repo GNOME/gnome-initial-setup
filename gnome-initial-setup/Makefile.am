@@ -38,10 +38,12 @@ gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	cc-notebook.c cc-notebook.h \
 	gis-assistant.c gis-assistant.h \
+	gis-utils.c gis-utils.h \
 	gis-welcome-page.c gis-welcome-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
 	gis-location-page.c gis-location-page.h \
 	gis-network-page.c gis-network-page.h \
+	gis-summary-page.c gis-summary-page.h \
 	gis-goa-page.c gis-goa-page.h \
 	cc-online-accounts-add-account-dialog.c cc-online-accounts-add-account-dialog.h \
 	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
@@ -59,8 +61,7 @@ autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = welcome-tour.desktop
 
 included_source_files = \
-	gis-account-page.c \
-	gis-summary-page.c
+	gis-account-page.c
 
 EXTRA_DIST = \
 	$(sys_DATA) \

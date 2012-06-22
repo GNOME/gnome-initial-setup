@@ -1,115 +1,34 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
-/* Other setup {{{1 */
+#include "config.h"
+#include "gis-summary-page.h"
 
-static void
-copy_account_file (SetupData   *setup,
-                   const gchar *relative_path)
-{
-        const gchar *username;
-        const gchar *homedir;
-        GSList *dirs = NULL, *l;
-        gchar *p, *tmp;
-        gchar *argv[20];
-        gint i;
-        gchar *from;
-        gchar *to;
-        GError *error = NULL;
+#include "gis-utils.h"
 
-        username = act_user_get_user_name (setup->act_user);
-        homedir = act_user_get_home_dir (setup->act_user);
+#include <glib/gi18n.h>
+#include <gio/gio.h>
 
-        from = g_build_filename (g_get_home_dir (), relative_path, NULL);
-        to = g_build_filename (homedir, relative_path, NULL);
+#include <gdm-greeter-client.h>
 
-        p = g_path_get_dirname (relative_path);
-        while (strcmp (p, ".") != 0) {
-                dirs = g_slist_prepend (dirs, g_build_filename (homedir, p, NULL));
-                tmp = g_path_get_dirname (p);
-                g_free (p);
-                p = tmp;
-        }
-
-        i = 0;
-        argv[i++] = "/usr/bin/pkexec";
-        argv[i++] = "install";
-        argv[i++] = "--owner";
-        argv[i++] = (gchar *)username;
-        argv[i++] = "--group";
-        argv[i++] = (gchar *)username;
-        argv[i++] = "--mode";
-        argv[i++] = "755";
-        argv[i++] = "--directory";
-        for (l = dirs; l; l = l->next) {
-                argv[i++] = l->data;
-                if (i == 20) {
-                        g_warning ("Too many subdirectories");
-                        goto out;
-                }
-        }
-        argv[i++] = NULL;
-
-        if (!g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, &error)) {
-                g_warning ("Failed to copy account data: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-        i = 0;
-        argv[i++] = "/usr/bin/pkexec";
-        argv[i++] = "install";
-        argv[i++] = "--owner";
-        argv[i++] = (gchar *)username;
-        argv[i++] = "--group";
-        argv[i++] = (gchar *)username;
-        argv[i++] = "--mode";
-        argv[i++] = "755";
-        argv[i++] = from;
-        argv[i++] = to;
-        argv[i++] = NULL;
-
-        if (!g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, &error)) {
-                g_warning ("Failed to copy account data: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-
-out:
-        g_slist_free_full (dirs, g_free);
-        g_free (to);
-        g_free (from);
-}
-
-static void
-copy_account_data (SetupData *setup)
-{
-        /* here is where we copy all the things we just
-         * configured, from the current users home dir to the
-         * account that was created in the first step
-         */
-        g_debug ("Copying account data");
-        g_settings_sync ();
-
-        copy_account_file (setup, ".config/dconf/user");
-        copy_account_file (setup, ".config/goa-1.0/accounts.conf");
-        copy_account_file (setup, ".gnome2/keyrings/Default.keyring");
-}
-
-static void
-connect_to_slave (SetupData *setup)
+static GdmGreeterClient *
+connect_to_slave (void)
 {
         GError *error = NULL;
         gboolean res;
+        GdmGreeterClient *greeter_client;
 
-        setup->greeter_client = gdm_greeter_client_new ();
+        greeter_client = gdm_greeter_client_new ();
 
-        res = gdm_greeter_client_open_connection (setup->greeter_client, &error);
+        res = gdm_greeter_client_open_connection (greeter_client, &error);
 
         if (!res) {
                 g_warning ("Failed to open connection to slave: %s", error->message);
                 g_error_free (error);
-                g_clear_object (&setup->greeter_client);
-                return;
+                g_object_unref (greeter_client);
+                return NULL;
         }
+
+        return greeter_client;
 }
 
 static void
@@ -119,7 +38,7 @@ on_ready_for_auto_login (GdmGreeterClient *client,
 {
         const gchar *username;
 
-        username = act_user_get_user_name (setup->act_user);
+        username = act_user_get_user_name (gis_get_act_user (setup));
 
         g_debug ("Initiating autologin for %s", username);
         gdm_greeter_client_call_begin_auto_login (client, username);
@@ -131,23 +50,26 @@ on_ready_for_auto_login (GdmGreeterClient *client,
 static void
 begin_autologin (SetupData *setup)
 {
-        if (setup->greeter_client == NULL) {
+        GdmGreeterClient *greeter_client = connect_to_slave ();
+        ActUser *act_user = gis_get_act_user (setup);
+
+        if (greeter_client == NULL) {
                 g_warning ("No slave connection; not initiating autologin");
                 return;
         }
 
-        if (setup->act_user == NULL) {
+        if (act_user == NULL) {
                 g_warning ("No username; not initiating autologin");
                 return;
         }
 
         g_debug ("Preparing to autologin");
 
-        g_signal_connect (setup->greeter_client,
+        g_signal_connect (greeter_client,
                           "ready",
                           G_CALLBACK (on_ready_for_auto_login),
                           setup);
-        gdm_greeter_client_call_start_conversation (setup->greeter_client, "gdm-autologin");
+        gdm_greeter_client_call_start_conversation (greeter_client, "gdm-autologin");
 }
 
 static void
@@ -164,14 +86,14 @@ tour_cb (GtkButton *button, SetupData *setup)
         /* the tour is triggered by ~/.config/run-welcome-tour */
         filename = g_build_filename (g_get_home_dir (), ".config", "run-welcome-tour", NULL);
         g_file_set_contents (filename, "yes", -1, NULL);
-        copy_account_file (setup, ".config/run-welcome-tour");
+        gis_copy_account_file (gis_get_act_user (setup), ".config/run-welcome-tour");
         g_free (filename);
 
         begin_autologin (setup);
 }
 
-static void
-prepare_summary_page (SetupData *setup)
+void
+gis_prepare_summary_page (SetupData *setup)
 {
         GtkWidget *button;
         GKeyFile *overrides = gis_get_overrides (setup);
