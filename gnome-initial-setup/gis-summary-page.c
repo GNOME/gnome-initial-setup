@@ -152,6 +152,8 @@ gis_prepare_summary_page (SetupData *setup)
   g_signal_connect (button, "clicked",
                     G_CALLBACK (tour_cb), setup);
 
+  g_object_set_data (OBJ (GObject *, "summary-page"), "gis-page-title", _("Thank You"));
+  g_object_set_data (OBJ (GObject *, "summary-page"), "gis-summary", GUINT_TO_POINTER (TRUE));
   gis_assistant_add_page (assistant, WID ("summary-page"));
   gis_assistant_set_page_complete (assistant, WID ("summary-page"), TRUE);
 }

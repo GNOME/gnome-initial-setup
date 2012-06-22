@@ -46,6 +46,7 @@ gis_prepare_welcome_page (SetupData *setup)
 
   g_key_file_unref (overrides);
 
+  g_object_set_data (OBJ (GObject *, "welcome-page"), "gis-page-title", _("Welcome"));
   gis_assistant_add_page (assistant, WID ("welcome-page"));
   gis_assistant_set_page_complete (assistant, WID ("welcome-page"), TRUE);
 

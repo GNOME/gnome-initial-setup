@@ -518,6 +518,7 @@ prepare_account_page (SetupData *setup)
         clear_account_page (data);
         update_account_page_status (data);
 
+        g_object_set_data (OBJ (GObject *, "account-page"), "gis-page-title", _("Login"));
         gis_assistant_add_page (assistant, WID ("account-page"));
         gis_assistant_set_page_complete (assistant, WID ("account-page"), TRUE);
 }

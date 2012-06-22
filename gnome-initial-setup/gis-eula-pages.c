@@ -107,6 +107,7 @@ build_eula_page (SetupData *setup,
   gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
   gtk_container_add (GTK_CONTAINER (vbox), checkbox);
 
+  g_object_set_data (G_OBJECT (vbox), "gis-page-title", _("License Agreements"));
   gis_assistant_add_page (gis_get_assistant (setup), vbox);
 
   gtk_widget_show_all (GTK_WIDGET (vbox));

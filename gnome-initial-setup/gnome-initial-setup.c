@@ -67,27 +67,15 @@ copy_account_data (SetupData *setup)
 static void
 prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 {
+        gchar *page_title;
+
         g_debug ("Preparing page %s", gtk_widget_get_name (page));
 
-        if (page == WID("welcome-page")) {
-                gtk_window_set_title (setup->main_window, _("Welcome"));
-        }
-        else if (page == WID("network-page")) {
-                gtk_window_set_title (setup->main_window, _("Network"));
-        }
-        else if (page == WID("account-page")) {
-                gtk_window_set_title (setup->main_window, _("Login"));
-        }
-        else if (page == WID("location-page")) {
-                gtk_window_set_title (setup->main_window, _("Location"));
-        }
-        else if (page == WID("online-page")) {
-                gtk_window_set_title (setup->main_window, _("Online Accounts"));
-        }
-        else if (page == WID("summary-page")) {
+        page_title = g_object_get_data (G_OBJECT (page), "gis-page-title");
+        gtk_window_set_title (setup->main_window, page_title);
+
+        if (g_object_get_data (G_OBJECT (page), "gis-summary"))
                 copy_account_data (setup);
-                gtk_window_set_title (setup->main_window, _("Thank You"));
-        }
 }
 
 static void

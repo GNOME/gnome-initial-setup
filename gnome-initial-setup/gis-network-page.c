@@ -736,6 +736,7 @@ gis_prepare_network_page (SetupData *setup)
 
   refresh_wireless_list (data);
 
+  g_object_set_data (OBJ (GObject *, "network-page"), "gis-page-title", _("Network"));
   gis_assistant_add_page (assistant, WID ("network-page"));
   gis_assistant_set_page_complete (assistant, WID ("network-page"), TRUE);
 
