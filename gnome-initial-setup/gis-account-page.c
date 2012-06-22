@@ -1,23 +1,48 @@
 
 /* Account page {{{1 */
 
+#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 static gboolean skip_account = FALSE;
 
+typedef struct _AccountData AccountData;
+
+struct _AccountData {
+        SetupData *setup;
+        GtkBuilder *builder;
+
+        ActUserManager *act_client;
+
+        gboolean valid_name;
+        gboolean valid_username;
+        gboolean valid_password;
+        const gchar *password_reason;
+        ActUserPasswordMode password_mode;
+        ActUserAccountType account_type;
+
+        gboolean user_data_unsaved;
+
+        GtkWidget *photo_dialog;
+        GdkPixbuf *avatar_pixbuf;
+        gchar *avatar_filename;
+};
+
 static void
-update_account_page_status (SetupData *setup)
+update_account_page_status (AccountData *data)
 {
         gboolean complete;
 
-        complete = setup->valid_name && setup->valid_username &&
-                   (setup->valid_password ||
-                    setup->password_mode == ACT_USER_PASSWORD_MODE_NONE);
+        complete = data->valid_name && data->valid_username &&
+                (data->valid_password ||
+                 data->password_mode == ACT_USER_PASSWORD_MODE_NONE);
 
-        gis_assistant_set_page_complete (gis_get_assistant (setup), WID("account-page"), complete);
+        gis_assistant_set_page_complete (gis_get_assistant (data->setup), WID("account-page"), complete);
         gtk_widget_set_sensitive (WID("local-account-done-button"), complete);
 }
 
 static void
-fullname_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
+fullname_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 {
         GtkWidget *combo;
         GtkWidget *entry;
@@ -32,10 +57,10 @@ fullname_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
 
         gtk_list_store_clear (GTK_LIST_STORE (model));
 
-        setup->valid_name = is_valid_name (name);
-        setup->user_data_unsaved = TRUE;
+        data->valid_name = is_valid_name (name);
+        data->user_data_unsaved = TRUE;
 
-        if (!setup->valid_name) {
+        if (!data->valid_name) {
                 gtk_entry_set_text (GTK_ENTRY (entry), "");
                 return;
         }
@@ -44,11 +69,11 @@ fullname_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
 
         gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
 
-        update_account_page_status (setup);
+        update_account_page_status (data);
 }
 
 static void
-username_changed (GtkComboBoxText *combo, SetupData *setup)
+username_changed (GtkComboBoxText *combo, AccountData *data)
 {
         const gchar *username;
         gchar *tip;
@@ -56,8 +81,8 @@ username_changed (GtkComboBoxText *combo, SetupData *setup)
 
         username = gtk_combo_box_text_get_active_text (combo);
 
-        setup->valid_username = is_valid_username (username, &tip);
-        setup->user_data_unsaved = TRUE;
+        data->valid_username = is_valid_username (username, &tip);
+        data->user_data_unsaved = TRUE;
 
         entry = gtk_bin_get_child (GTK_BIN (combo));
 
@@ -69,11 +94,11 @@ username_changed (GtkComboBoxText *combo, SetupData *setup)
                 clear_entry_validation_error (GTK_ENTRY (entry));
         }
 
-        update_account_page_status (setup);
+        update_account_page_status (data);
 }
 
 static void
-password_check_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
+password_check_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 {
         GtkWidget *password_entry;
         GtkWidget *confirm_entry;
@@ -82,12 +107,12 @@ password_check_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
         need_password = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w));
 
         if (need_password) {
-                setup->password_mode = ACT_USER_PASSWORD_MODE_REGULAR;
-                setup->valid_password = FALSE;
+                data->password_mode = ACT_USER_PASSWORD_MODE_REGULAR;
+                data->valid_password = FALSE;
         }
         else {
-                setup->password_mode = ACT_USER_PASSWORD_MODE_NONE;
-                setup->valid_password = TRUE;
+                data->password_mode = ACT_USER_PASSWORD_MODE_NONE;
+                data->valid_password = TRUE;
         }
 
         password_entry = WID("account-password-entry");
@@ -98,28 +123,28 @@ password_check_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
         gtk_widget_set_sensitive (password_entry, need_password);
         gtk_widget_set_sensitive (confirm_entry, need_password);
 
-        setup->user_data_unsaved = TRUE;
-        update_account_page_status (setup);
+        data->user_data_unsaved = TRUE;
+        update_account_page_status (data);
 }
 
 static void
-admin_check_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
+admin_check_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 {
         if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
-                setup->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+                data->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
         }
         else {
-                setup->account_type = ACT_USER_ACCOUNT_TYPE_STANDARD;
+                data->account_type = ACT_USER_ACCOUNT_TYPE_STANDARD;
         }
 
-        setup->user_data_unsaved = TRUE;
-        update_account_page_status (setup);
+        data->user_data_unsaved = TRUE;
+        update_account_page_status (data);
 }
 
 #define MIN_PASSWORD_LEN 6
 
 static void
-update_password_entries (SetupData *setup)
+update_password_entries (AccountData *data)
 {
         const gchar *password;
         const gchar *verify;
@@ -142,41 +167,41 @@ update_password_entries (SetupData *setup)
         strength = pw_strength (password, NULL, username, &hint, &long_hint);
 
         if (strength == 0.0) {
-                setup->valid_password = FALSE;
-                setup->password_reason = long_hint ? long_hint : hint;
+                data->valid_password = FALSE;
+                data->password_reason = long_hint ? long_hint : hint;
         }
         else if (strcmp (password, verify) != 0) {
-                setup->valid_password = FALSE;
-                setup->password_reason = _("Passwords do not match");
+                data->valid_password = FALSE;
+                data->password_reason = _("Passwords do not match");
         }
         else {
-                setup->valid_password = TRUE;
+                data->valid_password = TRUE;
         }
 }
 
 static void
-password_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
+password_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 {
-        update_password_entries (setup);
+        update_password_entries (data);
 
-        setup->user_data_unsaved = TRUE;
-        update_account_page_status (setup);
+        data->user_data_unsaved = TRUE;
+        update_account_page_status (data);
 }
 
 static void
-confirm_changed (GtkWidget *w, GParamSpec *pspec, SetupData *setup)
+confirm_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 {
         clear_entry_validation_error (GTK_ENTRY (w));
-        update_password_entries (setup);
+        update_password_entries (data);
 
-        setup->user_data_unsaved = TRUE;
-        update_account_page_status (setup);
+        data->user_data_unsaved = TRUE;
+        update_account_page_status (data);
 }
 
 static gboolean
 confirm_entry_focus_out (GtkWidget     *entry,
                          GdkEventFocus *event,
-                         SetupData     *setup)
+                         AccountData     *data)
 {
         const gchar *password;
         const gchar *verify;
@@ -189,9 +214,9 @@ confirm_entry_focus_out (GtkWidget     *entry,
         verify = gtk_entry_get_text (confirm_entry);
 
         if (strlen (password) > 0 && strlen (verify) > 0) {
-                if (!setup->valid_password) {
+                if (!data->valid_password) {
                         set_entry_validation_error (confirm_entry,
-                                                    setup->password_reason);
+                                                    data->password_reason);
                 }
                 else {
                         clear_entry_validation_error (confirm_entry);
@@ -202,19 +227,20 @@ confirm_entry_focus_out (GtkWidget     *entry,
 }
 
 static void
-set_user_avatar (SetupData *setup)
+set_user_avatar (AccountData *data)
 {
         GFile *file = NULL;
         GFileIOStream *io_stream = NULL;
         GOutputStream *stream = NULL;
         GError *error = NULL;
+        SetupData *setup = data->setup;
 
-        if (setup->avatar_filename != NULL) {
-                act_user_set_icon_file (setup->act_user, setup->avatar_filename);
+        if (data->avatar_filename != NULL) {
+                act_user_set_icon_file (setup->act_user, data->avatar_filename);
                 return;
         }
 
-        if (setup->avatar_pixbuf == NULL) {
+        if (data->avatar_pixbuf == NULL) {
                 return;
         }
 
@@ -223,7 +249,7 @@ set_user_avatar (SetupData *setup)
                 goto out;
 
         stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
-        if (!gdk_pixbuf_save_to_stream (setup->avatar_pixbuf, stream, "png", NULL, &error, NULL))
+        if (!gdk_pixbuf_save_to_stream (data->avatar_pixbuf, stream, "png", NULL, &error, NULL))
                 goto out;
 
         act_user_set_icon_file (setup->act_user, g_file_get_path (file)); 
@@ -239,40 +265,41 @@ set_user_avatar (SetupData *setup)
 }
 
 static void
-create_user (SetupData *setup)
+create_user (AccountData *data)
 {
         const gchar *username;
         const gchar *fullname;
         GError *error;
+        SetupData *setup = data->setup;
 
         username = gtk_combo_box_text_get_active_text (OBJ(GtkComboBoxText*, "account-username-combo"));
         fullname = gtk_entry_get_text (OBJ(GtkEntry*, "account-fullname-entry"));
 
         error = NULL;
-        setup->act_user = act_user_manager_create_user (setup->act_client, username, fullname, setup->account_type, &error);
+        setup->act_user = act_user_manager_create_user (data->act_client, username, fullname, data->account_type, &error);
         if (error != NULL) {
                 g_warning ("Failed to create user: %s", error->message);
                 g_error_free (error);
         }
 
-        set_user_avatar (setup);
+        set_user_avatar (data);
 }
 
-static void save_account_data (SetupData *setup);
+static void save_account_data (AccountData *data);
 
-gulong when_loaded;
+static gulong when_loaded;
 
 static void
-save_when_loaded (ActUser *user, GParamSpec *pspec, SetupData *setup)
+save_when_loaded (ActUser *user, GParamSpec *pspec, AccountData *data)
 {
         g_signal_handler_disconnect (user, when_loaded);
         when_loaded = 0;
 
-        save_account_data (setup);
+        save_account_data (data);
 }
 
 static void
-clear_account_page (SetupData *setup)
+clear_account_page (AccountData *data)
 {
         GtkWidget *fullname_entry;
         GtkWidget *username_combo;
@@ -289,19 +316,19 @@ clear_account_page (SetupData *setup)
         password_entry = WID("account-password-entry");
         confirm_entry = WID("account-confirm-entry");
 
-        setup->valid_name = FALSE;
-        setup->valid_username = FALSE;
-        setup->valid_password = TRUE;
-        setup->password_mode = ACT_USER_PASSWORD_MODE_NONE;
-        setup->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
-        setup->user_data_unsaved = FALSE;
+        data->valid_name = FALSE;
+        data->valid_username = FALSE;
+        data->valid_password = TRUE;
+        data->password_mode = ACT_USER_PASSWORD_MODE_NONE;
+        data->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+        data->user_data_unsaved = FALSE;
 
-        need_password = setup->password_mode != ACT_USER_PASSWORD_MODE_NONE;
+        need_password = data->password_mode != ACT_USER_PASSWORD_MODE_NONE;
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (password_check), need_password);
         gtk_widget_set_sensitive (password_entry, need_password);
         gtk_widget_set_sensitive (confirm_entry, need_password);
 
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), setup->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), data->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
 
         gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
         gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
@@ -310,37 +337,38 @@ clear_account_page (SetupData *setup)
 }
 
 static void
-save_account_data (SetupData *setup)
+save_account_data (AccountData *data)
 {
         const gchar *realname;
         const gchar *username;
         const gchar *password;
+        SetupData *setup = data->setup;
 
-        if (!setup->user_data_unsaved) {
+        if (!data->user_data_unsaved) {
                 return;
         }
 
         /* this can happen when going back */
-        if (!setup->valid_name ||
-            !setup->valid_username ||
-            !setup->valid_password) {
+        if (!data->valid_name ||
+            !data->valid_username ||
+            !data->valid_password) {
                 return;
         }
 
         if (setup->act_user == NULL) {
-                create_user (setup);
+                create_user (data);
         }
 
         if (setup->act_user == NULL) {
                 g_warning ("User creation failed");
-                clear_account_page (setup);
+                clear_account_page (data);
                 return;
         }
 
         if (!act_user_is_loaded (setup->act_user)) {
                 if (when_loaded == 0)
                         when_loaded = g_signal_connect (setup->act_user, "notify::is-loaded",
-                                                        G_CALLBACK (save_when_loaded), setup);
+                                                        G_CALLBACK (save_when_loaded), data);
                 return;
         }
 
@@ -350,23 +378,23 @@ save_account_data (SetupData *setup)
 
         act_user_set_real_name (setup->act_user, realname);
         act_user_set_user_name (setup->act_user, username);
-        act_user_set_account_type (setup->act_user, setup->account_type);
-        if (setup->password_mode == ACT_USER_PASSWORD_MODE_REGULAR) {
+        act_user_set_account_type (setup->act_user, data->account_type);
+        if (data->password_mode == ACT_USER_PASSWORD_MODE_REGULAR) {
                 act_user_set_password (setup->act_user, password, NULL);
         }
         else {
-                act_user_set_password_mode (setup->act_user, setup->password_mode);
+                act_user_set_password_mode (setup->act_user, data->password_mode);
         }
 
         gnome_keyring_create_sync ("Default", password ? password : "");
         gnome_keyring_set_default_keyring_sync ("Default");
 
-        setup->user_data_unsaved = FALSE;
+        data->user_data_unsaved = FALSE;
 }
 
 static void
 show_local_account_dialog (GtkWidget *button,
-                           SetupData *setup)
+                           AccountData *data)
 {
         GtkWidget *dialog;
 
@@ -376,54 +404,54 @@ show_local_account_dialog (GtkWidget *button,
 }
 
 static void
-hide_local_account_dialog (GtkButton *button, gpointer data)
+hide_local_account_dialog (GtkButton *button, gpointer user_data)
 {
-        SetupData *setup = data;
+        AccountData *data = user_data;
         GtkWidget *dialog;
 
         dialog = WID("local-account-dialog");
 
         gtk_widget_hide (dialog);
-        clear_account_page (setup);
+        clear_account_page (data);
 }
 
 static void
-create_local_account (GtkButton *button, gpointer data)
+create_local_account (GtkButton *button, gpointer user_data)
 {
-        SetupData *setup = data;
+        AccountData *data = user_data;
         gtk_widget_hide (WID("local-account-dialog"));
 }
 
 static void
 avatar_callback (GdkPixbuf   *pixbuf,
                  const gchar *filename,
-                 gpointer     data)
+                 gpointer     user_data)
 {
-        SetupData *setup = data;
+        AccountData *data = user_data;
         GtkWidget *image;
         GdkPixbuf *tmp;
 
-        g_clear_object (&setup->avatar_pixbuf);
-        g_free (setup->avatar_filename);
-        setup->avatar_filename = NULL;
+        g_clear_object (&data->avatar_pixbuf);
+        g_free (data->avatar_filename);
+        data->avatar_filename = NULL;
 
         image = WID("local-account-avatar-image");
 
         if (pixbuf) {
-                setup->avatar_pixbuf = g_object_ref (pixbuf);
+                data->avatar_pixbuf = g_object_ref (pixbuf);
                 tmp = gdk_pixbuf_scale_simple (pixbuf, 64, 64, GDK_INTERP_BILINEAR);
                 gtk_image_set_from_pixbuf (GTK_IMAGE (image), tmp);
                 g_object_unref (tmp);
         }
         else if (filename) {
-                setup->avatar_filename = g_strdup (filename);
+                data->avatar_filename = g_strdup (filename);
                 tmp = gdk_pixbuf_new_from_file_at_size (filename, 64, 64, NULL);
                 gtk_image_set_from_pixbuf (GTK_IMAGE (image), tmp);
                 g_object_unref (tmp);
         }
         else {
                 gtk_image_set_from_icon_name (GTK_IMAGE (image), "avatar-default",
-                                                                GTK_ICON_SIZE_DIALOG);
+                                              GTK_ICON_SIZE_DIALOG);
         }
 }
 
@@ -439,12 +467,19 @@ prepare_account_page (SetupData *setup)
         GtkWidget *local_account_cancel_button;
         GtkWidget *local_account_done_button;
         GtkWidget *local_account_avatar_button;
+        AccountData *data = g_slice_new (AccountData);
+        GisAssistant *assistant = gis_get_assistant (setup);
+        data->builder = gis_builder ("gis-account-page");
+        data->setup = setup;
 
         if (!skip_account)
                 gtk_widget_show (WID("account-page"));
 
         g_signal_connect (WID("account-new-local"), "clicked",
-                          G_CALLBACK (show_local_account_dialog), setup);
+                          G_CALLBACK (show_local_account_dialog), data);
+
+        gtk_window_set_transient_for (OBJ(GtkWindow*,"local-account-dialog"),
+                                      gis_get_main_window(setup));
 
         fullname_entry = WID("account-fullname-entry");
         username_combo = WID("account-username-combo");
@@ -455,31 +490,37 @@ prepare_account_page (SetupData *setup)
         local_account_cancel_button = WID("local-account-cancel-button");
         local_account_done_button = WID("local-account-done-button");
         local_account_avatar_button = WID("local-account-avatar-button");
-        setup->photo_dialog = (GtkWidget *)um_photo_dialog_new (local_account_avatar_button,
-                                                                avatar_callback,
-                                                                setup);
+        data->photo_dialog = (GtkWidget *)um_photo_dialog_new (local_account_avatar_button,
+                                                               avatar_callback,
+                                                               data);
 
         g_signal_connect (fullname_entry, "notify::text",
-                          G_CALLBACK (fullname_changed), setup);
+                          G_CALLBACK (fullname_changed), data);
         g_signal_connect (username_combo, "changed",
-                          G_CALLBACK (username_changed), setup);
+                          G_CALLBACK (username_changed), data);
         g_signal_connect (password_check, "notify::active",
-                           G_CALLBACK (password_check_changed), setup);
+                          G_CALLBACK (password_check_changed), data);
         g_signal_connect (admin_check, "notify::active",
-                          G_CALLBACK (admin_check_changed), setup);
+                          G_CALLBACK (admin_check_changed), data);
         g_signal_connect (password_entry, "notify::text",
-                          G_CALLBACK (password_changed), setup);
+                          G_CALLBACK (password_changed), data);
         g_signal_connect (confirm_entry, "notify::text",
-                          G_CALLBACK (confirm_changed), setup);
+                          G_CALLBACK (confirm_changed), data);
         g_signal_connect_after (confirm_entry, "focus-out-event",
-                                G_CALLBACK (confirm_entry_focus_out), setup);
+                                G_CALLBACK (confirm_entry_focus_out), data);
         g_signal_connect (local_account_cancel_button, "clicked",
-                          G_CALLBACK (hide_local_account_dialog), setup);
+                          G_CALLBACK (hide_local_account_dialog), data);
         g_signal_connect (local_account_done_button, "clicked",
-                          G_CALLBACK (create_local_account), setup);
+                          G_CALLBACK (create_local_account), data);
 
-        setup->act_client = act_user_manager_get_default ();
+        data->act_client = act_user_manager_get_default ();
 
-        clear_account_page (setup);
-        update_account_page_status (setup);
+        clear_account_page (data);
+        update_account_page_status (data);
+
+        gis_assistant_add_page (assistant, WID ("account-page"));
+        gis_assistant_set_page_complete (assistant, WID ("account-page"), TRUE);
 }
+
+#undef OBJ
+#undef WID

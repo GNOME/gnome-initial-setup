@@ -3,12 +3,13 @@
 #include "config.h"
 #include "gis-summary-page.h"
 
-#include "gis-utils.h"
-
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
 #include <gdm-greeter-client.h>
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 static GdmGreeterClient *
 connect_to_slave (void)
@@ -98,6 +99,8 @@ gis_prepare_summary_page (SetupData *setup)
   GtkWidget *button;
   GKeyFile *overrides = gis_get_overrides (setup);
   gchar *s;
+  GisAssistant *assistant = gis_get_assistant (setup);
+  GtkBuilder *builder = gis_builder ("gis-summary-page");
 
   s = g_key_file_get_locale_string (overrides,
                                     "Summary", "summary-title",
@@ -148,4 +151,7 @@ gis_prepare_summary_page (SetupData *setup)
   button = WID("summary-tour-button");
   g_signal_connect (button, "clicked",
                     G_CALLBACK (tour_cb), setup);
+
+  gis_assistant_add_page (assistant, WID ("summary-page"));
+  gis_assistant_set_page_complete (assistant, WID ("summary-page"), TRUE);
 }

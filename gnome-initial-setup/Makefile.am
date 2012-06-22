@@ -24,7 +24,16 @@ timedated.h: $(srcdir)/timedated1-interface.xml
 		--generate-c-code timedated $<
 BUILT_SOURCES += timedated.c timedated.h
 
-setup_resources.c: setup.gresource.xml setup.ui welcome-image.png
+UI_FILES = \
+	setup.ui \
+	gis-welcome-page.ui \
+	gis-network-page.ui \
+	gis-account-page.ui \
+	gis-location-page.ui \
+	gis-goa-page.ui \
+	gis-summary-page.ui
+
+setup_resources.c: setup.gresource.xml $(UI_FILES) welcome-image.png
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
 BUILT_SOURCES += setup_resources.c
 
@@ -67,7 +76,7 @@ EXTRA_DIST = \
 	$(sys_DATA) \
 	$(included_source_files) \
 	timedated1-interface.xml \
-	setup.ui \
-	welcome-image.png \
+	$(UI_FILES) \
 	setup.gresource.xml \
+	welcome-image.png \
 	welcome-tour.desktop

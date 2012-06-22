@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <object class="GtkListStore" id="liststore-wireless">
+    <columns>
+      <column type="gchararray"/> <!-- column-name id -->
+      <column type="gchararray"/> <!-- column-name title -->
+      <column type="gchararray"/> <!-- column-name sortable -->
+      <column type="guint"/>      <!-- column-name strength -->
+      <column type="guint"/>      <!-- column-name mode -->
+      <column type="guint"/>      <!-- column-name security -->
+      <column type="gboolean"/>   <!-- column-name activating -->
+      <column type="gboolean"/>   <!-- column-name active -->
+      <column type="guint"/>      <!-- column-name pulse -->
+    </columns>
+  </object>
+  <object class="GtkGrid" id="network-page">
+    <property name="name">network-page</property>
+    <property name="visible">True</property>
+    <property name="margin-left">48</property>
+    <property name="margin-right">48</property>
+    <property name="margin-bottom">48</property>
+    <property name="halign">center</property>
+    <child>
+      <object class="GtkLabel" id="network-title">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Wireless Networks</property>
+        <property name="halign">center</property>
+        <property name="valign">start</property>
+        <property name="margin-bottom">18</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.2"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="network-scrolledwindow">
+        <property name="visible">True</property>
+        <property name="margin-top">0</property>
+        <property name="margin-bottom">32</property>
+        <property name="hscrollbar-policy">never</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <property name="shadow-type">in</property>
+        <child>
+          <object class="GtkTreeView" id="network-list">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="vexpand">True</property>
+            <property name="halign">fill</property>
+            <property name="valign">fill</property>
+            <property name="model">liststore-wireless</property>
+            <property name="headers-visible">False</property>
+            <property name="search-column">2</property>
+            <property name="enable-grid-lines">horizontal</property>
+            <property name="show-expanders">False</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection" id="network-list-selection">
+                <property name="mode">single</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="network-list-column"/>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="no-network-grid">
+        <property name="visible">True</property>
+        <property name="halign">start</property>
+        <property name="valign">start</property>
+        <child>
+          <object class="GtkSpinner" id="no-network-spinner">
+            <property name="visible">True</property>
+            <property name="active">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin-left">6</property>
+            <property name="margin-right">6</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="no-network-label">
+            <property name="visible">True</property>
+            <property name="label">No text</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

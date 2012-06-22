@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <object class="GtkGrid" id="location-page">
+    <property name="name">location-page</property>
+    <property name="visible">True</property>
+    <property name="halign">center</property>
+    <property name="valign">start</property>
+    <property name="hexpand">True</property>
+    <child>
+      <object class="GtkLabel" id="location-title">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Choose Your Location</property>
+        <property name="halign">center</property>
+        <property name="hexpand">False</property>
+        <property name="valign">start</property>
+        <property name="margin-bottom">18</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.2"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">2</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="location-auto-button">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">_Determine your location automatically</property>
+        <property name="use_underline">True</property>
+        <property name="halign">start</property>
+        <property name="margin-right">24</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="location-map-frame">
+        <property name="visible">True</property>
+        <property name="halign">fill</property>
+        <property name="valign">fill</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+        <property name="width">2</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="location-info-grid">
+        <property name="visible">True</property>
+        <property name="halign">start</property>
+        <property name="valign">start</property>
+        <property name="row-spacing">12</property>
+        <property name="column-spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="location-label">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Location</property>
+            <property name="halign">end</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="current-location-label">
+            <property name="visible">True</property>
+            <property name="label">Boston, MA</property>
+            <property name="halign">start</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="timezone-label">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Time Zone</property>
+            <property name="halign">end</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="current-timezone-label">
+            <property name="visible">True</property>
+            <property name="label">America / New York</property>
+            <property name="halign">start</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+  </object>
+</interface>

@@ -15,10 +15,14 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 typedef struct _GoaData GoaData;
 
 struct _GoaData {
   SetupData *setup;
+  GtkBuilder *builder;
   /* online data */
   GoaClient *goa_client;
 };
@@ -159,7 +163,6 @@ add_account_to_list (GoaData *data, GoaObject *object)
   GoaAccount *account;
   GIcon *icon;
   gchar *markup;
-  SetupData *setup = data->setup;
 
   account = goa_object_peek_account (object);
 
@@ -207,7 +210,6 @@ remove_account_from_list (GoaData *data, GoaObject *object)
   GtkWidget *child;
   GoaAccount *account;
   const gchar *account_id, *id;
-  SetupData *setup = data->setup;
 
   account = goa_object_peek_account (object);
 
@@ -273,9 +275,11 @@ gis_prepare_online_page (SetupData *setup)
   GtkWidget *button;
   GError *error = NULL;
   GoaData *data = g_slice_new (GoaData);
+  GisAssistant *assistant = gis_get_assistant (setup);
   data->setup = setup;
-
+  data->builder = gis_builder ("gis-goa-page");
   data->goa_client = goa_client_new_sync (NULL, &error);
+
   if (data->goa_client == NULL)
     {
        g_error ("Failed to get a GoaClient: %s", error->message);
@@ -293,4 +297,7 @@ gis_prepare_online_page (SetupData *setup)
                     G_CALLBACK (goa_account_added), data);
   g_signal_connect (data->goa_client, "account-removed",
                     G_CALLBACK (goa_account_removed), data);
+
+  gis_assistant_add_page (assistant, WID ("goa-page"));
+  gis_assistant_set_page_complete (assistant, WID ("goa-page"), TRUE);
 }

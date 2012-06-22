@@ -22,10 +22,13 @@
 
 #define DEFAULT_TZ "Europe/London"
 
+#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 typedef struct _LocationData LocationData;
 
 struct _LocationData {
-  SetupData *setup;
+  GtkBuilder *builder;
 
   /* location data */
   CcTimezoneMap *map;
@@ -69,7 +72,6 @@ queue_set_timezone (LocationData *data)
 static void
 update_timezone (LocationData *data)
 {
-  SetupData *setup = data->setup;
   GString *str;
   gchar *location;
   gchar *timezone;
@@ -120,7 +122,6 @@ static void
 set_location_from_gweather_location (LocationData     *data,
                                      GWeatherLocation *gloc)
 {
-  SetupData *setup = data->setup;
   GWeatherTimezone *zone = gweather_location_get_timezone (gloc);
   gchar *city = gweather_location_get_city_name (gloc);
 
@@ -241,7 +242,8 @@ gis_prepare_location_page (SetupData *setup)
   GError *error;
   const gchar *timezone;
   LocationData *data = g_slice_new (LocationData);
-  data->setup = setup;
+  GisAssistant *assistant = gis_get_assistant (setup);
+  data->builder = gis_builder ("gis-location-page");;
 
   frame = WID("location-map-frame");
 
@@ -301,4 +303,7 @@ gis_prepare_location_page (SetupData *setup)
 #else
   gtk_widget_hide (WID ("location-auto-button"));
 #endif
+
+  gis_assistant_add_page (assistant, WID ("location-page"));
+  gis_assistant_set_page_complete (assistant, WID ("location-page"), TRUE);
 }

@@ -1,0 +1,272 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <object class="GtkListStore" id="account-username-model">
+    <columns>
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkDialog" id="local-account-dialog">
+    <property name="title"></property>
+    <property name="modal">True</property>
+    <property name="resizable">False</property>
+    <child internal-child="action_area">
+      <object class="GtkBox" id="local-account-action-area">
+        <child>
+          <object class="GtkButton" id="local-account-cancel-button">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">_Cancel</property>
+            <property name="use-underline">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="local-account-done-button">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="label" translatable="yes">_Done</property>
+            <property name="use-underline">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="local-account-content-area">
+        <property name="margin">12</property>
+        <child>
+          <object class="GtkGrid" id="local-account-grid">
+            <property name="visible">True</property>
+            <property name="row-spacing">6</property>
+            <property name="column-spacing">12</property>
+            <property name="margin-bottom">18</property>
+            <child>
+              <object class="GtkToggleButton" id="local-account-avatar-button">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkImage" id="local-account-avatar-image">
+                    <property name="visible">True</property>
+                    <property name="icon-name">avatar-default</property>
+                    <property name="pixel-size">64</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="account-fullname-label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Full Name</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">account-fullname-entry</property>
+                <property name="halign">end</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="account-fullname-entry">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkLabel" id="account-username-label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Username</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">account-username-combo</property>
+                <property name="halign">end</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="account-username-combo">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="has_entry">True</property>
+                <property name="entry_text_column">0</property>
+                <property name="model">account-username-model</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkCheckButton" id="account-password-check">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Require a password to use this account</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">3</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkLabel" id="account-password-label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Password</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">account-password-entry</property>
+                <property name="halign">end</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="account-password-entry">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="visibility">False</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkLabel" id="account-confirm-label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Confirm Password</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">account-confirm-entry</property>
+                <property name="halign">end</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">5</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="account-confirm-entry">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="visibility">False</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">5</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkCheckButton" id="account-admin-check">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Act as administrator of this computer</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">6</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">local-account-cancel-button</action-widget>
+      <action-widget response="-5">local-account-done-button</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkGrid" id="account-page">
+    <property name="name">account-page</property>
+    <property name="visible">False</property>
+    <property name="halign">center</property>
+    <child>
+      <object class="GtkLabel" id="account-title">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Choose How to Log In</property>
+        <property name="halign">center</property>
+        <property name="valign">start</property>
+        <property name="margin-bottom">18</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.2"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButtonBox" id="account-buttons">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkButton" id="account-new-local">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Create a Local Account</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="account-enterprise-login">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Use an Enterprise Login</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

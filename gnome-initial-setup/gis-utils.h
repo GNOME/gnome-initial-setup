@@ -11,6 +11,7 @@ G_BEGIN_DECLS
 
 void gis_copy_account_file (ActUser     *act_user,
                             const gchar *relative_path);
+GtkBuilder * gis_builder (gchar *resource);
 
 G_END_DECLS
 

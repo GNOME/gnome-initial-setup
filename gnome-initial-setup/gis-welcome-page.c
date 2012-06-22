@@ -10,11 +10,16 @@
 
 #include <gtk/gtk.h>
 
+#define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 void
 gis_prepare_welcome_page (SetupData *setup)
 {
   gchar *s;
   GKeyFile *overrides = gis_get_overrides (setup);
+  GisAssistant *assistant = gis_get_assistant (setup);
+  GtkBuilder *builder = gis_builder ("gis-welcome-page");
 
   s = g_key_file_get_locale_string (overrides,
                                     "Welcome", "welcome-image",
@@ -40,4 +45,9 @@ gis_prepare_welcome_page (SetupData *setup)
   g_free (s);
 
   g_key_file_unref (overrides);
+
+  gis_assistant_add_page (assistant, WID ("welcome-page"));
+  gis_assistant_set_page_complete (assistant, WID ("welcome-page"), TRUE);
+
+  g_object_unref (builder);
 }

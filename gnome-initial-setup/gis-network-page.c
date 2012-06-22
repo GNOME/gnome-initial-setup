@@ -22,8 +22,11 @@
 
 typedef struct _NetworkData NetworkData;
 
+#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 struct _NetworkData {
-  SetupData *setup;
+  GtkBuilder *builder;
 
   /* network data */
   NMClient *nm_client;
@@ -262,7 +265,6 @@ select_and_scroll_to_ap (NetworkData *data, NMAccessPoint *ap)
   gchar *ssid_target;
   const GByteArray *ssid;
   const gchar *ssid_text;
-  SetupData *setup = data->setup;
 
   model = (GtkTreeModel *)data->ap_list;
 
@@ -311,7 +313,6 @@ refresh_without_device (NetworkData *data)
   GtkWidget *label;
   GtkWidget *spinner;
   GtkWidget *swin;
-  SetupData *setup = data->setup;
 
   swin = WID("network-scrolledwindow");
   label = WID("no-network-label");
@@ -341,7 +342,6 @@ refresh_wireless_list (NetworkData *data)
   GtkWidget *label;
   GtkWidget *spinner;
   GtkWidget *swin;
-  SetupData *setup = data->setup;
 
   data->refreshing = TRUE;
 
@@ -630,7 +630,8 @@ gis_prepare_network_page (SetupData *setup)
   DBusGConnection *bus;
   GError *error;
   NetworkData *data = g_slice_new0 (NetworkData);
-  data->setup = setup;
+  GisAssistant *assistant = gis_get_assistant (setup);
+  data->builder = gis_builder ("gis-network-page");
 
   col = OBJ(GtkTreeViewColumn*, "network-list-column");
 
@@ -734,6 +735,9 @@ gis_prepare_network_page (SetupData *setup)
                     G_CALLBACK (wireless_selection_changed), data);
 
   refresh_wireless_list (data);
+
+  gis_assistant_add_page (assistant, WID ("network-page"));
+  gis_assistant_set_page_complete (assistant, WID ("network-page"), TRUE);
 
  out: ;
 }

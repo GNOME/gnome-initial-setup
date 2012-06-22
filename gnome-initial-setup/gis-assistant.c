@@ -31,25 +31,9 @@
 #include "gis-assistant.h"
 #include "cc-notebook.h"
 
-static void
-gis_assistant_buildable_add_child (GtkBuildable  *buildable,
-                                   GtkBuilder    *builder,
-                                   GObject       *child,
-                                   const gchar   *type);
-
-static void
-gis_assistant_buildable_init (GtkBuildableIface *iface);
-
-G_DEFINE_TYPE_WITH_CODE (GisAssistant, gis_assistant, GTK_TYPE_BOX,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
-                                                gis_assistant_buildable_init))
+G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ASSISTANT, GisAssistantPrivate))
-
-enum {
-  CHILD_PROP_0,
-  CHILD_PROP_PAGE_COMPLETE,
-};
 
 enum {
   PREPARE,
@@ -257,56 +241,14 @@ gis_assistant_finalize (GObject *gobject)
 }
 
 static void
-gis_assistant_get_child_property (GtkContainer *container,
-                                  GtkWidget    *child,
-                                  guint         property_id,
-                                  GValue       *value,
-                                  GParamSpec   *pspec)
-{
-  GisAssistant *assistant = GIS_ASSISTANT (container);
-
-  switch (property_id) {
-  case CHILD_PROP_PAGE_COMPLETE:
-    g_value_set_boolean (value,
-                         gis_assistant_get_page_complete (assistant, child));
-    break;
-  default:
-    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
-    break;
-  }
-}
-
-static void
-gis_assistant_set_child_property (GtkContainer *container,
-                                  GtkWidget    *child,
-                                  guint         property_id,
-                                  const GValue *value,
-                                  GParamSpec   *pspec)
-{
-  GisAssistant *assistant = GIS_ASSISTANT (container);
-
-  switch (property_id) {
-  case CHILD_PROP_PAGE_COMPLETE:
-    gis_assistant_set_page_complete (assistant, child, g_value_get_boolean (value));
-    break;
-  default:
-    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
-    break;
-  }
-}
-
-static void
 gis_assistant_class_init (GisAssistantClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   g_type_class_add_private (klass, sizeof (GisAssistantPrivate));
 
   gobject_class->finalize = gis_assistant_finalize;
 
-  container_class->get_child_property = gis_assistant_get_child_property;
-  container_class->set_child_property = gis_assistant_set_child_property;
   klass->prepare = gis_assistant_prepare;
 
   /**
@@ -328,35 +270,4 @@ gis_assistant_class_init (GisAssistantClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT,
                   G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
-
-  /**
-   * GisAssistant:complete:
-   *
-   * Setting the "complete" child property to %TRUE marks a page as
-   * complete (i.e.: all the required fields are filled out). GTK+ uses
-   * this information to control the sensitivity of the navigation buttons.
-   */
-  gtk_container_class_install_child_property (container_class,
-                                              CHILD_PROP_PAGE_COMPLETE,
-                                              g_param_spec_boolean ("complete",
-                                                                    "Page complete",
-                                                                    "Whether all required fields on the page have been filled out",
-                                                                    FALSE,
-                                                                    G_PARAM_READWRITE));
-}
-
-static void
-gis_assistant_buildable_add_child (GtkBuildable  *buildable,
-                                   GtkBuilder    *builder,
-                                   GObject       *child,
-                                   const gchar   *type)
-{
-  GisAssistant *assistant = GIS_ASSISTANT (buildable);
-  gis_assistant_add_page (assistant, GTK_WIDGET (child));
-}
-
-static void
-gis_assistant_buildable_init (GtkBuildableIface *iface)
-{
-  iface->add_child = gis_assistant_buildable_add_child;
 }

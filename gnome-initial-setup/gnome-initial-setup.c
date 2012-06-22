@@ -35,32 +35,18 @@
 
 /* Setup data {{{1 */
 struct _SetupData {
-        GtkBuilder *builder;
-        GtkWindow *main_window;
+  GtkWindow *main_window;
+  GKeyFile *overrides;
+  GtkBuilder *builder;
+  GisAssistant *assistant;
 
-        GKeyFile *overrides;
-
-        GisAssistant *assistant;
-
-        /* account data */
-        ActUserManager *act_client;
-        ActUser *act_user;
-
-        gboolean valid_name;
-        gboolean valid_username;
-        gboolean valid_password;
-        const gchar *password_reason;
-        ActUserPasswordMode password_mode;
-        ActUserAccountType account_type;
-
-        gboolean user_data_unsaved;
-
-        GtkWidget *photo_dialog;
-        GdkPixbuf *avatar_pixbuf;
-        gchar *avatar_filename;
+  ActUser *act_user;
 };
 
 #include "gis-account-page.c"
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(setup->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 static void
 copy_account_data (SetupData *setup)
@@ -82,8 +68,6 @@ static void
 prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 {
         g_debug ("Preparing page %s", gtk_widget_get_name (page));
-
-        save_account_data (setup);
 
         if (page == WID("welcome-page")) {
                 gtk_window_set_title (setup->main_window, _("Welcome"));
@@ -137,12 +121,6 @@ GKeyFile *
 gis_get_overrides (SetupData *setup)
 {
         return g_key_file_ref (setup->overrides);
-}
-
-GtkBuilder *
-gis_get_builder (SetupData *setup)
-{
-        return setup->builder;
 }
 
 GtkWindow *
@@ -201,13 +179,7 @@ main (int argc, char *argv[])
         /* Make sure GisAssistant is initialized. */
         g_debug ("Registering: %s\n", g_type_name (gis_assistant_get_type ()));
 
-        setup->builder = gtk_builder_new ();
-        gtk_builder_add_from_resource (setup->builder, "/ui/setup.ui", &error);
-
-        if (error != NULL) {
-                g_printerr ("%s", error->message);
-                exit (1);
-        }
+        setup->builder = gis_builder ("setup");
 
         setup->overrides = g_key_file_new ();
         filename = g_build_filename (UIDIR, "overrides.ini", NULL);
