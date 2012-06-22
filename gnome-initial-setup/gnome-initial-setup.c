@@ -77,10 +77,19 @@ prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 }
 
 static void
+recenter_window (GdkScreen *screen, SetupData *setup)
+{
+  gtk_window_set_position (setup->main_window, GTK_WIN_POS_CENTER_ALWAYS);
+}
+
+static void
 prepare_main_window (SetupData *setup)
 {
         setup->main_window = OBJ(GtkWindow*, "main-window");
         setup->assistant = OBJ(GisAssistant*, "assistant");
+
+        g_signal_connect (gtk_widget_get_screen (GTK_WIDGET (setup->main_window)),
+                          "monitors-changed", G_CALLBACK (recenter_window), setup);
 
         g_signal_connect (setup->assistant, "prepare",
                           G_CALLBACK (prepare_cb), setup);
