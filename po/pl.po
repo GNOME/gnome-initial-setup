@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 23:55+0200\n"
-"PO-Revision-Date: 2012-06-12 23:56+0200\n"
+"POT-Creation-Date: 2012-06-23 01:58+0200\n"
+"PO-Revision-Date: 2012-06-23 02:00+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -32,16 +32,64 @@ msgstr "Początkowe ustawienia"
 msgid "Add Account"
 msgstr "Dodanie konta"
 
-#: ../gnome-initial-setup/gis-account-page.c:161
+#: ../gnome-initial-setup/gis-account-page.c:175
 msgid "Passwords do not match"
 msgstr "Hasła się nie zgadzają"
 
-#: ../gnome-initial-setup/gis-assistant.c:216
-msgid "C_ontinue"
-msgstr "K_ontynuuj"
+#: ../gnome-initial-setup/gis-account-page.c:521
+msgid "Login"
+msgstr "Logowanie"
 
-#: ../gnome-initial-setup/gis-assistant.c:221
-msgid "Go _Back"
+#: ../gnome-initial-setup/gis-account-page.ui.h:1
+msgid "_Cancel"
+msgstr "_Anuluj"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:2
+msgid "_Done"
+msgstr "_Gotowe"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:3
+msgid "_Full Name"
+msgstr "_Imię i nazwisko"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:4
+msgid "_Username"
+msgstr "_Nazwa użytkownika"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:5
+msgid "_Require a password to use this account"
+msgstr "_Wymaganie hasła, aby użyć tego konta"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:6
+msgid "_Password"
+msgstr "_Hasło"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:7
+msgid "_Confirm Password"
+msgstr "_Potwierdzenie hasła"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:8
+msgid "_Act as administrator of this computer"
+msgstr "Użytkownik jest a_dministratorem tego komputera"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:9
+msgid "Choose How to Log In"
+msgstr "Wybór sposobu logowania"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:10
+msgid "Create a Local Account"
+msgstr "Utworzenie lokalnego konta"
+
+#: ../gnome-initial-setup/gis-account-page.ui.h:11
+msgid "Use an Enterprise Login"
+msgstr "Użycie logowania firmowego"
+
+#: ../gnome-initial-setup/gis-assistant.c:200
+msgid "_Next"
+msgstr "_Dalej"
+
+#: ../gnome-initial-setup/gis-assistant.c:205
+msgid "_Back"
 msgstr "_Wstecz"
 
 #: ../gnome-initial-setup/gis-eula-pages.c:101
@@ -50,58 +98,136 @@ msgid ""
 "agreement."
 msgstr "_Zgadzam się na warunki tej umowy licencyjnej użytkownika końcowego."
 
-#: ../gnome-initial-setup/gis-goa-page.c:69
+#: ../gnome-initial-setup/gis-eula-pages.c:110
+msgid "License Agreements"
+msgstr "Umowa licencyjna"
+
+#: ../gnome-initial-setup/gis-goa-page.c:79
 msgid "Error creating account"
 msgstr "Błąd podczas tworzenia konta"
 
-#: ../gnome-initial-setup/gis-goa-page.c:101
+#: ../gnome-initial-setup/gis-goa-page.c:111
 msgid "Error removing account"
 msgstr "Błąd podczas usuwania konta"
 
-#: ../gnome-initial-setup/gis-goa-page.c:127
+#: ../gnome-initial-setup/gis-goa-page.c:137
 msgid "Are you sure you want to remove the account?"
 msgstr "Na pewno usunąć konto?"
 
-#: ../gnome-initial-setup/gis-goa-page.c:129
+#: ../gnome-initial-setup/gis-goa-page.c:139
 msgid "This will not remove the account on the server."
 msgstr "Nie spowoduje to usunięcia konta na serwerze."
 
-#: ../gnome-initial-setup/gis-goa-page.c:130
+#: ../gnome-initial-setup/gis-goa-page.c:140
 msgid "_Remove"
 msgstr "_Usuń"
 
-#: ../gnome-initial-setup/gis-goa-page.c:177
+#: ../gnome-initial-setup/gis-goa-page.c:186
 msgid "Remove"
 msgstr "Usuń"
 
-#: ../gnome-initial-setup/gis-location-page.c:266
+#: ../gnome-initial-setup/gis-goa-page.c:301
+msgid "Online Accounts"
+msgstr "Konta online"
+
+#: ../gnome-initial-setup/gis-goa-page.ui.h:1
+msgid "Link other accounts"
+msgstr "Powiąż inne konta"
+
+#: ../gnome-initial-setup/gis-location-page.c:274
 msgid "Search for a location"
 msgstr "Wyszukaj położenie"
+
+#: ../gnome-initial-setup/gis-location-page.c:307
+#: ../gnome-initial-setup/gis-location-page.ui.h:3
+msgid "Location"
+msgstr "Położenie"
+
+#: ../gnome-initial-setup/gis-location-page.ui.h:1
+msgid "Choose Your Location"
+msgstr "Wybór położenia"
+
+#: ../gnome-initial-setup/gis-location-page.ui.h:2
+msgid "_Determine your location automatically"
+msgstr "Automatyczne ustalanie p_ołożenia"
+
+#: ../gnome-initial-setup/gis-location-page.ui.h:4
+msgid "Time Zone"
+msgstr "Strefa czasowa"
 
 #. TRANSLATORS: this is when the access point is not listed
 #. *                           * in the dropdown (or hidden) and the user has to select
 #. *                           * another entry manually
-#: ../gnome-initial-setup/gis-network-page.c:235
+#: ../gnome-initial-setup/gis-network-page.c:244
 msgctxt "Wireless access point"
 msgid "Other..."
 msgstr "Inna..."
 
-#: ../gnome-initial-setup/gis-network-page.c:315
+#: ../gnome-initial-setup/gis-network-page.c:322
 msgid "Wireless network is not available, but we are connected anyway."
 msgstr "Sieć bezprzewodowa jest niedostępna, ale połączono mimo to."
 
-#: ../gnome-initial-setup/gis-network-page.c:317
+#: ../gnome-initial-setup/gis-network-page.c:324
 msgid "Network is not available, make sure to turn airplane mode off."
 msgstr ""
 "Sieć jest niedostępna. Proszę się upewnić, że tryb samolotowy jest wyłączony."
 
-#: ../gnome-initial-setup/gis-network-page.c:319
+#: ../gnome-initial-setup/gis-network-page.c:326
 msgid "No network devices found"
 msgstr "Nie odnaleziono urządzeń sieciowych"
 
-#: ../gnome-initial-setup/gis-network-page.c:367
+#: ../gnome-initial-setup/gis-network-page.c:373
 msgid "Checking for available wireless networks"
 msgstr "Wyszukiwanie dostępnych sieci bezprzewodowych"
+
+#: ../gnome-initial-setup/gis-network-page.c:739
+msgid "Network"
+msgstr "Sieć"
+
+#: ../gnome-initial-setup/gis-network-page.ui.h:1
+msgid "Wireless Networks"
+msgstr "Sieci bezprzewodowe"
+
+#: ../gnome-initial-setup/gis-summary-page.c:155
+msgid "Thank You"
+msgstr "Dziękujemy"
+
+#: ../gnome-initial-setup/gis-summary-page.ui.h:1
+msgid "Enjoy GNOME!"
+msgstr "Ciesz się GNOME!"
+
+#: ../gnome-initial-setup/gis-summary-page.ui.h:2
+msgid "Your new account is ready to use."
+msgstr "Nowe konto jest gotowe do użycia."
+
+#: ../gnome-initial-setup/gis-summary-page.ui.h:3
+msgid "You may change any of these options at any time in the System Settings."
+msgstr "Można zmieniać te opcje w dowolnym czasie w ustawieniach systemu."
+
+#: ../gnome-initial-setup/gis-summary-page.ui.h:4
+msgid "_Start using GNOME 3"
+msgstr "_Rozpocznij używanie GNOME 3"
+
+#: ../gnome-initial-setup/gis-summary-page.ui.h:5
+msgid "New to GNOME 3 and need help finding your way around?"
+msgstr "Dostępny jest przewodnik dla nowych użytkowników środowiska GNOME 3."
+
+#: ../gnome-initial-setup/gis-summary-page.ui.h:6
+msgid "_Take a Tour"
+msgstr "_Przewodnik"
+
+#: ../gnome-initial-setup/gis-welcome-page.c:49
+msgid "Welcome"
+msgstr "Witamy"
+
+#: ../gnome-initial-setup/gis-welcome-page.ui.h:1
+msgid "Welcome to GNOME 3"
+msgstr "Witamy w GNOME 3"
+
+# FIXME that's some horrible Polish
+#: ../gnome-initial-setup/gis-welcome-page.ui.h:2
+msgid "Let's set up some essentials."
+msgstr "Teraz zostaną ustawione niektóre istotne rzeczy."
 
 #: ../gnome-initial-setup/pw-utils.c:117
 #: ../gnome-initial-setup/pw-utils-pwquality.c:93
@@ -137,103 +263,6 @@ msgstr "Silne"
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "Nie dość dobre"
-
-#: ../gnome-initial-setup/setup.ui.h:1
-msgid "_Cancel"
-msgstr "_Anuluj"
-
-#: ../gnome-initial-setup/setup.ui.h:2
-msgid "_Done"
-msgstr "_Gotowe"
-
-#: ../gnome-initial-setup/setup.ui.h:3
-msgid "_Full Name"
-msgstr "_Imię i nazwisko"
-
-#: ../gnome-initial-setup/setup.ui.h:4
-msgid "_Username"
-msgstr "_Nazwa użytkownika"
-
-#: ../gnome-initial-setup/setup.ui.h:5
-msgid "_Require a password to use this account"
-msgstr "_Wymaganie hasła, aby użyć tego konta"
-
-#: ../gnome-initial-setup/setup.ui.h:6
-msgid "_Password"
-msgstr "_Hasło"
-
-#: ../gnome-initial-setup/setup.ui.h:7
-msgid "_Confirm Password"
-msgstr "_Potwierdzenie hasła"
-
-#: ../gnome-initial-setup/setup.ui.h:8
-msgid "_Act as administrator of this computer"
-msgstr "Użytkownik jest a_dministratorem tego komputera"
-
-#: ../gnome-initial-setup/setup.ui.h:9
-msgid "Welcome to GNOME 3"
-msgstr "Witamy w GNOME 3"
-
-# FIXME that's some horrible Polish
-#: ../gnome-initial-setup/setup.ui.h:10
-msgid "Let's set up some essentials."
-msgstr "Teraz zostaną ustawione niektóre istotne rzeczy."
-
-#: ../gnome-initial-setup/setup.ui.h:11
-msgid "Wireless Networks"
-msgstr "Sieci bezprzewodowe"
-
-#: ../gnome-initial-setup/setup.ui.h:12
-msgid "Choose How to Log In"
-msgstr "Wybór sposobu logowania"
-
-#: ../gnome-initial-setup/setup.ui.h:13
-msgid "Choose Your Location"
-msgstr "Wybór położenia"
-
-#: ../gnome-initial-setup/setup.ui.h:14
-msgid "_Determine your location automatically"
-msgstr "Automatyczne ustalanie p_ołożenia"
-
-#: ../gnome-initial-setup/setup.ui.h:15
-msgid "Location"
-msgstr "Położenie"
-
-#: ../gnome-initial-setup/setup.ui.h:16
-msgid "Time Zone"
-msgstr "Strefa czasowa"
-
-#: ../gnome-initial-setup/setup.ui.h:17
-msgid "Online Accounts"
-msgstr "Konta online"
-
-#: ../gnome-initial-setup/setup.ui.h:18
-msgid "Associate your new account with your existing online accounts."
-msgstr "Powiązanie nowego konta z istniejącymi kontami online."
-
-#: ../gnome-initial-setup/setup.ui.h:19
-msgid "Enjoy GNOME!"
-msgstr "Ciesz się GNOME!"
-
-#: ../gnome-initial-setup/setup.ui.h:20
-msgid "Your new account is ready to use."
-msgstr "Nowe konto jest gotowe do użycia."
-
-#: ../gnome-initial-setup/setup.ui.h:21
-msgid "You may change any of these options at any time in the System Settings."
-msgstr "Można zmieniać te opcje w dowolnym czasie w ustawieniach systemu."
-
-#: ../gnome-initial-setup/setup.ui.h:22
-msgid "_Start using GNOME 3"
-msgstr "_Rozpocznij używanie GNOME 3"
-
-#: ../gnome-initial-setup/setup.ui.h:23
-msgid "New to GNOME 3 and need help finding your way around?"
-msgstr "Dostępny jest przewodnik dla nowych użytkowników środowiska GNOME 3."
-
-#: ../gnome-initial-setup/setup.ui.h:24
-msgid "_Take a Tour"
-msgstr "_Przewodnik"
 
 #: ../gnome-initial-setup/um-photo-dialog.c:98
 msgid "Select"
