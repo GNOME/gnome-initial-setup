@@ -272,11 +272,15 @@ gis_prepare_location_page (SetupData *setup)
   world = gweather_location_new_world (FALSE);
   entry = gweather_location_entry_new (world);
   gtk_entry_set_placeholder_text (GTK_ENTRY (entry), _("Search for a location"));
-  gtk_widget_set_halign (entry, GTK_ALIGN_END);
+  gtk_widget_set_halign (entry, GTK_ALIGN_FILL);
   gtk_widget_show (entry);
 
   frame = WID("location-page");
+#if WANT_GEOCLUE
   gtk_grid_attach (GTK_GRID (frame), entry, 1, 1, 1, 1);
+#else
+  gtk_grid_attach (GTK_GRID (frame), entry, 0, 1, 2, 1);
+#endif
 
   timezone = timedate1_get_timezone (data->dtm);
 
