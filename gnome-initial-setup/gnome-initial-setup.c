@@ -165,7 +165,7 @@ main (int argc, char *argv[])
   };
 
   /* Make sure GisAssistant is initialized. */
-  g_debug ("Registering: %s\n", g_type_name (gis_assistant_get_type ()));
+  g_type_ensure (GIS_TYPE_ASSISTANT);
 
   setup->builder = gis_builder ("setup");
 
