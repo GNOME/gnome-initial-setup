@@ -1,10 +1,27 @@
+/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
 /* Account page {{{1 */
 
+#include "config.h"
+#include "gis-account-page.h"
+
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+
+#include <act/act-user-manager.h>
+
+#include <gnome-keyring.h>
+
+#include "um-utils.h"
+#include "um-photo-dialog.h"
+#include "pw-utils.h"
+
+#ifdef HAVE_CHEESE
+#include <cheese-gtk.h>
+#endif
+
 #define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
-
-static gboolean skip_account = FALSE;
 
 typedef struct _AccountData AccountData;
 
@@ -12,6 +29,7 @@ struct _AccountData {
   SetupData *setup;
   GtkBuilder *builder;
 
+  ActUser *act_user;
   ActUserManager *act_client;
 
   gboolean valid_name;
@@ -27,6 +45,22 @@ struct _AccountData {
   GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
 };
+
+static void
+copy_account_data (SetupData *setup, AccountData *data)
+{
+  ActUser *user = data->act_user;
+  /* here is where we copy all the things we just
+   * configured, from the current users home dir to the
+   * account that was created in the first step
+   */
+  g_debug ("Copying account data");
+  g_settings_sync ();
+
+  gis_copy_account_file (user, ".config/dconf/user");
+  gis_copy_account_file (user, ".config/goa-1.0/accounts.conf");
+  gis_copy_account_file (user, ".gnome2/keyrings/Default.keyring");
+}
 
 static void
 update_account_page_status (AccountData *data)
@@ -233,10 +267,9 @@ set_user_avatar (AccountData *data)
   GFileIOStream *io_stream = NULL;
   GOutputStream *stream = NULL;
   GError *error = NULL;
-  SetupData *setup = data->setup;
 
   if (data->avatar_filename != NULL) {
-    act_user_set_icon_file (setup->act_user, data->avatar_filename);
+    act_user_set_icon_file (data->act_user, data->avatar_filename);
     return;
   }
 
@@ -252,7 +285,7 @@ set_user_avatar (AccountData *data)
   if (!gdk_pixbuf_save_to_stream (data->avatar_pixbuf, stream, "png", NULL, &error, NULL))
     goto out;
 
-  act_user_set_icon_file (setup->act_user, g_file_get_path (file)); 
+  act_user_set_icon_file (data->act_user, g_file_get_path (file)); 
 
  out:
   if (error != NULL) {
@@ -270,13 +303,13 @@ create_user (AccountData *data)
   const gchar *username;
   const gchar *fullname;
   GError *error;
-  SetupData *setup = data->setup;
 
   username = gtk_combo_box_text_get_active_text (OBJ(GtkComboBoxText*, "account-username-combo"));
   fullname = gtk_entry_get_text (OBJ(GtkEntry*, "account-fullname-entry"));
 
   error = NULL;
-  setup->act_user = act_user_manager_create_user (data->act_client, username, fullname, data->account_type, &error);
+
+  data->act_user = act_user_manager_create_user (data->act_client, username, fullname, data->account_type, &error);
   if (error != NULL) {
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
@@ -342,7 +375,6 @@ save_account_data (AccountData *data)
   const gchar *realname;
   const gchar *username;
   const gchar *password;
-  SetupData *setup = data->setup;
 
   if (!data->user_data_unsaved) {
     return;
@@ -355,19 +387,19 @@ save_account_data (AccountData *data)
     return;
   }
 
-  if (setup->act_user == NULL) {
+  if (data->act_user == NULL) {
     create_user (data);
   }
 
-  if (setup->act_user == NULL) {
+  if (data->act_user == NULL) {
     g_warning ("User creation failed");
     clear_account_page (data);
     return;
   }
 
-  if (!act_user_is_loaded (setup->act_user)) {
+  if (!act_user_is_loaded (data->act_user)) {
     if (when_loaded == 0)
-      when_loaded = g_signal_connect (setup->act_user, "notify::is-loaded",
+      when_loaded = g_signal_connect (data->act_user, "notify::is-loaded",
                                       G_CALLBACK (save_when_loaded), data);
     return;
   }
@@ -376,14 +408,14 @@ save_account_data (AccountData *data)
   username = gtk_combo_box_text_get_active_text (OBJ (GtkComboBoxText*, "account-username-combo"));
   password = gtk_entry_get_text (OBJ (GtkEntry*, "account-password-entry"));
 
-  act_user_set_real_name (setup->act_user, realname);
-  act_user_set_user_name (setup->act_user, username);
-  act_user_set_account_type (setup->act_user, data->account_type);
+  act_user_set_real_name (data->act_user, realname);
+  act_user_set_user_name (data->act_user, username);
+  act_user_set_account_type (data->act_user, data->account_type);
   if (data->password_mode == ACT_USER_PASSWORD_MODE_REGULAR) {
-    act_user_set_password (setup->act_user, password, NULL);
+    act_user_set_password (data->act_user, password, NULL);
   }
   else {
-    act_user_set_password_mode (setup->act_user, data->password_mode);
+    act_user_set_password_mode (data->act_user, data->password_mode);
   }
 
   gnome_keyring_create_sync ("Default", password ? password : "");
@@ -455,8 +487,8 @@ avatar_callback (GdkPixbuf   *pixbuf,
   }
 }
 
-static void
-prepare_account_page (SetupData *setup)
+void
+gis_prepare_account_page (SetupData *setup)
 {
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
@@ -472,8 +504,7 @@ prepare_account_page (SetupData *setup)
   data->builder = gis_builder ("gis-account-page");
   data->setup = setup;
 
-  if (!skip_account)
-    gtk_widget_show (WID("account-page"));
+  gtk_widget_show (WID("account-page"));
 
   g_signal_connect (WID("account-new-local"), "clicked",
                     G_CALLBACK (show_local_account_dialog), data);
@@ -520,8 +551,5 @@ prepare_account_page (SetupData *setup)
 
   g_object_set_data (OBJ (GObject *, "account-page"), "gis-page-title", _("Login"));
   gis_assistant_add_page (assistant, WID ("account-page"));
-  gis_assistant_set_page_complete (assistant, WID ("account-page"), TRUE);
+  gis_add_summary_callback (setup, (GFunc)copy_account_data, data);
 }
-
-#undef OBJ
-#undef WID

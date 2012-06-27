@@ -12,21 +12,12 @@
 #include <gtk/gtk.h>
 #include <clutter-gtk/clutter-gtk.h>
 
-#include "um-utils.h"
-#include "um-photo-dialog.h"
-#include "pw-utils.h"
-
-#ifdef HAVE_CHEESE
-#include <cheese-gtk.h>
-#endif
-
-#include <gnome-keyring.h>
-
 #include "gis-assistant.h"
 
 #include "gis-welcome-page.h"
 #include "gis-eula-pages.h"
 #include "gis-location-page.h"
+#include "gis-account-page.h"
 #include "gis-network-page.h"
 #include "gis-goa-page.h"
 #include "gis-summary-page.h"
@@ -40,7 +31,6 @@ struct _SetupData {
   GtkBuilder *builder;
   GisAssistant *assistant;
 
-  ActUser *act_user;
   GSList *finals;
 };
 
@@ -51,26 +41,8 @@ struct _AsyncClosure {
   gpointer user_data;
 };
 
-#include "gis-account-page.c"
-
 #define OBJ(type,name) ((type)gtk_builder_get_object(setup->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
-
-static void
-copy_account_data (SetupData *setup)
-{
-  ActUser *user = setup->act_user;
-  /* here is where we copy all the things we just
-   * configured, from the current users home dir to the
-   * account that was created in the first step
-   */
-  g_debug ("Copying account data");
-  g_settings_sync ();
-
-  gis_copy_account_file (user, ".config/dconf/user");
-  gis_copy_account_file (user, ".config/goa-1.0/accounts.conf");
-  gis_copy_account_file (user, ".gnome2/keyrings/Default.keyring");
-}
 
 static void
 run_finals (SetupData *setup)
@@ -93,10 +65,8 @@ prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
   page_title = g_object_get_data (G_OBJECT (page), "gis-page-title");
   gtk_window_set_title (setup->main_window, page_title);
 
-  if (g_object_get_data (G_OBJECT (page), "gis-summary")) {
-    copy_account_data (setup);
+  if (g_object_get_data (G_OBJECT (page), "gis-summary"))
     run_finals (setup);
-  }
 }
 
 static void
@@ -120,7 +90,7 @@ prepare_main_window (SetupData *setup)
   gis_prepare_welcome_page (setup);
   gis_prepare_eula_pages (setup);
   gis_prepare_network_page (setup);
-  prepare_account_page (setup);
+  gis_prepare_account_page (setup);
   gis_prepare_location_page (setup);
   gis_prepare_online_page (setup);
   gis_prepare_summary_page (setup);
@@ -144,12 +114,6 @@ gis_get_assistant (SetupData *setup)
   return setup->assistant;
 }
 
-ActUser *
-gis_get_act_user (SetupData *setup)
-{
-  return setup->act_user;
-}
-
 void
 gis_add_summary_callback (SetupData *setup,
                           GFunc      callback,
@@ -171,10 +135,6 @@ main (int argc, char *argv[])
   SetupData *setup;
   gchar *filename;
   GError *error;
-  GOptionEntry entries[] = {
-    { "skip-account", 0, 0, G_OPTION_ARG_NONE, &skip_account, "Skip account creation", NULL },
-    { NULL, 0 }
-  };
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -185,7 +145,7 @@ main (int argc, char *argv[])
 
   setup = g_new0 (SetupData, 1);
 
-  gtk_init_with_args (&argc, &argv, "", entries, GETTEXT_PACKAGE, NULL);
+  gtk_init (&argc, &argv);
 
   if (gtk_clutter_init (NULL, NULL) != CLUTTER_INIT_SUCCESS) {
     g_critical ("Clutter-GTK init failed");

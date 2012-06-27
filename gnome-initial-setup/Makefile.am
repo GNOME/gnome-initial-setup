@@ -51,6 +51,7 @@ gnome_initial_setup_SOURCES =	\
 	gis-welcome-page.c gis-welcome-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
 	gis-location-page.c gis-location-page.h \
+	gis-account-page.c gis-account-page.h \
 	gis-network-page.c gis-network-page.h \
 	gis-summary-page.c gis-summary-page.h \
 	gis-goa-page.c gis-goa-page.h \
