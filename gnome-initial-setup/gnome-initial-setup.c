@@ -41,6 +41,14 @@ struct _SetupData {
   GisAssistant *assistant;
 
   ActUser *act_user;
+  GSList *finals;
+};
+
+typedef struct _AsyncClosure AsyncClosure;
+
+struct _AsyncClosure {
+  GFunc callback;
+  gpointer user_data;
 };
 
 #include "gis-account-page.c"
@@ -65,6 +73,17 @@ copy_account_data (SetupData *setup)
 }
 
 static void
+run_finals (SetupData *setup)
+{
+  GSList *l;
+
+  for (l = setup->finals; l != NULL; l = l->next) {
+    AsyncClosure *closure = l->data;
+    closure->callback (setup, closure->user_data);
+  }
+}
+
+static void
 prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 {
   gchar *page_title;
@@ -74,8 +93,10 @@ prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
   page_title = g_object_get_data (G_OBJECT (page), "gis-page-title");
   gtk_window_set_title (setup->main_window, page_title);
 
-  if (g_object_get_data (G_OBJECT (page), "gis-summary"))
+  if (g_object_get_data (G_OBJECT (page), "gis-summary")) {
     copy_account_data (setup);
+    run_finals (setup);
+  }
 }
 
 static void
@@ -127,6 +148,19 @@ ActUser *
 gis_get_act_user (SetupData *setup)
 {
   return setup->act_user;
+}
+
+void
+gis_add_summary_callback (SetupData *setup,
+                          GFunc      callback,
+                          gpointer   user_data)
+{
+  AsyncClosure *closure = g_slice_new (AsyncClosure);
+
+  closure->callback = callback;
+  closure->user_data = user_data;
+
+  setup->finals = g_slist_append (setup->finals, closure);
 }
 
 /* main {{{1 */

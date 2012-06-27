@@ -18,6 +18,7 @@ GtkWindow *gis_get_main_window (SetupData *setup);
 GKeyFile *gis_get_overrides (SetupData *setup);
 GisAssistant * gis_get_assistant (SetupData *setup);
 ActUser * gis_get_act_user (SetupData *setup);
+void gis_add_summary_callback (SetupData *setup, GFunc callback, gpointer user_data);
 
 G_END_DECLS
 
