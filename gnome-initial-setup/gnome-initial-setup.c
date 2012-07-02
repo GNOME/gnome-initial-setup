@@ -162,7 +162,7 @@ main (int argc, char *argv[])
   if (g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error) == NULL) {
     g_error ("Couldn't get on session bus: %s", error->message);
     exit (1);
-  };
+  }
 
   /* Make sure GisAssistant is initialized. */
   g_type_ensure (GIS_TYPE_ASSISTANT);
