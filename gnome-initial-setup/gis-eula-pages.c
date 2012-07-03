@@ -4,6 +4,7 @@
 
 #include "config.h"
 #include "gis-eula-pages.h"
+#include "gis-utils.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -30,6 +31,38 @@ splice_buffer (GInputStream  *stream,
     gtk_text_buffer_get_end_iter (buffer, &iter);
     gtk_text_buffer_insert (buffer, &iter, contents, n_read);
   }
+}
+
+static GtkTextBuffer *
+build_eula_text_buffer_pango_markup (GFile   *file,
+                                     GError **error_out)
+{
+  GtkTextBuffer *buffer = NULL;
+  gchar *contents;
+  gsize length;
+  GError *error = NULL;
+  PangoAttrList *attrlist;
+  gchar *text;
+  GtkTextIter iter;
+
+  if (!g_file_load_contents (file, NULL, &contents, &length, NULL, &error))
+    goto error_out;
+
+  if (!pango_parse_markup (contents, length, 0, &attrlist, &text, NULL, &error))
+    goto error_out;
+
+  g_free (contents);
+
+  buffer = gtk_text_buffer_new (NULL);
+
+  gtk_text_buffer_get_end_iter (buffer, &iter);
+  gis_gtk_text_buffer_insert_pango_text (buffer, &iter, attrlist, text);
+
+  return buffer;
+
+ error_out:
+  g_propagate_error (error_out, error);
+  return NULL;
 }
 
 static GtkTextBuffer *
@@ -78,6 +111,8 @@ build_eula_text_view (GFile *eula)
 
   if (last_dot == NULL || strcmp(last_dot, ".txt") == 0)
     buffer = build_eula_text_buffer_plain_text (eula, &error);
+  else if (strcmp (last_dot, ".xml") == 0)
+    buffer = build_eula_text_buffer_pango_markup (eula, &error);
   else
     goto out;
 
