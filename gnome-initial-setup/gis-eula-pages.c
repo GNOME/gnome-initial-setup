@@ -10,21 +10,15 @@
 
 #include <gtk/gtk.h>
 
-#include <string.h>
-
-typedef gboolean (*SpliceFunc) (gpointer  user_data,
-                                char     *data,
-                                gssize    n_read,
-                                GError  **error);
-
+/* heavily lifted from g_output_stream_splice */
 static void
-splice_into (GInputStream  *stream,
-             SpliceFunc     func,
-             gpointer       user_data,
-             GError       **error)
+splice_buffer (GInputStream  *stream,
+               GtkTextBuffer *buffer,
+               GError       **error)
 {
   char contents[8192];
   gssize n_read;
+  GtkTextIter iter;
 
   while (TRUE) {
     n_read = g_input_stream_read (stream, contents, sizeof (contents), NULL, error);
@@ -33,39 +27,28 @@ splice_into (GInputStream  *stream,
     if (n_read <= 0)
       break;
 
-    if (!func (user_data, contents, n_read, error))
-      break;
+    gtk_text_buffer_get_end_iter (buffer, &iter);
+    gtk_text_buffer_insert (buffer, &iter, contents, n_read);
   }
 }
 
-static gboolean
-splice_into_buffer (GtkTextBuffer *buffer,
-                    char          *contents,
-                    gssize         n_read,
-                    GError       **error)
-{
-  GtkTextIter iter;
-  gtk_text_buffer_get_end_iter (buffer, &iter);
-  gtk_text_buffer_insert (buffer, &iter, contents, n_read);
-  return TRUE;
-}
-
 static GtkTextBuffer *
-build_eula_text_buffer_plain_text (GInputStream *input_stream,
-                                   GError      **error_out)
+build_eula_text_buffer_plain_text (GFile   *file,
+                                   GError **error_out)
 {
   GtkTextBuffer *buffer = NULL;
   GtkTextIter start, end;
   GError *error = NULL;
+  GInputStream *input_stream = NULL;
+
+  input_stream = G_INPUT_STREAM (g_file_read (file, NULL, &error));
+  if (input_stream == NULL)
+    goto error_out;
 
   buffer = gtk_text_buffer_new (NULL);
-  splice_into (input_stream, (SpliceFunc) splice_into_buffer, buffer, &error);
+  splice_buffer (input_stream, buffer, &error);
   if (error != NULL)
-    {
-      g_propagate_error (error_out, error);
-      g_object_unref (buffer);
-      return NULL;
-    }
+    goto error_out;
 
   /* monospace the text */
   gtk_text_buffer_create_tag (buffer, "monospace", "family", "monospace", NULL);
@@ -74,6 +57,12 @@ build_eula_text_buffer_plain_text (GInputStream *input_stream,
   gtk_text_buffer_apply_tag_by_name (buffer, "monospace", &start, &end);
 
   return buffer;
+
+ error_out:
+  g_propagate_error (error_out, error);
+  if (buffer != NULL)
+    g_object_unref (buffer);
+  return NULL;
 }
 
 static GtkWidget *
@@ -82,18 +71,13 @@ build_eula_text_view (GFile *eula)
   GtkWidget *widget = NULL;
   GtkTextBuffer *buffer;
   gchar *path, *last_dot;
-  GInputStream *input_stream = NULL;
   GError *error = NULL;
 
   path = g_file_get_path (eula);
   last_dot = strrchr (path, '.');
 
-  input_stream = G_INPUT_STREAM (g_file_read (eula, NULL, &error));
-  if (input_stream == NULL)
-    goto out;
-
   if (last_dot == NULL || strcmp(last_dot, ".txt") == 0)
-    buffer = build_eula_text_buffer_plain_text (input_stream, &error);
+    buffer = build_eula_text_buffer_plain_text (eula, &error);
   else
     goto out;
 
@@ -111,7 +95,6 @@ build_eula_text_view (GFile *eula)
   }
 
   g_free (path);
-  g_clear_object (&input_stream);
   return widget;
 }
 
