@@ -208,6 +208,7 @@ gis_prepare_eula_pages (SetupData *setup)
   while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
     GFile *eula = g_file_get_child (eulas_dir, g_file_info_get_name (info));
     build_eula_page (setup, eula);
+    g_object_unref (eula);
   }
 
   if (error != NULL)
