@@ -123,7 +123,7 @@ build_eula_text_view (GFile *eula)
   path = g_file_get_path (eula);
   last_dot = strrchr (path, '.');
 
-  if (last_dot == NULL || strcmp(last_dot, ".txt") == 0)
+  if (strcmp(last_dot, ".txt") == 0)
     buffer = build_eula_text_buffer_plain_text (eula, &error);
   else if (strcmp (last_dot, ".xml") == 0)
     buffer = build_eula_text_buffer_pango_markup (eula, &error);
