@@ -20,6 +20,8 @@ struct _EulaPage {
   GtkWidget *text_view;
   GtkWidget *checkbox;
   GtkWidget *scrolled_window;
+
+  gboolean require_checkbox;
 };
 
 /* heavily lifted from g_output_stream_splice */
@@ -147,8 +149,13 @@ build_eula_text_view (GFile *eula)
 static gboolean
 get_page_complete (EulaPage *page)
 {
-  GtkToggleButton *checkbox = GTK_TOGGLE_BUTTON (page->checkbox);
-  return gtk_toggle_button_get_active (checkbox);
+  if (page->require_checkbox) {
+    GtkToggleButton *checkbox = GTK_TOGGLE_BUTTON (page->checkbox);
+    if (!gtk_toggle_button_get_active (checkbox))
+      return FALSE;
+  }
+
+  return TRUE;
 }
 
 static void
@@ -159,14 +166,38 @@ sync_page_complete (EulaPage *page)
 }
 
 static void
+get_config (GFile    *eula,
+            gboolean *require_checkbox)
+{
+  gchar *path, *config_path;
+  GError *error = NULL;
+  GKeyFile *config;
+
+  config = g_key_file_new ();
+
+  path = g_file_get_path (eula);
+  config_path = g_strconcat (path, ".conf", NULL);
+  if (!g_key_file_load_from_file (config, config_path, 0, &error))
+    goto out;
+
+  *require_checkbox = g_key_file_get_boolean (config, "Requirements",
+                                              "require-checkbox", NULL);
+
+ out:
+  g_clear_error (&error);
+  g_key_file_unref (config);
+}
+
+static void
 build_eula_page (SetupData *setup,
                  GFile     *eula)
 {
   GtkWidget *text_view;
   GtkWidget *vbox;
-  GtkWidget *checkbox;
   GtkWidget *scrolled_window;
   EulaPage *page;
+
+  gboolean require_checkbox = TRUE;
 
   text_view = build_eula_text_view (eula);
   if (text_view == NULL)
@@ -188,18 +219,26 @@ build_eula_page (SetupData *setup,
   page->text_view = text_view;
   page->scrolled_window = scrolled_window;
 
-  checkbox = gtk_check_button_new_with_mnemonic (_("I have _agreed to the "
-                                                   "terms and conditions in "
-                                                   "this end user license "
-                                                   "agreement."));
+  get_config (eula, &require_checkbox);
 
-  gtk_container_add (GTK_CONTAINER (vbox), checkbox);
+  page->require_checkbox = require_checkbox;
 
-  g_signal_connect_swapped (checkbox, "toggled",
-                            G_CALLBACK (sync_page_complete),
-                            page);
+  if (require_checkbox) {
+    GtkWidget *checkbox;
 
-  page->checkbox = checkbox;
+    checkbox = gtk_check_button_new_with_mnemonic (_("I have _agreed to the "
+                                                     "terms and conditions in "
+                                                     "this end user license "
+                                                     "agreement."));
+
+    gtk_container_add (GTK_CONTAINER (vbox), checkbox);
+
+    g_signal_connect_swapped (checkbox, "toggled",
+                              G_CALLBACK (sync_page_complete),
+                              page);
+
+    page->checkbox = checkbox;
+  }
 
   g_object_set_data (G_OBJECT (vbox), "gis-page-title", _("License Agreements"));
   gis_assistant_add_page (gis_get_assistant (setup), vbox);
