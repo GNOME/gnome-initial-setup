@@ -31,6 +31,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   cheese-gtk >= 3.3.5
                   clutter-gtk-1.0
                   clutter-1.0 >= $CLUTTER_REQUIRED_VERSION
+                  fontconfig
                   geoclue
                   gweather-3.0
                   goa-1.0
@@ -46,6 +47,12 @@ AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])
 if test x$have_pwquality = xyes ; then
   INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS -lpwquality"
 fi
+
+# This is a hard-dependency for the region and user-accounts panels
+PKG_CHECK_MODULES(ISOCODES, iso-codes)
+
+AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],["`$PKG_CONFIG --variable=prefix iso-codes`"],[ISO codes prefix])
+ISO_CODES=iso-codes
 
 AC_SUBST(INITIAL_SETUP_CFLAGS)
 AC_SUBST(INITIAL_SETUP_LIBS)
@@ -67,6 +74,7 @@ AC_CONFIG_FILES([
 Makefile
 data/Makefile
 gnome-initial-setup/Makefile
+gnome-initial-setup/languages/Makefile
 po/Makefile.in
 ])
 AC_OUTPUT

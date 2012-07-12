@@ -1,3 +1,5 @@
+SUBDIRS = languages
+
 uidir = $(datadir)/gnome-initial-setup
 
 # GNOMECC_DATA_DIR is used in tz.c
