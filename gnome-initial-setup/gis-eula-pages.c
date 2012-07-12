@@ -22,6 +22,7 @@ struct _EulaPage {
   GtkWidget *scrolled_window;
 
   gboolean require_checkbox;
+  gboolean require_scroll;
 };
 
 /* heavily lifted from g_output_stream_splice */
@@ -155,6 +156,18 @@ get_page_complete (EulaPage *page)
       return FALSE;
   }
 
+  if (page->require_scroll) {
+    GtkScrolledWindow *scrolled_window = GTK_SCROLLED_WINDOW (page->scrolled_window);
+    GtkAdjustment *vadjust = gtk_scrolled_window_get_vadjustment (scrolled_window);
+    gdouble value, upper;
+
+    value = gtk_adjustment_get_value (vadjust);
+    upper = gtk_adjustment_get_upper (vadjust) - gtk_adjustment_get_page_size (vadjust);
+
+    if (value < upper)
+      return FALSE;
+  }
+
   return TRUE;
 }
 
@@ -167,7 +180,8 @@ sync_page_complete (EulaPage *page)
 
 static void
 get_config (GFile    *eula,
-            gboolean *require_checkbox)
+            gboolean *require_checkbox,
+            gboolean *require_scroll)
 {
   gchar *path, *config_path;
   GError *error = NULL;
@@ -182,6 +196,9 @@ get_config (GFile    *eula,
 
   *require_checkbox = g_key_file_get_boolean (config, "Requirements",
                                               "require-checkbox", NULL);
+
+  *require_scroll = g_key_file_get_boolean (config, "Requirements",
+                                            "require-scroll", NULL);
 
  out:
   g_clear_error (&error);
@@ -198,6 +215,7 @@ build_eula_page (SetupData *setup,
   EulaPage *page;
 
   gboolean require_checkbox = TRUE;
+  gboolean require_scroll = FALSE;
 
   text_view = build_eula_text_view (eula);
   if (text_view == NULL)
@@ -219,9 +237,10 @@ build_eula_page (SetupData *setup,
   page->text_view = text_view;
   page->scrolled_window = scrolled_window;
 
-  get_config (eula, &require_checkbox);
+  get_config (eula, &require_checkbox, &require_scroll);
 
   page->require_checkbox = require_checkbox;
+  page->require_scroll = require_scroll;
 
   if (require_checkbox) {
     GtkWidget *checkbox;
@@ -238,6 +257,17 @@ build_eula_page (SetupData *setup,
                               page);
 
     page->checkbox = checkbox;
+  }
+
+  if (require_scroll) {
+    GtkAdjustment *vadjust;
+    vadjust = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_window));
+    g_signal_connect_swapped (vadjust, "changed",
+                              G_CALLBACK (sync_page_complete),
+                              page);
+    g_signal_connect_swapped (vadjust, "value-changed",
+                              G_CALLBACK (sync_page_complete),
+                              page);
   }
 
   g_object_set_data (G_OBJECT (vbox), "gis-page-title", _("License Agreements"));
