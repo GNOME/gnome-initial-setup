@@ -11,6 +11,17 @@
 
 #include <gtk/gtk.h>
 
+typedef struct _EulaPage EulaPage;
+
+struct _EulaPage {
+  SetupData *setup;
+
+  GtkWidget *widget;
+  GtkWidget *text_view;
+  GtkWidget *checkbox;
+  GtkWidget *scrolled_window;
+};
+
 /* heavily lifted from g_output_stream_splice */
 static void
 splice_buffer (GInputStream  *stream,
@@ -133,13 +144,18 @@ build_eula_text_view (GFile *eula)
   return widget;
 }
 
-static void
-eula_checkbox_toggled (GtkToggleButton *checkbox,
-                       SetupData       *setup)
+static gboolean
+get_page_complete (EulaPage *page)
 {
-  gis_assistant_set_page_complete (gis_get_assistant (setup),
-                                   g_object_get_data (G_OBJECT (checkbox), "assistant-page"),
-                                   gtk_toggle_button_get_active (checkbox));
+  GtkToggleButton *checkbox = GTK_TOGGLE_BUTTON (page->checkbox);
+  return gtk_toggle_button_get_active (checkbox);
+}
+
+static void
+sync_page_complete (EulaPage *page)
+{
+  gis_assistant_set_page_complete (gis_get_assistant (page->setup),
+                                   page->widget, get_page_complete (page));
 }
 
 static void
@@ -148,12 +164,15 @@ build_eula_page (SetupData *setup,
 {
   GtkWidget *text_view;
   GtkWidget *vbox;
-  GtkWidget *scrolled_window;
   GtkWidget *checkbox;
+  GtkWidget *scrolled_window;
+  EulaPage *page;
 
   text_view = build_eula_text_view (eula);
   if (text_view == NULL)
     return;
+
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
@@ -161,23 +180,33 @@ build_eula_page (SetupData *setup,
   gtk_widget_set_vexpand (scrolled_window, TRUE);
   gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
 
+  gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
+
+  page = g_slice_new0 (EulaPage);
+  page->setup = setup;
+  page->widget = vbox;
+  page->text_view = text_view;
+  page->scrolled_window = scrolled_window;
+
   checkbox = gtk_check_button_new_with_mnemonic (_("I have _agreed to the "
                                                    "terms and conditions in "
                                                    "this end user license "
                                                    "agreement."));
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
   gtk_container_add (GTK_CONTAINER (vbox), checkbox);
+
+  g_signal_connect_swapped (checkbox, "toggled",
+                            G_CALLBACK (sync_page_complete),
+                            page);
+
+  page->checkbox = checkbox;
 
   g_object_set_data (G_OBJECT (vbox), "gis-page-title", _("License Agreements"));
   gis_assistant_add_page (gis_get_assistant (setup), vbox);
 
+  sync_page_complete (page);
+
   gtk_widget_show_all (GTK_WIDGET (vbox));
-  g_signal_connect (checkbox, "toggled",
-                    G_CALLBACK (eula_checkbox_toggled),
-                    setup);
-  g_object_set_data (G_OBJECT (checkbox), "assistant-page", vbox);
 }
 
 void
