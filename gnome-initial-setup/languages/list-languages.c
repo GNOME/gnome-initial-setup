@@ -5,12 +5,11 @@
 int main (int argc, char **argv)
 {
 	char **langs;
-	guint i;
+	gint i;
 
 	g_type_init ();
 
 	if (argc > 1) {
-		guint i;
 		for (i = 1; i < argc; i++) {
 			char *lang;
 			lang = gdm_get_language_from_name (argv[i], NULL);
