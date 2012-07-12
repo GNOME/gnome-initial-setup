@@ -35,7 +35,7 @@ UI_FILES = \
 	gis-goa-page.ui \
 	gis-summary-page.ui
 
-setup_resources.c: setup.gresource.xml $(UI_FILES) welcome-image.png
+setup_resources.c: setup.gresource.xml $(UI_FILES)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
 BUILT_SOURCES += setup_resources.c
 
@@ -68,6 +68,9 @@ gnome_initial_setup_SOURCES =	\
 	um-photo-dialog.c um-photo-dialog.h \
 	tz.c tz.h \
 	$(BUILT_SOURCES)
+
+gnome_initial_setup_LDADD =	\
+	languages/liblanguage.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = welcome-tour.desktop

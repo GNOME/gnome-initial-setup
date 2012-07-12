@@ -14,9 +14,7 @@ liblanguage_la_SOURCES =		\
 	gdm-languages.c 		\
 	locarchive.h			\
 	cc-common-language.c		\
-	cc-common-language.h		\
-	cc-language-chooser.c		\
-	cc-language-chooser.h
+	cc-common-language.h
 
 liblanguage_la_LIBADD = 		\
 	$(INITIAL_SETUP_LIBS)
