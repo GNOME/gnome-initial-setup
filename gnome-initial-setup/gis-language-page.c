@@ -1,9 +1,9 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
-/* Welcome page {{{1 */
+/* Language page {{{1 */
 
 #include "config.h"
-#include "gis-welcome-page.h"
+#include "gis-language-page.h"
 
 #include <locale.h>
 #include <glib/gi18n.h>
@@ -17,9 +17,9 @@
 #define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
-typedef struct _WelcomeData WelcomeData;
+typedef struct _LanguageData LanguageData;
 
-struct _WelcomeData {
+struct _LanguageData {
   SetupData *setup;
 
   GtkWidget *show_all;
@@ -36,7 +36,7 @@ enum {
 };
 
 static void
-sync_language (WelcomeData *data)
+sync_language (LanguageData *data)
 {
   setlocale (LC_MESSAGES, data->locale_id);
 
@@ -184,7 +184,7 @@ language_visible (GtkTreeModel *model,
                   GtkTreeIter  *iter,
                   gpointer      user_data)
 {
-  WelcomeData *data = user_data;
+  LanguageData *data = user_data;
   gboolean is_extra;
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->show_all)))
@@ -198,11 +198,11 @@ language_visible (GtkTreeModel *model,
 }
 
 void
-gis_prepare_welcome_page (SetupData *setup)
+gis_prepare_language_page (SetupData *setup)
 {
-  WelcomeData *data;
+  LanguageData *data;
   GisAssistant *assistant = gis_get_assistant (setup);
-  GtkBuilder *builder = gis_builder ("gis-welcome-page");
+  GtkBuilder *builder = gis_builder ("gis-language-page");
   GtkListStore *liststore;
   GtkTreeModel *filter;
   GtkTreeView *treeview;
@@ -212,10 +212,10 @@ gis_prepare_welcome_page (SetupData *setup)
                                   G_TYPE_STRING,
                                   G_TYPE_BOOLEAN);
 
-  data = g_slice_new0 (WelcomeData);
+  data = g_slice_new0 (LanguageData);
   data->setup = setup;
   data->locale_id = cc_common_language_get_current_language ();
-  data->page = WID ("welcome-page");
+  data->page = WID ("language-page");
   data->show_all = WID ("language-show-all");
   data->liststore = GTK_TREE_MODEL (liststore);
   gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (liststore),

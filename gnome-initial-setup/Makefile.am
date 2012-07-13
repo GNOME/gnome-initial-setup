@@ -28,7 +28,7 @@ BUILT_SOURCES += timedated.c timedated.h
 
 UI_FILES = \
 	setup.ui \
-	gis-welcome-page.ui \
+	gis-language-page.ui \
 	gis-network-page.ui \
 	gis-account-page.ui \
 	gis-location-page.ui \
@@ -50,7 +50,7 @@ gnome_initial_setup_SOURCES =	\
 	cc-notebook.c cc-notebook.h \
 	gis-assistant.c gis-assistant.h \
 	gis-utils.c gis-utils.h \
-	gis-welcome-page.c gis-welcome-page.h \
+	gis-language-page.c gis-language-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
 	gis-location-page.c gis-location-page.h \
 	gis-account-page.c gis-account-page.h \

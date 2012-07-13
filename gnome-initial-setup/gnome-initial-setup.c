@@ -14,7 +14,7 @@
 
 #include "gis-assistant.h"
 
-#include "gis-welcome-page.h"
+#include "gis-language-page.h"
 #include "gis-eula-pages.h"
 #include "gis-location-page.h"
 #include "gis-account-page.h"
@@ -87,7 +87,7 @@ prepare_main_window (SetupData *setup)
   g_signal_connect (setup->assistant, "prepare",
                     G_CALLBACK (prepare_cb), setup);
 
-  gis_prepare_welcome_page (setup);
+  gis_prepare_language_page (setup);
   gis_prepare_eula_pages (setup);
   gis_prepare_network_page (setup);
   gis_prepare_account_page (setup);
