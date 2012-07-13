@@ -11,8 +11,8 @@
 
 #include <gtk/gtk.h>
 
-#include "languages/cc-common-language.h"
-#include "languages/gdm-languages.h"
+#include "cc-common-language.h"
+#include "gdm-languages.h"
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
