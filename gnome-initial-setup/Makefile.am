@@ -1,4 +1,4 @@
-SUBDIRS = languages pages
+SUBDIRS = pages
 
 uidir = $(datadir)/gnome-initial-setup
 
@@ -19,12 +19,12 @@ BUILT_SOURCES =
 
 UI_FILES = \
 	setup.ui \
-	gis-language-page.ui \
+	pages/language/gis-language-page.ui \
 	pages/network/gis-network-page.ui \
 	pages/account/gis-account-page.ui \
 	pages/location/gis-location-page.ui \
 	pages/goa/gis-goa-page.ui \
-	gis-summary-page.ui
+	pages/summary/gis-summary-page.ui
 
 setup_resources.c: setup.gresource.xml $(UI_FILES)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
@@ -35,17 +35,17 @@ gnome_initial_setup_SOURCES =	\
 	cc-notebook.c cc-notebook.h \
 	gis-assistant.c gis-assistant.h \
 	gis-utils.c gis-utils.h \
-	gis-language-page.c gis-language-page.h \
-	gis-eula-pages.c gis-eula-pages.h \
-	gis-summary-page.c gis-summary-page.h \
 	$(BUILT_SOURCES)
 
 gnome_initial_setup_LDADD =	\
+	pages/language/libgislanguage.la \
+	pages/language/languages/liblanguage.la \
+	pages/eulas/libgiseulas.la \
 	pages/network/libgisnetwork.la \
 	pages/location/libgislocation.la \
 	pages/account/libgisaccount.la \
 	pages/goa/libgisgoa.la \
-	languages/liblanguage.la
+	pages/summary/libgissummary.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = welcome-tour.desktop

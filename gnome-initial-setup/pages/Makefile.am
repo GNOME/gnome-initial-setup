@@ -1,6 +1,9 @@
 
 SUBDIRS = \
+	language \
+	eulas \
 	account \
 	location \
 	network \
-	goa
+	goa \
+	summary
