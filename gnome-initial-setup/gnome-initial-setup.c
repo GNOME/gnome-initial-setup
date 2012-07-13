@@ -16,7 +16,7 @@
 
 #include "gis-language-page.h"
 #include "gis-eula-pages.h"
-#include "gis-location-page.h"
+#include "pages/location/gis-location-page.h"
 #include "gis-account-page.h"
 #include "pages/network/gis-network-page.h"
 #include "gis-goa-page.h"

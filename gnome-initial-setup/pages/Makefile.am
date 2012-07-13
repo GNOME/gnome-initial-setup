@@ -1,2 +1,4 @@
 
-SUBDIRS = network
+SUBDIRS = \
+	location \
+	network

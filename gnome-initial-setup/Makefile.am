@@ -9,9 +9,7 @@ uidir = $(datadir)/gnome-initial-setup
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
 	-DUIDIR="\"$(uidir)\"" \
-	-DGNOMECC_DATA_DIR="\"$(datadir)/gnome-control-center\"" \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
-	-DDATADIR="\"$(datadir)/gnome-control-center/ui/datetime\""
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
 
 LIBS = $(INITIAL_SETUP_LIBS) -lm
 
@@ -19,19 +17,12 @@ libexec_PROGRAMS = gnome-initial-setup
 
 BUILT_SOURCES =
 
-timedated.c: timedated.h
-timedated.h: $(srcdir)/timedated1-interface.xml
-	gdbus-codegen \
-		--interface-prefix org.freedesktop. \
-		--generate-c-code timedated $<
-BUILT_SOURCES += timedated.c timedated.h
-
 UI_FILES = \
 	setup.ui \
 	gis-language-page.ui \
 	pages/network/gis-network-page.ui \
 	gis-account-page.ui \
-	gis-location-page.ui \
+	pages/location/gis-location-page.ui \
 	gis-goa-page.ui \
 	gis-summary-page.ui
 
@@ -52,28 +43,25 @@ gnome_initial_setup_SOURCES =	\
 	gis-utils.c gis-utils.h \
 	gis-language-page.c gis-language-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
-	gis-location-page.c gis-location-page.h \
 	gis-account-page.c gis-account-page.h \
 	gis-summary-page.c gis-summary-page.h \
 	gis-goa-page.c gis-goa-page.h \
 	cc-online-accounts-add-account-dialog.c cc-online-accounts-add-account-dialog.h \
-	cc-timezone-map.c cc-timezone-map.h \
 	$(pw_utils_sources) \
 	um-utils.c um-utils.h \
 	um-crop-area.c um-crop-area.h \
 	um-photo-dialog.c um-photo-dialog.h \
-	tz.c tz.h \
 	$(BUILT_SOURCES)
 
 gnome_initial_setup_LDADD =	\
 	pages/network/libgisnetwork.la \
+	pages/location/libgislocation.la \
 	languages/liblanguage.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = welcome-tour.desktop
 
 EXTRA_DIST = \
-	timedated1-interface.xml \
 	$(UI_FILES) \
 	setup.gresource.xml \
 	welcome-tour.desktop
