@@ -2,4 +2,5 @@
 SUBDIRS = \
 	account \
 	location \
-	network
+	network \
+	goa

@@ -23,7 +23,7 @@ UI_FILES = \
 	pages/network/gis-network-page.ui \
 	pages/account/gis-account-page.ui \
 	pages/location/gis-location-page.ui \
-	gis-goa-page.ui \
+	pages/goa/gis-goa-page.ui \
 	gis-summary-page.ui
 
 setup_resources.c: setup.gresource.xml $(UI_FILES)
@@ -38,14 +38,13 @@ gnome_initial_setup_SOURCES =	\
 	gis-language-page.c gis-language-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
 	gis-summary-page.c gis-summary-page.h \
-	gis-goa-page.c gis-goa-page.h \
-	cc-online-accounts-add-account-dialog.c cc-online-accounts-add-account-dialog.h \
 	$(BUILT_SOURCES)
 
 gnome_initial_setup_LDADD =	\
 	pages/network/libgisnetwork.la \
 	pages/location/libgislocation.la \
 	pages/account/libgisaccount.la \
+	pages/goa/libgisgoa.la \
 	languages/liblanguage.la
 
 autostartdir = $(sysconfdir)/xdg/autostart

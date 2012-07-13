@@ -19,7 +19,7 @@
 #include "pages/location/gis-location-page.h"
 #include "pages/account/gis-account-page.h"
 #include "pages/network/gis-network-page.h"
-#include "gis-goa-page.h"
+#include "pages/goa/gis-goa-page.h"
 #include "gis-summary-page.h"
 
 #include "gis-utils.h"
