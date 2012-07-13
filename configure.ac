@@ -74,6 +74,8 @@ AC_CONFIG_FILES([
 Makefile
 data/Makefile
 gnome-initial-setup/Makefile
+gnome-initial-setup/pages/Makefile
+gnome-initial-setup/pages/network/Makefile
 gnome-initial-setup/languages/Makefile
 po/Makefile.in
 ])

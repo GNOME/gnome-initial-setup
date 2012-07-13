@@ -1,4 +1,4 @@
-SUBDIRS = languages
+SUBDIRS = languages pages
 
 uidir = $(datadir)/gnome-initial-setup
 
@@ -29,7 +29,7 @@ BUILT_SOURCES += timedated.c timedated.h
 UI_FILES = \
 	setup.ui \
 	gis-language-page.ui \
-	gis-network-page.ui \
+	pages/network/gis-network-page.ui \
 	gis-account-page.ui \
 	gis-location-page.ui \
 	gis-goa-page.ui \
@@ -54,13 +54,9 @@ gnome_initial_setup_SOURCES =	\
 	gis-eula-pages.c gis-eula-pages.h \
 	gis-location-page.c gis-location-page.h \
 	gis-account-page.c gis-account-page.h \
-	gis-network-page.c gis-network-page.h \
 	gis-summary-page.c gis-summary-page.h \
 	gis-goa-page.c gis-goa-page.h \
 	cc-online-accounts-add-account-dialog.c cc-online-accounts-add-account-dialog.h \
-	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
-	panel-cell-renderer-mode.c panel-cell-renderer-mode.h \
-	panel-cell-renderer-security.c panel-cell-renderer-security.h \
 	cc-timezone-map.c cc-timezone-map.h \
 	$(pw_utils_sources) \
 	um-utils.c um-utils.h \
@@ -70,6 +66,7 @@ gnome_initial_setup_SOURCES =	\
 	$(BUILT_SOURCES)
 
 gnome_initial_setup_LDADD =	\
+	pages/network/libgisnetwork.la \
 	languages/liblanguage.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
