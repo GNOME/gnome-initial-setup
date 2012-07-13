@@ -1,4 +1,5 @@
 
 SUBDIRS = \
+	account \
 	location \
 	network

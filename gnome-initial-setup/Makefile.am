@@ -21,7 +21,7 @@ UI_FILES = \
 	setup.ui \
 	gis-language-page.ui \
 	pages/network/gis-network-page.ui \
-	gis-account-page.ui \
+	pages/account/gis-account-page.ui \
 	pages/location/gis-location-page.ui \
 	gis-goa-page.ui \
 	gis-summary-page.ui
@@ -30,12 +30,6 @@ setup_resources.c: setup.gresource.xml $(UI_FILES)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
 BUILT_SOURCES += setup_resources.c
 
-if HAVE_PWQUALITY
-pw_utils_sources = pw-utils-pwquality.c pw-utils.h
-else
-pw_utils_sources = pw-utils.c pw-utils.h
-endif
-
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	cc-notebook.c cc-notebook.h \
@@ -43,19 +37,15 @@ gnome_initial_setup_SOURCES =	\
 	gis-utils.c gis-utils.h \
 	gis-language-page.c gis-language-page.h \
 	gis-eula-pages.c gis-eula-pages.h \
-	gis-account-page.c gis-account-page.h \
 	gis-summary-page.c gis-summary-page.h \
 	gis-goa-page.c gis-goa-page.h \
 	cc-online-accounts-add-account-dialog.c cc-online-accounts-add-account-dialog.h \
-	$(pw_utils_sources) \
-	um-utils.c um-utils.h \
-	um-crop-area.c um-crop-area.h \
-	um-photo-dialog.c um-photo-dialog.h \
 	$(BUILT_SOURCES)
 
 gnome_initial_setup_LDADD =	\
 	pages/network/libgisnetwork.la \
 	pages/location/libgislocation.la \
+	pages/account/libgisaccount.la \
 	languages/liblanguage.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
