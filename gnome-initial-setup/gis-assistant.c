@@ -42,6 +42,8 @@ enum {
 
 static guint signals[LAST_SIGNAL];
 
+typedef struct _PageData PageData;
+
 struct _GisAssistantPrivate
 {
   GtkWidget *notebook;
@@ -51,10 +53,9 @@ struct _GisAssistantPrivate
   GtkWidget *action_area;
 
   GList *pages;
-  GList *current_page;
+  PageData *current_page;
 };
 
-typedef struct _PageData PageData;
 struct _PageData
 {
   GtkWidget *widget;
@@ -93,18 +94,16 @@ void
 gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook),
-                           priv->current_page->next->data,
-                           TRUE);
+  PageData *next_page = (PageData *) priv->current_page->link->next->data;
+  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), next_page->widget, TRUE);
 }
 
 void
 gis_assistant_previous_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook),
-                           priv->current_page->prev->data,
-                           TRUE);
+  PageData *prev_page = (PageData *) priv->current_page->link->prev->data;
+  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), prev_page->widget, TRUE);
 }
 
 static void
@@ -114,10 +113,10 @@ update_buttons_state (GisAssistant *assistant,
   GisAssistantPrivate *priv = assistant->priv;
   gboolean can_go_backward, can_go_forward;
 
-  can_go_backward = (priv->current_page->prev != NULL);
+  can_go_backward = (priv->current_page->link->prev != NULL);
   gtk_widget_set_sensitive (priv->back, can_go_backward);
 
-  can_go_forward = (priv->current_page->next != NULL) && gis_assistant_get_page_complete (assistant, page);
+  can_go_forward = (priv->current_page->link->next != NULL) && gis_assistant_get_page_complete (assistant, page);
   gtk_widget_set_sensitive (priv->forward, can_go_forward);
 }
 
@@ -135,13 +134,13 @@ gis_assistant_add_page (GisAssistant *assistant,
   GisAssistantPrivate *priv = assistant->priv;
   PageData *page_data = create_page_data_for_page (page);
 
-  priv->pages = g_list_append (priv->pages, page);
+  priv->pages = g_list_append (priv->pages, page_data);
   page_data->link = g_list_last (priv->pages);
 
   cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
 
-  if (page_data->link->prev == priv->current_page)
-    update_buttons_state (assistant, priv->current_page->data);
+  if (priv->current_page->link->next == page_data->link)
+    update_buttons_state (assistant, priv->current_page->widget);
 }
 
 static void
@@ -168,7 +167,7 @@ gis_assistant_set_page_complete (GisAssistant *assistant,
 
   page_data->page_complete = complete;
 
-  if (page == priv->current_page->data)
+  if (page_data == priv->current_page)
     update_buttons_state (assistant, page);
 }
 
@@ -188,16 +187,10 @@ current_page_changed (CcNotebook   *notebook,
   GisAssistantPrivate *priv = assistant->priv;
   GtkWidget *page = cc_notebook_get_selected_page (notebook);
   PageData *page_data = get_page_data_for_page (page);
-  GList *link = page_data->link;
 
-  if (link == NULL) {
-    g_warning ("%s: has no associated link", gtk_widget_get_name (page));
-    return;
-  }
-
-  if (priv->current_page != link) {
-    priv->current_page = link;
-    g_signal_emit (assistant, signals[PREPARE], 0, priv->current_page->data);
+  if (priv->current_page != page_data) {
+    priv->current_page = page_data;
+    g_signal_emit (assistant, signals[PREPARE], 0, page);
   }
 }
 
@@ -242,9 +235,9 @@ gis_assistant_init (GisAssistant *assistant)
 }
 
 static void
-free_page (GtkWidget *page)
+remove_page_data (PageData *page_data)
 {
-  g_object_set_data (G_OBJECT (page), "gis-assistant-page-data", NULL);
+  g_object_set_data (G_OBJECT (page_data->widget), "gis-assistant-page-data", NULL);
 }
 
 static void
@@ -255,7 +248,7 @@ gis_assistant_finalize (GObject *gobject)
 
   priv->current_page = NULL;
 
-  g_list_free_full (priv->pages, (GDestroyNotify) free_page);
+  g_list_free_full (priv->pages, (GDestroyNotify) remove_page_data);
 
   G_OBJECT_CLASS (gis_assistant_parent_class)->finalize (gobject);
 }
