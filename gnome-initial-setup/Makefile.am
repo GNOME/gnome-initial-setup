@@ -18,7 +18,6 @@ libexec_PROGRAMS = gnome-initial-setup
 BUILT_SOURCES =
 
 UI_FILES = \
-	setup.ui \
 	pages/language/gis-language-page.ui \
 	pages/network/gis-network-page.ui \
 	pages/account/gis-account-page.ui \

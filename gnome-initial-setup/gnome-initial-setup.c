@@ -28,7 +28,6 @@
 struct _SetupData {
   GtkWindow *main_window;
   GKeyFile *overrides;
-  GtkBuilder *builder;
   GisAssistant *assistant;
 
   GSList *finals;
@@ -40,9 +39,6 @@ struct _AsyncClosure {
   GFunc callback;
   gpointer user_data;
 };
-
-#define OBJ(type,name) ((type)gtk_builder_get_object(setup->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
 
 static void
 run_finals (SetupData *setup)
@@ -78,9 +74,6 @@ recenter_window (GdkScreen *screen, SetupData *setup)
 static void
 prepare_main_window (SetupData *setup)
 {
-  setup->main_window = OBJ(GtkWindow*, "main-window");
-  setup->assistant = OBJ(GisAssistant*, "assistant");
-
   g_signal_connect (gtk_widget_get_screen (GTK_WIDGET (setup->main_window)),
                     "monitors-changed", G_CALLBACK (recenter_window), setup);
 
@@ -158,10 +151,19 @@ main (int argc, char *argv[])
     exit (1);
   }
 
-  /* Make sure GisAssistant is initialized. */
-  g_type_ensure (GIS_TYPE_ASSISTANT_CLUTTER);
+  setup->main_window = g_object_new (GTK_TYPE_WINDOW,
+                                     "type", GTK_WINDOW_TOPLEVEL,
+                                     "border-width", 12,
+                                     "icon-name", "preferences-system",
+                                     "deletable", FALSE,
+                                     "resizable", FALSE,
+                                     "window-position", GTK_WIN_POS_CENTER_ALWAYS,
+                                     NULL);
 
-  setup->builder = gis_builder ("setup");
+  setup->assistant = g_object_new (GIS_TYPE_ASSISTANT_CLUTTER, NULL);
+  gtk_container_add (GTK_CONTAINER (setup->main_window), GTK_WIDGET (setup->assistant));
+
+  gtk_widget_show (GTK_WIDGET (setup->assistant));
 
   setup->overrides = g_key_file_new ();
   filename = g_build_filename (UIDIR, "overrides.ini", NULL);
