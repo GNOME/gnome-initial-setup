@@ -54,6 +54,41 @@ struct _GisAssistantPrivate
   GList *current_page;
 };
 
+typedef struct _PageData PageData;
+struct _PageData
+{
+  GtkWidget *widget;
+  gboolean page_complete;
+  GList *link;
+};
+
+static PageData *
+get_page_data_for_page (GtkWidget *page)
+{
+  return (PageData *) g_object_get_data (G_OBJECT (page), "gis-assistant-page-data");
+}
+
+static void
+free_page_data (PageData *page_data)
+{
+  g_object_unref (page_data->widget);
+  g_slice_free (PageData, page_data);
+}
+
+static PageData *
+create_page_data_for_page (GtkWidget *page)
+{
+  PageData *page_data = g_slice_new0 (PageData);
+  page_data->link = NULL;
+  page_data->page_complete = FALSE;
+  page_data->widget = g_object_ref (page);
+
+  g_object_set_data_full (G_OBJECT (page), "gis-assistant-page-data",
+                          page_data, (GDestroyNotify) free_page_data);
+
+  return page_data;
+}
+
 void
 gis_assistant_next_page (GisAssistant *assistant)
 {
@@ -98,15 +133,14 @@ gis_assistant_add_page (GisAssistant *assistant,
                         GtkWidget    *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  GList *link;
+  PageData *page_data = create_page_data_for_page (page);
 
   priv->pages = g_list_append (priv->pages, page);
-  link = g_list_last (priv->pages);
+  page_data->link = g_list_last (priv->pages);
 
-  g_object_set_data (G_OBJECT (page), "gis-assistant-link", link);
   cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
 
-  if (link->prev == priv->current_page)
+  if (page_data->link->prev == priv->current_page)
     update_buttons_state (assistant, priv->current_page->data);
 }
 
@@ -124,31 +158,15 @@ go_backward (GtkWidget    *button,
   gis_assistant_previous_page (assistant);
 }
 
-static void
-set_boolean (GObject *object,
-             gchar   *name,
-             gboolean value)
-{
-  gpointer value_p = GUINT_TO_POINTER (value ? 1 : 0);
-  g_object_set_data (object, name, value_p);
-}
-
-static gboolean
-get_boolean (GObject *object,
-             gchar   *name)
-{
-  gpointer value_p = g_object_get_data (object, name);
-  return GPOINTER_TO_UINT (value_p) != 0;
-}
-
 void
 gis_assistant_set_page_complete (GisAssistant *assistant,
                                  GtkWidget    *page,
                                  gboolean      complete)
 {
   GisAssistantPrivate *priv = assistant->priv;
+  PageData *page_data = get_page_data_for_page (page);
 
-  set_boolean (G_OBJECT (page), "gis-assistant-complete", complete);
+  page_data->page_complete = complete;
 
   if (page == priv->current_page->data)
     update_buttons_state (assistant, page);
@@ -158,7 +176,8 @@ gboolean
 gis_assistant_get_page_complete (GisAssistant *assistant,
                                  GtkWidget    *page)
 {
-  return get_boolean (G_OBJECT (page), "gis-assistant-complete");
+  PageData *page_data = get_page_data_for_page (page);
+  return page_data->page_complete;
 }
 
 static void
@@ -168,7 +187,8 @@ current_page_changed (CcNotebook   *notebook,
 {
   GisAssistantPrivate *priv = assistant->priv;
   GtkWidget *page = cc_notebook_get_selected_page (notebook);
-  GList *link = (GList *) g_object_get_data (G_OBJECT (page), "gis-assistant-link");
+  PageData *page_data = get_page_data_for_page (page);
+  GList *link = page_data->link;
 
   if (link == NULL) {
     g_warning ("%s: has no associated link", gtk_widget_get_name (page));
@@ -224,7 +244,7 @@ gis_assistant_init (GisAssistant *assistant)
 static void
 free_page (GtkWidget *page)
 {
-  g_object_set_data (G_OBJECT (page), "gis-assistant-link", NULL);
+  g_object_set_data (G_OBJECT (page), "gis-assistant-page-data", NULL);
 }
 
 static void
