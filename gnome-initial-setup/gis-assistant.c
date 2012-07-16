@@ -29,7 +29,7 @@
 #include <gtk/gtk.h>
 
 #include "gis-assistant.h"
-#include "cc-notebook.h"
+#include "gis-assistant-private.h"
 
 G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 
@@ -46,7 +46,7 @@ typedef struct _PageData PageData;
 
 struct _GisAssistantPrivate
 {
-  GtkWidget *notebook;
+  GtkWidget *frame;
   GtkWidget *forward;
   GtkWidget *back;
   GtkWidget *main_layout;
@@ -185,13 +185,17 @@ gis_assistant_get_page_complete (GisAssistant *assistant,
   return page_data->page_complete;
 }
 
-static void
-current_page_changed (CcNotebook   *notebook,
-                      GParamSpec   *pspec,
-                      GisAssistant *assistant)
+GtkWidget *
+_gis_assistant_get_frame (GisAssistant *assistant)
+{
+  return assistant->priv->frame;
+}
+
+void
+_gis_assistant_current_page_changed (GisAssistant *assistant,
+                                     GtkWidget    *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  GtkWidget *page = cc_notebook_get_selected_page (notebook);
   PageData *page_data = get_page_data_for_page (page);
 
   if (priv->current_page != page_data) {
@@ -209,8 +213,9 @@ gis_assistant_init (GisAssistant *assistant)
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
   gtk_box_pack_start (GTK_BOX (assistant), priv->main_layout, TRUE, TRUE, 0);
 
-  priv->notebook = cc_notebook_new ();
-  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->notebook, TRUE, TRUE, 0);
+  priv->frame = gtk_frame_new ("");
+  gtk_frame_set_shadow_type (GTK_FRAME (priv->frame), GTK_SHADOW_NONE);
+  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
   priv->action_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
@@ -227,9 +232,6 @@ gis_assistant_init (GisAssistant *assistant)
 
   gtk_box_pack_start (GTK_BOX (priv->action_area), priv->back, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (priv->action_area), priv->forward, FALSE, FALSE, 0);
-
-  g_signal_connect (priv->notebook, "notify::current-page",
-                    G_CALLBACK (current_page_changed), assistant);
 
   g_signal_connect (priv->forward, "clicked",
                     G_CALLBACK (go_forward), assistant);
@@ -259,23 +261,6 @@ gis_assistant_finalize (GObject *gobject)
   G_OBJECT_CLASS (gis_assistant_parent_class)->finalize (gobject);
 }
 
-
-
-static void
-gis_assistant_real_switch_to (GisAssistant *assistant, GtkWidget *widget)
-{
-  GisAssistantPrivate *priv = assistant->priv;
-  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), widget, TRUE);
-}
-
-static void
-gis_assistant_real_add_page (GisAssistant *assistant,
-                             GtkWidget    *page)
-{
-  GisAssistantPrivate *priv = assistant->priv;
-  cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
-}
-
 static void
 gis_assistant_class_init (GisAssistantClass *klass)
 {
@@ -286,8 +271,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gobject_class->finalize = gis_assistant_finalize;
 
   klass->prepare = gis_assistant_prepare;
-  klass->add_page = gis_assistant_real_add_page;
-  klass->switch_to = gis_assistant_real_switch_to;
 
   /**
    * GisAssistant::prepare:

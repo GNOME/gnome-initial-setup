@@ -12,7 +12,7 @@
 #include <gtk/gtk.h>
 #include <clutter-gtk/clutter-gtk.h>
 
-#include "gis-assistant.h"
+#include "gis-assistant-clutter.h"
 
 #include "pages/language/gis-language-page.h"
 #include "pages/eulas/gis-eula-pages.h"
@@ -159,7 +159,7 @@ main (int argc, char *argv[])
   }
 
   /* Make sure GisAssistant is initialized. */
-  g_type_ensure (GIS_TYPE_ASSISTANT);
+  g_type_ensure (GIS_TYPE_ASSISTANT_CLUTTER);
 
   setup->builder = gis_builder ("setup");
 

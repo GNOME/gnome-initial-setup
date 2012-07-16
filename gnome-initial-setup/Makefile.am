@@ -33,7 +33,8 @@ BUILT_SOURCES += setup_resources.c
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	cc-notebook.c cc-notebook.h \
-	gis-assistant.c gis-assistant.h \
+	gis-assistant.c gis-assistant.h gis-assistant-private.h \
+	gis-assistant-clutter.c gis-assistant-clutter.h \
 	gis-utils.c gis-utils.h \
 	$(BUILT_SOURCES)
 
