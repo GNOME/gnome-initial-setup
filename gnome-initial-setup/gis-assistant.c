@@ -90,12 +90,18 @@ create_page_data_for_page (GtkWidget *page)
   return page_data;
 }
 
+static void
+gis_assistant_switch_to (GisAssistant *assistant, GtkWidget *widget)
+{
+  GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, widget);
+}
+
 void
 gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
   PageData *next_page = (PageData *) priv->current_page->link->next->data;
-  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), next_page->widget, TRUE);
+  gis_assistant_switch_to (assistant, next_page->widget);
 }
 
 void
@@ -103,7 +109,7 @@ gis_assistant_previous_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
   PageData *prev_page = (PageData *) priv->current_page->link->prev->data;
-  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), prev_page->widget, TRUE);
+  gis_assistant_switch_to (assistant, prev_page->widget);
 }
 
 static void
@@ -137,7 +143,7 @@ gis_assistant_add_page (GisAssistant *assistant,
   priv->pages = g_list_append (priv->pages, page_data);
   page_data->link = g_list_last (priv->pages);
 
-  cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
+  GIS_ASSISTANT_GET_CLASS (assistant)->add_page (assistant, page);
 
   if (priv->current_page->link->next == page_data->link)
     update_buttons_state (assistant, priv->current_page->widget);
@@ -253,6 +259,23 @@ gis_assistant_finalize (GObject *gobject)
   G_OBJECT_CLASS (gis_assistant_parent_class)->finalize (gobject);
 }
 
+
+
+static void
+gis_assistant_real_switch_to (GisAssistant *assistant, GtkWidget *widget)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), widget, TRUE);
+}
+
+static void
+gis_assistant_real_add_page (GisAssistant *assistant,
+                             GtkWidget    *page)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
+}
+
 static void
 gis_assistant_class_init (GisAssistantClass *klass)
 {
@@ -263,6 +286,8 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gobject_class->finalize = gis_assistant_finalize;
 
   klass->prepare = gis_assistant_prepare;
+  klass->add_page = gis_assistant_real_add_page;
+  klass->switch_to = gis_assistant_real_switch_to;
 
   /**
    * GisAssistant::prepare:
