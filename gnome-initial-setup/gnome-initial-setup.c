@@ -12,6 +12,7 @@
 #include <gtk/gtk.h>
 #include <clutter-gtk/clutter-gtk.h>
 
+#include "gis-assistant-gtk.h"
 #include "gis-assistant-clutter.h"
 
 #include "pages/language/gis-language-page.h"
