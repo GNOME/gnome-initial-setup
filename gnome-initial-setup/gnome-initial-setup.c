@@ -129,6 +129,8 @@ main (int argc, char *argv[])
   SetupData *setup;
   gchar *filename;
   GError *error;
+  gboolean enable_animations;
+  GType assistant_type;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -161,7 +163,16 @@ main (int argc, char *argv[])
                                      "window-position", GTK_WIN_POS_CENTER_ALWAYS,
                                      NULL);
 
-  setup->assistant = g_object_new (GIS_TYPE_ASSISTANT_CLUTTER, NULL);
+  g_object_get (gtk_settings_get_default (),
+                "gtk-enable-animations", &enable_animations,
+                NULL);
+
+  if (enable_animations)
+    assistant_type = GIS_TYPE_ASSISTANT_CLUTTER;
+  else
+    assistant_type = GIS_TYPE_ASSISTANT_GTK;
+
+  setup->assistant = g_object_new (assistant_type, NULL);
   gtk_container_add (GTK_CONTAINER (setup->main_window), GTK_WIDGET (setup->assistant));
 
   gtk_widget_show (GTK_WIDGET (setup->assistant));
