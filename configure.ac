@@ -29,8 +29,6 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gstreamer-0.10
                   cheese
                   cheese-gtk >= 3.3.5
-                  clutter-gtk-1.0
-                  clutter-1.0 >= $CLUTTER_REQUIRED_VERSION
                   fontconfig
                   geoclue
                   gweather-3.0
@@ -41,6 +39,13 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gio-2.0 >= $GLIB_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdmgreeter)
+
+PKG_CHECK_MODULES(CLUTTER,
+                  clutter-gtk-1.0
+                  clutter-1.0 >= $CLUTTER_REQUIRED_VERSION,
+                  have_clutter=yes, have_clutter=no)
+AM_CONDITIONAL(HAVE_CLUTTER, [test x$have_clutter = xyes])
+AC_SUBST(HAVE_CLUTTER)
 
 AC_CHECK_HEADER([pwquality.h], [have_pwquality=yes], [have_pwquality=no])
 AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])

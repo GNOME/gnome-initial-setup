@@ -11,7 +11,15 @@ AM_CPPFLAGS = \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
 
+if HAVE_CLUTTER
+AM_CPPFLAGS += $(CLUTTER_CFLAGS)
+endif
+
 LIBS = $(INITIAL_SETUP_LIBS) -lm
+
+if HAVE_CLUTTER
+LIBS += $(CLUTTER_LIBS)
+endif
 
 libexec_PROGRAMS = gnome-initial-setup
 
@@ -33,10 +41,14 @@ gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	cc-notebook.c cc-notebook.h \
 	gis-assistant.c gis-assistant.h gis-assistant-private.h \
-	gis-assistant-clutter.c gis-assistant-clutter.h \
 	gis-assistant-gtk.c gis-assistant-gtk.h \
 	gis-utils.c gis-utils.h \
 	$(BUILT_SOURCES)
+
+if HAVE_CLUTTER
+gnome_initial_setup_SOURCES += \
+	gis-assistant-clutter.c gis-assistant-clutter.h
+endif
 
 gnome_initial_setup_LDADD =	\
 	pages/language/libgislanguage.la \

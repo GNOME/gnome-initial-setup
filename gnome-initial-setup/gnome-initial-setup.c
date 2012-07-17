@@ -13,7 +13,10 @@
 #include <clutter-gtk/clutter-gtk.h>
 
 #include "gis-assistant-gtk.h"
+
+#ifdef HAVE_CLUTTER
 #include "gis-assistant-clutter.h"
+#endif
 
 #include "pages/language/gis-language-page.h"
 #include "pages/eulas/gis-eula-pages.h"
@@ -121,6 +124,22 @@ gis_add_summary_callback (SetupData *setup,
   setup->finals = g_slist_append (setup->finals, closure);
 }
 
+static GType
+get_assistant_type (void)
+{
+#ifdef HAVE_CLUTTER
+  gboolean enable_animations;
+  g_object_get (gtk_settings_get_default (),
+                "gtk-enable-animations", &enable_animations,
+                NULL);
+
+  if (enable_animations)
+    return GIS_TYPE_ASSISTANT_CLUTTER;
+#endif /* HAVE_CLUTTER */
+
+  return GIS_TYPE_ASSISTANT_GTK;
+}
+
 /* main {{{1 */
 
 int
@@ -129,8 +148,6 @@ main (int argc, char *argv[])
   SetupData *setup;
   gchar *filename;
   GError *error;
-  gboolean enable_animations;
-  GType assistant_type;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -143,10 +160,12 @@ main (int argc, char *argv[])
 
   gtk_init (&argc, &argv);
 
+#if HAVE_CLUTTER
   if (gtk_clutter_init (NULL, NULL) != CLUTTER_INIT_SUCCESS) {
     g_critical ("Clutter-GTK init failed");
     exit (1);
   }
+#endif
 
   error = NULL;
   if (g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error) == NULL) {
@@ -163,16 +182,7 @@ main (int argc, char *argv[])
                                      "window-position", GTK_WIN_POS_CENTER_ALWAYS,
                                      NULL);
 
-  g_object_get (gtk_settings_get_default (),
-                "gtk-enable-animations", &enable_animations,
-                NULL);
-
-  if (enable_animations)
-    assistant_type = GIS_TYPE_ASSISTANT_CLUTTER;
-  else
-    assistant_type = GIS_TYPE_ASSISTANT_GTK;
-
-  setup->assistant = g_object_new (assistant_type, NULL);
+  setup->assistant = g_object_new (get_assistant_type (), NULL);
   gtk_container_add (GTK_CONTAINER (setup->main_window), GTK_WIDGET (setup->assistant));
 
   gtk_widget_show (GTK_WIDGET (setup->assistant));
