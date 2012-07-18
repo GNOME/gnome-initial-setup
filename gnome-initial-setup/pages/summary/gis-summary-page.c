@@ -6,89 +6,291 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#include <gdm-greeter-client.h>
+#include <gdm/gdm-client.h>
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
-static GdmGreeterClient *
-connect_to_slave (void)
+#define SERVICE_NAME "gnome-initial-setup"
+
+typedef struct _SummaryData SummaryData;
+
+struct _SummaryData {
+  gchar *user_username;
+  gchar *user_password;
+};
+
+static gboolean
+connect_to_gdm (GdmGreeter      **greeter,
+                GdmUserVerifier **user_verifier)
 {
+  GdmClient *client;
+
   GError *error = NULL;
-  gboolean res;
-  GdmGreeterClient *greeter_client;
+  gboolean res = FALSE;
 
-  greeter_client = gdm_greeter_client_new ();
+  client = gdm_client_new ();
 
-  res = gdm_greeter_client_open_connection (greeter_client, &error);
+  *greeter = gdm_client_get_greeter_sync (client, NULL, &error);
+  if (error != NULL)
+    goto out;
 
-  if (!res) {
-    g_warning ("Failed to open connection to slave: %s", error->message);
+  *user_verifier = gdm_client_get_user_verifier_sync (client, NULL, &error);
+  if (error != NULL)
+    goto out;
+
+  res = TRUE;
+
+ out:
+  if (error != NULL) {
+    g_warning ("Failed to open connection to GDM: %s", error->message);
     g_error_free (error);
-    g_object_unref (greeter_client);
-    return NULL;
   }
 
-  return greeter_client;
+  return res;
+}
+
+static gboolean
+recursively_delete (GFile   *file,
+                    GError **error_out)
+{
+  GError *error = NULL;
+
+  if (!g_file_query_exists (file, NULL))
+    goto out;
+
+  if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY) {
+    GFileEnumerator *enumerator;
+    GFileInfo *info;
+
+    enumerator = g_file_enumerate_children (file,
+                                            G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                            G_FILE_QUERY_INFO_NONE,
+                                            NULL,
+                                            &error);
+    if (error != NULL)
+      goto out;
+
+    while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
+      GFile *child;
+      gboolean ret;
+
+      if (error != NULL)
+        goto out;
+
+      child = g_file_get_child (file, g_file_info_get_name (info));
+
+      ret = recursively_delete (child, &error);
+      g_object_unref (child);
+
+      if (!ret)
+        goto out;
+    }
+  }
+
+  if (!g_file_delete (file, NULL, &error))
+    goto out;
+
+ out:
+  if (error != NULL) {
+    g_propagate_error (error_out, error);
+    return FALSE;
+  } else {
+    return TRUE;
+  }
 }
 
 static void
-on_ready_for_auto_login (GdmGreeterClient *client,
-                         const char       *service_name,
-                         SetupData        *setup)
+copy_file_to_tmpfs (GFile *dest_base,
+                    const gchar *dir,
+                    const gchar *filename)
 {
-  /* const gchar *username; */
+  GFile *src_dir = g_file_new_for_path (dir);
+  GFile *src = g_file_get_child (src_dir, filename);
+  GFile *dest_dir = g_file_get_child (dest_base, dir);
+  GFile *dest = g_file_get_child (dest_dir, filename);
 
-  /* username = act_user_get_user_name (gis_get_act_user (setup)); */
+  GError *error = NULL;
 
-  /* g_debug ("Initiating autologin for %s", username); */
-  /* gdm_greeter_client_call_begin_auto_login (client, username); */
-  /* gdm_greeter_client_call_start_session_when_ready (client, */
-  /*                                                   service_name, */
-  /*                                                   TRUE); */
+  if (!g_file_make_directory_with_parents (dest, NULL, &error)) {
+    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
+      g_warning ("Unable to make directory %s: %s",
+                 g_file_get_path (dest_dir),
+                 error->message);
+      goto out;
+    }
+  }
+
+  if (!g_file_copy (src, dest, G_FILE_COPY_NONE,
+                    NULL, NULL, NULL, &error)) {
+    g_warning ("Unable to copy %s to %s: %s",
+               g_file_get_path (src),
+               g_file_get_path (dest),
+               error->message);
+    goto out;
+  }
+
+ out:
+  g_object_unref (dest_dir);
+  g_object_unref (dest);
+  g_object_unref (src_dir);
+  g_object_unref (src);
 }
 
 static void
-begin_autologin (SetupData *setup)
+copy_files_to_tmpfs (void)
 {
-  GdmGreeterClient *greeter_client = connect_to_slave ();
+  GFile *dest = g_file_new_for_path ("/dev/shm/gnome-initial-setup/skeleton");
+  GError *error = NULL;
 
-  if (greeter_client == NULL) {
-    g_warning ("No slave connection; not initiating autologin");
+  if (!recursively_delete (dest, &error)) {
+    g_warning ("Unable to delete old skeleton folder: %s",
+               error->message);
+    goto out;
+  }
+
+  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "dconf/user");
+  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "goa-1.0/accounts.conf");
+  copy_file_to_tmpfs (dest, g_get_user_data_dir (), "keyrings/Default.keyring");
+
+ out:
+  g_object_unref (dest);
+}
+
+static void
+request_info_query (SummaryData     *data,
+                    GdmUserVerifier *user_verifier,
+                    const char      *question,
+                    gboolean         is_secret)
+{
+  /* TODO: pop up modal dialog */
+  g_debug ("user verifier asks%s question: %s",
+           is_secret ? " secret" : "",
+           question);
+}
+
+static void
+on_info (GdmUserVerifier *user_verifier,
+         const char      *service_name,
+         const char      *info,
+         SummaryData     *data)
+{
+  g_debug ("PAM module info: %s\n", info);
+}
+
+static void
+on_problem (GdmUserVerifier *user_verifier,
+            const char      *service_name,
+            const char      *problem,
+            SummaryData     *data)
+{
+  g_warning ("PAM module error: %s\n", problem);
+}
+
+static void
+on_info_query (GdmUserVerifier *user_verifier,
+               const char      *service_name,
+               const char      *question,
+               SummaryData     *data)
+{
+  request_info_query (data, user_verifier, question, FALSE);
+}
+
+static void
+on_secret_info_query (GdmUserVerifier *user_verifier,
+                      const char      *service_name,
+                      const char      *question,
+                      SummaryData     *data)
+{
+  gboolean should_send_password = data->user_password != NULL;
+
+  if (should_send_password) {
+    gdm_user_verifier_call_answer_query (user_verifier,
+                                         service_name,
+                                         data->user_password,
+                                         NULL, NULL, NULL);
+    g_clear_pointer (&data->user_password, (GDestroyNotify) g_free);
+  } else {
+    request_info_query (data, user_verifier, question, TRUE);
+  }
+}
+
+static void
+on_session_opened (GdmGreeter  *greeter,
+                   const char  *service_name,
+                   SummaryData *data)
+{
+  gdm_greeter_call_start_session_when_ready_sync (greeter, service_name,
+                                                  TRUE, NULL, NULL);
+}
+
+static void
+log_user_in (SummaryData *data)
+{
+  GError *error = NULL;
+  GdmGreeter *greeter;
+  GdmUserVerifier *user_verifier;
+
+  if (!connect_to_gdm (&greeter, &user_verifier)) {
+    g_warning ("No GDM connection; not initiating login");
     return;
   }
 
-  g_debug ("Preparing to autologin");
+  if (error != NULL) {
+    g_warning ("Could not set PAM_AUTHTOK: %s", error->message);
+    return;
+  }
 
-  g_signal_connect (greeter_client,
-                    "ready",
-                    G_CALLBACK (on_ready_for_auto_login),
-                    setup);
-  gdm_greeter_client_call_start_conversation (greeter_client, "gdm-autologin");
+  gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
+                                                           data->user_username,
+                                                           SERVICE_NAME,
+                                                           NULL, &error);
+
+  if (error != NULL) {
+    g_warning ("Could not begin verification: %s", error->message);
+    return;
+  }
+
+  g_signal_connect (user_verifier, "info",
+                    G_CALLBACK (on_info), data);
+  g_signal_connect (user_verifier, "problem",
+                    G_CALLBACK (on_problem), data);
+  g_signal_connect (user_verifier, "info-query",
+                    G_CALLBACK (on_info_query), data);
+  g_signal_connect (user_verifier, "secret-info-query",
+                    G_CALLBACK (on_secret_info_query), data);
+
+  g_signal_connect (greeter, "session-opened",
+                    G_CALLBACK (on_session_opened), data);
 }
 
 static void
-byebye_cb (GtkButton *button, SetupData *setup)
+byebye (SummaryData *data)
 {
-  begin_autologin (setup);
+  copy_files_to_tmpfs ();
+  log_user_in (data);
 }
 
 static void
-tour_cb (GtkButton *button, SetupData *setup)
+byebye_cb (GtkButton *button, SummaryData *data)
+{
+  byebye (data);
+}
+
+static void
+tour_cb (GtkButton *button, SummaryData *data)
 {
   /* the tour is triggered by /tmp/run-welcome-tour */
   g_file_set_contents ("/tmp/run-welcome-tour", "yes", -1, NULL);
-  begin_autologin (setup);
+  byebye (data);
 }
 
-void
-gis_prepare_summary_page (SetupData *setup)
+static void
+install_overrides (SetupData  *setup,
+                   GtkBuilder *builder)
 {
-  GtkWidget *button;
-  GKeyFile *overrides = gis_get_overrides (setup);
   gchar *s;
-  GisAssistant *assistant = gis_get_assistant (setup);
-  GtkBuilder *builder = gis_builder ("gis-summary-page");
+  GKeyFile *overrides = gis_get_overrides (setup);
 
   s = g_key_file_get_locale_string (overrides,
                                     "Summary", "summary-title",
@@ -132,13 +334,21 @@ gis_prepare_summary_page (SetupData *setup)
   if (s)
     gtk_button_set_label (GTK_BUTTON (WID ("summary-tour-button")), s);
   g_free (s);
+}
 
-  button = WID("summary-start-button");
-  g_signal_connect (button, "clicked",
-                    G_CALLBACK (byebye_cb), setup);
-  button = WID("summary-tour-button");
-  g_signal_connect (button, "clicked",
-                    G_CALLBACK (tour_cb), setup);
+void
+gis_prepare_summary_page (SetupData *setup)
+{
+  GisAssistant *assistant = gis_get_assistant (setup);
+  GtkBuilder *builder = gis_builder ("gis-summary-page");
+  SummaryData *data;
+
+  data = g_slice_new0 (SummaryData);
+
+  install_overrides (setup, builder);
+
+  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), data);
+  g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), data);
 
   g_object_set_data (OBJ (GObject *, "summary-page"), "gis-summary", GUINT_TO_POINTER (TRUE));
   gis_assistant_add_page (assistant, WID ("summary-page"));

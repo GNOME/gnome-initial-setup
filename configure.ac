@@ -38,7 +38,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   glib-2.0 >= $GLIB_REQUIRED_VERSION
                   gio-2.0 >= $GLIB_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
-                  gdmgreeter)
+                  gdm)
 
 PKG_CHECK_MODULES(CLUTTER,
                   clutter-gtk-1.0

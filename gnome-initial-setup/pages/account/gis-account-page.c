@@ -47,22 +47,6 @@ struct _AccountData {
 };
 
 static void
-copy_account_data (SetupData *setup, AccountData *data)
-{
-  ActUser *user = data->act_user;
-  /* here is where we copy all the things we just
-   * configured, from the current users home dir to the
-   * account that was created in the first step
-   */
-  g_debug ("Copying account data");
-  g_settings_sync ();
-
-  gis_copy_account_file (user, ".config/dconf/user");
-  gis_copy_account_file (user, ".config/goa-1.0/accounts.conf");
-  gis_copy_account_file (user, ".gnome2/keyrings/Default.keyring");
-}
-
-static void
 update_account_page_status (AccountData *data)
 {
   gboolean complete;
@@ -550,7 +534,6 @@ gis_prepare_account_page (SetupData *setup)
 
   gis_assistant_add_page (assistant, WID ("account-page"));
   gis_assistant_set_page_title (assistant, WID ("account-page"), _("Login"));
-  gis_add_summary_callback (setup, (GFunc)copy_account_data, data);
 
   clear_account_page (data);
   update_account_page_status (data);
