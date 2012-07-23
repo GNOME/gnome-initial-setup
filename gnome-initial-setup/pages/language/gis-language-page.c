@@ -40,8 +40,7 @@ sync_language (LanguageData *data)
 {
   setlocale (LC_MESSAGES, data->locale_id);
 
-  /* XXX more to do */
-  g_object_set_data (G_OBJECT (data->page), "gis-page-title", _("Welcome"));
+  gis_assistant_set_page_title (gis_get_assistant (data->setup), data->page, _("Welcome"));
 }
 
 static gint

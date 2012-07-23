@@ -308,7 +308,7 @@ gis_prepare_location_page (SetupData *setup)
   gtk_widget_hide (WID ("location-auto-button"));
 #endif
 
-  g_object_set_data (OBJ (GObject *, "location-page"), "gis-page-title", _("Location"));
   gis_assistant_add_page (assistant, WID ("location-page"));
+  gis_assistant_set_page_title (assistant, WID ("location-page"), _("Location"));
   gis_assistant_set_page_complete (assistant, WID ("location-page"), TRUE);
 }

@@ -56,14 +56,19 @@ run_finals (SetupData *setup)
 }
 
 static void
+title_changed_cb (GisAssistant *assistant,
+                  GParamSpec   *gparam,
+                  SetupData    *setup)
+{
+  gtk_window_set_title (setup->main_window, gis_assistant_get_title (assistant));
+}
+
+static void
 prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
 {
-  gchar *page_title;
-
   g_debug ("Preparing page %s", gtk_widget_get_name (page));
 
-  page_title = g_object_get_data (G_OBJECT (page), "gis-page-title");
-  gtk_window_set_title (setup->main_window, page_title);
+  title_changed_cb (assi, NULL, setup);
 
   if (g_object_get_data (G_OBJECT (page), "gis-summary"))
     run_finals (setup);
@@ -80,6 +85,9 @@ prepare_main_window (SetupData *setup)
 {
   g_signal_connect (gtk_widget_get_screen (GTK_WIDGET (setup->main_window)),
                     "monitors-changed", G_CALLBACK (recenter_window), setup);
+
+  g_signal_connect (setup->assistant, "notify::title",
+                    G_CALLBACK (title_changed_cb), setup);
 
   g_signal_connect (setup->assistant, "prepare",
                     G_CALLBACK (prepare_cb), setup);

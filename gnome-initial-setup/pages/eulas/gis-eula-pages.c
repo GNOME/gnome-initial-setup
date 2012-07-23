@@ -270,8 +270,8 @@ build_eula_page (SetupData *setup,
                               page);
   }
 
-  g_object_set_data (G_OBJECT (vbox), "gis-page-title", _("License Agreements"));
   gis_assistant_add_page (gis_get_assistant (setup), vbox);
+  gis_assistant_set_page_title (gis_get_assistant (setup), vbox, _("License Agreements"));
 
   sync_page_complete (page);
 

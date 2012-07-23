@@ -50,6 +50,13 @@ void      gis_assistant_set_page_complete (GisAssistant *assistant,
 gboolean  gis_assistant_get_page_complete (GisAssistant *assistant,
                                            GtkWidget    *page);
 
+void      gis_assistant_set_page_title    (GisAssistant *assistant,
+                                           GtkWidget    *page,
+                                           gchar        *title);
+gchar *   gis_assistant_get_page_title    (GisAssistant *assistant,
+                                           GtkWidget    *page);
+gchar *   gis_assistant_get_title         (GisAssistant *assistant);
+
 G_END_DECLS
 
 #endif /* __GIS_ASSISTANT_H__ */

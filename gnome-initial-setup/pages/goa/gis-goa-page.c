@@ -298,7 +298,7 @@ gis_prepare_online_page (SetupData *setup)
   g_signal_connect (data->goa_client, "account-removed",
                     G_CALLBACK (goa_account_removed), data);
 
-  g_object_set_data (OBJ (GObject *, "goa-page"), "gis-page-title", _("Online Accounts"));
   gis_assistant_add_page (assistant, WID ("goa-page"));
   gis_assistant_set_page_complete (assistant, WID ("goa-page"), TRUE);
+  gis_assistant_set_page_title (assistant, WID ("goa-page"), _("Online Accounts"));
 }

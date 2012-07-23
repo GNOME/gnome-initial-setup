@@ -546,8 +546,8 @@ gis_prepare_account_page (SetupData *setup)
 
   data->act_client = act_user_manager_get_default ();
 
-  g_object_set_data (OBJ (GObject *, "account-page"), "gis-page-title", _("Login"));
   gis_assistant_add_page (assistant, WID ("account-page"));
+  gis_assistant_set_page_title (assistant, WID ("account-page"), _("Login"));
   gis_add_summary_callback (setup, (GFunc)copy_account_data, data);
 
   clear_account_page (data);

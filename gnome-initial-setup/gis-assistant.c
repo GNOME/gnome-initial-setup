@@ -36,6 +36,14 @@ G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ASSISTANT, GisAssistantPrivate))
 
 enum {
+  PROP_0,
+  PROP_TITLE,
+  PROP_LAST,
+};
+
+static GParamSpec *obj_props[PROP_LAST];
+
+enum {
   PREPARE,
   LAST_SIGNAL,
 };
@@ -61,6 +69,7 @@ struct _PageData
   GtkWidget *widget;
   gboolean page_complete;
   GList *link;
+  gchar *title;
 };
 
 static PageData *
@@ -185,6 +194,35 @@ gis_assistant_get_page_complete (GisAssistant *assistant,
   return page_data->page_complete;
 }
 
+void
+gis_assistant_set_page_title (GisAssistant *assistant,
+                              GtkWidget    *page,
+                              gchar        *title)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  PageData *page_data = get_page_data_for_page (page);
+  g_free (page_data->title);
+  page_data->title = g_strdup (title);
+
+  if (page_data == priv->current_page)
+    g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
+}
+
+gchar *
+gis_assistant_get_page_title (GisAssistant *assistant,
+                              GtkWidget    *page)
+{
+  PageData *page_data = get_page_data_for_page (page);
+  return page_data->title;
+}
+
+gchar *
+gis_assistant_get_title (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  return priv->current_page->title;
+}
+
 GtkWidget *
 _gis_assistant_get_frame (GisAssistant *assistant)
 {
@@ -200,6 +238,7 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
 
   if (priv->current_page != page_data) {
     priv->current_page = page_data;
+    g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
     g_signal_emit (assistant, signals[PREPARE], 0, page);
   }
 }
@@ -249,6 +288,26 @@ remove_page_data (PageData *page_data)
 }
 
 static void
+gis_assistant_get_property (GObject    *object,
+			    guint       prop_id,
+			    GValue     *value,
+			    GParamSpec *pspec)
+{
+  GisAssistant *assistant = GIS_ASSISTANT (object);
+
+  switch (prop_id)
+    {
+    case PROP_TITLE:
+      g_value_set_string (value, gis_assistant_get_title (assistant));
+      break;
+
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
 gis_assistant_finalize (GObject *gobject)
 {
   GisAssistant *assistant = GIS_ASSISTANT (gobject);
@@ -268,9 +327,16 @@ gis_assistant_class_init (GisAssistantClass *klass)
 
   g_type_class_add_private (klass, sizeof (GisAssistantPrivate));
 
+  gobject_class->get_property = gis_assistant_get_property;
   gobject_class->finalize = gis_assistant_finalize;
 
   klass->prepare = gis_assistant_prepare;
+
+  obj_props[PROP_TITLE] =
+    g_param_spec_string ("title",
+                         "", "",
+                         NULL,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * GisAssistant::prepare:
