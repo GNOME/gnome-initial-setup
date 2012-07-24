@@ -196,6 +196,27 @@ language_visible (GtkTreeModel *model,
   return is_extra;
 }
 
+static void
+selection_changed (GtkTreeSelection *selection,
+                   LanguageData     *data)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  gchar *new_locale_id;
+
+  gtk_tree_selection_get_selected (selection, &model, &iter);
+
+  g_free (data->locale_id);
+
+  gtk_tree_model_get (model, &iter,
+                      COL_LOCALE_ID, &new_locale_id,
+                      -1);
+
+  data->locale_id = new_locale_id;
+
+  sync_language (data);
+}
+
 void
 gis_prepare_language_page (SetupData *setup)
 {
@@ -235,6 +256,9 @@ gis_prepare_language_page (SetupData *setup)
   g_signal_connect_swapped (data->show_all, "toggled",
                             G_CALLBACK (gtk_tree_model_filter_refilter),
                             filter);
+
+  g_signal_connect (gtk_tree_view_get_selection (treeview), "changed",
+                    G_CALLBACK (selection_changed), data);
 
   gis_assistant_add_page (assistant, data->page);
   gis_assistant_set_page_complete (assistant, data->page, TRUE);
