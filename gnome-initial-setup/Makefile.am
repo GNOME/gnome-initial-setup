@@ -11,15 +11,7 @@ AM_CPPFLAGS = \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
 
-if HAVE_CLUTTER
-AM_CPPFLAGS += $(CLUTTER_CFLAGS)
-endif
-
 LIBS = $(INITIAL_SETUP_LIBS) -lm
-
-if HAVE_CLUTTER
-LIBS += $(CLUTTER_LIBS)
-endif
 
 libexec_PROGRAMS = gnome-initial-setup
 

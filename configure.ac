@@ -45,7 +45,10 @@ PKG_CHECK_MODULES(CLUTTER,
                   clutter-1.0 >= $CLUTTER_REQUIRED_VERSION,
                   have_clutter=yes, have_clutter=no)
 AM_CONDITIONAL(HAVE_CLUTTER, [test x$have_clutter = xyes])
-AC_SUBST(HAVE_CLUTTER)
+if test x$have_clutter = xyes; then
+  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $CLUTTER_LIBS"
+  AC_DEFINE(HAVE_CLUTTER, 1, [Build with Clutter support?])
+fi
 
 AC_CHECK_HEADER([pwquality.h], [have_pwquality=yes], [have_pwquality=no])
 AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])
