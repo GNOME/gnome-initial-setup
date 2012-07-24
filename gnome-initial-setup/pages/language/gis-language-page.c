@@ -24,6 +24,7 @@ struct _LanguageData {
 
   GtkWidget *show_all;
   GtkWidget *page;
+  GtkWidget *filter_entry;
   GtkTreeModel *liststore;
   gchar *locale_id;
 };
@@ -183,17 +184,33 @@ language_visible (GtkTreeModel *model,
                   GtkTreeIter  *iter,
                   gpointer      user_data)
 {
+  gchar *locale_name;
+  const gchar *filter_contents;
   LanguageData *data = user_data;
+  gboolean visible = TRUE;
   gboolean is_extra;
 
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->show_all)))
-    return TRUE;
-
   gtk_tree_model_get (model, iter,
+                      COL_LOCALE_NAME, &locale_name,
                       COL_IS_EXTRA, &is_extra,
                       -1);
 
-  return is_extra;
+  filter_contents = gtk_entry_get_text (GTK_ENTRY (data->filter_entry));
+  if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
+    {
+      visible = FALSE;
+      goto out;
+    }
+
+  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->show_all)) && !is_extra)
+    {
+      visible = FALSE;
+      goto out;
+    }
+
+ out:
+  g_free (locale_name);
+  return visible;
 }
 
 static void
@@ -204,7 +221,8 @@ selection_changed (GtkTreeSelection *selection,
   GtkTreeIter iter;
   gchar *new_locale_id;
 
-  gtk_tree_selection_get_selected (selection, &model, &iter);
+  if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+    return;
 
   g_free (data->locale_id);
 
@@ -237,6 +255,7 @@ gis_prepare_language_page (SetupData *setup)
   data->locale_id = cc_common_language_get_current_language ();
   data->page = WID ("language-page");
   data->show_all = WID ("language-show-all");
+  data->filter_entry = WID ("language-filter-entry");
   data->liststore = GTK_TREE_MODEL (liststore);
   gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (liststore),
                                            sort_languages, NULL, NULL);
@@ -254,6 +273,10 @@ gis_prepare_language_page (SetupData *setup)
   add_all_languages (GTK_LIST_STORE (data->liststore));
 
   g_signal_connect_swapped (data->show_all, "toggled",
+                            G_CALLBACK (gtk_tree_model_filter_refilter),
+                            filter);
+
+  g_signal_connect_swapped (data->filter_entry, "changed",
                             G_CALLBACK (gtk_tree_model_filter_refilter),
                             filter);
 

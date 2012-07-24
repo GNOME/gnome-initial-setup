@@ -5,6 +5,7 @@
     <property name="name">language-page</property>
     <property name="visible">True</property>
     <property name="orientation">vertical</property>
+    <property name="spacing">10</property>
     <child>
       <object class="GtkScrolledWindow" id="language-scrolledwindow">
         <property name="visible">True</property>
@@ -38,11 +39,26 @@
       </object>
     </child>
     <child>
-      <object class="GtkCheckButton" id="language-show-all">
+      <object class="GtkBox" id="hbox">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Show _all</property>
-        <property name="use_underline">True</property>
-        <property name="halign">fill</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GtkCheckButton" id="language-show-all">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Show _all</property>
+            <property name="use_underline">True</property>
+            <property name="halign">fill</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="language-filter-entry">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="secondary-icon-name">edit-find-symbolic</property>
+            <property name="secondary-icon-activatable">False</property>
+            <property name="secondary-icon-sensitive">False</property>
+          </object>
+        </child>
       </object>
     </child>
   </object>
