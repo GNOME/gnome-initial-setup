@@ -14,6 +14,8 @@
 
 #include "gis-assistant-gtk.h"
 
+#include <cheese-gtk.h>
+
 #ifdef HAVE_CLUTTER
 #include "gis-assistant-clutter.h"
 #endif
@@ -161,9 +163,7 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-#ifdef HAVE_CHEESE
   cheese_gtk_init (NULL, NULL);
-#endif
 
   setup = g_new0 (SetupData, 1);
 
