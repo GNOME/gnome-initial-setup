@@ -284,6 +284,7 @@ gis_prepare_language_page (SetupData *setup)
                     G_CALLBACK (selection_changed), data);
 
   gis_assistant_add_page (assistant, data->page);
+  gis_assistant_set_use_unicode_buttons (assistant, data->page, TRUE);
   gis_assistant_set_page_complete (assistant, data->page, TRUE);
 
   sync_language (data);

@@ -67,7 +67,10 @@ struct _GisAssistantPrivate
 struct _PageData
 {
   GtkWidget *widget;
-  gboolean page_complete;
+  gboolean page_complete : 1;
+  gboolean use_unicode_buttons : 1;
+  guint padding : 6;
+
   GList *link;
   gchar *title;
 };
@@ -89,8 +92,6 @@ static PageData *
 create_page_data_for_page (GtkWidget *page)
 {
   PageData *page_data = g_slice_new0 (PageData);
-  page_data->link = NULL;
-  page_data->page_complete = FALSE;
   page_data->widget = g_object_ref (page);
 
   g_object_set_data_full (G_OBJECT (page), "gis-assistant-page-data",
@@ -122,8 +123,8 @@ gis_assistant_previous_page (GisAssistant *assistant)
 }
 
 static void
-update_buttons_state (GisAssistant *assistant,
-                      GtkWidget    *page)
+update_navigation_buttons (GisAssistant *assistant,
+                           GtkWidget    *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
   gboolean can_go_backward, can_go_forward;
@@ -133,13 +134,24 @@ update_buttons_state (GisAssistant *assistant,
 
   can_go_forward = (priv->current_page->link->next != NULL) && gis_assistant_get_page_complete (assistant, page);
   gtk_widget_set_sensitive (priv->forward, can_go_forward);
+
+  if (gis_assistant_get_use_unicode_buttons (assistant, page))
+    {
+      gtk_button_set_label (GTK_BUTTON (priv->forward), "→");
+      gtk_button_set_label (GTK_BUTTON (priv->back), "←");
+    }
+  else
+    {
+      gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
+      gtk_button_set_label (GTK_BUTTON (priv->back), _("_Back"));
+    }
 }
 
 static void
 gis_assistant_prepare (GisAssistant *assistant,
                        GtkWidget    *page)
 {
-  update_buttons_state (assistant, page);
+  update_navigation_buttons (assistant, page);
 }
 
 void
@@ -155,7 +167,7 @@ gis_assistant_add_page (GisAssistant *assistant,
   GIS_ASSISTANT_GET_CLASS (assistant)->add_page (assistant, page);
 
   if (priv->current_page->link->next == page_data->link)
-    update_buttons_state (assistant, priv->current_page->widget);
+    update_navigation_buttons (assistant, priv->current_page->widget);
 }
 
 static void
@@ -183,7 +195,7 @@ gis_assistant_set_page_complete (GisAssistant *assistant,
   page_data->page_complete = complete;
 
   if (page_data == priv->current_page)
-    update_buttons_state (assistant, page);
+    update_navigation_buttons (assistant, page);
 }
 
 gboolean
@@ -214,6 +226,27 @@ gis_assistant_get_page_title (GisAssistant *assistant,
 {
   PageData *page_data = get_page_data_for_page (page);
   return page_data->title;
+}
+
+void
+gis_assistant_set_use_unicode_buttons (GisAssistant *assistant,
+                                       GtkWidget    *page,
+                                       gboolean      use_unicode_buttons)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  PageData *page_data = get_page_data_for_page (page);
+  page_data->use_unicode_buttons = use_unicode_buttons;
+
+  if (page_data == priv->current_page)
+    update_navigation_buttons (assistant, page);
+}
+
+gboolean
+gis_assistant_get_use_unicode_buttons (GisAssistant *assistant,
+                                       GtkWidget    *page)
+{
+  PageData *page_data = get_page_data_for_page (page);
+  return page_data->use_unicode_buttons;
 }
 
 gchar *
@@ -260,12 +293,14 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
   gtk_widget_set_halign (priv->action_area, GTK_ALIGN_END);
 
-  priv->forward = gtk_button_new_with_mnemonic (_("_Next"));
+  priv->forward = gtk_button_new ();
+  gtk_button_set_use_underline (GTK_BUTTON (priv->forward), TRUE);
   gtk_button_set_image (GTK_BUTTON (priv->forward),
                         gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
   gtk_widget_set_can_default (priv->forward, TRUE);
 
-  priv->back = gtk_button_new_with_mnemonic (_("_Back"));
+  priv->back = gtk_button_new ();
+  gtk_button_set_use_underline (GTK_BUTTON (priv->back), TRUE);
   gtk_button_set_image (GTK_BUTTON (priv->back),
                         gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
 

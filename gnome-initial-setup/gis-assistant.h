@@ -57,6 +57,13 @@ gchar *   gis_assistant_get_page_title    (GisAssistant *assistant,
                                            GtkWidget    *page);
 gchar *   gis_assistant_get_title         (GisAssistant *assistant);
 
+void      gis_assistant_set_use_unicode_buttons (GisAssistant *assistant,
+                                                 GtkWidget    *page,
+                                                 gboolean      use_unicode_buttons);
+
+gboolean  gis_assistant_get_use_unicode_buttons (GisAssistant *assistant,
+                                                 GtkWidget    *page);
+
 G_END_DECLS
 
 #endif /* __GIS_ASSISTANT_H__ */
