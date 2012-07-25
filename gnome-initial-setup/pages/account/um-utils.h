@@ -26,13 +26,6 @@
 
 G_BEGIN_DECLS
 
-void     setup_tooltip_with_embedded_icon (GtkWidget   *widget,
-                                           const gchar *text,
-                                           const gchar *placeholder,
-                                           GIcon       *icon);
-gboolean show_tooltip_now                 (GtkWidget   *widget,
-                                           GdkEvent    *event);
-
 void     set_entry_validation_error       (GtkEntry    *entry,
                                            const gchar *text);
 void     clear_entry_validation_error     (GtkEntry    *entry);
@@ -42,14 +35,6 @@ void     popup_menu_below_button          (GtkMenu     *menu,
                                            gint        *y,
                                            gboolean    *push_in,
                                            GtkWidget   *button);
-
-void     rounded_rectangle                (cairo_t     *cr,
-                                           gdouble      aspect,
-                                           gdouble      x,
-                                           gdouble      y,
-                                           gdouble      corner_radius,
-                                           gdouble      width,
-                                           gdouble      height);
 
 void     down_arrow                       (GtkStyleContext *context,
                                            cairo_t         *cr,
