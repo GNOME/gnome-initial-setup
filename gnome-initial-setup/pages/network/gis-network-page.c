@@ -26,6 +26,8 @@ typedef struct _NetworkData NetworkData;
 #define WID(name) OBJ(GtkWidget*,name)
 
 struct _NetworkData {
+  SetupData *setup;
+
   GtkBuilder *builder;
 
   /* network data */
@@ -319,11 +321,12 @@ refresh_without_device (NetworkData *data)
   spinner = WID("no-network-spinner");
 
   if (nm_client_get_state (data->nm_client) == NM_STATE_CONNECTED_GLOBAL)
-    gtk_label_set_text (GTK_LABEL (label), _("Wireless network is not available, but we are connected anyway."));
-  else if (data->nm_device != NULL)
-    gtk_label_set_text (GTK_LABEL (label), _("Network is not available, make sure to turn airplane mode off."));
+    /* advance page */
+    gis_assistant_next_page (gis_get_assistant (data->setup));
+  if (data->nm_device != NULL)
+    gtk_label_set_text (GTK_LABEL (label), _("Network is not available."));
   else
-    gtk_label_set_text (GTK_LABEL (label), _("No network devices found"));
+    gtk_label_set_text (GTK_LABEL (label), _("No network devices found."));
 
   gtk_widget_hide (swin);
   gtk_widget_hide (spinner);
@@ -631,6 +634,8 @@ gis_prepare_network_page (SetupData *setup)
   GError *error;
   NetworkData *data = g_slice_new0 (NetworkData);
   GisAssistant *assistant = gis_get_assistant (setup);
+
+  data->setup = setup;
   data->builder = gis_builder ("gis-network-page");
 
   col = OBJ(GtkTreeViewColumn*, "network-list-column");
