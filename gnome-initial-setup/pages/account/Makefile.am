@@ -10,7 +10,6 @@ noinst_LTLIBRARIES = libgisaccount.la
 libgisaccount_la_SOURCES =	\
 	$(pw_utils_sources) \
 	um-utils.c um-utils.h \
-	um-crop-area.c um-crop-area.h \
 	um-photo-dialog.c um-photo-dialog.h \
 	gis-account-page.c gis-account-page.h
 

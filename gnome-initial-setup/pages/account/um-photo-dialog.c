@@ -26,8 +26,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-desktop-thumbnail.h>
 
 #ifdef HAVE_CHEESE
 #include <cheese-avatar-chooser.h>
@@ -36,7 +34,6 @@
 #endif /* HAVE_CHEESE */
 
 #include "um-photo-dialog.h"
-#include "um-crop-area.h"
 #include "um-utils.h"
 
 #define ROW_SPAN 6
@@ -44,7 +41,6 @@
 struct _UmPhotoDialog {
         GtkWidget *photo_popup;
         GtkWidget *popup_button;
-        GtkWidget *crop_area;
 
 #ifdef HAVE_CHEESE
         CheeseCameraDeviceMonitor *monitor;
@@ -52,209 +48,15 @@ struct _UmPhotoDialog {
         guint num_cameras;
 #endif /* HAVE_CHEESE */
 
-        GnomeDesktopThumbnailFactory *thumb_factory;
-
         SelectAvatarCallback *callback;
         gpointer              data;
 };
-
-static void
-crop_dialog_response (GtkWidget     *dialog,
-                      gint           response_id,
-                      UmPhotoDialog *um)
-{
-        GdkPixbuf *pb, *pb2;
-
-        if (response_id != GTK_RESPONSE_ACCEPT) {
-                um->crop_area = NULL;
-                gtk_widget_destroy (dialog);
-                return;
-        }
-
-        pb = um_crop_area_get_picture (UM_CROP_AREA (um->crop_area));
-        pb2 = gdk_pixbuf_scale_simple (pb, 96, 96, GDK_INTERP_BILINEAR);
-
-        um->callback (pb2, NULL, um->data);
-
-        g_object_unref (pb2);
-        g_object_unref (pb);
-
-        um->crop_area = NULL;
-        gtk_widget_destroy (dialog);
-}
-
-static void
-um_photo_dialog_crop (UmPhotoDialog *um,
-                      GdkPixbuf     *pixbuf)
-{
-        GtkWidget *dialog;
-        GtkWidget *frame;
-
-        dialog = gtk_dialog_new_with_buttons ("",
-                                              GTK_WINDOW (gtk_widget_get_toplevel (um->popup_button)),
-                                              0,
-                                              GTK_STOCK_CANCEL,
-                                              GTK_RESPONSE_REJECT,
-                                              _("Select"),
-                                              GTK_RESPONSE_ACCEPT,
-                                              NULL);
-        gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-
-        gtk_window_set_icon_name (GTK_WINDOW (dialog), "system-users");
-
-        g_signal_connect (G_OBJECT (dialog), "response",
-                          G_CALLBACK (crop_dialog_response), um);
-
-        /* Content */
-        um->crop_area           = um_crop_area_new ();
-        um_crop_area_set_min_size (UM_CROP_AREA (um->crop_area), 48, 48);
-        um_crop_area_set_constrain_aspect (UM_CROP_AREA (um->crop_area), TRUE);
-        um_crop_area_set_picture (UM_CROP_AREA (um->crop_area), pixbuf);
-        frame                   = gtk_frame_new (NULL);
-        gtk_container_add (GTK_CONTAINER (frame), um->crop_area);
-        gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_ETCHED_IN);
-
-        gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
-                            frame,
-                            TRUE, TRUE, 8);
-
-        gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 300);
-
-        gtk_widget_show_all (dialog);
-}
-
-static void
-file_chooser_response (GtkDialog     *chooser,
-                       gint           response,
-                       UmPhotoDialog *um)
-{
-        gchar *filename;
-        GError *error;
-        GdkPixbuf *pixbuf;
-
-        if (response != GTK_RESPONSE_ACCEPT) {
-                gtk_widget_destroy (GTK_WIDGET (chooser));
-                return;
-        }
-
-        filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
-
-        error = NULL;
-        pixbuf = gdk_pixbuf_new_from_file (filename, &error);
-        if (pixbuf == NULL) {
-                g_warning ("Failed to load %s: %s", filename, error->message);
-                g_error_free (error);
-        }
-        g_free (filename);
-
-        gtk_widget_destroy (GTK_WIDGET (chooser));
-
-        um_photo_dialog_crop (um, pixbuf);
-        g_object_unref (pixbuf);
-}
-
-static void
-update_preview (GtkFileChooser               *chooser,
-                GnomeDesktopThumbnailFactory *thumb_factory)
-{
-        gchar *uri;
-
-        uri = gtk_file_chooser_get_preview_uri (chooser);
-
-        if (uri) {
-                GdkPixbuf *pixbuf = NULL;
-                const gchar *mime_type = NULL;
-                GFile *file;
-                GFileInfo *file_info;
-                GtkWidget *preview;
-
-                preview = gtk_file_chooser_get_preview_widget (chooser);
-
-                file = g_file_new_for_uri (uri);
-                file_info = g_file_query_info (file,
-                                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-                                               G_FILE_QUERY_INFO_NONE,
-                                               NULL, NULL);
-                g_object_unref (file);
-
-                if (file_info != NULL) {
-                        mime_type = g_file_info_get_content_type (file_info);
-                        g_object_unref (file_info);
-                }
-
-                if (mime_type) {
-                        pixbuf = gnome_desktop_thumbnail_factory_generate_thumbnail (thumb_factory,
-                                                                                     uri,
-                                                                                     mime_type);
-                }
-
-                gtk_dialog_set_response_sensitive (GTK_DIALOG (chooser),
-                                                   GTK_RESPONSE_ACCEPT,
-                                                   (pixbuf != NULL));
-
-                if (pixbuf != NULL) {
-                        gtk_image_set_from_pixbuf (GTK_IMAGE (preview), pixbuf);
-                        g_object_unref (pixbuf);
-                }
-                else {
-                        gtk_image_set_from_stock (GTK_IMAGE (preview),
-                                                  GTK_STOCK_DIALOG_QUESTION,
-                                                  GTK_ICON_SIZE_DIALOG);
-                }
-
-                g_free (uri);
-        }
-
-        gtk_file_chooser_set_preview_widget_active (chooser, TRUE);
-}
-
-static void
-um_photo_dialog_select_file (UmPhotoDialog *um)
-{
-        GtkWidget *chooser;
-        const gchar *folder;
-        GtkWidget *preview;
-
-        chooser = gtk_file_chooser_dialog_new (_("Browse for more pictures"),
-                                               GTK_WINDOW (gtk_widget_get_toplevel (um->popup_button)),
-                                               GTK_FILE_CHOOSER_ACTION_OPEN,
-                                               GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                               GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-                                               NULL);
-
-        gtk_window_set_modal (GTK_WINDOW (chooser), TRUE);
-
-        preview = gtk_image_new ();
-        gtk_widget_set_size_request (preview, 128, -1);
-        gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (chooser), preview);
-        gtk_file_chooser_set_use_preview_label (GTK_FILE_CHOOSER (chooser), FALSE);
-        gtk_widget_show (preview);
-        g_signal_connect (chooser, "update-preview",
-                          G_CALLBACK (update_preview), um->thumb_factory);
-
-        folder = g_get_user_special_dir (G_USER_DIRECTORY_PICTURES);
-        if (folder)
-                gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser),
-                                                     folder);
-
-        g_signal_connect (chooser, "response",
-                          G_CALLBACK (file_chooser_response), um);
-
-        gtk_window_present (GTK_WINDOW (chooser));
-}
 
 static void
 none_icon_selected (GtkMenuItem   *menuitem,
                     UmPhotoDialog *um)
 {
         um->callback (NULL, NULL, um->data);
-}
-
-static void
-file_icon_selected (GtkMenuItem   *menuitem,
-                    UmPhotoDialog *um)
-{
-        um_photo_dialog_select_file (um);
 }
 
 #ifdef HAVE_CHEESE
@@ -476,13 +278,6 @@ skip_faces:
         y++;
 #endif /* HAVE_CHEESE */
 
-        menuitem = gtk_menu_item_new_with_label (_("Browse for more pictures..."));
-        gtk_menu_attach (GTK_MENU (menu), GTK_WIDGET (menuitem),
-                         0, ROW_SPAN - 1, y, y + 1);
-        g_signal_connect (G_OBJECT (menuitem), "activate",
-                          G_CALLBACK (file_icon_selected), um);
-        gtk_widget_show (menuitem);
-
         um->photo_popup = menu;
 }
 
@@ -560,8 +355,6 @@ um_photo_dialog_new (GtkWidget            *button,
 
         um = g_new0 (UmPhotoDialog, 1);
 
-        um->thumb_factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
-
         /* Set up the popup */
         um->popup_button = button;
         setup_photo_popup (um);
@@ -588,8 +381,6 @@ um_photo_dialog_free (UmPhotoDialog *um)
 {
         gtk_widget_destroy (um->photo_popup);
 
-        if (um->thumb_factory)
-                g_object_unref (um->thumb_factory);
 #ifdef HAVE_CHEESE
         if (um->monitor)
                 g_object_unref (um->monitor);
