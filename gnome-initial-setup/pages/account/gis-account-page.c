@@ -511,6 +511,8 @@ gis_prepare_account_page (SetupData *setup)
 
   gtk_window_set_transient_for (OBJ(GtkWindow*,"local-account-dialog"),
                                 gis_get_main_window(setup));
+  g_signal_connect (WID("local-account-dialog"), "delete-event",
+                    G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
