@@ -127,13 +127,18 @@ update_navigation_buttons (GisAssistant *assistant,
                            GtkWidget    *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  gboolean can_go_backward, can_go_forward;
+  PageData *current_page = priv->current_page;
+  gboolean can_go_backward, can_go_forward, is_last_page;
 
-  can_go_backward = (priv->current_page->link->prev != NULL);
+  can_go_backward = (current_page->link->prev != NULL);
   gtk_widget_set_sensitive (priv->back, can_go_backward);
 
-  can_go_forward = (priv->current_page->link->next != NULL) && gis_assistant_get_page_complete (assistant, page);
+  can_go_forward = gis_assistant_get_page_complete (assistant, page);
   gtk_widget_set_sensitive (priv->forward, can_go_forward);
+
+  is_last_page = (current_page->link->next == NULL);
+  gtk_widget_set_visible (priv->back, !is_last_page);
+  gtk_widget_set_visible (priv->forward, !is_last_page);
 
   if (gis_assistant_get_use_unicode_buttons (assistant, page))
     {
