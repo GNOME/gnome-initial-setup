@@ -165,6 +165,30 @@ get_access_point_security (NMAccessPoint *ap)
   return type;
 }
 
+static gboolean
+bump_pulse (gpointer user_data)
+{
+  NetworkData *data = user_data;
+  GtkTreeIter iter;
+  GtkTreePath *path;
+  GtkTreeModel *model;
+
+  data->pulse++;
+
+  if (data->refreshing || !gtk_tree_row_reference_valid (data->row))
+    return FALSE;
+
+  model = (GtkTreeModel *)data->ap_list;
+  path = gtk_tree_row_reference_get_path (data->row);
+  gtk_tree_model_get_iter (model, &iter, path);
+  gtk_tree_path_free (path);
+  gtk_list_store_set (data->ap_list, &iter,
+                      PANEL_WIRELESS_COLUMN_PULSE, data->pulse,
+                      -1);
+
+  return TRUE;
+}
+
 static void
 add_access_point (NetworkData *data, NMAccessPoint *ap, NMAccessPoint *active)
 {
@@ -227,6 +251,8 @@ add_access_point (NetworkData *data, NMAccessPoint *ap, NMAccessPoint *active)
     path = gtk_tree_model_get_path (model, &iter);
     data->row = gtk_tree_row_reference_new (model, path);
     gtk_tree_path_free (path);
+
+    g_timeout_add (80, bump_pulse, data);
   }
 
 }
@@ -596,30 +622,6 @@ active_connections_changed (NMClient *client, GParamSpec *pspec, NetworkData *da
   refresh_wireless_list (data);
 }
 
-static gboolean
-bump_pulse (gpointer user_data)
-{
-  NetworkData *data = user_data;
-  GtkTreeIter iter;
-  GtkTreePath *path;
-  GtkTreeModel *model;
-
-  data->pulse++;
-
-  if (!data->refreshing &&
-      gtk_tree_row_reference_valid (data->row)) {
-    model = (GtkTreeModel *)data->ap_list;
-    path = gtk_tree_row_reference_get_path (data->row);
-    gtk_tree_model_get_iter (model, &iter, path);
-    gtk_tree_path_free (path);
-    gtk_list_store_set (data->ap_list, &iter,
-                        PANEL_WIRELESS_COLUMN_PULSE, data->pulse,
-                        -1);
-  }
-
-  return TRUE;
-}
-
 void
 gis_prepare_network_page (SetupData *setup)
 {
@@ -655,7 +657,6 @@ gis_prepare_network_page (SetupData *setup)
                                   "visible", PANEL_WIRELESS_COLUMN_ACTIVATING,
                                   "pulse", PANEL_WIRELESS_COLUMN_PULSE,
                                   NULL);
-  g_timeout_add (80, bump_pulse, data);
 
   cell = gtk_cell_renderer_text_new ();
   g_object_set (cell, "width", 400, "width-chars", 45, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
