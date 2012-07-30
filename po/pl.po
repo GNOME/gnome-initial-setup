@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-13 19:03+0200\n"
-"PO-Revision-Date: 2012-07-13 19:04+0200\n"
+"POT-Creation-Date: 2012-07-30 20:36+0200\n"
+"PO-Revision-Date: 2012-07-30 20:37+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Początkowe ustawienia"
 
-#: ../gnome-initial-setup/gis-assistant.c:200
+#: ../gnome-initial-setup/gis-assistant.c:145
 msgid "_Next"
 msgstr "_Dalej"
 
-#: ../gnome-initial-setup/gis-assistant.c:205
+#: ../gnome-initial-setup/gis-assistant.c:146
 msgid "_Back"
 msgstr "_Wstecz"
 
@@ -124,41 +124,29 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Silne"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:98
-msgid "Select"
-msgstr "Wybierz"
-
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:218
-msgid "Browse for more pictures"
-msgstr "Przeglądanie innych obrazów"
-
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:443
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:245
 msgid "Disable image"
 msgstr "Wyłącz obraz"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:461
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:263
 msgid "Take a photo..."
 msgstr "Zrób zdjęcie..."
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:479
-msgid "Browse for more pictures..."
-msgstr "Przeglądaj inne obrazy..."
-
-#: ../gnome-initial-setup/pages/account/um-utils.c:512
+#: ../gnome-initial-setup/pages/account/um-utils.c:267
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Użytkownik o nazwie \"%s\" już istnieje"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:516
+#: ../gnome-initial-setup/pages/account/um-utils.c:271
 #, c-format
 msgid "The username is too long"
 msgstr "Nazwa użytkownika jest za krótka"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:519
+#: ../gnome-initial-setup/pages/account/um-utils.c:274
 msgid "The username cannot start with a '-'"
 msgstr "Nazwa użytkownika nie może zaczynać się od znaku \"-\""
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:522
+#: ../gnome-initial-setup/pages/account/um-utils.c:277
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -176,7 +164,7 @@ msgid ""
 "agreement."
 msgstr "_Zgadzam się na warunki tej umowy licencyjnej użytkownika końcowego."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:273
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:274
 msgid "License Agreements"
 msgstr "Umowa licencyjna"
 
@@ -211,7 +199,7 @@ msgstr "_Usuń"
 msgid "Remove"
 msgstr "Usuń"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:301
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:303
 msgid "Online Accounts"
 msgstr "Konta online"
 
@@ -248,7 +236,6 @@ msgstr "chiński (uproszczony)"
 msgid "Unspecified"
 msgstr "Nieokreślony"
 
-#. XXX more to do
 #: ../gnome-initial-setup/pages/language/gis-language-page.c:44
 msgid "Welcome"
 msgstr "Witamy"
@@ -268,7 +255,7 @@ msgstr "_Wyświetl wszystkie"
 msgid "Search for a location"
 msgstr "Wyszukaj położenie"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:311
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:312
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Położenie"
@@ -288,29 +275,24 @@ msgstr "Strefa czasowa"
 #. TRANSLATORS: this is when the access point is not listed
 #. *                           * in the dropdown (or hidden) and the user has to select
 #. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:244
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:246
 msgctxt "Wireless access point"
 msgid "Other..."
 msgstr "Inna..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:322
-msgid "Wireless network is not available, but we are connected anyway."
-msgstr "Sieć bezprzewodowa jest niedostępna, ale połączono mimo to."
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:327
+msgid "Network is not available."
+msgstr "Sieć jest niedostępna."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:324
-msgid "Network is not available, make sure to turn airplane mode off."
-msgstr ""
-"Sieć jest niedostępna. Proszę się upewnić, że tryb samolotowy jest wyłączony."
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:329
+msgid "No network devices found."
+msgstr "Nie odnaleziono urządzeń sieciowych."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:326
-msgid "No network devices found"
-msgstr "Nie odnaleziono urządzeń sieciowych"
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:373
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:376
 msgid "Checking for available wireless networks"
 msgstr "Wyszukiwanie dostępnych sieci bezprzewodowych"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:739
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:745
 msgid "Network"
 msgstr "Sieć"
 
@@ -318,7 +300,7 @@ msgstr "Sieć"
 msgid "Wireless Networks"
 msgstr "Sieci bezprzewodowe"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:143
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:145
 msgid "Thank You"
 msgstr "Dziękujemy"
 
