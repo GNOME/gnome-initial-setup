@@ -44,7 +44,6 @@ struct _NetworkData {
 enum {
   PANEL_WIRELESS_COLUMN_ID,
   PANEL_WIRELESS_COLUMN_TITLE,
-  PANEL_WIRELESS_COLUMN_SORT,
   PANEL_WIRELESS_COLUMN_STRENGTH,
   PANEL_WIRELESS_COLUMN_MODE,
   PANEL_WIRELESS_COLUMN_SECURITY,
@@ -52,37 +51,6 @@ enum {
   PANEL_WIRELESS_COLUMN_ACTIVE,
   PANEL_WIRELESS_COLUMN_PULSE
 };
-
-static gint
-wireless_sort_cb (GtkTreeModel *model,
-                  GtkTreeIter  *a,
-                  GtkTreeIter  *b,
-                  gpointer      user_data)
-{
-  gchar *str_a;
-  gchar *str_b;
-  gint retval;
-
-  gtk_tree_model_get (model, a, PANEL_WIRELESS_COLUMN_SORT, &str_a, -1);
-  gtk_tree_model_get (model, b, PANEL_WIRELESS_COLUMN_SORT, &str_b, -1);
-
-  /* special case blank entries to the bottom */
-  if (g_strcmp0 (str_a, "") == 0) {
-    retval = 1;
-    goto out;
-  }
-  if (g_strcmp0 (str_b, "") == 0) {
-    retval = -1;
-    goto out;
-  }
-
-  retval = g_strcmp0 (str_a, str_b);
- out:
-  g_free (str_a);
-  g_free (str_b);
-
-  return retval;
-}
 
 static GPtrArray *
 get_strongest_unique_aps (const GPtrArray *aps)
@@ -235,7 +203,6 @@ add_access_point (NetworkData *data, NMAccessPoint *ap, NMAccessPoint *active)
   gtk_list_store_set (data->ap_list, &iter,
                       PANEL_WIRELESS_COLUMN_ID, object_path,
                       PANEL_WIRELESS_COLUMN_TITLE, ssid_text,
-                      PANEL_WIRELESS_COLUMN_SORT, ssid_text,
                       PANEL_WIRELESS_COLUMN_STRENGTH, nm_access_point_get_strength (ap),
                       PANEL_WIRELESS_COLUMN_MODE, nm_access_point_get_mode (ap),
                       PANEL_WIRELESS_COLUMN_SECURITY, get_access_point_security (ap),
@@ -271,7 +238,6 @@ add_access_point_other (NetworkData *data)
 
                       PANEL_WIRELESS_COLUMN_TITLE, C_("Wireless access point", "Other..."),
                       /* always last */
-                      PANEL_WIRELESS_COLUMN_SORT, "",
                       PANEL_WIRELESS_COLUMN_STRENGTH, 0,
                       PANEL_WIRELESS_COLUMN_MODE, NM_802_11_MODE_UNKNOWN,
                       PANEL_WIRELESS_COLUMN_SECURITY, NM_AP_SEC_UNKNOWN,
@@ -690,13 +656,8 @@ gis_prepare_network_page (SetupData *setup)
   data->ap_list = g_object_ref (OBJ(GtkListStore *, "liststore-wireless"));
   sortable = GTK_TREE_SORTABLE (data->ap_list);
   gtk_tree_sortable_set_sort_column_id (sortable,
-                                        PANEL_WIRELESS_COLUMN_SORT,
-                                        GTK_SORT_ASCENDING);
-  gtk_tree_sortable_set_sort_func (sortable,
-                                   PANEL_WIRELESS_COLUMN_SORT,
-                                   wireless_sort_cb,
-                                   sortable,
-                                   NULL);
+                                        PANEL_WIRELESS_COLUMN_STRENGTH,
+                                        GTK_SORT_DESCENDING);
 
   data->nm_client = nm_client_new ();
 
