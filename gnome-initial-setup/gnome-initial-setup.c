@@ -152,12 +152,65 @@ get_assistant_type (void)
 
 /* main {{{1 */
 
+static void
+load_overrides (SetupData *setup)
+{
+  gchar *filename;
+  GError *error = NULL;
+
+  setup->overrides = g_key_file_new ();
+  filename = g_build_filename (UIDIR, "overrides.ini", NULL);
+  if (!g_key_file_load_from_file (setup->overrides, filename, 0, &error)) {
+    if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT)) {
+      g_error ("%s", error->message);
+      exit (1);
+    }
+    g_error_free (error);
+  }
+  g_free (filename);
+}
+
+static void
+activate_cb (GApplication *app,
+             gpointer      user_data)
+{
+  SetupData *setup = user_data;
+
+  gtk_window_present (GTK_WINDOW (setup->main_window));
+}
+
+static void
+startup_cb (GApplication *app,
+            gpointer      user_data)
+{
+  SetupData *setup = user_data;
+
+  setup->main_window = g_object_new (GTK_TYPE_WINDOW,
+                                     "type", GTK_WINDOW_TOPLEVEL,
+                                     "border-width", 12,
+                                     "icon-name", "preferences-system",
+                                     "deletable", FALSE,
+                                     "resizable", FALSE,
+                                     "window-position", GTK_WIN_POS_CENTER_ALWAYS,
+                                     NULL);
+  gtk_application_add_window (GTK_APPLICATION (app), setup->main_window);
+
+  setup->assistant = g_object_new (get_assistant_type (), NULL);
+  gtk_container_add (GTK_CONTAINER (setup->main_window), GTK_WIDGET (setup->assistant));
+
+  gtk_widget_show (GTK_WIDGET (setup->assistant));
+
+  load_overrides (setup);
+
+  prepare_main_window (setup);
+}
+
 int
 main (int argc, char *argv[])
 {
   SetupData *setup;
-  gchar *filename;
-  GError *error;
+  GtkApplication *application;
+  int status;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -176,44 +229,17 @@ main (int argc, char *argv[])
   }
 #endif
 
-  error = NULL;
-  if (g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error) == NULL) {
-    g_error ("Couldn't get on session bus: %s", error->message);
-    exit (1);
-  }
+  application = gtk_application_new ("org.gnome.InitialSetup", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect (application, "startup",
+                    G_CALLBACK (startup_cb), setup);
+  g_signal_connect (application, "activate",
+                    G_CALLBACK (activate_cb), setup);
 
-  setup->main_window = g_object_new (GTK_TYPE_WINDOW,
-                                     "type", GTK_WINDOW_TOPLEVEL,
-                                     "border-width", 12,
-                                     "icon-name", "preferences-system",
-                                     "deletable", FALSE,
-                                     "resizable", FALSE,
-                                     "window-position", GTK_WIN_POS_CENTER_ALWAYS,
-                                     NULL);
+  status = g_application_run (G_APPLICATION (application), argc, argv);
 
-  setup->assistant = g_object_new (get_assistant_type (), NULL);
-  gtk_container_add (GTK_CONTAINER (setup->main_window), GTK_WIDGET (setup->assistant));
+  g_object_unref (application);
 
-  gtk_widget_show (GTK_WIDGET (setup->assistant));
-
-  setup->overrides = g_key_file_new ();
-  filename = g_build_filename (UIDIR, "overrides.ini", NULL);
-  if (!g_key_file_load_from_file (setup->overrides, filename, 0, &error)) {
-    if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT)) {
-      g_error ("%s", error->message);
-      exit (1);
-    }
-    g_error_free (error);
-  }
-  g_free (filename);
-
-  prepare_main_window (setup);
-
-  gtk_window_present (GTK_WINDOW (setup->main_window));
-
-  gtk_main ();
-
-  return 0;
+  return status;
 }
 
 /* Epilogue {{{1 */
