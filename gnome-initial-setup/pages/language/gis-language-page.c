@@ -154,6 +154,8 @@ add_languages (GtkListStore *liststore,
 
     locale_id = *locale_ids;
 
+    locale_ids ++;
+
     if (!cc_common_language_has_font (locale_id))
       continue;
 
@@ -165,8 +167,6 @@ add_languages (GtkListStore *liststore,
                                        COL_LOCALE_NAME, locale_name,
                                        COL_IS_EXTRA, is_extra,
                                        -1);
-
-    locale_ids ++;
   }
 }
 
