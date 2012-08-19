@@ -130,7 +130,7 @@ get_assistant_type (void)
                 "gtk-enable-animations", &enable_animations,
                 NULL);
 
-  if (enable_animations)
+  if (enable_animations && g_getenv ("GIS_DISABLE_CLUTTER") == NULL)
     return GIS_TYPE_ASSISTANT_CLUTTER;
 #endif /* HAVE_CLUTTER */
 
