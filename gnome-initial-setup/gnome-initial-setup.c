@@ -121,19 +121,6 @@ gis_get_assistant (SetupData *setup)
   return setup->assistant;
 }
 
-void
-gis_add_summary_callback (SetupData *setup,
-                          GFunc      callback,
-                          gpointer   user_data)
-{
-  AsyncClosure *closure = g_slice_new (AsyncClosure);
-
-  closure->callback = callback;
-  closure->user_data = user_data;
-
-  setup->finals = g_slist_append (setup->finals, closure);
-}
-
 static GType
 get_assistant_type (void)
 {

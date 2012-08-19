@@ -9,8 +9,6 @@
 
 G_BEGIN_DECLS
 
-void gis_copy_account_file (ActUser     *act_user,
-                            const gchar *relative_path);
 GtkBuilder * gis_builder (gchar *resource);
 void gis_gtk_text_buffer_insert_pango_text (GtkTextBuffer *buffer,
                                             GtkTextIter *iter,
