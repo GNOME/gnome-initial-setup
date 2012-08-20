@@ -6,6 +6,8 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#include <act/act-user-manager.h>
+
 #include <gdm/gdm-client.h>
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
@@ -18,8 +20,8 @@
 typedef struct _SummaryData SummaryData;
 
 struct _SummaryData {
-  gchar *user_username;
-  gchar *user_password;
+  ActUser *user_account;
+  const gchar *user_password;
 };
 
 static gboolean
@@ -237,7 +239,7 @@ log_user_in (SummaryData *data)
   }
 
   gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
-                                                           data->user_username,
+                                                           act_user_get_user_name (data->user_account),
                                                            SERVICE_NAME,
                                                            NULL, &error);
 
@@ -339,6 +341,10 @@ gis_prepare_summary_page (SetupData *setup)
   SummaryData *data;
 
   data = g_slice_new0 (SummaryData);
+
+  gis_get_user_permissions (setup,
+                            &data->user_account,
+                            &data->user_password);
 
   install_overrides (setup, builder);
 

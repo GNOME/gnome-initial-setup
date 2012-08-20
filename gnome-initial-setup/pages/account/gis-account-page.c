@@ -402,6 +402,8 @@ save_account_data (AccountData *data)
     act_user_set_password_mode (data->act_user, data->password_mode);
   }
 
+  gis_set_user_permissions (data->setup, data->act_user, password);
+
   gnome_keyring_create_sync ("Default", password ? password : "");
   gnome_keyring_set_default_keyring_sync ("Default");
 

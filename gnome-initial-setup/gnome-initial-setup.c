@@ -37,6 +37,9 @@ struct _SetupData {
   GisAssistant *assistant;
 
   GSList *finals;
+
+  ActUser *user_account;
+  const gchar *user_password;
 };
 
 typedef struct _AsyncClosure AsyncClosure;
@@ -120,6 +123,25 @@ gis_get_assistant (SetupData *setup)
 {
   return setup->assistant;
 }
+
+void
+gis_set_user_permissions (SetupData   *setup,
+                          ActUser     *user,
+                          const gchar *password)
+{
+  setup->user_account = user;
+  setup->user_password = password;
+}
+
+void
+gis_get_user_permissions (SetupData    *setup,
+                          ActUser     **user,
+                          const gchar **password)
+{
+  *user = setup->user_account;
+  *password = setup->user_password;
+}
+
 
 static GType
 get_assistant_type (void)
