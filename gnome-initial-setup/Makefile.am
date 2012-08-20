@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 
 LIBS = $(INITIAL_SETUP_LIBS) -lm
 
-libexec_PROGRAMS = gnome-initial-setup
+libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 
 BUILT_SOURCES =
 
@@ -51,6 +51,8 @@ gnome_initial_setup_LDADD =	\
 	pages/goa/libgisgoa.la \
 	pages/summary/libgissummary.la
 
+gnome_initial_setup_copy_worker_SOURCES =		\
+	gnome-initial-setup-copy-worker.c
 
 EXTRA_DIST = \
 	$(UI_FILES) \

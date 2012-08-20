@@ -42,9 +42,12 @@ EXTRA_DIST =						\
 CLEANFILES =						\
 	gnome-initial-setup.desktop.in			\
 	gnome-initial-setup.desktop			\
+	gnome-initial-setup-copy-worker.desktop.in	\
+	gnome-initial-setup-copy-worker.desktop		\
 	$(NULL)
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA =					\
 	welcome-tour.desktop				\
+	gnome-initial-setup-copy-worker.desktop		\
 	$(NULL)
