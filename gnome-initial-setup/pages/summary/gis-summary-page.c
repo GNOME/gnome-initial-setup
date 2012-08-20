@@ -13,6 +13,8 @@
 
 #define SERVICE_NAME "gnome-initial-setup"
 
+#define SKELETON_DIR "/dev/shm/gnome-initial-setup/skeleton"
+
 typedef struct _SummaryData SummaryData;
 
 struct _SummaryData {
@@ -103,23 +105,14 @@ recursively_delete (GFile   *file,
 static void
 copy_file_to_tmpfs (GFile *dest_base,
                     const gchar *dir,
-                    const gchar *filename)
+                    const gchar *path)
 {
   GFile *src_dir = g_file_new_for_path (dir);
-  GFile *src = g_file_get_child (src_dir, filename);
-  GFile *dest_dir = g_file_get_child (dest_base, dir);
-  GFile *dest = g_file_get_child (dest_dir, filename);
+  GFile *src = g_file_get_child (src_dir, path);
+  gchar *basename = g_file_get_basename (src);
+  GFile *dest = g_file_get_child (dest_base, basename);
 
   GError *error = NULL;
-
-  if (!g_file_make_directory_with_parents (dest, NULL, &error)) {
-    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
-      g_warning ("Unable to make directory %s: %s",
-                 g_file_get_path (dest_dir),
-                 error->message);
-      goto out;
-    }
-  }
 
   if (!g_file_copy (src, dest, G_FILE_COPY_NONE,
                     NULL, NULL, NULL, &error)) {
@@ -131,16 +124,17 @@ copy_file_to_tmpfs (GFile *dest_base,
   }
 
  out:
-  g_object_unref (dest_dir);
-  g_object_unref (dest);
   g_object_unref (src_dir);
   g_object_unref (src);
+  g_object_unref (dest);
+  g_free (basename);
+  g_clear_error (&error);
 }
 
 static void
 copy_files_to_tmpfs (void)
 {
-  GFile *dest = g_file_new_for_path ("/dev/shm/gnome-initial-setup/skeleton");
+  GFile *dest = g_file_new_for_path (SKELETON_DIR);
   GError *error = NULL;
 
   if (!recursively_delete (dest, &error)) {
@@ -148,13 +142,14 @@ copy_files_to_tmpfs (void)
                error->message);
     goto out;
   }
-
+ 
   copy_file_to_tmpfs (dest, g_get_user_config_dir (), "dconf/user");
   copy_file_to_tmpfs (dest, g_get_user_config_dir (), "goa-1.0/accounts.conf");
   copy_file_to_tmpfs (dest, g_get_user_data_dir (), "keyrings/Default.keyring");
 
  out:
   g_object_unref (dest);
+  g_clear_error (&error);
 }
 
 static void
