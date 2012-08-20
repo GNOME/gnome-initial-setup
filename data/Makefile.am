@@ -43,3 +43,8 @@ CLEANFILES =						\
 	gnome-initial-setup.desktop.in			\
 	gnome-initial-setup.desktop			\
 	$(NULL)
+
+autostartdir = $(sysconfdir)/xdg/autostart
+autostart_DATA =					\
+	welcome-tour.desktop				\
+	$(NULL)

@@ -51,10 +51,7 @@ gnome_initial_setup_LDADD =	\
 	pages/goa/libgisgoa.la \
 	pages/summary/libgissummary.la
 
-autostartdir = $(sysconfdir)/xdg/autostart
-autostart_DATA = welcome-tour.desktop
 
 EXTRA_DIST = \
 	$(UI_FILES) \
-	setup.gresource.xml \
-	welcome-tour.desktop
+	setup.gresource.xml
