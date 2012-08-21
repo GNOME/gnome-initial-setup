@@ -443,6 +443,14 @@ cc_notebook_select_page (CcNotebook *self,
 		g_warning ("Could not find widget '%p' in CcNotebook '%p'", widget, self);
 }
 
+static void
+widget_destroyed (GtkWidget *widget,
+                  gpointer   user_data)
+{
+        CcNotebook *notebook = g_object_get_data (G_OBJECT (widget), "cc-notebook");
+        cc_notebook_remove_page (notebook, widget);
+}
+
 void
 cc_notebook_add_page (CcNotebook *self,
                       GtkWidget  *widget)
@@ -460,6 +468,8 @@ cc_notebook_add_page (CcNotebook *self,
 
         embed = gtk_clutter_actor_new_with_contents (widget);
         g_object_set_data (G_OBJECT (widget), "cc-notebook-frame", frame);
+        g_object_set_data (G_OBJECT (widget), "cc-notebook", self);
+        g_signal_connect (widget, "destroy", G_CALLBACK (widget_destroyed), NULL);
         clutter_actor_add_child (frame, embed);
         gtk_widget_show (widget);
 
