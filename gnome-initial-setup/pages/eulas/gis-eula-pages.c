@@ -287,7 +287,7 @@ gis_prepare_eula_pages (SetupData *setup)
   GFileEnumerator *enumerator = NULL;
   GFileInfo *info;
 
-  eulas_dir_path = g_build_filename (UIDIR, "eulas", NULL);
+  eulas_dir_path = g_build_filename (PKGDATADIR, "eulas", NULL);
   eulas_dir = g_file_new_for_path (eulas_dir_path);
   g_free (eulas_dir_path);
 

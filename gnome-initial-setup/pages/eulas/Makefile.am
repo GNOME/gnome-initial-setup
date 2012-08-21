@@ -1,8 +1,10 @@
 
 noinst_LTLIBRARIES = libgiseulas.la
 
+pkgdatadir = $(datadir)/gnome-initial-setup
+
 AM_CPPFLAGS = \
-	-DUIDIR="\"$(uidir)\""
+	-DPKGDATADIR="\"$(pkgdatadir)\""
 
 libgiseulas_la_SOURCES =	\
 	gis-eula-pages.c gis-eula-pages.h
