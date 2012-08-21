@@ -84,7 +84,6 @@ get_page_data_for_page (GtkWidget *page)
 static void
 free_page_data (PageData *page_data)
 {
-  g_object_unref (page_data->widget);
   g_free (page_data->title);
   g_slice_free (PageData, page_data);
 }
@@ -93,7 +92,7 @@ static PageData *
 create_page_data_for_page (GtkWidget *page)
 {
   PageData *page_data = g_slice_new0 (PageData);
-  page_data->widget = g_object_ref (page);
+  page_data->widget = page;
 
   g_object_set_data_full (G_OBJECT (page), "gis-assistant-page-data",
                           page_data, (GDestroyNotify) free_page_data);
