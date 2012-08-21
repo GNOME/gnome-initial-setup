@@ -26,7 +26,6 @@ struct _LanguageData {
   GtkWidget *page;
   GtkWidget *filter_entry;
   GtkTreeModel *liststore;
-  gchar *locale_id;
 };
 
 enum {
@@ -37,11 +36,14 @@ enum {
 };
 
 static void
-sync_language (LanguageData *data)
+set_language (LanguageData *data,
+              gchar        *locale_id)
 {
-  setlocale (LC_MESSAGES, data->locale_id);
-
-  gis_assistant_set_page_title (gis_get_assistant (data->setup), data->page, _("Welcome"));
+  gchar *current_locale_id = cc_common_language_get_current_language ();
+  if (g_strcmp0 (current_locale_id, locale_id) != 0) {
+    setlocale (LC_MESSAGES, locale_id);
+  }
+  g_free (current_locale_id);
 }
 
 static gint
@@ -224,15 +226,11 @@ selection_changed (GtkTreeSelection *selection,
   if (!gtk_tree_selection_get_selected (selection, &model, &iter))
     return;
 
-  g_free (data->locale_id);
-
   gtk_tree_model_get (model, &iter,
                       COL_LOCALE_ID, &new_locale_id,
                       -1);
 
-  data->locale_id = new_locale_id;
-
-  sync_language (data);
+  set_language (data, new_locale_id);
 }
 
 void
@@ -252,7 +250,6 @@ gis_prepare_language_page (SetupData *setup)
 
   data = g_slice_new0 (LanguageData);
   data->setup = setup;
-  data->locale_id = cc_common_language_get_current_language ();
   data->page = WID ("language-page");
   data->show_all = WID ("language-show-all");
   data->filter_entry = WID ("language-filter-entry");
@@ -287,7 +284,7 @@ gis_prepare_language_page (SetupData *setup)
   gis_assistant_set_use_unicode_buttons (assistant, data->page, TRUE);
   gis_assistant_set_page_complete (assistant, data->page, TRUE);
 
-  sync_language (data);
+  gis_assistant_set_page_title (gis_get_assistant (data->setup), data->page, _("Welcome"));
   select_current_locale (treeview);
 
   g_object_unref (builder);
