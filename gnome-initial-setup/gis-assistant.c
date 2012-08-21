@@ -85,6 +85,7 @@ static void
 free_page_data (PageData *page_data)
 {
   g_object_unref (page_data->widget);
+  g_free (page_data->title);
   g_slice_free (PageData, page_data);
 }
 
