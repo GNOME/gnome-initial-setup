@@ -66,6 +66,8 @@ struct _GisAssistantPrivate
 
 struct _PageData
 {
+  GisAssistant *assistant;
+
   GtkWidget *widget;
   gboolean page_complete : 1;
   gboolean use_unicode_buttons : 1;
@@ -84,15 +86,19 @@ get_page_data_for_page (GtkWidget *page)
 static void
 free_page_data (PageData *page_data)
 {
+  GisAssistantPrivate *priv = page_data->assistant->priv;
+  priv->pages = g_list_delete_link (priv->pages, page_data->link);
   g_free (page_data->title);
   g_slice_free (PageData, page_data);
 }
 
 static PageData *
-create_page_data_for_page (GtkWidget *page)
+create_page_data_for_page (GisAssistant *assistant,
+                           GtkWidget    *page)
 {
   PageData *page_data = g_slice_new0 (PageData);
   page_data->widget = page;
+  page_data->assistant = assistant;
 
   g_object_set_data_full (G_OBJECT (page), "gis-assistant-page-data",
                           page_data, (GDestroyNotify) free_page_data);
@@ -164,7 +170,7 @@ gis_assistant_add_page (GisAssistant *assistant,
                         GtkWidget    *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  PageData *page_data = create_page_data_for_page (page);
+  PageData *page_data = create_page_data_for_page (assistant, page);
 
   priv->pages = g_list_append (priv->pages, page_data);
   page_data->link = g_list_last (priv->pages);
