@@ -145,6 +145,12 @@ copy_files_to_tmpfs (void)
     goto out;
   }
  
+  if (!g_file_make_directory_with_parents (dest, NULL, &error)) {
+    g_warning ("Unable to make new skeleton folder: %s",
+               error->message);
+    goto out;
+  }
+
   copy_file_to_tmpfs (dest, g_get_user_config_dir (), "dconf/user");
   copy_file_to_tmpfs (dest, g_get_user_config_dir (), "goa-1.0/accounts.conf");
   copy_file_to_tmpfs (dest, g_get_user_data_dir (), "keyrings/Default.keyring");
