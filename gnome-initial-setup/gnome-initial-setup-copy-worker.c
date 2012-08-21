@@ -47,6 +47,7 @@ main (int    argc,
       char **argv)
 {
   GFile *src;
+  GError *error = NULL;
   int ret = 0;
 
   g_type_init ();
@@ -65,6 +66,12 @@ main (int    argc,
   MOVE (config, "dconf/user");
   MOVE (config, "goa-1.0/accounts.conf");
   MOVE (data, "keyrings/Default.keyring");
+
+  if (!g_file_delete (src, NULL, &error))
+    {
+      g_warning ("Unable to delete skeleton dir: %s", error->message);
+      goto out;
+    }
 
   ret = 0;
 
