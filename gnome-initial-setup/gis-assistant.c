@@ -84,12 +84,29 @@ get_page_data_for_page (GtkWidget *page)
 }
 
 static void
+remove_page_data (PageData *page_data)
+{
+  g_object_set_data (G_OBJECT (page_data->widget), "gis-assistant-page-data", NULL);
+}
+
+static void
 free_page_data (PageData *page_data)
 {
   GisAssistantPrivate *priv = page_data->assistant->priv;
+
   priv->pages = g_list_delete_link (priv->pages, page_data->link);
+  if (page_data == priv->current_page)
+    priv->current_page = NULL;
+
   g_free (page_data->title);
   g_slice_free (PageData, page_data);
+}
+
+static void
+widget_destroyed (GtkWidget *widget,
+                  PageData  *page_data)
+{
+  remove_page_data (page_data);
 }
 
 static PageData *
@@ -100,6 +117,7 @@ create_page_data_for_page (GisAssistant *assistant,
   page_data->widget = page;
   page_data->assistant = assistant;
 
+  g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), page_data);
   g_object_set_data_full (G_OBJECT (page), "gis-assistant-page-data",
                           page_data, (GDestroyNotify) free_page_data);
 
@@ -325,12 +343,6 @@ gis_assistant_init (GisAssistant *assistant)
                     G_CALLBACK (go_backward), assistant);
 
   gtk_widget_show_all (GTK_WIDGET (assistant));
-}
-
-static void
-remove_page_data (PageData *page_data)
-{
-  g_object_set_data (G_OBJECT (page_data->widget), "gis-assistant-page-data", NULL);
 }
 
 static void
