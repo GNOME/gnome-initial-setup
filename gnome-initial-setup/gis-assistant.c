@@ -134,7 +134,11 @@ void
 gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  PageData *next_page = (PageData *) priv->current_page->link->next->data;
+  PageData *next_page;
+
+  g_return_if_fail (priv->current_page != NULL);
+
+  next_page = (PageData *) priv->current_page->link->next->data;
   gis_assistant_switch_to (assistant, next_page->widget);
 }
 
@@ -142,7 +146,11 @@ void
 gis_assistant_previous_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  PageData *prev_page = (PageData *) priv->current_page->link->prev->data;
+  PageData *prev_page;
+
+  g_return_if_fail (priv->current_page != NULL);
+
+  prev_page = (PageData *) priv->current_page->link->prev->data;
   gis_assistant_switch_to (assistant, prev_page->widget);
 }
 
@@ -153,6 +161,9 @@ update_navigation_buttons (GisAssistant *assistant,
   GisAssistantPrivate *priv = assistant->priv;
   PageData *current_page = priv->current_page;
   gboolean can_go_backward, can_go_forward, is_last_page;
+
+  if (current_page == NULL)
+    return;
 
   can_go_backward = (current_page->link->prev != NULL);
   gtk_widget_set_sensitive (priv->back, can_go_backward);
@@ -282,7 +293,10 @@ gchar *
 gis_assistant_get_title (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  return priv->current_page->title;
+  if (priv->current_page != NULL && priv->current_page->title != NULL)
+    return priv->current_page->title;
+  else
+    return "";
 }
 
 GtkWidget *
