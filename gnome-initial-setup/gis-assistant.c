@@ -210,6 +210,26 @@ gis_assistant_add_page (GisAssistant *assistant,
     update_navigation_buttons (assistant, priv->current_page->widget);
 }
 
+void
+gis_assistant_destroy_all_pages (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  GList *l, *next;
+
+  g_object_freeze_notify (G_OBJECT (assistant));
+
+  for (l = priv->pages; l != NULL; l = next)
+    {
+      PageData *page_data = l->data;
+      next = l->next;
+      gtk_widget_destroy (page_data->widget);
+    }
+
+  g_object_thaw_notify (G_OBJECT (assistant));
+
+  g_assert (priv->pages == NULL);
+}
+
 static void
 go_forward (GtkWidget    *button,
             GisAssistant *assistant)

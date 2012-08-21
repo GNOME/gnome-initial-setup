@@ -43,6 +43,7 @@ void      gis_assistant_add_page          (GisAssistant *assistant,
 
 void      gis_assistant_next_page         (GisAssistant *assistant);
 void      gis_assistant_previous_page     (GisAssistant *assistant);
+void      gis_assistant_destroy_all_pages (GisAssistant *assistant);
 
 void      gis_assistant_set_page_complete (GisAssistant *assistant,
                                            GtkWidget    *page,
