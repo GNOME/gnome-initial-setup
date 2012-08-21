@@ -36,29 +36,9 @@ struct _SetupData {
   GKeyFile *overrides;
   GisAssistant *assistant;
 
-  GSList *finals;
-
   ActUser *user_account;
   const gchar *user_password;
 };
-
-typedef struct _AsyncClosure AsyncClosure;
-
-struct _AsyncClosure {
-  GFunc callback;
-  gpointer user_data;
-};
-
-static void
-run_finals (SetupData *setup)
-{
-  GSList *l;
-
-  for (l = setup->finals; l != NULL; l = l->next) {
-    AsyncClosure *closure = l->data;
-    closure->callback (setup, closure->user_data);
-  }
-}
 
 static void
 title_changed_cb (GisAssistant *assistant,
@@ -74,9 +54,6 @@ prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
   g_debug ("Preparing page %s", gtk_widget_get_name (page));
 
   title_changed_cb (assi, NULL, setup);
-
-  if (g_object_get_data (G_OBJECT (page), "gis-summary"))
-    run_finals (setup);
 }
 
 static void
