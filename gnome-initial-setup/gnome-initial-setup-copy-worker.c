@@ -62,9 +62,9 @@ main (int    argc,
   if (!move_file_from_tmpfs (src, g_get_user_##d##_dir (), x))          \
     goto out;
 
-  MOVE (config, "dconf/user")
-  MOVE (config, "goa-1.0/accounts.conf")
-  MOVE (data, "keyrings/Default.keyring")
+  MOVE (config, "dconf/user");
+  MOVE (config, "goa-1.0/accounts.conf");
+  MOVE (data, "keyrings/Default.keyring");
 
   ret = 0;
 
