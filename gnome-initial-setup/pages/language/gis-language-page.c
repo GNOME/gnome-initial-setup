@@ -36,15 +36,15 @@ enum {
 };
 
 static void
-set_language (LanguageData *data,
-              gchar        *locale_id)
+set_locale_id (LanguageData *data,
+               gchar        *new_locale_id)
 {
-  gchar *current_locale_id = cc_common_language_get_current_language ();
-  if (g_strcmp0 (current_locale_id, locale_id) != 0) {
-    setlocale (LC_MESSAGES, locale_id);
+  gchar *old_locale_id = cc_common_language_get_current_language ();
+  if (g_strcmp0 (old_locale_id, new_locale_id) != 0) {
+    setlocale (LC_MESSAGES, new_locale_id);
     gis_locale_changed (data->setup);
   }
-  g_free (current_locale_id);
+  g_free (old_locale_id);
 }
 
 static gint
@@ -139,9 +139,9 @@ select_locale_id (GtkTreeView *treeview,
 static void
 select_current_locale (GtkTreeView *treeview)
 {
-  gchar *current_language = cc_common_language_get_current_language ();
-  select_locale_id (treeview, current_language);
-  g_free (current_language);
+  gchar *current_locale_id = cc_common_language_get_current_language ();
+  select_locale_id (treeview, current_locale_id);
+  g_free (current_locale_id);
 }
 
 static void
@@ -231,7 +231,7 @@ selection_changed (GtkTreeSelection *selection,
                       COL_LOCALE_ID, &new_locale_id,
                       -1);
 
-  set_language (data, new_locale_id);
+  set_locale_id (data, new_locale_id);
 }
 
 void
