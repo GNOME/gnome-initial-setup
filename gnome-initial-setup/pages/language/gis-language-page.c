@@ -79,24 +79,14 @@ sort_languages (GtkTreeModel *model,
 }
 
 static char *
-lgettext (char *locale_id,
-          char *string)
-{
-  char *orig_locale_id = setlocale (LC_MESSAGES, locale_id);
-  char *result = gettext(string);
-  setlocale (LC_MESSAGES, orig_locale_id);
-  return result;
-}
-
-static char *
 use_language (char *locale_id)
 {
   char *use, *language;
 
   /* Translators: the parameter here is your language's name, like
    * "Use English", "Deutsch verwenden", etc. */
-  use = N_("Use %s");
-  use = lgettext (locale_id, use);
+  setlocale (LC_MESSAGES, locale_id);
+  use = _("Use %s");
 
   language = gdm_get_language_from_name (locale_id, locale_id);
 
@@ -149,6 +139,8 @@ add_languages (GtkListStore *liststore,
                char        **locale_ids,
                GHashTable   *initial)
 {
+  char *orig_locale_id = cc_common_language_get_current_language ();
+
   while (*locale_ids) {
     gchar *locale_id;
     gchar *locale_name;
@@ -171,6 +163,9 @@ add_languages (GtkListStore *liststore,
                                        COL_IS_EXTRA, is_extra,
                                        -1);
   }
+
+  setlocale (LC_MESSAGES, orig_locale_id);
+  g_free (orig_locale_id);
 }
 
 static void
