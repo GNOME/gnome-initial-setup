@@ -530,7 +530,6 @@ cc_notebook_remove_page (CcNotebook *self,
 
         g_return_if_fail (CC_IS_NOTEBOOK (self));
         g_return_if_fail (GTK_IS_WIDGET (widget));
-        g_return_if_fail (widget != self->priv->selected_page);
 
         frame = g_object_get_data (G_OBJECT (widget), "cc-notebook-frame");
 
@@ -547,6 +546,10 @@ cc_notebook_remove_page (CcNotebook *self,
         }
 
         self->priv->pages = g_list_remove (self->priv->pages, widget);
+
+        if (widget == self->priv->selected_page)
+                self->priv->selected_page = NULL;
+
         gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
