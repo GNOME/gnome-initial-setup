@@ -73,6 +73,12 @@ prepare_main_window (SetupData *setup)
 
   g_signal_connect (setup->assistant, "prepare",
                     G_CALLBACK (prepare_cb), setup);
+}
+
+static gboolean
+rebuild_pages (SetupData *setup)
+{
+  gis_assistant_destroy_all_pages (setup->assistant);
 
   gis_prepare_language_page (setup);
   gis_prepare_eula_pages (setup);
@@ -81,6 +87,8 @@ prepare_main_window (SetupData *setup)
   gis_prepare_location_page (setup);
   gis_prepare_online_page (setup);
   gis_prepare_summary_page (setup);
+
+  return FALSE;
 }
 
 GKeyFile *
@@ -119,6 +127,11 @@ gis_get_user_permissions (SetupData    *setup,
   *password = setup->user_password;
 }
 
+void
+gis_locale_changed (SetupData *setup)
+{
+  g_idle_add ((GSourceFunc) rebuild_pages, setup);
+}
 
 static GType
 get_assistant_type (void)
@@ -189,6 +202,7 @@ startup_cb (GApplication *app,
   load_overrides (setup);
 
   prepare_main_window (setup);
+  rebuild_pages (setup);
 }
 
 int

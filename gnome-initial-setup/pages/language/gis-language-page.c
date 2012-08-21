@@ -42,6 +42,7 @@ set_language (LanguageData *data,
   gchar *current_locale_id = cc_common_language_get_current_language ();
   if (g_strcmp0 (current_locale_id, locale_id) != 0) {
     setlocale (LC_MESSAGES, locale_id);
+    gis_locale_changed (data->setup);
   }
   g_free (current_locale_id);
 }

@@ -17,6 +17,7 @@ typedef struct _SetupData SetupData;
 GtkWindow *gis_get_main_window (SetupData *setup);
 GKeyFile *gis_get_overrides (SetupData *setup);
 GisAssistant * gis_get_assistant (SetupData *setup);
+void gis_locale_changed (SetupData *setup);
 
 void gis_set_user_permissions (SetupData   *setup,
                                ActUser     *user,
