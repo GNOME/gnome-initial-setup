@@ -24,7 +24,6 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   libnm-glib >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-util >= $NETWORK_MANAGER_REQUIRED_VERSION
                   accountsservice
-                  gnome-keyring-1
                   gnome-desktop-3.0
                   gstreamer-0.10
                   cheese

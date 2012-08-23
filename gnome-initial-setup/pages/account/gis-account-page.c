@@ -10,8 +10,6 @@
 
 #include <act/act-user-manager.h>
 
-#include <gnome-keyring.h>
-
 #include "um-utils.h"
 #include "um-photo-dialog.h"
 #include "pw-utils.h"
@@ -403,9 +401,6 @@ save_account_data (AccountData *data)
   }
 
   gis_set_user_permissions (data->setup, data->act_user, password);
-
-  gnome_keyring_create_sync ("Default", password ? password : "");
-  gnome_keyring_set_default_keyring_sync ("Default");
 
   data->user_data_unsaved = FALSE;
 }
