@@ -1,3 +1,55 @@
+0.2
+===
+
+ * Add a language selector to replace the Welcome splash screen
+   before.
+ * GDM integration has been rewritten to use libgdm instead of
+   libgdmuser.
+ * A lot of code has been properly split out into static
+   libraries; each page now has one static library. In the
+   future, we will have an unsupported module API that can be
+   used to extend the system.
+ * Use a cc-notebook, stolen from gnome-control-center, that
+   allows smooth animations between pages. A plain GTK+
+   implementation is being written for systems without the
+   capabilities to run animations.
+ * Complete integration by including a copy worker run on session
+   init. This strategy should work for the use case of enterprise
+   users.
+ * Fix libcheese integration, and disallow the file picker when
+   choosing a user icon.
+
+Code:
+ Jasper St. Pierre, Cosimo Cecchi
+
+Translations:
+
+ Alexandre Franke
+ Alexsey Nadtochey
+ Andika Triwidada
+ Arvis Lacis
+ A S Alam
+ Aurimas Černius
+ chandankumar
+ Chao-Hsiung Liao
+ Cheng Lu
+ Daniel Korostil
+ Daniel Mustieles
+ Fran Diéguez
+ Khaled Hosny
+ Kjartan Maraas
+ Matej Urbančič
+ Matthias Clasen
+ Muhammet Kara
+ Nguyễn Thái Ngọc Duy
+ Nilamdyuti Goswami
+ Piotr Drąg
+ Tobias Endrigkeit
+ Tom Tryfonidis
+ Urmas D
+ Yaron Shahrabani
+ Мирослав Николић
+
 0.1
 ===
 
