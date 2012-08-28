@@ -21,7 +21,7 @@ libgislocation_la_SOURCES =	\
 	gis-location-page.c gis-location-page.h \
 	$(BUILT_SOURCES)
 
-libgislocation_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "../.."
+libgislocation_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
 libgislocation_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgislocation_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 

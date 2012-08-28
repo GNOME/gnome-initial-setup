@@ -13,6 +13,6 @@ libgisaccount_la_SOURCES =	\
 	um-photo-dialog.c um-photo-dialog.h \
 	gis-account-page.c gis-account-page.h
 
-libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "../.." -DHAVE_CHEESE
+libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.." -DHAVE_CHEESE
 libgisaccount_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgisaccount_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
