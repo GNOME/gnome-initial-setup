@@ -35,7 +35,9 @@ desktop_DATA =						\
 EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
 	org.gnome.initial-setup.policy			\
+	welcome-tour.desktop				\
 	gnome-initial-setup.desktop.in.in		\
+	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
 	$(NULL)
 
