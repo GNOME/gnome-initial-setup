@@ -27,15 +27,17 @@ session_DATA =						\
 	gnome-initial-setup.session			\
 	$(NULL)
 
-desktopdir = $(pkgdatadir)/applications
+desktopdir = $(datadir)/gdm/greeter/applications
 desktop_DATA =						\
 	gnome-initial-setup.desktop			\
+	setup-shell.desktop				\
 	$(NULL)
 
 EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
 	org.gnome.initial-setup.policy			\
 	welcome-tour.desktop				\
+	setup-shell.desktop
 	gnome-initial-setup.desktop.in.in		\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
