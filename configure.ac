@@ -25,7 +25,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   libnm-util >= $NETWORK_MANAGER_REQUIRED_VERSION
                   accountsservice
                   gnome-desktop-3.0
-                  gstreamer-0.10
+                  gstreamer-1.0
                   cheese
                   cheese-gtk >= 3.3.5
                   fontconfig
