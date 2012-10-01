@@ -480,7 +480,7 @@ gis_prepare_account_page (SetupData *setup)
   GtkWidget *local_account_cancel_button;
   GtkWidget *local_account_done_button;
   GtkWidget *local_account_avatar_button;
-  AccountData *data = g_slice_new (AccountData);
+  AccountData *data = g_slice_new0 (AccountData);
   GisAssistant *assistant = gis_get_assistant (setup);
   data->builder = gis_builder ("gis-account-page");
   data->setup = setup;
