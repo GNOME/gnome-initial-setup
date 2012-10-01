@@ -37,7 +37,7 @@ EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
 	org.gnome.initial-setup.policy			\
 	welcome-tour.desktop				\
-	setup-shell.desktop
+	setup-shell.desktop				\
 	gnome-initial-setup.desktop.in.in		\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
