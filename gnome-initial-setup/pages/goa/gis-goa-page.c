@@ -274,7 +274,7 @@ gis_prepare_online_page (SetupData *setup)
 {
   GtkWidget *button;
   GError *error = NULL;
-  GoaData *data = g_slice_new (GoaData);
+  GoaData *data = g_slice_new0 (GoaData);
   GisAssistant *assistant = gis_get_assistant (setup);
   data->setup = setup;
   data->builder = gis_builder ("gis-goa-page");

@@ -241,7 +241,7 @@ gis_prepare_location_page (SetupData *setup)
   GWeatherLocation *world;
   GError *error;
   const gchar *timezone;
-  LocationData *data = g_slice_new (LocationData);
+  LocationData *data = g_slice_new0 (LocationData);
   GisAssistant *assistant = gis_get_assistant (setup);
   data->builder = gis_builder ("gis-location-page");;
 
