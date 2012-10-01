@@ -433,6 +433,8 @@ create_local_account (GtkButton *button, gpointer user_data)
 {
   AccountData *data = user_data;
   gtk_widget_hide (WID("local-account-dialog"));
+
+  save_account_data (data);
 }
 
 static void
