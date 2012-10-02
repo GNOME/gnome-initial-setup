@@ -13,7 +13,7 @@
 #define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
-#define SERVICE_NAME "gnome-initial-setup"
+#define SERVICE_NAME "gdm-password"
 
 #define SKELETON_DIR "/dev/shm/gnome-initial-setup/skeleton"
 
