@@ -208,7 +208,9 @@ on_secret_info_query (GdmUserVerifier *user_verifier,
 {
   gboolean should_send_password = data->user_password != NULL;
 
+  g_debug ("PAM module secret info query: %s\n", question);
   if (should_send_password) {
+    g_debug ("sending password\n");
     gdm_user_verifier_call_answer_query (user_verifier,
                                          service_name,
                                          data->user_password,
@@ -245,16 +247,6 @@ log_user_in (SummaryData *data)
     return;
   }
 
-  gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
-                                                           act_user_get_user_name (data->user_account),
-                                                           SERVICE_NAME,
-                                                           NULL, &error);
-
-  if (error != NULL) {
-    g_warning ("Could not begin verification: %s", error->message);
-    return;
-  }
-
   g_signal_connect (user_verifier, "info",
                     G_CALLBACK (on_info), data);
   g_signal_connect (user_verifier, "problem",
@@ -266,6 +258,16 @@ log_user_in (SummaryData *data)
 
   g_signal_connect (greeter, "session-opened",
                     G_CALLBACK (on_session_opened), data);
+
+  gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
+                                                           SERVICE_NAME,
+                                                           act_user_get_user_name (data->user_account),
+                                                           NULL, &error);
+
+  if (error != NULL) {
+    g_warning ("Could not begin verification: %s", error->message);
+    return;
+  }
 }
 
 static void
