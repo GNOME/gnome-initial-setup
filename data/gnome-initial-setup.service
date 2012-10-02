@@ -1,0 +1,13 @@
+Description=GNOME initial setup
+After=livesys.service
+Before=display-manager.service getty@tty1.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/touch /var/lib/gdm/run-initial-setup
+ExecStartPost=/usr/bin/systemctl disable gnome-initial-setup.service
+TimeoutSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical.target

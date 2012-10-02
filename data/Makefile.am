@@ -33,6 +33,9 @@ desktop_DATA =						\
 	setup-shell.desktop				\
 	$(NULL)
 
+systemdsystemunitdir = /usr/lib/systemd/system
+systemdsystemunit_DATA = gnome-initial-setup.service
+
 EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
 	org.gnome.initial-setup.policy			\
@@ -41,6 +44,7 @@ EXTRA_DIST =						\
 	gnome-initial-setup.desktop.in.in		\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
+	gnome-initial-setup.service			\
 	$(NULL)
 
 CLEANFILES =						\
