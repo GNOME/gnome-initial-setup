@@ -22,6 +22,7 @@ typedef struct _SummaryData SummaryData;
 struct _SummaryData {
   ActUser *user_account;
   const gchar *user_password;
+  SetupData *setup;
 };
 
 static gboolean
@@ -339,6 +340,17 @@ install_overrides (SetupData  *setup,
   g_free (s);
 }
 
+static void
+prepare_cb (GisAssistant *assistant, GtkWidget *page, SummaryData *data)
+{
+  if (g_strcmp0 (gtk_widget_get_name (page), "summary-page") == 0)
+    {
+      gis_get_user_permissions (data->setup,
+                                &data->user_account,
+                                &data->user_password);
+    }
+}
+
 void
 gis_prepare_summary_page (SetupData *setup)
 {
@@ -347,10 +359,9 @@ gis_prepare_summary_page (SetupData *setup)
   SummaryData *data;
 
   data = g_slice_new0 (SummaryData);
+  data->setup = setup;
 
-  gis_get_user_permissions (setup,
-                            &data->user_account,
-                            &data->user_password);
+  g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), data);
 
   install_overrides (setup, builder);
 
