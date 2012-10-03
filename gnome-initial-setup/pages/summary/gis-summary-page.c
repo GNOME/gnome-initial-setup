@@ -113,6 +113,7 @@ copy_files_to_tmpfs (SummaryData *data)
 #define FILE(d, x)                                                      \
   copy_file_to_tmpfs (dest, g_get_user_##d##_dir (), x, user);          \
 
+  FILE (config, "run-welcome-tour");
   FILE (config, "dconf/user");
   FILE (config, "goa-1.0/accounts.conf");
   FILE (data, "keyrings/Default.keyring");
@@ -247,8 +248,12 @@ byebye_cb (GtkButton *button, SummaryData *data)
 static void
 tour_cb (GtkButton *button, SummaryData *data)
 {
-  /* the tour is triggered by /tmp/run-welcome-tour */
-  g_file_set_contents ("/tmp/run-welcome-tour", "yes", -1, NULL);
+  gchar *file;
+
+  /* the tour is triggered by $XDG_CONFIG_HOME/run-welcome-tour */
+  file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
+  g_file_set_contents (file, "yes", -1, NULL);
+  g_free (file);
   byebye (data);
 }
 

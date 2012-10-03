@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
-rm -f /tmp/run-welcome-tour
+rm -f ${XDG_CONFIG_DIR:-$HOME/.config}/run-welcome-tour
 epiphany --private-instance http://www.gnome3.org
