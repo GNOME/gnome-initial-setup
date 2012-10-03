@@ -39,8 +39,9 @@ systemdsystemunit_DATA = gnome-initial-setup.service
 EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
 	org.gnome.initial-setup.policy			\
-	welcome-tour.desktop				\
+	gnome-welcome-tour				\
 	setup-shell.desktop				\
+	gnome-welcome-tour.desktop.in.in		\
 	gnome-initial-setup.desktop.in.in		\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
@@ -56,6 +57,9 @@ CLEANFILES =						\
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA =					\
-	welcome-tour.desktop				\
+	gnome-welcome-tour.desktop			\
 	gnome-initial-setup-copy-worker.desktop		\
 	$(NULL)
+
+libexec_SCRIPTS =						\
+	gnome-welcome-tour
