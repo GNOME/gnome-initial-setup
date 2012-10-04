@@ -55,6 +55,19 @@ connect_to_gdm (GdmGreeter      **greeter,
   return res;
 }
 
+static gboolean
+pkinstall(char *one, char *two, GError **error)
+{
+  char *argv[] = { "/usr/bin/pkexec",
+                   "install",
+                   "--owner", (char *) user,
+                   "--group", (char *) user,
+                   "--mode", "755",
+                   one, two };
+
+  return g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, error);
+}
+
 static void
 copy_file_to_tmpfs (GFile *dest_base,
                     const char *dir,
@@ -64,15 +77,9 @@ copy_file_to_tmpfs (GFile *dest_base,
   char *src = g_build_filename (dir, path, NULL);
   char *basename = g_path_get_basename (src);
   char *dest = g_build_filename (g_file_get_path (dest_base), basename, NULL);
-  char *argv[] = { "/usr/bin/pkexec",
-                   "install",
-                   "--owner", (char *) user,
-                   "--group", (char *) user,
-                   "--mode", "755",
-                   src, dest };
   GError *error = NULL;
 
-  if (!g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, &error)) {
+  if (!pkinstall (src, dest, &error) {
     g_warning ("Unable to copy %s to %s: %s",
                src, dest, error->message);
     g_error_free (error);
@@ -89,13 +96,13 @@ get_skeleton_dir (SummaryData *data)
 static void
 copy_files_to_tmpfs (SummaryData *data)
 {
-  GFile *dest = g_file_new_for_path (get_skeleton_dir (data));
+  char *dest = get_skeleton_dir (data);
   const char *user = act_user_get_user_name (data->user_account);
   GError *error = NULL;
 
-  if (!g_file_make_directory_with_parents (dest, NULL, &error)) {
-    g_warning ("Unable to make new skeleton folder: %s",
-               error->message);
+  if (!pkinstall ("--directory", dest, &error)) {
+    g_warning ("Unable to make directory: %s",
+               dest, error->message);
     goto out;
   }
 
