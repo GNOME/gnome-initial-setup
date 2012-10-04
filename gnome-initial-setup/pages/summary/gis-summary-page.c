@@ -107,31 +107,26 @@ recursively_delete (GFile   *file,
 
 static void
 copy_file_to_tmpfs (GFile *dest_base,
-                    const gchar *dir,
-                    const gchar *path)
+                    const char *dir,
+                    const char *path,
+                    const char *user)
 {
-  GFile *src_dir = g_file_new_for_path (dir);
-  GFile *src = g_file_get_child (src_dir, path);
-  gchar *basename = g_file_get_basename (src);
-  GFile *dest = g_file_get_child (dest_base, basename);
-
+  char *src = g_build_filename (dir, path, NULL);
+  char *basename = g_path_get_basename (src);
+  char *dest = g_build_filename (g_file_get_path (dest_base), basename, NULL);
+  char *argv[] = { "/usr/bin/pkexec",
+                   "install",
+                   "--owner", (char *) user,
+                   "--group", (char *) user,
+                   "--mode", "755",
+                   src, dest };
   GError *error = NULL;
 
-  if (!g_file_copy (src, dest, G_FILE_COPY_NONE,
-                    NULL, NULL, NULL, &error)) {
+  if (!g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, &error)) {
     g_warning ("Unable to copy %s to %s: %s",
-               g_file_get_path (src),
-               g_file_get_path (dest),
-               error->message);
-    goto out;
+               src, dest, error->message);
+    g_error_free (error);
   }
-
- out:
-  g_object_unref (src_dir);
-  g_object_unref (src);
-  g_object_unref (dest);
-  g_free (basename);
-  g_clear_error (&error);
 }
 
 static char *
@@ -145,6 +140,7 @@ static void
 copy_files_to_tmpfs (SummaryData *data)
 {
   GFile *dest = g_file_new_for_path (get_skeleton_dir (data));
+  const char *user = act_user_get_user_name (data->user_account);
   GError *error = NULL;
 
   if (!recursively_delete (dest, &error)) {
@@ -152,19 +148,19 @@ copy_files_to_tmpfs (SummaryData *data)
                error->message);
     goto out;
   }
- 
+
   if (!g_file_make_directory_with_parents (dest, NULL, &error)) {
     g_warning ("Unable to make new skeleton folder: %s",
                error->message);
     goto out;
   }
 
-  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "dconf/user");
-  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "goa-1.0/accounts.conf");
-  copy_file_to_tmpfs (dest, g_get_user_data_dir (), "keyrings/Default.keyring");
+  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "dconf/user", user);
+  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "goa-1.0/accounts.conf", user);
+  copy_file_to_tmpfs (dest, g_get_user_data_dir (), "keyrings/Default.keyring", user);
 
  out:
-  g_object_unref (dest);
+  g_free (dest);
   g_clear_error (&error);
 }
 
