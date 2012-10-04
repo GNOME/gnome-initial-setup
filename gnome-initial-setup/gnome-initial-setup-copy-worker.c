@@ -5,7 +5,13 @@
 
 #include <gio/gio.h>
 
-#define SKELETON_DIR "/dev/shm/gnome-initial-setup/skeleton"
+#define SKELETON_PATH "gnome-initial-setup/skeleton"
+
+static char *
+get_skeleton_dir (void)
+{
+  return g_build_filename (g_get_user_runtime_dir (), SKELETON_PATH, NULL);
+}
 
 static gboolean
 move_file_from_tmpfs (GFile *src_base,
@@ -52,7 +58,7 @@ main (int    argc,
 
   g_type_init ();
 
-  src = g_file_new_for_path (SKELETON_DIR);
+  src = g_file_new_for_path (get_skeleton_dir ());
 
   if (g_file_query_exists (src, NULL))
     goto out;

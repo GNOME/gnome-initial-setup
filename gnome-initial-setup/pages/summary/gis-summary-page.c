@@ -15,7 +15,7 @@
 
 #define SERVICE_NAME "gdm-password"
 
-#define SKELETON_DIR "/dev/shm/gnome-initial-setup/skeleton"
+#define SKELETON_PATH "/gnome-initial-setup/skeleton"
 
 typedef struct _SummaryData SummaryData;
 
@@ -134,10 +134,17 @@ copy_file_to_tmpfs (GFile *dest_base,
   g_clear_error (&error);
 }
 
-static void
-copy_files_to_tmpfs (void)
+static char *
+get_skeleton_dir (SummaryData *data)
 {
-  GFile *dest = g_file_new_for_path (SKELETON_DIR);
+  uid_t uid = act_user_get_uid (data->user_account);
+  return g_strdup_printf ("/run/user/%d" SKELETON_PATH, uid);
+}
+
+static void
+copy_files_to_tmpfs (SummaryData *data)
+{
+  GFile *dest = g_file_new_for_path (get_skeleton_dir (data));
   GError *error = NULL;
 
   if (!recursively_delete (dest, &error)) {
@@ -273,7 +280,7 @@ log_user_in (SummaryData *data)
 static void
 byebye (SummaryData *data)
 {
-  copy_files_to_tmpfs ();
+  copy_files_to_tmpfs (data);
   log_user_in (data);
 }
 
