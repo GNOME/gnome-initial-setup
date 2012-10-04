@@ -155,9 +155,12 @@ copy_files_to_tmpfs (SummaryData *data)
     goto out;
   }
 
-  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "dconf/user", user);
-  copy_file_to_tmpfs (dest, g_get_user_config_dir (), "goa-1.0/accounts.conf", user);
-  copy_file_to_tmpfs (dest, g_get_user_data_dir (), "keyrings/Default.keyring", user);
+#define FILE(d, x)                                                      \
+  copy_file_to_tmpfs (dest, g_get_user_##d##_dir (), x, user);          \
+
+  FILE (config, "dconf/user");
+  FILE (config, "goa-1.0/accounts.conf");
+  FILE (data, "keyrings/Default.keyring");
 
  out:
   g_free (dest);

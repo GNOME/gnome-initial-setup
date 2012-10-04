@@ -65,13 +65,13 @@ main (int    argc,
 
   ret = 1;
 
-#define MOVE(d, x)                                                      \
+#define FILE(d, x)                                                      \
   if (!move_file_from_tmpfs (src, g_get_user_##d##_dir (), x))          \
     goto out;
 
-  MOVE (config, "dconf/user");
-  MOVE (config, "goa-1.0/accounts.conf");
-  MOVE (data, "keyrings/Default.keyring");
+  FILE (config, "dconf/user");
+  FILE (config, "goa-1.0/accounts.conf");
+  FILE (data, "keyrings/Default.keyring");
 
   if (!g_file_delete (src, NULL, &error))
     {
