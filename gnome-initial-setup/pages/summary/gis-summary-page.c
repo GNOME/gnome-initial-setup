@@ -56,7 +56,7 @@ connect_to_gdm (GdmGreeter      **greeter,
 }
 
 static gboolean
-pkinstall(char *one, char *two, GError **error)
+pkinstall(const char *user, char *one, char *two, GError **error)
 {
   char *argv[] = { "/usr/bin/pkexec",
                    "install",
@@ -69,21 +69,25 @@ pkinstall(char *one, char *two, GError **error)
 }
 
 static void
-copy_file_to_tmpfs (GFile *dest_base,
+copy_file_to_tmpfs (const char *dest_base,
                     const char *dir,
                     const char *path,
                     const char *user)
 {
   char *src = g_build_filename (dir, path, NULL);
   char *basename = g_path_get_basename (src);
-  char *dest = g_build_filename (g_file_get_path (dest_base), basename, NULL);
+  char *dest = g_build_filename (dest_base, basename, NULL);
   GError *error = NULL;
 
-  if (!pkinstall (src, dest, &error) {
+  if (!pkinstall (user, src, dest, &error)) {
     g_warning ("Unable to copy %s to %s: %s",
                src, dest, error->message);
     g_error_free (error);
   }
+
+  g_free (src);
+  g_free (basename);
+  g_free (dest);
 }
 
 static char *
@@ -96,12 +100,12 @@ get_skeleton_dir (SummaryData *data)
 static void
 copy_files_to_tmpfs (SummaryData *data)
 {
-  char *dest = get_skeleton_dir (data);
   const char *user = act_user_get_user_name (data->user_account);
+  char *dest = get_skeleton_dir (data);
   GError *error = NULL;
 
-  if (!pkinstall ("--directory", dest, &error)) {
-    g_warning ("Unable to make directory: %s",
+  if (!pkinstall (user, "--directory", dest, &error)) {
+    g_warning ("Unable to make directory %s: %s",
                dest, error->message);
     goto out;
   }
