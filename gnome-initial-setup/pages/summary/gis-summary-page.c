@@ -55,56 +55,6 @@ connect_to_gdm (GdmGreeter      **greeter,
   return res;
 }
 
-static gboolean
-recursively_delete (GFile   *file,
-                    GError **error_out)
-{
-  GError *error = NULL;
-
-  if (!g_file_query_exists (file, NULL))
-    goto out;
-
-  if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY) {
-    GFileEnumerator *enumerator;
-    GFileInfo *info;
-
-    enumerator = g_file_enumerate_children (file,
-                                            G_FILE_ATTRIBUTE_STANDARD_NAME,
-                                            G_FILE_QUERY_INFO_NONE,
-                                            NULL,
-                                            &error);
-    if (error != NULL)
-      goto out;
-
-    while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
-      GFile *child;
-      gboolean ret;
-
-      if (error != NULL)
-        goto out;
-
-      child = g_file_get_child (file, g_file_info_get_name (info));
-
-      ret = recursively_delete (child, &error);
-      g_object_unref (child);
-
-      if (!ret)
-        goto out;
-    }
-  }
-
-  if (!g_file_delete (file, NULL, &error))
-    goto out;
-
- out:
-  if (error != NULL) {
-    g_propagate_error (error_out, error);
-    return FALSE;
-  } else {
-    return TRUE;
-  }
-}
-
 static void
 copy_file_to_tmpfs (GFile *dest_base,
                     const char *dir,
@@ -142,12 +92,6 @@ copy_files_to_tmpfs (SummaryData *data)
   GFile *dest = g_file_new_for_path (get_skeleton_dir (data));
   const char *user = act_user_get_user_name (data->user_account);
   GError *error = NULL;
-
-  if (!recursively_delete (dest, &error)) {
-    g_warning ("Unable to delete old skeleton folder: %s",
-               error->message);
-    goto out;
-  }
 
   if (!g_file_make_directory_with_parents (dest, NULL, &error)) {
     g_warning ("Unable to make new skeleton folder: %s",
