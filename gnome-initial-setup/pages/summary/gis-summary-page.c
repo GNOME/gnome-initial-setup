@@ -63,7 +63,7 @@ pkinstall(const char *user, char *one, char *two, GError **error)
                    "--owner", (char *) user,
                    "--group", (char *) user,
                    "--mode", "755",
-                   one, two };
+                   one, two, NULL };
 
   return g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, error);
 }
