@@ -187,6 +187,7 @@ on_session_opened (GdmGreeter  *greeter,
                    const char  *service_name,
                    SummaryData *data)
 {
+  copy_files_to_tmpfs (data);
   gdm_greeter_call_start_session_when_ready_sync (greeter, service_name,
                                                   TRUE, NULL, NULL);
 }
@@ -234,7 +235,6 @@ log_user_in (SummaryData *data)
 static void
 byebye (SummaryData *data)
 {
-  copy_files_to_tmpfs (data);
   log_user_in (data);
 }
 
