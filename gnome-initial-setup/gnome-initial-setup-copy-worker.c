@@ -60,7 +60,7 @@ main (int    argc,
 
   src = g_file_new_for_path (get_skeleton_dir ());
 
-  if (g_file_query_exists (src, NULL))
+  if (!g_file_query_exists (src, NULL))
     goto out;
 
   ret = 1;
