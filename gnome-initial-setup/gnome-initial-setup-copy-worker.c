@@ -24,14 +24,18 @@ move_file_from_tmpfs (GFile *src_base,
   GFile *src = g_file_get_child (src_base, basename);
 
   GError *error = NULL;
+  gboolean ret = TRUE;
 
   if (!g_file_move (src, dest, G_FILE_COPY_NONE,
                     NULL, NULL, NULL, &error)) {
-    g_warning ("Unable to move %s to %s: %s",
-               g_file_get_path (src),
-               g_file_get_path (dest),
-               error->message);
-    goto out;
+    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND)) {
+      g_warning ("Unable to move %s to %s: %s",
+                 g_file_get_path (src),
+                 g_file_get_path (dest),
+                 error->message);
+      ret = FALSE;
+    }
+    g_error_free (error);
   }
 
  out:
@@ -40,12 +44,7 @@ move_file_from_tmpfs (GFile *src_base,
   g_object_unref (src);
   g_free (basename);
 
-  if (error != NULL) {
-    g_error_free (error);
-    return FALSE;
-  } else {
-    return TRUE;
-  }
+  return ret;
 }
 
 int
