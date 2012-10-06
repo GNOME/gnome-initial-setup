@@ -13,7 +13,7 @@ get_skeleton_dir (void)
   return g_build_filename (g_get_user_runtime_dir (), SKELETON_PATH, NULL);
 }
 
-static gboolean
+static void
 move_file_from_tmpfs (GFile *src_base,
                       const gchar *dir,
                       const gchar *path)
@@ -24,7 +24,6 @@ move_file_from_tmpfs (GFile *src_base,
   GFile *src = g_file_get_child (src_base, basename);
 
   GError *error = NULL;
-  gboolean ret = TRUE;
 
   if (!g_file_move (src, dest, G_FILE_COPY_NONE,
                     NULL, NULL, NULL, &error)) {
@@ -33,7 +32,6 @@ move_file_from_tmpfs (GFile *src_base,
                  g_file_get_path (src),
                  g_file_get_path (dest),
                  error->message);
-      ret = FALSE;
     }
     g_error_free (error);
   }
@@ -42,8 +40,6 @@ move_file_from_tmpfs (GFile *src_base,
   g_object_unref (dest);
   g_object_unref (src);
   g_free (basename);
-
-  return ret;
 }
 
 int
