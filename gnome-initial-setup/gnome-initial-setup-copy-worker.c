@@ -38,7 +38,6 @@ move_file_from_tmpfs (GFile *src_base,
     g_error_free (error);
   }
 
- out:
   g_object_unref (dest_dir);
   g_object_unref (dest);
   g_object_unref (src);
