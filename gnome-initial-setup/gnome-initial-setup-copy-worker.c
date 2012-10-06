@@ -66,6 +66,7 @@ main (int    argc,
 #define FILE(d, x) \
   move_file_from_tmpfs (src, g_get_user_##d##_dir (), x)
 
+  FILE (config, "run-welcome-tour");
   FILE (config, "dconf/user");
   FILE (config, "goa-1.0/accounts.conf");
   FILE (data, "keyrings/Default.keyring");
