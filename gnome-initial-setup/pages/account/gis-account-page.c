@@ -25,6 +25,7 @@ typedef struct _AccountData AccountData;
 
 struct _AccountData {
   SetupData *setup;
+  GtkWidget *widget;
   GtkBuilder *builder;
 
   ActUser *act_user;
@@ -53,8 +54,7 @@ update_account_page_status (AccountData *data)
     (data->valid_password ||
      data->password_mode == ACT_USER_PASSWORD_MODE_NONE);
 
-  gis_assistant_set_page_complete (gis_get_assistant (data->setup), WID("account-page"), complete);
-  gtk_widget_set_sensitive (WID("local-account-done-button"), complete);
+  gis_assistant_set_page_complete (gis_get_assistant (data->setup), data->widget, complete);
 }
 
 static void
@@ -406,38 +406,6 @@ save_account_data (AccountData *data)
 }
 
 static void
-show_local_account_dialog (GtkWidget *button,
-                           AccountData *data)
-{
-  GtkWidget *dialog;
-
-  dialog = WID("local-account-dialog");
-
-  gtk_window_present (GTK_WINDOW (dialog));
-}
-
-static void
-hide_local_account_dialog (GtkButton *button, gpointer user_data)
-{
-  AccountData *data = user_data;
-  GtkWidget *dialog;
-
-  dialog = WID("local-account-dialog");
-
-  gtk_widget_hide (dialog);
-  clear_account_page (data);
-}
-
-static void
-create_local_account (GtkButton *button, gpointer user_data)
-{
-  AccountData *data = user_data;
-  gtk_widget_hide (WID("local-account-dialog"));
-
-  save_account_data (data);
-}
-
-static void
 avatar_callback (GdkPixbuf   *pixbuf,
                  const gchar *filename,
                  gpointer     user_data)
@@ -470,6 +438,13 @@ avatar_callback (GdkPixbuf   *pixbuf,
   }
 }
 
+static void
+next_page_cb (GisAssistant *assistant, GtkWidget *page, AccountData *data)
+{
+  if (page == data->widget)
+    save_account_data (data);
+}
+
 void
 gis_prepare_account_page (SetupData *setup)
 {
@@ -479,23 +454,14 @@ gis_prepare_account_page (SetupData *setup)
   GtkWidget *admin_check;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
-  GtkWidget *local_account_cancel_button;
-  GtkWidget *local_account_done_button;
   GtkWidget *local_account_avatar_button;
   AccountData *data = g_slice_new0 (AccountData);
   GisAssistant *assistant = gis_get_assistant (setup);
   data->builder = gis_builder ("gis-account-page");
   data->setup = setup;
+  data->widget = WID("account-page");
 
-  gtk_widget_show (WID("account-page"));
-
-  g_signal_connect (WID("account-new-local"), "clicked",
-                    G_CALLBACK (show_local_account_dialog), data);
-
-  gtk_window_set_transient_for (OBJ(GtkWindow*,"local-account-dialog"),
-                                gis_get_main_window(setup));
-  g_signal_connect (WID("local-account-dialog"), "delete-event",
-                    G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+  gtk_widget_show (data->widget);
 
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
@@ -503,8 +469,6 @@ gis_prepare_account_page (SetupData *setup)
   admin_check = WID("account-admin-check");
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
-  local_account_cancel_button = WID("local-account-cancel-button");
-  local_account_done_button = WID("local-account-done-button");
   local_account_avatar_button = WID("local-account-avatar-button");
   data->photo_dialog = (GtkWidget *)um_photo_dialog_new (local_account_avatar_button,
                                                          avatar_callback,
@@ -524,15 +488,13 @@ gis_prepare_account_page (SetupData *setup)
                     G_CALLBACK (confirm_changed), data);
   g_signal_connect_after (confirm_entry, "focus-out-event",
                           G_CALLBACK (confirm_entry_focus_out), data);
-  g_signal_connect (local_account_cancel_button, "clicked",
-                    G_CALLBACK (hide_local_account_dialog), data);
-  g_signal_connect (local_account_done_button, "clicked",
-                    G_CALLBACK (create_local_account), data);
 
   data->act_client = act_user_manager_get_default ();
 
-  gis_assistant_add_page (assistant, WID ("account-page"));
-  gis_assistant_set_page_title (assistant, WID ("account-page"), _("Login"));
+  gis_assistant_add_page (assistant, data->widget);
+  gis_assistant_set_page_title (assistant, data->widget, _("Login"));
+
+  g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), data);
 
   clear_account_page (data);
   update_account_page_status (data);

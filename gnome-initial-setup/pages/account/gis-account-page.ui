@@ -6,31 +6,28 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkDialog" id="local-account-dialog">
-    <property name="title" translatable="yes">Create Local Account</property>
-    <property name="modal">True</property>
-    <property name="resizable">False</property>
-    <child internal-child="action_area">
-      <object class="GtkBox" id="local-account-action-area">
-        <child>
-          <object class="GtkButton" id="local-account-cancel-button">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">_Cancel</property>
-            <property name="use-underline">True</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="local-account-done-button">
-            <property name="visible">True</property>
-            <property name="sensitive">False</property>
-            <property name="label" translatable="yes">_Done</property>
-            <property name="use-underline">True</property>
-          </object>
-        </child>
+  <object class="GtkBox" id="account-page">
+    <property name="name">account-page</property>
+    <property name="visible">True</property>
+    <property name="halign">center</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkLabel" id="account-title">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Choose How to Login</property>
+        <property name="hexpand">True</property>
+        <property name="halign">center</property>
+        <property name="valign">start</property>
+        <property name="margin-bottom">18</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.2"/>
+        </attributes>
       </object>
     </child>
-    <child internal-child="vbox">
+    <child>
       <object class="GtkBox" id="local-account-content-area">
+        <property name="visible">True</property>
         <property name="margin">12</property>
         <child>
           <object class="GtkGrid" id="local-account-grid">
@@ -215,62 +212,6 @@
           </object>
         </child>
       </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-6">local-account-cancel-button</action-widget>
-      <action-widget response="-5">local-account-done-button</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkGrid" id="account-page">
-    <property name="name">account-page</property>
-    <property name="visible">True</property>
-    <property name="halign">center</property>
-    <child>
-      <object class="GtkLabel" id="account-title">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">Choose How to Login</property>
-        <property name="hexpand">False</property>
-        <property name="halign">start</property>
-        <property name="valign">start</property>
-        <property name="margin-bottom">18</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="1.2"/>
-        </attributes>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkButtonBox" id="account-buttons">
-        <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkButton" id="account-new-local">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Create a Local Account</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="account-enterprise-login">
-            <property name="visible">False</property>
-            <property name="label" translatable="yes">Use an Enterprise Login</property>
-          </object>
-        </child>
-      </object>
-      <style>
-        <class name="button-selections" />
-      </style>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
     </child>
   </object>
 </interface>
