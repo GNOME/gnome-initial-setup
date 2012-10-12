@@ -32,6 +32,8 @@ struct _GisAssistantClass
   GtkBoxClass parent_class;
 
   void (* prepare) (GisAssistant *assistant, GtkWidget *page);
+  void (* next_page) (GisAssistant *assistant, GtkWidget *page);
+
   void (* switch_to) (GisAssistant *assistant, GtkWidget *page);
   void (* add_page) (GisAssistant *assistant, GtkWidget *page);
 };

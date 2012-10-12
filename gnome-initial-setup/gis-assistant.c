@@ -45,6 +45,7 @@ static GParamSpec *obj_props[PROP_LAST];
 
 enum {
   PREPARE,
+  NEXT_PAGE,
   LAST_SIGNAL,
 };
 
@@ -134,6 +135,15 @@ void
 gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
+  g_signal_emit (assistant, signals[NEXT_PAGE], 0,
+                 priv->current_page->widget);
+}
+
+static void
+gis_assistant_real_next_page (GisAssistant *assistant,
+                              GtkWidget    *leaving_page)
+{
+  GisAssistantPrivate *priv = assistant->priv;
   PageData *next_page;
 
   g_return_if_fail (priv->current_page != NULL);
@@ -154,7 +164,7 @@ gis_assistant_previous_page (GisAssistant *assistant)
   gis_assistant_switch_to (assistant, prev_page->widget);
 }
 
-static void
+ static void
 update_navigation_buttons (GisAssistant *assistant,
                            GtkWidget    *page)
 {
@@ -423,12 +433,29 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gobject_class->finalize = gis_assistant_finalize;
 
   klass->prepare = gis_assistant_prepare;
+  klass->next_page = gis_assistant_real_next_page;
 
   obj_props[PROP_TITLE] =
     g_param_spec_string ("title",
                          "", "",
                          NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * GisAssistant::next-page:
+   * @assistant: the #GisAssistant
+   * @page: the page we're leaving
+   *
+   * The ::next-page signal is emitted when we're leaving
+   * a page, allowing a page to do something when it's left.
+   */
+  signals[NEXT_PAGE] =
+    g_signal_new ("next-page",
+                  G_TYPE_FROM_CLASS (gobject_class),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (GisAssistantClass, next_page),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
 
   /**
    * GisAssistant::prepare:
