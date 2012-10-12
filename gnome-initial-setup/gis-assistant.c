@@ -446,7 +446,7 @@ gis_assistant_class_init (GisAssistantClass *klass)
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (GisAssistantClass, prepare),
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT,
+                  NULL, NULL, NULL,
                   G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
+
 }
