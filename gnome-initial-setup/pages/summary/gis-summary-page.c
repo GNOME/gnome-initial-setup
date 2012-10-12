@@ -20,9 +20,11 @@
 typedef struct _SummaryData SummaryData;
 
 struct _SummaryData {
+  SetupData *setup;
+  GtkWidget *widget;
+
   ActUser *user_account;
   const gchar *user_password;
-  SetupData *setup;
 };
 
 static gboolean
@@ -311,7 +313,7 @@ install_overrides (SetupData  *setup,
 static void
 prepare_cb (GisAssistant *assistant, GtkWidget *page, SummaryData *data)
 {
-  if (g_strcmp0 (gtk_widget_get_name (page), "summary-page") == 0)
+  if (page == data->widget)
     {
       gis_get_user_permissions (data->setup,
                                 &data->user_account,
@@ -328,6 +330,7 @@ gis_prepare_summary_page (SetupData *setup)
 
   data = g_slice_new0 (SummaryData);
   data->setup = setup;
+  data->widget = WID ("summary-page");
 
   g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), data);
 
@@ -336,7 +339,7 @@ gis_prepare_summary_page (SetupData *setup)
   g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), data);
   g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), data);
 
-  gis_assistant_add_page (assistant, WID ("summary-page"));
-  gis_assistant_set_page_title (assistant, WID ("summary-page"), _("Thank You"));
-  gis_assistant_set_page_complete (assistant, WID ("summary-page"), TRUE);
+  gis_assistant_add_page (assistant, data->widget);
+  gis_assistant_set_page_title (assistant, data->widget, _("Thank You"));
+  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
 }
