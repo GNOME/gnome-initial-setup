@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-10-17 15:01+0000\n"
-"PO-Revision-Date: 2012-10-17 17:59+0200\n"
+"POT-Creation-Date: 2012-10-17 16:05+0000\n"
+"PO-Revision-Date: 2012-10-17 18:08+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -36,7 +36,6 @@ msgid "Passwords do not match"
 msgstr "Las contraseñas no coinciden"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:541
-#| msgid "Link other accounts"
 msgid "Failed to register account"
 msgstr "Falló al registrar la cuenta"
 
@@ -57,12 +56,10 @@ msgid "Choose How to Login"
 msgstr "Elegir cómo iniciar sesión"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-#| msgid "Create Local Account"
 msgid "_Local Account"
 msgstr "Cuenta _local"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-#| msgid "Use an Enterprise Login"
 msgid "_Enterprise Login"
 msgstr "Inicio de s_esión corporativo"
 
@@ -95,13 +92,12 @@ msgid "_Domain"
 msgstr "_Dominio"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
-#| msgid "Login"
 msgid "_Login Name"
 msgstr "Nombre de _inicio de sesión"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
 msgid "Tip: Enterprise domain or realm name"
-msgstr "Consejo: dominio de la empresa o nombre real"
+msgstr "Consejo: dominio de la empresa o nombre del reino"
 
 #: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:94
 #: ../gnome-initial-setup/pages/account/pw-utils.c:118
@@ -137,6 +133,26 @@ msgstr "Buena"
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "Fuerte"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#, c-format
+#| msgid "Tip: Enterprise domain or realm name"
+msgid "No such domain or realm found"
+msgstr "No existe el dominio o no se ha encontrado el reino"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#, c-format
+msgid "Cannot log in as %s at the %s domain"
+msgstr "No se puede iniciar sesión como %s en el dominio %s"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+msgid "Invalid password, please try again"
+msgstr "Contraseña no válida, inténtelo de nuevo"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#, c-format
+msgid "Couldn't connect to the %s domain: %s"
+msgstr "No se pudo conectar al dominio %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
