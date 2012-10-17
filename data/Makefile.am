@@ -52,6 +52,8 @@ CLEANFILES =						\
 	gnome-initial-setup.desktop			\
 	gnome-initial-setup-copy-worker.desktop.in	\
 	gnome-initial-setup-copy-worker.desktop		\
+	gnome-welcome-tour.desktop.in			\
+	gnome-welcome-tour.desktop			\
 	$(NULL)
 
 autostartdir = $(sysconfdir)/xdg/autostart
