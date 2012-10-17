@@ -33,7 +33,6 @@ desktop_DATA =						\
 	setup-shell.desktop				\
 	$(NULL)
 
-systemdsystemunitdir = /usr/lib/systemd/system
 systemdsystemunit_DATA = gnome-initial-setup.service
 
 EXTRA_DIST =						\
