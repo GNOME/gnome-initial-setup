@@ -8,3 +8,6 @@ EXTRA_DIST = \
     COPYING \
     AUTHORS \
     NEWS
+
+DISTCHECK_CONFIGURE_FLAGS = \
+        --with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
