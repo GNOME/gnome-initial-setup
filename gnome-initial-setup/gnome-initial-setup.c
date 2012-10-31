@@ -46,14 +46,6 @@ title_changed_cb (GisAssistant *assistant,
 }
 
 static void
-prepare_cb (GisAssistant *assi, GtkWidget *page, SetupData *setup)
-{
-  g_debug ("Preparing page %s", gtk_widget_get_name (page));
-
-  title_changed_cb (assi, NULL, setup);
-}
-
-static void
 recenter_window (GdkScreen *screen, SetupData *setup)
 {
   gtk_window_set_position (setup->main_window, GTK_WIN_POS_CENTER_ALWAYS);
@@ -67,9 +59,6 @@ prepare_main_window (SetupData *setup)
 
   g_signal_connect (setup->assistant, "notify::title",
                     G_CALLBACK (title_changed_cb), setup);
-
-  g_signal_connect (setup->assistant, "prepare",
-                    G_CALLBACK (prepare_cb), setup);
 }
 
 static gboolean
