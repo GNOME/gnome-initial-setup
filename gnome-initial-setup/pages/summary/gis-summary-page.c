@@ -1,5 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
+#define PAGE_ID "summary"
+
 #include "config.h"
 #include "gis-summary-page.h"
 
@@ -288,7 +290,7 @@ get_builder (void)
   g_clear_error (&error);
 
   {
-    char *resource_path = "/ui/gis-summary-page.ui";
+    char *resource_path = "/ui/gis-" PAGE_ID "-page.ui";
     gtk_builder_add_from_resource (builder, resource_path, &error);
 
     if (error != NULL) {

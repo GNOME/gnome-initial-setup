@@ -1,5 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
+#define PAGE_ID "network"
+
 /* Network page {{{1 */
 
 #include "config.h"
@@ -604,7 +606,7 @@ gis_prepare_network_page (SetupData *setup)
   GisAssistant *assistant = gis_get_assistant (setup);
 
   data->setup = setup;
-  data->builder = gis_builder ("gis-network-page");
+  data->builder = gis_builder (PAGE_ID);
 
   col = OBJ(GtkTreeViewColumn*, "network-list-column");
 

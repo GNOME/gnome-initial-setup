@@ -1,5 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
+#define PAGE_ID "goa"
+
 /* Online accounts page {{{1 */
 
 #include "config.h"
@@ -277,7 +279,7 @@ gis_prepare_online_page (SetupData *setup)
   GoaData *data = g_slice_new0 (GoaData);
   GisAssistant *assistant = gis_get_assistant (setup);
   data->setup = setup;
-  data->builder = gis_builder ("gis-goa-page");
+  data->builder = gis_builder (PAGE_ID);
   data->goa_client = goa_client_new_sync (NULL, &error);
 
   if (data->goa_client == NULL)

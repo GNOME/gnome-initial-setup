@@ -1,5 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
+#define PAGE_ID "account"
+
 /* Account page {{{1 */
 
 #include "config.h"
@@ -929,7 +931,7 @@ gis_prepare_account_page (SetupData *setup)
   GtkWidget *local_account_avatar_button;
   AccountData *data = g_slice_new0 (AccountData);
   GisAssistant *assistant = gis_get_assistant (setup);
-  data->builder = gis_builder ("gis-account-page");
+  data->builder = gis_builder (PAGE_ID);
   data->setup = setup;
   data->widget = WID("account-page");
 

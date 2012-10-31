@@ -8,10 +8,10 @@
 #include <stdlib.h>
 
 GtkBuilder *
-gis_builder (gchar *resource)
+gis_builder (gchar *page_id)
 {
   GtkBuilder *builder;
-  gchar *resource_path = g_strdup_printf ("/ui/%s.ui", resource);
+  gchar *resource_path = g_strdup_printf ("/ui/gis-%s-page.ui", page_id);
   GError *error = NULL;
 
   builder = gtk_builder_new ();

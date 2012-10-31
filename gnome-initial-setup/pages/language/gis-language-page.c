@@ -1,5 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 
+#define PAGE_ID "language"
+
 /* Language page {{{1 */
 
 #include "config.h"
@@ -234,7 +236,7 @@ gis_prepare_language_page (SetupData *setup)
 {
   LanguageData *data;
   GisAssistant *assistant = gis_get_assistant (setup);
-  GtkBuilder *builder = gis_builder ("gis-language-page");
+  GtkBuilder *builder = gis_builder (PAGE_ID);
   GtkListStore *liststore;
   GtkTreeModel *filter;
   GtkTreeView *treeview;
