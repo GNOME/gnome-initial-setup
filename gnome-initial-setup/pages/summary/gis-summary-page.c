@@ -5,6 +5,7 @@
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
+#include <stdlib.h>
 
 #include <act/act-user-manager.h>
 
@@ -260,57 +261,6 @@ tour_cb (GtkButton *button, SummaryData *data)
 }
 
 static void
-install_overrides (SetupData  *setup,
-                   GtkBuilder *builder)
-{
-  gchar *s;
-  GKeyFile *overrides = gis_get_overrides (setup);
-
-  s = g_key_file_get_locale_string (overrides,
-                                    "Summary", "summary-title",
-                                    NULL, NULL);
-  if (s)
-    gtk_label_set_text (GTK_LABEL (WID ("summary-title")), s);
-  g_free (s);
-
-  s = g_key_file_get_locale_string (overrides,
-                                    "Summary", "summary-details",
-                                    NULL, NULL);
-  if (s) {
-    gtk_label_set_text (GTK_LABEL (WID ("summary-details")), s);
-  }
-  g_free (s);
-
-  s = g_key_file_get_locale_string (overrides,
-                                    "Summary", "summary-details2",
-                                    NULL, NULL);
-  if (s)
-    gtk_label_set_text (GTK_LABEL (WID ("summary-details2")), s);
-  g_free (s);
-
-  s = g_key_file_get_locale_string (overrides,
-                                    "Summary", "summary-start-button",
-                                    NULL, NULL);
-  if (s)
-    gtk_button_set_label (GTK_BUTTON (WID ("summary-start-button")), s);
-  g_free (s);
-
-  s = g_key_file_get_locale_string (overrides,
-                                    "Summary", "summary-tour-details",
-                                    NULL, NULL);
-  if (s)
-    gtk_label_set_text (GTK_LABEL (WID ("summary-tour-details")), s);
-  g_free (s);
-
-  s = g_key_file_get_locale_string (overrides,
-                                    "Summary", "summary-tour-button",
-                                    NULL, NULL);
-  if (s)
-    gtk_button_set_label (GTK_BUTTON (WID ("summary-tour-button")), s);
-  g_free (s);
-}
-
-static void
 prepare_cb (GisAssistant *assistant, GtkWidget *page, SummaryData *data)
 {
   if (page == data->widget)
@@ -321,11 +271,41 @@ prepare_cb (GisAssistant *assistant, GtkWidget *page, SummaryData *data)
     }
 }
 
+static GtkBuilder *
+get_builder (void)
+{
+  GtkBuilder *builder = gtk_builder_new ();
+
+  char *filename = g_build_filename (UIDIR, "summary-distro.ui", NULL);
+  GError *error = NULL;
+
+  if (gtk_builder_add_from_file (builder, filename, &error))
+    goto out;
+
+  if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+    g_warning ("Error while loading summary override: %s", error->message);
+
+  g_clear_error (&error);
+
+  {
+    char *resource_path = "/ui/gis-summary-page.ui";
+    gtk_builder_add_from_resource (builder, resource_path, &error);
+
+    if (error != NULL) {
+      g_warning ("Error while loading %s: %s", resource_path, error->message);
+      exit (1);
+    }
+  }
+
+ out:
+  return builder;
+}
+
 void
 gis_prepare_summary_page (SetupData *setup)
 {
   GisAssistant *assistant = gis_get_assistant (setup);
-  GtkBuilder *builder = gis_builder ("gis-summary-page");
+  GtkBuilder *builder = get_builder ();
   SummaryData *data;
 
   data = g_slice_new0 (SummaryData);
@@ -333,8 +313,6 @@ gis_prepare_summary_page (SetupData *setup)
   data->widget = WID ("summary-page");
 
   g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), data);
-
-  install_overrides (setup, builder);
 
   g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), data);
   g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), data);

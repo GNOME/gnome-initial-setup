@@ -1,6 +1,10 @@
 
 noinst_LTLIBRARIES = libgissummary.la
 
+AM_CPPFLAGS = \
+	$(INITIAL_SETUP_CFLAGS) \
+	-DUIDIR="\"$(uidir)\""
+
 libgissummary_la_SOURCES =	\
 	gis-summary-page.c gis-summary-page.h
 

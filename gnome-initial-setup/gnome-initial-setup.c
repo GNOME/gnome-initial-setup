@@ -31,7 +31,6 @@
 /* Setup data {{{1 */
 struct _SetupData {
   GtkWindow *main_window;
-  GKeyFile *overrides;
   GisAssistant *assistant;
 
   ActUser *user_account;
@@ -89,12 +88,6 @@ rebuild_pages (SetupData *setup)
   return FALSE;
 }
 
-GKeyFile *
-gis_get_overrides (SetupData *setup)
-{
-  return g_key_file_ref (setup->overrides);
-}
-
 GtkWindow *
 gis_get_main_window (SetupData *setup)
 {
@@ -150,24 +143,6 @@ get_assistant_type (void)
 /* main {{{1 */
 
 static void
-load_overrides (SetupData *setup)
-{
-  gchar *filename;
-  GError *error = NULL;
-
-  setup->overrides = g_key_file_new ();
-  filename = g_build_filename (UIDIR, "overrides.ini", NULL);
-  if (!g_key_file_load_from_file (setup->overrides, filename, 0, &error)) {
-    if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT)) {
-      g_error ("%s", error->message);
-      exit (1);
-    }
-    g_error_free (error);
-  }
-  g_free (filename);
-}
-
-static void
 activate_cb (GApplication *app,
              gpointer      user_data)
 {
@@ -196,8 +171,6 @@ startup_cb (GApplication *app,
   gtk_container_add (GTK_CONTAINER (setup->main_window), GTK_WIDGET (setup->assistant));
 
   gtk_widget_show (GTK_WIDGET (setup->assistant));
-
-  load_overrides (setup);
 
   prepare_main_window (setup);
   rebuild_pages (setup);
