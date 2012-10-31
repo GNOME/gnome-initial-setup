@@ -28,6 +28,31 @@
 
 G_BEGIN_DECLS
 
+#define GIS_TYPE_NETWORK_PAGE               (gis_network_page_get_type ())
+#define GIS_NETWORK_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_NETWORK_PAGE, GisNetworkPage))
+#define GIS_NETWORK_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_NETWORK_PAGE, GisNetworkPageClass))
+#define GIS_IS_NETWORK_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_NETWORK_PAGE))
+#define GIS_IS_NETWORK_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_NETWORK_PAGE))
+#define GIS_NETWORK_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_NETWORK_PAGE, GisNetworkPageClass))
+
+typedef struct _GisNetworkPage        GisNetworkPage;
+typedef struct _GisNetworkPageClass   GisNetworkPageClass;
+typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
+
+struct _GisNetworkPage
+{
+  GisPage parent;
+
+  GisNetworkPagePrivate *priv;
+};
+
+struct _GisNetworkPageClass
+{
+  GisPageClass parent_class;
+};
+
+GType gis_network_page_get_type (void);
+
 void gis_prepare_network_page (GisDriver *driver);
 
 G_END_DECLS

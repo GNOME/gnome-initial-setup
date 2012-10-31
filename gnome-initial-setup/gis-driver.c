@@ -120,6 +120,14 @@ gis_driver_get_user_permissions (GisDriver    *driver,
 }
 
 void
+gis_driver_add_page (GisDriver *driver,
+                     GisPage   *page)
+{
+  GisDriverPrivate *priv = driver->priv;
+  gis_assistant_add_page (priv->assistant, page);
+}
+
+void
 gis_driver_locale_changed (GisDriver *driver)
 {
   g_idle_add ((GSourceFunc) rebuild_pages, driver);

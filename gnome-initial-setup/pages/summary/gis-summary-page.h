@@ -28,6 +28,31 @@
 
 G_BEGIN_DECLS
 
+#define GIS_TYPE_SUMMARY_PAGE               (gis_summary_page_get_type ())
+#define GIS_SUMMARY_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_SUMMARY_PAGE, GisSummaryPage))
+#define GIS_SUMMARY_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_SUMMARY_PAGE, GisSummaryPageClass))
+#define GIS_IS_SUMMARY_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_SUMMARY_PAGE))
+#define GIS_IS_SUMMARY_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_SUMMARY_PAGE))
+#define GIS_SUMMARY_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_SUMMARY_PAGE, GisSummaryPageClass))
+
+typedef struct _GisSummaryPage        GisSummaryPage;
+typedef struct _GisSummaryPageClass   GisSummaryPageClass;
+typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
+
+struct _GisSummaryPage
+{
+  GisPage parent;
+
+  GisSummaryPagePrivate *priv;
+};
+
+struct _GisSummaryPageClass
+{
+  GisPageClass parent_class;
+};
+
+GType gis_summary_page_get_type (void);
+
 void gis_prepare_summary_page (GisDriver *driver);
 
 G_END_DECLS

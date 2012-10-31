@@ -36,21 +36,19 @@
 
 #include <gdm/gdm-client.h>
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
-
 #define SERVICE_NAME "gdm-password"
 
-typedef struct _SummaryData SummaryData;
+G_DEFINE_TYPE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
 
-struct _SummaryData {
-  GisDriver *driver;
-  GtkWidget *widget;
-  GtkBuilder *builder;
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_SUMMARY_PAGE, GisSummaryPagePrivate))
 
+struct _GisSummaryPagePrivate {
   ActUser *user_account;
   const gchar *user_password;
 };
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 static gboolean
 connect_to_gdm (GdmGreeter      **greeter,
@@ -83,7 +81,7 @@ connect_to_gdm (GdmGreeter      **greeter,
 }
 
 static void
-request_info_query (SummaryData     *data,
+request_info_query (GisSummaryPage  *page,
                     GdmUserVerifier *user_verifier,
                     const char      *question,
                     gboolean         is_secret)
@@ -98,7 +96,7 @@ static void
 on_info (GdmUserVerifier *user_verifier,
          const char      *service_name,
          const char      *info,
-         SummaryData     *data)
+         GisSummaryPage  *page)
 {
   g_debug ("PAM module info: %s\n", info);
 }
@@ -107,7 +105,7 @@ static void
 on_problem (GdmUserVerifier *user_verifier,
             const char      *service_name,
             const char      *problem,
-            SummaryData     *data)
+            GisSummaryPage  *page)
 {
   g_warning ("PAM module error: %s\n", problem);
 }
@@ -116,44 +114,46 @@ static void
 on_info_query (GdmUserVerifier *user_verifier,
                const char      *service_name,
                const char      *question,
-               SummaryData     *data)
+               GisSummaryPage  *page)
 {
-  request_info_query (data, user_verifier, question, FALSE);
+  request_info_query (page, user_verifier, question, FALSE);
 }
 
 static void
 on_secret_info_query (GdmUserVerifier *user_verifier,
                       const char      *service_name,
                       const char      *question,
-                      SummaryData     *data)
+                      GisSummaryPage  *page)
 {
-  gboolean should_send_password = data->user_password != NULL;
+  GisSummaryPagePrivate *priv = page->priv;
+  gboolean should_send_password = priv->user_password != NULL;
 
   g_debug ("PAM module secret info query: %s\n", question);
   if (should_send_password) {
     g_debug ("sending password\n");
     gdm_user_verifier_call_answer_query (user_verifier,
                                          service_name,
-                                         data->user_password,
+                                         priv->user_password,
                                          NULL, NULL, NULL);
-    g_clear_pointer (&data->user_password, (GDestroyNotify) g_free);
+    g_clear_pointer (&priv->user_password, (GDestroyNotify) g_free);
   } else {
-    request_info_query (data, user_verifier, question, TRUE);
+    request_info_query (page, user_verifier, question, TRUE);
   }
 }
 
 static void
-on_session_opened (GdmGreeter  *greeter,
-                   const char  *service_name,
-                   SummaryData *data)
+on_session_opened (GdmGreeter     *greeter,
+                   const char     *service_name,
+                   GisSummaryPage *page)
 {
   gdm_greeter_call_start_session_when_ready_sync (greeter, service_name,
                                                   TRUE, NULL, NULL);
 }
 
 static void
-log_user_in (SummaryData *data)
+log_user_in (GisSummaryPage *page)
 {
+  GisSummaryPagePrivate *priv = page->priv;
   GError *error = NULL;
   GdmGreeter *greeter;
   GdmUserVerifier *user_verifier;
@@ -169,20 +169,20 @@ log_user_in (SummaryData *data)
   }
 
   g_signal_connect (user_verifier, "info",
-                    G_CALLBACK (on_info), data);
+                    G_CALLBACK (on_info), page);
   g_signal_connect (user_verifier, "problem",
-                    G_CALLBACK (on_problem), data);
+                    G_CALLBACK (on_problem), page);
   g_signal_connect (user_verifier, "info-query",
-                    G_CALLBACK (on_info_query), data);
+                    G_CALLBACK (on_info_query), page);
   g_signal_connect (user_verifier, "secret-info-query",
-                    G_CALLBACK (on_secret_info_query), data);
+                    G_CALLBACK (on_secret_info_query), page);
 
   g_signal_connect (greeter, "session-opened",
-                    G_CALLBACK (on_session_opened), data);
+                    G_CALLBACK (on_session_opened), page);
 
   gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
                                                            SERVICE_NAME,
-                                                           act_user_get_user_name (data->user_account),
+                                                           act_user_get_user_name (priv->user_account),
                                                            NULL, &error);
 
   if (error != NULL) {
@@ -192,19 +192,19 @@ log_user_in (SummaryData *data)
 }
 
 static void
-byebye (SummaryData *data)
+byebye (GisSummaryPage *page)
 {
-  log_user_in (data);
+  log_user_in (page);
 }
 
 static void
-byebye_cb (GtkButton *button, SummaryData *data)
+byebye_cb (GtkButton *button, GisSummaryPage *page)
 {
-  byebye (data);
+  byebye (page);
 }
 
 static void
-tour_cb (GtkButton *button, SummaryData *data)
+tour_cb (GtkButton *button, GisSummaryPage *page)
 {
   gchar *file;
 
@@ -212,22 +212,25 @@ tour_cb (GtkButton *button, SummaryData *data)
   file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
   g_file_set_contents (file, "yes", -1, NULL);
   g_free (file);
-  byebye (data);
+  byebye (page);
 }
 
 static void
-prepare_cb (GisAssistant *assistant, GtkWidget *page, SummaryData *data)
+prepare_cb (GisAssistant   *assistant,
+            GtkWidget      *widget,
+            GisSummaryPage *page)
 {
-  if (page == data->widget)
+  if (GIS_PAGE (page)->widget == widget)
     {
-      gis_driver_get_user_permissions (data->driver,
-                                       &data->user_account,
-                                       &data->user_password);
+      GisSummaryPagePrivate *priv = page->priv;
+      gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
+                                       &priv->user_account,
+                                       &priv->user_password);
     }
 }
 
 static GtkBuilder *
-get_builder (void)
+gis_summary_page_get_builder (GisPage *page)
 {
   GtkBuilder *builder = gtk_builder_new ();
 
@@ -256,23 +259,49 @@ get_builder (void)
   return builder;
 }
 
+static void
+gis_summary_page_constructed (GObject *object)
+{
+  GisSummaryPage *page = GIS_SUMMARY_PAGE (object);
+  GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (page)->driver);
+
+  G_OBJECT_CLASS (gis_summary_page_parent_class)->constructed (object);
+
+  GIS_PAGE (page)->widget = WID ("summary-page");
+
+  g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), page);
+
+  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), page);
+  g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), page);
+
+  gis_page_set_title (GIS_PAGE (page), _("Thank You"));
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
+}
+
+static void
+gis_summary_page_class_init (GisSummaryPageClass *klass)
+{
+  GisPageClass *page_class = GIS_PAGE_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  page_class->page_id = PAGE_ID;
+  page_class->get_builder = gis_summary_page_get_builder;
+  object_class->constructed = gis_summary_page_constructed;
+
+  g_type_class_add_private (object_class, sizeof(GisSummaryPagePrivate));
+}
+
+static void
+gis_summary_page_init (GisSummaryPage *page)
+{
+  page->priv = GET_PRIVATE (page);
+}
+
 void
 gis_prepare_summary_page (GisDriver *driver)
 {
-  GisAssistant *assistant = gis_driver_get_assistant (driver);
-  SummaryData *data;
-
-  data = g_slice_new0 (SummaryData);
-  data->driver = driver;
-  data->builder = get_builder ();
-  data->widget = WID ("summary-page");
-
-  g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), data);
-
-  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), data);
-  g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), data);
-
-  gis_assistant_add_page (assistant, data->widget);
-  gis_assistant_set_page_title (assistant, data->widget, _("Thank You"));
-  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
+  gis_driver_add_page (driver,
+                       g_object_new (GIS_TYPE_SUMMARY_PAGE,
+                                     "driver", driver,
+                                     NULL));
 }

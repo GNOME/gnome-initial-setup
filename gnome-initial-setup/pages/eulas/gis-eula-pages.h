@@ -24,12 +24,40 @@
 #ifndef __GIS_EULA_PAGES_H__
 #define __GIS_EULA_PAGES_H__
 
+#include <glib-object.h>
+
 #include "gnome-initial-setup.h"
 
 G_BEGIN_DECLS
+
+#define GIS_TYPE_EULA_PAGE               (gis_eula_page_get_type ())
+#define GIS_EULA_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_EULA_PAGE, GisEulaPage))
+#define GIS_EULA_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_EULA_PAGE, GisEulaPageClass))
+#define GIS_IS_EULA_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_EULA_PAGE))
+#define GIS_IS_EULA_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_EULA_PAGE))
+#define GIS_EULA_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_EULA_PAGE, GisEulaPageClass))
+
+typedef struct _GisEulaPage        GisEulaPage;
+typedef struct _GisEulaPageClass   GisEulaPageClass;
+typedef struct _GisEulaPagePrivate GisEulaPagePrivate;
+
+struct _GisEulaPage
+{
+  GisPage parent;
+
+  GisEulaPagePrivate *priv;
+};
+
+struct _GisEulaPageClass
+{
+  GisPageClass parent_class;
+};
+
+GType gis_eula_page_get_type (void);
 
 void gis_prepare_eula_pages (GisDriver *driver);
 
 G_END_DECLS
 
 #endif /* __GIS_EULA_PAGES_H__ */
+

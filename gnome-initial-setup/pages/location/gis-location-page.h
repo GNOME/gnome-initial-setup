@@ -24,9 +24,36 @@
 #ifndef __GIS_LOCATION_PAGE_H__
 #define __GIS_LOCATION_PAGE_H__
 
+#include <glib-object.h>
+
 #include "gnome-initial-setup.h"
 
 G_BEGIN_DECLS
+
+#define GIS_TYPE_LOCATION_PAGE               (gis_location_page_get_type ())
+#define GIS_LOCATION_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_LOCATION_PAGE, GisLocationPage))
+#define GIS_LOCATION_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_LOCATION_PAGE, GisLocationPageClass))
+#define GIS_IS_LOCATION_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_LOCATION_PAGE))
+#define GIS_IS_LOCATION_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_LOCATION_PAGE))
+#define GIS_LOCATION_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_LOCATION_PAGE, GisLocationPageClass))
+
+typedef struct _GisLocationPage        GisLocationPage;
+typedef struct _GisLocationPageClass   GisLocationPageClass;
+typedef struct _GisLocationPagePrivate GisLocationPagePrivate;
+
+struct _GisLocationPage
+{
+  GisPage parent;
+
+  GisLocationPagePrivate *priv;
+};
+
+struct _GisLocationPageClass
+{
+  GisPageClass parent_class;
+};
+
+GType gis_location_page_get_type (void);
 
 void gis_prepare_location_page (GisDriver *driver);
 

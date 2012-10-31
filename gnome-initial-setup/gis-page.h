@@ -26,11 +26,48 @@
 
 #include "gnome-initial-setup.h"
 
-#include <act/act-user-manager.h>
-
 G_BEGIN_DECLS
 
-GtkBuilder * gis_builder (gchar *resource);
+#define GIS_TYPE_PAGE               (gis_page_get_type ())
+#define GIS_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_PAGE, GisPage))
+#define GIS_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_PAGE, GisPageClass))
+#define GIS_IS_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_PAGE))
+#define GIS_IS_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_PAGE))
+#define GIS_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_PAGE, GisPageClass))
+
+typedef struct _GisPage        GisPage;
+typedef struct _GisPageClass   GisPageClass;
+typedef struct _GisPagePrivate GisPagePrivate;
+typedef struct _GisAssistantPagePrivate GisAssistantPagePrivate;
+
+struct _GisPage
+{
+  GObject parent;
+
+  GisDriver *driver;
+  GtkBuilder *builder;
+  GtkWidget *widget;
+
+  GisPagePrivate *priv;
+  GisAssistantPagePrivate *assistant_priv;
+};
+
+struct _GisPageClass
+{
+  GObjectClass parent_class;
+  char *page_id;
+
+  GtkBuilder * (*get_builder) (GisPage *page);
+};
+
+GType gis_page_get_type (void);
+
+char *       gis_page_get_title (GisPage *page);
+void         gis_page_set_title (GisPage *page, char *title);
+gboolean     gis_page_get_complete (GisPage *page);
+void         gis_page_set_complete (GisPage *page, gboolean complete);
+gboolean     gis_page_get_use_arrow_buttons (GisPage *page);
+void         gis_page_set_use_arrow_buttons (GisPage *page, gboolean use_arrow_buttons);
 
 G_END_DECLS
 

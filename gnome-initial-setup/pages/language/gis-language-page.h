@@ -24,9 +24,36 @@
 #ifndef __GIS_LANGUAGE_PAGE_H__
 #define __GIS_LANGUAGE_PAGE_H__
 
+#include <glib-object.h>
+
 #include "gnome-initial-setup.h"
 
 G_BEGIN_DECLS
+
+#define GIS_TYPE_LANGUAGE_PAGE               (gis_language_page_get_type ())
+#define GIS_LANGUAGE_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_LANGUAGE_PAGE, GisLanguagePage))
+#define GIS_LANGUAGE_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_LANGUAGE_PAGE, GisLanguagePageClass))
+#define GIS_IS_LANGUAGE_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_LANGUAGE_PAGE))
+#define GIS_IS_LANGUAGE_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_LANGUAGE_PAGE))
+#define GIS_LANGUAGE_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_LANGUAGE_PAGE, GisLanguagePageClass))
+
+typedef struct _GisLanguagePage        GisLanguagePage;
+typedef struct _GisLanguagePageClass   GisLanguagePageClass;
+typedef struct _GisLanguagePagePrivate GisLanguagePagePrivate;
+
+struct _GisLanguagePage
+{
+  GisPage parent;
+
+  GisLanguagePagePrivate *priv;
+};
+
+struct _GisLanguagePageClass
+{
+  GisPageClass parent_class;
+};
+
+GType gis_language_page_get_type (void);
 
 void gis_prepare_language_page (GisDriver *driver);
 

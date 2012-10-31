@@ -24,9 +24,36 @@
 #ifndef __GIS_ACCOUNT_PAGE_H__
 #define __GIS_ACCOUNT_PAGE_H__
 
+#include <glib-object.h>
+
 #include "gnome-initial-setup.h"
 
 G_BEGIN_DECLS
+
+#define GIS_TYPE_ACCOUNT_PAGE               (gis_account_page_get_type ())
+#define GIS_ACCOUNT_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_ACCOUNT_PAGE, GisAccountPage))
+#define GIS_ACCOUNT_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_ACCOUNT_PAGE, GisAccountPageClass))
+#define GIS_IS_ACCOUNT_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_ACCOUNT_PAGE))
+#define GIS_IS_ACCOUNT_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_ACCOUNT_PAGE))
+#define GIS_ACCOUNT_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_ACCOUNT_PAGE, GisAccountPageClass))
+
+typedef struct _GisAccountPage        GisAccountPage;
+typedef struct _GisAccountPageClass   GisAccountPageClass;
+typedef struct _GisAccountPagePrivate GisAccountPagePrivate;
+
+struct _GisAccountPage
+{
+  GisPage parent;
+
+  GisAccountPagePrivate *priv;
+};
+
+struct _GisAccountPageClass
+{
+  GisPageClass parent_class;
+};
+
+GType gis_account_page_get_type (void);
 
 void gis_prepare_account_page (GisDriver *driver);
 

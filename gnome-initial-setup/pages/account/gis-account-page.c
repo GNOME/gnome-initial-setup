@@ -42,10 +42,9 @@
 #include <cheese-gtk.h>
 #endif
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
+G_DEFINE_TYPE (GisAccountPage, gis_account_page, GIS_TYPE_PAGE);
 
-typedef struct _AccountData AccountData;
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ACCOUNT_PAGE, GisAccountPagePrivate))
 
 typedef enum {
   UM_LOCAL,
@@ -53,11 +52,8 @@ typedef enum {
   NUM_MODES,
 } UmAccountMode;
 
-struct _AccountData {
-  GisDriver *driver;
-  GtkWidget *widget;
-  GtkBuilder *builder;
-
+struct _GisAccountPagePrivate
+{
   ActUser *act_user;
   ActUserManager *act_client;
 
@@ -82,14 +78,17 @@ struct _AccountData {
   gboolean domain_chosen;
 };
 
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 static void
-show_error_dialog (AccountData *data,
+show_error_dialog (GisAccountPage *page,
                    const gchar *message,
                    GError *error)
 {
   GtkWidget *dialog;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (data->widget)),
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
@@ -106,8 +105,9 @@ show_error_dialog (AccountData *data,
 }
 
 static void
-clear_account_page (AccountData *data)
+clear_account_page (GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   GtkWidget *password_check;
@@ -123,19 +123,19 @@ clear_account_page (AccountData *data)
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
 
-  data->valid_name = FALSE;
-  data->valid_username = FALSE;
-  data->valid_password = TRUE;
-  data->password_mode = ACT_USER_PASSWORD_MODE_NONE;
-  data->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
-  data->user_data_unsaved = FALSE;
+  priv->valid_name = FALSE;
+  priv->valid_username = FALSE;
+  priv->valid_password = TRUE;
+  priv->password_mode = ACT_USER_PASSWORD_MODE_NONE;
+  priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+  priv->user_data_unsaved = FALSE;
 
-  need_password = data->password_mode != ACT_USER_PASSWORD_MODE_NONE;
+  need_password = priv->password_mode != ACT_USER_PASSWORD_MODE_NONE;
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (password_check), need_password);
   gtk_widget_set_sensitive (password_entry, need_password);
   gtk_widget_set_sensitive (confirm_entry, need_password);
 
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), data->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), priv->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
 
   gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
@@ -144,15 +144,15 @@ clear_account_page (AccountData *data)
 }
 
 static gboolean
-local_validate (AccountData *data)
+local_validate (GisAccountPage *page)
 {
-  return data->valid_name && data->valid_username &&
-    (data->valid_password ||
-     data->password_mode == ACT_USER_PASSWORD_MODE_NONE);
+  GisAccountPagePrivate *priv = page->priv;
+  return priv->valid_name && priv->valid_username &&
+    (priv->valid_password || priv->password_mode == ACT_USER_PASSWORD_MODE_NONE);
 }
 
 static gboolean
-enterprise_validate (AccountData *data)
+enterprise_validate (GisAccountPage *page)
 {
   const gchar *name;
   gboolean valid_name;
@@ -175,58 +175,65 @@ enterprise_validate (AccountData *data)
 }
 
 static gboolean
-page_validate (AccountData *data)
+page_validate (GisAccountPage *page)
 {
-  switch (data->mode) {
+  GisAccountPagePrivate *priv = page->priv;
+  switch (priv->mode) {
   case UM_LOCAL:
-    return local_validate (data);
+    return local_validate (page);
   case UM_ENTERPRISE:
-    return enterprise_validate (data);
+    return enterprise_validate (page);
   default:
     g_assert_not_reached ();
   }
 }
 
 static void
-update_account_page_status (AccountData *data)
+update_account_page_status (GisAccountPage *page)
 {
-  gis_assistant_set_page_complete (gis_driver_get_assistant (data->driver),
-                                   data->widget, page_validate (data));
+  gis_page_set_complete (GIS_PAGE (page), page_validate (page));
 }
 
 static void
-set_mode (AccountData   *data,
-          UmAccountMode  mode)
+set_mode (GisAccountPage *page,
+          UmAccountMode   mode)
 {
-  if (data->mode == mode)
+  GisAccountPagePrivate *priv = page->priv;
+
+  if (priv->mode == mode)
     return;
 
-  data->mode = mode;
+  priv->mode = mode;
   gtk_widget_set_visible (WID ("local-area"), (mode == UM_LOCAL));
   gtk_widget_set_visible (WID ("enterprise-area"), (mode == UM_ENTERPRISE));
   gtk_toggle_button_set_active (OBJ (GtkToggleButton *, "local-button"), (mode == UM_LOCAL));
   gtk_toggle_button_set_active (OBJ (GtkToggleButton *, "enterprise-button"), (mode == UM_ENTERPRISE));
 
-  update_account_page_status (data);
+  update_account_page_status (page);
 }
 
 static void
-set_has_enterprise (AccountData *data,
-                    gboolean     has_enterprise)
+set_has_enterprise (GisAccountPage *page,
+                    gboolean        has_enterprise)
 {
-  if (data->has_enterprise == has_enterprise)
+  GisAccountPagePrivate *priv = page->priv;
+
+  if (priv->has_enterprise == has_enterprise)
     return;
 
-  data->has_enterprise = has_enterprise;
+  priv->has_enterprise = has_enterprise;
   gtk_widget_set_visible (WID ("account-mode"), has_enterprise);
 
   if (!has_enterprise)
-    set_mode (data, UM_LOCAL);
+    set_mode (page, UM_LOCAL);
 }
 
 static void
-fullname_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
+fullname_changed (GtkWidget      *w,
+                  GParamSpec     *pspec,
+                  GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   GtkWidget *combo;
   GtkWidget *entry;
   GtkTreeModel *model;
@@ -240,10 +247,10 @@ fullname_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  data->valid_name = is_valid_name (name);
-  data->user_data_unsaved = TRUE;
+  priv->valid_name = is_valid_name (name);
+  priv->user_data_unsaved = TRUE;
 
-  if (!data->valid_name) {
+  if (!priv->valid_name) {
     gtk_entry_set_text (GTK_ENTRY (entry), "");
     return;
   }
@@ -252,20 +259,22 @@ fullname_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
 
   gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
 
-  update_account_page_status (data);
+  update_account_page_status (page);
 }
 
 static void
-username_changed (GtkComboBoxText *combo, AccountData *data)
+username_changed (GtkComboBoxText *combo,
+                  GisAccountPage  *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   const gchar *username;
   gchar *tip;
   GtkWidget *entry;
 
   username = gtk_combo_box_text_get_active_text (combo);
 
-  data->valid_username = is_valid_username (username, &tip);
-  data->user_data_unsaved = TRUE;
+  priv->valid_username = is_valid_username (username, &tip);
+  priv->user_data_unsaved = TRUE;
 
   entry = gtk_bin_get_child (GTK_BIN (combo));
 
@@ -277,12 +286,15 @@ username_changed (GtkComboBoxText *combo, AccountData *data)
     clear_entry_validation_error (GTK_ENTRY (entry));
   }
 
-  update_account_page_status (data);
+  update_account_page_status (page);
 }
 
 static void
-password_check_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
+password_check_changed (GtkWidget      *w,
+                        GParamSpec     *pspec,
+                        GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   gboolean need_password;
@@ -290,12 +302,12 @@ password_check_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
   need_password = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w));
 
   if (need_password) {
-    data->password_mode = ACT_USER_PASSWORD_MODE_REGULAR;
-    data->valid_password = FALSE;
+    priv->password_mode = ACT_USER_PASSWORD_MODE_REGULAR;
+    priv->valid_password = FALSE;
   }
   else {
-    data->password_mode = ACT_USER_PASSWORD_MODE_NONE;
-    data->valid_password = TRUE;
+    priv->password_mode = ACT_USER_PASSWORD_MODE_NONE;
+    priv->valid_password = TRUE;
   }
 
   password_entry = WID("account-password-entry");
@@ -306,29 +318,34 @@ password_check_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
   gtk_widget_set_sensitive (password_entry, need_password);
   gtk_widget_set_sensitive (confirm_entry, need_password);
 
-  data->user_data_unsaved = TRUE;
-  update_account_page_status (data);
+  priv->user_data_unsaved = TRUE;
+  update_account_page_status (page);
 }
 
 static void
-admin_check_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
+admin_check_changed (GtkWidget      *w,
+                     GParamSpec     *pspec,
+                     GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
+
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
-    data->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+    priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
   }
   else {
-    data->account_type = ACT_USER_ACCOUNT_TYPE_STANDARD;
+    priv->account_type = ACT_USER_ACCOUNT_TYPE_STANDARD;
   }
 
-  data->user_data_unsaved = TRUE;
-  update_account_page_status (data);
+  priv->user_data_unsaved = TRUE;
+  update_account_page_status (page);
 }
 
 #define MIN_PASSWORD_LEN 6
 
 static void
-update_password_entries (AccountData *data)
+update_password_entries (GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   const gchar *password;
   const gchar *verify;
   const gchar *username;
@@ -350,42 +367,49 @@ update_password_entries (AccountData *data)
   strength = pw_strength (password, NULL, username, &hint, &long_hint);
 
   if (strength == 0.0) {
-    data->valid_password = FALSE;
-    data->password_reason = long_hint ? long_hint : hint;
+    priv->valid_password = FALSE;
+    priv->password_reason = long_hint ? long_hint : hint;
   }
   else if (strcmp (password, verify) != 0) {
-    data->valid_password = FALSE;
-    data->password_reason = _("Passwords do not match");
+    priv->valid_password = FALSE;
+    priv->password_reason = _("Passwords do not match");
   }
   else {
-    data->valid_password = TRUE;
+    priv->valid_password = TRUE;
   }
 }
 
 static void
-password_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
+password_changed (GtkWidget      *w,
+                  GParamSpec     *pspec,
+                  GisAccountPage *page)
 {
-  update_password_entries (data);
+  GisAccountPagePrivate *priv = page->priv;
+  update_password_entries (page);
 
-  data->user_data_unsaved = TRUE;
-  update_account_page_status (data);
+  priv->user_data_unsaved = TRUE;
+  update_account_page_status (page);
 }
 
 static void
-confirm_changed (GtkWidget *w, GParamSpec *pspec, AccountData *data)
+confirm_changed (GtkWidget      *w,
+                 GParamSpec     *pspec,
+                 GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   clear_entry_validation_error (GTK_ENTRY (w));
-  update_password_entries (data);
+  update_password_entries (page);
 
-  data->user_data_unsaved = TRUE;
-  update_account_page_status (data);
+  priv->user_data_unsaved = TRUE;
+  update_account_page_status (page);
 }
 
 static gboolean
-confirm_entry_focus_out (GtkWidget     *entry,
-                         GdkEventFocus *event,
-                         AccountData     *data)
+confirm_entry_focus_out (GtkWidget      *entry,
+                         GdkEventFocus  *event,
+                         GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   const gchar *password;
   const gchar *verify;
   GtkEntry *password_entry;
@@ -397,9 +421,9 @@ confirm_entry_focus_out (GtkWidget     *entry,
   verify = gtk_entry_get_text (confirm_entry);
 
   if (strlen (password) > 0 && strlen (verify) > 0) {
-    if (!data->valid_password) {
+    if (!priv->valid_password) {
       set_entry_validation_error (confirm_entry,
-                                  data->password_reason);
+                                  priv->password_reason);
     }
     else {
       clear_entry_validation_error (confirm_entry);
@@ -410,19 +434,20 @@ confirm_entry_focus_out (GtkWidget     *entry,
 }
 
 static void
-set_user_avatar (AccountData *data)
+set_user_avatar (GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   GFile *file = NULL;
   GFileIOStream *io_stream = NULL;
   GOutputStream *stream = NULL;
   GError *error = NULL;
 
-  if (data->avatar_filename != NULL) {
-    act_user_set_icon_file (data->act_user, data->avatar_filename);
+  if (priv->avatar_filename != NULL) {
+    act_user_set_icon_file (priv->act_user, priv->avatar_filename);
     return;
   }
 
-  if (data->avatar_pixbuf == NULL) {
+  if (priv->avatar_pixbuf == NULL) {
     return;
   }
 
@@ -431,10 +456,10 @@ set_user_avatar (AccountData *data)
     goto out;
 
   stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
-  if (!gdk_pixbuf_save_to_stream (data->avatar_pixbuf, stream, "png", NULL, &error, NULL))
+  if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
     goto out;
 
-  act_user_set_icon_file (data->act_user, g_file_get_path (file));
+  act_user_set_icon_file (priv->act_user, g_file_get_path (file));
 
  out:
   if (error != NULL) {
@@ -447,8 +472,9 @@ set_user_avatar (AccountData *data)
 }
 
 static void
-create_user (AccountData *data)
+create_user (GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   const gchar *username;
   const gchar *fullname;
   GError *error;
@@ -458,60 +484,63 @@ create_user (AccountData *data)
 
   error = NULL;
 
-  data->act_user = act_user_manager_create_user (data->act_client, username, fullname, data->account_type, &error);
+  priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
   if (error != NULL) {
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
   }
 
-  set_user_avatar (data);
+  set_user_avatar (page);
 }
 
-static void save_account_data (AccountData *data);
+static void save_account_data (GisAccountPage *page);
 
 static gulong when_loaded;
 
 static void
-save_when_loaded (ActUser *user, GParamSpec *pspec, AccountData *data)
+save_when_loaded (ActUser        *user,
+                  GParamSpec     *pspec,
+                  GisAccountPage *page)
 {
   g_signal_handler_disconnect (user, when_loaded);
   when_loaded = 0;
 
-  save_account_data (data);
+  save_account_data (page);
 }
 
 static void
-local_create_user (AccountData *data)
+local_create_user (GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   const gchar *realname;
   const gchar *username;
   const gchar *password;
 
-  if (!data->user_data_unsaved) {
+  if (!priv->user_data_unsaved) {
     return;
   }
 
   /* this can happen when going back */
-  if (!data->valid_name ||
-      !data->valid_username ||
-      !data->valid_password) {
+  if (!priv->valid_name ||
+      !priv->valid_username ||
+      !priv->valid_password) {
     return;
   }
 
-  if (data->act_user == NULL) {
-    create_user (data);
+  if (priv->act_user == NULL) {
+    create_user (page);
   }
 
-  if (data->act_user == NULL) {
+  if (priv->act_user == NULL) {
     g_warning ("User creation failed");
-    clear_account_page (data);
+    clear_account_page (page);
     return;
   }
 
-  if (!act_user_is_loaded (data->act_user)) {
+  if (!act_user_is_loaded (priv->act_user)) {
     if (when_loaded == 0)
-      when_loaded = g_signal_connect (data->act_user, "notify::is-loaded",
-                                      G_CALLBACK (save_when_loaded), data);
+      when_loaded = g_signal_connect (priv->act_user, "notify::is-loaded",
+                                      G_CALLBACK (save_when_loaded), page);
     return;
   }
 
@@ -519,19 +548,21 @@ local_create_user (AccountData *data)
   username = gtk_combo_box_text_get_active_text (OBJ (GtkComboBoxText*, "account-username-combo"));
   password = gtk_entry_get_text (OBJ (GtkEntry*, "account-password-entry"));
 
-  act_user_set_real_name (data->act_user, realname);
-  act_user_set_user_name (data->act_user, username);
-  act_user_set_account_type (data->act_user, data->account_type);
-  if (data->password_mode == ACT_USER_PASSWORD_MODE_REGULAR) {
-    act_user_set_password (data->act_user, password, NULL);
+  act_user_set_real_name (priv->act_user, realname);
+  act_user_set_user_name (priv->act_user, username);
+  act_user_set_account_type (priv->act_user, priv->account_type);
+  if (priv->password_mode == ACT_USER_PASSWORD_MODE_REGULAR) {
+    act_user_set_password (priv->act_user, password, NULL);
   }
   else {
-    act_user_set_password_mode (data->act_user, data->password_mode);
+    act_user_set_password_mode (priv->act_user, priv->password_mode);
   }
 
-  gis_driver_set_user_permissions (data->driver, data->act_user, password);
+  gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
+                                   priv->act_user,
+                                   password);
 
-  data->user_data_unsaved = FALSE;
+  priv->user_data_unsaved = FALSE;
 }
 
 static void
@@ -539,7 +570,9 @@ on_permit_user_login (GObject *source,
                       GAsyncResult *result,
                       gpointer user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = page->priv;
+
   UmRealmCommon *common;
   GError *error = NULL;
   gchar *login;
@@ -558,18 +591,18 @@ on_permit_user_login (GObject *source,
 
     g_debug ("Caching remote user: %s", login);
 
-    data->act_user = act_user_manager_cache_user (data->act_client, login, NULL);
+    priv->act_user = act_user_manager_cache_user (priv->act_client, login, NULL);
 
     g_free (login);
   } else {
-    show_error_dialog (data, _("Failed to register account"), error);
+    show_error_dialog (page, _("Failed to register account"), error);
     g_message ("Couldn't permit logins on account: %s", error->message);
     g_error_free (error);
   }
 }
 
 static void
-enterprise_permit_user_login (AccountData *data, UmRealmObject *realm)
+enterprise_permit_user_login (GisAccountPage *page, UmRealmObject *realm)
 {
   UmRealmCommon *common;
   gchar *login;
@@ -593,7 +626,7 @@ enterprise_permit_user_login (AccountData *data, UmRealmObject *realm)
                                             add, remove, options,
                                             NULL,
                                             on_permit_user_login,
-                                            data);
+                                            page);
 
   g_object_unref (common);
   g_free (login);
@@ -604,7 +637,7 @@ on_realm_joined (GObject *source,
                  GAsyncResult *result,
                  gpointer user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
   UmRealmObject *realm = UM_REALM_OBJECT (source);
   GError *error = NULL;
 
@@ -613,7 +646,7 @@ on_realm_joined (GObject *source,
   /* Yay, joined the domain, register the user locally */
   if (error == NULL) {
     g_debug ("Joining realm completed successfully");
-    enterprise_permit_user_login (data, realm);
+    enterprise_permit_user_login (page, realm);
 
     /* Credential failure while joining domain, prompt for admin creds */
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN) ||
@@ -625,7 +658,7 @@ on_realm_joined (GObject *source,
 
     /* Other failure */
   } else {
-    show_error_dialog (data, _("Failed to join domain"), error);
+    show_error_dialog (page, _("Failed to join domain"), error);
     g_message ("Failed to join the domain: %s", error->message);
   }
 
@@ -637,7 +670,7 @@ on_realm_login (GObject *source,
                 GAsyncResult *result,
                 gpointer user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
   UmRealmObject *realm = UM_REALM_OBJECT (source);
   GError *error = NULL;
   GBytes *creds;
@@ -648,7 +681,7 @@ on_realm_login (GObject *source,
     /* Already joined to the domain, just register this user */
     if (um_realm_is_configured (realm)) {
       g_debug ("Already joined to this realm");
-      enterprise_permit_user_login (data, realm);
+      enterprise_permit_user_login (page, realm);
 
       /* Join the domain, try using the user's creds */
     } else if (!um_realm_join_as_user (realm,
@@ -656,7 +689,7 @@ on_realm_login (GObject *source,
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
                                        creds, NULL,
                                        on_realm_joined,
-                                       data)) {
+                                       page)) {
 
       /* If we can't do user auth, try to authenticate as admin */
       g_debug ("Cannot join with user credentials");
@@ -680,7 +713,7 @@ on_realm_login (GObject *source,
 
     /* Other login failure */
   } else {
-    show_error_dialog (data, _("Failed to log into domain"), error);
+    show_error_dialog (page, _("Failed to log into domain"), error);
     g_message ("Couldn't log in as user: %s", error->message);
   }
 
@@ -688,7 +721,7 @@ on_realm_login (GObject *source,
 }
 
 static void
-enterprise_check_login (AccountData *data, UmRealmObject *realm)
+enterprise_check_login (GisAccountPage *page, UmRealmObject *realm)
 {
   g_assert (realm);
 
@@ -697,7 +730,7 @@ enterprise_check_login (AccountData *data, UmRealmObject *realm)
                   gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
                   NULL,
                   on_realm_login,
-                  data);
+                  page);
 }
 
 static void
@@ -705,11 +738,12 @@ on_realm_discover_input (GObject *source,
                          GAsyncResult *result,
                          gpointer user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = page->priv;
   GError *error = NULL;
   GList *realms;
 
-  realms = um_realm_manager_discover_finish (data->realm_manager,
+  realms = um_realm_manager_discover_finish (priv->realm_manager,
                                              result, &error);
 
   /* Found a realm, log user into domain */
@@ -717,7 +751,7 @@ on_realm_discover_input (GObject *source,
     UmRealmObject *realm;
     g_assert (realms != NULL);
     realm = g_object_ref (realms->data);
-    enterprise_check_login (data, realm);
+    enterprise_check_login (page, realm);
     g_list_free_full (realms, g_object_unref);
 
   } else {
@@ -731,8 +765,9 @@ on_realm_discover_input (GObject *source,
 }
 
 static void
-enterprise_add_user (AccountData *data)
+enterprise_add_user (GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   UmRealmObject *realm;
   GtkTreeIter iter;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
@@ -741,27 +776,28 @@ enterprise_add_user (AccountData *data)
   if (gtk_combo_box_get_active_iter (domain, &iter)) {
     gtk_tree_model_get (gtk_combo_box_get_model (domain),
                         &iter, 1, &realm, -1);
-    enterprise_check_login (data, realm);
+    enterprise_check_login (page, realm);
 
     /* Something the user typed, we need to discover realm */
   } else {
-    um_realm_manager_discover (data->realm_manager,
+    um_realm_manager_discover (priv->realm_manager,
                                gtk_entry_get_text (OBJ (GtkEntry*, "enterprise-domain-entry")),
                                NULL,
                                on_realm_discover_input,
-                               data);
+                               priv);
   }
 }
 
 static void
-save_account_data (AccountData *data)
+save_account_data (GisAccountPage *page)
 {
-  switch (data->mode) {
+  GisAccountPagePrivate *priv = page->priv;
+  switch (priv->mode) {
   case UM_LOCAL:
-    local_create_user (data);
+    local_create_user (page);
     break;
   case UM_ENTERPRISE:
-    enterprise_add_user (data);
+    enterprise_add_user (page);
     break;
   default:
     g_assert_not_reached ();
@@ -773,24 +809,25 @@ avatar_callback (GdkPixbuf   *pixbuf,
                  const gchar *filename,
                  gpointer     user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = page->priv;
   GtkWidget *image;
   GdkPixbuf *tmp;
 
-  g_clear_object (&data->avatar_pixbuf);
-  g_free (data->avatar_filename);
-  data->avatar_filename = NULL;
+  g_clear_object (&priv->avatar_pixbuf);
+  g_free (priv->avatar_filename);
+  priv->avatar_filename = NULL;
 
   image = WID("local-account-avatar-image");
 
   if (pixbuf) {
-    data->avatar_pixbuf = g_object_ref (pixbuf);
+    priv->avatar_pixbuf = g_object_ref (pixbuf);
     tmp = gdk_pixbuf_scale_simple (pixbuf, 64, 64, GDK_INTERP_BILINEAR);
     gtk_image_set_from_pixbuf (GTK_IMAGE (image), tmp);
     g_object_unref (tmp);
   }
   else if (filename) {
-    data->avatar_filename = g_strdup (filename);
+    priv->avatar_filename = g_strdup (filename);
     tmp = gdk_pixbuf_new_from_file_at_size (filename, 64, 64, NULL);
     gtk_image_set_from_pixbuf (GTK_IMAGE (image), tmp);
     g_object_unref (tmp);
@@ -802,9 +839,10 @@ avatar_callback (GdkPixbuf   *pixbuf,
 }
 
 static void
-enterprise_add_realm (AccountData *data,
-                      UmRealmObject *realm)
+enterprise_add_realm (GisAccountPage *page,
+                      UmRealmObject  *realm)
 {
+  GisAccountPagePrivate *priv = page->priv;
   GtkTreeIter iter;
   UmRealmCommon *common;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
@@ -821,7 +859,7 @@ enterprise_add_realm (AccountData *data,
                       1, realm,
                       -1);
 
-  if (!data->domain_chosen && um_realm_is_configured (realm))
+  if (!priv->domain_chosen && um_realm_is_configured (realm))
     gtk_combo_box_set_active_iter (domain, &iter);
 
   g_object_unref (common);
@@ -832,8 +870,8 @@ on_manager_realm_added (UmRealmManager  *manager,
                         UmRealmObject   *realm,
                         gpointer         user_data)
 {
-  AccountData *data = user_data;
-  enterprise_add_realm (data, realm);
+  GisAccountPage *page = user_data;
+  enterprise_add_realm (page, realm);
 }
 
 static void
@@ -841,12 +879,13 @@ on_realm_manager_created (GObject *source,
                           GAsyncResult *result,
                           gpointer user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = page->priv;
   GError *error = NULL;
   GList *realms, *l;
 
-  g_clear_object (&data->realm_manager);
-  data->realm_manager = um_realm_manager_new_finish (result, &error);
+  g_clear_object (&priv->realm_manager);
+  priv->realm_manager = um_realm_manager_new_finish (result, &error);
 
   if (error != NULL) {
     g_warning ("Couldn't contact realmd service: %s", error->message);
@@ -855,17 +894,17 @@ on_realm_manager_created (GObject *source,
   }
 
   /* Lookup all the realm objects */
-  realms = um_realm_manager_get_realms (data->realm_manager);
+  realms = um_realm_manager_get_realms (priv->realm_manager);
   for (l = realms; l != NULL; l = g_list_next (l))
-    enterprise_add_realm (data, l->data);
+    enterprise_add_realm (page, l->data);
 
   g_list_free (realms);
-  g_signal_connect (data->realm_manager, "realm-added",
-                    G_CALLBACK (on_manager_realm_added), data);
+  g_signal_connect (priv->realm_manager, "realm-added",
+                    G_CALLBACK (on_manager_realm_added), page);
 
   /* When no realms try to discover a sensible default, triggers realm-added signal */
-  um_realm_manager_discover (data->realm_manager, "", NULL, NULL, NULL);
-  set_has_enterprise (data, TRUE);
+  um_realm_manager_discover (priv->realm_manager, "", NULL, NULL, NULL);
+  set_has_enterprise (page, TRUE);
 }
 
 static void
@@ -874,8 +913,8 @@ on_realmd_appeared (GDBusConnection *connection,
                     const gchar *name_owner,
                     gpointer user_data)
 {
-  AccountData *data = user_data;
-  um_realm_manager_new (NULL, on_realm_manager_created, data);
+  GisAccountPage *page = user_data;
+  um_realm_manager_new (NULL, on_realm_manager_created, page);
 }
 
 static void
@@ -883,25 +922,26 @@ on_realmd_disappeared (GDBusConnection *unused1,
                        const gchar *unused2,
                        gpointer user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = page->priv;
 
-  if (data->realm_manager != NULL) {
-    g_signal_handlers_disconnect_by_func (data->realm_manager,
+  if (priv->realm_manager != NULL) {
+    g_signal_handlers_disconnect_by_func (priv->realm_manager,
                                           on_manager_realm_added,
-                                          data);
-    g_clear_object (&data->realm_manager);
+                                          page);
+    g_clear_object (&priv->realm_manager);
   }
 
-  set_has_enterprise (data, FALSE);
+  set_has_enterprise (page, FALSE);
 }
 
 static void
 on_domain_changed (GtkComboBox *widget,
                    gpointer user_data)
 {
-  AccountData *data = user_data;
-  data->domain_chosen = TRUE;
-  update_account_page_status (data);
+  GisAccountPage *page = user_data;
+  page->priv->domain_chosen = TRUE;
+  update_account_page_status (page);
   clear_entry_validation_error (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (widget))));
 }
 
@@ -909,8 +949,8 @@ static void
 on_entry_changed (GtkEditable *editable,
                   gpointer user_data)
 {
-  AccountData *data = user_data;
-  update_account_page_status (data);
+  GisAccountPage *page = user_data;
+  update_account_page_status (page);
   clear_entry_validation_error (GTK_ENTRY (editable));
 }
 
@@ -918,9 +958,9 @@ static void
 on_local_toggle (GtkToggleButton *toggle,
                  gpointer         user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
   if (gtk_toggle_button_get_active (toggle)) {
-    set_mode (data, UM_LOCAL);
+    set_mode (page, UM_LOCAL);
   }
 }
 
@@ -928,22 +968,28 @@ static void
 on_enterprise_toggle (GtkToggleButton *toggle,
                       gpointer         user_data)
 {
-  AccountData *data = user_data;
+  GisAccountPage *page = user_data;
   if (gtk_toggle_button_get_active (toggle)) {
-    set_mode (data, UM_ENTERPRISE);
+    set_mode (page, UM_ENTERPRISE);
   }
 }
 
 static void
-next_page_cb (GisAssistant *assistant, GtkWidget *page, AccountData *data)
+next_page_cb (GisAssistant *assistant,
+              GisPage      *which_page,
+              GisPage      *this_page)
 {
-  if (page == data->widget)
-    save_account_data (data);
+  if (which_page == this_page)
+    save_account_data (GIS_ACCOUNT_PAGE (this_page));
 }
 
-void
-gis_prepare_account_page (GisDriver *driver)
+static void
+gis_account_page_constructed (GObject *object)
 {
+  GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
+  GisAccountPagePrivate *priv = page->priv;
+  GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (page)->driver);
+
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   GtkWidget *password_check;
@@ -951,18 +997,15 @@ gis_prepare_account_page (GisDriver *driver)
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   GtkWidget *local_account_avatar_button;
-  AccountData *data = g_slice_new0 (AccountData);
-  GisAssistant *assistant = gis_driver_get_assistant (driver);
-  data->driver = driver;
-  data->builder = gis_builder (PAGE_ID);
-  data->widget = WID("account-page");
 
-  gtk_widget_show (data->widget);
+  G_OBJECT_CLASS (gis_account_page_parent_class)->constructed (object);
 
-  data->realmd_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM, "org.freedesktop.realmd",
+  GIS_PAGE (page)->widget = WID ("account-page");
+
+  priv->realmd_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM, "org.freedesktop.realmd",
                                          G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
                                          on_realmd_appeared, on_realmd_disappeared,
-                                         data, NULL);
+                                         page, NULL);
 
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
@@ -971,47 +1014,100 @@ gis_prepare_account_page (GisDriver *driver)
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
   local_account_avatar_button = WID("local-account-avatar-button");
-  data->photo_dialog = (GtkWidget *)um_photo_dialog_new (local_account_avatar_button,
+  priv->photo_dialog = (GtkWidget *)um_photo_dialog_new (local_account_avatar_button,
                                                          avatar_callback,
-                                                         data);
+                                                         page);
 
   g_signal_connect (fullname_entry, "notify::text",
-                    G_CALLBACK (fullname_changed), data);
+                    G_CALLBACK (fullname_changed), page);
   g_signal_connect (username_combo, "changed",
-                    G_CALLBACK (username_changed), data);
+                    G_CALLBACK (username_changed), page);
   g_signal_connect (password_check, "notify::active",
-                    G_CALLBACK (password_check_changed), data);
+                    G_CALLBACK (password_check_changed), page);
   g_signal_connect (admin_check, "notify::active",
-                    G_CALLBACK (admin_check_changed), data);
+                    G_CALLBACK (admin_check_changed), page);
   g_signal_connect (password_entry, "notify::text",
-                    G_CALLBACK (password_changed), data);
+                    G_CALLBACK (password_changed), page);
   g_signal_connect (confirm_entry, "notify::text",
-                    G_CALLBACK (confirm_changed), data);
+                    G_CALLBACK (confirm_changed), page);
   g_signal_connect_after (confirm_entry, "focus-out-event",
-                          G_CALLBACK (confirm_entry_focus_out), data);
+                          G_CALLBACK (confirm_entry_focus_out), page);
 
   g_signal_connect (WID("enterprise-domain"), "changed",
-                    G_CALLBACK (on_domain_changed), data);
+                    G_CALLBACK (on_domain_changed), page);
   g_signal_connect (WID("enterprise-login"), "changed",
-                    G_CALLBACK (on_entry_changed), data);
+                    G_CALLBACK (on_entry_changed), page);
   g_signal_connect (WID("local-button"), "toggled",
-                    G_CALLBACK (on_local_toggle), data);
+                    G_CALLBACK (on_local_toggle), page);
   g_signal_connect (WID("enterprise-button"), "toggled",
-                    G_CALLBACK (on_enterprise_toggle), data);
+                    G_CALLBACK (on_enterprise_toggle), page);
 
-  data->act_client = act_user_manager_get_default ();
+  priv->act_client = act_user_manager_get_default ();
 
-  gis_assistant_add_page (assistant, data->widget);
-  gis_assistant_set_page_title (assistant, data->widget, _("Login"));
+  g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), page);
 
-  g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), data);
+  clear_account_page (page);
+  update_account_page_status (page);
 
-  clear_account_page (data);
-  update_account_page_status (data);
-
-  data->has_enterprise = FALSE;
+  priv->has_enterprise = FALSE;
 
   /* force a refresh by setting to an invalid value */
-  data->mode = NUM_MODES;
-  set_mode (data, UM_LOCAL);
+  priv->mode = NUM_MODES;
+  set_mode (page, UM_LOCAL);
+
+  gis_page_set_title (GIS_PAGE (page), _("Login"));
+}
+
+static void
+gis_account_page_dispose (GObject *object)
+{
+  GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
+  GisAccountPagePrivate *priv = page->priv;
+
+  g_clear_object (&priv->act_user);
+  g_clear_object (&priv->act_client);
+  g_clear_object (&priv->realm_manager);
+  g_clear_object (&priv->avatar_pixbuf);
+
+  G_OBJECT_CLASS (gis_account_page_parent_class)->dispose (object);
+}
+
+static void
+gis_account_page_finalize (GObject *object)
+{
+  GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
+  GisAccountPagePrivate *priv = page->priv;
+
+  g_clear_pointer (&priv->avatar_filename, g_free);
+
+  G_OBJECT_CLASS (gis_account_page_parent_class)->finalize (object);
+}
+
+static void
+gis_account_page_class_init (GisAccountPageClass *klass)
+{
+  GisPageClass *page_class = GIS_PAGE_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  page_class->page_id = PAGE_ID;
+  object_class->constructed = gis_account_page_constructed;
+  object_class->dispose = gis_account_page_dispose;
+  object_class->finalize = gis_account_page_finalize;
+
+  g_type_class_add_private (object_class, sizeof(GisAccountPagePrivate));
+}
+
+static void
+gis_account_page_init (GisAccountPage *page)
+{
+  page->priv = GET_PRIVATE (page);
+}
+
+void
+gis_prepare_account_page (GisDriver *driver)
+{
+  gis_driver_add_page (driver,
+                       g_object_new (GIS_TYPE_ACCOUNT_PAGE,
+                                     "driver", driver,
+                                     NULL));
 }

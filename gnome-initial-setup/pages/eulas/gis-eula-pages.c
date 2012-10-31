@@ -29,14 +29,15 @@
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-
 #include <gtk/gtk.h>
 
-typedef struct _EulaPage EulaPage;
+G_DEFINE_TYPE (GisEulaPage, gis_eula_page, GIS_TYPE_PAGE);
 
-struct _EulaPage {
-  GisDriver *driver;
-  GtkWidget *widget;
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_EULA_PAGE, GisEulaPagePrivate))
+
+struct _GisEulaPagePrivate
+{
+  GFile *eula;
 
   GtkWidget *text_view;
   GtkWidget *checkbox;
@@ -45,6 +46,15 @@ struct _EulaPage {
   gboolean require_checkbox;
   gboolean require_scroll;
 };
+
+enum
+{
+  PROP_0,
+  PROP_EULA,
+  PROP_LAST,
+};
+
+static GParamSpec *obj_props[PROP_LAST];
 
 static GtkTextBuffer *
 build_eula_text_buffer_pango_markup (GFile   *file,
@@ -147,16 +157,18 @@ build_eula_text_view (GFile *eula)
 }
 
 static gboolean
-get_page_complete (EulaPage *page)
+get_page_complete (GisEulaPage *page)
 {
-  if (page->require_checkbox) {
-    GtkToggleButton *checkbox = GTK_TOGGLE_BUTTON (page->checkbox);
+  GisEulaPagePrivate *priv = page->priv;
+
+  if (priv->require_checkbox) {
+    GtkToggleButton *checkbox = GTK_TOGGLE_BUTTON (priv->checkbox);
     if (!gtk_toggle_button_get_active (checkbox))
       return FALSE;
   }
 
-  if (page->require_scroll) {
-    GtkScrolledWindow *scrolled_window = GTK_SCROLLED_WINDOW (page->scrolled_window);
+  if (priv->require_scroll) {
+    GtkScrolledWindow *scrolled_window = GTK_SCROLLED_WINDOW (priv->scrolled_window);
     GtkAdjustment *vadjust = gtk_scrolled_window_get_vadjustment (scrolled_window);
     gdouble value, upper;
 
@@ -171,10 +183,9 @@ get_page_complete (EulaPage *page)
 }
 
 static void
-sync_page_complete (EulaPage *page)
+sync_page_complete (GisEulaPage *page)
 {
-  gis_assistant_set_page_complete (gis_driver_get_assistant (page->driver),
-                                   page->widget, get_page_complete (page));
+  gis_page_set_complete (GIS_PAGE (page), get_page_complete (page));
 }
 
 static void
@@ -205,17 +216,20 @@ get_config (GFile    *eula,
 }
 
 static void
-build_eula_page (GisDriver *driver,
-                 GFile     *eula)
+gis_eula_page_constructed (GObject *object)
 {
+  GisEulaPage *page = GIS_EULA_PAGE (object);
+  GisEulaPagePrivate *priv = page->priv;
   GtkWidget *text_view;
   GtkWidget *vbox;
   GtkWidget *scrolled_window;
-  EulaPage *page;
-  GisAssistant *assistant = gis_driver_get_assistant (driver);
 
   gboolean require_checkbox = TRUE;
   gboolean require_scroll = FALSE;
+
+  GFile *eula = priv->eula;
+
+  G_OBJECT_CLASS (gis_eula_page_parent_class)->constructed (object);
 
   text_view = build_eula_text_view (eula);
   if (text_view == NULL)
@@ -228,19 +242,16 @@ build_eula_page (GisDriver *driver,
                                        GTK_SHADOW_ETCHED_IN);
   gtk_widget_set_vexpand (scrolled_window, TRUE);
   gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
-
   gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
+  GIS_PAGE (page)->widget = vbox;
 
-  page = g_slice_new0 (EulaPage);
-  page->driver = driver;
-  page->widget = vbox;
-  page->text_view = text_view;
-  page->scrolled_window = scrolled_window;
+  priv->text_view = text_view;
+  priv->scrolled_window = scrolled_window;
 
   get_config (eula, &require_checkbox, &require_scroll);
 
-  page->require_checkbox = require_checkbox;
-  page->require_scroll = require_scroll;
+  priv->require_checkbox = require_checkbox;
+  priv->require_scroll = require_scroll;
 
   if (require_checkbox) {
     GtkWidget *checkbox;
@@ -256,7 +267,7 @@ build_eula_page (GisDriver *driver,
                               G_CALLBACK (sync_page_complete),
                               page);
 
-    page->checkbox = checkbox;
+    priv->checkbox = checkbox;
   }
 
   if (require_scroll) {
@@ -270,12 +281,82 @@ build_eula_page (GisDriver *driver,
                               page);
   }
 
-  gis_assistant_add_page (assistant, vbox);
-  gis_assistant_set_page_title (assistant, vbox, _("License Agreements"));
-
+  gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
   sync_page_complete (page);
+}
 
-  gtk_widget_show_all (GTK_WIDGET (vbox));
+
+static void
+gis_eula_page_get_property (GObject    *object,
+                            guint       prop_id,
+                            GValue     *value,
+                            GParamSpec *pspec)
+{
+  GisEulaPage *page = GIS_EULA_PAGE (object);
+  GisEulaPagePrivate *priv = page->priv;
+  switch (prop_id)
+    {
+    case PROP_EULA:
+      g_value_set_object (value, priv->eula);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
+gis_eula_page_set_property (GObject      *object,
+                            guint         prop_id,
+                            const GValue *value,
+                            GParamSpec   *pspec)
+{
+  GisEulaPage *page = GIS_EULA_PAGE (object);
+  GisEulaPagePrivate *priv = page->priv;
+  switch (prop_id)
+    {
+    case PROP_EULA:
+      priv->eula = g_value_dup_object (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
+gis_eula_page_dispose (GObject *object)
+{
+  GisEulaPage *page = GIS_EULA_PAGE (object);
+  GisEulaPagePrivate *priv = page->priv;
+
+  g_clear_object (&priv->eula);
+
+  G_OBJECT_CLASS (gis_eula_page_parent_class)->dispose (object);
+}
+
+static void
+gis_eula_page_class_init (GisEulaPageClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->get_property = gis_eula_page_get_property;
+  object_class->set_property = gis_eula_page_set_property;
+  object_class->constructed = gis_eula_page_constructed;
+  object_class->dispose = gis_eula_page_dispose;
+
+  obj_props[PROP_EULA] =
+    g_param_spec_object ("eula", "", "",
+                         G_TYPE_FILE,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  g_type_class_add_private (object_class, sizeof(GisEulaPagePrivate));
+}
+
+static void
+gis_eula_page_init (GisEulaPage *page)
+{
+  page->priv = GET_PRIVATE (page);
 }
 
 void
@@ -305,7 +386,11 @@ gis_prepare_eula_pages (GisDriver *driver)
 
   while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
     GFile *eula = g_file_get_child (eulas_dir, g_file_info_get_name (info));
-    build_eula_page (driver, eula);
+    gis_driver_add_page (driver,
+                         g_object_new (GIS_TYPE_EULA_PAGE,
+                                       "driver", driver,
+                                       "eula", eula,
+                                       NULL));
     g_object_unref (eula);
   }
 

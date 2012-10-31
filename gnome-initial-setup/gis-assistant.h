@@ -26,6 +26,8 @@
 
 #include <glib-object.h>
 
+#include "gis-page.h"
+
 G_BEGIN_DECLS
 
 #define GIS_TYPE_ASSISTANT               (gis_assistant_get_type ())
@@ -60,7 +62,7 @@ struct _GisAssistantClass
 GType gis_assistant_get_type (void);
 
 void      gis_assistant_add_page          (GisAssistant *assistant,
-                                           GtkWidget    *page);
+                                           GisPage      *page);
 
 void      gis_assistant_next_page         (GisAssistant *assistant);
 void      gis_assistant_previous_page     (GisAssistant *assistant);

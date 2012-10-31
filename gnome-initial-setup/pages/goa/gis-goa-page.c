@@ -38,25 +38,23 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
+G_DEFINE_TYPE (GisGoaPage, gis_goa_page, GIS_TYPE_PAGE);
 
-typedef struct _GoaData GoaData;
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_GOA_PAGE, GisGoaPagePrivate))
 
-struct _GoaData {
-  GisDriver *driver;
-  GtkWidget *widget;
-  GtkBuilder *builder;
-
-  /* online data */
+struct _GisGoaPagePrivate {
   GoaClient *goa_client;
 };
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 static void
 show_online_account_dialog (GtkButton *button,
                             gpointer   user_data)
 {
-  GoaData *data = user_data;
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
+  GisGoaPagePrivate *priv = page->priv;
   GtkWindow *parent;
   GtkWidget *dialog;
   gint response;
@@ -67,9 +65,9 @@ show_online_account_dialog (GtkButton *button,
 
   providers = NULL;
 
-  parent = GTK_WINDOW (gtk_widget_get_toplevel (data->widget));
+  parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page)));
 
-  dialog = goa_panel_add_account_dialog_new (data->goa_client);
+  dialog = goa_panel_add_account_dialog_new (priv->goa_client);
   gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
 
   providers = goa_provider_get_all ();
@@ -122,14 +120,14 @@ remove_account_cb (GoaAccount   *account,
                    GAsyncResult *res,
                    gpointer      user_data)
 {
-  GoaData *data = user_data;
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
   GError *error;
 
   error = NULL;
   if (!goa_account_call_remove_finish (account, res, &error))
     {
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (data->widget)),
+      dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))),
                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
@@ -148,14 +146,14 @@ remove_account_cb (GoaAccount   *account,
 static void
 confirm_remove_account (GtkButton *button, gpointer user_data)
 {
-  GoaData *data = user_data;
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
   GtkWidget *dialog;
   GoaObject *object;
   gint response;
 
   object = g_object_get_data (G_OBJECT (button), "goa-object");
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (data->widget)),
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_CANCEL,
@@ -172,13 +170,13 @@ confirm_remove_account (GtkButton *button, gpointer user_data)
       goa_account_call_remove (goa_object_peek_account (object),
                                NULL, /* GCancellable */
                                (GAsyncReadyCallback) remove_account_cb,
-                               data);
+                               page);
     }
 }
 
 
 static void
-add_account_to_list (GoaData *data, GoaObject *object)
+add_account_to_list (GisGoaPage *page, GoaObject *object)
 {
   GtkWidget *list;
   GtkWidget *box;
@@ -216,7 +214,7 @@ add_account_to_list (GoaData *data, GoaObject *object)
                           g_object_ref (object), g_object_unref);
 
   g_signal_connect (button, "clicked",
-                    G_CALLBACK (confirm_remove_account), data);
+                    G_CALLBACK (confirm_remove_account), page);
 
   gtk_box_pack_start (GTK_BOX (box), image, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
@@ -228,7 +226,7 @@ add_account_to_list (GoaData *data, GoaObject *object)
 }
 
 static void
-remove_account_from_list (GoaData *data, GoaObject *object)
+remove_account_from_list (GisGoaPage *page, GoaObject *object)
 {
   GtkWidget *list;
   GList *children, *l;
@@ -259,16 +257,17 @@ remove_account_from_list (GoaData *data, GoaObject *object)
 }
 
 static void
-populate_account_list (GoaData *data)
+populate_account_list (GisGoaPage *page)
 {
+  GisGoaPagePrivate *priv = page->priv;
   GList *accounts, *l;
   GoaObject *object;
 
-  accounts = goa_client_get_accounts (data->goa_client);
+  accounts = goa_client_get_accounts (priv->goa_client);
   for (l = accounts; l; l = l->next)
     {
       object = GOA_OBJECT (l->data);
-      add_account_to_list (data, object);
+      add_account_to_list (page, object);
     }
 
   g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
@@ -277,54 +276,94 @@ populate_account_list (GoaData *data)
 static void
 goa_account_added (GoaClient *client, GoaObject *object, gpointer user_data)
 {
-  GoaData *data = user_data;
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
 
   g_debug ("Online account added");
 
-  add_account_to_list (data, object);
+  add_account_to_list (page, object);
 }
 
 static void
 goa_account_removed (GoaClient *client, GoaObject *object, gpointer user_data)
 {
-  GoaData *data = user_data;
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
 
   g_debug ("Online account removed");
 
-  remove_account_from_list (data, object);
+  remove_account_from_list (page, object);
 }
 
-void
-gis_prepare_goa_page (GisDriver *driver)
+static void
+gis_goa_page_constructed (GObject *object)
 {
+  GisGoaPage *page = GIS_GOA_PAGE (object);
+  GisGoaPagePrivate *priv = page->priv;
   GtkWidget *button;
   GError *error = NULL;
-  GoaData *data = g_slice_new0 (GoaData);
-  GisAssistant *assistant = gis_driver_get_assistant (driver);
-  data->driver = driver;
-  data->builder = gis_builder (PAGE_ID);
-  data->widget = WID ("goa-page");
-  data->goa_client = goa_client_new_sync (NULL, &error);
 
-  if (data->goa_client == NULL)
+  G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
+
+  GIS_PAGE (page)->widget = WID ("goa-page");
+
+  priv->goa_client = goa_client_new_sync (NULL, &error);
+
+  if (priv->goa_client == NULL)
     {
        g_error ("Failed to get a GoaClient: %s", error->message);
        g_error_free (error);
        return;
     }
 
-  populate_account_list (data);
+  populate_account_list (page);
 
   button = WID("online-add-button");
   g_signal_connect (button, "clicked",
-                    G_CALLBACK (show_online_account_dialog), data);
+                    G_CALLBACK (show_online_account_dialog), page);
 
-  g_signal_connect (data->goa_client, "account-added",
-                    G_CALLBACK (goa_account_added), data);
-  g_signal_connect (data->goa_client, "account-removed",
-                    G_CALLBACK (goa_account_removed), data);
+  g_signal_connect (priv->goa_client, "account-added",
+                    G_CALLBACK (goa_account_added), page);
+  g_signal_connect (priv->goa_client, "account-removed",
+                    G_CALLBACK (goa_account_removed), page);
 
-  gis_assistant_add_page (assistant, data->widget);
-  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
-  gis_assistant_set_page_title (assistant, data->widget, _("Online Accounts"));
+  gis_page_set_title (GIS_PAGE (page), _("Online Accounts"));
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
+}
+
+static void
+gis_goa_page_dispose (GObject *object)
+{
+  GisGoaPage *page = GIS_GOA_PAGE (object);
+  GisGoaPagePrivate *priv = page->priv;
+
+  g_clear_object (&priv->goa_client);
+
+  G_OBJECT_CLASS (gis_goa_page_parent_class)->dispose (object);
+}
+
+static void
+gis_goa_page_class_init (GisGoaPageClass *klass)
+{
+  GisPageClass *page_class = GIS_PAGE_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  page_class->page_id = PAGE_ID;
+  object_class->constructed = gis_goa_page_constructed;
+  object_class->dispose = gis_goa_page_dispose;
+  
+  g_type_class_add_private (object_class, sizeof(GisGoaPagePrivate));
+}
+
+static void
+gis_goa_page_init (GisGoaPage *page)
+{
+  page->priv = GET_PRIVATE (page);
+}
+
+void
+gis_prepare_goa_page (GisDriver *driver)
+{
+  gis_driver_add_page (driver,
+                       g_object_new (GIS_TYPE_GOA_PAGE,
+                                     "driver", driver,
+                                     NULL));
 }

@@ -67,6 +67,8 @@ void gis_driver_set_user_permissions (GisDriver   *driver,
 void gis_driver_get_user_permissions (GisDriver    *driver,
                                       ActUser     **user,
                                       const gchar **password);
+void gis_driver_add_page (GisDriver *driver,
+                          GisPage   *page);
 GisDriver *gis_driver_new (void);
 
 G_END_DECLS

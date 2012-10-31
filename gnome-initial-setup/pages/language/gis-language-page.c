@@ -37,21 +37,13 @@
 #include "cc-common-language.h"
 #include "gdm-languages.h"
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
+#include <glib-object.h>
 
-typedef struct _LanguageData LanguageData;
+#include "gis-language-page.h"
 
-struct _LanguageData {
-  GisDriver *driver;
-  GtkWidget *widget;
-  GtkBuilder *builder;
+G_DEFINE_TYPE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
 
-  GtkWidget *show_all;
-  GtkWidget *page;
-  GtkWidget *filter_entry;
-  GtkTreeModel *liststore;
-};
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_LANGUAGE_PAGE, GisLanguagePagePrivate))
 
 enum {
   COL_LOCALE_ID,
@@ -60,14 +52,25 @@ enum {
   NUM_COLS,
 };
 
+struct _GisLanguagePagePrivate
+{
+  GtkWidget *show_all;
+  GtkWidget *page;
+  GtkWidget *filter_entry;
+  GtkTreeModel *liststore;
+};
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
+
 static void
-set_locale_id (LanguageData *data,
-               gchar        *new_locale_id)
+set_locale_id (GisLanguagePage *page,
+               gchar           *new_locale_id)
 {
   gchar *old_locale_id = cc_common_language_get_current_language ();
   if (g_strcmp0 (old_locale_id, new_locale_id) != 0) {
     setlocale (LC_MESSAGES, new_locale_id);
-    gis_driver_locale_changed (data->driver);
+    gis_driver_locale_changed (GIS_PAGE (page)->driver);
   }
   g_free (old_locale_id);
 }
@@ -209,7 +212,7 @@ language_visible (GtkTreeModel *model,
 {
   gchar *locale_name;
   const gchar *filter_contents;
-  LanguageData *data = user_data;
+  GisLanguagePage *page = user_data;
   gboolean visible = TRUE;
   gboolean is_extra;
 
@@ -218,14 +221,14 @@ language_visible (GtkTreeModel *model,
                       COL_IS_EXTRA, &is_extra,
                       -1);
 
-  filter_contents = gtk_entry_get_text (GTK_ENTRY (data->filter_entry));
+  filter_contents = gtk_entry_get_text (GTK_ENTRY (page->priv->filter_entry));
   if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
     {
       visible = FALSE;
       goto out;
     }
 
-  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->show_all)) && !is_extra)
+  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (page->priv->show_all)) && !is_extra)
     {
       visible = FALSE;
       goto out;
@@ -238,7 +241,7 @@ language_visible (GtkTreeModel *model,
 
 static void
 selection_changed (GtkTreeSelection *selection,
-                   LanguageData     *data)
+                   GisLanguagePage  *page)
 {
   GtkTreeModel *model;
   GtkTreeIter iter;
@@ -251,31 +254,30 @@ selection_changed (GtkTreeSelection *selection,
                       COL_LOCALE_ID, &new_locale_id,
                       -1);
 
-  set_locale_id (data, new_locale_id);
+  set_locale_id (page, new_locale_id);
 }
 
-void
-gis_prepare_language_page (GisDriver *driver)
+static void
+gis_language_page_constructed (GObject *object)
 {
-  LanguageData *data;
-  GisAssistant *assistant = gis_driver_get_assistant (driver);
+  GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
+  GisLanguagePagePrivate *priv = page->priv;
   GtkListStore *liststore;
   GtkTreeModel *filter;
   GtkTreeView *treeview;
 
-  data = g_slice_new0 (LanguageData);
-  data->driver = driver;
-  data->builder = gis_builder (PAGE_ID);
-  data->widget = WID ("language-page");
+  G_OBJECT_CLASS (gis_language_page_parent_class)->constructed (object);
+
+  GIS_PAGE (page)->widget = WID ("language-page");
 
   liststore = gtk_list_store_new (NUM_COLS,
                                   G_TYPE_STRING,
                                   G_TYPE_STRING,
                                   G_TYPE_BOOLEAN);
 
-  data->show_all = WID ("language-show-all");
-  data->filter_entry = WID ("language-filter-entry");
-  data->liststore = GTK_TREE_MODEL (liststore);
+  priv->show_all = WID ("language-show-all");
+  priv->filter_entry = WID ("language-filter-entry");
+  priv->liststore = GTK_TREE_MODEL (liststore);
   gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (liststore),
                                            sort_languages, NULL, NULL);
   gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (liststore),
@@ -286,26 +288,51 @@ gis_prepare_language_page (GisDriver *driver)
 
   filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (liststore), NULL);
   gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
-                                          language_visible, data, NULL);
+                                          language_visible, page, NULL);
   gtk_tree_view_set_model (treeview, filter);
 
-  add_all_languages (GTK_LIST_STORE (data->liststore));
+  add_all_languages (GTK_LIST_STORE (priv->liststore));
 
-  g_signal_connect_swapped (data->show_all, "toggled",
+  g_signal_connect_swapped (priv->show_all, "toggled",
                             G_CALLBACK (gtk_tree_model_filter_refilter),
                             filter);
 
-  g_signal_connect_swapped (data->filter_entry, "changed",
+  g_signal_connect_swapped (priv->filter_entry, "changed",
                             G_CALLBACK (gtk_tree_model_filter_refilter),
                             filter);
 
   g_signal_connect (gtk_tree_view_get_selection (treeview), "changed",
-                    G_CALLBACK (selection_changed), data);
-
-  gis_assistant_add_page (assistant, data->widget);
-  gis_assistant_set_use_arrow_buttons (assistant, data->widget, TRUE);
-  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
-
-  gis_assistant_set_page_title (assistant, data->widget, _("Welcome"));
+                    G_CALLBACK (selection_changed), page);
   select_current_locale (treeview);
+
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
+  gis_page_set_use_arrow_buttons (GIS_PAGE (page), TRUE);
+  gis_page_set_title (GIS_PAGE (page), _("Welcome"));
+}
+
+static void
+gis_language_page_class_init (GisLanguagePageClass *klass)
+{
+  GisPageClass *page_class = GIS_PAGE_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  page_class->page_id = PAGE_ID;
+  object_class->constructed = gis_language_page_constructed;
+
+  g_type_class_add_private (object_class, sizeof(GisLanguagePagePrivate));
+}
+
+static void
+gis_language_page_init (GisLanguagePage *page)
+{
+  page->priv = GET_PRIVATE (page);
+}
+
+void
+gis_prepare_language_page (GisDriver *driver)
+{
+  gis_driver_add_page (driver,
+                       g_object_new (GIS_TYPE_LANGUAGE_PAGE,
+                                     "driver", driver,
+                                     NULL));
 }

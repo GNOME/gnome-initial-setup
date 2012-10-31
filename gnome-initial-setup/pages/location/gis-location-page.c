@@ -45,32 +45,30 @@
 
 #define DEFAULT_TZ "Europe/London"
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
+G_DEFINE_TYPE (GisLocationPage, gis_location_page, GIS_TYPE_PAGE);
 
-typedef struct _LocationData LocationData;
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_LOCATION_PAGE, GisLocationPagePrivate))
 
-struct _LocationData {
-  GisDriver *driver;
-  GtkWidget *widget;
-  GtkBuilder *builder;
-
-  /* location data */
+struct _GisLocationPagePrivate
+{
   CcTimezoneMap *map;
   TzLocation *current_location;
   Timedate1 *dtm;
 };
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 static void
 set_timezone_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      user_data)
 {
-  LocationData *data = user_data;
+  GisLocationPage *page = user_data;
   GError *error;
 
   error = NULL;
-  if (!timedate1_call_set_timezone_finish (data->dtm,
+  if (!timedate1_call_set_timezone_finish (page->priv->dtm,
                                            res,
                                            &error)) {
     /* TODO: display any error in a user friendly way */
@@ -81,21 +79,23 @@ set_timezone_cb (GObject      *source,
 
 
 static void
-queue_set_timezone (LocationData *data)
+queue_set_timezone (GisLocationPage *page)
 {
+  GisLocationPagePrivate *priv = page->priv;
+
   /* for now just do it */
-  if (data->current_location) {
-    timedate1_call_set_timezone (data->dtm,
-                                 data->current_location->zone,
+  if (priv->current_location) {
+    timedate1_call_set_timezone (priv->dtm,
+                                 priv->current_location->zone,
                                  TRUE,
                                  NULL,
                                  set_timezone_cb,
-                                 data);
+                                 page);
   }
 }
 
 static void
-update_timezone (LocationData *data)
+update_timezone (GisLocationPage *page)
 {
   GString *str;
   gchar *location;
@@ -103,7 +103,7 @@ update_timezone (LocationData *data)
   gchar *c;
 
   str = g_string_new ("");
-  for (c = data->current_location->zone; *c; c++) {
+  for (c = page->priv->current_location->zone; *c; c++) {
     switch (*c) {
     case '_':
       g_string_append_c (str, ' ');
@@ -130,21 +130,21 @@ update_timezone (LocationData *data)
 }
 
 static void
-location_changed_cb (CcTimezoneMap *map,
-                     TzLocation    *location,
-                     LocationData  *data)
+location_changed_cb (CcTimezoneMap   *map,
+                     TzLocation      *location,
+                     GisLocationPage *page)
 {
   g_debug ("location changed to %s/%s", location->country, location->zone);
 
-  data->current_location = location;
+  page->priv->current_location = location;
 
-  update_timezone (data);
+  update_timezone (page);
 
-  queue_set_timezone (data);
+  queue_set_timezone (page);
 }
 
 static void
-set_location_from_gweather_location (LocationData     *data,
+set_location_from_gweather_location (GisLocationPage  *page,
                                      GWeatherLocation *gloc)
 {
   GWeatherTimezone *zone = gweather_location_get_timezone (gloc);
@@ -164,7 +164,7 @@ set_location_from_gweather_location (LocationData     *data,
       name = id;
     }
     gtk_label_set_label (label, name);
-    cc_timezone_map_set_timezone (data->map, id);
+    cc_timezone_map_set_timezone (page->priv->map, id);
   }
 
   if (city != NULL) {
@@ -178,7 +178,7 @@ set_location_from_gweather_location (LocationData     *data,
 }
 
 static void
-location_changed (GObject *object, GParamSpec *param, LocationData *data)
+location_changed (GObject *object, GParamSpec *param, GisLocationPage *page)
 {
   GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
   GWeatherLocation *gloc;
@@ -187,7 +187,7 @@ location_changed (GObject *object, GParamSpec *param, LocationData *data)
   if (gloc == NULL)
     return;
 
-  set_location_from_gweather_location (data, gloc);
+  set_location_from_gweather_location (page, gloc);
 
   gweather_location_unref (gloc);
 }
@@ -204,7 +204,7 @@ position_callback (GeocluePosition      *pos,
 		   double                altitude,
 		   GeoclueAccuracy      *accuracy,
 		   GError               *error,
-		   LocationData         *data)
+		   GisLocationPage      *page)
 {
   if (error) {
     g_printerr ("Error getting position: %s\n", error->message);
@@ -213,7 +213,7 @@ position_callback (GeocluePosition      *pos,
     if (fields & GEOCLUE_POSITION_FIELDS_LATITUDE &&
         fields & GEOCLUE_POSITION_FIELDS_LONGITUDE) {
       GWeatherLocation *city = gweather_location_find_nearest_city (latitude, longitude);
-      set_location_from_gweather_location (data, city);
+      set_location_from_gweather_location (page, city);
     } else {
       g_print ("Position not available.\n");
     }
@@ -221,8 +221,8 @@ position_callback (GeocluePosition      *pos,
 }
 
 static void
-determine_location (GtkWidget    *widget,
-                    LocationData *data)
+determine_location (GtkWidget       *widget,
+                    GisLocationPage *page)
 {
   GeoclueMaster *master;
   GeoclueMasterClient *client;
@@ -250,7 +250,7 @@ determine_location (GtkWidget    *widget,
 
   geoclue_position_get_position_async (position,
                                        (GeocluePositionCallback) position_callback,
-                                       data);
+                                       page);
 
  out:
   g_clear_error (&error);
@@ -259,37 +259,36 @@ determine_location (GtkWidget    *widget,
 }
 #endif
 
-void
-gis_prepare_location_page (GisDriver *driver)
+static void
+gis_location_page_constructed (GObject *object)
 {
-  GisAssistant *assistant = gis_driver_get_assistant (driver);
+  GisLocationPage *page = GIS_LOCATION_PAGE (object);
+  GisLocationPagePrivate *priv = page->priv;
   GtkWidget *frame, *map, *entry;
   GWeatherLocation *world;
   GError *error;
   const gchar *timezone;
-  LocationData *data;
 
-  data = g_slice_new0 (LocationData);
-  data->driver = driver;
-  data->builder = gis_builder (PAGE_ID);
-  data->widget = WID ("location-page");
+  G_OBJECT_CLASS (gis_location_page_parent_class)->constructed (object);
+
+  GIS_PAGE (page)->widget = WID ("location-page");
 
   frame = WID("location-map-frame");
 
   error = NULL;
-  data->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+  priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                 G_DBUS_PROXY_FLAGS_NONE,
                                                 "org.freedesktop.timedate1",
                                                 "/org/freedesktop/timedate1",
                                                 NULL,
                                                 &error);
-  if (data->dtm == NULL) {
+  if (priv->dtm == NULL) {
     g_error ("Failed to create proxy for timedated: %s", error->message);
     exit (1);
   }
 
-  data->map = cc_timezone_map_new ();
-  map = (GtkWidget *)data->map;
+  priv->map = cc_timezone_map_new ();
+  map = GTK_WIDGET (priv->map);
   gtk_widget_set_hexpand (map, TRUE);
   gtk_widget_set_vexpand (map, TRUE);
   gtk_widget_set_halign (map, GTK_ALIGN_FILL);
@@ -311,33 +310,71 @@ gis_prepare_location_page (GisDriver *driver)
   gtk_grid_attach (GTK_GRID (frame), entry, 0, 1, 2, 1);
 #endif
 
-  timezone = timedate1_get_timezone (data->dtm);
+  timezone = timedate1_get_timezone (priv->dtm);
 
-  if (!cc_timezone_map_set_timezone (data->map, timezone)) {
+  if (!cc_timezone_map_set_timezone (priv->map, timezone)) {
     g_warning ("Timezone '%s' is unhandled, setting %s as default", timezone, DEFAULT_TZ);
-    cc_timezone_map_set_timezone (data->map, DEFAULT_TZ);
+    cc_timezone_map_set_timezone (priv->map, DEFAULT_TZ);
   }
   else {
     g_debug ("System timezone is '%s'", timezone);
   }
 
-  data->current_location = cc_timezone_map_get_location (data->map);
-  update_timezone (data);
- 
+  priv->current_location = cc_timezone_map_get_location (priv->map);
+  update_timezone (page);
+
   g_signal_connect (G_OBJECT (entry), "notify::location",
-                    G_CALLBACK (location_changed), data);
+                    G_CALLBACK (location_changed), page);
 
   g_signal_connect (map, "location-changed",
-                    G_CALLBACK (location_changed_cb), data);
+                    G_CALLBACK (location_changed_cb), page);
 
 #if WANT_GEOCLUE
   g_signal_connect (WID ("location-auto-button"), "clicked",
-                    G_CALLBACK (determine_location), data);
+                    G_CALLBACK (determine_location), page);
 #else
   gtk_widget_hide (WID ("location-auto-button"));
 #endif
 
-  gis_assistant_add_page (assistant, data->widget);
-  gis_assistant_set_page_title (assistant, data->widget, _("Location"));
-  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
+  gis_page_set_title (GIS_PAGE (page), _("Location"));
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
+}
+
+static void
+gis_location_page_dispose (GObject *object)
+{
+  GisLocationPage *page = GIS_LOCATION_PAGE (object);
+  GisLocationPagePrivate *priv = page->priv;
+
+  g_clear_object (&priv->dtm);
+
+  G_OBJECT_CLASS (gis_location_page_parent_class)->dispose (object);
+}
+
+static void
+gis_location_page_class_init (GisLocationPageClass *klass)
+{
+  GisPageClass *page_class = GIS_PAGE_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  page_class->page_id = PAGE_ID;
+  object_class->constructed = gis_location_page_constructed;
+  object_class->dispose = gis_location_page_dispose;
+  
+  g_type_class_add_private (object_class, sizeof(GisLocationPagePrivate));
+}
+
+static void
+gis_location_page_init (GisLocationPage *page)
+{
+  page->priv = GET_PRIVATE (page);
+}
+
+void
+gis_prepare_location_page (GisDriver *driver)
+{
+  gis_driver_add_page (driver,
+                       g_object_new (GIS_TYPE_LOCATION_PAGE,
+                                     "driver", driver,
+                                     NULL));
 }
