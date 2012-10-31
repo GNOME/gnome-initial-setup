@@ -5,6 +5,7 @@
 #include "config.h"
 #include "gis-eula-pages.h"
 #include "gis-utils.h"
+#include "utils.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -24,28 +25,6 @@ struct _EulaPage {
   gboolean require_checkbox;
   gboolean require_scroll;
 };
-
-/* heavily lifted from g_output_stream_splice */
-static void
-splice_buffer (GInputStream  *stream,
-               GtkTextBuffer *buffer,
-               GError       **error)
-{
-  char contents[8192];
-  gssize n_read;
-  GtkTextIter iter;
-
-  while (TRUE) {
-    n_read = g_input_stream_read (stream, contents, sizeof (contents), NULL, error);
-
-    /* error or eof */
-    if (n_read <= 0)
-      break;
-
-    gtk_text_buffer_get_end_iter (buffer, &iter);
-    gtk_text_buffer_insert (buffer, &iter, contents, n_read);
-  }
-}
 
 static GtkTextBuffer *
 build_eula_text_buffer_pango_markup (GFile   *file,
@@ -70,7 +49,7 @@ build_eula_text_buffer_pango_markup (GFile   *file,
   buffer = gtk_text_buffer_new (NULL);
 
   gtk_text_buffer_get_end_iter (buffer, &iter);
-  gis_gtk_text_buffer_insert_pango_text (buffer, &iter, attrlist, text);
+  text_buffer_insert_pango_text (buffer, &iter, attrlist, text);
 
   return buffer;
 

@@ -10,10 +10,6 @@
 G_BEGIN_DECLS
 
 GtkBuilder * gis_builder (gchar *resource);
-void gis_gtk_text_buffer_insert_pango_text (GtkTextBuffer *buffer,
-                                            GtkTextIter *iter,
-                                            PangoAttrList *attrlist,
-                                            gchar *text);
 
 G_END_DECLS
 
