@@ -2,10 +2,6 @@ SUBDIRS = pages
 
 uidir = $(datadir)/gnome-initial-setup
 
-# GNOMECC_DATA_DIR is used in tz.c
-# DATADIR is used in cc-timezone-map.c
-# these two files are copied from gnome-control-center,
-# which explains the slightly odd locations
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
 	-DUIDIR="\"$(uidir)\"" \
