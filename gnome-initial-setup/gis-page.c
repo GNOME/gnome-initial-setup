@@ -10,19 +10,19 @@
 GtkBuilder *
 gis_builder (gchar *resource)
 {
-    GtkBuilder *builder;
-    gchar *resource_path = g_strdup_printf ("/ui/%s.ui", resource);
-    GError *error = NULL;
+  GtkBuilder *builder;
+  gchar *resource_path = g_strdup_printf ("/ui/%s.ui", resource);
+  GError *error = NULL;
 
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder, resource_path, &error);
+  builder = gtk_builder_new ();
+  gtk_builder_add_from_resource (builder, resource_path, &error);
 
-    g_free (resource_path);
+  g_free (resource_path);
 
-    if (error != NULL) {
-        g_printerr ("%s", error->message);
-        exit (1);
-    }
+  if (error != NULL) {
+    g_warning ("Error while loading %s: %s", resource_path, error->message);
+    exit (1);
+  }
 
-    return builder;
+  return builder;
 }
