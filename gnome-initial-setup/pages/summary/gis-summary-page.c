@@ -13,7 +13,7 @@
 
 #include <gdm/gdm-client.h>
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
+#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
 #define SERVICE_NAME "gdm-password"
@@ -25,6 +25,7 @@ typedef struct _SummaryData SummaryData;
 struct _SummaryData {
   SetupData *setup;
   GtkWidget *widget;
+  GtkBuilder *builder;
 
   ActUser *user_account;
   const gchar *user_password;
@@ -307,11 +308,11 @@ void
 gis_prepare_summary_page (SetupData *setup)
 {
   GisAssistant *assistant = gis_get_assistant (setup);
-  GtkBuilder *builder = get_builder ();
   SummaryData *data;
 
   data = g_slice_new0 (SummaryData);
   data->setup = setup;
+  data->builder = get_builder ();
   data->widget = WID ("summary-page");
 
   g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), data);

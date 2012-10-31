@@ -30,6 +30,8 @@
 typedef struct _LocationData LocationData;
 
 struct _LocationData {
+  SetupData *setup;
+  GtkWidget *widget;
   GtkBuilder *builder;
 
   /* location data */
@@ -239,13 +241,17 @@ determine_location (GtkWidget    *widget,
 void
 gis_prepare_location_page (SetupData *setup)
 {
+  GisAssistant *assistant = gis_get_assistant (setup);
   GtkWidget *frame, *map, *entry;
   GWeatherLocation *world;
   GError *error;
   const gchar *timezone;
-  LocationData *data = g_slice_new0 (LocationData);
-  GisAssistant *assistant = gis_get_assistant (setup);
+  LocationData *data;
+
+  data = g_slice_new0 (LocationData);
+  data->setup = setup;
   data->builder = gis_builder (PAGE_ID);
+  data->widget = WID ("location-page");
 
   frame = WID("location-map-frame");
 
@@ -296,7 +302,7 @@ gis_prepare_location_page (SetupData *setup)
 
   data->current_location = cc_timezone_map_get_location (data->map);
   update_timezone (data);
-
+ 
   g_signal_connect (G_OBJECT (entry), "notify::location",
                     G_CALLBACK (location_changed), data);
 
@@ -310,7 +316,7 @@ gis_prepare_location_page (SetupData *setup)
   gtk_widget_hide (WID ("location-auto-button"));
 #endif
 
-  gis_assistant_add_page (assistant, WID ("location-page"));
-  gis_assistant_set_page_title (assistant, WID ("location-page"), _("Location"));
-  gis_assistant_set_page_complete (assistant, WID ("location-page"), TRUE);
+  gis_assistant_add_page (assistant, data->widget);
+  gis_assistant_set_page_title (assistant, data->widget, _("Location"));
+  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
 }

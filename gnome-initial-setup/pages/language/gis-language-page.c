@@ -16,13 +16,15 @@
 #include "cc-common-language.h"
 #include "gdm-languages.h"
 
-#define OBJ(type,name) ((type)gtk_builder_get_object(builder,(name)))
+#define OBJ(type,name) ((type)gtk_builder_get_object(data->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
 typedef struct _LanguageData LanguageData;
 
 struct _LanguageData {
   SetupData *setup;
+  GtkWidget *widget;
+  GtkBuilder *builder;
 
   GtkWidget *show_all;
   GtkWidget *page;
@@ -236,19 +238,20 @@ gis_prepare_language_page (SetupData *setup)
 {
   LanguageData *data;
   GisAssistant *assistant = gis_get_assistant (setup);
-  GtkBuilder *builder = gis_builder (PAGE_ID);
   GtkListStore *liststore;
   GtkTreeModel *filter;
   GtkTreeView *treeview;
+
+  data = g_slice_new0 (LanguageData);
+  data->setup = setup;
+  data->builder = gis_builder (PAGE_ID);
+  data->widget = WID ("language-page");
 
   liststore = gtk_list_store_new (NUM_COLS,
                                   G_TYPE_STRING,
                                   G_TYPE_STRING,
                                   G_TYPE_BOOLEAN);
 
-  data = g_slice_new0 (LanguageData);
-  data->setup = setup;
-  data->page = WID ("language-page");
   data->show_all = WID ("language-show-all");
   data->filter_entry = WID ("language-filter-entry");
   data->liststore = GTK_TREE_MODEL (liststore);
@@ -278,12 +281,10 @@ gis_prepare_language_page (SetupData *setup)
   g_signal_connect (gtk_tree_view_get_selection (treeview), "changed",
                     G_CALLBACK (selection_changed), data);
 
-  gis_assistant_add_page (assistant, data->page);
-  gis_assistant_set_use_unicode_buttons (assistant, data->page, TRUE);
-  gis_assistant_set_page_complete (assistant, data->page, TRUE);
+  gis_assistant_add_page (assistant, data->widget);
+  gis_assistant_set_use_unicode_buttons (assistant, data->widget, TRUE);
+  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
 
-  gis_assistant_set_page_title (gis_get_assistant (data->setup), data->page, _("Welcome"));
+  gis_assistant_set_page_title (gis_get_assistant (data->setup), data->widget, _("Welcome"));
   select_current_locale (treeview);
-
-  g_object_unref (builder);
 }

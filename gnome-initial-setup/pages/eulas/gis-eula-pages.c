@@ -15,8 +15,8 @@ typedef struct _EulaPage EulaPage;
 
 struct _EulaPage {
   SetupData *setup;
-
   GtkWidget *widget;
+
   GtkWidget *text_view;
   GtkWidget *checkbox;
   GtkWidget *scrolled_window;

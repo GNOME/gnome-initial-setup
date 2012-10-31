@@ -24,7 +24,9 @@ typedef struct _GoaData GoaData;
 
 struct _GoaData {
   SetupData *setup;
+  GtkWidget *widget;
   GtkBuilder *builder;
+
   /* online data */
   GoaClient *goa_client;
 };
@@ -280,6 +282,7 @@ gis_prepare_online_page (SetupData *setup)
   GisAssistant *assistant = gis_get_assistant (setup);
   data->setup = setup;
   data->builder = gis_builder (PAGE_ID);
+  data->widget = WID ("goa-page");
   data->goa_client = goa_client_new_sync (NULL, &error);
 
   if (data->goa_client == NULL)
@@ -300,7 +303,7 @@ gis_prepare_online_page (SetupData *setup)
   g_signal_connect (data->goa_client, "account-removed",
                     G_CALLBACK (goa_account_removed), data);
 
-  gis_assistant_add_page (assistant, WID ("goa-page"));
-  gis_assistant_set_page_complete (assistant, WID ("goa-page"), TRUE);
-  gis_assistant_set_page_title (assistant, WID ("goa-page"), _("Online Accounts"));
+  gis_assistant_add_page (assistant, data->widget);
+  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
+  gis_assistant_set_page_title (assistant, data->widget, _("Online Accounts"));
 }

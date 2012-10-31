@@ -29,7 +29,7 @@ typedef struct _NetworkData NetworkData;
 
 struct _NetworkData {
   SetupData *setup;
-
+  GtkWidget *widget;
   GtkBuilder *builder;
 
   /* network data */
@@ -607,6 +607,7 @@ gis_prepare_network_page (SetupData *setup)
 
   data->setup = setup;
   data->builder = gis_builder (PAGE_ID);
+  data->widget = WID ("network-page");
 
   col = OBJ(GtkTreeViewColumn*, "network-list-column");
 
@@ -705,9 +706,9 @@ gis_prepare_network_page (SetupData *setup)
 
   refresh_wireless_list (data);
 
-  gis_assistant_add_page (assistant, WID ("network-page"));
-  gis_assistant_set_page_title (assistant, WID ("network-page"), _("Network"));
-  gis_assistant_set_page_complete (assistant, WID ("network-page"), TRUE);
+  gis_assistant_add_page (assistant, data->widget);
+  gis_assistant_set_page_title (assistant, data->widget, _("Network"));
+  gis_assistant_set_page_complete (assistant, data->widget, TRUE);
 
  out: ;
 }
