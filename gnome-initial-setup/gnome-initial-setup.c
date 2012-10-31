@@ -28,8 +28,6 @@
 #include "pages/goa/gis-goa-page.h"
 #include "pages/summary/gis-summary-page.h"
 
-#include "gis-utils.h"
-
 /* Setup data {{{1 */
 struct _SetupData {
   GtkWindow *main_window;

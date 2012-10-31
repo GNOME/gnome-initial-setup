@@ -34,7 +34,7 @@ gnome_initial_setup_SOURCES =	\
 	cc-notebook.c cc-notebook.h \
 	gis-assistant.c gis-assistant.h gis-assistant-private.h \
 	gis-assistant-gtk.c gis-assistant-gtk.h \
-	gis-utils.c gis-utils.h \
+	gis-page.c gis-page.h \
 	$(BUILT_SOURCES)
 
 if HAVE_CLUTTER

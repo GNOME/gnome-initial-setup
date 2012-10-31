@@ -4,7 +4,6 @@
 
 #include "config.h"
 #include "gis-eula-pages.h"
-#include "gis-utils.h"
 #include "utils.h"
 
 #include <glib/gi18n.h>

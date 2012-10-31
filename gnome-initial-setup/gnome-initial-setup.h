@@ -6,7 +6,7 @@
 #include <gtk/gtk.h>
 
 #include "gis-assistant.h"
-#include "gis-utils.h"
+#include "gis-page.h"
 
 #include <act/act-user-manager.h>
 
