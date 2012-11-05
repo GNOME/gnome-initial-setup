@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup 3.5.x\n"
+"Project-Id-Version: gnome-initial-setup 3.6.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 13:05+0200\n"
-"PO-Revision-Date: 2012-08-22 13:51+0200\n"
+"POT-Creation-Date: 2012-11-05 14:11+0100\n"
+"PO-Revision-Date: 2012-11-05 14:13+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -22,33 +22,45 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Førstegangsoppsett"
 
-#: ../gnome-initial-setup/gis-assistant.c:185
+#: ../gnome-initial-setup/gis-assistant.c:195
 msgid "_Next"
 msgstr "_Neste"
 
-#: ../gnome-initial-setup/gis-assistant.c:186
+#: ../gnome-initial-setup/gis-assistant.c:196
 msgid "_Back"
 msgstr "Til_bake"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:193
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:336
 msgid "Passwords do not match"
 msgstr "Passordene er ikke like"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:538
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:543
+msgid "Failed to register account"
+msgstr "Klarte ikke å registrere konto"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:606
+msgid "Failed to join domain"
+msgstr "Klarte ikke å bli medlem av domenet"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:661
+msgid "Failed to log into domain"
+msgstr "Klarte ikke å logge inn i domenet"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:983
 msgid "Login"
 msgstr "Brukernavn"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create Local Account"
-msgstr "Lag lokal konto"
+msgid "Choose How to Login"
+msgstr "Velg type pålogging"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Cancel"
-msgstr "A_vbryt"
+msgid "_Local Account"
+msgstr "_Lokal konto"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Done"
-msgstr "Fer_dig"
+msgid "_Enterprise Login"
+msgstr "B_edriftskonto"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "_Full Name"
@@ -75,75 +87,94 @@ msgid "_Act as administrator of this computer"
 msgstr "Opptre som _administrator på denne datamaskinen"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
-msgid "Choose How to Login"
-msgstr "Velg type pålogging"
+msgid "_Domain"
+msgstr "_Domene"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
-msgid "Create a Local Account"
-msgstr "Lag en lokal brukerkonto"
+msgid "_Login Name"
+msgstr "_Brukernavn"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Use an Enterprise Login"
-msgstr "Bruk en bedriftskonto"
+msgid "Tip: Enterprise domain or realm name"
+msgstr "Tips: Bedriftsdomene eller områdenavn"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:93
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
+#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:94
+#: ../gnome-initial-setup/pages/account/pw-utils.c:118
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "For kort"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:98
+#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "Ikke bra nok"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:106
-#: ../gnome-initial-setup/pages/account/pw-utils.c:152
+#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:107
+#: ../gnome-initial-setup/pages/account/pw-utils.c:153
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "Svakt"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:108
-#: ../gnome-initial-setup/pages/account/pw-utils.c:154
+#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:109
+#: ../gnome-initial-setup/pages/account/pw-utils.c:155
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "Bra"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:110
-#: ../gnome-initial-setup/pages/account/pw-utils.c:156
+#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:111
+#: ../gnome-initial-setup/pages/account/pw-utils.c:157
 msgctxt "Password strength"
 msgid "Good"
 msgstr "God"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:112
-#: ../gnome-initial-setup/pages/account/pw-utils.c:158
+#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:113
+#: ../gnome-initial-setup/pages/account/pw-utils.c:159
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "Sterk"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:245
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#, c-format
+msgid "No such domain or realm found"
+msgstr "Fant ikke domenet eller området"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#, c-format
+msgid "Cannot log in as %s at the %s domain"
+msgstr "Kan ikke logge inn som %s i domenet %s"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+msgid "Invalid password, please try again"
+msgstr "Ugyldig passord. Prøv igjen"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#, c-format
+msgid "Couldn't connect to the %s domain: %s"
+msgstr "Kunne ikke koble til domenet %s: %s"
+
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
 msgstr "Slå av bilde"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:263
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
 msgid "Take a photo..."
 msgstr "Ta et bilde …"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:267
+#: ../gnome-initial-setup/pages/account/um-utils.c:268
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "En bruker med brukernavn «%s» eksisterer allerede"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:271
+#: ../gnome-initial-setup/pages/account/um-utils.c:272
 #, c-format
 msgid "The username is too long"
 msgstr "Brukernavnet er for langt"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:274
+#: ../gnome-initial-setup/pages/account/um-utils.c:275
 msgid "The username cannot start with a '-'"
 msgstr "Brukernavn kan ikke starte med «-»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:277
+#: ../gnome-initial-setup/pages/account/um-utils.c:278
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -155,13 +186,15 @@ msgstr ""
 " ➣ tall\n"
 " ➣ tegnene «.», «-» og «_»"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:248
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:226
 msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
-msgstr "Jeg godt_ar bestemmelsene og betingelsene i denne lisensavtalen for sluttbruker."
+msgstr ""
+"Jeg godt_ar bestemmelsene og betingelsene i denne lisensavtalen for "
+"sluttbruker."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:274
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:252
 msgid "License Agreements"
 msgstr "Lisensavtaler"
 
@@ -172,31 +205,31 @@ msgstr "Lisensavtaler"
 msgid "Add Account"
 msgstr "Legg til konto"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:79
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:83
 msgid "Error creating account"
 msgstr "Feil under oppretting av konto"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:111
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:115
 msgid "Error removing account"
 msgstr "Feil under fjerning av konto"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:141
 msgid "Are you sure you want to remove the account?"
 msgstr "Er du sikker på at du vil fjerne kontoen?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:139
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:143
 msgid "This will not remove the account on the server."
 msgstr "Dette vil ikke fjerne kontoen på tjeneren."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:140
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:144
 msgid "_Remove"
 msgstr "Fje_rn"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:190
 msgid "Remove"
 msgstr "Fjern"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:303
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:308
 msgid "Online Accounts"
 msgstr "Kontoer på nettet"
 
@@ -205,40 +238,40 @@ msgid "Link other accounts"
 msgstr "Lenk andre kontoer"
 
 #. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:200
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
 msgid "English"
 msgstr "Engelsk"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:202
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
 msgid "British English"
 msgstr "Britisk engelsk"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:205
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
 msgid "German"
 msgstr "Tysk"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:208
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
 msgid "French"
 msgstr "Fransk"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:211
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
 msgid "Spanish"
 msgstr "Spansk"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:213
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
 msgid "Chinese (simplified)"
 msgstr "Kinesisk (forenklet)"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:781
+#: ../gnome-initial-setup/pages/language/gdm-languages.c:782
 msgid "Unspecified"
 msgstr "Uspesifisert"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:89
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:93
 #, c-format
 msgid "Use %s"
 msgstr "Bruk %s"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:283
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:288
 msgid "Welcome"
 msgstr "Velkommen"
 
@@ -246,11 +279,11 @@ msgstr "Velkommen"
 msgid "Show _all"
 msgstr "Vis _alle"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:274
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:282
 msgid "Search for a location"
 msgstr "Søk etter en lokasjon"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:312
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:320
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Plassering"
@@ -270,24 +303,24 @@ msgstr "Tidssone"
 #. TRANSLATORS: this is when the access point is not listed
 #. *                           * in the dropdown (or hidden) and the user has to select
 #. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:239
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:241
 msgctxt "Wireless access point"
 msgid "Other..."
 msgstr "Annet …"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:321
 msgid "Network is not available."
 msgstr "Nettverk er ikke tilgjengelig."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:321
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:323
 msgid "No network devices found."
 msgstr "Ingen nettverksenheter funnet."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Se etter tilgjengelige trådløse nettverk"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:707
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:710
 msgid "Network"
 msgstr "Nettverk"
 
@@ -295,7 +328,7 @@ msgstr "Nettverk"
 msgid "Wireless Networks"
 msgstr "Trådløss nettverk"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:355
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:324
 msgid "Thank You"
 msgstr "Takk"
 
