@@ -1,4 +1,18 @@
 #! /bin/sh
 
+prefix=/usr/share/help
+suffix=getting-started
+full_locale=$LANG
+locale=`echo $full_locale | sed -e 's/\..*//'`
+lang=`echo $locale | sed -e 's/_.*//'`
+
+for name in $locale $lang 'C'; do
+        if test -d "$prefix/$name/$suffix" ; then
+                intro_path="$prefix/$name/$suffix"
+                break;
+        fi
+done
+
 rm -f ${XDG_CONFIG_DIR:-$HOME/.config}/run-welcome-tour
-epiphany --private-instance http://www.gnome3.org
+/usr/libexec/gnome-simple-player $intro_path/figures/yelp-intro0001-0535.ogg &
+yelp help:getting-started
