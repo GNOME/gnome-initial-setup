@@ -1,10 +1,21 @@
 #! /bin/sh
 
+cfgdir=${XDG_CONFIG_DIR:-$HOME/.config}
 prefix=/usr/share/help
 suffix=getting-started
 full_locale=$LANG
 locale=`echo $full_locale | sed -e 's/\..*//'`
 lang=`echo $locale | sed -e 's/_.*//'`
+
+rm -f $cfgdir/run-welcome-tour
+
+if [ ! -d $cfgdir/yelp ]; then
+        mkdir $cfgdir/yelp
+        cat <<EOF >>$cfgdir/yelp/yelp.cfg
+[documents/help%3Agetting-started]
+geometry=(870, 580)
+EOF
+fi
 
 for name in $locale $lang 'C'; do
         if test -d "$prefix/$name/$suffix" ; then
@@ -13,6 +24,5 @@ for name in $locale $lang 'C'; do
         fi
 done
 
-rm -f ${XDG_CONFIG_DIR:-$HOME/.config}/run-welcome-tour
 /usr/libexec/gnome-simple-player $intro_path/figures/yelp-intro0001-0535.ogg &
 yelp help:getting-started
