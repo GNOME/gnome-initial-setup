@@ -50,6 +50,8 @@ main (int    argc,
   GError *error = NULL;
   int ret = 0;
 
+  g_type_init ();
+
   src = g_file_new_for_path (get_skeleton_dir ());
 
   if (!g_file_query_exists (src, NULL))
