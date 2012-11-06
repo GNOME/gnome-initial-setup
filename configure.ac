@@ -1,4 +1,4 @@
-AC_INIT([gnome-initial-setup],[0.4])
+AC_INIT([gnome-initial-setup],[0.3.1])
 AC_CONFIG_MACRO_DIR([m4])
 AC_USE_SYSTEM_EXTENSIONS
 AM_INIT_AUTOMAKE([dist-xz no-dist-gzip foreign])
@@ -90,6 +90,9 @@ if test "x$with_systemdsystemunitdir" != "xno"; then
     AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
 fi
 
+GLIB_VERSION_DEFINES="-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_30 '-DGLIB_VERSION_MAX_ALLOWED=G_ENCODE_VERSION(2,34)'"
+
+INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $GLIB_VERSION_DEFINES"
 
 AC_SUBST(INITIAL_SETUP_CFLAGS)
 AC_SUBST(INITIAL_SETUP_LIBS)
