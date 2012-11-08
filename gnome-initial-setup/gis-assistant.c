@@ -362,6 +362,7 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
   priv->action_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  gtk_box_set_homogeneous (GTK_BOX (priv->action_area), TRUE);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
   gtk_widget_set_halign (priv->action_area, GTK_ALIGN_END);
 
