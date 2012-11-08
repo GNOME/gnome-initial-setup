@@ -303,7 +303,7 @@ gis_prepare_language_page (GisDriver *driver)
                     G_CALLBACK (selection_changed), data);
 
   gis_assistant_add_page (assistant, data->widget);
-  gis_assistant_set_use_unicode_buttons (assistant, data->widget, TRUE);
+  gis_assistant_set_use_arrow_buttons (assistant, data->widget, TRUE);
   gis_assistant_set_page_complete (assistant, data->widget, TRUE);
 
   gis_assistant_set_page_title (assistant, data->widget, _("Welcome"));

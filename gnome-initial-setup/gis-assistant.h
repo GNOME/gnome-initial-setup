@@ -79,12 +79,12 @@ gchar *   gis_assistant_get_page_title    (GisAssistant *assistant,
                                            GtkWidget    *page);
 gchar *   gis_assistant_get_title         (GisAssistant *assistant);
 
-void      gis_assistant_set_use_unicode_buttons (GisAssistant *assistant,
-                                                 GtkWidget    *page,
-                                                 gboolean      use_unicode_buttons);
+void      gis_assistant_set_use_arrow_buttons (GisAssistant *assistant,
+                                               GtkWidget    *page,
+                                               gboolean      use_arrow_buttons);
 
-gboolean  gis_assistant_get_use_unicode_buttons (GisAssistant *assistant,
-                                                 GtkWidget    *page);
+gboolean  gis_assistant_get_use_arrow_buttons (GisAssistant *assistant,
+                                               GtkWidget    *page);
 
 G_END_DECLS
 

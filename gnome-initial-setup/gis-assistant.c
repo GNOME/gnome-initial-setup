@@ -70,7 +70,7 @@ struct _PageData
 
   GtkWidget *widget;
   gboolean page_complete : 1;
-  gboolean use_unicode_buttons : 1;
+  gboolean use_arrow_buttons : 1;
   guint padding : 6;
 
   GList *link;
@@ -184,7 +184,7 @@ update_navigation_buttons (GisAssistant *assistant,
   gtk_widget_set_visible (priv->back, !is_last_page);
   gtk_widget_set_visible (priv->forward, !is_last_page);
 
-  if (gis_assistant_get_use_unicode_buttons (assistant, page))
+  if (gis_assistant_get_use_arrow_buttons (assistant, page))
     {
       gtk_button_set_label (GTK_BUTTON (priv->forward), "→");
       gtk_button_set_label (GTK_BUTTON (priv->back), "←");
@@ -298,24 +298,24 @@ gis_assistant_get_page_title (GisAssistant *assistant,
 }
 
 void
-gis_assistant_set_use_unicode_buttons (GisAssistant *assistant,
-                                       GtkWidget    *page,
-                                       gboolean      use_unicode_buttons)
+gis_assistant_set_use_arrow_buttons (GisAssistant *assistant,
+                                     GtkWidget    *page,
+                                     gboolean      use_arrow_buttons)
 {
   GisAssistantPrivate *priv = assistant->priv;
   PageData *page_data = get_page_data_for_page (page);
-  page_data->use_unicode_buttons = use_unicode_buttons;
+  page_data->use_arrow_buttons = use_arrow_buttons;
 
   if (page_data == priv->current_page)
     update_navigation_buttons (assistant, page);
 }
 
 gboolean
-gis_assistant_get_use_unicode_buttons (GisAssistant *assistant,
-                                       GtkWidget    *page)
+gis_assistant_get_use_arrow_buttons (GisAssistant *assistant,
+                                     GtkWidget    *page)
 {
   PageData *page_data = get_page_data_for_page (page);
-  return page_data->use_unicode_buttons;
+  return page_data->use_arrow_buttons;
 }
 
 gchar *
