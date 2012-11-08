@@ -31,7 +31,9 @@
 #include <clutter-gtk/clutter-gtk.h>
 #endif
 
+#ifdef HAVE_CHEESE
 #include <cheese-gtk.h>
+#endif
 
 #include "pages/language/gis-language-page.h"
 #include "pages/eulas/gis-eula-pages.h"
@@ -65,7 +67,9 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
+#ifdef HAVE_CHEESE
   cheese_gtk_init (NULL, NULL);
+#endif
 
   gtk_init (&argc, &argv);
 

@@ -30,7 +30,7 @@ libgisaccount_la_SOURCES =				\
 	um-utils.c um-utils.h				\
 	$(NULL)
 
-libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.." -DHAVE_CHEESE
+libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
 libgisaccount_la_LIBADD = $(INITIAL_SETUP_LIBS) -lcrypt
 libgisaccount_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 

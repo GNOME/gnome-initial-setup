@@ -26,8 +26,6 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   accountsservice
                   gnome-desktop-3.0
                   gstreamer-1.0
-                  cheese
-                  cheese-gtk >= 3.3.5
                   fontconfig
                   geoclue
                   gweather-3.0
@@ -36,6 +34,17 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gtk+-3.0 >= $GTK_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm)
+
+PKG_CHECK_MODULES(CHEESE,
+                  cheese
+                  cheese-gtk >= 3.3.5,
+                  have_cheese=yes, have_cheese=no)
+AM_CONDITIONAL(HAVE_CHEESE, [test x$have_cheese = xyes])
+if test x$have_cheese = xyes; then
+  INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $CHEESE_CFLAGS"
+  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $CHEESE_LIBS"
+  AC_DEFINE(HAVE_CHEESE, 1, [Build with Cheese support?])
+fi
 
 PKG_CHECK_MODULES(CLUTTER,
                   clutter-gtk-1.0
