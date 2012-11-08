@@ -163,7 +163,7 @@ gis_assistant_previous_page (GisAssistant *assistant)
   gis_assistant_switch_to (assistant, prev_page->widget);
 }
 
- static void
+static void
 update_navigation_buttons (GisAssistant *assistant,
                            GtkWidget    *page)
 {
