@@ -36,24 +36,15 @@ G_DEFINE_TYPE (GisAssistantGtk, gis_assistant_gtk, GIS_TYPE_ASSISTANT)
 
 struct _GisAssistantGtkPrivate
 {
-  GtkWidget *frame;
+  GtkWidget *notebook;
 };
 
 static void
-set_current_page (GisAssistant *assistant,
-                  GtkWidget    *new_page)
+current_page_changed (GtkNotebook  *notebook,
+                      GtkWidget    *new_page,
+                      gint          new_page_num,
+                      GisAssistant *assistant)
 {
-  GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
-  GtkBin *bin = GTK_BIN (priv->frame);
-
-  GtkWidget *old_page = gtk_bin_get_child (bin);
-
-  if (old_page != NULL)
-    gtk_container_remove (GTK_CONTAINER (bin), old_page);
-
-  if (new_page != NULL)
-    gtk_container_add (GTK_CONTAINER (bin), new_page);
-
   _gis_assistant_current_page_changed (assistant, new_page);
 }
 
@@ -61,7 +52,9 @@ static void
 gis_assistant_gtk_switch_to (GisAssistant *assistant,
                              GtkWidget    *widget)
 {
-  set_current_page (assistant, widget);
+  GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
+  gint page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook), widget);
+  gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), page_num);
 }
 
 static void
@@ -69,10 +62,7 @@ gis_assistant_gtk_add_page (GisAssistant *assistant,
                             GtkWidget    *widget)
 {
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
-  GtkWidget *old_child = gtk_bin_get_child (GTK_BIN (priv->frame));
-
-  if (old_child == NULL)
-    set_current_page (assistant, widget);
+  gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook), widget, NULL);
 }
 
 static void
@@ -80,10 +70,19 @@ gis_assistant_gtk_init (GisAssistantGtk *assistant_gtk)
 {
   GisAssistantGtkPrivate *priv = GET_PRIVATE (assistant_gtk);
   GisAssistant *assistant = GIS_ASSISTANT (assistant_gtk);
+  GtkWidget *frame;
 
   assistant_gtk->priv = priv;
 
-  priv->frame = _gis_assistant_get_frame (assistant);
+  frame = _gis_assistant_get_frame (assistant);
+  priv->notebook = gtk_notebook_new ();
+  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (priv->notebook), FALSE);
+  gtk_container_add (GTK_CONTAINER (frame), priv->notebook);
+
+  gtk_widget_show (priv->notebook);
+
+  g_signal_connect (priv->notebook, "switch-page",
+                    G_CALLBACK (current_page_changed), assistant);
 }
 
 static void
@@ -93,6 +92,6 @@ gis_assistant_gtk_class_init (GisAssistantGtkClass *klass)
 
   g_type_class_add_private (klass, sizeof (GisAssistantGtkPrivate));
 
-  assistant_class->switch_to = gis_assistant_gtk_switch_to;
   assistant_class->add_page = gis_assistant_gtk_add_page;
+  assistant_class->switch_to = gis_assistant_gtk_switch_to;
 }
