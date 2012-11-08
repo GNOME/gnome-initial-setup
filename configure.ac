@@ -48,6 +48,16 @@ if test x$have_clutter = xyes; then
   AC_DEFINE(HAVE_CLUTTER, 1, [Build with Clutter support?])
 fi
 
+PKG_CHECK_MODULES(PWQUALITY,
+                  pwquality,
+                  have_pwquality=yes, have_pwquality=no)
+AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])
+if test x$have_pwquality = xyes; then
+  INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $PWQUALITY_CFLAGS"
+  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $PWQUALITY_LIBS"
+  AC_DEFINE(HAVE_PWQUALITY, 1, [Build with libpwquality support?])
+fi
+
 # Kerberos kerberos support
 AC_PATH_PROG(KRB5_CONFIG, krb5-config, no)
 if test "$KRB5_CONFIG" = "no"; then
@@ -64,12 +74,6 @@ AC_SUBST(KRB5_LIBS)
 
 INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $KRB5_CFLAGS"
 INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $KRB5_LIBS"
-
-AC_CHECK_HEADER([pwquality.h], [have_pwquality=yes], [have_pwquality=no])
-AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])
-if test x$have_pwquality = xyes ; then
-  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS -lpwquality"
-fi
 
 # This is a hard-dependency for the region and user-accounts panels
 PKG_CHECK_MODULES(ISOCODES, iso-codes)
