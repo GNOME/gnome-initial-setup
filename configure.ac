@@ -43,6 +43,7 @@ PKG_CHECK_MODULES(CLUTTER,
                   have_clutter=yes, have_clutter=no)
 AM_CONDITIONAL(HAVE_CLUTTER, [test x$have_clutter = xyes])
 if test x$have_clutter = xyes; then
+  INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $CLUTTER_CFLAGS"
   INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $CLUTTER_LIBS"
   AC_DEFINE(HAVE_CLUTTER, 1, [Build with Clutter support?])
 fi
