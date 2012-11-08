@@ -3,15 +3,27 @@
 /* Copies settings installed from gnome-initial-setup and
  * sticks them in the user's profile */
 
+#include <pwd.h>
+#include <string.h>
 #include <gio/gio.h>
 #include <stdlib.h>
 
-#define SKELETON_PATH "gnome-initial-setup/skeleton"
-
 static char *
-get_skeleton_dir (void)
+get_gnome_initial_setup_home_dir (void)
 {
-  return g_build_filename (g_get_user_runtime_dir (), SKELETON_PATH, NULL);
+  struct passwd pw, *pwp;
+  char buf[4096];
+
+  setpwent();
+  while (TRUE) {
+    if (getpwent_r (&pw, buf, sizeof (buf), &pwp))
+      break;
+
+    if (strcmp (pwp->pw_name, "gnome-initial-setup") == 0)
+      return g_strdup (pwp->pw_dir);
+  }
+
+  g_error ("Could not find homedir for gnome-initial-setup");
 }
 
 static void
@@ -46,7 +58,7 @@ main (int    argc,
 
   g_type_init ();
 
-  src = g_file_new_for_path (get_skeleton_dir ());
+  src = g_file_new_for_path (get_gnome_initial_setup_home_dir ());
 
   if (!g_file_query_exists (src, NULL))
     exit (EXIT_SUCCESS);

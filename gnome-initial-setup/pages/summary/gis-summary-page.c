@@ -41,8 +41,6 @@
 
 #define SERVICE_NAME "gdm-password"
 
-#define SKELETON_PATH "/gnome-initial-setup/skeleton"
-
 typedef struct _SummaryData SummaryData;
 
 struct _SummaryData {
@@ -82,74 +80,6 @@ connect_to_gdm (GdmGreeter      **greeter,
   }
 
   return res;
-}
-
-static gboolean
-pkinstall(const char *user, char *one, char *two, GError **error)
-{
-  char *argv[] = { "/usr/bin/pkexec",
-                   "install",
-                   "--owner", (char *) user,
-                   "--group", (char *) user,
-                   "--mode", "755",
-                   one, two, NULL };
-
-  return g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, error);
-}
-
-static void
-copy_file_to_tmpfs (const char *dest_base,
-                    const char *dir,
-                    const char *path,
-                    const char *user)
-{
-  char *src = g_build_filename (dir, path, NULL);
-  char *basename = g_path_get_basename (src);
-  char *dest = g_build_filename (dest_base, basename, NULL);
-  GError *error = NULL;
-
-  if (!pkinstall (user, src, dest, &error)) {
-    g_warning ("Unable to copy %s to %s: %s",
-               src, dest, error->message);
-    g_error_free (error);
-  }
-
-  g_free (src);
-  g_free (basename);
-  g_free (dest);
-}
-
-static char *
-get_skeleton_dir (SummaryData *data)
-{
-  uid_t uid = act_user_get_uid (data->user_account);
-  return g_strdup_printf ("/run/user/%d" SKELETON_PATH, uid);
-}
-
-static void
-copy_files_to_tmpfs (SummaryData *data)
-{
-  const char *user = act_user_get_user_name (data->user_account);
-  char *dest = get_skeleton_dir (data);
-  GError *error = NULL;
-
-  if (!pkinstall (user, "--directory", dest, &error)) {
-    g_warning ("Unable to make directory %s: %s",
-               dest, error->message);
-    goto out;
-  }
-
-#define FILE(d, x)                                                      \
-  copy_file_to_tmpfs (dest, g_get_user_##d##_dir (), x, user);          \
-
-  FILE (config, "run-welcome-tour");
-  FILE (config, "dconf/user");
-  FILE (config, "goa-1.0/accounts.conf");
-  FILE (data, "keyrings/Default.keyring");
-
- out:
-  g_free (dest);
-  g_clear_error (&error);
 }
 
 static void
@@ -217,7 +147,6 @@ on_session_opened (GdmGreeter  *greeter,
                    const char  *service_name,
                    SummaryData *data)
 {
-  copy_files_to_tmpfs (data);
   gdm_greeter_call_start_session_when_ready_sync (greeter, service_name,
                                                   TRUE, NULL, NULL);
 }
