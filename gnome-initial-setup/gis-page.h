@@ -21,8 +21,8 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_UTILS_H__
-#define __GIS_UTILS_H__
+#ifndef __GIS_PAGE_H__
+#define __GIS_PAGE_H__
 
 #include "gnome-initial-setup.h"
 
@@ -34,4 +34,4 @@ GtkBuilder * gis_builder (gchar *resource);
 
 G_END_DECLS
 
-#endif /* __GIS_UTILS_H__ */
+#endif /* __GIS_PAGE_H__ */
