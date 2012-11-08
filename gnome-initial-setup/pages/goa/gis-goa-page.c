@@ -21,9 +21,9 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#define PAGE_ID "goa"
-
 /* Online accounts page {{{1 */
+
+#define PAGE_ID "goa"
 
 #include "config.h"
 #include "gis-goa-page.h"

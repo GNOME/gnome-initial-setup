@@ -21,9 +21,9 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#define PAGE_ID "location"
-
 /* Location page {{{1 */
+
+#define PAGE_ID "location"
 
 #include "config.h"
 #include "gis-location-page.h"

@@ -21,9 +21,9 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#define PAGE_ID "language"
-
 /* Language page {{{1 */
+
+#define PAGE_ID "language"
 
 #include "config.h"
 #include "gis-language-page.h"

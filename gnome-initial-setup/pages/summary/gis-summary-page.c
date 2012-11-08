@@ -21,6 +21,8 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
+/* Summary page {{{1 */
+
 #define PAGE_ID "summary"
 
 #include "config.h"

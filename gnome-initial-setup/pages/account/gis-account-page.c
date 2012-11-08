@@ -21,9 +21,9 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#define PAGE_ID "account"
-
 /* Account page {{{1 */
+
+#define PAGE_ID "account"
 
 #include "config.h"
 #include "gis-account-page.h"

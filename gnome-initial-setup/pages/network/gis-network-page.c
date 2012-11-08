@@ -21,9 +21,9 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#define PAGE_ID "network"
-
 /* Network page {{{1 */
+
+#define PAGE_ID "network"
 
 #include "config.h"
 #include "gis-network-page.h"
