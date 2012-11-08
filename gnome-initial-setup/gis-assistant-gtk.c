@@ -45,24 +45,28 @@ current_page_changed (GtkNotebook  *notebook,
                       gint          new_page_num,
                       GisAssistant *assistant)
 {
-  _gis_assistant_current_page_changed (assistant, new_page);
+  _gis_assistant_current_page_changed (assistant, GIS_PAGE (new_page));
 }
 
 static void
 gis_assistant_gtk_switch_to (GisAssistant *assistant,
-                             GtkWidget    *widget)
+                             GisPage      *page)
 {
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
-  gint page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook), widget);
+  gint page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook),
+                                         GTK_WIDGET (page));
   gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), page_num);
 }
 
 static void
 gis_assistant_gtk_add_page (GisAssistant *assistant,
-                            GtkWidget    *widget)
+                            GisPage      *page)
 {
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
-  gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook), widget, NULL);
+  gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook),
+                            GTK_WIDGET (page), NULL);
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

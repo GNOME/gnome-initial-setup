@@ -42,11 +42,10 @@ typedef struct _GisAssistantPagePrivate GisAssistantPagePrivate;
 
 struct _GisPage
 {
-  GObject parent;
+  GtkBin parent;
 
   GisDriver *driver;
   GtkBuilder *builder;
-  GtkWidget *widget;
 
   GisPagePrivate *priv;
   GisAssistantPagePrivate *assistant_priv;
@@ -54,7 +53,7 @@ struct _GisPage
 
 struct _GisPageClass
 {
-  GObjectClass parent_class;
+  GtkBinClass parent_class;
   char *page_id;
 
   GtkBuilder * (*get_builder) (GisPage *page);

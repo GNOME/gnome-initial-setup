@@ -303,7 +303,7 @@ gis_goa_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
 
-  GIS_PAGE (page)->widget = WID ("goa-page");
+  gtk_container_add (GTK_CONTAINER (page), WID ("goa-page"));
 
   priv->goa_client = goa_client_new_sync (NULL, &error);
 

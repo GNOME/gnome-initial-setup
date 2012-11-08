@@ -217,13 +217,13 @@ tour_cb (GtkButton *button, GisSummaryPage *page)
 
 static void
 prepare_cb (GisAssistant   *assistant,
-            GtkWidget      *widget,
-            GisSummaryPage *page)
+            GisPage        *which_page,
+            GisSummaryPage *this_page)
 {
-  if (GIS_PAGE (page)->widget == widget)
+  if (GIS_PAGE (which_page) == GIS_PAGE (this_page))
     {
-      GisSummaryPagePrivate *priv = page->priv;
-      gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
+      GisSummaryPagePrivate *priv = this_page->priv;
+      gis_driver_get_user_permissions (GIS_PAGE (this_page)->driver,
                                        &priv->user_account,
                                        &priv->user_password);
     }
@@ -267,7 +267,7 @@ gis_summary_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_summary_page_parent_class)->constructed (object);
 
-  GIS_PAGE (page)->widget = WID ("summary-page");
+  gtk_container_add (GTK_CONTAINER (page), WID ("summary-page"));
 
   g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), page);
 

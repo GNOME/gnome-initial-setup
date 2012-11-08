@@ -243,7 +243,7 @@ gis_eula_page_constructed (GObject *object)
   gtk_widget_set_vexpand (scrolled_window, TRUE);
   gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
   gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
-  GIS_PAGE (page)->widget = vbox;
+  gtk_container_add (GTK_CONTAINER (page), vbox);
 
   priv->text_view = text_view;
   priv->scrolled_window = scrolled_window;

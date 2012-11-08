@@ -46,22 +46,24 @@ current_page_changed (CcNotebook   *notebook,
                       GisAssistant *assistant)
 {
   GtkWidget *page = cc_notebook_get_selected_page (notebook);
-  _gis_assistant_current_page_changed (assistant, page);
+  _gis_assistant_current_page_changed (assistant, GIS_PAGE (page));
 }
 
 static void
-gis_assistant_clutter_switch_to (GisAssistant *assistant, GtkWidget *widget)
+gis_assistant_clutter_switch_to (GisAssistant *assistant, GisPage *page)
 {
   GisAssistantClutterPrivate *priv = GIS_ASSISTANT_CLUTTER (assistant)->priv;
-  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), widget, TRUE);
+  cc_notebook_select_page (CC_NOTEBOOK (priv->notebook), GTK_WIDGET (page), TRUE);
 }
 
 static void
 gis_assistant_clutter_add_page (GisAssistant *assistant,
-                                GtkWidget    *page)
+                                GisPage      *page)
 {
   GisAssistantClutterPrivate *priv = GIS_ASSISTANT_CLUTTER (assistant)->priv;
-  cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), page);
+  cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), GTK_WIDGET (page));
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

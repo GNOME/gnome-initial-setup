@@ -27,7 +27,7 @@
 
 #include "gis-page.h"
 
-G_DEFINE_ABSTRACT_TYPE (GisPage, gis_page, G_TYPE_OBJECT);
+G_DEFINE_ABSTRACT_TYPE (GisPage, gis_page, GTK_TYPE_BIN);
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_PAGE, GisPagePrivate))
 
@@ -123,7 +123,6 @@ gis_page_dispose (GObject *object)
 
   g_clear_object (&page->driver);
   g_clear_object (&page->builder);
-  g_clear_object (&page->widget);
 
   G_OBJECT_CLASS (gis_page_parent_class)->dispose (object);
 }

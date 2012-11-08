@@ -268,7 +268,7 @@ gis_language_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_language_page_parent_class)->constructed (object);
 
-  GIS_PAGE (page)->widget = WID ("language-page");
+  gtk_container_add (GTK_CONTAINER (page), WID ("language-page"));
 
   liststore = gtk_list_store_new (NUM_COLS,
                                   G_TYPE_STRING,

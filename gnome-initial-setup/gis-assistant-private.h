@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 GtkWidget *_gis_assistant_get_frame (GisAssistant *assistant);
 
 void _gis_assistant_current_page_changed (GisAssistant *assistant,
-                                          GtkWidget    *page);
+                                          GisPage      *page);
 
 G_END_DECLS
 

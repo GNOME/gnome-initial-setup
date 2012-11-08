@@ -1000,7 +1000,7 @@ gis_account_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->constructed (object);
 
-  GIS_PAGE (page)->widget = WID ("account-page");
+  gtk_container_add (GTK_CONTAINER (page), WID ("account-page"));
 
   priv->realmd_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM, "org.freedesktop.realmd",
                                          G_BUS_NAME_WATCHER_FLAGS_AUTO_START,

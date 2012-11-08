@@ -24,8 +24,6 @@
 #ifndef __GIS_ASSISTANT_H__
 #define __GIS_ASSISTANT_H__
 
-#include <glib-object.h>
-
 #include "gis-page.h"
 
 G_BEGIN_DECLS
@@ -52,11 +50,11 @@ struct _GisAssistantClass
 {
   GtkBoxClass parent_class;
 
-  void (* prepare) (GisAssistant *assistant, GtkWidget *page);
-  void (* next_page) (GisAssistant *assistant, GtkWidget *page);
+  void (* prepare) (GisAssistant *assistant, GisPage *page);
+  void (* next_page) (GisAssistant *assistant, GisPage *page);
 
-  void (* switch_to) (GisAssistant *assistant, GtkWidget *page);
-  void (* add_page) (GisAssistant *assistant, GtkWidget *page);
+  void (* switch_to) (GisAssistant *assistant, GisPage *page);
+  void (* add_page) (GisAssistant *assistant, GisPage *page);
 };
 
 GType gis_assistant_get_type (void);
@@ -67,26 +65,7 @@ void      gis_assistant_add_page          (GisAssistant *assistant,
 void      gis_assistant_next_page         (GisAssistant *assistant);
 void      gis_assistant_previous_page     (GisAssistant *assistant);
 void      gis_assistant_destroy_all_pages (GisAssistant *assistant);
-
-void      gis_assistant_set_page_complete (GisAssistant *assistant,
-                                           GtkWidget    *page,
-                                           gboolean      complete);
-gboolean  gis_assistant_get_page_complete (GisAssistant *assistant,
-                                           GtkWidget    *page);
-
-void      gis_assistant_set_page_title    (GisAssistant *assistant,
-                                           GtkWidget    *page,
-                                           gchar        *title);
-gchar *   gis_assistant_get_page_title    (GisAssistant *assistant,
-                                           GtkWidget    *page);
 gchar *   gis_assistant_get_title         (GisAssistant *assistant);
-
-void      gis_assistant_set_use_arrow_buttons (GisAssistant *assistant,
-                                               GtkWidget    *page,
-                                               gboolean      use_arrow_buttons);
-
-gboolean  gis_assistant_get_use_arrow_buttons (GisAssistant *assistant,
-                                               GtkWidget    *page);
 
 G_END_DECLS
 

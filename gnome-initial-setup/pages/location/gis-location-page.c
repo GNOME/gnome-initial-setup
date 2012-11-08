@@ -271,7 +271,7 @@ gis_location_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_location_page_parent_class)->constructed (object);
 
-  GIS_PAGE (page)->widget = WID ("location-page");
+  gtk_container_add (GTK_CONTAINER (page), WID ("location-page"));
 
   frame = WID("location-map-frame");
 

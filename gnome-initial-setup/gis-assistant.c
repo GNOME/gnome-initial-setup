@@ -27,8 +27,6 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "gis-page.h"
-
 #include "gis-assistant.h"
 #include "gis-assistant-private.h"
 
@@ -66,15 +64,14 @@ struct _GisAssistantPrivate
 
 struct _GisAssistantPagePrivate
 {
-  GisAssistant *assistant;
   GList *link;
 };
 
 static void
-widget_destroyed (GtkWidget *widget,
-                  GisPage   *page)
+widget_destroyed (GtkWidget    *widget,
+                  GisAssistant *assistant)
 {
-  GisAssistant *assistant = page->assistant_priv->assistant;
+  GisPage *page = GIS_PAGE (widget);
   GisAssistantPrivate *priv = assistant->priv;
 
   priv->pages = g_list_delete_link (priv->pages, page->assistant_priv->link);
@@ -86,9 +83,9 @@ widget_destroyed (GtkWidget *widget,
 }
 
 static void
-gis_assistant_switch_to (GisAssistant *assistant, GtkWidget *widget)
+gis_assistant_switch_to (GisAssistant *assistant, GisPage *page)
 {
-  GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, widget);
+  GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, page);
 }
 
 void
@@ -96,12 +93,12 @@ gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
   g_signal_emit (assistant, signals[NEXT_PAGE], 0,
-                 priv->current_page->widget);
+                 priv->current_page);
 }
 
 static void
 gis_assistant_real_next_page (GisAssistant *assistant,
-                              GtkWidget    *widget)
+                              GisPage      *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
   GisPage *next_page;
@@ -109,7 +106,7 @@ gis_assistant_real_next_page (GisAssistant *assistant,
   g_return_if_fail (priv->current_page != NULL);
 
   next_page = GIS_PAGE (priv->current_page->assistant_priv->link->next->data);
-  gis_assistant_switch_to (assistant, next_page->widget);
+  gis_assistant_switch_to (assistant, next_page);
 }
 
 void
@@ -121,7 +118,7 @@ gis_assistant_previous_page (GisAssistant *assistant)
   g_return_if_fail (priv->current_page != NULL);
 
   prev_page = GIS_PAGE (priv->current_page->assistant_priv->link->prev->data);
-  gis_assistant_switch_to (assistant, prev_page->widget);
+  gis_assistant_switch_to (assistant, prev_page);
 }
 
 static void
@@ -161,7 +158,7 @@ update_navigation_buttons (GisAssistant *assistant)
 
 static void
 gis_assistant_prepare (GisAssistant *assistant,
-                       GtkWidget    *widget)
+                       GisPage      *page)
 {
   update_navigation_buttons (assistant);
 }
@@ -190,14 +187,13 @@ gis_assistant_add_page (GisAssistant *assistant,
   g_return_if_fail (page->assistant_priv == NULL);
 
   page->assistant_priv = g_slice_new0 (GisAssistantPagePrivate);
-  page->assistant_priv->assistant = assistant;
   priv->pages = g_list_append (priv->pages, page);
   link = page->assistant_priv->link = g_list_last (priv->pages);
 
-  g_signal_connect (page->widget, "destroy", G_CALLBACK (widget_destroyed), page);
+  g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), assistant);
   g_signal_connect (page, "notify", G_CALLBACK (page_notify), assistant);
 
-  GIS_ASSISTANT_GET_CLASS (assistant)->add_page (assistant, page->widget);
+  GIS_ASSISTANT_GET_CLASS (assistant)->add_page (assistant, page);
 
   if (priv->current_page->assistant_priv->link == link->prev)
     update_navigation_buttons (assistant);
@@ -253,34 +249,16 @@ _gis_assistant_get_frame (GisAssistant *assistant)
   return assistant->priv->frame;
 }
 
-static GisPage *
-find_page_for_widget (GisAssistant *assistant,
-                      GtkWidget    *widget)
-{
-  GisAssistantPrivate *priv = assistant->priv;
-  GList *l;
-
-  for (l = priv->pages; l != NULL; l = l->next)
-    {
-      GisPage *page = GIS_PAGE (l->data);
-      if (page->widget == widget)
-        return page;
-    }
-
-  return NULL;
-}
-
 void
 _gis_assistant_current_page_changed (GisAssistant *assistant,
-                                     GtkWidget    *widget)
+                                     GisPage      *page)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  GisPage *page = find_page_for_widget (assistant, widget);
 
   if (priv->current_page != page) {
     priv->current_page = page;
     g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
-    g_signal_emit (assistant, signals[PREPARE], 0, page->widget);
+    g_signal_emit (assistant, signals[PREPARE], 0, page);
   }
 }
 
@@ -377,7 +355,7 @@ gis_assistant_class_init (GisAssistantClass *klass)
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (GisAssistantClass, next_page),
                   NULL, NULL, NULL,
-                  G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
+                  G_TYPE_NONE, 1, GIS_TYPE_PAGE);
 
   /**
    * GisAssistant::prepare:
@@ -396,6 +374,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (GisAssistantClass, prepare),
                   NULL, NULL, NULL,
-                  G_TYPE_NONE, 1, GTK_TYPE_WIDGET);
+                  G_TYPE_NONE, 1, GIS_TYPE_PAGE);
 
 }
