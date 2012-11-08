@@ -4,6 +4,7 @@
  * sticks them in the user's profile */
 
 #include <gio/gio.h>
+#include <stdlib.h>
 
 #define SKELETON_PATH "gnome-initial-setup/skeleton"
 
@@ -33,13 +34,7 @@ move_file_from_tmpfs (GFile *src_base,
                  g_file_get_path (dest),
                  error->message);
     }
-    g_error_free (error);
   }
-
-  g_object_unref (dest_dir);
-  g_object_unref (dest);
-  g_object_unref (src);
-  g_free (basename);
 }
 
 int
@@ -48,16 +43,13 @@ main (int    argc,
 {
   GFile *src;
   GError *error = NULL;
-  int ret = 0;
 
   g_type_init ();
 
   src = g_file_new_for_path (get_skeleton_dir ());
 
   if (!g_file_query_exists (src, NULL))
-    goto out;
-
-  ret = 1;
+    exit (EXIT_SUCCESS);
 
 #define FILE(d, x) \
   move_file_from_tmpfs (src, g_get_user_##d##_dir (), x)
@@ -70,12 +62,8 @@ main (int    argc,
   if (!g_file_delete (src, NULL, &error))
     {
       g_warning ("Unable to delete skeleton dir: %s", error->message);
-      goto out;
+      exit (EXIT_FAILURE);
     }
 
-  ret = 0;
-
- out:
-  g_object_unref (src);
-  return ret;
+  return EXIT_SUCCESS;
 }
