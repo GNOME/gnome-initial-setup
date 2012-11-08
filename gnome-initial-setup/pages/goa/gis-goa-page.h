@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-void gis_prepare_online_page (SetupData *setup);
+void gis_prepare_goa_page (SetupData *setup);
 
 G_END_DECLS
 

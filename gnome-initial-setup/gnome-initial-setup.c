@@ -92,7 +92,7 @@ rebuild_pages (SetupData *setup)
   gis_prepare_network_page (setup);
   gis_prepare_account_page (setup);
   gis_prepare_location_page (setup);
-  gis_prepare_online_page (setup);
+  gis_prepare_goa_page (setup);
   gis_prepare_summary_page (setup);
 
   return FALSE;

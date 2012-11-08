@@ -295,7 +295,7 @@ goa_account_removed (GoaClient *client, GoaObject *object, gpointer user_data)
 }
 
 void
-gis_prepare_online_page (SetupData *setup)
+gis_prepare_goa_page (SetupData *setup)
 {
   GtkWidget *button;
   GError *error = NULL;
