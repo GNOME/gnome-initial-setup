@@ -46,7 +46,7 @@
 typedef struct _SummaryData SummaryData;
 
 struct _SummaryData {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
   GtkBuilder *builder;
 
@@ -291,9 +291,9 @@ prepare_cb (GisAssistant *assistant, GtkWidget *page, SummaryData *data)
 {
   if (page == data->widget)
     {
-      gis_get_user_permissions (data->setup,
-                                &data->user_account,
-                                &data->user_password);
+      gis_driver_get_user_permissions (data->driver,
+                                       &data->user_account,
+                                       &data->user_password);
     }
 }
 
@@ -328,13 +328,13 @@ get_builder (void)
 }
 
 void
-gis_prepare_summary_page (SetupData *setup)
+gis_prepare_summary_page (GisDriver *driver)
 {
-  GisAssistant *assistant = gis_get_assistant (setup);
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
   SummaryData *data;
 
   data = g_slice_new0 (SummaryData);
-  data->setup = setup;
+  data->driver = driver;
   data->builder = get_builder ();
   data->widget = WID ("summary-page");
 

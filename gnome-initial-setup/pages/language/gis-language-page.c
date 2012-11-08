@@ -43,7 +43,7 @@
 typedef struct _LanguageData LanguageData;
 
 struct _LanguageData {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
   GtkBuilder *builder;
 
@@ -67,7 +67,7 @@ set_locale_id (LanguageData *data,
   gchar *old_locale_id = cc_common_language_get_current_language ();
   if (g_strcmp0 (old_locale_id, new_locale_id) != 0) {
     setlocale (LC_MESSAGES, new_locale_id);
-    gis_locale_changed (data->setup);
+    gis_driver_locale_changed (data->driver);
   }
   g_free (old_locale_id);
 }
@@ -255,16 +255,16 @@ selection_changed (GtkTreeSelection *selection,
 }
 
 void
-gis_prepare_language_page (SetupData *setup)
+gis_prepare_language_page (GisDriver *driver)
 {
   LanguageData *data;
-  GisAssistant *assistant = gis_get_assistant (setup);
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
   GtkListStore *liststore;
   GtkTreeModel *filter;
   GtkTreeView *treeview;
 
   data = g_slice_new0 (LanguageData);
-  data->setup = setup;
+  data->driver = driver;
   data->builder = gis_builder (PAGE_ID);
   data->widget = WID ("language-page");
 
@@ -306,6 +306,6 @@ gis_prepare_language_page (SetupData *setup)
   gis_assistant_set_use_unicode_buttons (assistant, data->widget, TRUE);
   gis_assistant_set_page_complete (assistant, data->widget, TRUE);
 
-  gis_assistant_set_page_title (gis_get_assistant (data->setup), data->widget, _("Welcome"));
+  gis_assistant_set_page_title (assistant, data->widget, _("Welcome"));
   select_current_locale (treeview);
 }

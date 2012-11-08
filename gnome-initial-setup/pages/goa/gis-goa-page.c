@@ -44,7 +44,7 @@
 typedef struct _GoaData GoaData;
 
 struct _GoaData {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
   GtkBuilder *builder;
 
@@ -67,7 +67,7 @@ show_online_account_dialog (GtkButton *button,
 
   providers = NULL;
 
-  parent = GTK_WINDOW (gis_get_main_window (data->setup));
+  parent = GTK_WINDOW (gtk_widget_get_toplevel (data->widget));
 
   dialog = goa_panel_add_account_dialog_new (data->goa_client);
   gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
@@ -129,7 +129,7 @@ remove_account_cb (GoaAccount   *account,
   if (!goa_account_call_remove_finish (account, res, &error))
     {
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_main_window (data->setup)),
+      dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (data->widget)),
                                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
@@ -155,7 +155,7 @@ confirm_remove_account (GtkButton *button, gpointer user_data)
 
   object = g_object_get_data (G_OBJECT (button), "goa-object");
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (gis_get_main_window (data->setup)),
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (data->widget)),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_CANCEL,
@@ -295,13 +295,13 @@ goa_account_removed (GoaClient *client, GoaObject *object, gpointer user_data)
 }
 
 void
-gis_prepare_goa_page (SetupData *setup)
+gis_prepare_goa_page (GisDriver *driver)
 {
   GtkWidget *button;
   GError *error = NULL;
   GoaData *data = g_slice_new0 (GoaData);
-  GisAssistant *assistant = gis_get_assistant (setup);
-  data->setup = setup;
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
+  data->driver = driver;
   data->builder = gis_builder (PAGE_ID);
   data->widget = WID ("goa-page");
   data->goa_client = goa_client_new_sync (NULL, &error);

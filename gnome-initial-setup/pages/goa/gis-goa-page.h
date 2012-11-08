@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-void gis_prepare_goa_page (SetupData *setup);
+void gis_prepare_goa_page (GisDriver *driver);
 
 G_END_DECLS
 

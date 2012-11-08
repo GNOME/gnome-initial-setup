@@ -25,29 +25,16 @@
 #define __GNOME_INITIAL_SETUP_H__
 
 #include <gtk/gtk.h>
+#include <gio/gio.h>
+#include <glib/gi18n.h>
 
+typedef struct _GisDriver    GisDriver;
+typedef struct _GisAssistant GisAssistant;
+typedef struct _GisPage      GisPage;
+
+#include "gis-driver.h"
 #include "gis-assistant.h"
 #include "gis-page.h"
-
-#include <act/act-user-manager.h>
-
-G_BEGIN_DECLS
-
-typedef struct _SetupData SetupData;
-
-GtkWindow *gis_get_main_window (SetupData *setup);
-GisAssistant * gis_get_assistant (SetupData *setup);
-void gis_locale_changed (SetupData *setup);
-
-void gis_set_user_permissions (SetupData   *setup,
-                               ActUser     *user,
-                               const gchar *password);
-
-void gis_get_user_permissions (SetupData    *setup,
-                               ActUser     **user,
-                               const gchar **password);
-
-G_END_DECLS
 
 #endif /* __GNOME_INITIAL_SETUP_H__ */
 

@@ -49,7 +49,7 @@ typedef struct _NetworkData NetworkData;
 #define WID(name) OBJ(GtkWidget*,name)
 
 struct _NetworkData {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
   GtkBuilder *builder;
 
@@ -337,7 +337,7 @@ refresh_without_device (NetworkData *data)
 
   if (nm_client_get_state (data->nm_client) == NM_STATE_CONNECTED_GLOBAL)
     /* advance page */
-    gis_assistant_next_page (gis_get_assistant (data->setup));
+    gis_assistant_next_page (gis_driver_get_assistant (data->driver));
   if (data->nm_device != NULL)
     gtk_label_set_text (GTK_LABEL (label), _("Network is not available."));
   else
@@ -612,7 +612,7 @@ active_connections_changed (NMClient *client, GParamSpec *pspec, NetworkData *da
 }
 
 void
-gis_prepare_network_page (SetupData *setup)
+gis_prepare_network_page (GisDriver *driver)
 {
   GtkTreeViewColumn *col;
   GtkCellRenderer *cell;
@@ -624,9 +624,9 @@ gis_prepare_network_page (SetupData *setup)
   DBusGConnection *bus;
   GError *error;
   NetworkData *data = g_slice_new0 (NetworkData);
-  GisAssistant *assistant = gis_get_assistant (setup);
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
 
-  data->setup = setup;
+  data->driver = driver;
   data->builder = gis_builder (PAGE_ID);
   data->widget = WID ("network-page");
 

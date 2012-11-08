@@ -51,7 +51,7 @@
 typedef struct _LocationData LocationData;
 
 struct _LocationData {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
   GtkBuilder *builder;
 
@@ -260,9 +260,9 @@ determine_location (GtkWidget    *widget,
 #endif
 
 void
-gis_prepare_location_page (SetupData *setup)
+gis_prepare_location_page (GisDriver *driver)
 {
-  GisAssistant *assistant = gis_get_assistant (setup);
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
   GtkWidget *frame, *map, *entry;
   GWeatherLocation *world;
   GError *error;
@@ -270,7 +270,7 @@ gis_prepare_location_page (SetupData *setup)
   LocationData *data;
 
   data = g_slice_new0 (LocationData);
-  data->setup = setup;
+  data->driver = driver;
   data->builder = gis_builder (PAGE_ID);
   data->widget = WID ("location-page");
 

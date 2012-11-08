@@ -35,7 +35,7 @@
 typedef struct _EulaPage EulaPage;
 
 struct _EulaPage {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
 
   GtkWidget *text_view;
@@ -173,7 +173,7 @@ get_page_complete (EulaPage *page)
 static void
 sync_page_complete (EulaPage *page)
 {
-  gis_assistant_set_page_complete (gis_get_assistant (page->setup),
+  gis_assistant_set_page_complete (gis_driver_get_assistant (page->driver),
                                    page->widget, get_page_complete (page));
 }
 
@@ -205,13 +205,14 @@ get_config (GFile    *eula,
 }
 
 static void
-build_eula_page (SetupData *setup,
+build_eula_page (GisDriver *driver,
                  GFile     *eula)
 {
   GtkWidget *text_view;
   GtkWidget *vbox;
   GtkWidget *scrolled_window;
   EulaPage *page;
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
 
   gboolean require_checkbox = TRUE;
   gboolean require_scroll = FALSE;
@@ -231,7 +232,7 @@ build_eula_page (SetupData *setup,
   gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
 
   page = g_slice_new0 (EulaPage);
-  page->setup = setup;
+  page->driver = driver;
   page->widget = vbox;
   page->text_view = text_view;
   page->scrolled_window = scrolled_window;
@@ -269,8 +270,8 @@ build_eula_page (SetupData *setup,
                               page);
   }
 
-  gis_assistant_add_page (gis_get_assistant (setup), vbox);
-  gis_assistant_set_page_title (gis_get_assistant (setup), vbox, _("License Agreements"));
+  gis_assistant_add_page (assistant, vbox);
+  gis_assistant_set_page_title (assistant, vbox, _("License Agreements"));
 
   sync_page_complete (page);
 
@@ -278,7 +279,7 @@ build_eula_page (SetupData *setup,
 }
 
 void
-gis_prepare_eula_pages (SetupData *setup)
+gis_prepare_eula_pages (GisDriver *driver)
 {
   gchar *eulas_dir_path;
   GFile *eulas_dir;
@@ -304,7 +305,7 @@ gis_prepare_eula_pages (SetupData *setup)
 
   while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
     GFile *eula = g_file_get_child (eulas_dir, g_file_info_get_name (info));
-    build_eula_page (setup, eula);
+    build_eula_page (driver, eula);
     g_object_unref (eula);
   }
 

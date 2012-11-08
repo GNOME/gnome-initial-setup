@@ -54,7 +54,7 @@ typedef enum {
 } UmAccountMode;
 
 struct _AccountData {
-  SetupData *setup;
+  GisDriver *driver;
   GtkWidget *widget;
   GtkBuilder *builder;
 
@@ -190,7 +190,8 @@ page_validate (AccountData *data)
 static void
 update_account_page_status (AccountData *data)
 {
-  gis_assistant_set_page_complete (gis_get_assistant (data->setup), data->widget, page_validate (data));
+  gis_assistant_set_page_complete (gis_driver_get_assistant (data->driver),
+                                   data->widget, page_validate (data));
 }
 
 static void
@@ -528,7 +529,7 @@ local_create_user (AccountData *data)
     act_user_set_password_mode (data->act_user, data->password_mode);
   }
 
-  gis_set_user_permissions (data->setup, data->act_user, password);
+  gis_driver_set_user_permissions (data->driver, data->act_user, password);
 
   data->user_data_unsaved = FALSE;
 }
@@ -941,7 +942,7 @@ next_page_cb (GisAssistant *assistant, GtkWidget *page, AccountData *data)
 }
 
 void
-gis_prepare_account_page (SetupData *setup)
+gis_prepare_account_page (GisDriver *driver)
 {
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
@@ -951,9 +952,9 @@ gis_prepare_account_page (SetupData *setup)
   GtkWidget *confirm_entry;
   GtkWidget *local_account_avatar_button;
   AccountData *data = g_slice_new0 (AccountData);
-  GisAssistant *assistant = gis_get_assistant (setup);
+  GisAssistant *assistant = gis_driver_get_assistant (driver);
+  data->driver = driver;
   data->builder = gis_builder (PAGE_ID);
-  data->setup = setup;
   data->widget = WID("account-page");
 
   gtk_widget_show (data->widget);

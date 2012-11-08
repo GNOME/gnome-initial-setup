@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-void gis_prepare_eula_pages (SetupData *setup);
+void gis_prepare_eula_pages (GisDriver *driver);
 
 G_END_DECLS
 
