@@ -216,5 +216,6 @@ GisDriver *
 gis_driver_new (void)
 {
   return g_object_new (GIS_TYPE_DRIVER,
-                       "application-id", "org.gnome.InitialSetup");
+                       "application-id", "org.gnome.InitialSetup",
+                       NULL);
 }
