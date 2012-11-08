@@ -36,7 +36,6 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gdm)
 
 PKG_CHECK_MODULES(CHEESE,
-                  cheese
                   cheese-gtk >= 3.3.5,
                   have_cheese=yes, have_cheese=no)
 AM_CONDITIONAL(HAVE_CHEESE, [test x$have_cheese = xyes])
