@@ -109,6 +109,8 @@ INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $GLIB_VERSION_DEFINES"
 AC_SUBST(INITIAL_SETUP_CFLAGS)
 AC_SUBST(INITIAL_SETUP_LIBS)
 
+PKG_CHECK_MODULES(PLAYER, [clutter-gst-1.0 clutter-x11-1.0])
+
 if test "$GCC" = "yes"; then
         CFLAGS="\
         -Wall \
@@ -135,5 +137,6 @@ gnome-initial-setup/pages/network/Makefile
 gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/summary/Makefile
 po/Makefile.in
+player/Makefile
 ])
 AC_OUTPUT

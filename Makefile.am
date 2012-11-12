@@ -1,7 +1,7 @@
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
-SUBDIRS = data gnome-initial-setup po
+SUBDIRS = data gnome-initial-setup player po
 
 EXTRA_DIST = \
     autogen.sh \
