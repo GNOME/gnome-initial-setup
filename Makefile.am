@@ -1,5 +1,6 @@
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+AM_CFLAGS = ${WARN_CFLAGS}
 
 SUBDIRS = data gnome-initial-setup player po
 

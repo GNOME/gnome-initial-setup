@@ -111,14 +111,8 @@ AC_SUBST(INITIAL_SETUP_LIBS)
 
 PKG_CHECK_MODULES(PLAYER, [clutter-gst-1.0 clutter-x11-1.0])
 
-if test "$GCC" = "yes"; then
-        CFLAGS="\
-        -Wall \
-        -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes \
-        -Wnested-externs -Wpointer-arith \
-        -Wcast-align -Wsign-compare \
-        -Werror $CFLAGS"
-fi
+GNOME_COMPILE_WARNINGS([maximum])
+GNOME_MAINTAINER_MODE_DEFINES
 
 AC_SUBST(CFLAGS)
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
