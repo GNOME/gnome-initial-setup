@@ -39,6 +39,8 @@
 #include <nm-utils.h>
 #include <nm-remote-settings.h>
 
+#include "network-dialogs.h"
+
 #include "panel-cell-renderer-signal.h"
 #include "panel-cell-renderer-mode.h"
 #include "panel-cell-renderer-security.h"
@@ -452,61 +454,12 @@ connection_add_activate_cb (NMClient *client,
 }
 
 static void
-connect_to_hidden_network_cb (GObject *source_object, GAsyncResult *res, gpointer user_data)
-{
-  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
-  GError *error = NULL;
-  GVariant *result = NULL;
-
-  result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
-  if (result == NULL) {
-    g_warning ("failed to connect to hidden network: %s",
-               error->message);
-    g_error_free (error);
-  }
-
-  refresh_wireless_list (page);
-}
-
-static void
 connect_to_hidden_network (GisNetworkPage *page)
 {
-  GDBusProxy *proxy;
-  GVariant *res = NULL;
-  GError *error = NULL;
-
-  /* connect to NM applet */
-  proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                         G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
-                                         G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS,
-                                         NULL,
-                                         "org.gnome.network_manager_applet",
-                                         "/org/gnome/network_manager_applet",
-                                         "org.gnome.network_manager_applet",
-                                         NULL,
-                                         &error);
-  if (proxy == NULL) {
-    g_warning ("failed to connect to NM applet: %s",
-               error->message);
-    g_error_free (error);
-    goto out;
-  }
-
-  /* try to show the hidden network UI */
-  g_dbus_proxy_call (proxy,
-                     "ConnectToHiddenNetwork",
-                     NULL,
-                     G_DBUS_CALL_FLAGS_NONE,
-                     5000, /* don't wait forever */
-                     NULL,
-                     connect_to_hidden_network_cb,
-                     page);
-
- out:
-  if (proxy != NULL)
-    g_object_unref (proxy);
-  if (res != NULL)
-    g_variant_unref (res);
+  GisNetworkPagePrivate *priv = page->priv;
+  cc_network_panel_connect_to_hidden_network (gtk_widget_get_toplevel (GTK_WIDGET (page)),
+                                              priv->nm_client,
+                                              priv->nm_settings);
 }
 
 static void

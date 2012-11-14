@@ -23,6 +23,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   NetworkManager >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-glib >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-util >= $NETWORK_MANAGER_REQUIRED_VERSION
+                  libnm-gtk >= $NETWORK_MANAGER_REQUIRED_VERSION
                   accountsservice
                   gnome-desktop-3.0
                   gstreamer-1.0
