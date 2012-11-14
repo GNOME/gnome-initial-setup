@@ -67,6 +67,8 @@ void      gis_assistant_previous_page     (GisAssistant *assistant);
 void      gis_assistant_destroy_all_pages (GisAssistant *assistant);
 gchar *   gis_assistant_get_title         (GisAssistant *assistant);
 
+void      gis_assistant_locale_changed    (GisAssistant *assistant);
+
 G_END_DECLS
 
 #endif /* __GIS_ASSISTANT_H__ */

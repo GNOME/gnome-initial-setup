@@ -130,7 +130,9 @@ gis_driver_add_page (GisDriver *driver,
 void
 gis_driver_locale_changed (GisDriver *driver)
 {
+  GisDriverPrivate *priv = driver->priv;
   g_idle_add ((GSourceFunc) rebuild_pages, driver);
+  gis_assistant_locale_changed (priv->assistant);
 }
 
 static GType

@@ -305,6 +305,14 @@ construct_buttons (GisAssistant *assistant,
   g_signal_connect (buttons->back, "clicked", G_CALLBACK (go_backward), assistant);
 }
 
+void
+gis_assistant_locale_changed (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  gtk_button_set_label (GTK_BUTTON (priv->full_buttons.forward), _("_Next"));
+  gtk_button_set_label (GTK_BUTTON (priv->full_buttons.back), _("_Back"));
+}
+
 static void
 gis_assistant_init (GisAssistant *assistant)
 {
@@ -319,12 +327,11 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
   construct_buttons (assistant, &priv->full_buttons);
-  gtk_button_set_label (GTK_BUTTON (priv->full_buttons.forward), _("_Next"));
   gtk_button_set_image (GTK_BUTTON (priv->full_buttons.forward),
                         gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
-  gtk_button_set_label (GTK_BUTTON (priv->full_buttons.back), _("_Back"));
   gtk_button_set_image (GTK_BUTTON (priv->full_buttons.back),
                         gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
+  gis_assistant_locale_changed (assistant);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->full_buttons.action_area, FALSE, TRUE, 0);
 
   construct_buttons (assistant, &priv->symbolic_buttons);
