@@ -645,11 +645,6 @@ gis_network_page_constructed (GObject *object)
   g_signal_connect (priv->nm_client, "notify::active-connections",
                     G_CALLBACK (active_connections_changed), page);
 
-  if (nm_client_get_state (priv->nm_client) == NM_STATE_CONNECTED_GLOBAL) {
-    visible = FALSE;
-    goto out;
-  }
-
   devices = nm_client_get_devices (priv->nm_client);
   if (devices) {
     for (i = 0; i < devices->len; i++) {
