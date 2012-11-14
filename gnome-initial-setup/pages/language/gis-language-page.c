@@ -58,6 +58,7 @@ struct _GisLanguagePagePrivate
   GtkWidget *page;
   GtkWidget *filter_entry;
   GtkTreeModel *liststore;
+  GtkTreeModelFilter *filter;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
@@ -258,6 +259,18 @@ selection_changed (GtkTreeSelection *selection,
 }
 
 static void
+show_all_toggled (GtkCheckButton  *button,
+                  GisLanguagePage *page)
+{
+  GisLanguagePagePrivate *priv = page->priv;
+
+  gtk_widget_hide (GTK_WIDGET (button));
+  gtk_widget_show (priv->filter_entry);
+
+  gtk_tree_model_filter_refilter (priv->filter);
+}
+
+static void
 gis_language_page_constructed (GObject *object)
 {
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
@@ -287,15 +300,16 @@ gis_language_page_constructed (GObject *object)
   treeview = OBJ (GtkTreeView *, "language-list");
 
   filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (liststore), NULL);
+  priv->filter = GTK_TREE_MODEL_FILTER (filter);
   gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                           language_visible, page, NULL);
   gtk_tree_view_set_model (treeview, filter);
 
   add_all_languages (GTK_LIST_STORE (priv->liststore));
 
-  g_signal_connect_swapped (priv->show_all, "toggled",
-                            G_CALLBACK (gtk_tree_model_filter_refilter),
-                            filter);
+  g_signal_connect (priv->show_all, "toggled",
+                    G_CALLBACK (show_all_toggled),
+                    page);
 
   g_signal_connect_swapped (priv->filter_entry, "changed",
                             G_CALLBACK (gtk_tree_model_filter_refilter),
