@@ -283,6 +283,8 @@ gis_eula_page_constructed (GObject *object)
 
   gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
   sync_page_complete (page);
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 

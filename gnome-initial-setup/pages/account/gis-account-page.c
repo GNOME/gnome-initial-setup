@@ -1056,6 +1056,8 @@ gis_account_page_constructed (GObject *object)
   set_mode (page, UM_LOCAL);
 
   gis_page_set_title (GIS_PAGE (page), _("Login"));
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

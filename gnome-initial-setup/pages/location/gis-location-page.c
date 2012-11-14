@@ -338,6 +338,8 @@ gis_location_page_constructed (GObject *object)
 
   gis_page_set_title (GIS_PAGE (page), _("Location"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

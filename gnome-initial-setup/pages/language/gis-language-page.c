@@ -308,6 +308,8 @@ gis_language_page_constructed (GObject *object)
   gis_page_set_complete (GIS_PAGE (page), TRUE);
   gis_page_set_use_arrow_buttons (GIS_PAGE (page), TRUE);
   gis_page_set_title (GIS_PAGE (page), _("Welcome"));
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

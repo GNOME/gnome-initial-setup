@@ -288,6 +288,8 @@ gis_summary_page_constructed (GObject *object)
 
   gis_page_set_title (GIS_PAGE (page), _("Thank You"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

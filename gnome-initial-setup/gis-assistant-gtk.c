@@ -65,8 +65,6 @@ gis_assistant_gtk_add_page (GisAssistant *assistant,
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
   gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook),
                             GTK_WIDGET (page), NULL);
-
-  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

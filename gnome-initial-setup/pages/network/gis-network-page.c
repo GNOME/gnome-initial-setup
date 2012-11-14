@@ -734,6 +734,8 @@ gis_network_page_constructed (GObject *object)
   gis_page_set_title (GIS_PAGE (page), _("Network"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
  out: ;
+
+  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

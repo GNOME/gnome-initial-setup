@@ -62,8 +62,6 @@ gis_assistant_clutter_add_page (GisAssistant *assistant,
 {
   GisAssistantClutterPrivate *priv = GIS_ASSISTANT_CLUTTER (assistant)->priv;
   cc_notebook_add_page (CC_NOTEBOOK (priv->notebook), GTK_WIDGET (page));
-
-  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void
