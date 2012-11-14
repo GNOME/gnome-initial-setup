@@ -467,11 +467,14 @@ cc_notebook_add_page (CcNotebook *self,
                                                                          CLUTTER_BIN_ALIGNMENT_FILL));
 
         embed = gtk_clutter_actor_new_with_contents (widget);
+        g_object_set (embed, "show-on-set-parent", FALSE, NULL);
         g_object_set_data (G_OBJECT (widget), "cc-notebook-frame", frame);
         g_object_set_data (G_OBJECT (widget), "cc-notebook", self);
         g_signal_connect (widget, "destroy", G_CALLBACK (widget_destroyed), NULL);
         clutter_actor_add_child (frame, embed);
-        gtk_widget_show (widget);
+
+        if (gtk_widget_get_visible (widget))
+                clutter_actor_show (embed);
 
         res = clutter_actor_get_n_children (self->priv->bin);
         clutter_actor_insert_child_at_index (self->priv->bin, frame, res);
