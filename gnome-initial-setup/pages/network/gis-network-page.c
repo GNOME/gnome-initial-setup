@@ -591,8 +591,7 @@ gis_network_page_constructed (GObject *object)
 
   cell = gtk_cell_renderer_text_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-  /* black small diamond */
-  g_object_set (cell, "text", "\342\254\251", NULL);
+  g_object_set (cell, "text", "✓", NULL);
   gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
                                   "visible", PANEL_WIRELESS_COLUMN_ACTIVE,
                                   NULL);
