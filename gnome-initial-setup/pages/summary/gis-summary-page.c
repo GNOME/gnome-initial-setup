@@ -191,9 +191,21 @@ log_user_in (GisSummaryPage *page)
   }
 }
 
+#define INITIAL_SETUP_TRIGGER_FILE LOCALSTATEDIR "/lib/gdm/run-initial-setup"
+
+static void
+remove_trigger_file (GisSummaryPage *page)
+{
+  if (g_remove (INITIAL_SETUP_TRIGGER_FILE) < 0) {
+    g_warning ("Failed to remove '" INITIAL_SETUP_TRIGGER_FILE "': %s",
+               g_strerror (errno));
+  }
+}
+
 static void
 byebye (GisSummaryPage *page)
 {
+  remove_trigger_file (page);
   log_user_in (page);
 }
 

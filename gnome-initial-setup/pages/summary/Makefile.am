@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libgissummary.la
 
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
+	-DLOCALSTATEDIR="\"$(localstatedir)\"" \
 	-DUIDIR="\"$(uidir)\""
 
 libgissummary_la_SOURCES =	\
