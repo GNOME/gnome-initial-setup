@@ -96,29 +96,45 @@ gis_assistant_next_page (GisAssistant *assistant)
                  priv->current_page);
 }
 
+static inline gboolean
+should_show_page (GList *l)
+{
+  return l != NULL && gtk_widget_get_visible (GTK_WIDGET (l->data));
+}
+
+static GisPage *
+find_next_page (GisPage *page)
+{
+  GList *l = page->assistant_priv->link->next;
+  while (!should_show_page (l)) {
+    l = l->next;
+  }
+  return GIS_PAGE (l->data);
+}
+
 static void
 gis_assistant_real_next_page (GisAssistant *assistant,
                               GisPage      *page)
 {
-  GisAssistantPrivate *priv = assistant->priv;
-  GisPage *next_page;
+  gis_assistant_switch_to (assistant, find_next_page (page));
+}
 
-  g_return_if_fail (priv->current_page != NULL);
-
-  next_page = GIS_PAGE (priv->current_page->assistant_priv->link->next->data);
-  gis_assistant_switch_to (assistant, next_page);
+static GisPage *
+find_prev_page (GisPage *page)
+{
+  GList *l = page->assistant_priv->link->prev;
+  while (!should_show_page (l)) {
+    l = l->prev;
+  }
+  return GIS_PAGE (l->data);
 }
 
 void
 gis_assistant_previous_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  GisPage *prev_page;
-
   g_return_if_fail (priv->current_page != NULL);
-
-  prev_page = GIS_PAGE (priv->current_page->assistant_priv->link->prev->data);
-  gis_assistant_switch_to (assistant, prev_page);
+  gis_assistant_switch_to (assistant, find_prev_page (priv->current_page));
 }
 
 static void
