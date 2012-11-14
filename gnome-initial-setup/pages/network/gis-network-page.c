@@ -335,7 +335,7 @@ refresh_without_device (GisNetworkPage *page)
   spinner = WID("no-network-spinner");
 
   if (nm_client_get_state (priv->nm_client) == NM_STATE_CONNECTED_GLOBAL)
-    ; /* XXX - don't construct page */
+    ;
   else if (priv->nm_device != NULL)
     gtk_label_set_text (GTK_LABEL (label), _("Network is not available."));
   else
@@ -628,6 +628,7 @@ gis_network_page_constructed (GObject *object)
   guint i;
   DBusGConnection *bus;
   GError *error;
+  gboolean visible = TRUE;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
 
@@ -691,6 +692,11 @@ gis_network_page_constructed (GObject *object)
   g_signal_connect (priv->nm_client, "notify::active-connections",
                     G_CALLBACK (active_connections_changed), page);
 
+  if (nm_client_get_state (priv->nm_client) == NM_STATE_CONNECTED_GLOBAL) {
+    visible = FALSE;
+    goto out;
+  }
+
   devices = nm_client_get_devices (priv->nm_client);
   if (devices) {
     for (i = 0; i < devices->len; i++) {
@@ -710,7 +716,7 @@ gis_network_page_constructed (GObject *object)
   }
 
   if (priv->nm_device == NULL) {
-    /* XXX */
+    visible = FALSE;
     refresh_without_device (page);
     goto out;
   }
@@ -721,6 +727,8 @@ gis_network_page_constructed (GObject *object)
     g_warning ("Error connecting to system D-Bus: %s",
                error->message);
     g_error_free (error);
+    visible = FALSE;
+    goto out;
   }
   priv->nm_settings = nm_remote_settings_new (bus);
 
@@ -733,9 +741,9 @@ gis_network_page_constructed (GObject *object)
 
   gis_page_set_title (GIS_PAGE (page), _("Network"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
- out: ;
 
-  gtk_widget_show (GTK_WIDGET (page));
+ out:
+  gtk_widget_set_visible (GTK_WIDGET (page), visible);
 }
 
 static void
