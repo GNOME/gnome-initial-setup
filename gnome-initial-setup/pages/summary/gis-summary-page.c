@@ -28,9 +28,11 @@
 #include "config.h"
 #include "gis-summary-page.h"
 
+#include <glib/gstdio.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include <act/act-user-manager.h>
 
