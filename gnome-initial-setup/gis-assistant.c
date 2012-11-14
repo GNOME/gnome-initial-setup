@@ -161,12 +161,18 @@ update_navigation_buttons (GisAssistant *assistant)
   if (gis_page_get_use_arrow_buttons (page))
     {
       gtk_button_set_label (GTK_BUTTON (priv->forward), "→");
+      gtk_button_set_image (GTK_BUTTON (priv->forward), NULL);
       gtk_button_set_label (GTK_BUTTON (priv->back), "←");
-    }
+      gtk_button_set_image (GTK_BUTTON (priv->back), NULL);
+   }
   else
     {
       gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
+      gtk_button_set_image (GTK_BUTTON (priv->forward),
+                            gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
       gtk_button_set_label (GTK_BUTTON (priv->back), _("_Back"));
+      gtk_button_set_image (GTK_BUTTON (priv->back),
+                            gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
     }
 }
 
@@ -296,14 +302,10 @@ gis_assistant_init (GisAssistant *assistant)
 
   priv->forward = gtk_button_new ();
   gtk_button_set_use_underline (GTK_BUTTON (priv->forward), TRUE);
-  gtk_button_set_image (GTK_BUTTON (priv->forward),
-                        gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
   gtk_widget_set_can_default (priv->forward, TRUE);
 
   priv->back = gtk_button_new ();
   gtk_button_set_use_underline (GTK_BUTTON (priv->back), TRUE);
-  gtk_button_set_image (GTK_BUTTON (priv->back),
-                        gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
 
   gtk_box_pack_start (GTK_BOX (priv->action_area), priv->back, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (priv->action_area), priv->forward, FALSE, FALSE, 0);
