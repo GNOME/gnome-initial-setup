@@ -5,17 +5,17 @@
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 2 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301  USA
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
  *
  * Author: Debarshi Ray <debarshir@gnome.org>
  */
@@ -164,6 +164,7 @@ goa_panel_add_account_dialog_realize (GtkWidget *widget)
 {
   GoaPanelAddAccountDialog *add_account = GOA_PANEL_ADD_ACCOUNT_DIALOG (widget);
   GoaPanelAddAccountDialogPrivate *priv = add_account->priv;
+  GtkWidget *button;
   GtkWindow *parent;
 
   parent = gtk_window_get_transient_for (GTK_WINDOW (add_account));
@@ -179,6 +180,9 @@ goa_panel_add_account_dialog_realize (GtkWidget *widget)
   gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view), GTK_TREE_MODEL (priv->list_store));
 
   GTK_WIDGET_CLASS (goa_panel_add_account_dialog_parent_class)->realize (widget);
+
+  button = gtk_dialog_get_widget_for_response (GTK_DIALOG (add_account), GTK_RESPONSE_CANCEL);
+  gtk_widget_grab_focus (button);
 }
 
 static void
@@ -235,37 +239,35 @@ goa_panel_add_account_dialog_init (GoaPanelAddAccountDialog *add_account)
   GtkCellRenderer *renderer;
   GtkTreeSelection *selection;
   GtkTreeViewColumn *column;
-  GtkWidget *label;
   GtkWidget *sw;
   GtkWidget *vbox;
-  gchar *markup;
+  GtkWidget *grid;
 
   add_account->priv = GOA_ADD_ACCOUNT_DIALOG_GET_PRIVATE (add_account);
   priv = add_account->priv;
 
-  gtk_container_set_border_width (GTK_CONTAINER (add_account), 12);
+  gtk_container_set_border_width (GTK_CONTAINER (add_account), 6);
   gtk_window_set_modal (GTK_WINDOW (add_account), TRUE);
   gtk_window_set_resizable (GTK_WINDOW (add_account), FALSE);
-  /* translators: This is the title of the "Add Account" dialogue.
-   * The title is not visible when using GNOME Shell */
+  /* translators: This is the title of the "Add Account" dialog. */
   gtk_window_set_title (GTK_WINDOW (add_account), _("Add Account"));
 
   vbox = gtk_dialog_get_content_area (GTK_DIALOG (add_account));
-  gtk_box_set_spacing (GTK_BOX (vbox), 12);
-
-  label = gtk_label_new (NULL);
-  markup = g_strconcat ("<b>", _("Add Account"), "</b>", NULL);
-  gtk_label_set_markup (GTK_LABEL (label), markup);
-  g_free (markup);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+  grid = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
+  gtk_widget_set_margin_bottom (grid, 6);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (grid), GTK_ORIENTATION_VERTICAL);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 12);
+  gtk_container_add (GTK_CONTAINER (vbox), grid);
 
   priv->list_store = gtk_list_store_new (N_COLUMNS, GOA_TYPE_PROVIDER, G_TYPE_ICON, G_TYPE_STRING);
 
   sw = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
-  gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
+  gtk_widget_set_hexpand (sw, TRUE);
+  gtk_widget_set_vexpand (sw, TRUE);
+  gtk_container_add (GTK_CONTAINER (grid), sw);
 
   priv->tree_view = gtk_tree_view_new ();
   gtk_widget_set_hexpand (priv->tree_view, TRUE);
