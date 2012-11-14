@@ -127,21 +127,19 @@ update_navigation_buttons (GisAssistant *assistant)
   GisAssistantPrivate *priv = assistant->priv;
   GisPage *page = priv->current_page;
   GisAssistantPagePrivate *page_priv;
-  gboolean can_go_backward, can_go_forward, is_last_page;
+  gboolean can_go_forward, is_first_page, is_last_page;
 
   if (page == NULL)
     return;
 
   page_priv = page->assistant_priv;
 
-  can_go_backward = (page_priv->link->prev != NULL);
-  gtk_widget_set_sensitive (priv->back, can_go_backward);
-
   can_go_forward = gis_page_get_complete (page);
   gtk_widget_set_sensitive (priv->forward, can_go_forward);
 
+  is_first_page = (page_priv->link->prev == NULL);
   is_last_page = (page_priv->link->next == NULL);
-  gtk_widget_set_visible (priv->back, !is_last_page);
+  gtk_widget_set_visible (priv->back, !is_first_page && !is_last_page);
   gtk_widget_set_visible (priv->forward, !is_last_page);
 
   if (gis_page_get_use_arrow_buttons (page))
