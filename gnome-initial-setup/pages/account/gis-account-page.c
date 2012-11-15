@@ -35,7 +35,6 @@
 
 #include "um-realm-manager.h"
 #include "um-utils.h"
-#include "um-photo-dialog.h"
 #include "pw-utils.h"
 
 #ifdef HAVE_CHEESE
@@ -66,10 +65,6 @@ struct _GisAccountPagePrivate
   ActUserAccountType account_type;
 
   gboolean user_data_unsaved;
-
-  GtkWidget *photo_dialog;
-  GdkPixbuf *avatar_pixbuf;
-  gchar *avatar_filename;
 
   gboolean has_enterprise;
   guint realmd_watch;
@@ -371,44 +366,6 @@ confirm_entry_focus_out (GtkWidget      *entry,
 }
 
 static void
-set_user_avatar (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = page->priv;
-  GFile *file = NULL;
-  GFileIOStream *io_stream = NULL;
-  GOutputStream *stream = NULL;
-  GError *error = NULL;
-
-  if (priv->avatar_filename != NULL) {
-    act_user_set_icon_file (priv->act_user, priv->avatar_filename);
-    return;
-  }
-
-  if (priv->avatar_pixbuf == NULL) {
-    return;
-  }
-
-  file = g_file_new_tmp ("usericonXXXXXX", &io_stream, &error);
-  if (error != NULL)
-    goto out;
-
-  stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
-  if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
-    goto out;
-
-  act_user_set_icon_file (priv->act_user, g_file_get_path (file));
-
- out:
-  if (error != NULL) {
-    g_warning ("failed to save image: %s", error->message);
-    g_error_free (error);
-  }
-  g_clear_object (&stream);
-  g_clear_object (&io_stream);
-  g_clear_object (&file);
-}
-
-static void
 create_user (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
@@ -426,8 +383,6 @@ create_user (GisAccountPage *page)
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
   }
-
-  set_user_avatar (page);
 }
 
 static void save_account_data (GisAccountPage *page);
@@ -737,40 +692,6 @@ save_account_data (GisAccountPage *page)
 }
 
 static void
-avatar_callback (GdkPixbuf   *pixbuf,
-                 const gchar *filename,
-                 gpointer     user_data)
-{
-  GisAccountPage *page = user_data;
-  GisAccountPagePrivate *priv = page->priv;
-  GtkWidget *image;
-  GdkPixbuf *tmp;
-
-  g_clear_object (&priv->avatar_pixbuf);
-  g_free (priv->avatar_filename);
-  priv->avatar_filename = NULL;
-
-  image = WID("local-account-avatar-image");
-
-  if (pixbuf) {
-    priv->avatar_pixbuf = g_object_ref (pixbuf);
-    tmp = gdk_pixbuf_scale_simple (pixbuf, 64, 64, GDK_INTERP_BILINEAR);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (image), tmp);
-    g_object_unref (tmp);
-  }
-  else if (filename) {
-    priv->avatar_filename = g_strdup (filename);
-    tmp = gdk_pixbuf_new_from_file_at_size (filename, 64, 64, NULL);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (image), tmp);
-    g_object_unref (tmp);
-  }
-  else {
-    gtk_image_set_from_icon_name (GTK_IMAGE (image), "avatar-default",
-                                  GTK_ICON_SIZE_DIALOG);
-  }
-}
-
-static void
 enterprise_add_realm (GisAccountPage *page,
                       UmRealmObject  *realm)
 {
@@ -926,7 +847,6 @@ gis_account_page_constructed (GObject *object)
   GtkWidget *username_combo;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
-  GtkWidget *local_account_avatar_button;
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->constructed (object);
 
@@ -941,10 +861,6 @@ gis_account_page_constructed (GObject *object)
   username_combo = WID("account-username-combo");
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
-  local_account_avatar_button = WID("local-account-avatar-button");
-  priv->photo_dialog = (GtkWidget *)um_photo_dialog_new (local_account_avatar_button,
-                                                         avatar_callback,
-                                                         page);
 
   g_signal_connect (fullname_entry, "notify::text",
                     G_CALLBACK (fullname_changed), page);
@@ -993,7 +909,6 @@ gis_account_page_dispose (GObject *object)
   g_clear_object (&priv->act_user);
   g_clear_object (&priv->act_client);
   g_clear_object (&priv->realm_manager);
-  g_clear_object (&priv->avatar_pixbuf);
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->dispose (object);
 }
@@ -1003,8 +918,6 @@ gis_account_page_finalize (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
   GisAccountPagePrivate *priv = page->priv;
-
-  g_clear_pointer (&priv->avatar_filename, g_free);
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->finalize (object);
 }

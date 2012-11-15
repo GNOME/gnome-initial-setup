@@ -25,7 +25,6 @@ libgisaccount_la_SOURCES =				\
 	$(pw_utils_sources)				\
 	$(BUILT_SOURCES)				\
 	gis-account-page.c gis-account-page.h		\
-	um-photo-dialog.c um-photo-dialog.h		\
 	um-realm-manager.c um-realm-manager.h		\
 	um-utils.c um-utils.h				\
 	$(NULL)
