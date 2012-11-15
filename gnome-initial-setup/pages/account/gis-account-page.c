@@ -63,7 +63,6 @@ struct _GisAccountPagePrivate
   gboolean valid_username;
   gboolean valid_password;
   const gchar *password_reason;
-  ActUserPasswordMode password_mode;
   ActUserAccountType account_type;
 
   gboolean user_data_unsaved;
@@ -110,31 +109,22 @@ clear_account_page (GisAccountPage *page)
   GisAccountPagePrivate *priv = page->priv;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
-  GtkWidget *password_check;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
-  gboolean need_password;
 
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
-  password_check = WID("account-password-check");
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
   priv->valid_password = TRUE;
-  priv->password_mode = ACT_USER_PASSWORD_MODE_NONE;
 
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
   priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
 
   priv->user_data_unsaved = FALSE;
-
-  need_password = priv->password_mode != ACT_USER_PASSWORD_MODE_NONE;
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (password_check), need_password);
-  gtk_widget_set_sensitive (password_entry, need_password);
-  gtk_widget_set_sensitive (confirm_entry, need_password);
 
   gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
@@ -146,8 +136,7 @@ static gboolean
 local_validate (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
-  return priv->valid_name && priv->valid_username &&
-    (priv->valid_password || priv->password_mode == ACT_USER_PASSWORD_MODE_NONE);
+  return priv->valid_name && priv->valid_username && priv->valid_password;
 }
 
 static gboolean
@@ -285,39 +274,6 @@ username_changed (GtkComboBoxText *combo,
     clear_entry_validation_error (GTK_ENTRY (entry));
   }
 
-  update_account_page_status (page);
-}
-
-static void
-password_check_changed (GtkWidget      *w,
-                        GParamSpec     *pspec,
-                        GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = page->priv;
-  GtkWidget *password_entry;
-  GtkWidget *confirm_entry;
-  gboolean need_password;
-
-  need_password = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w));
-
-  if (need_password) {
-    priv->password_mode = ACT_USER_PASSWORD_MODE_REGULAR;
-    priv->valid_password = FALSE;
-  }
-  else {
-    priv->password_mode = ACT_USER_PASSWORD_MODE_NONE;
-    priv->valid_password = TRUE;
-  }
-
-  password_entry = WID("account-password-entry");
-  confirm_entry = WID("account-confirm-entry");
-
-  gtk_entry_set_text (GTK_ENTRY (password_entry), "");
-  gtk_entry_set_text (GTK_ENTRY (confirm_entry), "");
-  gtk_widget_set_sensitive (password_entry, need_password);
-  gtk_widget_set_sensitive (confirm_entry, need_password);
-
-  priv->user_data_unsaved = TRUE;
   update_account_page_status (page);
 }
 
@@ -532,12 +488,7 @@ local_create_user (GisAccountPage *page)
   act_user_set_real_name (priv->act_user, realname);
   act_user_set_user_name (priv->act_user, username);
   act_user_set_account_type (priv->act_user, priv->account_type);
-  if (priv->password_mode == ACT_USER_PASSWORD_MODE_REGULAR) {
-    act_user_set_password (priv->act_user, password, NULL);
-  }
-  else {
-    act_user_set_password_mode (priv->act_user, priv->password_mode);
-  }
+  act_user_set_password (priv->act_user, password, NULL);
 
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
                                    priv->act_user,
@@ -973,7 +924,6 @@ gis_account_page_constructed (GObject *object)
 
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
-  GtkWidget *password_check;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   GtkWidget *local_account_avatar_button;
@@ -989,7 +939,6 @@ gis_account_page_constructed (GObject *object)
 
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
-  password_check = WID("account-password-check");
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
   local_account_avatar_button = WID("local-account-avatar-button");
@@ -1001,8 +950,6 @@ gis_account_page_constructed (GObject *object)
                     G_CALLBACK (fullname_changed), page);
   g_signal_connect (username_combo, "changed",
                     G_CALLBACK (username_changed), page);
-  g_signal_connect (password_check, "notify::active",
-                    G_CALLBACK (password_check_changed), page);
   g_signal_connect (password_entry, "notify::text",
                     G_CALLBACK (password_changed), page);
   g_signal_connect (confirm_entry, "notify::text",
