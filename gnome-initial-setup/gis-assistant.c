@@ -153,18 +153,23 @@ update_navigation_buttons (GisAssistant *assistant)
   GisPage *page = priv->current_page;
   GisAssistantPagePrivate *page_priv;
   gboolean can_go_forward, is_first_page, is_last_page;
+  Buttons *prev_buttons;
 
   if (page == NULL)
     return;
 
-  gtk_widget_hide (priv->symbolic_buttons.action_area);
-  gtk_widget_hide (priv->full_buttons.action_area);
+  prev_buttons = priv->buttons;
   if (gis_page_get_use_arrow_buttons (page)) {
     priv->buttons = &priv->symbolic_buttons;
   } else {
     priv->buttons = &priv->full_buttons;
   }
-  gtk_widget_show (priv->buttons->action_area);
+
+  if (prev_buttons != priv->buttons) {
+    if (prev_buttons != NULL)
+      gtk_widget_hide (prev_buttons->action_area);
+    gtk_widget_show (priv->buttons->action_area);
+  }
 
   page_priv = page->assistant_priv;
 
@@ -342,6 +347,9 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->symbolic_buttons.action_area, FALSE, TRUE, 0);
 
   gtk_widget_show_all (GTK_WIDGET (assistant));
+
+  gtk_widget_hide (priv->full_buttons.action_area);
+  gtk_widget_hide (priv->symbolic_buttons.action_area);
 }
 
 static void
