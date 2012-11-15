@@ -114,5 +114,5 @@ pw_strength (const gchar  *password,
 
         *long_hint = NULL;
 
-         return strength;
+        return strength;
 }
