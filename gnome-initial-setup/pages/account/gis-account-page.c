@@ -111,7 +111,6 @@ clear_account_page (GisAccountPage *page)
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   GtkWidget *password_check;
-  GtkWidget *admin_check;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   gboolean need_password;
@@ -119,7 +118,6 @@ clear_account_page (GisAccountPage *page)
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
   password_check = WID("account-password-check");
-  admin_check = WID("account-admin-check");
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
 
@@ -127,15 +125,16 @@ clear_account_page (GisAccountPage *page)
   priv->valid_username = FALSE;
   priv->valid_password = TRUE;
   priv->password_mode = ACT_USER_PASSWORD_MODE_NONE;
+
+  /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
   priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+
   priv->user_data_unsaved = FALSE;
 
   need_password = priv->password_mode != ACT_USER_PASSWORD_MODE_NONE;
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (password_check), need_password);
   gtk_widget_set_sensitive (password_entry, need_password);
   gtk_widget_set_sensitive (confirm_entry, need_password);
-
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (admin_check), priv->account_type == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
 
   gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
@@ -317,24 +316,6 @@ password_check_changed (GtkWidget      *w,
   gtk_entry_set_text (GTK_ENTRY (confirm_entry), "");
   gtk_widget_set_sensitive (password_entry, need_password);
   gtk_widget_set_sensitive (confirm_entry, need_password);
-
-  priv->user_data_unsaved = TRUE;
-  update_account_page_status (page);
-}
-
-static void
-admin_check_changed (GtkWidget      *w,
-                     GParamSpec     *pspec,
-                     GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = page->priv;
-
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
-    priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
-  }
-  else {
-    priv->account_type = ACT_USER_ACCOUNT_TYPE_STANDARD;
-  }
 
   priv->user_data_unsaved = TRUE;
   update_account_page_status (page);
@@ -993,7 +974,6 @@ gis_account_page_constructed (GObject *object)
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   GtkWidget *password_check;
-  GtkWidget *admin_check;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   GtkWidget *local_account_avatar_button;
@@ -1010,7 +990,6 @@ gis_account_page_constructed (GObject *object)
   fullname_entry = WID("account-fullname-entry");
   username_combo = WID("account-username-combo");
   password_check = WID("account-password-check");
-  admin_check = WID("account-admin-check");
   password_entry = WID("account-password-entry");
   confirm_entry = WID("account-confirm-entry");
   local_account_avatar_button = WID("local-account-avatar-button");
@@ -1024,8 +1003,6 @@ gis_account_page_constructed (GObject *object)
                     G_CALLBACK (username_changed), page);
   g_signal_connect (password_check, "notify::active",
                     G_CALLBACK (password_check_changed), page);
-  g_signal_connect (admin_check, "notify::active",
-                    G_CALLBACK (admin_check_changed), page);
   g_signal_connect (password_entry, "notify::text",
                     G_CALLBACK (password_changed), page);
   g_signal_connect (confirm_entry, "notify::text",
