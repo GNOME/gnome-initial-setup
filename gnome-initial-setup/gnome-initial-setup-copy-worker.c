@@ -72,7 +72,7 @@ main (int    argc,
   FILE (config, "run-welcome-tour");
   FILE (config, "dconf/user");
   FILE (config, "goa-1.0/accounts.conf");
-  FILE (data, "keyrings/Default.keyring");
+  FILE (data, "keyrings/login.keyring");
 
   if (!g_file_delete (src, NULL, &error))
     {
