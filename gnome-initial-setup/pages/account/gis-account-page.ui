@@ -188,6 +188,24 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="account-username-explanation">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">This will be used to name your home folder and can't be changed.</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="account-password-label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -249,6 +267,24 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="account-password-explanation">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">Try to use at least 8 different characters. Mix upper and lower case and use a number or two.</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
