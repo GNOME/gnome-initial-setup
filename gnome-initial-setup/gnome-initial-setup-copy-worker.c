@@ -33,10 +33,13 @@ move_file_from_tmpfs (GFile *src_base,
 {
   GFile *dest_dir = g_file_new_for_path (dir);
   GFile *dest = g_file_get_child (dest_dir, path);
+  GFile *dest_parent = g_file_get_parent (dest);
   gchar *basename = g_file_get_basename (dest);
   GFile *src = g_file_get_child (src_base, basename);
 
   GError *error = NULL;
+
+  g_file_make_directory_with_parents (dest_parent, NULL, NULL);
 
   if (!g_file_move (src, dest, G_FILE_COPY_NONE,
                     NULL, NULL, NULL, &error)) {
