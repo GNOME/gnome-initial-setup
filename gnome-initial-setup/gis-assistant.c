@@ -336,9 +336,9 @@ gis_assistant_init (GisAssistant *assistant)
 
   construct_buttons (assistant, &priv->symbolic_buttons);
   gtk_button_set_image (GTK_BUTTON (priv->symbolic_buttons.forward),
-                        gtk_image_new_from_icon_name ("go-next-symbolic", GTK_ICON_SIZE_BUTTON));
+                        gtk_image_new_from_icon_name ("go-next-symbolic", GTK_ICON_SIZE_MENU));
   gtk_button_set_image (GTK_BUTTON (priv->symbolic_buttons.back),
-                        gtk_image_new_from_icon_name ("go-previous-symbolic", GTK_ICON_SIZE_BUTTON));
+                        gtk_image_new_from_icon_name ("go-previous-symbolic", GTK_ICON_SIZE_MENU));
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->symbolic_buttons.action_area, FALSE, TRUE, 0);
 
   gtk_widget_show_all (GTK_WIDGET (assistant));
