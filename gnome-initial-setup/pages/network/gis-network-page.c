@@ -654,7 +654,7 @@ gis_network_page_constructed (GObject *object)
 
       if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
         /* FIXME deal with multiple, dynamic devices */
-        priv->nm_device = device;
+        priv->nm_device = g_object_ref (device);
         g_signal_connect (G_OBJECT (device), "notify::state",
                           G_CALLBACK (device_state_changed), page);
         break;
