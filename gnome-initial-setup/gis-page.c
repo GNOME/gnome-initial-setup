@@ -234,6 +234,7 @@ void
 gis_page_set_complete (GisPage *page, gboolean complete)
 {
   page->priv->complete = complete;
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_COMPLETE]);
 }
 
 gboolean
@@ -246,4 +247,5 @@ void
 gis_page_set_use_arrow_buttons (GisPage *page, gboolean use_arrow_buttons)
 {
   page->priv->use_arrow_buttons = use_arrow_buttons;
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_USE_ARROW_BUTTONS]);
 }
