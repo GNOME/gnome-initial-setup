@@ -114,7 +114,7 @@ clear_account_page (GisAccountPage *page)
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
-  priv->valid_password = TRUE;
+  priv->valid_password = FALSE;
 
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
   priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
