@@ -243,7 +243,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
     priv->row = gtk_tree_row_reference_new (model, path);
     gtk_tree_path_free (path);
 
-    g_timeout_add (80, bump_pulse, page);
+    g_timeout_add (160, bump_pulse, page);
   }
 }
 
