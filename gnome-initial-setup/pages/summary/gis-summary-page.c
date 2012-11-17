@@ -283,7 +283,7 @@ gis_summary_page_constructed (GObject *object)
 
   gtk_container_add (GTK_CONTAINER (page), WID ("summary-page"));
 
-  g_signal_connect (assistant, "prepare", G_CALLBACK (prepare_cb), page);
+  g_signal_connect_object (assistant, "prepare", G_CALLBACK (prepare_cb), page, 0);
 
   g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), page);
   g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), page);
