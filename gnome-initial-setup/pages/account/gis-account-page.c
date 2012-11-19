@@ -914,15 +914,6 @@ gis_account_page_dispose (GObject *object)
 }
 
 static void
-gis_account_page_finalize (GObject *object)
-{
-  GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
-  GisAccountPagePrivate *priv = page->priv;
-
-  G_OBJECT_CLASS (gis_account_page_parent_class)->finalize (object);
-}
-
-static void
 gis_account_page_class_init (GisAccountPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -931,7 +922,6 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   page_class->page_id = PAGE_ID;
   object_class->constructed = gis_account_page_constructed;
   object_class->dispose = gis_account_page_dispose;
-  object_class->finalize = gis_account_page_finalize;
 
   g_type_class_add_private (object_class, sizeof(GisAccountPagePrivate));
 }
