@@ -60,6 +60,7 @@ struct _GisLanguagePagePrivate
   GtkWidget *page;
   GtkWidget *filter_entry;
   GtkWidget *language_list;
+  gboolean adding_languages;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
@@ -118,6 +119,8 @@ add_languages (GisLanguagePage *page,
   GisLanguagePagePrivate *priv = page->priv;
   char *orig_locale_id = cc_common_language_get_current_language ();
 
+  priv->adding_languages = TRUE;
+
   while (*locale_ids) {
     gchar *locale_id;
     gchar *locale_name;
@@ -149,6 +152,8 @@ add_languages (GisLanguagePage *page,
     if (strcmp (locale_id, orig_locale_id) == 0)
       egg_list_box_select_child (EGG_LIST_BOX (priv->language_list), widget);
   }
+
+  priv->adding_languages = FALSE;
 
   setlocale (LC_MESSAGES, orig_locale_id);
   g_free (orig_locale_id);
@@ -200,6 +205,9 @@ selection_changed (EggListBox      *box,
                    GisLanguagePage *page)
 {
   gchar *new_locale_id;
+
+  if (page->priv->adding_languages)
+    return;
 
   if (child == NULL)
     return;
