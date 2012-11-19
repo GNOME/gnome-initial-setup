@@ -43,7 +43,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   goa-backend-1.0
                   gtk+-3.0 >= $GTK_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
-                  gdm)
+                  gdm
+                  egg-list-box-uninstalled)
 
 PKG_CHECK_MODULES(CLUTTER,
                   clutter-gtk-1.0

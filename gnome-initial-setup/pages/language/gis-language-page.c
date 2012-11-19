@@ -39,6 +39,8 @@
 
 #include <glib-object.h>
 
+#include <egg-list-box/egg-list-box.h>
+
 #include "gis-language-page.h"
 
 G_DEFINE_TYPE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
@@ -57,8 +59,7 @@ struct _GisLanguagePagePrivate
   GtkWidget *show_all;
   GtkWidget *page;
   GtkWidget *filter_entry;
-  GtkTreeModel *liststore;
-  GtkTreeModelFilter *filter;
+  GtkWidget *language_list;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
@@ -77,34 +78,21 @@ set_locale_id (GisLanguagePage *page,
 }
 
 static gint
-sort_languages (GtkTreeModel *model,
-                GtkTreeIter  *a,
-                GtkTreeIter  *b,
+sort_languages (gconstpointer a,
+                gconstpointer b,
                 gpointer      data)
 {
-  char *la, *lb;
-  gboolean iea, ieb;
-  gint result;
+  const char *la = g_object_get_data (G_OBJECT (a), "locale-name");
+  const char *lb = g_object_get_data (G_OBJECT (b), "locale-name");
 
-  gtk_tree_model_get (model, a,
-                      COL_LOCALE_NAME, &la,
-                      COL_IS_EXTRA, &iea,
-                      -1);
-  gtk_tree_model_get (model, b,
-                      COL_LOCALE_NAME, &lb,
-                      COL_IS_EXTRA, &ieb,
-                      -1);
+  gboolean iea = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (a), "is-extra"));
+  gboolean ieb = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (b), "is-extra"));
 
   if (iea != ieb) {
     return ieb - iea;
   } else {
-    result = strcmp (la, lb);
+    return strcmp (la, lb);
   }
-
-  g_free (la);
-  g_free (lb);
-
-  return result;
 }
 
 static char *
@@ -123,58 +111,18 @@ use_language (char *locale_id)
 }
 
 static void
-select_locale_id (GtkTreeView *treeview,
-                  char        *locale_id)
+add_languages (GisLanguagePage *page,
+               char           **locale_ids,
+               GHashTable      *initial)
 {
-  GtkTreeModel *model;
-  GtkTreeIter iter;
-  gboolean cont;
-
-  model = gtk_tree_view_get_model (treeview);
-  cont = gtk_tree_model_get_iter_first (model, &iter);
-  while (cont) {
-    char *iter_locale_id;
-
-    gtk_tree_model_get (model, &iter,
-                        COL_LOCALE_ID, &iter_locale_id,
-                        -1);
-
-    if (iter_locale_id == NULL)
-      continue;
-
-    if (g_str_equal (locale_id, iter_locale_id)) {
-      GtkTreeSelection *selection;
-      selection = gtk_tree_view_get_selection (treeview);
-      gtk_tree_selection_select_iter (selection, &iter);
-      g_free (iter_locale_id);
-      break;
-    }
-
-    g_free (iter_locale_id);
-    cont = gtk_tree_model_iter_next (model, &iter);
-  }
-}
-
-static void
-select_current_locale (GtkTreeView *treeview)
-{
-  gchar *current_locale_id = cc_common_language_get_current_language ();
-  select_locale_id (treeview, current_locale_id);
-  g_free (current_locale_id);
-}
-
-static void
-add_languages (GtkListStore *liststore,
-               char        **locale_ids,
-               GHashTable   *initial)
-{
+  GisLanguagePagePrivate *priv = page->priv;
   char *orig_locale_id = cc_common_language_get_current_language ();
 
   while (*locale_ids) {
     gchar *locale_id;
     gchar *locale_name;
     gboolean is_extra;
-    GtkTreeIter iter;
+    GtkWidget *widget;
 
     locale_id = *locale_ids;
 
@@ -186,11 +134,20 @@ add_languages (GtkListStore *liststore,
     is_extra = (g_hash_table_lookup (initial, locale_id) != NULL);
     locale_name = use_language (locale_id);
 
-    gtk_list_store_insert_with_values (liststore, &iter, -1,
-                                       COL_LOCALE_ID, locale_id,
-                                       COL_LOCALE_NAME, locale_name,
-                                       COL_IS_EXTRA, is_extra,
-                                       -1);
+    widget = gtk_label_new (locale_name);
+    g_object_set_data (G_OBJECT (widget), "locale-id",
+                       locale_id);
+    g_object_set_data (G_OBJECT (widget), "locale-name",
+                       locale_name);
+    g_object_set_data (G_OBJECT (widget), "is-extra",
+                       GUINT_TO_POINTER (is_extra));
+    gtk_widget_show (widget);
+
+    gtk_container_add (GTK_CONTAINER (priv->language_list),
+                       widget);
+
+    if (strcmp (locale_id, orig_locale_id) == 0)
+      egg_list_box_select_child (EGG_LIST_BOX (priv->language_list), widget);
   }
 
   setlocale (LC_MESSAGES, orig_locale_id);
@@ -198,63 +155,56 @@ add_languages (GtkListStore *liststore,
 }
 
 static void
-add_all_languages (GtkListStore *liststore)
+add_all_languages (GisLanguagePage *page)
 {
   char **locale_ids = gdm_get_all_language_names ();
   GHashTable *initial =  cc_common_language_get_initial_languages ();
 
-  add_languages (liststore, locale_ids, initial);
+  add_languages (page, locale_ids, initial);
 }
 
 static gboolean
-language_visible (GtkTreeModel *model,
-                  GtkTreeIter  *iter,
-                  gpointer      user_data)
+language_visible (GtkWidget *child,
+                  gpointer   user_data)
 {
+  GisLanguagePage *page = user_data;
+  GisLanguagePagePrivate *priv = page->priv;
   gchar *locale_name;
   const gchar *filter_contents;
-  GisLanguagePage *page = user_data;
   gboolean visible = TRUE;
   gboolean is_extra;
 
-  gtk_tree_model_get (model, iter,
-                      COL_LOCALE_NAME, &locale_name,
-                      COL_IS_EXTRA, &is_extra,
-                      -1);
+  is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
+  locale_name = g_object_get_data (G_OBJECT (child), "locale-name");
 
-  filter_contents = gtk_entry_get_text (GTK_ENTRY (page->priv->filter_entry));
+  filter_contents = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
   if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
     {
       visible = FALSE;
       goto out;
     }
 
-  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (page->priv->show_all)) && !is_extra)
+  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->show_all)) && !is_extra)
     {
       visible = FALSE;
       goto out;
     }
 
  out:
-  g_free (locale_name);
   return visible;
 }
 
 static void
-selection_changed (GtkTreeSelection *selection,
-                   GisLanguagePage  *page)
+selection_changed (EggListBox      *box,
+                   GtkWidget       *child,
+                   GisLanguagePage *page)
 {
-  GtkTreeModel *model;
-  GtkTreeIter iter;
   gchar *new_locale_id;
 
-  if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+  if (child == NULL)
     return;
 
-  gtk_tree_model_get (model, &iter,
-                      COL_LOCALE_ID, &new_locale_id,
-                      -1);
-
+  new_locale_id = g_object_get_data (G_OBJECT (child), "locale-id");
   set_locale_id (page, new_locale_id);
 }
 
@@ -267,7 +217,7 @@ show_all_toggled (GtkCheckButton  *button,
   gtk_widget_hide (GTK_WIDGET (button));
   gtk_widget_show (priv->filter_entry);
 
-  gtk_tree_model_filter_refilter (priv->filter);
+  egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 }
 
 static void
@@ -275,49 +225,31 @@ gis_language_page_constructed (GObject *object)
 {
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
   GisLanguagePagePrivate *priv = page->priv;
-  GtkListStore *liststore;
-  GtkTreeModel *filter;
-  GtkTreeView *treeview;
 
   G_OBJECT_CLASS (gis_language_page_parent_class)->constructed (object);
 
   gtk_container_add (GTK_CONTAINER (page), WID ("language-page"));
 
-  liststore = gtk_list_store_new (NUM_COLS,
-                                  G_TYPE_STRING,
-                                  G_TYPE_STRING,
-                                  G_TYPE_BOOLEAN);
-
   priv->show_all = WID ("language-show-all");
   priv->filter_entry = WID ("language-filter-entry");
-  priv->liststore = GTK_TREE_MODEL (liststore);
-  gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (liststore),
-                                           sort_languages, NULL, NULL);
-  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (liststore),
-                                        GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
-                                        GTK_SORT_ASCENDING);
+  priv->language_list = WID ("language-list");
 
-  treeview = OBJ (GtkTreeView *, "language-list");
-
-  filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (liststore), NULL);
-  priv->filter = GTK_TREE_MODEL_FILTER (filter);
-  gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
-                                          language_visible, page, NULL);
-  gtk_tree_view_set_model (treeview, filter);
-
-  add_all_languages (GTK_LIST_STORE (priv->liststore));
+  egg_list_box_set_sort_func (EGG_LIST_BOX (priv->language_list),
+                              sort_languages, page, NULL);
+  egg_list_box_set_filter_func (EGG_LIST_BOX (priv->language_list),
+                                language_visible, page, NULL);
+  add_all_languages (page);
 
   g_signal_connect (priv->show_all, "toggled",
                     G_CALLBACK (show_all_toggled),
                     page);
 
   g_signal_connect_swapped (priv->filter_entry, "changed",
-                            G_CALLBACK (gtk_tree_model_filter_refilter),
-                            filter);
+                            G_CALLBACK (egg_list_box_refilter),
+                            priv->language_list);
 
-  g_signal_connect (gtk_tree_view_get_selection (treeview), "changed",
+  g_signal_connect (priv->language_list, "child-selected",
                     G_CALLBACK (selection_changed), page);
-  select_current_locale (treeview);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
   gis_page_set_use_arrow_buttons (GIS_PAGE (page), TRUE);

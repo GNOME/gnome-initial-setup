@@ -35,6 +35,8 @@
 #include <cheese-gtk.h>
 #endif
 
+#include <egg-list-box/egg-list-box.h>
+
 #include "pages/language/gis-language-page.h"
 #include "pages/eulas/gis-eula-pages.h"
 #include "pages/location/gis-location-page.h"
@@ -79,6 +81,8 @@ main (int argc, char *argv[])
     exit (1);
   }
 #endif
+
+  g_type_ensure (EGG_TYPE_LIST_BOX);
 
   driver = gis_driver_new ();
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);

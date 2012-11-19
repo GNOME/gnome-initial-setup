@@ -13,32 +13,22 @@
         <property name="vscrollbar-policy">automatic</property>
         <property name="shadow-type">in</property>
         <child>
-          <object class="GtkTreeView" id="language-list">
+          <object class="GtkViewport" id="language-viewport">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="vexpand">True</property>
-            <property name="halign">fill</property>
-            <property name="valign">fill</property>
-            <property name="headers-visible">False</property>
-            <property name="enable-grid-lines">horizontal</property>
-            <property name="show-expanders">False</property>
             <child>
-              <object class="GtkTreeViewColumn" id="language-name-column">
+              <object class="EggListBox" id="language-list">
                 <property name="visible">True</property>
-                <child>
-                  <object class="GtkCellRendererText" id="language-name">
-                    <property name="xpad">4</property>
-                    <property name="ypad">4</property>
-                  </object>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                </child>
+                <property name="can-focus">True</property>
+                <property name="vexpand">True</property>
+                <property name="halign">fill</property>
+                <property name="valign">fill</property>
               </object>
             </child>
           </object>
         </child>
       </object>
+    </child>
+    <child>
     </child>
     <child>
       <object class="GtkBox" id="hbox">
