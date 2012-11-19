@@ -16,6 +16,18 @@ PKG_NAME="gnome-initial-setup"
     exit 1
 }
 
+# Fetch submodules if needed
+if test ! -f egg-list-box/COPYING;
+then
+  echo "+ Setting up submodules"
+  git submodule init
+fi
+git submodule update
+
+cd egg-list-box
+sh autogen.sh --no-configure
+cd ..
+
 which gnome-autogen.sh || {
     echo "You need to install gnome-common"
     exit 1
