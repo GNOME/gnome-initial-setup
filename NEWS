@@ -1,3 +1,32 @@
+0.4:
+
+ * Convert over to a new GisPage base class to help prevent
+   memory leaks when switching locales.
+ * Remove old summary override system with a system that simply
+   swaps out the GtkBuilder filename at runtime.
+ * Add a simple movie player for the welcome-tour, based on clutter-gst.
+ * Fix GTK+-only assistant.
+ * Revamp the account page by making it modal dialog-less, and removing
+   the avatar picker. (RIP)
+ * Use symbolic icons for assistant "next" / "previous" buttons instead
+   of using Unicode glyphs.
+ * Style and design updates.
+ * Code cleanups, misc. fixes, crashes
+
+Code:
+ Jasper St. Pierre, Mattias Clasen
+
+Translations:
+
+ Andika Triwidada
+ Fran Diéguez
+ Gianvito Cavasoli
+ Kjartan Maraas
+ Matej Urbančič
+ Mattias Põldaru
+ Piotr Drąg
+ Мирослав Николић
+
 0.3:
 
  * Port to GStreamer 1.0.
