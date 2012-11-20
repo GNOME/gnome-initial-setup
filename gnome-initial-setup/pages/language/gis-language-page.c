@@ -39,7 +39,7 @@
 
 #include <glib-object.h>
 
-#include <egg-list-box/egg-list-box.h>
+#include <egg-list-box.h>
 
 #include "gis-language-page.h"
 

@@ -35,7 +35,7 @@
 #include <cheese-gtk.h>
 #endif
 
-#include <egg-list-box/egg-list-box.h>
+#include <egg-list-box.h>
 
 #include "pages/language/gis-language-page.h"
 #include "pages/eulas/gis-eula-pages.h"
