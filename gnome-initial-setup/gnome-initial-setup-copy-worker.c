@@ -23,7 +23,7 @@ get_gnome_initial_setup_home_dir (void)
       return g_strdup (pwp->pw_dir);
   }
 
-  g_error ("Could not find homedir for gnome-initial-setup");
+  return NULL;
 }
 
 static void
@@ -58,10 +58,15 @@ main (int    argc,
 {
   GFile *src;
   GError *error = NULL;
+  char *initial_setup_homedir;
 
   g_type_init ();
 
-  src = g_file_new_for_path (get_gnome_initial_setup_home_dir ());
+  initial_setup_homedir = get_gnome_initial_setup_home_dir ();
+  if (initial_setup_homedir == NULL)
+    exit (EXIT_SUCCESS);
+
+  src = g_file_new_for_path (initial_setup_homedir);
 
   if (!g_file_query_exists (src, NULL))
     exit (EXIT_SUCCESS);
