@@ -7,8 +7,6 @@ AM_CPPFLAGS = \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
 
-LIBS = $(INITIAL_SETUP_LIBS) -lm
-
 libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 
 BUILT_SOURCES =
@@ -46,10 +44,18 @@ gnome_initial_setup_LDADD =	\
 	pages/location/libgislocation.la \
 	pages/account/libgisaccount.la \
 	pages/goa/libgisgoa.la \
-	pages/summary/libgissummary.la
+	pages/summary/libgissummary.la \
+	$(INITIAL_SETUP_LIBS) \
+	-lm
 
 gnome_initial_setup_copy_worker_SOURCES =		\
 	gnome-initial-setup-copy-worker.c
+
+gnome_initial_setup_copy_worker_CFLAGS = \
+	$(COPY_WORKER_CFLAGS)
+
+gnome_initial_setup_copy_worker_LDADD = \
+	$(COPY_WORKER_LIBS)
 
 EXTRA_DIST = \
 	$(UI_FILES) \

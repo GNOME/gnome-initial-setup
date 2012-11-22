@@ -46,6 +46,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gdm
                   egg-list-box-uninstalled)
 
+PKG_CHECK_MODULES(COPY_WORKER, gio-2.0)
+
 PKG_CHECK_MODULES(CLUTTER,
                   clutter-gtk-1.0
                   clutter-1.0 >= $CLUTTER_REQUIRED_VERSION,
