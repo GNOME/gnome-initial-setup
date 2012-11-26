@@ -2,10 +2,10 @@
  *
  * Copyright 2012  Red Hat, Inc,
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,8 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * Written by: Matthias Clasen <mclasen@redhat.com>
  */
@@ -27,138 +26,102 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
-#include <sys/types.h>
-#include <sys/wait.h>
+#include <pwquality.h>
 
 
-#define MIN_PASSWORD_LEN 6
+static pwquality_settings_t *
+get_pwq (void)
+{
+        static pwquality_settings_t *settings;
+
+        if (settings == NULL) {
+                gchar *err = NULL;
+                settings = pwquality_default_settings ();
+                if (pwquality_read_config (settings, NULL, (gpointer)&err) < 0) {
+                        g_error ("failed to read pwquality configuration: %s\n", err);
+                }
+        }
+
+        return settings;
+}
 
 gint
 pw_min_length (void)
 {
-        return MIN_PASSWORD_LEN;
+        gint value = 0;
+
+        if (pwquality_get_int_value (get_pwq (), PWQ_SETTING_MIN_LENGTH, &value) < 0) {
+                g_error ("Failed to read pwquality setting\n" );
+        }
+
+        return value;
 }
 
 gchar *
 pw_generate (void)
 {
-        static gchar **generated = NULL;
-        static gint next;
+        gchar *res;
+        gint rv;
 
-        gint min_len, max_len;
-        gchar *output, *err, *cmdline, *p;
-        gint status;
-        GError *error;
-        gchar *ret;
+        rv = pwquality_generate (get_pwq (), 0, &res);
 
-        if (generated && generated[next]) {
-                return g_strdup (generated[next++]);
+        if (rv < 0) {
+                g_error ("Password generation failed: %s\n",
+                         pwquality_strerror (NULL, 0, rv, NULL));
+                return NULL;
         }
 
-        g_strfreev (generated);
-        generated = NULL;
-        next = 0;
-
-        ret = NULL;
-
-        min_len = 6;
-        max_len = 12;
-        cmdline = g_strdup_printf ("apg -n 10 -M SNC -m %d -x %d", min_len, max_len);
-        error = NULL;
-        output = NULL;
-        err = NULL;
-        if (!g_spawn_command_line_sync (cmdline, &output, &err, &status, &error)) {
-                g_warning ("Failed to run apg: %s", error->message);
-                g_error_free (error);
-        } else if (WEXITSTATUS (status) == 0) {
-                p = output;
-                if (*p == '\n')
-                        p++;
-                if (p[strlen(p) - 1] == '\n')
-                        p[strlen(p) - 1] = '\0';
-                generated = g_strsplit (p, "\n", -1);
-                next = 0;
-
-                ret = g_strdup (generated[next++]);
-        } else {
-                g_warning ("agp returned an error: %s", err);
-        }
-
-        g_free (cmdline);
-        g_free (output);
-        g_free (err);
-
-        return ret;
+        return res;
 }
 
-/* This code is based on the Master Password dialog in Firefox
- * (pref-masterpass.js)
- * Original code triple-licensed under the MPL, GPL, and LGPL
- * so is license-compatible with this file
- */
 gdouble
 pw_strength (const gchar  *password,
              const gchar  *old_password,
              const gchar  *username,
              const gchar **hint,
-             const gchar **long_hint)
+             const gchar **long_hint,
+             gint         *strength_level)
 {
-        gint length;
-        gint upper, lower, digit, misc;
-        gint i;
-        gdouble strength;
+        gint rv, level = 0;
+        gdouble strength = 0.0;
+        void *auxerror;
 
-        length = strlen (password);
-        upper = 0;
-        lower = 0;
-        digit = 0;
-        misc = 0;
+        rv = pwquality_check (get_pwq (),
+                              password, old_password, username,
+                              &auxerror);
 
-        if (length < MIN_PASSWORD_LEN) {
+        if (rv == PWQ_ERROR_MIN_LENGTH) {
                 *hint = C_("Password strength", "Too short");
-                return 0.0;
+                *long_hint = pwquality_strerror (NULL, 0, rv, auxerror);
+                goto out;
+        }
+        else if (rv < 0) {
+                *hint = C_("Password strength", "Not good enough");
+                *long_hint = pwquality_strerror (NULL, 0, rv, auxerror);
+                goto out;
         }
 
-        for (i = 0; i < length ; i++) {
-                if (g_ascii_isdigit (password[i]))
-                        digit++;
-                else if (g_ascii_islower (password[i]))
-                        lower++;
-                else if (g_ascii_isupper (password[i]))
-                        upper++;
-                else
-                        misc++;
-        }
+        strength = CLAMP (0.01 * rv, 0.0, 1.0);
 
-        if (length > 5)
-                length = 5;
-
-        if (digit > 3)
-                digit = 3;
-
-        if (upper > 3)
-                upper = 3;
-
-        if (misc > 3)
-                misc = 3;
-
-        strength = ((length * 0.1) - 0.2) +
-                    (digit * 0.1) +
-                    (misc * 0.15) +
-                    (upper * 0.1);
-
-        strength = CLAMP (strength, 0.0, 1.0);
-
-        if (strength < 0.50)
+        if (strength < 0.50) {
+                level = 1;
                 *hint = C_("Password strength", "Weak");
-        else if (strength < 0.75)
+        } else if (strength < 0.75) {
+                level = 2;
                 *hint = C_("Password strength", "Fair");
-        else if (strength < 0.90)
+        } else if (strength < 0.90) {
+                level = 3;
                 *hint = C_("Password strength", "Good");
-        else
+        } else {
+                level = 4;
                 *hint = C_("Password strength", "Strong");
+        }
 
         *long_hint = NULL;
+
+ out:
+        if (strength_level)
+                *strength_level = level;
 
         return strength;
 }

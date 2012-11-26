@@ -1,8 +1,6 @@
 
 NULL =
 
-pw_utils_sources = pw-utils-pwquality.c pw-utils.h
-
 noinst_LTLIBRARIES = libgisaccount.la
 
 BUILT_SOURCES =
@@ -18,11 +16,11 @@ um-realm-generated.h: $(srcdir)/org.freedesktop.realmd.xml
 BUILT_SOURCES += um-realm-generated.c um-realm-generated.h
 
 libgisaccount_la_SOURCES =				\
-	$(pw_utils_sources)				\
 	$(BUILT_SOURCES)				\
 	gis-account-page.c gis-account-page.h		\
 	um-realm-manager.c um-realm-manager.h		\
 	um-utils.c um-utils.h				\
+	pw-utils.c pw-utils.h				\
 	$(NULL)
 
 libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."

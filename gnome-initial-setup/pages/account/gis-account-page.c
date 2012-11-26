@@ -296,7 +296,7 @@ update_password_entries (GisAccountPage *page)
   verify = gtk_entry_get_text (GTK_ENTRY (confirm_entry));
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (username_combo));
 
-  strength = pw_strength (password, NULL, username, &hint, &long_hint);
+  strength = pw_strength (password, NULL, username, &hint, &long_hint, NULL);
 
   if (strength == 0.0) {
     priv->valid_password = FALSE;
