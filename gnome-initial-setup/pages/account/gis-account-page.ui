@@ -209,6 +209,20 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLevelBar" id="account-password-strength">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="halign">start</property>
+                <property name="min-value">0</property>
+                <property name="max-value">3</property>
+                <property name="mode">discrete</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="account-confirm-label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
