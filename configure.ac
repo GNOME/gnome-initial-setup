@@ -44,6 +44,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gtk+-3.0 >= $GTK_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm
+                  pwquality
                   egg-list-box-uninstalled)
 
 PKG_CHECK_MODULES(COPY_WORKER, gio-2.0)
@@ -57,16 +58,6 @@ if test x$have_clutter = xyes; then
   INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $CLUTTER_CFLAGS"
   INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $CLUTTER_LIBS"
   AC_DEFINE(HAVE_CLUTTER, 1, [Build with Clutter support?])
-fi
-
-PKG_CHECK_MODULES(PWQUALITY,
-                  pwquality,
-                  have_pwquality=yes, have_pwquality=no)
-AM_CONDITIONAL(HAVE_PWQUALITY, [test x$have_pwquality = xyes])
-if test x$have_pwquality = xyes; then
-  INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $PWQUALITY_CFLAGS"
-  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $PWQUALITY_LIBS"
-  AC_DEFINE(HAVE_PWQUALITY, 1, [Build with libpwquality support?])
 fi
 
 # Kerberos kerberos support

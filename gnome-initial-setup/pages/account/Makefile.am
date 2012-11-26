@@ -1,11 +1,7 @@
 
 NULL =
 
-if HAVE_PWQUALITY
 pw_utils_sources = pw-utils-pwquality.c pw-utils.h
-else
-pw_utils_sources = pw-utils.c pw-utils.h
-endif
 
 noinst_LTLIBRARIES = libgisaccount.la
 
