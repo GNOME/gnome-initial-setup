@@ -12,7 +12,7 @@ edit = $(AM_V_GEN) sed \
 
 @INTLTOOL_DESKTOP_RULE@
 
-policydir = $(datadir)/gnome-initial-setup
+policydir = $(datadir)/polkit-1/rules.d
 policy_DATA =						\
 	20-gnome-initial-setup.rules			\
 	$(NULL)
