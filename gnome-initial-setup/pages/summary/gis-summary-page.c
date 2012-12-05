@@ -250,6 +250,7 @@ gis_summary_page_get_builder (GisPage *page)
 
   char *filename = g_build_filename (UIDIR, "summary-distro.ui", NULL);
   GError *error = NULL;
+  const char *resource_path = "/ui/gis-" PAGE_ID "-page.ui";
 
   if (gtk_builder_add_from_file (builder, filename, &error))
     goto out;
@@ -259,17 +260,15 @@ gis_summary_page_get_builder (GisPage *page)
 
   g_clear_error (&error);
 
-  {
-    char *resource_path = "/ui/gis-" PAGE_ID "-page.ui";
-    gtk_builder_add_from_resource (builder, resource_path, &error);
+  gtk_builder_add_from_resource (builder, resource_path, &error);
 
-    if (error != NULL) {
-      g_warning ("Error while loading %s: %s", resource_path, error->message);
-      exit (1);
-    }
+  if (error != NULL) {
+    g_warning ("Error while loading %s: %s", resource_path, error->message);
+    exit (1);
   }
 
  out:
+  g_free (filename);
   return builder;
 }
 
