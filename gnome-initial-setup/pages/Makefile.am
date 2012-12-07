@@ -6,4 +6,5 @@ SUBDIRS = \
 	location \
 	network \
 	goa \
-	summary
+	summary \
+	keyboard

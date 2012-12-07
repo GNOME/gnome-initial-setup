@@ -19,7 +19,9 @@ UI_FILES = \
 	pages/account/gis-account-page.ui \
 	pages/location/gis-location-page.ui \
 	pages/goa/gis-goa-page.ui \
-	pages/summary/gis-summary-page.ui
+	pages/summary/gis-summary-page.ui \
+	pages/keyboard/gis-keyboard-page.ui \
+	pages/keyboard/gnome-region-panel-input-chooser.ui
 
 setup_resources.c: setup.gresource.xml $(UI_FILES)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
@@ -49,6 +51,7 @@ gnome_initial_setup_LDADD =	\
 	pages/account/libgisaccount.la \
 	pages/goa/libgisgoa.la \
 	pages/summary/libgissummary.la \
+	pages/keyboard/libgiskeyboard.la \
 	$(INITIAL_SETUP_LIBS) \
 	-lm
 

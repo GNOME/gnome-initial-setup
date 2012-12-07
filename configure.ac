@@ -19,6 +19,7 @@ GLIB_REQUIRED_VERSION=2.29.4
 GTK_REQUIRED_VERSION=3.1.2
 CLUTTER_REQUIRED_VERSION=1.11.3
 PANGO_REQUIRED_VERSION=1.32.5
+IBUS_REQUIRED_VERSION=1.4.99
 
 # EggListBox submodule
 prev_top_build_prefix=$ac_top_build_prefix
@@ -60,6 +61,24 @@ if test x$have_clutter = xyes; then
   INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $CLUTTER_CFLAGS"
   INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $CLUTTER_LIBS"
   AC_DEFINE(HAVE_CLUTTER, 1, [Build with Clutter support?])
+fi
+
+AC_ARG_ENABLE(ibus,
+        AS_HELP_STRING([--disable-ibus],
+                       [Disable IBus support]),
+        enable_ibus=$enableval,
+        enable_ibus=yes)
+
+AS_IF([test x$enable_ibus = xyes],
+      [PKG_CHECK_MODULES(IBUS,
+                        ibus-1.0 >= $IBUS_REQUIRED_VERSION,
+                        have_ibus=yes, have_ibus=no)],
+      [have_ibus=no])
+
+if test x$have_ibus = xyes; then
+  INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $IBUS_CFLAGS"
+  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $IBUS_LIBS"
+  AC_DEFINE(HAVE_IBUS, 1, [Build with IBus support?])
 fi
 
 # Kerberos kerberos support
@@ -125,6 +144,7 @@ gnome-initial-setup/pages/location/Makefile
 gnome-initial-setup/pages/network/Makefile
 gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/summary/Makefile
+gnome-initial-setup/pages/keyboard/Makefile
 po/Makefile.in
 player/Makefile
 ])
