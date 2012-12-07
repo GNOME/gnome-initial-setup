@@ -5,7 +5,9 @@ uidir = $(datadir)/gnome-initial-setup
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
 	-DUIDIR="\"$(uidir)\"" \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
+	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\" \
+	-DDATADIR=\""$(datadir)"\"
 
 libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 
@@ -26,6 +28,8 @@ BUILT_SOURCES += setup_resources.c
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	cc-notebook.c cc-notebook.h \
+	gdm-languages.c gdm-languages.h \
+	locarchive.h \
 	gis-assistant.c gis-assistant.h gis-assistant-private.h \
 	gis-assistant-gtk.c gis-assistant-gtk.h \
 	gis-page.c gis-page.h \

@@ -6,13 +6,10 @@ AM_CPPFLAGS = \
 	-I"$(top_srcdir)/gnome-initial-setup" \
 	-I"$(top_builddir)" \
 	-DDATADIR=\""$(datadir)"\" \
-	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
 
 libgislanguage_la_SOURCES =	\
 	cc-common-language.c cc-common-language.h \
-	gdm-languages.c gdm-languages.h \
-	locarchive.h \
 	gis-language-page.c gis-language-page.h
 
 libgislanguage_la_CFLAGS = $(INITIAL_SETUP_CFLAGS)
