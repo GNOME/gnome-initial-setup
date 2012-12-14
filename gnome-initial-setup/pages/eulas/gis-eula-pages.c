@@ -401,7 +401,7 @@ gis_prepare_eula_pages (GisDriver *driver)
     goto out;
 
   while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
-    GFile *eula = g_file_get_child (eulas_dir, g_file_info_get_name (info));
+    GFile *eula = g_file_enumerator_get_child (enumerator, info);
     gis_driver_add_page (driver,
                          g_object_new (GIS_TYPE_EULA_PAGE,
                                        "driver", driver,
