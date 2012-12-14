@@ -83,52 +83,43 @@ get_file_type (GFile *file)
 }
 
 static GtkTextBuffer *
-build_eula_text_buffer_pango_markup (GFile   *file,
-                                     GError **error_out)
-{
-  GtkTextBuffer *buffer = NULL;
-  GError *error = NULL;
-  GInputStream *input_stream = NULL;
-
-  input_stream = G_INPUT_STREAM (g_file_read (file, NULL, &error));
-  if (input_stream == NULL)
-    goto error_out;
-
-  buffer = gtk_text_buffer_new (NULL);
-  if (!splice_buffer_markup (input_stream, buffer, &error))
-    goto error_out;
-
-  return buffer;
-
- error_out:
-  g_propagate_error (error_out, error);
-  if (buffer != NULL)
-    g_object_unref (buffer);
-  return NULL;
-}
-
-static GtkTextBuffer *
-build_eula_text_buffer_plain_text (GFile   *file,
-                                   GError **error_out)
+build_eula_text_buffer (GFile     *file,
+                        GError   **error_out)
 {
   GtkTextBuffer *buffer = NULL;
   GtkTextIter start, end;
   GError *error = NULL;
   GInputStream *input_stream = NULL;
+  FileType type = get_file_type (file);
+
+  if (type == SKIP)
+    return NULL;
 
   input_stream = G_INPUT_STREAM (g_file_read (file, NULL, &error));
   if (input_stream == NULL)
     goto error_out;
 
   buffer = gtk_text_buffer_new (NULL);
-  if (!splice_buffer_text (input_stream, buffer, &error))
-    goto error_out;
 
-  /* monospace the text */
-  gtk_text_buffer_create_tag (buffer, "monospace", "family", "monospace", NULL);
-  gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_buffer_get_end_iter (buffer, &end);
-  gtk_text_buffer_apply_tag_by_name (buffer, "monospace", &start, &end);
+  switch (type) {
+  case TEXT:
+    if (!splice_buffer_text (input_stream, buffer, &error))
+      goto error_out;
+
+    /* monospace the text */
+    gtk_text_buffer_create_tag (buffer, "monospace", "family", "monospace", NULL);
+    gtk_text_buffer_get_start_iter (buffer, &start);
+    gtk_text_buffer_get_end_iter (buffer, &end);
+    gtk_text_buffer_apply_tag_by_name (buffer, "monospace", &start, &end);
+    break;
+  case MARKUP:
+    if (!splice_buffer_markup (input_stream, buffer, &error))
+      goto error_out;
+    break;
+  default:
+    g_assert_not_reached ();
+    break;
+  }
 
   return buffer;
 
@@ -147,18 +138,7 @@ build_eula_text_view (GFile *eula)
   GError *error = NULL;
   FileType type = get_file_type (eula);
 
-  switch (type) {
-  case TEXT:
-    buffer = build_eula_text_buffer_plain_text (eula, &error);
-    break;
-  case MARKUP:
-    buffer = build_eula_text_buffer_pango_markup (eula, &error);
-    break;
-  case SKIP:
-    goto out;
-  default:
-    g_assert_not_reached ();
-  }
+  buffer = build_eula_text_buffer (eula, &error);
 
   if (buffer == NULL)
     goto out;
