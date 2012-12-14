@@ -136,7 +136,6 @@ build_eula_text_view (GFile *eula)
   GtkWidget *widget = NULL;
   GtkTextBuffer *buffer;
   GError *error = NULL;
-  FileType type = get_file_type (eula);
 
   buffer = build_eula_text_buffer (eula, &error);
 
