@@ -285,7 +285,8 @@ update_password_entries (GisAccountPage *page)
   GtkWidget *confirm_entry;
   GtkWidget *username_combo;
   GtkLevelBar *password_strength;
-  gdouble strength, strength_level;
+  gdouble strength;
+  gint strength_level;
   const gchar *hint;
   const gchar *long_hint = NULL;
 
