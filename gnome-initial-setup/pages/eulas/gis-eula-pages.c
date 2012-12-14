@@ -56,6 +56,32 @@ enum
 
 static GParamSpec *obj_props[PROP_LAST];
 
+typedef enum {
+  TEXT,
+  MARKUP,
+  SKIP,
+} FileType;
+
+static FileType
+get_file_type (GFile *file)
+{
+  gchar *path, *last_dot;
+  FileType type;
+
+  path = g_file_get_path (file);
+  last_dot = strrchr (path, '.');
+
+  if (strcmp(last_dot, ".txt") == 0)
+    type = TEXT;
+  else if (strcmp (last_dot, ".xml") == 0)
+    type = MARKUP;
+  else
+    type = SKIP;
+
+  g_free (path);
+  return type;
+}
+
 static GtkTextBuffer *
 build_eula_text_buffer_pango_markup (GFile   *file,
                                      GError **error_out)
@@ -118,18 +144,21 @@ build_eula_text_view (GFile *eula)
 {
   GtkWidget *widget = NULL;
   GtkTextBuffer *buffer;
-  gchar *path, *last_dot;
   GError *error = NULL;
+  FileType type = get_file_type (eula);
 
-  path = g_file_get_path (eula);
-  last_dot = strrchr (path, '.');
-
-  if (strcmp(last_dot, ".txt") == 0)
+  switch (type) {
+  case TEXT:
     buffer = build_eula_text_buffer_plain_text (eula, &error);
-  else if (strcmp (last_dot, ".xml") == 0)
+    break;
+  case MARKUP:
     buffer = build_eula_text_buffer_pango_markup (eula, &error);
-  else
+    break;
+  case SKIP:
     goto out;
+  default:
+    g_assert_not_reached ();
+  }
 
   if (buffer == NULL)
     goto out;
@@ -144,7 +173,6 @@ build_eula_text_view (GFile *eula)
     g_error_free (error);
   }
 
-  g_free (path);
   return widget;
 }
 
