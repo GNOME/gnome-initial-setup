@@ -215,6 +215,13 @@ get_config (GFile    *eula,
   g_key_file_unref (config);
 }
 
+static GtkBuilder *
+gis_eula_page_get_builder (GisPage *page)
+{
+  /* Prevent warnings because of NULL page IDs */
+  return NULL;
+}
+
 static void
 gis_eula_page_constructed (GObject *object)
 {
@@ -287,7 +294,7 @@ gis_eula_page_constructed (GObject *object)
   gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
   sync_page_complete (page);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  gtk_widget_show_all (GTK_WIDGET (page));
 }
 
 
@@ -343,8 +350,10 @@ gis_eula_page_dispose (GObject *object)
 static void
 gis_eula_page_class_init (GisEulaPageClass *klass)
 {
+  GisPageClass *page_klass = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  page_klass->get_builder = gis_eula_page_get_builder;
   object_class->get_property = gis_eula_page_get_property;
   object_class->set_property = gis_eula_page_set_property;
   object_class->constructed = gis_eula_page_constructed;
@@ -354,6 +363,8 @@ gis_eula_page_class_init (GisEulaPageClass *klass)
     g_param_spec_object ("eula", "", "",
                          G_TYPE_FILE,
                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 
   g_type_class_add_private (object_class, sizeof(GisEulaPagePrivate));
 }
