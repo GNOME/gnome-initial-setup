@@ -7,7 +7,7 @@
 #include <pango/pango.h>
 
 /* lifted from g_output_stream_splice */
-void
+gboolean
 splice_buffer (GInputStream  *stream,
                GtkTextBuffer *buffer,
                GError       **error)
@@ -26,6 +26,8 @@ splice_buffer (GInputStream  *stream,
     gtk_text_buffer_get_end_iter (buffer, &iter);
     gtk_text_buffer_insert (buffer, &iter, contents, n_read);
   }
+
+  return (*error == NULL);
 }
 
 /* remove when this is landed in GTK+ itself */

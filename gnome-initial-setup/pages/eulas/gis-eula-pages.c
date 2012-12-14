@@ -102,8 +102,7 @@ build_eula_text_buffer_plain_text (GFile   *file,
     goto error_out;
 
   buffer = gtk_text_buffer_new (NULL);
-  splice_buffer (input_stream, buffer, &error);
-  if (error != NULL)
+  if (!splice_buffer (input_stream, buffer, &error))
     goto error_out;
 
   /* monospace the text */

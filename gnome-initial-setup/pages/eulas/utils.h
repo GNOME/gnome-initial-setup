@@ -7,9 +7,9 @@
 
 G_BEGIN_DECLS
 
-void splice_buffer (GInputStream  *stream,
-                    GtkTextBuffer *buffer,
-                    GError       **error);
+gboolean splice_buffer (GInputStream  *stream,
+                        GtkTextBuffer *buffer,
+                        GError       **error);
 
 void text_buffer_insert_pango_text (GtkTextBuffer *buffer,
                                     GtkTextIter *iter,
