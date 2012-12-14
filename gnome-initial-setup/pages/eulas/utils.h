@@ -11,10 +11,9 @@ gboolean splice_buffer_text (GInputStream  *stream,
                              GtkTextBuffer *buffer,
                              GError       **error);
 
-void text_buffer_insert_pango_text (GtkTextBuffer *buffer,
-                                    GtkTextIter *iter,
-                                    PangoAttrList *attrlist,
-                                    gchar *text);
+gboolean splice_buffer_markup (GInputStream  *stream,
+                               GtkTextBuffer *buffer,
+                               GError       **error);
 
 G_END_DECLS
 

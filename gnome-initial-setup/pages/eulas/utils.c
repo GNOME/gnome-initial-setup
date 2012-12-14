@@ -72,7 +72,7 @@ text_buffer_get_text_tag_from_pango (PangoAttrIterator *paiter)
   return tag;
 }
 
-void
+static void
 text_buffer_insert_pango_text (GtkTextBuffer *buffer,
                                GtkTextIter *iter,
                                PangoAttrList *attrlist,
@@ -140,5 +140,41 @@ splice_buffer_text (GInputStream  *stream,
     gtk_text_buffer_insert (buffer, &iter, contents, n_read);
   }
 
+  return (*error == NULL);
+}
+
+gboolean
+splice_buffer_markup (GInputStream  *stream,
+                      GtkTextBuffer *buffer,
+                      GError       **error)
+{
+  char contents[8192];
+  gssize n_read;
+  GtkTextIter iter;
+  GMarkupParseContext *context;
+  PangoAttrList *attr_list;
+  gchar *text;
+
+  context = pango_markup_parser_new (0);
+
+  while (TRUE) {
+    n_read = g_input_stream_read (stream, contents, sizeof (contents), NULL, error);
+
+    /* error or eof */
+    if (n_read <= 0)
+      break;
+
+    if (!g_markup_parse_context_parse (context, contents, n_read, error))
+      goto out;
+  }
+
+  if (!pango_markup_parser_finish (context, &attr_list, &text, NULL, error))
+    goto out;
+
+  gtk_text_buffer_get_end_iter (buffer, &iter);
+  text_buffer_insert_pango_text (buffer, &iter, attr_list, text);
+
+ out:
+  g_markup_parse_context_free (context);
   return (*error == NULL);
 }

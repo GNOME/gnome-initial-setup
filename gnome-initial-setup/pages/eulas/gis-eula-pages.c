@@ -61,30 +61,23 @@ build_eula_text_buffer_pango_markup (GFile   *file,
                                      GError **error_out)
 {
   GtkTextBuffer *buffer = NULL;
-  gchar *contents;
-  gsize length;
   GError *error = NULL;
-  PangoAttrList *attrlist;
-  gchar *text;
-  GtkTextIter iter;
+  GInputStream *input_stream = NULL;
 
-  if (!g_file_load_contents (file, NULL, &contents, &length, NULL, &error))
+  input_stream = G_INPUT_STREAM (g_file_read (file, NULL, &error));
+  if (input_stream == NULL)
     goto error_out;
-
-  if (!pango_parse_markup (contents, length, 0, &attrlist, &text, NULL, &error))
-    goto error_out;
-
-  g_free (contents);
 
   buffer = gtk_text_buffer_new (NULL);
-
-  gtk_text_buffer_get_end_iter (buffer, &iter);
-  text_buffer_insert_pango_text (buffer, &iter, attrlist, text);
+  if (!splice_buffer_markup (input_stream, buffer, &error))
+    goto error_out;
 
   return buffer;
 
  error_out:
   g_propagate_error (error_out, error);
+  if (buffer != NULL)
+    g_object_unref (buffer);
   return NULL;
 }
 
