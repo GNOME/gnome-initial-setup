@@ -6,30 +6,6 @@
 #include <gtk/gtk.h>
 #include <pango/pango.h>
 
-/* lifted from g_output_stream_splice */
-gboolean
-splice_buffer (GInputStream  *stream,
-               GtkTextBuffer *buffer,
-               GError       **error)
-{
-  char contents[8192];
-  gssize n_read;
-  GtkTextIter iter;
-
-  while (TRUE) {
-    n_read = g_input_stream_read (stream, contents, sizeof (contents), NULL, error);
-
-    /* error or eof */
-    if (n_read <= 0)
-      break;
-
-    gtk_text_buffer_get_end_iter (buffer, &iter);
-    gtk_text_buffer_insert (buffer, &iter, contents, n_read);
-  }
-
-  return (*error == NULL);
-}
-
 /* remove when this is landed in GTK+ itself */
 static GtkTextTag *
 text_buffer_get_text_tag_from_pango (PangoAttrIterator *paiter)
@@ -141,4 +117,28 @@ text_buffer_insert_pango_text (GtkTextBuffer *buffer,
 
   gtk_text_buffer_delete_mark (buffer, mark);
   pango_attr_iterator_destroy (paiter);
+}
+
+/* lifted from g_output_stream_splice */
+gboolean
+splice_buffer_text (GInputStream  *stream,
+                    GtkTextBuffer *buffer,
+                    GError       **error)
+{
+  char contents[8192];
+  gssize n_read;
+  GtkTextIter iter;
+
+  while (TRUE) {
+    n_read = g_input_stream_read (stream, contents, sizeof (contents), NULL, error);
+
+    /* error or eof */
+    if (n_read <= 0)
+      break;
+
+    gtk_text_buffer_get_end_iter (buffer, &iter);
+    gtk_text_buffer_insert (buffer, &iter, contents, n_read);
+  }
+
+  return (*error == NULL);
 }
