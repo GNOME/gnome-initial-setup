@@ -284,7 +284,7 @@ update_password_entries (GisAccountPage *page)
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   GtkWidget *username_combo;
-  GtkLevelBar *password_strength;
+  GtkWidget *password_strength;
   gdouble strength;
   gint strength_level;
   const gchar *hint;
@@ -300,8 +300,7 @@ update_password_entries (GisAccountPage *page)
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (username_combo));
 
   strength = pw_strength (password, NULL, username, &hint, &long_hint, &strength_level);
-
-  gtk_level_bar_set_value (password_strength, strength_level);
+  gtk_level_bar_set_value (GTK_LEVEL_BAR (password_strength), strength_level);
 
   if (strength == 0.0) {
     priv->valid_password = FALSE;
