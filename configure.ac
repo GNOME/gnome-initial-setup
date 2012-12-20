@@ -18,6 +18,7 @@ NETWORK_MANAGER_REQUIRED_VERSION=0.8.992
 GLIB_REQUIRED_VERSION=2.29.4
 GTK_REQUIRED_VERSION=3.1.2
 CLUTTER_REQUIRED_VERSION=1.11.3
+PANGO_REQUIRED_VERSION=1.32.5
 
 # EggListBox submodule
 prev_top_build_prefix=$ac_top_build_prefix
@@ -44,6 +45,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gtk+-3.0 >= $GTK_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm
+                  pango >= $PANGO_REQUIRED_VERSION
                   pwquality
                   egg-list-box-uninstalled)
 
