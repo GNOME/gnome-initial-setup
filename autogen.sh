@@ -12,7 +12,7 @@ PKG_NAME="gnome-initial-setup"
 (test -f $srcdir/configure.ac \
   && test -f $srcdir/gnome-initial-setup.doap) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
-    echo " top-level gnome-settings-daemon directory"
+    echo " top-level gnome-initial-setup directory"
     exit 1
 }
 
