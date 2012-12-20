@@ -8,7 +8,8 @@ EXTRA_DIST = \
     autogen.sh \
     COPYING \
     AUTHORS \
-    NEWS
+    NEWS \
+    gnome-initial-setup.doap
 
 DISTCHECK_CONFIGURE_FLAGS = \
         --with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
