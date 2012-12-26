@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-13 22:30+0300\n"
-"PO-Revision-Date: 2012-08-13 22:51+0200\n"
+"POT-Creation-Date: 2012-12-26 20:07+0200\n"
+"PO-Revision-Date: 2012-12-26 20:13+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -24,33 +24,45 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "התקנה ראשונית"
 
-#: ../gnome-initial-setup/gis-assistant.c:150
+#: ../gnome-initial-setup/gis-assistant.c:317
 msgid "_Next"
 msgstr "ה_בא"
 
-#: ../gnome-initial-setup/gis-assistant.c:151
+#: ../gnome-initial-setup/gis-assistant.c:318
 msgid "_Back"
 msgstr "ה_קודם"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:209
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:311
 msgid "Passwords do not match"
 msgstr "הססמאות אינן תואמות"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:489
+msgid "Failed to register account"
+msgstr "רישום החשבון נכשל"
+
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:552
+msgid "Failed to join domain"
+msgstr "ההצטרפות למתחם נכשלה"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:607
+msgid "Failed to log into domain"
+msgstr "הכניסה למתחם נכשלה"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:902
 msgid "Login"
 msgstr "כניסה"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create Local Account"
-msgstr "יצירת חשבון מקומי"
+msgid "Choose How to Login"
+msgstr "נא לבחור באופן הכניסה"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Cancel"
-msgstr "_ביטול"
+msgid "_Local Account"
+msgstr "חשבון מ_קומי"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Done"
-msgstr "_בוצע"
+msgid "_Enterprise Login"
+msgstr "שימוש בכניסה א_רגונית"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "_Full Name"
@@ -61,91 +73,97 @@ msgid "_Username"
 msgstr "שם מ_שתמש"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Require a password to use this account"
-msgstr "_דרישת ססמה לצורך שימוש בחשבון זה"
+msgid "This will be used to name your home folder and can't be changed."
+msgstr "מחרוזת זו תשמש בתור שם תיקיית הבית שלך ולא ניתן יהיה לשנות זאת."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
 msgid "_Password"
 msgstr "_ססמה"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "_Confirm Password"
+msgid "_Confirm password"
 msgstr "_אימות הססמה"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "_Act as administrator of this computer"
-msgstr "הת_נהגות כמנהל המחשב"
+msgid "Try to use at least 8 different characters. Mix upper and lower case and use a number or two."
+msgstr "נא להשתמש ב־8 תווים שונים זה מזה לפחות. ניתן לערבב בין אותיות קטנות וגדולות ולהשתמש בספרה או שתיים."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
-msgid "Choose How to Login"
-msgstr "נא לבחור באופן הכניסה"
+msgid "_Domain"
+msgstr "מ_תחם"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
-msgid "Create a Local Account"
-msgstr "יצירת חשבון מקומי"
+msgid "_Login Name"
+msgstr "שם ה_כניסה"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Use an Enterprise Login"
-msgstr "שימוש בכניסה ארגונית"
+msgid "Tip: Enterprise domain or realm name"
+msgstr "עצה: שם מתחם או שם תחום ארגוניים"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:93
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
+#: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "קצרה מדי"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:98
+#: ../gnome-initial-setup/pages/account/pw-utils.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "לא טובה מספיק"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:106
-#: ../gnome-initial-setup/pages/account/pw-utils.c:152
+#: ../gnome-initial-setup/pages/account/pw-utils.c:108
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "חלשה"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:108
-#: ../gnome-initial-setup/pages/account/pw-utils.c:154
+#: ../gnome-initial-setup/pages/account/pw-utils.c:111
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "סבירה"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:110
-#: ../gnome-initial-setup/pages/account/pw-utils.c:156
+#: ../gnome-initial-setup/pages/account/pw-utils.c:114
 msgctxt "Password strength"
 msgid "Good"
 msgstr "טובה"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:112
-#: ../gnome-initial-setup/pages/account/pw-utils.c:158
+#: ../gnome-initial-setup/pages/account/pw-utils.c:117
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "חזקה"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:245
-msgid "Disable image"
-msgstr "ביטול התמונה"
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#, c-format
+msgid "No such domain or realm found"
+msgstr "לא נמצאו מתחמים או תחומים כאלה"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:263
-msgid "Take a photo..."
-msgstr "צילום תמונה..."
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#, c-format
+msgid "Cannot log in as %s at the %s domain"
+msgstr "לא ניתן להיכנס בשם %s למתחם %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:267
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+msgid "Invalid password, please try again"
+msgstr "ססמה שגויה, נא לנסות שוב"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#, c-format
+msgid "Couldn't connect to the %s domain: %s"
+msgstr "לא ניתן להתחבר למתחם %s:‏ %s"
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:268
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "משתמש בשם '%s' כבר קיים"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:271
+#: ../gnome-initial-setup/pages/account/um-utils.c:272
 #, c-format
 msgid "The username is too long"
 msgstr "שם המשתמש ארוך מדי"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:274
+#: ../gnome-initial-setup/pages/account/um-utils.c:275
 msgid "The username cannot start with a '-'"
 msgstr "שם המשתמש לא יכול להתחיל ב־'-'"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:277
+#: ../gnome-initial-setup/pages/account/um-utils.c:278
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -157,46 +175,44 @@ msgstr ""
 " ⇦ ספרות\n"
 " ⇦ כל אחד מהתווים '.', '-' ו־'_'"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:248
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:268
 msgid "I have _agreed to the terms and conditions in this end user license agreement."
 msgstr "הס_כמתי לתנאי השימוש בהסכם רישוי משתמש קצה זה."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:274
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:293
 msgid "License Agreements"
 msgstr "הסכמי רישוי"
 
-#. translators: This is the title of the "Add Account" dialogue.
-#. * The title is not visible when using GNOME Shell
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:251
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:257
+#. translators: This is the title of the "Add Account" dialog.
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "הוספת חשבון"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:79
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:102
 msgid "Error creating account"
 msgstr "שגיאה ביצירת חשבון"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:111
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:134
 msgid "Error removing account"
 msgstr "שגיאה בהסרת חשבון"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:160
 msgid "Are you sure you want to remove the account?"
 msgstr "האם אכן ברצונך להסיר את החשבון?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:139
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:162
 msgid "This will not remove the account on the server."
 msgstr "פעולה זו לא תסיר את החשבון מהשרת."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:140
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
 msgid "_Remove"
 msgstr "ה_סרה"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:209
 msgid "Remove"
 msgstr "הסרה"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:303
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:328
 msgid "Online Accounts"
 msgstr "חשבונות מקוונים"
 
@@ -205,54 +221,52 @@ msgid "Link other accounts"
 msgstr "קישור לחשבונות באחרים"
 
 #. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:200
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
 msgid "English"
 msgstr "אנגלית"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:202
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
 msgid "British English"
 msgstr "אנגלית בריטית"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:205
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
 msgid "German"
 msgstr "גרמנית"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:208
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
 msgid "French"
 msgstr "צרפתית"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:211
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
 msgid "Spanish"
 msgstr "ספרדית"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:213
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
 msgid "Chinese (simplified)"
 msgstr "סינית (מפושטת)"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:781
+#: ../gnome-initial-setup/pages/language/gdm-languages.c:782
 msgid "Unspecified"
 msgstr "לא צוינה"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:44
-msgid "Welcome"
-msgstr "ברוך בואך"
-
-#. Translators: the parameter here is your language's name, like
-#. * "Use English", "Deutsch verwenden", etc.
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:95
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:107
 #, c-format
 msgid "Use %s"
 msgstr "שימוש ב%s"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:264
+msgid "Welcome"
+msgstr "ברוך בואך"
 
 #: ../gnome-initial-setup/pages/language/gis-language-page.ui.h:1
 msgid "Show _all"
 msgstr "הצגת ה_כול"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:274
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:302
 msgid "Search for a location"
 msgstr "חיפוש אחר מיקום"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:312
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:339
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "מיקום"
@@ -272,24 +286,24 @@ msgstr "אזור זמן"
 #. TRANSLATORS: this is when the access point is not listed
 #. *                           * in the dropdown (or hidden) and the user has to select
 #. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:239
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:263
 msgctxt "Wireless access point"
 msgid "Other..."
 msgstr "אחר..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:342
 msgid "Network is not available."
 msgstr "הרשת אינה זמינה."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:321
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "No network devices found."
 msgstr "לא נמצא התקן רשת."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:392
 msgid "Checking for available wireless networks"
 msgstr "מתבצע חיפוש אחר רשתות אלחוטיות זמינות"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:707
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:689
 msgid "Network"
 msgstr "רשת"
 
@@ -297,7 +311,7 @@ msgstr "רשת"
 msgid "Wireless Networks"
 msgstr "רשתות אלחוטיות"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:145
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:290
 msgid "Thank You"
 msgstr "תודה רבה לך"
 
@@ -325,3 +339,23 @@ msgstr "עדיין לא ערכת היכרות עם GNOME 3 ודרושה לך ע�
 msgid "_Take a Tour"
 msgstr "ל_צאת לסיור"
 
+#~ msgid "_Cancel"
+#~ msgstr "_ביטול"
+
+#~ msgid "_Done"
+#~ msgstr "_בוצע"
+
+#~ msgid "_Require a password to use this account"
+#~ msgstr "_דרישת ססמה לצורך שימוש בחשבון זה"
+
+#~ msgid "_Act as administrator of this computer"
+#~ msgstr "הת_נהגות כמנהל המחשב"
+
+#~ msgid "Create a Local Account"
+#~ msgstr "יצירת חשבון מקומי"
+
+#~ msgid "Disable image"
+#~ msgstr "ביטול התמונה"
+
+#~ msgid "Take a photo..."
+#~ msgstr "צילום תמונה..."
