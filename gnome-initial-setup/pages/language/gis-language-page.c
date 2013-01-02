@@ -189,7 +189,6 @@ language_visible (GtkWidget *child,
   GisLanguagePagePrivate *priv = page->priv;
   gchar *locale_name;
   const gchar *filter_contents;
-  gboolean visible = TRUE;
   gboolean is_extra;
 
   is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
@@ -197,19 +196,12 @@ language_visible (GtkWidget *child,
 
   filter_contents = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
   if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
-    {
-      visible = FALSE;
-      goto out;
-    }
+    return FALSE;
 
   if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->show_all)) && !is_extra)
-    {
-      visible = FALSE;
-      goto out;
-    }
+    return FALSE;
 
- out:
-  return visible;
+  return TRUE;
 }
 
 static void
