@@ -206,6 +206,20 @@ language_visible (GtkWidget *child,
 }
 
 static void
+show_all_toggled (GtkCheckButton  *button,
+                  GisLanguagePage *page)
+{
+  GisLanguagePagePrivate *priv = page->priv;
+
+  gtk_widget_hide (GTK_WIDGET (button));
+  gtk_widget_show (priv->filter_entry);
+
+  page->priv->showing_extra = TRUE;
+
+  egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+}
+
+static void
 selection_changed (EggListBox      *box,
                    GtkWidget       *child,
                    GisLanguagePage *page)
@@ -220,20 +234,6 @@ selection_changed (EggListBox      *box,
 
   new_locale_id = g_object_get_data (G_OBJECT (child), "locale-id");
   set_locale_id (page, new_locale_id);
-}
-
-static void
-show_all_toggled (GtkCheckButton  *button,
-                  GisLanguagePage *page)
-{
-  GisLanguagePagePrivate *priv = page->priv;
-
-  gtk_widget_hide (GTK_WIDGET (button));
-  gtk_widget_show (priv->filter_entry);
-
-  page->priv->showing_extra = TRUE;
-
-  egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 }
 
 static void
