@@ -111,6 +111,26 @@ use_language (char *locale_id)
   return g_strdup_printf (use, language);
 }
 
+static GtkWidget *
+language_widget_new (char     *locale_id,
+                     gboolean  is_extra)
+{
+  gchar *locale_name;
+  GtkWidget *widget;
+
+  locale_name = use_language (locale_id);
+
+  widget = gtk_label_new (locale_name);
+  g_object_set_data (G_OBJECT (widget), "locale-id",
+                     locale_id);
+  g_object_set_data (G_OBJECT (widget), "locale-name",
+                     locale_name);
+  g_object_set_data (G_OBJECT (widget), "is-extra",
+                     GUINT_TO_POINTER (is_extra));
+
+  return widget;
+}
+
 static void
 add_languages (GisLanguagePage *page,
                char           **locale_ids,
@@ -123,7 +143,6 @@ add_languages (GisLanguagePage *page,
 
   while (*locale_ids) {
     gchar *locale_id;
-    gchar *locale_name;
     gboolean is_extra;
     GtkWidget *widget;
 
@@ -135,16 +154,8 @@ add_languages (GisLanguagePage *page,
       continue;
 
     is_extra = (g_hash_table_lookup (initial, locale_id) != NULL);
-    locale_name = use_language (locale_id);
 
-    widget = gtk_label_new (locale_name);
-    g_object_set_data (G_OBJECT (widget), "locale-id",
-                       locale_id);
-    g_object_set_data (G_OBJECT (widget), "locale-name",
-                       locale_name);
-    g_object_set_data (G_OBJECT (widget), "is-extra",
-                       GUINT_TO_POINTER (is_extra));
-    gtk_widget_show (widget);
+    widget = language_widget_new (locale_id, is_extra);
 
     gtk_container_add (GTK_CONTAINER (priv->language_list),
                        widget);
@@ -152,6 +163,8 @@ add_languages (GisLanguagePage *page,
     if (strcmp (locale_id, orig_locale_id) == 0)
       egg_list_box_select_child (EGG_LIST_BOX (priv->language_list), widget);
   }
+
+  gtk_widget_show_all (priv->language_list);
 
   priv->adding_languages = FALSE;
 
