@@ -61,6 +61,7 @@ struct _GisLanguagePagePrivate
   GtkWidget *filter_entry;
   GtkWidget *language_list;
   gboolean adding_languages;
+  gboolean showing_extra;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
@@ -198,7 +199,7 @@ language_visible (GtkWidget *child,
   if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
     return FALSE;
 
-  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->show_all)) && !is_extra)
+  if (!page->priv->showing_extra && !is_extra)
     return FALSE;
 
   return TRUE;
@@ -229,6 +230,8 @@ show_all_toggled (GtkCheckButton  *button,
 
   gtk_widget_hide (GTK_WIDGET (button));
   gtk_widget_show (priv->filter_entry);
+
+  page->priv->showing_extra = TRUE;
 
   egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 }
