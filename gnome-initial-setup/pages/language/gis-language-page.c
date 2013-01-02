@@ -56,7 +56,7 @@ enum {
 
 struct _GisLanguagePagePrivate
 {
-  GtkWidget *show_all;
+  GtkWidget *more_item;
   GtkWidget *page;
   GtkWidget *filter_entry;
   GtkWidget *language_list;
@@ -84,6 +84,15 @@ sort_languages (gconstpointer a,
                 gconstpointer b,
                 gpointer      data)
 {
+  GisLanguagePage *page = GIS_LANGUAGE_PAGE (data);
+  GisLanguagePagePrivate *priv = page->priv;
+
+  if (a == priv->more_item)
+    return 1;
+
+  if (b == priv->more_item)
+    return -1;
+
   const char *la = g_object_get_data (G_OBJECT (a), "locale-name");
   const char *lb = g_object_get_data (G_OBJECT (b), "locale-name");
 
@@ -132,6 +141,14 @@ language_widget_new (char     *locale_id,
   return widget;
 }
 
+static GtkWidget *
+more_widget_new (void)
+{
+  GtkWidget *widget = gtk_label_new ("…");
+  gtk_widget_set_tooltip_text (widget, _("More…"));
+  return widget;
+}
+
 static void
 add_languages (GisLanguagePage *page,
                char           **locale_ids,
@@ -165,6 +182,9 @@ add_languages (GisLanguagePage *page,
       egg_list_box_select_child (EGG_LIST_BOX (priv->language_list), widget);
   }
 
+  gtk_container_add (GTK_CONTAINER (priv->language_list),
+                     priv->more_item);
+
   gtk_widget_show_all (priv->language_list);
 
   priv->adding_languages = FALSE;
@@ -192,6 +212,9 @@ language_visible (GtkWidget *child,
   const gchar *filter_contents;
   gboolean is_extra;
 
+  if (child == page->priv->more_item)
+    return !page->priv->showing_extra;
+
   is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
   locale_name = g_object_get_data (G_OBJECT (child), "locale-name");
 
@@ -206,12 +229,10 @@ language_visible (GtkWidget *child,
 }
 
 static void
-show_all_toggled (GtkCheckButton  *button,
-                  GisLanguagePage *page)
+show_more (GisLanguagePage *page)
 {
   GisLanguagePagePrivate *priv = page->priv;
 
-  gtk_widget_hide (GTK_WIDGET (button));
   gtk_widget_show (priv->filter_entry);
 
   page->priv->showing_extra = TRUE;
@@ -232,6 +253,12 @@ selection_changed (EggListBox      *box,
   if (child == NULL)
     return;
 
+  if (child == page->priv->more_item)
+    {
+      show_more (page);
+      return;
+    }
+
   new_locale_id = g_object_get_data (G_OBJECT (child), "locale-id");
   set_locale_id (page, new_locale_id);
 }
@@ -246,19 +273,15 @@ gis_language_page_constructed (GObject *object)
 
   gtk_container_add (GTK_CONTAINER (page), WID ("language-page"));
 
-  priv->show_all = WID ("language-show-all");
   priv->filter_entry = WID ("language-filter-entry");
   priv->language_list = WID ("language-list");
+  priv->more_item = more_widget_new ();
 
   egg_list_box_set_sort_func (EGG_LIST_BOX (priv->language_list),
                               sort_languages, page, NULL);
   egg_list_box_set_filter_func (EGG_LIST_BOX (priv->language_list),
                                 language_visible, page, NULL);
   add_all_languages (page);
-
-  g_signal_connect (priv->show_all, "toggled",
-                    G_CALLBACK (show_all_toggled),
-                    page);
 
   g_signal_connect_swapped (priv->filter_entry, "changed",
                             G_CALLBACK (egg_list_box_refilter),
