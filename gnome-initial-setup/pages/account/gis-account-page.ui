@@ -49,51 +49,6 @@
       </packing>
     </child>
     <child>
-      <object class="GtkBox" id="account-mode">
-        <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="margin_bottom">12</property>
-        <style>
-          <class name="linked"/>
-        </style>
-        <child>
-          <object class="GtkToggleButton" id="local-button">
-            <property name="label" translatable="yes">_Local Account</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
-            <property name="focus_on_click">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="enterprise-button">
-            <property name="label" translatable="yes">_Enterprise Login</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
-            <property name="focus_on_click">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkGrid" id="local-area">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -108,6 +63,19 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="enterprise-button">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Use _Enterprise Login</property>
+            <property name="use_underline">True</property>
+            <property name="halign">start</property>
+            <property name="valign">end</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">6</property>
           </packing>
         </child>
         <child>
@@ -437,6 +405,19 @@
             <property name="top_attach">2</property>
             <property name="width">1</property>
             <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="local-button">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Use _Local Login</property>
+            <property name="use_underline">True</property>
+            <property name="halign">start</property>
+            <property name="valign">end</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">3</property>
           </packing>
         </child>
       </object>

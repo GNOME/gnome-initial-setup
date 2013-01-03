@@ -189,8 +189,6 @@ set_mode (GisAccountPage *page,
   priv->mode = mode;
   gtk_widget_set_visible (WID ("local-area"), (mode == UM_LOCAL));
   gtk_widget_set_visible (WID ("enterprise-area"), (mode == UM_ENTERPRISE));
-  gtk_toggle_button_set_active (OBJ (GtkToggleButton *, "local-button"), (mode == UM_LOCAL));
-  gtk_toggle_button_set_active (OBJ (GtkToggleButton *, "enterprise-button"), (mode == UM_ENTERPRISE));
 
   update_account_page_status (page);
 }
@@ -205,7 +203,8 @@ set_has_enterprise (GisAccountPage *page,
     return;
 
   priv->has_enterprise = has_enterprise;
-  gtk_widget_set_visible (WID ("account-mode"), has_enterprise);
+  gtk_widget_set_visible (WID ("local-button"), has_enterprise);
+  gtk_widget_set_visible (WID ("enterprise-button"), has_enterprise);
 
   if (!has_enterprise)
     set_mode (page, UM_LOCAL);
@@ -812,23 +811,17 @@ on_entry_changed (GtkEditable *editable,
 }
 
 static void
-on_local_toggle (GtkToggleButton *toggle,
-                 gpointer         user_data)
+on_local_clicked (GtkButton *button,
+                  gpointer   user_data)
 {
-  GisAccountPage *page = user_data;
-  if (gtk_toggle_button_get_active (toggle)) {
-    set_mode (page, UM_LOCAL);
-  }
+  set_mode (GIS_ACCOUNT_PAGE (user_data), UM_LOCAL);
 }
 
 static void
-on_enterprise_toggle (GtkToggleButton *toggle,
-                      gpointer         user_data)
+on_enterprise_clicked (GtkButton *button,
+                       gpointer   user_data)
 {
-  GisAccountPage *page = user_data;
-  if (gtk_toggle_button_get_active (toggle)) {
-    set_mode (page, UM_ENTERPRISE);
-  }
+  set_mode (GIS_ACCOUNT_PAGE (user_data), UM_ENTERPRISE);
 }
 
 static void
@@ -881,10 +874,10 @@ gis_account_page_constructed (GObject *object)
                     G_CALLBACK (on_domain_changed), page);
   g_signal_connect (WID("enterprise-login"), "changed",
                     G_CALLBACK (on_entry_changed), page);
-  g_signal_connect (WID("local-button"), "toggled",
-                    G_CALLBACK (on_local_toggle), page);
-  g_signal_connect (WID("enterprise-button"), "toggled",
-                    G_CALLBACK (on_enterprise_toggle), page);
+  g_signal_connect (WID("local-button"), "clicked",
+                    G_CALLBACK (on_local_clicked), page);
+  g_signal_connect (WID("enterprise-button"), "clicked",
+                    G_CALLBACK (on_enterprise_clicked), page);
 
   priv->act_client = act_user_manager_get_default ();
 
