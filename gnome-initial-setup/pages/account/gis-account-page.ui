@@ -13,7 +13,7 @@
         <property name="row_spacing">6</property>
         <property name="column_spacing">12</property>
         <child>
-          <object class="GtkFrame" id="account-password-strength-sizer">
+          <object class="GtkFrame" id="sizer1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label_xalign">0</property>
@@ -21,7 +21,21 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">4</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="sizer2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+          </object>
+          <packing>
+            <property name="left_attach">3</property>
+            <property name="top_attach">0</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
@@ -315,6 +329,34 @@
         <property name="row_spacing">10</property>
         <property name="column_spacing">10</property>
         <child>
+          <object class="GtkFrame" id="sizer3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="sizer4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+          </object>
+          <packing>
+            <property name="left_attach">3</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -528,10 +570,12 @@
       <column type="GObject"/>
     </columns>
   </object>
-  <object class="GtkSizeGroup" id="account-password-strength-sizegroup">
+  <object class="GtkSizeGroup" id="sizegroup">
     <widgets>
-      <widget name="account-password-strength"/>
-      <widget name="account-password-strength-sizer"/>
+      <widget name="sizer1"/>
+      <widget name="sizer2"/>
+      <widget name="sizer3"/>
+      <widget name="sizer4"/>
     </widgets>
   </object>
 </interface>
