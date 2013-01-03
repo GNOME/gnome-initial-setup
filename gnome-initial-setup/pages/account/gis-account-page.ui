@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkListStore" id="account-username-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="enterprise-realms-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-      <!-- column-name gobject -->
-      <column type="GObject"/>
-    </columns>
-  </object>
-  <object class="GtkSizeGroup" id="account-password-strength-sizegroup">
-    <property name="mode">horizontal</property>
-    <property name="ignore_hidden">False</property>
-    <widgets>
-      <widget name="account-password-strength" />
-      <widget name="account-password-strength-sizer" />
-    </widgets>
-  </object>
   <object class="GtkBox" id="account-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -58,24 +36,31 @@
           <object class="GtkFrame" id="account-password-strength-sizer">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
             <property name="shadow_type">none</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="enterprise-button">
-            <property name="visible">True</property>
             <property name="label" translatable="yes">Use _Enterprise Login</property>
-            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
             <property name="halign">start</property>
             <property name="valign">end</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">6</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -148,8 +133,8 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="wrap">True</property>
             <property name="label" translatable="yes">This will be used to name your home folder and can't be changed.</property>
+            <property name="wrap">True</property>
             <style>
               <class name="dim-label"/>
             </style>
@@ -203,6 +188,8 @@
           <packing>
             <property name="left_attach">3</property>
             <property name="top_attach">3</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -240,8 +227,8 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="wrap">True</property>
             <property name="label" translatable="yes">Try to use at least 8 different characters. Mix upper and lower case and use a number or two.</property>
+            <property name="wrap">True</property>
             <style>
               <class name="dim-label"/>
             </style>
@@ -252,6 +239,51 @@
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
       <packing>
@@ -409,16 +441,23 @@
         </child>
         <child>
           <object class="GtkButton" id="local-button">
-            <property name="visible">True</property>
             <property name="label" translatable="yes">Use _Local Login</property>
-            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
             <property name="halign">start</property>
             <property name="valign">end</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
       <packing>
@@ -427,5 +466,25 @@
         <property name="position">2</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="account-username-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="enterprise-realms-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+      <!-- column-name gobject -->
+      <column type="GObject"/>
+    </columns>
+  </object>
+  <object class="GtkSizeGroup" id="account-password-strength-sizegroup">
+    <widgets>
+      <widget name="account-password-strength"/>
+      <widget name="account-password-strength-sizer"/>
+    </widgets>
   </object>
 </interface>
