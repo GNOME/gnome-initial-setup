@@ -15,6 +15,14 @@
       <column type="GObject"/>
     </columns>
   </object>
+  <object class="GtkSizeGroup" id="account-password-strength-sizegroup">
+    <property name="mode">horizontal</property>
+    <property name="ignore_hidden">False</property>
+    <widgets>
+      <widget name="account-password-strength" />
+      <widget name="account-password-strength-sizer" />
+    </widgets>
+  </object>
   <object class="GtkBox" id="account-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -96,6 +104,17 @@
             <property name="row_spacing">6</property>
             <property name="column_spacing">12</property>
             <child>
+              <object class="GtkFrame" id="account-password-strength-sizer">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="shadow_type">none</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="account-fullname-label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -105,7 +124,7 @@
                 <property name="mnemonic_widget">account-fullname-entry</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">0</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -118,7 +137,7 @@
                 <property name="halign">start</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">0</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -134,7 +153,7 @@
                 <property name="mnemonic_widget">account-username-combo</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -154,7 +173,7 @@
                 </child>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -172,7 +191,7 @@
                 </style>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">2</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -188,7 +207,7 @@
                 <property name="mnemonic_widget">account-password-entry</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -202,7 +221,7 @@
                 <property name="visibility">False</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -218,7 +237,7 @@
                 <property name="mode">discrete</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">3</property>
                 <property name="top_attach">3</property>
               </packing>
             </child>
@@ -232,7 +251,7 @@
                 <property name="mnemonic_widget">account-confirm-entry</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -246,7 +265,7 @@
                 <property name="visibility">False</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -264,7 +283,7 @@
                 </style>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">2</property>
                 <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
