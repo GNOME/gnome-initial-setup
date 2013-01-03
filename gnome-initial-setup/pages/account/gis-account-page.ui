@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkListStore" id="account-username-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="enterprise-realms-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+      <!-- column-name gobject -->
+      <column type="GObject"/>
+    </columns>
+  </object>
+  <object class="GtkSizeGroup" id="sizegroup">
+    <widgets>
+      <widget name="sizer1"/>
+      <widget name="sizer2"/>
+      <widget name="sizer3"/>
+      <widget name="sizer4"/>
+    </widgets>
+  </object>
   <object class="GtkBox" id="account-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -40,6 +62,29 @@
             <property name="height">1</property>
           </packing>
         </child>
+
+        <child>
+          <object class="GtkLabel" id="local-title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="margin_bottom">8</property>
+            <property name="hexpand">True</property>
+            <property name="label" translatable="yes">Create a Local Account</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+              <attribute name="scale" value="1.2"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+            <property name="width">2</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+
         <child>
           <object class="GtkButton" id="enterprise-button">
             <property name="label" translatable="yes">Use _Enterprise Login</property>
@@ -240,81 +285,6 @@
             <property name="height">1</property>
           </packing>
         </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <object class="GtkLabel" id="local-title">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="margin_bottom">8</property>
-            <property name="hexpand">True</property>
-            <property name="label" translatable="yes">Create a Local Account</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.2"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">0</property>
-            <property name="width">2</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -356,6 +326,29 @@
             <property name="height">1</property>
           </packing>
         </child>
+
+        <child>
+          <object class="GtkLabel" id="enterprise-title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="margin_bottom">8</property>
+            <property name="hexpand">True</property>
+            <property name="label" translatable="yes">Create an Enterprise Account</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+              <attribute name="scale" value="1.2"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+            <property name="width">2</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+
         <child>
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
@@ -463,9 +456,6 @@
           </packing>
         </child>
         <child>
-          <placeholder />
-        </child>
-        <child>
           <object class="GtkComboBox" id="enterprise-domain">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -506,48 +496,6 @@
             <property name="height">1</property>
           </packing>
         </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <object class="GtkLabel" id="enterprise-title">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="margin_bottom">8</property>
-            <property name="hexpand">True</property>
-            <property name="label" translatable="yes">Create an Enterprise Account</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.2"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">0</property>
-            <property name="width">2</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -555,27 +503,5 @@
         <property name="position">1</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkListStore" id="account-username-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="enterprise-realms-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-      <!-- column-name gobject -->
-      <column type="GObject"/>
-    </columns>
-  </object>
-  <object class="GtkSizeGroup" id="sizegroup">
-    <widgets>
-      <widget name="sizer1"/>
-      <widget name="sizer2"/>
-      <widget name="sizer3"/>
-      <widget name="sizer4"/>
-    </widgets>
   </object>
 </interface>
