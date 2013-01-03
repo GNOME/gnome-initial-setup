@@ -230,7 +230,7 @@ gis_eula_page_constructed (GObject *object)
   GtkWidget *vbox;
   GtkWidget *scrolled_window;
 
-  gboolean require_checkbox = TRUE;
+  gboolean require_checkbox = FALSE;
   gboolean require_scroll = FALSE;
 
   GFile *eula = priv->eula;
