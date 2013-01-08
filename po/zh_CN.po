@@ -2,15 +2,16 @@
 # Copyright (C) 2012 gnome-initial-setup's authors and contributors.
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Cheng Lu <chenglu1990@gmail.com>, 2012.
+# Aron Xu <aronxu@gnome.org>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-07-31 20:41+0000\n"
-"PO-Revision-Date: 2012-08-01 12:50+0800\n"
-"Last-Translator: Cheng Lu <chenglu1990@gmail.com>\n"
+"POT-Creation-Date: 2013-01-03 19:42+0000\n"
+"PO-Revision-Date: 2013-01-09 06:24+0800\n"
+"Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -22,128 +23,154 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "初始配置"
 
-#: ../gnome-initial-setup/gis-assistant.c:150
+#: ../gnome-initial-setup/gis-assistant.c:317
 msgid "_Next"
 msgstr "前进(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:151
+#: ../gnome-initial-setup/gis-assistant.c:318
 msgid "_Back"
 msgstr "返回(_B)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:209
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:310
 msgid "Passwords do not match"
 msgstr "密码不匹配"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:488
+msgid "Failed to register account"
+msgstr "注册帐号失败"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:551
+msgid "Failed to join domain"
+msgstr "加入域失败"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:606
+msgid "Failed to log into domain"
+msgstr "登录到域失败"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:895
 msgid "Login"
 msgstr "登录"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create Local Account"
-msgstr "建立本地帐号"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Done"
-msgstr "完成(_D)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "_Full Name"
-msgstr "全名(_F)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Username"
-msgstr "用户名(_U)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Require a password to use this account"
-msgstr "使用此帐号需要密码(_R)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid "_Password"
-msgstr "密码(_P)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "_Confirm Password"
-msgstr "确认密码(_C)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "_Act as administrator of this computer"
-msgstr "作为这台计算机的管理员(_A)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
-msgid "Choose How to Login"
-msgstr "选择如何登录"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Create a Local Account"
 msgstr "建立本地帐号"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Use an Enterprise Login"
-msgstr "使用企业登录"
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
+msgid "Use _Enterprise Login"
+msgstr "使用企业登录(_E)"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:93
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
+msgid "_Full Name"
+msgstr "全名(_F)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
+msgid "_Username"
+msgstr "用户名(_U)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+msgid "This will be used to name your home folder and can't be changed."
+msgstr "这将用于创建您的主目录并无法更改。"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+msgid "_Password"
+msgstr "密码(_P)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+msgid "_Confirm password"
+msgstr "确认密码(_C)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"请尽量使用至少 8 个不同的字符，并混用大小写字母和数字。"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+msgid "Create an Enterprise Account"
+msgstr "创建企业帐号"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+msgid "_Domain"
+msgstr "域(_D)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#| msgid "Login"
+msgid "_Login Name"
+msgstr "登录名(_L)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "Use _Local Login"
+msgstr "使用本地登录(_L)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Enterprise domain or realm name"
+msgstr "企业域或 realm 名称"
+
+#: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "太短"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:98
+#: ../gnome-initial-setup/pages/account/pw-utils.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "不够好"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:106
-#: ../gnome-initial-setup/pages/account/pw-utils.c:152
+#: ../gnome-initial-setup/pages/account/pw-utils.c:108
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "弱"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:108
-#: ../gnome-initial-setup/pages/account/pw-utils.c:154
+#: ../gnome-initial-setup/pages/account/pw-utils.c:111
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "一般"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:110
-#: ../gnome-initial-setup/pages/account/pw-utils.c:156
+#: ../gnome-initial-setup/pages/account/pw-utils.c:114
 msgctxt "Password strength"
 msgid "Good"
 msgstr "好"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:112
-#: ../gnome-initial-setup/pages/account/pw-utils.c:158
+#: ../gnome-initial-setup/pages/account/pw-utils.c:117
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "强"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:245
-msgid "Disable image"
-msgstr "禁用图像"
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#, c-format
+msgid "No such domain or realm found"
+msgstr "为找到此域或 realm"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:263
-msgid "Take a photo..."
-msgstr "拍照..."
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#, c-format
+msgid "Cannot log in as %s at the %s domain"
+msgstr "无法以 %s 在 %s 域登录"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:267
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+msgid "Invalid password, please try again"
+msgstr "密码错误，请重试"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#, c-format
+msgid "Couldn't connect to the %s domain: %s"
+msgstr "无法连接到 %s 域：%s"
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:268
 #, c-format
 msgid "A user with the username '%s' already exists"
-msgstr "用户名为“%s”的用户已存在"
+msgstr "名为 %s 的用户已存在"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:271
+#: ../gnome-initial-setup/pages/account/um-utils.c:272
 #, c-format
 msgid "The username is too long"
 msgstr "用户名太长"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:274
+#: ../gnome-initial-setup/pages/account/um-utils.c:275
 msgid "The username cannot start with a '-'"
 msgstr "用户名不能以“-”开头"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:277
+#: ../gnome-initial-setup/pages/account/um-utils.c:278
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -155,48 +182,46 @@ msgstr ""
 " ➣ 数字\n"
 " ➣ “.”、“-”或“_”"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:248
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:268
 msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
 msgstr "我已经同意该最终用户许可协议的条款及条件(_A)。"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:274
+#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:293
 msgid "License Agreements"
 msgstr "许可协议"
 
-#. translators: This is the title of the "Add Account" dialogue.
-#. * The title is not visible when using GNOME Shell
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:251
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:257
+#. translators: This is the title of the "Add Account" dialog.
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "添加帐号"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:79
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:102
 msgid "Error creating account"
 msgstr "建立帐号时出错"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:111
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:134
 msgid "Error removing account"
 msgstr "移除帐号时出错"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:160
 msgid "Are you sure you want to remove the account?"
 msgstr "您确定要移除这个帐号吗？"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:139
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:162
 msgid "This will not remove the account on the server."
 msgstr "这不会将该帐号从服务器上移除。"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:140
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
 msgid "_Remove"
 msgstr "移除(_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:209
 msgid "Remove"
 msgstr "移除"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:303
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:328
 msgid "Online Accounts"
 msgstr "在线帐号"
 
@@ -205,54 +230,52 @@ msgid "Link other accounts"
 msgstr "链接其他帐号"
 
 #. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:200
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
 msgid "English"
 msgstr "英语"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:202
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
 msgid "British English"
 msgstr "英国英语"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:205
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
 msgid "German"
 msgstr "德语"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:208
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
 msgid "French"
 msgstr "法语"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:211
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
 msgid "Spanish"
 msgstr "西班牙语"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:213
+#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
 msgid "Chinese (simplified)"
 msgstr "中文(简体)"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:781
+#: ../gnome-initial-setup/pages/language/gdm-languages.c:782
 msgid "Unspecified"
 msgstr "未指定"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:44
-msgid "Welcome"
-msgstr "欢迎"
-
-#. Translators: the parameter here is your language's name, like
-#. * "Use English", "Deutsch verwenden", etc.
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:95
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:117
 #, c-format
 msgid "Use %s"
 msgstr "使用 %s"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.ui.h:1
-msgid "Show _all"
-msgstr "全部显示(_A)"
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:148
+msgid "More…"
+msgstr "更多..."
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:274
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:295
+msgid "Welcome"
+msgstr "欢迎"
+
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:302
 msgid "Search for a location"
 msgstr "搜索位置"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:312
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:339
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "位置"
@@ -272,24 +295,24 @@ msgstr "时区"
 #. TRANSLATORS: this is when the access point is not listed
 #. *                           * in the dropdown (or hidden) and the user has to select
 #. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:239
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:263
 msgctxt "Wireless access point"
 msgid "Other..."
 msgstr "其他..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:342
 msgid "Network is not available."
 msgstr "网络不可用。"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:321
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "No network devices found."
 msgstr "未发现网络设备。"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:392
 msgid "Checking for available wireless networks"
 msgstr "正在检查可用的无线网络"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:707
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:689
 msgid "Network"
 msgstr "网络"
 
@@ -297,7 +320,7 @@ msgstr "网络"
 msgid "Wireless Networks"
 msgstr "无线网络"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:145
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:290
 msgid "Thank You"
 msgstr "谢谢"
 
@@ -324,3 +347,30 @@ msgstr "刚接触 GNOME 3，想熟悉一下它？"
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:6
 msgid "_Take a Tour"
 msgstr "游览(_T)"
+
+#~ msgid "Create Local Account"
+#~ msgstr "建立本地帐号"
+
+#~ msgid "_Cancel"
+#~ msgstr "取消(_C)"
+
+#~ msgid "_Done"
+#~ msgstr "完成(_D)"
+
+#~ msgid "_Require a password to use this account"
+#~ msgstr "使用此帐号需要密码(_R)"
+
+#~ msgid "_Act as administrator of this computer"
+#~ msgstr "作为这台计算机的管理员(_A)"
+
+#~ msgid "Choose How to Login"
+#~ msgstr "选择如何登录"
+
+#~ msgid "Disable image"
+#~ msgstr "禁用图像"
+
+#~ msgid "Take a photo..."
+#~ msgstr "拍照..."
+
+#~ msgid "Show _all"
+#~ msgstr "全部显示(_A)"
