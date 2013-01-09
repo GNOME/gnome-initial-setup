@@ -135,7 +135,6 @@ language_widget_new (char     *locale_id,
   widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
   gtk_container_add (GTK_CONTAINER (widget), gtk_label_new (locale_name));
 
-  g_print ("current: %s, adding: %s\n", current_locale_id, locale_id);
   if (g_strcmp0 (locale_id, current_locale_id) == 0)
     {
     gtk_container_add (GTK_CONTAINER (widget),
