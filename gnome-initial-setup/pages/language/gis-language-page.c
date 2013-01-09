@@ -138,21 +138,20 @@ language_widget_new (char     *locale_id,
   setlocale (LC_MESSAGES, current_locale_id);
 
   widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_container_add (GTK_CONTAINER (widget), gtk_label_new (locale_name));
+  gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
+  gtk_box_pack_start (GTK_BOX (widget), gtk_label_new (locale_name), FALSE, FALSE, 0);
 
   if (g_strcmp0 (locale_id, current_locale_id) == 0)
     {
-    gtk_container_add (GTK_CONTAINER (widget),
-                       gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU));
+      gtk_box_pack_start (GTK_BOX (widget),
+                          gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU),
+                          FALSE, FALSE, 0);
     }
   g_free (current_locale_id);
 
-  g_object_set_data (G_OBJECT (widget), "locale-id",
-                     locale_id);
-  g_object_set_data (G_OBJECT (widget), "locale-name",
-                     locale_name);
-  g_object_set_data (G_OBJECT (widget), "is-extra",
-                     GUINT_TO_POINTER (is_extra));
+  g_object_set_data (G_OBJECT (widget), "locale-id", locale_id);
+  g_object_set_data (G_OBJECT (widget), "locale-name", locale_name);
+  g_object_set_data (G_OBJECT (widget), "is-extra", GUINT_TO_POINTER (is_extra));
 
   return widget;
 }

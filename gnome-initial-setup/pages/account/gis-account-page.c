@@ -182,13 +182,15 @@ set_mode (GisAccountPage *page,
           UmAccountMode   mode)
 {
   GisAccountPagePrivate *priv = page->priv;
+  GtkWidget *nb;
 
   if (priv->mode == mode)
     return;
 
   priv->mode = mode;
-  gtk_widget_set_visible (WID ("local-area"), (mode == UM_LOCAL));
-  gtk_widget_set_visible (WID ("enterprise-area"), (mode == UM_ENTERPRISE));
+
+  nb = WID("account-notebook");
+  gtk_notebook_set_current_page (GTK_NOTEBOOK (nb), (mode == UM_LOCAL) ? 0 : 1);
 
   update_account_page_status (page);
 }
