@@ -127,10 +127,22 @@ language_widget_new (char     *locale_id,
 {
   gchar *locale_name;
   GtkWidget *widget;
+  gchar *current_locale_id = cc_common_language_get_current_language ();
 
   locale_name = use_language (locale_id);
+  setlocale (LC_MESSAGES, current_locale_id);
 
-  widget = gtk_label_new (locale_name);
+  widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  gtk_container_add (GTK_CONTAINER (widget), gtk_label_new (locale_name));
+
+  g_print ("current: %s, adding: %s\n", current_locale_id, locale_id);
+  if (g_strcmp0 (locale_id, current_locale_id) == 0)
+    {
+    gtk_container_add (GTK_CONTAINER (widget),
+                       gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU));
+    }
+  g_free (current_locale_id);
+
   g_object_set_data (G_OBJECT (widget), "locale-id",
                      locale_id);
   g_object_set_data (G_OBJECT (widget), "locale-name",
@@ -177,9 +189,6 @@ add_languages (GisLanguagePage *page,
 
     gtk_container_add (GTK_CONTAINER (priv->language_list),
                        widget);
-
-    if (strcmp (locale_id, orig_locale_id) == 0)
-      egg_list_box_select_child (EGG_LIST_BOX (priv->language_list), widget);
   }
 
   gtk_container_add (GTK_CONTAINER (priv->language_list),
@@ -241,9 +250,9 @@ show_more (GisLanguagePage *page)
 }
 
 static void
-selection_changed (EggListBox      *box,
-                   GtkWidget       *child,
-                   GisLanguagePage *page)
+child_activated (EggListBox      *box,
+                 GtkWidget       *child,
+                 GisLanguagePage *page)
 {
   gchar *new_locale_id;
 
@@ -277,18 +286,23 @@ gis_language_page_constructed (GObject *object)
   priv->language_list = WID ("language-list");
   priv->more_item = more_widget_new ();
 
+  egg_list_box_set_adjustment (EGG_LIST_BOX (priv->language_list),
+                               gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (WID ("language-scrolledwindow"))));
+
   egg_list_box_set_sort_func (EGG_LIST_BOX (priv->language_list),
                               sort_languages, page, NULL);
   egg_list_box_set_filter_func (EGG_LIST_BOX (priv->language_list),
                                 language_visible, page, NULL);
+  egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->language_list),
+                                   GTK_SELECTION_NONE);
   add_all_languages (page);
 
   g_signal_connect_swapped (priv->filter_entry, "changed",
                             G_CALLBACK (egg_list_box_refilter),
                             priv->language_list);
 
-  g_signal_connect (priv->language_list, "child-selected",
-                    G_CALLBACK (selection_changed), page);
+  g_signal_connect (priv->language_list, "child-activated",
+                    G_CALLBACK (child_activated), page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
   gis_page_set_use_arrow_buttons (GIS_PAGE (page), TRUE);
