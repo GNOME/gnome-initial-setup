@@ -65,8 +65,6 @@ char *       gis_page_get_title (GisPage *page);
 void         gis_page_set_title (GisPage *page, char *title);
 gboolean     gis_page_get_complete (GisPage *page);
 void         gis_page_set_complete (GisPage *page, gboolean complete);
-gboolean     gis_page_get_use_arrow_buttons (GisPage *page);
-void         gis_page_set_use_arrow_buttons (GisPage *page, gboolean use_arrow_buttons);
 
 G_END_DECLS
 

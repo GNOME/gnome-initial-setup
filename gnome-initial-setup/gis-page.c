@@ -36,7 +36,6 @@ struct _GisPagePrivate
   char *title;
 
   guint complete : 1;
-  guint use_arrow_buttons : 1;
   guint padding : 6;
 };
 
@@ -46,7 +45,6 @@ enum
   PROP_DRIVER,
   PROP_TITLE,
   PROP_COMPLETE,
-  PROP_USE_ARROW_BUTTONS,
   PROP_LAST,
 };
 
@@ -69,9 +67,6 @@ gis_page_get_property (GObject    *object,
       break;
     case PROP_COMPLETE:
       g_value_set_boolean (value, page->priv->complete);
-      break;
-    case PROP_USE_ARROW_BUTTONS:
-      g_value_set_boolean (value, page->priv->use_arrow_buttons);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -96,9 +91,6 @@ gis_page_set_property (GObject      *object,
       break;
     case PROP_COMPLETE:
       page->priv->complete = g_value_get_boolean (value);
-      break;
-    case PROP_USE_ARROW_BUTTONS:
-      page->priv->use_arrow_buttons = g_value_get_boolean (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -192,9 +184,6 @@ gis_page_class_init (GisPageClass *klass)
   obj_props[PROP_COMPLETE] =
     g_param_spec_boolean ("complete", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
-  obj_props[PROP_USE_ARROW_BUTTONS] =
-    g_param_spec_boolean ("use-arrow-buttons", "", "", FALSE,
-                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 
@@ -235,17 +224,4 @@ gis_page_set_complete (GisPage *page, gboolean complete)
 {
   page->priv->complete = complete;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_COMPLETE]);
-}
-
-gboolean
-gis_page_get_use_arrow_buttons (GisPage *page)
-{
-  return page->priv->use_arrow_buttons;
-}
-
-void
-gis_page_set_use_arrow_buttons (GisPage *page, gboolean use_arrow_buttons)
-{
-  page->priv->use_arrow_buttons = use_arrow_buttons;
-  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_USE_ARROW_BUTTONS]);
 }

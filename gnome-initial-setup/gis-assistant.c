@@ -50,22 +50,12 @@ enum {
 
 static guint signals[LAST_SIGNAL];
 
-typedef struct {
-  GtkWidget *action_area;
-  GtkWidget *forward;
-  GtkWidget *back;
-} Buttons;
-
 struct _GisAssistantPrivate
 {
   GtkWidget *frame;
   GtkWidget *forward;
   GtkWidget *back;
   GtkWidget *main_layout;
-
-  Buttons full_buttons;
-  Buttons symbolic_buttons;
-  Buttons *buttons;
 
   GList *pages;
   GisPage *current_page;
@@ -153,33 +143,19 @@ update_navigation_buttons (GisAssistant *assistant)
   GisPage *page = priv->current_page;
   GisAssistantPagePrivate *page_priv;
   gboolean can_go_forward, is_first_page, is_last_page;
-  Buttons *prev_buttons;
 
   if (page == NULL)
     return;
 
-  prev_buttons = priv->buttons;
-  if (gis_page_get_use_arrow_buttons (page)) {
-    priv->buttons = &priv->symbolic_buttons;
-  } else {
-    priv->buttons = &priv->full_buttons;
-  }
-
-  if (prev_buttons != priv->buttons) {
-    if (prev_buttons != NULL)
-      gtk_widget_hide (prev_buttons->action_area);
-    gtk_widget_show (priv->buttons->action_area);
-  }
-
   page_priv = page->assistant_priv;
 
   can_go_forward = gis_page_get_complete (page);
-  gtk_widget_set_sensitive (priv->buttons->forward, can_go_forward);
+  gtk_widget_set_sensitive (priv->forward, can_go_forward);
 
   is_first_page = (page_priv->link->prev == NULL);
   is_last_page = (page_priv->link->next == NULL);
-  gtk_widget_set_visible (priv->buttons->back, !is_first_page && !is_last_page);
-  gtk_widget_set_visible (priv->buttons->forward, !is_last_page);
+  gtk_widget_set_visible (priv->back, !is_first_page && !is_last_page);
+  gtk_widget_set_visible (priv->forward, !is_last_page);
 }
 
 static void
@@ -288,40 +264,19 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
   }
 }
 
-static void
-construct_buttons (GisAssistant *assistant,
-                   Buttons      *buttons)
-{
-  buttons->action_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_box_set_homogeneous (GTK_BOX (buttons->action_area), TRUE);
-  gtk_widget_set_halign (buttons->action_area, GTK_ALIGN_END);
-
-  buttons->forward = gtk_button_new ();
-  gtk_button_set_use_underline (GTK_BUTTON (buttons->forward), TRUE);
-  gtk_widget_set_can_default (buttons->forward, TRUE);
-
-  buttons->back = gtk_button_new ();
-  gtk_button_set_use_underline (GTK_BUTTON (buttons->back), TRUE);
-
-  gtk_box_pack_start (GTK_BOX (buttons->action_area), buttons->back, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (buttons->action_area), buttons->forward, FALSE, FALSE, 0);
-
-  g_signal_connect (buttons->forward, "clicked", G_CALLBACK (go_forward), assistant);
-  g_signal_connect (buttons->back, "clicked", G_CALLBACK (go_backward), assistant);
-}
-
 void
 gis_assistant_locale_changed (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  gtk_button_set_label (GTK_BUTTON (priv->full_buttons.forward), _("_Next"));
-  gtk_button_set_label (GTK_BUTTON (priv->full_buttons.back), _("_Back"));
+  gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
+  gtk_button_set_label (GTK_BUTTON (priv->back), _("_Back"));
 }
 
 static void
 gis_assistant_init (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = GET_PRIVATE (assistant);
+  GtkWidget *action_area;
   assistant->priv = priv;
 
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
@@ -331,25 +286,31 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_frame_set_shadow_type (GTK_FRAME (priv->frame), GTK_SHADOW_NONE);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
-  construct_buttons (assistant, &priv->full_buttons);
-  gtk_button_set_image (GTK_BUTTON (priv->full_buttons.forward),
-                        gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
-  gtk_button_set_image (GTK_BUTTON (priv->full_buttons.back),
-                        gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
-  gis_assistant_locale_changed (assistant);
-  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->full_buttons.action_area, FALSE, TRUE, 0);
+  action_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  gtk_box_set_homogeneous (GTK_BOX (action_area), TRUE);
+  gtk_widget_set_halign (action_area, GTK_ALIGN_END);
 
-  construct_buttons (assistant, &priv->symbolic_buttons);
-  gtk_button_set_image (GTK_BUTTON (priv->symbolic_buttons.forward),
-                        gtk_image_new_from_icon_name ("go-next-symbolic", GTK_ICON_SIZE_MENU));
-  gtk_button_set_image (GTK_BUTTON (priv->symbolic_buttons.back),
-                        gtk_image_new_from_icon_name ("go-previous-symbolic", GTK_ICON_SIZE_MENU));
-  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->symbolic_buttons.action_area, FALSE, TRUE, 0);
+  priv->forward = gtk_button_new ();
+  gtk_button_set_image (GTK_BUTTON (priv->forward),
+                        gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
+  gtk_button_set_use_underline (GTK_BUTTON (priv->forward), TRUE);
+  gtk_widget_set_can_default (priv->forward, TRUE);
+
+  priv->back = gtk_button_new ();
+  gtk_button_set_image (GTK_BUTTON (priv->back),
+                        gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
+  gtk_button_set_use_underline (GTK_BUTTON (priv->back), TRUE);
+
+  gtk_box_pack_start (GTK_BOX (action_area), priv->back, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (action_area), priv->forward, FALSE, FALSE, 0);
+
+  g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
+  g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
+
+  gis_assistant_locale_changed (assistant);
+  gtk_box_pack_start (GTK_BOX (priv->main_layout), action_area, FALSE, TRUE, 0);
 
   gtk_widget_show_all (GTK_WIDGET (assistant));
-
-  gtk_widget_hide (priv->full_buttons.action_area);
-  gtk_widget_hide (priv->symbolic_buttons.action_area);
 }
 
 static void
