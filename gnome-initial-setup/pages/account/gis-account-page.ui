@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkListStore" id="account-username-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="enterprise-realms-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+      <!-- column-name gobject -->
+      <column type="GObject"/>
+    </columns>
+  </object>
+  <object class="GtkSizeGroup" id="sizegroup">
+    <widgets>
+      <widget name="sizer1"/>
+      <widget name="sizer2"/>
+      <widget name="sizer3"/>
+      <widget name="sizer4"/>
+      <widget name="account-password-strength"/>
+    </widgets>
+  </object>
+  <object class="GtkSizeGroup" id="sizegroup1">
+    <widgets>
+      <widget name="account-fullname-label"/>
+      <widget name="account-username-label"/>
+      <widget name="account-password-label"/>
+      <widget name="account-confirm-label"/>
+      <widget name="label4"/>
+      <widget name="label8"/>
+      <widget name="label9"/>
+    </widgets>
+  </object>
   <object class="GtkBox" id="account-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -46,6 +80,7 @@
                 <property name="height">1</property>
               </packing>
             </child>
+
             <child>
               <object class="GtkLabel" id="local-title">
                 <property name="visible">True</property>
@@ -67,6 +102,7 @@
                 <property name="height">1</property>
               </packing>
             </child>
+
             <child>
               <object class="GtkButton" id="enterprise-button">
                 <property name="label" translatable="yes">Use _Enterprise Login</property>
@@ -163,7 +199,7 @@
                   <class name="dim-label"/>
                 </style>
                 <attributes>
-                  <attribute name="scale" value="0.80000000000000004"/>
+                  <attribute name="scale" value="0.8"/>
                 </attributes>
               </object>
               <packing>
@@ -264,7 +300,7 @@
                   <class name="dim-label"/>
                 </style>
                 <attributes>
-                  <attribute name="scale" value="0.80000000000000004"/>
+                  <attribute name="scale" value="0.8"/>
                 </attributes>
               </object>
               <packing>
@@ -273,54 +309,6 @@
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
         </child>
@@ -369,6 +357,7 @@
                 <property name="height">1</property>
               </packing>
             </child>
+
             <child>
               <object class="GtkLabel" id="enterprise-title">
                 <property name="visible">True</property>
@@ -390,6 +379,7 @@
                 <property name="height">1</property>
               </packing>
             </child>
+
             <child>
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
@@ -528,7 +518,7 @@
                   <class name="dim-label"/>
                 </style>
                 <attributes>
-                  <attribute name="scale" value="0.80000000000000004"/>
+                  <attribute name="scale" value="0.8"/>
                 </attributes>
               </object>
               <packing>
@@ -538,112 +528,12 @@
                 <property name="height">1</property>
               </packing>
             </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
           </object>
           <packing>
             <property name="position">1</property>
-          </packing>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">page 2</property>
-          </object>
-          <packing>
-            <property name="position">1</property>
-            <property name="tab_fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel" id="label3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">page 3</property>
-          </object>
-          <packing>
-            <property name="position">2</property>
-            <property name="tab_fill">False</property>
           </packing>
         </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
     </child>
-  </object>
-  <object class="GtkListStore" id="account-username-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="enterprise-realms-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-      <!-- column-name gobject -->
-      <column type="GObject"/>
-    </columns>
-  </object>
-  <object class="GtkSizeGroup" id="sizegroup">
-    <widgets>
-      <widget name="sizer1"/>
-      <widget name="sizer2"/>
-      <widget name="sizer3"/>
-      <widget name="sizer4"/>
-      <widget name="account-password-strength"/>
-    </widgets>
-  </object>
-  <object class="GtkSizeGroup" id="sizegroup1">
-    <widgets>
-      <widget name="account-fullname-label"/>
-      <widget name="account-username-label"/>
-      <widget name="account-password-label"/>
-      <widget name="account-confirm-label"/>
-      <widget name="label4"/>
-      <widget name="label8"/>
-      <widget name="label9"/>
-    </widgets>
   </object>
 </interface>
