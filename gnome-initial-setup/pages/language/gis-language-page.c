@@ -61,8 +61,13 @@ struct _GisLanguagePagePrivate
   GtkWidget *filter_entry;
   GtkWidget *language_list;
   gboolean adding_languages;
-  gboolean showing_extra;
 };
+
+/* We keep this outside the private struct, so that it survives
+ * reconstructing the pages. Otherwise, the ... 'snaps back'
+ * whenever you select a different language.
+ */
+static gboolean showing_extra;
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -221,7 +226,7 @@ language_visible (GtkWidget *child,
   gboolean is_extra;
 
   if (child == page->priv->more_item)
-    return !page->priv->showing_extra;
+    return !showing_extra;
 
   is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
   locale_name = g_object_get_data (G_OBJECT (child), "locale-name");
@@ -230,7 +235,7 @@ language_visible (GtkWidget *child,
   if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
     return FALSE;
 
-  if (!page->priv->showing_extra && !is_extra)
+  if (!showing_extra && !is_extra)
     return FALSE;
 
   return TRUE;
@@ -243,7 +248,7 @@ show_more (GisLanguagePage *page)
 
   gtk_widget_show (priv->filter_entry);
 
-  page->priv->showing_extra = TRUE;
+  showing_extra = TRUE;
 
   egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 }
