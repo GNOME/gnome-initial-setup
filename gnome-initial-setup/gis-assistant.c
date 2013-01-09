@@ -159,8 +159,8 @@ update_navigation_buttons (GisAssistant *assistant)
 }
 
 static void
-gis_assistant_prepare (GisAssistant *assistant,
-                       GisPage      *page)
+gis_assistant_real_prepare (GisAssistant *assistant,
+                            GisPage      *page)
 {
   update_navigation_buttons (assistant);
 }
@@ -342,7 +342,7 @@ gis_assistant_class_init (GisAssistantClass *klass)
 
   gobject_class->get_property = gis_assistant_get_property;
 
-  klass->prepare = gis_assistant_prepare;
+  klass->prepare = gis_assistant_real_prepare;
   klass->next_page = gis_assistant_real_next_page;
 
   obj_props[PROP_TITLE] =
