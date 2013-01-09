@@ -50,6 +50,7 @@
 static void
 rebuild_pages_cb (GisDriver *driver)
 {
+  gis_assistant_destroy_all_pages (gis_driver_get_assistant (driver));
   gis_prepare_language_page (driver);
   gis_prepare_eula_pages (driver);
   gis_prepare_network_page (driver);

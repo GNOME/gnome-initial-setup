@@ -190,13 +190,6 @@ gis_driver_startup (GApplication *app)
 }
 
 static void
-gis_driver_real_rebuild_pages (GisDriver *driver)
-{
-  GisDriverPrivate *priv = driver->priv;
-  gis_assistant_destroy_all_pages (priv->assistant);
-}
-
-static void
 gis_driver_init (GisDriver *driver)
 {
   driver->priv = GET_PRIVATE (driver);
@@ -212,7 +205,6 @@ gis_driver_class_init (GisDriverClass *klass)
   application_class->startup = gis_driver_startup;
   application_class->activate = gis_driver_activate;
 
-  klass->rebuild_pages = gis_driver_real_rebuild_pages;
   signals[REBUILD_PAGES] =
     g_signal_new ("rebuild-pages",
                   G_TYPE_FROM_CLASS (klass),
