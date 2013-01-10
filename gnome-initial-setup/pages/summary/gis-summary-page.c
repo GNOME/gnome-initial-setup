@@ -205,20 +205,7 @@ remove_trigger_file (GisSummaryPage *page)
 }
 
 static void
-byebye (GisSummaryPage *page)
-{
-  remove_trigger_file (page);
-  log_user_in (page);
-}
-
-static void
-byebye_cb (GtkButton *button, GisSummaryPage *page)
-{
-  byebye (page);
-}
-
-static void
-tour_cb (GtkButton *button, GisSummaryPage *page)
+done_cb (GtkButton *button, GisSummaryPage *page)
 {
   gchar *file;
 
@@ -226,7 +213,9 @@ tour_cb (GtkButton *button, GisSummaryPage *page)
   file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
   g_file_set_contents (file, "yes", -1, NULL);
   g_free (file);
-  byebye (page);
+
+  remove_trigger_file (page);
+  log_user_in (page);
 }
 
 static void
@@ -284,7 +273,7 @@ gis_summary_page_constructed (GObject *object)
 
   g_signal_connect_object (assistant, "prepare", G_CALLBACK (prepare_cb), page, 0);
 
-  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (tour_cb), page);
+  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (done_cb), page);
 
   gis_page_set_title (GIS_PAGE (page), _("Thank You"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
