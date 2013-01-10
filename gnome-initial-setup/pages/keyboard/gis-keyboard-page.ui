@@ -4,7 +4,6 @@
   <object class="GtkVBox" id="keyboard-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="spacing">12</property>
     <property name="margin-left">80</property>
     <property name="margin-right">80</property>
     <child>
@@ -12,7 +11,14 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="xalign">0</property>
-        <property name="label" translatable="yes">Select keyboards or other input sources</property>
+        <property name="label" translatable="yes">Select input sources</property>
+        <property name="halign">start</property>
+        <property name="valign">start</property>
+        <property name="margin-bottom">18</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.2"/>
+        </attributes>
       </object>
       <packing>
         <property name="expand">False</property>
