@@ -139,6 +139,8 @@ language_widget_new (char     *locale_id,
 
   widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
   gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
+  gtk_widget_set_margin_top (widget, 10);
+  gtk_widget_set_margin_bottom (widget, 10);
   gtk_box_pack_start (GTK_BOX (widget), gtk_label_new (locale_name), FALSE, FALSE, 0);
 
   if (g_strcmp0 (locale_id, current_locale_id) == 0)
