@@ -2,9 +2,6 @@
 noinst_LTLIBRARIES = libgisnetwork.la
 
 libgisnetwork_la_SOURCES =	\
-	panel-cell-renderer-signal.c panel-cell-renderer-signal.h \
-	panel-cell-renderer-mode.c panel-cell-renderer-mode.h \
-	panel-cell-renderer-security.c panel-cell-renderer-security.h \
 	network-dialogs.c network-dialogs.h \
 	gis-network-page.c gis-network-page.h
 

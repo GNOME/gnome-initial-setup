@@ -33,6 +33,8 @@
 
 #include <gtk/gtk.h>
 
+#include <egg-list-box.h>
+
 #include <nm-client.h>
 #include <nm-device-wifi.h>
 #include <nm-access-point.h>
@@ -53,11 +55,8 @@ struct _GisNetworkPagePrivate {
   NMClient *nm_client;
   NMRemoteSettings *nm_settings;
   NMDevice *nm_device;
-  GtkListStore *ap_list;
   gboolean refreshing;
-
-  GtkTreeRowReference *row;
-  guint pulse;
+  GtkSizeGroup *icons;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
@@ -155,29 +154,35 @@ get_access_point_security (NMAccessPoint *ap)
   return type;
 }
 
-static gboolean
-bump_pulse (gpointer user_data)
+static gint
+ap_sort (gconstpointer a, gconstpointer b, gpointer data)
 {
-  GisNetworkPage *page = user_data;
-  GisNetworkPagePrivate *priv = page->priv;
-  GtkTreeIter iter;
-  GtkTreePath *path;
-  GtkTreeModel *model;
+        gboolean aa, ab;
+        guint sa, sb;
 
-  priv->pulse++;
+        sa = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (a), "strength"));
+        sb = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (b), "strength"));
+        if (sa > sb) return -1;
+        if (sb > sa) return 1;
 
-  if (priv->refreshing || !gtk_tree_row_reference_valid (priv->row))
-    return FALSE;
+        return 0;
+}
 
-  model = (GtkTreeModel *)priv->ap_list;
-  path = gtk_tree_row_reference_get_path (priv->row);
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_path_free (path);
-  gtk_list_store_set (priv->ap_list, &iter,
-                      PANEL_WIRELESS_COLUMN_PULSE, priv->pulse,
-                      -1);
+static void
+update_separator (GtkWidget **separator,
+                  GtkWidget  *child,
+                  GtkWidget  *before,
+                  gpointer    user_data)
+{
+  if (before == NULL)
+    return;
 
-  return TRUE;
+  if (*separator == NULL)
+    {
+      *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+      gtk_widget_show (*separator);
+      g_object_ref_sink (*separator);
+    }
 }
 
 static void
@@ -187,8 +192,14 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   const GByteArray *ssid;
   const gchar *ssid_text;
   const gchar *object_path;
-  GtkTreeIter iter;
   gboolean activated, activating;
+  guint security;
+  guint strength;
+  const gchar *icon_name;
+  GtkWidget *row;
+  GtkWidget *widget;
+  GtkWidget *box;
+  GtkWidget *list;
 
   ssid = nm_access_point_get_ssid (ap);
   object_path = nm_object_get_path (NM_OBJECT (ap));
@@ -223,95 +234,94 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
     activating = FALSE;
   }
 
-  gtk_list_store_append (priv->ap_list, &iter);
-  gtk_list_store_set (priv->ap_list, &iter,
-                      PANEL_WIRELESS_COLUMN_ID, object_path,
-                      PANEL_WIRELESS_COLUMN_TITLE, ssid_text,
-                      PANEL_WIRELESS_COLUMN_STRENGTH, nm_access_point_get_strength (ap),
-                      PANEL_WIRELESS_COLUMN_MODE, nm_access_point_get_mode (ap),
-                      PANEL_WIRELESS_COLUMN_SECURITY, get_access_point_security (ap),
-                      PANEL_WIRELESS_COLUMN_ACTIVATING, activating,
-                      PANEL_WIRELESS_COLUMN_ACTIVE, activated,
-                      PANEL_WIRELESS_COLUMN_PULSE, priv->pulse,
-                      -1);
-  if (activating) {
-    GtkTreePath *path;
-    GtkTreeModel *model;
+  security = get_access_point_security (ap);
+  strength = nm_access_point_get_strength (ap);
 
-    model = (GtkTreeModel*)priv->ap_list;
-    path = gtk_tree_model_get_path (model, &iter);
-    priv->row = gtk_tree_row_reference_new (model, path);
-    gtk_tree_path_free (path);
+  row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+  gtk_widget_set_margin_left (row, 12);
+  gtk_widget_set_margin_right (row, 12);
+  widget = gtk_label_new (ssid_text);
+  gtk_widget_set_margin_top (widget, 12);
+  gtk_widget_set_margin_bottom (widget, 12);
+  gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
 
-    g_timeout_add (160, bump_pulse, page);
+  if (activated) {
+    widget = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+    gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign (widget, GTK_ALIGN_CENTER);
+    gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
   }
+
+  widget = gtk_spinner_new ();
+  gtk_widget_set_no_show_all (widget, TRUE);
+  if (activating) {
+    gtk_widget_show (widget);
+    gtk_spinner_start (GTK_SPINNER (widget));
+  }
+  gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (widget, GTK_ALIGN_CENTER);
+  gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
+
+  gtk_box_pack_start (GTK_BOX (row), gtk_label_new (""), TRUE, FALSE, 0);
+
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  gtk_box_set_homogeneous (GTK_BOX (box), TRUE);
+  gtk_size_group_add_widget (priv->icons, box);
+  gtk_box_pack_start (GTK_BOX (row), box, FALSE, FALSE, 0);
+
+  if (security != NM_AP_SEC_UNKNOWN &&
+      security != NM_AP_SEC_NONE) {
+    widget = gtk_image_new_from_icon_name ("network-wireless-encrypted-symbolic", GTK_ICON_SIZE_MENU);
+  } else {
+    widget = gtk_label_new ("");
+  }
+  gtk_box_pack_start (GTK_BOX (box), widget, FALSE, FALSE, 0);
+
+  if (strength < 20)
+    icon_name = "network-wireless-signal-none-symbolic";
+  else if (strength < 40)
+    icon_name = "network-wireless-signal-weak-symbolic";
+  else if (strength < 50)
+    icon_name = "network-wireless-signal-ok-symbolic";
+  else if (strength < 80)
+    icon_name = "network-wireless-signal-good-symbolic";
+  else
+    icon_name = "network-wireless-signal-excellent-symbolic";
+  widget = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
+  gtk_box_pack_start (GTK_BOX (box), widget, FALSE, FALSE, 0);
+
+  gtk_widget_show_all (row);
+
+  g_object_set_data (G_OBJECT (row), "object-path", (gpointer)object_path);
+  g_object_set_data (G_OBJECT (row), "ssid", (gpointer)ssid_text);
+  g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
+
+  list = WID ("network-list");
+  gtk_container_add (GTK_CONTAINER (list), row);
 }
 
 static void
 add_access_point_other (GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = page->priv;
-  GtkTreeIter iter;
+  GtkWidget *row;
+  GtkWidget *widget;
+  GtkWidget *list;
 
-  gtk_list_store_append (priv->ap_list, &iter);
-  gtk_list_store_set (priv->ap_list, &iter,
-                      PANEL_WIRELESS_COLUMN_ID, "ap-other...",
-                      /* TRANSLATORS: this is when the access point is not listed
-                       *                           * in the dropdown (or hidden) and the user has to select
-                       *                           * another entry manually */
+  row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+  gtk_widget_set_margin_left (row, 12);
+  gtk_widget_set_margin_right (row, 12);
+  widget = gtk_label_new (C_("Wireless access point", "Other…"));
+  gtk_widget_set_margin_top (widget, 12);
+  gtk_widget_set_margin_bottom (widget, 12);
+  gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
+  gtk_widget_show_all (row);
 
-                      PANEL_WIRELESS_COLUMN_TITLE, C_("Wireless access point", "Other..."),
-                      /* always last */
-                      PANEL_WIRELESS_COLUMN_STRENGTH, 0,
-                      PANEL_WIRELESS_COLUMN_MODE, NM_802_11_MODE_UNKNOWN,
-                      PANEL_WIRELESS_COLUMN_SECURITY, NM_AP_SEC_UNKNOWN,
-                      PANEL_WIRELESS_COLUMN_ACTIVATING, FALSE,
-                      PANEL_WIRELESS_COLUMN_ACTIVE, FALSE,
-                      PANEL_WIRELESS_COLUMN_PULSE, priv->pulse,
-                      -1);
-}
+  g_object_set_data (G_OBJECT (row), "object-path", "ap-other...");
+  g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (0));
 
-static void
-select_and_scroll_to_ap (GisNetworkPage *page, NMAccessPoint *ap)
-{
-  GisNetworkPagePrivate *priv = page->priv;
-  GtkTreeModel *model;
-  GtkTreeView *tv;
-  GtkTreeViewColumn *col;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  GtkTreePath *path;
-  gchar *ssid_target;
-  const GByteArray *ssid;
-  const gchar *ssid_text;
-
-  model = (GtkTreeModel *)priv->ap_list;
-
-  if (!gtk_tree_model_get_iter_first (model, &iter))
-    return;
-
-  tv = OBJ(GtkTreeView*, "network-list");
-  col = OBJ(GtkTreeViewColumn*, "network-list-column");
-  selection = OBJ(GtkTreeSelection*, "network-list-selection");
-
-  ssid = nm_access_point_get_ssid (ap);
-  ssid_text = nm_utils_escape_ssid (ssid->data, ssid->len);
-
-  do {
-    gtk_tree_model_get (model, &iter,
-                        PANEL_WIRELESS_COLUMN_TITLE, &ssid_target,
-                        -1);
-    if (g_strcmp0 (ssid_target, ssid_text) == 0) {
-      g_free (ssid_target);
-      gtk_tree_selection_select_iter (selection, &iter);
-      path = gtk_tree_model_get_path (model, &iter);
-      gtk_tree_view_scroll_to_cell (tv, path, col, FALSE, 0, 0);
-      gtk_tree_path_free (path);
-      break;
-    }
-    g_free (ssid_target);
-
-  } while (gtk_tree_model_iter_next (model, &iter));
+  list = WID("network-list");
+  gtk_container_add (GTK_CONTAINER (list), row);
 }
 
 static void refresh_wireless_list (GisNetworkPage *page);
@@ -361,6 +371,8 @@ refresh_wireless_list (GisNetworkPage *page)
   GtkWidget *label;
   GtkWidget *spinner;
   GtkWidget *swin;
+  GList *children, *l;
+  GtkWidget *list;
 
   priv->refreshing = TRUE;
 
@@ -369,12 +381,12 @@ refresh_wireless_list (GisNetworkPage *page)
 
     active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
 
-    gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), NULL);
-    gtk_list_store_clear (priv->ap_list);
-    if (priv->row) {
-      gtk_tree_row_reference_free (priv->row);
-      priv->row = NULL;
+    list = WID ("network-list");
+    children = gtk_container_get_children (GTK_CONTAINER (list));
+    for (l = children; l; l = l->next) {
+      gtk_container_remove (GTK_CONTAINER (list), l->data);
     }
+    g_list_free (children);
 
     aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (priv->nm_device));
   }
@@ -412,11 +424,6 @@ refresh_wireless_list (GisNetworkPage *page)
   add_access_point_other (page);
 
  out:
-  gtk_tree_view_set_model (OBJ(GtkTreeView*, "network-list"), (GtkTreeModel*)priv->ap_list);
-
-  if (active_ap)
-    select_and_scroll_to_ap (page, active_ap);
-
   priv->refreshing = FALSE;
 }
 
@@ -463,11 +470,9 @@ connect_to_hidden_network (GisNetworkPage *page)
 }
 
 static void
-wireless_selection_changed (GtkTreeSelection *selection, GisNetworkPage *page)
+child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = page->priv;
-  GtkTreeModel *model;
-  GtkTreeIter iter;
   gchar *object_path;
   gchar *ssid_target;
   GSList *list, *filtered, *l;
@@ -480,17 +485,8 @@ wireless_selection_changed (GtkTreeSelection *selection, GisNetworkPage *page)
   if (priv->refreshing)
     return;
 
-  if (!gtk_tree_selection_get_selected (selection, &model, &iter))
-    return;
-
-  gtk_tree_model_get (model, &iter,
-                      PANEL_WIRELESS_COLUMN_ID, &object_path,
-                      PANEL_WIRELESS_COLUMN_TITLE, &ssid_target,
-                      -1);
-
-  gtk_list_store_set (priv->ap_list, &iter,
-                      PANEL_WIRELESS_COLUMN_ACTIVATING, TRUE,
-                      -1);
+  object_path = g_object_get_data (G_OBJECT (child), "object-path");
+  ssid = g_object_get_data (G_OBJECT (child), "ssid");
 
   if (g_strcmp0 (object_path, "ap-other...") == 0) {
     connect_to_hidden_network (page);
@@ -534,9 +530,6 @@ wireless_selection_changed (GtkTreeSelection *selection, GisNetworkPage *page)
                                          connection_add_activate_cb, page);
 
  out:
-  g_free (object_path);
-  g_free (ssid_target);
-
   refresh_wireless_list (page);
 }
 
@@ -572,72 +565,19 @@ gis_network_page_constructed (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
   GisNetworkPagePrivate *priv = page->priv;
-  GtkTreeViewColumn *col;
-  GtkCellRenderer *cell;
-  GtkTreeSortable *sortable;
-  GtkTreeSelection *selection;
   const GPtrArray *devices;
   NMDevice *device;
   guint i;
   DBusGConnection *bus;
   GError *error;
   gboolean visible = TRUE;
+  GtkWidget *box;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
 
   gtk_container_add (GTK_CONTAINER (page), WID ("network-page"));
 
-  col = OBJ(GtkTreeViewColumn*, "network-list-column");
-
-  cell = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-  g_object_set (cell, "text", "✓", NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                  "visible", PANEL_WIRELESS_COLUMN_ACTIVE,
-                                  NULL);
-  cell = gtk_cell_renderer_spinner_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-  gtk_cell_area_cell_set (gtk_cell_layout_get_area (GTK_CELL_LAYOUT (col)), cell, "align", FALSE, NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                  "active", PANEL_WIRELESS_COLUMN_ACTIVATING,
-                                  "visible", PANEL_WIRELESS_COLUMN_ACTIVATING,
-                                  "pulse", PANEL_WIRELESS_COLUMN_PULSE,
-                                  NULL);
-
-  cell = gtk_cell_renderer_text_new ();
-  g_object_set (cell, "width", 400, "width-chars", 45, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, TRUE);
-  gtk_cell_area_cell_set (gtk_cell_layout_get_area (GTK_CELL_LAYOUT (col)), cell, "align", TRUE, NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                  "text", PANEL_WIRELESS_COLUMN_TITLE,
-                                  NULL);
-
-  cell = panel_cell_renderer_mode_new ();
-  gtk_cell_renderer_set_padding (cell, 4, 0);
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                  "mode", PANEL_WIRELESS_COLUMN_MODE,
-                                  NULL);
-
-  cell = panel_cell_renderer_signal_new ();
-  gtk_cell_renderer_set_padding (cell, 4, 0);
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                  "signal", PANEL_WIRELESS_COLUMN_STRENGTH,
-                                  NULL);
-
-  cell = panel_cell_renderer_security_new ();
-  gtk_cell_renderer_set_padding (cell, 4, 0);
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (col), cell, FALSE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (col), cell,
-                                  "security", PANEL_WIRELESS_COLUMN_SECURITY,
-                                  NULL);
-
-  priv->ap_list = g_object_ref (OBJ(GtkListStore *, "liststore-wireless"));
-  sortable = GTK_TREE_SORTABLE (priv->ap_list);
-  gtk_tree_sortable_set_sort_column_id (sortable,
-                                        PANEL_WIRELESS_COLUMN_STRENGTH,
-                                        GTK_SORT_DESCENDING);
+  priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
   priv->nm_client = nm_client_new ();
 
@@ -679,10 +619,15 @@ gis_network_page_constructed (GObject *object)
   }
   priv->nm_settings = nm_remote_settings_new (bus);
 
-  selection = OBJ(GtkTreeSelection*, "network-list-selection");
+  box = WID ("network-list");
 
-  g_signal_connect (selection, "changed",
-                    G_CALLBACK (wireless_selection_changed), page);
+  egg_list_box_set_selection_mode (EGG_LIST_BOX (box), GTK_SELECTION_NONE);
+  egg_list_box_set_separator_funcs (EGG_LIST_BOX (box), update_separator, NULL, NULL);
+  egg_list_box_set_sort_func (EGG_LIST_BOX (box), ap_sort, NULL, NULL);
+  egg_list_box_set_adjustment (EGG_LIST_BOX (box), gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (WID ("network-scrolledwindow"))));
+
+  g_signal_connect (box, "child-activated",
+                    G_CALLBACK (child_activated), page);
 
   refresh_wireless_list (page);
 
@@ -702,8 +647,7 @@ gis_network_page_dispose (GObject *object)
   g_clear_object (&priv->nm_client);
   g_clear_object (&priv->nm_settings);
   g_clear_object (&priv->nm_device);
-  g_clear_object (&priv->ap_list);
-  g_clear_pointer (&priv->row, gtk_tree_row_reference_free);
+  g_clear_object (&priv->icons);
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->dispose (object);
 }

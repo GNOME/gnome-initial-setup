@@ -1,25 +1,13 @@
 <?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <object class="GtkListStore" id="liststore-wireless">
-    <columns>
-      <column type="gchararray"/> <!-- column-name id -->
-      <column type="gchararray"/> <!-- column-name title -->
-      <column type="guint"/>      <!-- column-name strength -->
-      <column type="guint"/>      <!-- column-name mode -->
-      <column type="guint"/>      <!-- column-name security -->
-      <column type="gboolean"/>   <!-- column-name activating -->
-      <column type="gboolean"/>   <!-- column-name active -->
-      <column type="guint"/>      <!-- column-name pulse -->
-    </columns>
-  </object>
   <object class="GtkGrid" id="network-page">
     <property name="name">network-page</property>
     <property name="visible">True</property>
-    <property name="margin-left">48</property>
-    <property name="margin-right">48</property>
-    <property name="margin-bottom">48</property>
-    <property name="halign">center</property>
+    <property name="margin-left">80</property>
+    <property name="margin-right">80</property>
+    <property name="margin-bottom">20</property>
+    <property name="halign">fill</property>
     <child>
       <object class="GtkLabel" id="network-title">
         <property name="visible">True</property>
@@ -49,24 +37,16 @@
         <property name="vscrollbar-policy">automatic</property>
         <property name="shadow-type">in</property>
         <child>
-          <object class="GtkTreeView" id="network-list">
+          <object class="GtkViewport" id="viewport1">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="vexpand">True</property>
-            <property name="halign">fill</property>
-            <property name="valign">fill</property>
-            <property name="model">liststore-wireless</property>
-            <property name="headers-visible">False</property>
-            <property name="search-column">2</property>
-            <property name="enable-grid-lines">horizontal</property>
-            <property name="show-expanders">False</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection" id="network-list-selection">
-                <property name="mode">single</property>
-              </object>
-            </child>
             <child>
-              <object class="GtkTreeViewColumn" id="network-list-column"/>
+               <object class="EggListBox" id="network-list">
+                 <property name="visible">True</property>
+                 <property name="vexpand">True</property>
+                 <property name="hexpand">True</property>
+                 <property name="halign">fill</property>
+                 <property name="valign">fill</property>
+              </object>
             </child>
           </object>
         </child>
