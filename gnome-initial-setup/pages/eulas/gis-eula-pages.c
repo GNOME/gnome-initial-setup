@@ -375,7 +375,7 @@ gis_eula_page_init (GisEulaPage *page)
 }
 
 void
-gis_prepare_eula_pages (GisDriver *driver)
+gis_prepare_eula_page (GisDriver *driver)
 {
   gchar *eulas_dir_path;
   GFile *eulas_dir;

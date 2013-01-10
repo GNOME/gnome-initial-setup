@@ -55,7 +55,7 @@ struct _GisEulaPageClass
 
 GType gis_eula_page_get_type (void);
 
-void gis_prepare_eula_pages (GisDriver *driver);
+void gis_prepare_eula_page (GisDriver *driver);
 
 G_END_DECLS
 
