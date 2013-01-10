@@ -33,6 +33,8 @@
 #define GOA_BACKEND_API_IS_SUBJECT_TO_CHANGE
 #include <goabackend/goabackend.h>
 
+#include <egg-list-box.h>
+
 #include "cc-online-accounts-add-account-dialog.h"
 
 #include <glib/gi18n.h>
@@ -174,6 +176,17 @@ confirm_remove_account (GtkButton *button, gpointer user_data)
     }
 }
 
+static void
+update_visibility (GisGoaPage *page)
+{
+  GisGoaPagePrivate *priv = page->priv;
+  GList *accounts;
+
+  accounts = goa_client_get_accounts (priv->goa_client);
+  gtk_widget_set_visible (WID ("online-accounts-label"), accounts == NULL);
+  gtk_widget_set_visible (WID ("online-accounts-frame"), accounts != NULL);
+  g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
+}
 
 static void
 add_account_to_list (GisGoaPage *page, GoaObject *object)
@@ -196,6 +209,7 @@ add_account_to_list (GisGoaPage *page, GoaObject *object)
                             goa_account_get_presentation_identity (account));
 
   list = WID ("online-accounts-list");
+  egg_list_box_set_selection_mode (EGG_LIST_BOX (list), GTK_SELECTION_NONE);
 
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_set_hexpand (box, TRUE);
@@ -206,7 +220,10 @@ add_account_to_list (GisGoaPage *page, GoaObject *object)
   image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_DIALOG);
   label = gtk_label_new (markup);
   gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
-  button = gtk_button_new_with_label (_("Remove"));
+
+  button = gtk_button_new ();
+  gtk_button_set_image (GTK_BUTTON (button),
+                        gtk_image_new_from_icon_name ("user-trash-symbolic", GTK_ICON_SIZE_MENU));
   gtk_widget_set_halign (button, GTK_ALIGN_END);
   gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
 
@@ -223,6 +240,8 @@ add_account_to_list (GisGoaPage *page, GoaObject *object)
   gtk_widget_show_all (box);
 
   gtk_container_add (GTK_CONTAINER (list), box);
+
+  update_visibility (page);
 }
 
 static void
@@ -254,6 +273,8 @@ remove_account_from_list (GisGoaPage *page, GoaObject *object)
         }
     }
   g_list_free (children);
+
+  update_visibility (page);
 }
 
 static void
@@ -264,6 +285,7 @@ populate_account_list (GisGoaPage *page)
   GoaObject *object;
 
   accounts = goa_client_get_accounts (priv->goa_client);
+
   for (l = accounts; l; l = l->next)
     {
       object = GOA_OBJECT (l->data);
@@ -271,6 +293,8 @@ populate_account_list (GisGoaPage *page)
     }
 
   g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
+
+  update_visibility (page);
 }
 
 static void
