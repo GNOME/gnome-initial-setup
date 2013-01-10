@@ -154,7 +154,7 @@ update_navigation_buttons (GisAssistant *assistant)
 
   is_first_page = (page_priv->link->prev == NULL);
   is_last_page = (page_priv->link->next == NULL);
-  gtk_widget_set_visible (priv->back, !is_first_page && !is_last_page);
+  gtk_widget_set_visible (priv->back, !is_first_page);
   gtk_widget_set_visible (priv->forward, !is_last_page);
 }
 
