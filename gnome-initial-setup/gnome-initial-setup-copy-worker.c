@@ -27,15 +27,13 @@ get_gnome_initial_setup_home_dir (void)
 }
 
 static void
-move_file_from_tmpfs (GFile *src_base,
-                      const gchar *dir,
+move_file_from_tmpfs (GFile       *src_base,
+                      GFile       *dest_base,
                       const gchar *path)
 {
-  GFile *dest_dir = g_file_new_for_path (dir);
-  GFile *dest = g_file_get_child (dest_dir, path);
+  GFile *dest = g_file_get_child (dest_base, path);
   GFile *dest_parent = g_file_get_parent (dest);
-  gchar *basename = g_file_get_basename (dest);
-  GFile *src = g_file_get_child (src_base, basename);
+  GFile *src = g_file_get_child (src_base, path);
 
   GError *error = NULL;
 
@@ -57,6 +55,7 @@ main (int    argc,
       char **argv)
 {
   GFile *src;
+  GFile *dest;
   GError *error = NULL;
   char *initial_setup_homedir;
 
@@ -71,13 +70,15 @@ main (int    argc,
   if (!g_file_query_exists (src, NULL))
     exit (EXIT_SUCCESS);
 
-#define FILE(d, x) \
-  move_file_from_tmpfs (src, g_get_user_##d##_dir (), x)
+  dest = g_file_new_for_path (g_get_home_dir ());
 
-  FILE (config, "run-welcome-tour");
-  FILE (config, "dconf/user");
-  FILE (config, "goa-1.0/accounts.conf");
-  FILE (data, "keyrings/login.keyring");
+#define FILE(path) \
+  move_file_from_tmpfs (src, dest, path)
+
+  FILE (".config/run-welcome-tour");
+  FILE (".config/dconf/user");
+  FILE (".config/goa-1.0/accounts.conf");
+  FILE (".local/share/keyrings/login.keyring");
 
   if (!g_file_delete (src, NULL, &error))
     {
