@@ -1,27 +1,18 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.0"/>
-  <object class="GtkSizeGroup" id="summary-sizegroup">
-    <widgets>
-      <widget name="summary-start-button"/>
-      <widget name="summary-tour-button"/>
-    </widgets>
-  </object>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkGrid" id="summary-page">
-    <property name="name">summary-page</property>
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <property name="halign">center</property>
     <child>
-      <object class="GtkLabel" id="summary-title">
+      <object class="GtkLabel" id="summary-details">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Enjoy GNOME!</property>
+        <property name="can_focus">False</property>
         <property name="halign">center</property>
         <property name="valign">start</property>
-        <property name="margin-bottom">18</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="1.2"/>
-        </attributes>
+        <property name="margin_top">48</property>
+        <property name="label" translatable="yes">Your computer is ready to use.</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -31,11 +22,13 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="summary-details">
+      <object class="GtkLabel" id="summary-details2">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Your new account is ready to use.</property>
+        <property name="can_focus">False</property>
         <property name="halign">center</property>
         <property name="valign">start</property>
+        <property name="margin_top">16</property>
+        <property name="label" translatable="yes">You may change these options at any time in Settings.</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -45,11 +38,19 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="summary-details2">
+      <object class="GtkButton" id="summary-start-button">
+        <property name="label" translatable="yes">_Start using GNOME 3</property>
         <property name="visible">True</property>
-        <property name="label" translatable="yes">You may change any of these options at any time in the System Settings.</property>
+        <property name="can_focus">False</property>
+        <property name="receives_default">False</property>
         <property name="halign">center</property>
         <property name="valign">start</property>
+        <property name="margin_top">24</property>
+        <property name="vexpand">True</property>
+        <property name="use_underline">True</property>
+        <style>
+          <class name="suggested-action"/>
+        </style>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -58,52 +59,6 @@
         <property name="height">1</property>
       </packing>
     </child>
-    <child>
-      <object class="GtkButton" id="summary-start-button">
-        <property name="visible">True</property>
-        <property name="use-underline">True</property>
-        <property name="label" translatable="yes">_Start using GNOME 3</property>
-        <property name="halign">center</property>
-        <property name="valign">start</property>
-        <property name="vexpand">True</property>
-        <property name="margin">18</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="summary-tour-details">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">New to GNOME 3 and need help finding your way around?</property>
-        <property name="halign">center</property>
-        <property name="valign">start</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkButton" id="summary-tour-button">
-        <property name="visible">True</property>
-        <property name="use-underline">True</property>
-        <property name="label" translatable="yes">_Take a Tour</property>
-        <property name="halign">center</property>
-        <property name="valign">start</property>
-        <property name="margin">18</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
   </object>
+  <object class="GtkSizeGroup" id="summary-sizegroup"/>
 </interface>

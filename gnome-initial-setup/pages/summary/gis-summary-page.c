@@ -284,8 +284,7 @@ gis_summary_page_constructed (GObject *object)
 
   g_signal_connect_object (assistant, "prepare", G_CALLBACK (prepare_cb), page, 0);
 
-  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (byebye_cb), page);
-  g_signal_connect (WID("summary-tour-button"), "clicked", G_CALLBACK (tour_cb), page);
+  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (tour_cb), page);
 
   gis_page_set_title (GIS_PAGE (page), _("Thank You"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
