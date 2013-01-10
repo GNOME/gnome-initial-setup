@@ -198,9 +198,11 @@ log_user_in (GisSummaryPage *page)
 static void
 remove_trigger_file (GisSummaryPage *page)
 {
-  if (g_remove (INITIAL_SETUP_TRIGGER_FILE) < 0) {
-    g_warning ("Failed to remove '" INITIAL_SETUP_TRIGGER_FILE "': %s",
-               g_strerror (errno));
+  GError *error = NULL;
+  if (!g_spawn_command_line_sync ("/usr/bin/pkexec /usr/bin/rm " INITIAL_SETUP_TRIGGER_FILE, NULL, NULL, NULL, &error))
+    {
+      g_warning ("Failed to remove '" INITIAL_SETUP_TRIGGER_FILE "': %s", error->message);
+      g_error_free (error);
   }
 }
 

@@ -17,6 +17,10 @@ policy_DATA =						\
 	20-gnome-initial-setup.rules			\
 	$(NULL)
 
+actiondir = $(datadir)/polkit-1/actions
+action_DATA = 						\
+	org.gnome.initial-setup.policy
+
 sessiondir = $(datadir)/gnome-session/sessions
 session_DATA =						\
 	gnome-initial-setup.session			\
