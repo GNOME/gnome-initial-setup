@@ -43,9 +43,13 @@
 
 #include "network-dialogs.h"
 
-#include "panel-cell-renderer-signal.h"
-#include "panel-cell-renderer-mode.h"
-#include "panel-cell-renderer-security.h"
+typedef enum {
+  NM_AP_SEC_UNKNOWN,
+  NM_AP_SEC_NONE,
+  NM_AP_SEC_WEP,
+  NM_AP_SEC_WPA,
+  NM_AP_SEC_WPA2
+} NMAccessPointSecurity;
 
 G_DEFINE_TYPE (GisNetworkPage, gis_network_page, GIS_TYPE_PAGE);
 
