@@ -13,18 +13,13 @@ edit = $(AM_V_GEN) sed \
 @INTLTOOL_DESKTOP_RULE@
 
 policydir = $(datadir)/polkit-1/rules.d
-policy_DATA =						\
-	20-gnome-initial-setup.rules			\
-	$(NULL)
+policy_DATA = 20-gnome-initial-setup.rules
 
 actiondir = $(datadir)/polkit-1/actions
-action_DATA = 						\
-	org.gnome.initial-setup.policy
+action_DATA = org.gnome.initial-setup.policy
 
 sessiondir = $(datadir)/gnome-session/sessions
-session_DATA =						\
-	gnome-initial-setup.session			\
-	$(NULL)
+session_DATA = gnome-initial-setup.session
 
 desktopdir = $(datadir)/gdm/greeter/applications
 desktop_DATA =						\
