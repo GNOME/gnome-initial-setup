@@ -36,6 +36,7 @@ systemdsystemunit_DATA = gnome-initial-setup.service
 
 EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
+	org.gnome.initial-setup.policy			\
 	gnome-welcome-tour				\
 	setup-shell.desktop				\
 	gnome-welcome-tour.desktop.in.in		\
