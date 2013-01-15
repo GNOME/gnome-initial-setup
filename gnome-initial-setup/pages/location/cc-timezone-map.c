@@ -4,10 +4,10 @@
  * Portions from Ubiquity, Copyright (C) 2009 Canonical Ltd.
  * Written by Evan Dandrea <evand@ubuntu.com>
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,8 +16,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * Author: Thomas Wood <thomas.wood@intel.com>
  *
@@ -33,6 +32,10 @@ G_DEFINE_TYPE (CcTimezoneMap, cc_timezone_map, GTK_TYPE_WIDGET)
 #define TIMEZONE_MAP_PRIVATE(o) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((o), CC_TYPE_TIMEZONE_MAP, CcTimezoneMapPrivate))
 
+#define PIN_HOT_POINT_X 8
+#define PIN_HOT_POINT_Y 14
+
+#define DATETIME_RESOURCE_PATH "/org/gnome/control-center/datetime"
 
 typedef struct
 {
@@ -46,6 +49,7 @@ typedef struct
 struct _CcTimezoneMapPrivate
 {
   GdkPixbuf *orig_background;
+  GdkPixbuf *orig_background_dim;
   GdkPixbuf *orig_color_map;
 
   GdkPixbuf *background;
@@ -144,11 +148,8 @@ cc_timezone_map_dispose (GObject *object)
 {
   CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (object)->priv;
 
-  if (priv->orig_background)
-    {
-      g_object_unref (priv->orig_background);
-      priv->orig_background = NULL;
-    }
+  g_clear_object (&priv->orig_background);
+  g_clear_object (&priv->orig_background_dim);
 
   if (priv->orig_color_map)
     {
@@ -227,11 +228,17 @@ cc_timezone_map_size_allocate (GtkWidget     *widget,
                                GtkAllocation *allocation)
 {
   CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (widget)->priv;
+  GdkPixbuf *pixbuf;
 
   if (priv->background)
     g_object_unref (priv->background);
 
-  priv->background = gdk_pixbuf_scale_simple (priv->orig_background,
+  if (!gtk_widget_is_sensitive (widget))
+    pixbuf = priv->orig_background_dim;
+  else
+    pixbuf = priv->orig_background;
+
+  priv->background = gdk_pixbuf_scale_simple (pixbuf,
                                               allocation->width,
                                               allocation->height,
                                               GDK_INTERP_BILINEAR);
@@ -256,7 +263,6 @@ cc_timezone_map_realize (GtkWidget *widget)
 {
   GdkWindowAttr attr = { 0, };
   GtkAllocation allocation;
-  GdkCursor *cursor;
   GdkWindow *window;
 
   gtk_widget_get_allocation (widget, &allocation);
@@ -274,9 +280,6 @@ cc_timezone_map_realize (GtkWidget *widget)
 
   window = gdk_window_new (gtk_widget_get_parent_window (widget), &attr,
                            GDK_WA_X | GDK_WA_Y);
-
-  cursor = gdk_cursor_new (GDK_HAND2);
-  gdk_window_set_cursor (window, cursor);
 
   gdk_window_set_user_data (window, widget);
   gtk_widget_set_window (widget, window);
@@ -331,6 +334,7 @@ cc_timezone_map_draw (GtkWidget *widget,
   GError *err = NULL;
   gdouble pointx, pointy;
   char buf[16];
+  const char *fmt;
 
   gtk_widget_get_allocation (widget, &alloc);
 
@@ -339,10 +343,15 @@ cc_timezone_map_draw (GtkWidget *widget,
   cairo_paint (cr);
 
   /* paint hilight */
-  file = g_strdup_printf (DATADIR "/timezone_%s.png",
+  if (gtk_widget_is_sensitive (widget))
+    fmt = DATETIME_RESOURCE_PATH "/timezone_%s.png";
+  else
+    fmt = DATETIME_RESOURCE_PATH "/timezone_%s_dim.png";
+
+  file = g_strdup_printf (fmt,
                           g_ascii_formatd (buf, sizeof (buf),
                                            "%g", priv->selected_offset));
-  orig_hilight = gdk_pixbuf_new_from_file (file, &err);
+  orig_hilight = gdk_pixbuf_new_from_resource (file, &err);
   g_free (file);
   file = NULL;
 
@@ -366,7 +375,7 @@ cc_timezone_map_draw (GtkWidget *widget,
     }
 
   /* load pin icon */
-  pin = gdk_pixbuf_new_from_file (DATADIR "/pin.png", &err);
+  pin = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/pin.png", &err);
 
   if (err)
     {
@@ -384,7 +393,7 @@ cc_timezone_map_draw (GtkWidget *widget,
 
       if (pin)
         {
-          gdk_cairo_set_source_pixbuf (cr, pin, pointx - 8, pointy - 14);
+          gdk_cairo_set_source_pixbuf (cr, pin, pointx - PIN_HOT_POINT_X, pointy - PIN_HOT_POINT_Y);
           cairo_paint (cr);
         }
     }
@@ -395,6 +404,39 @@ cc_timezone_map_draw (GtkWidget *widget,
     }
 
   return TRUE;
+}
+
+static void
+update_cursor (GtkWidget *widget)
+{
+  GdkWindow *window;
+  GdkCursor *cursor = NULL;
+
+  if (!gtk_widget_get_realized (widget))
+    return;
+
+  if (gtk_widget_is_sensitive (widget))
+    {
+      GdkDisplay *display;
+      display = gtk_widget_get_display (widget);
+      cursor = gdk_cursor_new_for_display (display, GDK_HAND2);
+    }
+
+  window = gtk_widget_get_window (widget);
+  gdk_window_set_cursor (window, cursor);
+
+  if (cursor)
+    g_object_unref (cursor);
+}
+
+static void
+cc_timezone_map_state_flags_changed (GtkWidget     *widget,
+                                     GtkStateFlags  prev_state)
+{
+  update_cursor (widget);
+
+  if (GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->state_flags_changed)
+    GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->state_flags_changed (widget, prev_state);
 }
 
 
@@ -416,6 +458,7 @@ cc_timezone_map_class_init (CcTimezoneMapClass *klass)
   widget_class->size_allocate = cc_timezone_map_size_allocate;
   widget_class->realize = cc_timezone_map_realize;
   widget_class->draw = cc_timezone_map_draw;
+  widget_class->state_flags_changed = cc_timezone_map_state_flags_changed;
 
   signals[LOCATION_CHANGED] = g_signal_new ("location-changed",
                                             CC_TYPE_TIMEZONE_MAP,
@@ -470,7 +513,7 @@ button_press_event (GtkWidget      *widget,
   guchar r, g, b, a;
   guchar *pixels;
   gint rowstride;
-  gsize i;
+  gint i;
 
   const GPtrArray *array;
   gint width, height;
@@ -542,8 +585,8 @@ cc_timezone_map_init (CcTimezoneMap *self)
 
   priv = self->priv = TIMEZONE_MAP_PRIVATE (self);
 
-  priv->orig_background = gdk_pixbuf_new_from_file (DATADIR "/bg.png",
-                                                    &err);
+  priv->orig_background = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/bg.png",
+                                                        &err);
 
   if (!priv->orig_background)
     {
@@ -552,8 +595,18 @@ cc_timezone_map_init (CcTimezoneMap *self)
       g_clear_error (&err);
     }
 
-  priv->orig_color_map = gdk_pixbuf_new_from_file (DATADIR "/cc.png",
-                                                   &err);
+  priv->orig_background_dim = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/bg_dim.png",
+                                                            &err);
+
+  if (!priv->orig_background_dim)
+    {
+      g_warning ("Could not load background image: %s",
+                 (err) ? err->message : "Unknown error");
+      g_clear_error (&err);
+    }
+
+  priv->orig_color_map = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/cc.png",
+                                                       &err);
   if (!priv->orig_color_map)
     {
       g_warning ("Could not load background image: %s",

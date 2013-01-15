@@ -26,6 +26,7 @@
 #define PAGE_ID "location"
 
 #include "config.h"
+#include "cc-datetime-resources.h"
 #include "gis-location-page.h"
 
 #include <glib/gi18n.h>
@@ -270,6 +271,8 @@ gis_location_page_constructed (GObject *object)
   const gchar *timezone;
 
   G_OBJECT_CLASS (gis_location_page_parent_class)->constructed (object);
+
+  g_resources_register (datetime_get_resource ());
 
   gtk_container_add (GTK_CONTAINER (page), WID ("location-page"));
 
