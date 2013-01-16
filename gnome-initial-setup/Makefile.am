@@ -24,7 +24,7 @@ UI_FILES = \
 	pages/keyboard/gnome-region-panel-input-chooser.ui
 
 setup_resources.c: setup.gresource.xml $(UI_FILES)
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/setup.gresource.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
 BUILT_SOURCES += setup_resources.c
 
 gnome_initial_setup_SOURCES =	\
