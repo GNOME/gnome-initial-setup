@@ -234,7 +234,7 @@ language_visible (GtkWidget *child,
   const gchar *filter_contents;
   gboolean is_extra;
 
-  if (child == page->priv->more_item)
+  if (child == priv->more_item)
     return !showing_extra;
 
   is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
