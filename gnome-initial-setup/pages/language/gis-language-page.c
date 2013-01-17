@@ -256,6 +256,7 @@ show_more (GisLanguagePage *page)
   GisLanguagePagePrivate *priv = page->priv;
 
   gtk_widget_show (priv->filter_entry);
+  gtk_widget_grab_focus (priv->filter_entry);
 
   showing_extra = TRUE;
 
