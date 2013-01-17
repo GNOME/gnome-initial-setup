@@ -56,6 +56,7 @@ enum {
 
 struct _GisLanguagePagePrivate
 {
+  GtkWidget *no_results;
   GtkWidget *more_item;
   GtkWidget *page;
   GtkWidget *filter_entry;
@@ -89,13 +90,10 @@ sort_languages (gconstpointer a,
                 gconstpointer b,
                 gpointer      data)
 {
-  GisLanguagePage *page = GIS_LANGUAGE_PAGE (data);
-  GisLanguagePagePrivate *priv = page->priv;
-
-  if (a == priv->more_item)
+  if (g_object_get_data (G_OBJECT (a), "locale-id") == NULL)
     return 1;
 
-  if (b == priv->more_item)
+  if (g_object_get_data (G_OBJECT (b), "locale-id") == NULL)
     return -1;
 
   const char *la = g_object_get_data (G_OBJECT (a), "locale-name");
@@ -174,6 +172,14 @@ more_widget_new (void)
   return widget;
 }
 
+static GtkWidget *
+no_results_widget_new (void)
+{
+  GtkWidget *widget = padded_label_new (_("No languages found"));
+  gtk_widget_set_sensitive (widget, FALSE);
+  return widget;
+}
+
 static void
 add_languages (GisLanguagePage *page,
                char           **locale_ids,
@@ -206,6 +212,8 @@ add_languages (GisLanguagePage *page,
 
   gtk_container_add (GTK_CONTAINER (priv->language_list),
                      priv->more_item);
+  gtk_container_add (GTK_CONTAINER (priv->language_list),
+                     priv->no_results);
 
   gtk_widget_show_all (priv->language_list);
 
@@ -236,6 +244,10 @@ language_visible (GtkWidget *child,
 
   if (child == priv->more_item)
     return !showing_extra;
+
+  /* We hide this in the after-refilter handler below. */
+  if (child == priv->no_results)
+    return TRUE;
 
   is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
   locale_name = g_object_get_data (G_OBJECT (child), "locale-name");
@@ -286,6 +298,34 @@ child_activated (EggListBox      *box,
   set_locale_id (page, new_locale_id);
 }
 
+typedef struct {
+  gint count;
+} CountChildrenData;
+
+static void
+count_visible_children (GtkWidget *widget,
+                        gpointer   user_data)
+{
+  CountChildrenData *data = user_data;
+  if (gtk_widget_get_child_visible (widget) && gtk_widget_get_visible (widget))
+    data->count++;
+}
+
+static void
+end_refilter (EggListBox *list_box,
+              gpointer    user_data)
+{
+  GisLanguagePage *page = GIS_LANGUAGE_PAGE (user_data);
+  GisLanguagePagePrivate *priv = page->priv;
+
+  CountChildrenData data = { 0 };
+
+  gtk_container_foreach (GTK_CONTAINER (list_box),
+                         count_visible_children, &data);
+
+  gtk_widget_set_visible (priv->no_results, (data.count == 0));
+}
+
 static void
 gis_language_page_constructed (GObject *object)
 {
@@ -299,6 +339,7 @@ gis_language_page_constructed (GObject *object)
   priv->filter_entry = WID ("language-filter-entry");
   priv->language_list = WID ("language-list");
   priv->more_item = more_widget_new ();
+  priv->no_results = no_results_widget_new ();
 
   egg_list_box_set_adjustment (EGG_LIST_BOX (priv->language_list),
                                gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (WID ("language-scrolledwindow"))));
@@ -317,6 +358,11 @@ gis_language_page_constructed (GObject *object)
 
   g_signal_connect (priv->language_list, "child-activated",
                     G_CALLBACK (child_activated), page);
+
+  g_signal_connect_after (priv->language_list, "refilter",
+                          G_CALLBACK (end_refilter), page);
+
+  egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
   gis_page_set_title (GIS_PAGE (page), _("Welcome"));
