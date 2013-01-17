@@ -127,6 +127,18 @@ use_language (char *locale_id)
 }
 
 static GtkWidget *
+padded_label_new (char *text)
+{
+  GtkWidget *widget;
+  widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
+  gtk_widget_set_margin_top (widget, 10);
+  gtk_widget_set_margin_bottom (widget, 10);
+  gtk_box_pack_start (GTK_BOX (widget), gtk_label_new (text), FALSE, FALSE, 0);
+  return widget;
+}
+
+static GtkWidget *
 language_widget_new (char     *locale_id,
                      gboolean  is_extra)
 {
@@ -137,11 +149,7 @@ language_widget_new (char     *locale_id,
   locale_name = use_language (locale_id);
   setlocale (LC_MESSAGES, current_locale_id);
 
-  widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
-  gtk_widget_set_margin_top (widget, 10);
-  gtk_widget_set_margin_bottom (widget, 10);
-  gtk_box_pack_start (GTK_BOX (widget), gtk_label_new (locale_name), FALSE, FALSE, 0);
+  widget = padded_label_new (locale_name);
 
   if (g_strcmp0 (locale_id, current_locale_id) == 0)
     {
@@ -161,7 +169,7 @@ language_widget_new (char     *locale_id,
 static GtkWidget *
 more_widget_new (void)
 {
-  GtkWidget *widget = gtk_label_new ("…");
+  GtkWidget *widget = padded_label_new ("…");
   gtk_widget_set_tooltip_text (widget, _("More…"));
   return widget;
 }
