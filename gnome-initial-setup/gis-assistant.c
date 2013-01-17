@@ -351,6 +351,8 @@ gis_assistant_class_init (GisAssistantClass *klass)
                          NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
+
   /**
    * GisAssistant::next-page:
    * @assistant: the #GisAssistant
