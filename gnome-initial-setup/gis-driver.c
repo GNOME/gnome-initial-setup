@@ -30,11 +30,6 @@
 #include "gis-assistant-gtk.h"
 
 #ifdef HAVE_CLUTTER
-#include <clutter-gtk/clutter-gtk.h>
-#include "gis-assistant-clutter.h"
-#endif
-
-#ifdef HAVE_CLUTTER
 #include "gis-assistant-clutter.h"
 #endif
 
