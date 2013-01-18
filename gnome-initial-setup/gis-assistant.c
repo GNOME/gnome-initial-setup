@@ -279,7 +279,7 @@ gis_assistant_init (GisAssistant *assistant)
   GtkWidget *action_area;
   assistant->priv = priv;
 
-  priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
+  priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
   gtk_box_pack_start (GTK_BOX (assistant), priv->main_layout, TRUE, TRUE, 0);
 
   priv->frame = gtk_frame_new ("");
