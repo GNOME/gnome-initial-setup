@@ -287,15 +287,15 @@ child_activated (EggListBox      *box,
 
   if (child == NULL)
     return;
-
-  if (child == page->priv->more_item)
+  else if (child == page->priv->no_results)
+    return;
+  else if (child == page->priv->more_item)
+    show_more (page);
+  else
     {
-      show_more (page);
-      return;
+      new_locale_id = g_object_get_data (G_OBJECT (child), "locale-id");
+      set_locale_id (page, new_locale_id);
     }
-
-  new_locale_id = g_object_get_data (G_OBJECT (child), "locale-id");
-  set_locale_id (page, new_locale_id);
 }
 
 typedef struct {
