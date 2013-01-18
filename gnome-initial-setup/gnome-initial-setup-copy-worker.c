@@ -14,16 +14,11 @@ get_gnome_initial_setup_home_dir (void)
   struct passwd pw, *pwp;
   char buf[4096];
 
-  setpwent();
-  while (TRUE) {
-    if (getpwent_r (&pw, buf, sizeof (buf), &pwp))
-      break;
-
-    if (strcmp (pwp->pw_name, "gnome-initial-setup") == 0)
-      return g_strdup (pwp->pw_dir);
-  }
-
-  return NULL;
+  getpwnam_r ("gnome-initial-setup", &pw, buf, sizeof (buf), &pwp);
+  if (pwp != NULL)
+    return g_strdup (pwp->pw_dir);
+  else
+    return NULL;
 }
 
 static void
