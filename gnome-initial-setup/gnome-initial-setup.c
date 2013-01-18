@@ -161,14 +161,13 @@ main (int argc, char *argv[])
   GOptionContext *context;
   GList *pages;
 
-  pages = new_pages_table ();
-
-  GOptionEntry entries[] =
-    {
-      { "session", 'u', 0, G_OPTION_ARG_NONE, &session_setup_mode,
+  GOptionEntry entries[] = {
+    { "session", 'u', 0, G_OPTION_ARG_NONE, &session_setup_mode,
       _("Session setup mode"), NULL },
-      { NULL }
-    };
+    { NULL }
+  };
+
+  pages = new_pages_table ();
 
   context = g_option_context_new ("- GNOME initial setup");
   g_option_context_add_main_entries (context, entries, NULL);
