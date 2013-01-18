@@ -39,7 +39,6 @@
     </child>
     <child>
       <object class="GtkButton" id="summary-start-button">
-        <property name="label" translatable="yes">_Start using GNOME 3</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="receives_default">False</property>
@@ -51,6 +50,16 @@
         <style>
           <class name="suggested-action"/>
         </style>
+        <child>
+          <object class="GtkLabel" id="summary-start-button-label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xpad">4</property>
+            <property name="ypad">4</property>
+            <property name="label" translatable="yes">_Start using GNOME 3</property>
+            <property name="use_underline">True</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="left_attach">0</property>
