@@ -25,6 +25,8 @@
 
 #include "gnome-initial-setup.h"
 
+#include <pwd.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
@@ -49,8 +51,7 @@
 
 /* main {{{1 */
 
-
-static gboolean session_setup_mode;
+static gboolean force_new_user_mode;
 static const gchar *system_setup_pages[] = {
     "account",
     "location"
@@ -90,7 +91,9 @@ new_pages_table (void)
 }
 
 static gboolean
-should_skip_page (const gchar *page_id, gchar **skip_pages)
+should_skip_page (GisDriver    *driver,
+                  const gchar  *page_id,
+                  gchar       **skip_pages)
 {
   guint i = 0;
   /* check through our skip pages list for pages we don't want */
@@ -102,13 +105,18 @@ should_skip_page (const gchar *page_id, gchar **skip_pages)
     }
   }
 
-  if (session_setup_mode) {
+  switch (gis_driver_get_mode (driver)) {
+  case GIS_DRIVER_MODE_EXISTING_USER:
     i = 0;
     while (i < G_N_ELEMENTS (system_setup_pages)) {
       if (g_strcmp0 (system_setup_pages[i], page_id) == 0)
         return TRUE;
       i++;
     }
+    break;
+  case GIS_DRIVER_MODE_NEW_USER:
+  default:
+    break;
   }
 
   return FALSE;
@@ -146,20 +154,35 @@ rebuild_pages_cb (GisDriver *driver, GList *pages)
   for (pages_itr = pages; pages_itr != NULL; pages_itr = pages_itr->next) {
     PageData *page_data = pages_itr->data;
 
-    if (!should_skip_page (page_data->page_id, skip_pages))
+    if (!should_skip_page (driver, page_data->page_id, skip_pages))
       page_data->prepare_page_func (driver);
   }
 
   g_strfreev (skip_pages);
 }
 
+static gboolean
+is_running_as_gnome_initial_setup_user (void)
+{
+  struct passwd pw, *pwp;
+  char buf[4096];
+
+  getpwnam_r ("gnome-initial-setup", &pw, buf, sizeof (buf), &pwp);
+  if (pwp == NULL)
+    return FALSE;
+
+  return pw.pw_uid == getuid ();
+}
+
 static GisDriverMode
 get_mode (void)
 {
-  if (session_setup_mode)
-    return GIS_DRIVER_MODE_EXISTING_USER;
-  else
+  if (force_new_user_mode)
     return GIS_DRIVER_MODE_NEW_USER;
+  else if (is_running_as_gnome_initial_setup_user ())
+    return GIS_DRIVER_MODE_NEW_USER;
+  else
+    return GIS_DRIVER_MODE_EXISTING_USER;
 }
 
 int
@@ -171,8 +194,8 @@ main (int argc, char *argv[])
   GList *pages;
 
   GOptionEntry entries[] = {
-    { "session", 'u', 0, G_OPTION_ARG_NONE, &session_setup_mode,
-      _("Session setup mode"), NULL },
+    { "force-new-user", 0, 0, G_OPTION_ARG_NONE, &force_new_user_mode,
+      _("Force new user mode"), NULL },
     { NULL }
   };
 
