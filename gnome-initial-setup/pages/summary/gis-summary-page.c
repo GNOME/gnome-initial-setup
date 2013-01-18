@@ -223,7 +223,7 @@ done_cb (GtkButton *button, GisSummaryPage *page)
       remove_trigger_file (page);
       break;
     case GIS_DRIVER_MODE_EXISTING_USER:
-      g_application_quit (GIS_DRIVER (GIS_PAGE (page)->driver));
+      g_application_quit (G_APPLICATION (GIS_PAGE (page)->driver));
     default:
       break;
     }
