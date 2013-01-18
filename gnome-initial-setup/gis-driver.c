@@ -91,19 +91,9 @@ title_changed_cb (GisAssistant *assistant,
 }
 
 static void
-recenter_window (GdkScreen *screen, GisDriver *driver)
-{
-  GisDriverPrivate *priv = driver->priv;
-  gtk_window_set_position (priv->main_window, GTK_WIN_POS_CENTER_ALWAYS);
-}
-
-static void
 prepare_main_window (GisDriver *driver)
 {
   GisDriverPrivate *priv = driver->priv;
-
-  g_signal_connect (gtk_widget_get_screen (GTK_WIDGET (priv->main_window)),
-                    "monitors-changed", G_CALLBACK (recenter_window), driver);
 
   g_signal_connect (priv->assistant, "notify::title",
                     G_CALLBACK (title_changed_cb), driver);
