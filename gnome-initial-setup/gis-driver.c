@@ -33,6 +33,25 @@
 #include "gis-assistant-clutter.h"
 #endif
 
+#define GIS_TYPE_DRIVER_MODE (gis_driver_mode_get_type ())
+
+/* Statically include this for now. Maybe later
+ * we'll generate this from glib-mkenums. */
+GType
+gis_driver_mode_get_type (void) {
+  static GType enum_type_id = 0;
+  if (G_UNLIKELY (!enum_type_id))
+    {
+      static const GEnumValue values[] = {
+        { GIS_DRIVER_MODE_NEW_USER, "GIS_DRIVER_MODE_NEW_USER", "new_user" },
+        { GIS_DRIVER_MODE_EXISTING_USER, "GIS_DRIVER_MODE_EXISTING_USER", "existing_user" },
+        { 0, NULL, NULL }
+      };
+      enum_type_id = g_enum_register_static("GisDriverMode", values);
+    }
+  return enum_type_id;
+}
+
 G_DEFINE_TYPE(GisDriver, gis_driver, GTK_TYPE_APPLICATION)
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_DRIVER, GisDriverPrivate))
@@ -44,12 +63,22 @@ enum {
 
 static guint signals[LAST_SIGNAL];
 
+enum {
+  PROP_0,
+  PROP_MODE,
+  PROP_LAST,
+};
+
+static GParamSpec *obj_props[PROP_LAST];
+
 struct _GisDriverPrivate {
   GtkWindow *main_window;
   GisAssistant *assistant;
 
   ActUser *user_account;
   const gchar *user_password;
+
+  GisDriverMode mode;
 };
 
 static void
@@ -130,6 +159,13 @@ gis_driver_locale_changed (GisDriver *driver)
   gis_assistant_locale_changed (priv->assistant);
 }
 
+GisDriverMode
+gis_driver_get_mode (GisDriver *driver)
+{
+  GisDriverPrivate *priv = driver->priv;
+  return priv->mode;
+}
+
 static GType
 get_assistant_type (void)
 {
@@ -144,6 +180,42 @@ get_assistant_type (void)
 #endif /* HAVE_CLUTTER */
 
   return GIS_TYPE_ASSISTANT_GTK;
+}
+
+static void
+gis_driver_get_property (GObject      *object,
+                         guint         prop_id,
+                         GValue       *value,
+                         GParamSpec   *pspec)
+{
+  GisDriver *driver = GIS_DRIVER (object);
+  switch (prop_id)
+    {
+    case PROP_MODE:
+      g_value_set_enum (value, driver->priv->mode);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
+gis_driver_set_property (GObject      *object,
+                         guint         prop_id,
+                         const GValue *value,
+                         GParamSpec   *pspec)
+{
+  GisDriver *driver = GIS_DRIVER (object);
+  switch (prop_id)
+    {
+    case PROP_MODE:
+      driver->priv->mode = g_value_get_enum (value);
+      break;
+   default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
 }
 
 static void
@@ -194,9 +266,12 @@ static void
 gis_driver_class_init (GisDriverClass *klass)
 {
   GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   g_type_class_add_private (klass, sizeof (GisDriverPrivate));
 
+  gobject_class->get_property = gis_driver_get_property;
+  gobject_class->set_property = gis_driver_set_property;
   application_class->startup = gis_driver_startup;
   application_class->activate = gis_driver_activate;
 
@@ -207,12 +282,21 @@ gis_driver_class_init (GisDriverClass *klass)
                   G_STRUCT_OFFSET (GisDriverClass, rebuild_pages),
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 0);
+
+  obj_props[PROP_MODE] =
+    g_param_spec_enum ("mode", "", "",
+                       GIS_TYPE_DRIVER_MODE,
+                       GIS_DRIVER_MODE_EXISTING_USER,
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
 }
 
 GisDriver *
-gis_driver_new (void)
+gis_driver_new (GisDriverMode mode)
 {
   return g_object_new (GIS_TYPE_DRIVER,
                        "application-id", "org.gnome.InitialSetup",
+                       "mode", mode,
                        NULL);
 }

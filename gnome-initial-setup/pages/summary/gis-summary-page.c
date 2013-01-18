@@ -216,8 +216,17 @@ done_cb (GtkButton *button, GisSummaryPage *page)
   g_file_set_contents (file, "yes", -1, NULL);
   g_free (file);
 
-  remove_trigger_file (page);
-  log_user_in (page);
+  switch (gis_driver_get_mode (GIS_PAGE (page)->driver))
+    {
+    case GIS_DRIVER_MODE_NEW_USER:
+      log_user_in (page);
+      remove_trigger_file (page);
+      break;
+    case GIS_DRIVER_MODE_EXISTING_USER:
+      g_application_quit (GIS_DRIVER (GIS_PAGE (page)->driver));
+    default:
+      break;
+    }
 }
 
 static void

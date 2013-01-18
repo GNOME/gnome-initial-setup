@@ -55,6 +55,11 @@ struct _GisDriverClass
   void (* rebuild_pages) (GisDriver *driver);
 };
 
+typedef enum {
+  GIS_DRIVER_MODE_NEW_USER,
+  GIS_DRIVER_MODE_EXISTING_USER,
+} GisDriverMode;
+
 GType gis_driver_get_type (void);
 
 GisAssistant *gis_driver_get_assistant (GisDriver *driver);
@@ -67,9 +72,13 @@ void gis_driver_set_user_permissions (GisDriver   *driver,
 void gis_driver_get_user_permissions (GisDriver    *driver,
                                       ActUser     **user,
                                       const gchar **password);
+
+GisDriverMode gis_driver_get_mode (GisDriver *driver);
+
 void gis_driver_add_page (GisDriver *driver,
                           GisPage   *page);
-GisDriver *gis_driver_new (void);
+
+GisDriver *gis_driver_new (GisDriverMode mode);
 
 G_END_DECLS
 

@@ -153,6 +153,15 @@ rebuild_pages_cb (GisDriver *driver, GList *pages)
   g_strfreev (skip_pages);
 }
 
+static GisDriverMode
+get_mode (void)
+{
+  if (session_setup_mode)
+    return GIS_DRIVER_MODE_EXISTING_USER;
+  else
+    return GIS_DRIVER_MODE_NEW_USER;
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -193,7 +202,7 @@ main (int argc, char *argv[])
 
   g_type_ensure (EGG_TYPE_LIST_BOX);
 
-  driver = gis_driver_new ();
+  driver = gis_driver_new (get_mode ());
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), pages);
   status = g_application_run (G_APPLICATION (driver), argc, argv);
 
