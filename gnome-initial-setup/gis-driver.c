@@ -94,6 +94,16 @@ static void
 prepare_main_window (GisDriver *driver)
 {
   GisDriverPrivate *priv = driver->priv;
+  GdkGeometry size_hints;
+
+  size_hints.min_width = 680;
+  size_hints.min_height = 440;
+  size_hints.win_gravity = GDK_GRAVITY_CENTER;
+
+  gtk_window_set_geometry_hints (priv->main_window,
+                                 GTK_WIDGET (priv->main_window),
+                                 &size_hints,
+                                 GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
 
   g_signal_connect (priv->assistant, "notify::title",
                     G_CALLBACK (title_changed_cb), driver);
