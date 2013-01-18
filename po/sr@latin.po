@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-16 16:58+0000\n"
-"PO-Revision-Date: 2013-01-17 10:12+0200\n"
+"POT-Creation-Date: 2013-01-18 03:16+0000\n"
+"PO-Revision-Date: 2013-01-18 23:48+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -27,11 +27,11 @@ msgstr "Početno podešavanje"
 msgid "Unspecified"
 msgstr "neodređeni"
 
-#: ../gnome-initial-setup/gis-assistant.c:271
+#: ../gnome-initial-setup/gis-assistant.c:270
 msgid "_Next"
 msgstr "_Sledeće"
 
-#: ../gnome-initial-setup/gis-assistant.c:272
+#: ../gnome-initial-setup/gis-assistant.c:271
 msgid "_Back"
 msgstr "_Prethodno"
 
@@ -60,7 +60,6 @@ msgid "Create a Local Account"
 msgstr "Napravite mesni nalog"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-#| msgid "_Enterprise Login"
 msgid "Use _Enterprise Login"
 msgstr "Koristi _poslovno prijavljivanje"
 
@@ -82,7 +81,6 @@ msgid "_Password"
 msgstr "_Lozinka"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-#| msgid "_Confirm Password"
 msgid "_Confirm password"
 msgstr "_Potvrdi lozinku"
 
@@ -99,7 +97,6 @@ msgid "page 1"
 msgstr "stranica 1"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
-#| msgid "Create a Local Account"
 msgid "Create an Enterprise Account"
 msgstr "Napravite poslovni nalog"
 
@@ -112,12 +109,10 @@ msgid "_Login Name"
 msgstr "_Prijavno ime"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
-#| msgid "_Local Account"
 msgid "Use _Local Login"
 msgstr "Koristi _mesno prijavljivanje"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
-#| msgid "Tip: Enterprise domain or realm name"
 msgid "Enterprise domain or realm name"
 msgstr "Poslovni domen ili naziv područja"
 
@@ -236,16 +231,19 @@ msgid "Online Accounts"
 msgstr "Nalozi na mreži"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Link other accounts"
-msgstr "Poveži ostale naloge"
+msgid "Connect to your existing data in the cloud"
+msgstr "Povežite se na vaše postojeće podatke u oblaku"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#| msgid ""
+#| "Adding an account allows your application to access it for documents, "
+#| "mail, contacts, calendar, char and more."
 msgid ""
-"Adding an account allows your application to access it for documents, mail, "
-"contacts, calendar, char and more."
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
 msgstr ""
-"Dodavanje naloga omogućava vašim programima da mu pristupe zbog dokumenata, "
-"pošte, kontakata, kalendara, ćaskanja i drugih stvari."
+"Dodavanje naloga će vam omogućiti da olako pristupite vašim fotografijama na "
+"mreži, kontaktima, pošti i još mnogo čemu."
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:52
 msgid "Keyboard Layout"
@@ -284,16 +282,20 @@ msgstr "španski"
 msgid "Chinese (simplified)"
 msgstr "kineski (pojednostavljen)"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:122
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:120
 #, c-format
 msgid "Use %s"
 msgstr "Koristi %s"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:165
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:171
 msgid "More…"
 msgstr "Još…"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:313
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:178
+msgid "No languages found"
+msgstr "Nisam pronašao jezik"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:368
 msgid "Welcome"
 msgstr "Dobrodošli"
 
@@ -319,8 +321,6 @@ msgid "Time Zone"
 msgstr "Vremenska zona"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:318
-#| msgctxt "Wireless access point"
-#| msgid "Other..."
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Ostalo…"
@@ -346,58 +346,18 @@ msgstr "Mreža"
 msgid "Wireless Networks"
 msgstr "Bežične mreže"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:280
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:289
 msgid "Thank You"
 msgstr "Hvala vam"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "Your new account is ready to use."
 msgid "Your computer is ready to use."
 msgstr "Vaš računar je spreman za upotrebu."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-#| msgid ""
-#| "You may change any of these options at any time in the System Settings."
 msgid "You may change these options at any time in Settings."
 msgstr "Ove postavke možete da izmenite bilo kada u podešavanjima sistema."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Počni da koristiš Gnom 3"
-
-#~ msgid "Choose How to Login"
-#~ msgstr "Izaberite način prijavljivanja"
-
-#~ msgid "_Require a password to use this account"
-#~ msgstr "_Zahtevaj lozinku za korišćenje ovog naloga"
-
-#~ msgid "_Act as administrator of this computer"
-#~ msgstr "_Deluj kao administrator ovog računara"
-
-#~ msgid "Disable image"
-#~ msgstr "Isključi sliku"
-
-#~ msgid "Take a photo..."
-#~ msgstr "Snimite fotografiju..."
-
-#~ msgid "Remove"
-#~ msgstr "Ukloni"
-
-#~ msgid "Show _all"
-#~ msgstr "Prikaži _sve"
-
-#~ msgid "Enjoy GNOME!"
-#~ msgstr "Uživajte u Gnomu!"
-
-#~ msgid "New to GNOME 3 and need help finding your way around?"
-#~ msgstr ""
-#~ "Novi ste u Gnomu 3 i potrbna vam je pomoć kako bi mogli da se snađete?"
-
-#~ msgid "_Take a Tour"
-#~ msgstr "_Započni razgledanje"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Otkaži"
-
-#~ msgid "_Done"
-#~ msgstr "_Urađeno"
