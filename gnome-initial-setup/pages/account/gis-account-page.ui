@@ -50,8 +50,8 @@
           <object class="GtkGrid" id="local-area">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="row_spacing">10</property>
-            <property name="column_spacing">10</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">12</property>
             <child>
               <object class="GtkFrame" id="sizer1">
                 <property name="visible">True</property>
@@ -80,7 +80,6 @@
                 <property name="height">1</property>
               </packing>
             </child>
-
             <child>
               <object class="GtkLabel" id="local-title">
                 <property name="visible">True</property>
@@ -102,7 +101,6 @@
                 <property name="height">1</property>
               </packing>
             </child>
-
             <child>
               <object class="GtkButton" id="enterprise-button">
                 <property name="label" translatable="yes">Use _Enterprise Login</property>
@@ -125,6 +123,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Full Name</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">account-fullname-entry</property>
@@ -156,6 +155,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Username</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">account-username-combo</property>
@@ -195,9 +195,7 @@
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">This will be used to name your home folder and can't be changed.</property>
                 <property name="wrap">True</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
+                <property name="margin_bottom">12</property>
                 <attributes>
                   <attribute name="scale" value="0.8"/>
                 </attributes>
@@ -214,6 +212,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Password</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">account-password-entry</property>
@@ -262,6 +261,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Confirm password</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">account-confirm-entry</property>
@@ -296,9 +296,6 @@
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Try to use at least 8 different characters. Mix upper and lower case and use a number or two.</property>
                 <property name="wrap">True</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
                 <attributes>
                   <attribute name="scale" value="0.8"/>
                 </attributes>
@@ -327,8 +324,8 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
-            <property name="row_spacing">10</property>
-            <property name="column_spacing">10</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">12</property>
             <child>
               <object class="GtkFrame" id="sizer3">
                 <property name="visible">True</property>
@@ -357,7 +354,6 @@
                 <property name="height">1</property>
               </packing>
             </child>
-
             <child>
               <object class="GtkLabel" id="enterprise-title">
                 <property name="visible">True</property>
@@ -379,18 +375,15 @@
                 <property name="height">1</property>
               </packing>
             </child>
-
             <child>
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Domain</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">enterprise-domain</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -404,12 +397,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Login Name</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">enterprise-login</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -423,12 +414,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
+                <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Password</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">enterprise-password</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -514,9 +503,7 @@
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Enterprise domain or realm name</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
+                <property name="margin_bottom">12</property>
                 <attributes>
                   <attribute name="scale" value="0.8"/>
                 </attributes>
