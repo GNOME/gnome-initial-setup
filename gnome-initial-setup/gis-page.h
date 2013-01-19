@@ -57,6 +57,7 @@ struct _GisPageClass
   char *page_id;
 
   GtkBuilder * (*get_builder) (GisPage *page);
+  GtkWidget  * (*get_action_widget) (GisPage *page);
 };
 
 GType gis_page_get_type (void);
@@ -65,6 +66,7 @@ char *       gis_page_get_title (GisPage *page);
 void         gis_page_set_title (GisPage *page, char *title);
 gboolean     gis_page_get_complete (GisPage *page);
 void         gis_page_set_complete (GisPage *page, gboolean complete);
+GtkWidget *  gis_page_get_action_widget (GisPage *page);
 
 G_END_DECLS
 
