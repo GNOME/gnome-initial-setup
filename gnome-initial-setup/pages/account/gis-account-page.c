@@ -70,6 +70,8 @@ struct _GisAccountPagePrivate
   guint realmd_watch;
   UmRealmManager *realm_manager;
   gboolean domain_chosen;
+
+  GtkWidget *action;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
@@ -189,6 +191,11 @@ set_mode (GisAccountPage *page,
 
   priv->mode = mode;
 
+  gtk_button_set_label (GTK_BUTTON (priv->action),
+                        mode == UM_LOCAL ? _("Use _Enterprise Login")
+                                         : _("_Use Local Login"));
+  gtk_button_set_use_underline (GTK_BUTTON (priv->action), TRUE);
+
   nb = WID("account-notebook");
   gtk_notebook_set_current_page (GTK_NOTEBOOK (nb), (mode == UM_LOCAL) ? 0 : 1);
 
@@ -205,8 +212,6 @@ set_has_enterprise (GisAccountPage *page,
     return;
 
   priv->has_enterprise = has_enterprise;
-  gtk_widget_set_visible (WID ("local-button"), has_enterprise);
-  gtk_widget_set_visible (WID ("enterprise-button"), has_enterprise);
 
   if (!has_enterprise)
     set_mode (page, UM_LOCAL);
@@ -813,17 +818,13 @@ on_entry_changed (GtkEditable *editable,
 }
 
 static void
-on_local_clicked (GtkButton *button,
-                  gpointer   user_data)
+toggle_mode (GtkButton *button,
+             gpointer   user_data)
 {
-  set_mode (GIS_ACCOUNT_PAGE (user_data), UM_LOCAL);
-}
-
-static void
-on_enterprise_clicked (GtkButton *button,
-                       gpointer   user_data)
-{
-  set_mode (GIS_ACCOUNT_PAGE (user_data), UM_ENTERPRISE);
+  set_mode (GIS_ACCOUNT_PAGE (user_data),
+            GIS_ACCOUNT_PAGE (user_data)->priv->mode == UM_LOCAL
+            ? UM_ENTERPRISE
+            : UM_LOCAL);
 }
 
 static void
@@ -876,10 +877,6 @@ gis_account_page_constructed (GObject *object)
                     G_CALLBACK (on_domain_changed), page);
   g_signal_connect (WID("enterprise-login"), "changed",
                     G_CALLBACK (on_entry_changed), page);
-  g_signal_connect (WID("local-button"), "clicked",
-                    G_CALLBACK (on_local_clicked), page);
-  g_signal_connect (WID("enterprise-button"), "clicked",
-                    G_CALLBACK (on_enterprise_clicked), page);
 
   priv->act_client = act_user_manager_get_default ();
 
@@ -889,6 +886,11 @@ gis_account_page_constructed (GObject *object)
   update_account_page_status (page);
 
   priv->has_enterprise = FALSE;
+
+  priv->action = gtk_button_new_with_mnemonic ("_Use Enterprise Login");
+  g_signal_connect (priv->action, "clicked", G_CALLBACK (toggle_mode), page);
+  gtk_widget_show (priv->action);
+  g_object_ref_sink (priv->action);
 
   /* force a refresh by setting to an invalid value */
   priv->mode = NUM_MODES;
@@ -908,8 +910,15 @@ gis_account_page_dispose (GObject *object)
   g_clear_object (&priv->act_user);
   g_clear_object (&priv->act_client);
   g_clear_object (&priv->realm_manager);
+  g_clear_object (&priv->action);
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->dispose (object);
+}
+
+static GtkWidget *
+gis_account_page_get_action_widget (GisPage *page)
+{
+  return GIS_ACCOUNT_PAGE (page)->priv->action;
 }
 
 static void
@@ -919,6 +928,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->get_action_widget = gis_account_page_get_action_widget;
   object_class->constructed = gis_account_page_constructed;
   object_class->dispose = gis_account_page_dispose;
 
