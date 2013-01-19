@@ -6,14 +6,14 @@
     <property name="visible">True</property>
     <property name="orientation">vertical</property>
     <property name="spacing">10</property>
+    <property name="margin-left">80</property>
+    <property name="margin-right">80</property>
     <child>
       <object class="GtkScrolledWindow" id="language-scrolledwindow">
         <property name="visible">True</property>
         <property name="hscrollbar-policy">never</property>
         <property name="vscrollbar-policy">automatic</property>
         <property name="shadow-type">in</property>
-        <property name="margin-left">80</property>
-        <property name="margin-right">80</property>
         <child>
           <object class="GtkViewport" id="language-viewport">
             <property name="visible">True</property>
@@ -36,8 +36,6 @@
       <object class="GtkSearchEntry" id="language-filter-entry">
         <property name="visible">False</property>
         <property name="hexpand">True</property>
-        <property name="margin-left">80</property>
-        <property name="margin-right">80</property>
       </object>
     </child>
   </object>
