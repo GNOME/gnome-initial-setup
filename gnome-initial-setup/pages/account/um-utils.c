@@ -33,47 +33,6 @@
 
 #include "um-utils.h"
 
-static gboolean
-query_tooltip (GtkWidget  *widget,
-               gint        x,
-               gint        y,
-               gboolean    keyboard_mode,
-               GtkTooltip *tooltip,
-               gpointer    user_data)
-{
-        gchar *tip;
-
-        if (GTK_ENTRY_ICON_SECONDARY == gtk_entry_get_icon_at_pos (GTK_ENTRY (widget), x, y)) {
-                tip = gtk_entry_get_icon_tooltip_text (GTK_ENTRY (widget),
-                                                       GTK_ENTRY_ICON_SECONDARY);
-                gtk_tooltip_set_text (tooltip, tip);
-                g_free (tip);
-
-                return TRUE;
-        }
-        else {
-                return FALSE;
-        }
-}
-
-static void
-icon_released (GtkEntry             *entry,
-              GtkEntryIconPosition  pos,
-              GdkEvent             *event,
-              gpointer              user_data)
-{
-        GtkSettings *settings;
-        gint timeout;
-
-        settings = gtk_widget_get_settings (GTK_WIDGET (entry));
-
-        g_object_get (settings, "gtk-tooltip-timeout", &timeout, NULL);
-        g_object_set (settings, "gtk-tooltip-timeout", 1, NULL);
-        gtk_tooltip_trigger_tooltip_query (gtk_widget_get_display (GTK_WIDGET (entry)));
-        g_object_set (settings, "gtk-tooltip-timeout", timeout, NULL);
-}
-
-
 void
 set_entry_validation_error (GtkEntry    *entry,
                             const gchar *text)
@@ -81,15 +40,7 @@ set_entry_validation_error (GtkEntry    *entry,
         g_object_set (entry, "caps-lock-warning", FALSE, NULL);
         gtk_entry_set_icon_from_stock (entry,
                                        GTK_ENTRY_ICON_SECONDARY,
-                                       GTK_STOCK_DIALOG_ERROR);
-        gtk_entry_set_icon_activatable (entry,
-                                        GTK_ENTRY_ICON_SECONDARY,
-                                        TRUE);
-        g_signal_connect (entry, "icon-release",
-                          G_CALLBACK (icon_released), FALSE);
-        g_signal_connect (entry, "query-tooltip",
-                          G_CALLBACK (query_tooltip), NULL);
-        g_object_set (entry, "has-tooltip", TRUE, NULL);
+                                       GTK_STOCK_CAPS_LOCK_WARNING);
         gtk_entry_set_icon_tooltip_text (entry,
                                          GTK_ENTRY_ICON_SECONDARY,
                                          text);
@@ -105,101 +56,11 @@ clear_entry_validation_error (GtkEntry *entry)
         if (warning)
                 return;
 
-        g_object_set (entry, "has-tooltip", FALSE, NULL);
         gtk_entry_set_icon_from_pixbuf (entry,
                                         GTK_ENTRY_ICON_SECONDARY,
                                         NULL);
         g_object_set (entry, "caps-lock-warning", TRUE, NULL);
 }
-
-void
-popup_menu_below_button (GtkMenu   *menu,
-                         gint      *x,
-                         gint      *y,
-                         gboolean  *push_in,
-                         GtkWidget *button)
-{
-        GtkRequisition menu_req;
-        GtkTextDirection direction;
-        GtkAllocation allocation;
-
-	gtk_widget_get_preferred_size (GTK_WIDGET (menu), NULL, &menu_req);
-
-        direction = gtk_widget_get_direction (button);
-
-        gdk_window_get_origin (gtk_widget_get_window (button), x, y);
-        gtk_widget_get_allocation (button, &allocation);
-        *x += allocation.x;
-        *y += allocation.y + allocation.height;
-
-        if (direction == GTK_TEXT_DIR_LTR)
-                *x += MAX (allocation.width - menu_req.width, 0);
-        else if (menu_req.width > allocation.width)
-                *x -= menu_req.width - allocation.width;
-
-        *push_in = TRUE;
-}
-
-void
-down_arrow (GtkStyleContext *context,
-            cairo_t         *cr,
-            gint             x,
-            gint             y,
-            gint             width,
-            gint             height)
-{
-        GtkStateFlags flags;
-        GdkRGBA fg_color;
-        GdkRGBA outline_color;
-        gdouble vertical_overshoot;
-        gint diameter;
-        gdouble radius;
-        gdouble x_double, y_double;
-        gdouble angle;
-        gint line_width;
-
-        flags = gtk_style_context_get_state (context);
-
-        gtk_style_context_get_color (context, flags, &fg_color);
-        gtk_style_context_get_border_color (context, flags, &outline_color);
-
-        line_width = 1;
-        angle = G_PI / 2;
-        vertical_overshoot = line_width / 2.0 * (1. / tan (G_PI / 8));
-        if (line_width % 2 == 1)
-                vertical_overshoot = ceil (0.5 + vertical_overshoot) - 0.5;
-        else
-                vertical_overshoot = ceil (vertical_overshoot);
-        diameter = (gint) MAX (3, width - 2 * vertical_overshoot);
-        diameter -= (1 - (diameter + line_width) % 2);
-        radius = diameter / 2.;
-        x_double = floor ((x + width / 2) - (radius + line_width) / 2.) + (radius + line_width) / 2.;
-
-        y_double = (y + height / 2) - 0.5;
-
-        cairo_save (cr);
-
-        cairo_translate (cr, x_double, y_double);
-        cairo_rotate (cr, angle);
-
-        cairo_move_to (cr, - radius / 2., - radius);
-        cairo_line_to (cr,   radius / 2.,   0);
-        cairo_line_to (cr, - radius / 2.,   radius);
-
-        cairo_close_path (cr);
-
-        cairo_set_line_width (cr, line_width);
-
-        gdk_cairo_set_source_rgba (cr, &fg_color);
-
-        cairo_fill_preserve (cr);
-
-        gdk_cairo_set_source_rgba (cr, &outline_color);
-        cairo_stroke (cr);
-
-        cairo_restore (cr);
-}
-
 
 #define MAXNAMELEN  (UT_NAMESIZE - 1)
 
