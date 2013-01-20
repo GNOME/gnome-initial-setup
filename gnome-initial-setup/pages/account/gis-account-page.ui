@@ -1,40 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkListStore" id="account-username-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="enterprise-realms-model">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-      <!-- column-name gobject -->
-      <column type="GObject"/>
-    </columns>
-  </object>
-  <object class="GtkSizeGroup" id="sizegroup">
-    <widgets>
-      <widget name="sizer1"/>
-      <widget name="sizer2"/>
-      <widget name="sizer3"/>
-      <widget name="sizer4"/>
-      <widget name="account-password-strength"/>
-    </widgets>
-  </object>
-  <object class="GtkSizeGroup" id="sizegroup1">
-    <widgets>
-      <widget name="account-fullname-label"/>
-      <widget name="account-username-label"/>
-      <widget name="account-password-label"/>
-      <widget name="account-confirm-label"/>
-      <widget name="label4"/>
-      <widget name="label8"/>
-      <widget name="label9"/>
-    </widgets>
-  </object>
   <object class="GtkBox" id="account-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -44,6 +10,8 @@
       <object class="GtkNotebook" id="account-notebook">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <property name="margin_left">80</property>
+        <property name="margin_right">80</property>
         <property name="show_tabs">False</property>
         <property name="show_border">False</property>
         <child>
@@ -52,34 +20,6 @@
             <property name="can_focus">False</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">12</property>
-            <child>
-              <object class="GtkFrame" id="sizer1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="sizer2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkLabel" id="local-title">
                 <property name="visible">True</property>
@@ -95,7 +35,7 @@
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
                 <property name="width">2</property>
                 <property name="height">1</property>
@@ -112,7 +52,7 @@
                 <property name="mnemonic_widget">account-fullname-entry</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -122,12 +62,11 @@
               <object class="GtkEntry" id="account-fullname-entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="halign">start</property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -144,7 +83,7 @@
                 <property name="mnemonic_widget">account-username-combo</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">2</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -154,7 +93,6 @@
               <object class="GtkComboBoxText" id="account-username-combo">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
                 <property name="has_entry">True</property>
                 <property name="entry_text_column">0</property>
                 <property name="id_column">1</property>
@@ -165,7 +103,7 @@
                 </child>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">2</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -176,15 +114,15 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
+                <property name="margin_bottom">12</property>
                 <property name="label" translatable="yes">This will be used to name your home folder and can't be changed.</property>
                 <property name="wrap">True</property>
-                <property name="margin_bottom">12</property>
                 <attributes>
                   <attribute name="scale" value="0.8"/>
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -201,7 +139,7 @@
                 <property name="mnemonic_widget">account-password-entry</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -211,29 +149,12 @@
               <object class="GtkEntry" id="account-password-entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="halign">start</property>
                 <property name="visibility">False</property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">4</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLevelBar" id="account-password-strength">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-            <property name="max-value">4</property>
-            <property name="mode">discrete</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -250,7 +171,7 @@
                 <property name="mnemonic_widget">account-confirm-entry</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -260,13 +181,13 @@
               <object class="GtkEntry" id="account-confirm-entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="halign">start</property>
                 <property name="visibility">False</property>
+                <property name="sensitive">False</property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -284,11 +205,78 @@
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">6</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">start</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">2</property>
+                <child>
+                  <object class="GtkLabel" id="account-password-strength-label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="label"></property>
+                    <attributes>
+                      <attribute name="scale" value="0.8"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLevelBar" id="account-password-strength">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                    <property name="max-value">4</property>
+                    <property name="mode">discrete</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">2</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
         </child>
@@ -324,20 +312,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFrame" id="sizer4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkLabel" id="enterprise-title">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -352,7 +326,7 @@
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
                 <property name="width">2</property>
                 <property name="height">1</property>
@@ -369,7 +343,7 @@
                 <property name="mnemonic_widget">enterprise-domain</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -381,12 +355,12 @@
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="xalign">1</property>
-                <property name="label" translatable="yes">_Login Name</property>
+                <property name="label" translatable="yes">_Username</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">enterprise-login</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -403,7 +377,7 @@
                 <property name="mnemonic_widget">enterprise-password</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -418,7 +392,7 @@
                 <property name="invisible_char_set">True</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -435,7 +409,7 @@
                 <property name="invisible_char_set">True</property>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -456,7 +430,7 @@
                 </child>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -466,19 +440,46 @@
               <object class="GtkLabel" id="label10">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_bottom">12</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Enterprise domain or realm name</property>
-                <property name="margin_bottom">12</property>
                 <attributes>
                   <attribute name="scale" value="0.8"/>
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">2</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">2</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="filler">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>
@@ -486,6 +487,37 @@
           </packing>
         </child>
       </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="account-username-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="enterprise-realms-model">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+      <!-- column-name gobject -->
+      <column type="GObject"/>
+    </columns>
+  </object>
+  <object class="GtkSizeGroup" id="sizegroup"/>
+  <object class="GtkSizeGroup" id="sizegroup1">
+    <widgets>
+      <widget name="account-fullname-label"/>
+      <widget name="account-username-label"/>
+      <widget name="account-password-label"/>
+      <widget name="account-confirm-label"/>
+      <widget name="label4"/>
+      <widget name="label8"/>
+      <widget name="label9"/>
+    </widgets>
   </object>
 </interface>
