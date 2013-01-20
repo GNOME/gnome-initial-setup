@@ -149,6 +149,8 @@ rebuild_pages_cb (GisDriver *driver, GList *pages)
   GList *pages_itr = NULL;
   gchar **skip_pages;
 
+  gis_assistant_destroy_all_pages (gis_driver_get_assistant (driver));
+
   skip_pages = pages_to_skip_from_file ();
 
   for (pages_itr = pages; pages_itr != NULL; pages_itr = pages_itr->next) {
