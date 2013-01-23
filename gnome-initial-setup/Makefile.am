@@ -29,7 +29,6 @@ BUILT_SOURCES += setup_resources.c
 
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
-	cc-notebook.c cc-notebook.h \
 	gdm-languages.c gdm-languages.h \
 	locarchive.h \
 	gis-assistant.c gis-assistant.h gis-assistant-private.h \
@@ -40,7 +39,8 @@ gnome_initial_setup_SOURCES =	\
 
 if HAVE_CLUTTER
 gnome_initial_setup_SOURCES += \
-	gis-assistant-clutter.c gis-assistant-clutter.h
+	gis-assistant-clutter.c gis-assistant-clutter.h	\
+	cc-notebook.c cc-notebook.h
 endif
 
 gnome_initial_setup_LDADD =	\
