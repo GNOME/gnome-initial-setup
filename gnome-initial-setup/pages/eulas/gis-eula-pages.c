@@ -242,6 +242,8 @@ gis_eula_page_constructed (GObject *object)
     return;
 
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
+  gtk_widget_set_margin_left (vbox, 80);
+  gtk_widget_set_margin_right (vbox, 80);
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
