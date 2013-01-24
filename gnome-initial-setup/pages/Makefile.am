@@ -7,4 +7,5 @@ SUBDIRS = \
 	network \
 	goa \
 	summary \
-	keyboard
+	keyboard \
+	welcome

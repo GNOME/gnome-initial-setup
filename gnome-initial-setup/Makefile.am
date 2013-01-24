@@ -14,6 +14,8 @@ libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 BUILT_SOURCES =
 
 UI_FILES = \
+	pages/welcome/welcome-image.png \
+	pages/welcome/gis-welcome-page.ui \
 	pages/language/gis-language-page.ui \
 	pages/eulas/gis-eula-page.ui \
 	pages/network/gis-network-page.ui \
@@ -45,6 +47,7 @@ gnome_initial_setup_SOURCES += \
 endif
 
 gnome_initial_setup_LDADD =	\
+	pages/welcome/libgiswelcome.la \
 	pages/language/libgislanguage.la \
 	pages/eulas/libgiseulas.la \
 	pages/network/libgisnetwork.la \

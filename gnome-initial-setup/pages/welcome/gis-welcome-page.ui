@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkGrid" id="welcome-page">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="halign">fill</property>
+    <property name="margin_left">80</property>
+    <property name="margin_right">80</property>
+    <child>
+      <object class="GtkImage" id="welcome-image">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="resource">/ui/welcome-image.png</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

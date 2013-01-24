@@ -40,6 +40,7 @@
 
 #include <egg-list-box.h>
 
+#include "pages/welcome/gis-welcome-page.h"
 #include "pages/language/gis-language-page.h"
 #include "pages/eulas/gis-eula-pages.h"
 #include "pages/location/gis-location-page.h"
@@ -78,6 +79,7 @@ new_pages_table (void)
 
   PageData *page_data;
 
+  ADD_PAGE (pages, welcome);
   ADD_PAGE (pages, language);
   ADD_PAGE (pages, keyboard);
   ADD_PAGE (pages, eula);

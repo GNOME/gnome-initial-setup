@@ -16,7 +16,7 @@ AM_GLIB_GNU_GETTEXT
 
 NETWORK_MANAGER_REQUIRED_VERSION=0.9.6.4
 GLIB_REQUIRED_VERSION=2.29.4
-GTK_REQUIRED_VERSION=3.1.2
+GTK_REQUIRED_VERSION=3.7.7
 CLUTTER_REQUIRED_VERSION=1.11.3
 PANGO_REQUIRED_VERSION=1.32.5
 IBUS_REQUIRED_VERSION=1.4.99
@@ -137,6 +137,7 @@ Makefile
 data/Makefile
 gnome-initial-setup/Makefile
 gnome-initial-setup/pages/Makefile
+gnome-initial-setup/pages/welcome/Makefile
 gnome-initial-setup/pages/language/Makefile
 gnome-initial-setup/pages/eulas/Makefile
 gnome-initial-setup/pages/account/Makefile
