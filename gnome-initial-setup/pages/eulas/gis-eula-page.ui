@@ -8,6 +8,26 @@
     <property name="margin_left">80</property>
     <property name="margin_right">80</property>
     <child>
+      <object class="GtkLabel" id="eula-title">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">start</property>
+        <property name="margin_bottom">18</property>
+        <property name="label" translatable="yes">License Agreements</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.2"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkBox" id="vbox">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
@@ -34,7 +54,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
+        <property name="top_attach">1</property>
         <property name="width">1</property>
         <property name="height">1</property>
       </packing>
