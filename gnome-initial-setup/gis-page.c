@@ -133,7 +133,7 @@ gis_page_real_get_builder (GisPage *page)
       return NULL;
     }
 
-  resource_path = g_strdup_printf ("/ui/gis-%s-page.ui", klass->page_id);
+  resource_path = g_strdup_printf ("/org/gnome/initial-setup/gis-%s-page.ui", klass->page_id);
 
   builder = gtk_builder_new ();
   gtk_builder_add_from_resource (builder, resource_path, &error);

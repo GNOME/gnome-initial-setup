@@ -1323,7 +1323,7 @@ input_chooser_new (GtkWindow    *main_window,
 
   builder = gtk_builder_new ();
   gtk_builder_add_from_resource (builder,
-                                 "/ui/gnome-region-panel-input-chooser.ui",
+                                 "/org/gnome/initial-setup/gnome-region-panel-input-chooser.ui",
                                  &error);
 
   if (error)
