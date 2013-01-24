@@ -42,13 +42,13 @@
 
 #include "pages/welcome/gis-welcome-page.h"
 #include "pages/language/gis-language-page.h"
+#include "pages/keyboard/gis-keyboard-page.h"
 #include "pages/eulas/gis-eula-pages.h"
-#include "pages/location/gis-location-page.h"
-#include "pages/account/gis-account-page.h"
 #include "pages/network/gis-network-page.h"
+#include "pages/account/gis-account-page.h"
+#include "pages/location/gis-location-page.h"
 #include "pages/goa/gis-goa-page.h"
 #include "pages/summary/gis-summary-page.h"
-#include "pages/keyboard/gis-keyboard-page.h"
 
 /* main {{{1 */
 

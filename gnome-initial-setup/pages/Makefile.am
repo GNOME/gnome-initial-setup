@@ -1,11 +1,11 @@
 
 SUBDIRS = \
+	welcome \
 	language \
+	keyboard \
 	eulas \
+	network \
 	account \
 	location \
-	network \
 	goa \
-	summary \
-	keyboard \
-	welcome
+	summary
