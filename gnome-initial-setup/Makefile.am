@@ -13,22 +13,12 @@ libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 
 BUILT_SOURCES =
 
-UI_FILES = \
-	pages/welcome/welcome-image.png \
-	pages/welcome/gis-welcome-page.ui \
-	pages/language/gis-language-page.ui \
-	pages/keyboard/gis-keyboard-page.ui \
-	pages/keyboard/gnome-region-panel-input-chooser.ui \
-	pages/eulas/gis-eula-page.ui \
-	pages/network/gis-network-page.ui \
-	pages/account/gis-account-page.ui \
-	pages/location/gis-location-page.ui \
-	pages/goa/gis-goa-page.ui \
-	pages/summary/gis-summary-page.ui
-
-setup_resources.c: setup.gresource.xml $(UI_FILES)
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/setup.gresource.xml)
+gis-resources.c: setup.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
-BUILT_SOURCES += setup_resources.c
+gis-resources.h: setup.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
+BUILT_SOURCES += gis-resources.c gis-resources.h
 
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
