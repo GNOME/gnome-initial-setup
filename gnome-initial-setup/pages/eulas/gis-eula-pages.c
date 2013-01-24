@@ -23,6 +23,8 @@
 
 /* EULA pages {{{1 */
 
+#define PAGE_ID "eula"
+
 #include "config.h"
 #include "gis-eula-pages.h"
 #include "utils.h"
@@ -39,13 +41,15 @@ struct _GisEulaPagePrivate
 {
   GFile *eula;
 
-  GtkWidget *text_view;
   GtkWidget *checkbox;
   GtkWidget *scrolled_window;
 
   gboolean require_checkbox;
   gboolean require_scroll;
 };
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 enum
 {
@@ -214,21 +218,12 @@ get_config (GFile    *eula,
   g_key_file_unref (config);
 }
 
-static GtkBuilder *
-gis_eula_page_get_builder (GisPage *page)
-{
-  /* Prevent warnings because of NULL page IDs */
-  return NULL;
-}
-
 static void
 gis_eula_page_constructed (GObject *object)
 {
   GisEulaPage *page = GIS_EULA_PAGE (object);
   GisEulaPagePrivate *priv = page->priv;
   GtkWidget *text_view;
-  GtkWidget *vbox;
-  GtkWidget *scrolled_window;
 
   gboolean require_checkbox = FALSE;
   gboolean require_scroll = FALSE;
@@ -241,49 +236,22 @@ gis_eula_page_constructed (GObject *object)
   if (text_view == NULL)
     return;
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_widget_set_margin_left (vbox, 80);
-  gtk_widget_set_margin_right (vbox, 80);
+  priv->scrolled_window = WID ("scrolledwindow");
+  gtk_container_add (GTK_CONTAINER (priv->scrolled_window), text_view);
 
-  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
-                                       GTK_SHADOW_ETCHED_IN);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_NEVER,
-                                  GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_vexpand (scrolled_window, TRUE);
-  gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
-  gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
-  gtk_container_add (GTK_CONTAINER (page), vbox);
-
-  priv->text_view = text_view;
-  priv->scrolled_window = scrolled_window;
+  gtk_widget_show (text_view);
 
   get_config (eula, &require_checkbox, &require_scroll);
 
   priv->require_checkbox = require_checkbox;
   priv->require_scroll = require_scroll;
 
-  if (require_checkbox) {
-    GtkWidget *checkbox;
-
-    checkbox = gtk_check_button_new_with_mnemonic (_("I have _agreed to the "
-                                                     "terms and conditions in "
-                                                     "this end user license "
-                                                     "agreement."));
-
-    gtk_container_add (GTK_CONTAINER (vbox), checkbox);
-
-    g_signal_connect_swapped (checkbox, "toggled",
-                              G_CALLBACK (sync_page_complete),
-                              page);
-
-    priv->checkbox = checkbox;
-  }
+  priv->checkbox = WID ("checkbox");
+  gtk_widget_set_visible (priv->checkbox, require_checkbox);
 
   if (require_scroll) {
     GtkAdjustment *vadjust;
-    vadjust = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_window));
+    vadjust = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (priv->scrolled_window));
     g_signal_connect_swapped (vadjust, "changed",
                               G_CALLBACK (sync_page_complete),
                               page);
@@ -295,9 +263,10 @@ gis_eula_page_constructed (GObject *object)
   gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
   sync_page_complete (page);
 
-  gtk_widget_show_all (GTK_WIDGET (page));
-}
+  gtk_container_add (GTK_CONTAINER (page), WID ("eula-page"));
 
+  gtk_widget_show (GTK_WIDGET (page));
+}
 
 static void
 gis_eula_page_get_property (GObject    *object,
@@ -351,10 +320,10 @@ gis_eula_page_dispose (GObject *object)
 static void
 gis_eula_page_class_init (GisEulaPageClass *klass)
 {
-  GisPageClass *page_klass = GIS_PAGE_CLASS (klass);
+  GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  page_klass->get_builder = gis_eula_page_get_builder;
+  page_class->page_id = PAGE_ID;
   object_class->get_property = gis_eula_page_get_property;
   object_class->set_property = gis_eula_page_set_property;
   object_class->constructed = gis_eula_page_constructed;

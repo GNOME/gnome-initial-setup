@@ -15,6 +15,7 @@ BUILT_SOURCES =
 
 UI_FILES = \
 	pages/language/gis-language-page.ui \
+	pages/eulas/gis-eula-page.ui \
 	pages/network/gis-network-page.ui \
 	pages/account/gis-account-page.ui \
 	pages/location/gis-location-page.ui \
