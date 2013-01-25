@@ -16,6 +16,7 @@ eulas-resources.h: eulas.gresource.xml $(resource_files)
 BUILT_SOURCES += eulas-resources.c eulas-resources.h
 
 libgiseulas_la_SOURCES =			\
+	gis-eula-page.c gis-eula-page.h		\
 	gis-eula-pages.c gis-eula-pages.h 	\
 	utils.c utils.h 			\
 	$(BUILT_SOURCES)
