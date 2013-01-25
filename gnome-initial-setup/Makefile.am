@@ -11,15 +11,6 @@ AM_CPPFLAGS = \
 
 libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 
-BUILT_SOURCES =
-
-resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/setup.gresource.xml)
-gis-resources.c: setup.gresource.xml $(resource_files)
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
-gis-resources.h: setup.gresource.xml $(resource_files)
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
-BUILT_SOURCES += gis-resources.c gis-resources.h
-
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	gdm-languages.c gdm-languages.h \
@@ -27,8 +18,7 @@ gnome_initial_setup_SOURCES =	\
 	gis-assistant.c gis-assistant.h gis-assistant-private.h \
 	gis-assistant-gtk.c gis-assistant-gtk.h \
 	gis-page.c gis-page.h \
-	gis-driver.c gis-driver.h \
-	$(BUILT_SOURCES)
+	gis-driver.c gis-driver.h
 
 if HAVE_CLUTTER
 gnome_initial_setup_SOURCES += \

@@ -26,6 +26,7 @@
 #define PAGE_ID "summary"
 
 #include "config.h"
+#include "summary-resources.h"
 #include "gis-summary-page.h"
 
 #include <glib/gstdio.h>
@@ -302,6 +303,7 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
 static void
 gis_summary_page_init (GisSummaryPage *page)
 {
+  g_resources_register (summary_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 
