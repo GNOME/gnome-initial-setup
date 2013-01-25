@@ -27,6 +27,7 @@
 
 #include "config.h"
 #include "gis-welcome-page.h"
+#include "welcome-resources.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -64,6 +65,7 @@ gis_welcome_page_class_init (GisWelcomePageClass *klass)
 static void
 gis_welcome_page_init (GisWelcomePage *page)
 {
+  g_resources_register (welcome_get_resource ());
 }
 
 void
