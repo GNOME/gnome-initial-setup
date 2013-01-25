@@ -28,7 +28,9 @@
 #define PAGE_ID "keyboard"
 
 #include "config.h"
+#include "keyboard-resources.h"
 #include "gis-keyboard-page.h"
+
 #include <gtk/gtk.h>
 
 #include "gnome-region-panel-input.h"
@@ -68,6 +70,7 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 static void
 gis_keyboard_page_init (GisKeyboardPage * self)
 {
+  g_resources_register (keyboard_get_resource ());
 }
 
 void

@@ -6,9 +6,19 @@ AM_CPPFLAGS = \
 	-DLOCALSTATEDIR="\"$(localstatedir)\"" \
 	-DUIDIR="\"$(uidir)\""
 
-libgiskeyboard_la_SOURCES =	\
-	gis-keyboard-page.c gis-keyboard-page.h \
-	gnome-region-panel-input.c gnome-region-panel-input.h
+BUILT_SOURCES =
+
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/keyboard.gresource.xml)
+keyboard-resources.c: keyboard.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
+keyboard-resources.h: keyboard.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
+BUILT_SOURCES += keyboard-resources.c keyboard-resources.h
+
+libgiskeyboard_la_SOURCES =					\
+	gis-keyboard-page.c gis-keyboard-page.h			\
+	gnome-region-panel-input.c gnome-region-panel-input.h	\
+	$(BUILT_SOURCES)
 
 libgiskeyboard_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
 libgiskeyboard_la_LIBADD = $(INITIAL_SETUP_LIBS)
