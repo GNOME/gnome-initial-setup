@@ -26,6 +26,7 @@
 #define PAGE_ID "account"
 
 #include "config.h"
+#include "account-resources.h"
 #include "gis-account-page.h"
 
 #include <glib/gi18n.h>
@@ -999,6 +1000,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
 static void
 gis_account_page_init (GisAccountPage *page)
 {
+  g_resources_register (account_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 

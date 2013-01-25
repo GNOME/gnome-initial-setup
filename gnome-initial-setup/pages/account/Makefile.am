@@ -15,6 +15,13 @@ um-realm-generated.h: $(srcdir)/org.freedesktop.realmd.xml
 		--annotate "org.freedesktop.realmd.Realm" org.gtk.GDBus.C.Name Common
 BUILT_SOURCES += um-realm-generated.c um-realm-generated.h
 
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/account.gresource.xml)
+account-resources.c: account.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
+account-resources.h: account.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
+BUILT_SOURCES += account-resources.c account-resources.h
+
 libgisaccount_la_SOURCES =				\
 	$(BUILT_SOURCES)				\
 	gis-account-page.c gis-account-page.h		\
