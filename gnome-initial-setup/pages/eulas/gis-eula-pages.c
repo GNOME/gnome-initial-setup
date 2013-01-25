@@ -26,6 +26,7 @@
 #define PAGE_ID "eula"
 
 #include "config.h"
+#include "eulas-resources.h"
 #include "gis-eula-pages.h"
 #include "utils.h"
 
@@ -342,6 +343,7 @@ gis_eula_page_class_init (GisEulaPageClass *klass)
 static void
 gis_eula_page_init (GisEulaPage *page)
 {
+  g_resources_register (eulas_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 
