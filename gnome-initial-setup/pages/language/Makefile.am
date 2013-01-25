@@ -8,9 +8,19 @@ AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
 
-libgislanguage_la_SOURCES =	\
-	cc-common-language.c cc-common-language.h \
-	gis-language-page.c gis-language-page.h
+BUILT_SOURCES =
+
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/language.gresource.xml)
+language-resources.c: language.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
+language-resources.h: language.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
+BUILT_SOURCES += language-resources.c language-resources.h
+
+libgislanguage_la_SOURCES =				\
+	cc-common-language.c cc-common-language.h 	\
+	gis-language-page.c gis-language-page.h		\
+	$(BUILT_SOURCES)
 
 libgislanguage_la_CFLAGS = $(INITIAL_SETUP_CFLAGS)
 libgislanguage_la_LIBADD = $(INITIAL_SETUP_LIBS)

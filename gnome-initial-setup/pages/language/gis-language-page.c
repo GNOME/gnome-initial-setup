@@ -26,6 +26,7 @@
 #define PAGE_ID "language"
 
 #include "config.h"
+#include "language-resources.h"
 #include "gis-language-page.h"
 
 #include <locale.h>
@@ -40,8 +41,6 @@
 #include <glib-object.h>
 
 #include <egg-list-box.h>
-
-#include "gis-language-page.h"
 
 G_DEFINE_TYPE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
 
@@ -385,6 +384,7 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
 static void
 gis_language_page_init (GisLanguagePage *page)
 {
+  g_resources_register (language_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 
