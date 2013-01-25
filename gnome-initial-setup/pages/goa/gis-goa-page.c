@@ -27,6 +27,7 @@
 
 #include "config.h"
 #include "gis-goa-page.h"
+#include "goa-resources.h"
 
 #define GOA_API_IS_SUBJECT_TO_CHANGE
 #include <goa/goa.h>
@@ -384,6 +385,7 @@ gis_goa_page_class_init (GisGoaPageClass *klass)
 static void
 gis_goa_page_init (GisGoaPage *page)
 {
+  g_resources_register (goa_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 
