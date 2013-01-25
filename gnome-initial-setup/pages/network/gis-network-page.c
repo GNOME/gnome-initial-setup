@@ -26,6 +26,7 @@
 #define PAGE_ID "network"
 
 #include "config.h"
+#include "network-resources.h"
 #include "gis-network-page.h"
 
 #include <glib/gi18n.h>
@@ -672,6 +673,7 @@ gis_network_page_class_init (GisNetworkPageClass *klass)
 static void
 gis_network_page_init (GisNetworkPage *page)
 {
+  g_resources_register (network_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 
