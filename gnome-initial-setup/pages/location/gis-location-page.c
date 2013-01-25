@@ -27,6 +27,7 @@
 
 #include "config.h"
 #include "cc-datetime-resources.h"
+#include "location-resources.h"
 #include "gis-location-page.h"
 
 #include <glib/gi18n.h>
@@ -372,6 +373,7 @@ gis_location_page_class_init (GisLocationPageClass *klass)
 static void
 gis_location_page_init (GisLocationPage *page)
 {
+  g_resources_register (location_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 

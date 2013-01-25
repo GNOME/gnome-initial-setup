@@ -25,6 +25,13 @@ cc-datetime-resources.h: datetime.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
 BUILT_SOURCES += cc-datetime-resources.c cc-datetime-resources.h
 
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/location.gresource.xml)
+location-resources.c: location.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
+location-resources.h: location.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
+BUILT_SOURCES += location-resources.c location-resources.h
+
 libgislocation_la_SOURCES =	\
 	tz.c tz.h \
 	cc-timezone-map.c cc-timezone-map.h \
