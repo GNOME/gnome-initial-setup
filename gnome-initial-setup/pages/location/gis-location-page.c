@@ -273,8 +273,6 @@ gis_location_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_location_page_parent_class)->constructed (object);
 
-  g_resources_register (datetime_get_resource ());
-
   gtk_container_add (GTK_CONTAINER (page), WID ("location-page"));
 
   frame = WID("location-map-frame");
@@ -374,6 +372,7 @@ static void
 gis_location_page_init (GisLocationPage *page)
 {
   g_resources_register (location_get_resource ());
+  g_resources_register (datetime_get_resource ());
   page->priv = GET_PRIVATE (page);
 }
 
