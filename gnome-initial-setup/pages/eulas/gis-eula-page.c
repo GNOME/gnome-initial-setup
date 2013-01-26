@@ -27,7 +27,7 @@
 
 #include "config.h"
 #include "eulas-resources.h"
-#include "gis-eula-pages.h"
+#include "gis-eula-page.h"
 #include "utils.h"
 
 #include <glib/gi18n.h>
