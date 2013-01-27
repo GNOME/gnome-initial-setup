@@ -299,6 +299,7 @@ child_activated (EggListBox      *box,
 
 typedef struct {
   gint count;
+  GtkWidget *ignore;
 } CountChildrenData;
 
 static void
@@ -306,7 +307,9 @@ count_visible_children (GtkWidget *widget,
                         gpointer   user_data)
 {
   CountChildrenData *data = user_data;
-  if (gtk_widget_get_child_visible (widget) && gtk_widget_get_visible (widget))
+  if (widget != data->ignore &&
+      gtk_widget_get_child_visible (widget) &&
+      gtk_widget_get_visible (widget))
     data->count++;
 }
 
@@ -318,6 +321,8 @@ end_refilter (EggListBox *list_box,
   GisLanguagePagePrivate *priv = page->priv;
 
   CountChildrenData data = { 0 };
+
+  data.ignore = priv->no_results;
 
   gtk_container_foreach (GTK_CONTAINER (list_box),
                          count_visible_children, &data);
