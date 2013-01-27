@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-18 22:48+0000\n"
-"PO-Revision-Date: 2011-11-09 16:10+0900\n"
+"POT-Creation-Date: 2013-01-25 18:37+0000\n"
+"PO-Revision-Date: 2013-01-27 12:52+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
@@ -24,89 +24,95 @@ msgstr "دەسلەپكى تەڭشەش"
 msgid "Unspecified"
 msgstr "بەلگىلەنمىگەن"
 
-#: ../gnome-initial-setup/gis-assistant.c:270
+#: ../gnome-initial-setup/gis-assistant.c:288
 msgid "_Next"
 msgstr "كېيىنكى(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:271
+#: ../gnome-initial-setup/gis-assistant.c:289
 msgid "_Back"
 msgstr "كەينى(_B)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:312
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
+msgid "Force new user mode"
+msgstr "قەتئىي يېڭى ئىشلەتكۈچى ھالىتىدە"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+msgid "Use _Enterprise Login"
+msgstr "شىركەت ھېساباتىدا كىر(_E)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
+msgid "_Use Local Login"
+msgstr "يەرلىك ھېساباتتا كىر(_U)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
 msgid "Passwords do not match"
 msgstr "ئىم ماس كەلمىدى"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:490
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#, c-format
+msgid "Strength: %s"
+msgstr "كۈچلۈكلۈكى: %s"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
 msgid "Failed to register account"
 msgstr "ھېسابات خەتلىتىش مەغلۇپ بولدى"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:553
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
 msgid "Failed to join domain"
 msgstr "دائىرىگە قوشۇلۇش مەغلۇپ بولدى"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:608
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
 msgid "Failed to log into domain"
 msgstr "دائىرىگە كىرىش مەغلۇپ بولدى"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:897
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:961
 msgid "Login"
 msgstr "كىرىش"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
 msgid "Create a Local Account"
-msgstr ""
+msgstr "يەرلىك ھېسابات قۇرۇش"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "Use _Enterprise Login"
-msgstr ""
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
 msgid "_Full Name"
 msgstr "تولۇق ئاتى(_F)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
 msgid "_Username"
 msgstr "ئىشلەتكۈچى ئاتى(_U)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
+msgstr "بۇ سىزنىڭ ماكان مۇندەرىجىڭىزنىڭ ئاتى قىلىپ ئىشلىتىلىدۇ. ئۆزگەرتىشكە بولمايدۇ."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
 msgid "_Password"
 msgstr "ئىم(_P)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
 msgid "_Confirm password"
-msgstr ""
+msgstr "ئىمنى جەزملەڭ(_C)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
 msgid ""
 "Try to use at least 8 different characters. Mix upper and lower case and use "
 "a number or two."
-msgstr ""
+msgstr "ئەڭ ئاز دېگەندە 8 ھەرپ بولسۇن، بىر-بىرىگە ئوخشىمايدىغان بولسۇن. چوڭ ۋە كىچىك ھەرپلەر ۋە بىر ياكى ئىككى رەقەممۇ بولسۇن."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
 msgstr "1-بەت"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
 msgid "Create an Enterprise Account"
-msgstr ""
+msgstr "شىركەت ھېساباتى قۇرۇش"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
 msgid "_Domain"
 msgstr "دائىرە(_D)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "_Login Name"
-msgstr "كىرىش ئاتى(_L)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
-msgid "Use _Local Login"
-msgstr ""
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Enterprise domain or realm name"
 msgstr "شىركەت دائىرە ئاتى ياكى realm ئاتى"
 
@@ -159,88 +165,111 @@ msgstr "ئىم خاتا، قايتا سىناڭ"
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "دائىرە %s غا باغلانغىلى بولمىدى: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:268
+#: ../gnome-initial-setup/pages/account/um-utils.c:129
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "‹%s› ئاتلىق ئىشلەتكۈچىدىن بىرى مەۋجۇت"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:272
+#: ../gnome-initial-setup/pages/account/um-utils.c:133
 #, c-format
 msgid "The username is too long"
 msgstr "ئىشلەتكۈچى ئاتى بەك ئۇزۇن"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:275
+#: ../gnome-initial-setup/pages/account/um-utils.c:136
 msgid "The username cannot start with a '-'"
 msgstr "ئىشلەتكۈچى ئاتى '-' ھەرپتىن باشلانمايدۇ"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:278
+#: ../gnome-initial-setup/pages/account/um-utils.c:139
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
-msgstr ""
+msgstr "ئىشلەتكۈچى ئاتىنىڭ تەركىبىدە بولىدىغىنى:\n"
+"  ئىنگلىزچە ئېلىپبەدىكى ھەرپلەر ➣\n"
+"  رەقەملەر ➣ \n"
+"  \"-\" خالىغان ھەرپ \".\"، \"_\"  ۋە ➣"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:268
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr ""
-
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:293
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:264
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
-msgstr ""
+msgstr "ئىجازەتنامە"
 
 #. translators: This is the title of the "Add Account" dialog.
 #: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "ھېسابات قوشۇش"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:104
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
 msgid "Error creating account"
 msgstr "ھېسابات قۇرۇۋاتقاندا خاتالىق كۆرۈلدى"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:136
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
 msgid "Error removing account"
 msgstr "ھېساباتنى چىقىرىۋېتىشتە خاتالىق كۆرۈلدى"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:162
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
 msgid "Are you sure you want to remove the account?"
 msgstr "ھېساباتنى راستلا چىقىرىۋېتەمسىز؟"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
 msgid "This will not remove the account on the server."
 msgstr "بۇ مۇلازىمېتىردىكى ھېساباتنى چىقىرىۋەتمەيدۇ."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "_Remove"
 msgstr "چىقىرىۋەت(_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:354
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:355
 msgid "Online Accounts"
 msgstr "توردىكى ھېساباتلار"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
 msgid "Connect to your existing data in the cloud"
-msgstr ""
+msgstr "بۇلۇتتىكى سانلىق-مەلۇماتلىرىڭىزغا باغلىنىڭ"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
 "Adding accounts will allow you to transparently connect to your online "
 "photos, contacts, mail, and more."
-msgstr ""
+msgstr "ھېساباتلار قوشۇلسا، توردىكى سۈرەتلەرنى، ئالاقەداشلارنى، ئېلخەتنى ۋە باشقا نۇرغۇن نەرسىلەرنى كۆرۈشكە ئىمكانىيەت تۇغۇلىدۇ."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:52
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:54
 msgid "Keyboard Layout"
 msgstr "ھەرپتاختا ئورۇنلاشتۇرۇلۇشى"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
-msgstr ""
+msgstr "كىرگۈزۈش مەنبەلىرىنى تاللاش"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Add Input Source"
+msgstr "كىرگۈزۈش مەنبەسى قوشۇش"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
+msgid "Remove Input Source"
+msgstr "كىرگۈزۈش مەنبەسىنى چىقىرىۋېتىش"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
+msgid "Move Input Source Up"
+msgstr "كىرگۈزۈش مەنبەسىنى ئۈستىگە يۆتكەش"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
+msgid "Move Input Source Down"
+msgstr "كىرگۈزۈش مەنبەسىنى ئاستىغا يۆتكەش"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
+msgid "Input Source Settings"
+msgstr "كىرگۈزۈش مەنبەسى تەڭشىكى"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
+#| msgid "Keyboard Layout"
+msgid "Show Keyboard Layout"
+msgstr "ھەرپ تاختا ئورۇنلاشتۇرۇشىنى كۆرسىتىش"
 
 #: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
 msgid "Select an input source"
-msgstr ""
+msgstr "كىرگۈزۈش مەنبەسىنى تاللاڭ"
 
 #. Add some common languages first
 #: ../gnome-initial-setup/pages/language/cc-common-language.c:201
@@ -267,62 +296,63 @@ msgstr "ئىسپانچە"
 msgid "Chinese (simplified)"
 msgstr "ئاددىي خەنزۇچە"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:120
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:119
 #, c-format
 msgid "Use %s"
-msgstr ""
+msgstr "%s نى ئىشلىتىش"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:171
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:170
 msgid "More…"
-msgstr ""
+msgstr "تېخىمۇ كۆپ…"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:178
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:177
 msgid "No languages found"
-msgstr ""
+msgstr "تىل تېپىلمىدى"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:368
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:367
+#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:47
 msgid "Welcome"
 msgstr "مەرھابا"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:304
 msgid "Search for a location"
-msgstr ""
+msgstr "ئورۇن ئىزدەش"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:342
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:341
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "ئورنى"
 
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:1
 msgid "Choose Your Location"
-msgstr ""
+msgstr "ئورنىڭىزنى تاللاڭ"
 
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:2
 msgid "_Determine your location automatically"
-msgstr ""
+msgstr "ئورنۇمنى ئاپتوماتىك بەلگىلىسۇن(_D)"
 
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:4
 msgid "Time Zone"
 msgstr "ۋاقىت رايونى"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:318
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "باشقا…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:356
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "Network is not available."
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدىغان تور يوق."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
 msgid "No network devices found."
 msgstr "تور ئۈسكۈنىسى تېپىلمىدى."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:408
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
 msgid "Checking for available wireless networks"
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدىغان سىمسىز تورنى تەكشۈرۈش"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:638
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
 msgid "Network"
 msgstr "تور"
 
@@ -330,18 +360,21 @@ msgstr "تور"
 msgid "Wireless Networks"
 msgstr "سىمسىز تور"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:289
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:284
 msgid "Thank You"
 msgstr "تەشەككۈرلەر"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
 msgid "Your computer is ready to use."
-msgstr ""
+msgstr "كومپيۇتېر تەييار بولدى"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
 msgid "You may change these options at any time in Settings."
-msgstr ""
+msgstr "بۇ تاللانمىلارنى سىز خالىغان ۋاقىتتا «تەڭشەكلەر»دىن ئۆزگەرتەلەيسىز."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
-msgstr ""
+msgstr "گىنوم 3 نى باشلاي(_S)"
+
+#~ msgid "_Login Name"
+#~ msgstr "كىرىش ئاتى(_L)"
