@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-15 08:39+0200\n"
-"PO-Revision-Date: 2013-01-15 08:39+0200\n"
+"POT-Creation-Date: 2013-02-09 09:10+0200\n"
+"PO-Revision-Date: 2013-02-09 09:10+0200\n"
 "Last-Translator: Ivaylo Valkov <ivaylo@e-valkov.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -25,31 +25,49 @@ msgstr "Първоначални настройки"
 msgid "Unspecified"
 msgstr "Неуказан"
 
-#: ../gnome-initial-setup/gis-assistant.c:271
+#: ../gnome-initial-setup/gis-assistant.c:288
 msgid "_Next"
 msgstr "На_пред"
 
-#: ../gnome-initial-setup/gis-assistant.c:272
+#: ../gnome-initial-setup/gis-assistant.c:289
 msgid "_Back"
 msgstr "На_зад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:312
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
+msgid "Force new user mode"
+msgstr "Изискване на новия потребителски режим"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+msgid "Use _Enterprise Login"
+msgstr "_Корпоративен вход"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
+msgid "_Use Local Login"
+msgstr "_Локален вход"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
 msgid "Passwords do not match"
 msgstr "Паролите не съвпадат"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:490
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#, c-format
+msgid "Strength: %s"
+msgstr "Надеждност: %s"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
 msgid "Failed to register account"
 msgstr "Неуспех при свързване на регистрацията"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:553
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
 msgid "Failed to join domain"
 msgstr "Неуспех при влизане в областта"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:608
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
 msgid "Failed to log into domain"
 msgstr "Неуспех при вход в областта"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:897
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:961
 msgid "Login"
 msgstr "Вход"
 
@@ -58,30 +76,26 @@ msgid "Create a Local Account"
 msgstr "Създаване на регистрация на тази машина"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "Use _Enterprise Login"
-msgstr "Използване на _корпоративен вход"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
 msgid "_Full Name"
 msgstr "П_ълно име"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
 msgid "_Username"
 msgstr "Потребителско _име"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "This will be used to name your home folder and can't be changed."
 msgstr "Ще се използва за името на домашната ви папка. Не може да се променя."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
 msgid "_Password"
 msgstr "_Парола"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
 msgid "_Confirm password"
 msgstr "_Потвърждаване на паролата"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
 msgid ""
 "Try to use at least 8 different characters. Mix upper and lower case and use "
 "a number or two."
@@ -89,27 +103,19 @@ msgstr ""
 "Опитайте да използвате 8 различни знака. Използвайте главни и малки букви, и "
 "една или две цифри."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
 msgstr "страница 1"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
 msgid "Create an Enterprise Account"
 msgstr "Създаване на корпоративна регистрация"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
 msgid "_Domain"
 msgstr "_Област"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "_Login Name"
-msgstr "_Потребителско име"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
-msgid "Use _Local Login"
-msgstr "Използване на _локален вход"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Enterprise domain or realm name"
 msgstr "Корпоративен домейн или област"
 
@@ -162,21 +168,21 @@ msgstr "Грешна парола. Опитайте отново."
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Неуспешно влизане в областта „%s“: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:268
+#: ../gnome-initial-setup/pages/account/um-utils.c:129
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Вече съществува потребител с име „%s“."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:272
+#: ../gnome-initial-setup/pages/account/um-utils.c:133
 #, c-format
 msgid "The username is too long"
 msgstr "Потребителското име е прекалено дълго"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:275
+#: ../gnome-initial-setup/pages/account/um-utils.c:136
 msgid "The username cannot start with a '-'"
 msgstr "Потребителското име не може да започва с „-“"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:278
+#: ../gnome-initial-setup/pages/account/um-utils.c:139
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -188,13 +194,8 @@ msgstr ""
 " ➣ цифри\n"
 " ➣ кой да е от символите „.“ (точка), „-“ (тире) и „_“ (долно тире)"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:268
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr "П_риемам правилата и условията на лиценза."
-
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:293
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:264
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Условия на лиценза"
 
@@ -203,49 +204,73 @@ msgstr "Условия на лиценза"
 msgid "Add Account"
 msgstr "Добавяне на регистрация"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:104
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
 msgid "Error creating account"
 msgstr "Грешка при създаване на регистрация"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:136
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
 msgid "Error removing account"
 msgstr "Грешка при премахване на регистрация"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:162
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
 msgid "Are you sure you want to remove the account?"
 msgstr "Наистина ли искате да изтриете регистрацията?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
 msgid "This will not remove the account on the server."
 msgstr "Действието няма да премахне регистрацията на отдалечената машина."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "_Remove"
 msgstr "_Премахване"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:354
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:355
 msgid "Online Accounts"
 msgstr "Мрежови регистрации"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Link other accounts"
-msgstr "Свързване към други регистрации"
+msgid "Connect to your existing data in the cloud"
+msgstr "Свързване към данните ви в Интернет"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Adding an account allows your application to access it for documents, mail, "
-"contacts, calendar, char and more."
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
 msgstr ""
-"Добавянето на регистрация позволява на програмата да я използва за достъп до "
-"документи, поща, контакти, календари и др."
+"Добавянето на регистрации позволява да използвате снимките, контактите, "
+"пощата си и др. от Интернет."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:52
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:54
 msgid "Keyboard Layout"
 msgstr "Подредба на клавиатурата"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Избор на входни устройства"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Add Input Source"
+msgstr "Добавяне на входно устройство"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
+msgid "Remove Input Source"
+msgstr "Премахване на входното устройство"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
+msgid "Move Input Source Up"
+msgstr "Преместване на входното устройство нагоре"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
+msgid "Move Input Source Down"
+msgstr "Преместване на входното устройство надолу"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
+msgid "Input Source Settings"
+msgstr "Настройки на входното устройство"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
+msgid "Show Keyboard Layout"
+msgstr "Показване на подредбата на клавиатурата"
 
 #: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
 msgid "Select an input source"
@@ -276,24 +301,29 @@ msgstr "Испански"
 msgid "Chinese (simplified)"
 msgstr "Китайски (опростен)"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:122
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:119
 #, c-format
 msgid "Use %s"
 msgstr "Да се използва „%s“"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:165
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:170
 msgid "More…"
 msgstr "Допълнителни…"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:313
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:177
+msgid "No languages found"
+msgstr "Не са намерени езици"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:372
+#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:47
 msgid "Welcome"
 msgstr "Добре дошли"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:302
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:304
 msgid "Search for a location"
 msgstr "Търсене на местоположение"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:339
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:341
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Местоположение"
@@ -310,24 +340,24 @@ msgstr "Автоматично _определяне на местоположе
 msgid "Time Zone"
 msgstr "Часова зона"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:318
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Други…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:356
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "Network is not available."
 msgstr "Не е налична мрежа."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
 msgid "No network devices found."
 msgstr "Не са открити мрежови устройства."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:408
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
 msgid "Checking for available wireless networks"
 msgstr "Търсене на налични безжични мрежи"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:638
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
 msgid "Network"
 msgstr "Мрежа"
 
@@ -335,7 +365,7 @@ msgstr "Мрежа"
 msgid "Wireless Networks"
 msgstr "Безжични мрежи"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:280
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:284
 msgid "Thank You"
 msgstr "Благодарим Ви"
 
@@ -351,42 +381,3 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Стартирайте използването на GNOME 3"
-
-#~ msgid "Create Local Account"
-#~ msgstr "Създаване на регистрация на тази машина"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Отказване"
-
-#~ msgid "_Done"
-#~ msgstr "_Създаване"
-
-#~ msgid "_Require a password to use this account"
-#~ msgstr "И_зискване на парола за използване на тази регистрация"
-
-#~ msgid "_Act as administrator of this computer"
-#~ msgstr "Потребителят да бъде а_дминистратор за този компютър"
-
-#~ msgid "Choose How to Login"
-#~ msgstr "Изберете метода за вход"
-
-#~ msgid "Disable image"
-#~ msgstr "Изключване на изображението"
-
-#~ msgid "Take a photo..."
-#~ msgstr "Снимане на снимка…"
-
-#~ msgid "Remove"
-#~ msgstr "Премахване"
-
-#~ msgid "Show _all"
-#~ msgstr "Показване на _всички"
-
-#~ msgid "Enjoy GNOME!"
-#~ msgstr "Наслаждавайте се на GNOME!"
-
-#~ msgid "New to GNOME 3 and need help finding your way around?"
-#~ msgstr "GNOME 3 новост за Вас и имате нужда от помощ, за да се ориентирате?"
-
-#~ msgid "_Take a Tour"
-#~ msgstr "_Опознавателен преглед"
