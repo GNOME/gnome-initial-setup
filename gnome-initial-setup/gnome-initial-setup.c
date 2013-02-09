@@ -205,7 +205,7 @@ main (int argc, char *argv[])
 
   pages = new_pages_table ();
 
-  context = g_option_context_new ("- GNOME initial setup");
+  context = g_option_context_new (_("- GNOME initial setup"));
   g_option_context_add_main_entries (context, entries, NULL);
 
   g_option_context_parse (context, &argc, &argv, NULL);
