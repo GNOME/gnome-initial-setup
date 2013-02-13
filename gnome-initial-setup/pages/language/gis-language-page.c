@@ -76,6 +76,12 @@ typedef struct {
   gboolean is_extra;
 } LanguageWidget;
 
+static LanguageWidget *
+get_language_widget (GtkWidget *widget)
+{
+  return g_object_get_data (G_OBJECT (widget), "language-widget");
+}
+
 static void
 set_locale_id (GisLanguagePage *page,
                gchar           *new_locale_id)
@@ -95,8 +101,8 @@ sort_languages (gconstpointer a,
 {
   LanguageWidget *la, *lb;
 
-  la = g_object_get_data (G_OBJECT (a), "language-widget");
-  lb = g_object_get_data (G_OBJECT (b), "language-widget");
+  la = get_language_widget (GTK_WIDGET (a));
+  lb = get_language_widget (GTK_WIDGET (b));
 
   if (la == NULL)
     return 1;
@@ -275,7 +281,7 @@ language_visible (GtkWidget *child,
   if (child == priv->no_results)
     return TRUE;
 
-  widget = g_object_get_data (G_OBJECT (child), "language-widget");
+  widget = get_language_widget (child);
 
   filter_contents = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
   if (*filter_contents && strcasestr (widget->locale_name, filter_contents) == NULL)
@@ -316,7 +322,7 @@ child_activated (EggListBox      *box,
     show_more (page);
   else
     {
-      LanguageWidget *widget = g_object_get_data (G_OBJECT (child), "language-widget");
+      LanguageWidget *widget = get_language_widget (child);
       set_locale_id (page, widget->locale_id);
     }
 }
