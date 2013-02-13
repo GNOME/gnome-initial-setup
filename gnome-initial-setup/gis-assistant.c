@@ -218,24 +218,18 @@ gis_assistant_add_page (GisAssistant *assistant,
     update_navigation_buttons (assistant);
 }
 
-void
-gis_assistant_destroy_all_pages (GisAssistant *assistant)
+GisPage *
+gis_assistant_get_current_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  GList *l, *next;
+  return priv->current_page;
+}
 
-  g_object_freeze_notify (G_OBJECT (assistant));
-
-  for (l = priv->pages; l != NULL; l = next)
-    {
-      GisPage *page = l->data;
-      next = l->next;
-      gtk_widget_destroy (GTK_WIDGET (page));
-    }
-
-  g_object_thaw_notify (G_OBJECT (assistant));
-
-  g_assert (priv->pages == NULL);
+GList *
+gis_assistant_get_all_pages (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  return priv->pages;
 }
 
 static void

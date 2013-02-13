@@ -136,19 +136,52 @@ pages_to_skip_from_file (void)
 }
 
 static void
+destroy_pages_after (GisAssistant *assistant,
+                     GisPage      *page)
+{
+  GList *pages, *l, *next;
+
+  pages = gis_assistant_get_all_pages (assistant);
+
+  for (l = pages; l != NULL; l = l->next)
+    if (l->data == page)
+      break;
+
+  l = l->next;
+  for (; l != NULL; l = next) {
+    next = l->next;
+    gtk_widget_destroy (GTK_WIDGET (l->data));
+  }
+}
+
+static void
 rebuild_pages_cb (GisDriver *driver)
 {
   PageData *page_data;
+  GisAssistant *assistant;
+  GisPage *current_page;
   gchar **skip_pages;
 
-  gis_assistant_destroy_all_pages (gis_driver_get_assistant (driver));
+  assistant = gis_driver_get_assistant (driver);
+  current_page = gis_assistant_get_current_page (assistant);
 
   skip_pages = pages_to_skip_from_file ();
 
-  for (page_data = page_table; page_data->page_id != NULL; ++page_data) {
+  page_data = page_table;
+
+  if (current_page != NULL) {
+    destroy_pages_after (assistant, current_page);
+
+    for (page_data = page_table; page_data->page_id != NULL; ++page_data)
+      if (g_str_equal (page_data->page_id, GIS_PAGE_GET_CLASS (current_page)->page_id))
+        break;
+
+    ++page_data;
+  }
+
+  for (; page_data->page_id != NULL; ++page_data)
     if (!should_skip_page (driver, page_data->page_id, skip_pages))
       page_data->prepare_page_func (driver);
-  }
 
   g_strfreev (skip_pages);
 }
