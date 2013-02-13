@@ -36,9 +36,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <geoclue/geoclue-master.h>
-#include <geoclue/geoclue-position.h>
-
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/location-entry.h>
 

@@ -39,7 +39,6 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gnome-desktop-3.0
                   gstreamer-1.0
                   fontconfig
-                  geoclue
                   gweather-3.0
                   goa-1.0
                   goa-backend-1.0
