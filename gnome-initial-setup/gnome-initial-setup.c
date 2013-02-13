@@ -65,32 +65,22 @@ typedef struct {
     PreparePage prepare_page_func;
 } PageData;
 
+#define PAGE(name) { #name, gis_prepare_ ## name ## _page }
 
-#define ADD_PAGE(pages, NAME) \
-  page_data = g_slice_new0 (PageData); \
-  page_data->page_id = #NAME; \
-  page_data->prepare_page_func = gis_prepare_ ## NAME ## _page; \
-  pages = g_list_append (pages, page_data);
+static PageData page_table[] = {
+  PAGE (welcome),
+  PAGE (language),
+  PAGE (keyboard),
+  PAGE (eula),
+  PAGE (network),
+  PAGE (account),
+  PAGE (location),
+  PAGE (goa),
+  PAGE (summary),
+  { NULL },
+};
 
-static GList*
-new_pages_table (void)
-{
-  GList *pages = NULL;
-
-  PageData *page_data;
-
-  ADD_PAGE (pages, welcome);
-  ADD_PAGE (pages, language);
-  ADD_PAGE (pages, keyboard);
-  ADD_PAGE (pages, eula);
-  ADD_PAGE (pages, network);
-  ADD_PAGE (pages, account);
-  ADD_PAGE (pages, location);
-  ADD_PAGE (pages, goa);
-  ADD_PAGE (pages, summary);
-
-  return pages;
-}
+#undef PAGE
 
 static gboolean
 should_skip_page (GisDriver    *driver,
@@ -146,18 +136,16 @@ pages_to_skip_from_file (void)
 }
 
 static void
-rebuild_pages_cb (GisDriver *driver, GList *pages)
+rebuild_pages_cb (GisDriver *driver)
 {
-  GList *pages_itr = NULL;
+  PageData *page_data;
   gchar **skip_pages;
 
   gis_assistant_destroy_all_pages (gis_driver_get_assistant (driver));
 
   skip_pages = pages_to_skip_from_file ();
 
-  for (pages_itr = pages; pages_itr != NULL; pages_itr = pages_itr->next) {
-    PageData *page_data = pages_itr->data;
-
+  for (page_data = page_table; page_data->page_id != NULL; ++page_data) {
     if (!should_skip_page (driver, page_data->page_id, skip_pages))
       page_data->prepare_page_func (driver);
   }
@@ -195,15 +183,12 @@ main (int argc, char *argv[])
   GisDriver *driver;
   int status;
   GOptionContext *context;
-  GList *pages;
 
   GOptionEntry entries[] = {
     { "force-new-user", 0, 0, G_OPTION_ARG_NONE, &force_new_user_mode,
       _("Force new user mode"), NULL },
     { NULL }
   };
-
-  pages = new_pages_table ();
 
   context = g_option_context_new (_("- GNOME initial setup"));
   g_option_context_add_main_entries (context, entries, NULL);
@@ -230,12 +215,11 @@ main (int argc, char *argv[])
   g_type_ensure (EGG_TYPE_LIST_BOX);
 
   driver = gis_driver_new (get_mode ());
-  g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), pages);
+  g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);
   status = g_application_run (G_APPLICATION (driver), argc, argv);
 
   g_object_unref (driver);
   g_option_context_free (context);
-  g_list_free (pages);
   return status;
 }
 
