@@ -261,7 +261,6 @@ gis_eula_page_constructed (GObject *object)
                               page);
   }
 
-  gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
   sync_page_complete (page);
 
   gtk_container_add (GTK_CONTAINER (page), WID ("eula-page"));
@@ -319,12 +318,19 @@ gis_eula_page_dispose (GObject *object)
 }
 
 static void
+gis_eula_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
+}
+
+static void
 gis_eula_page_class_init (GisEulaPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_eula_page_locale_changed;
   object_class->get_property = gis_eula_page_get_property;
   object_class->set_property = gis_eula_page_set_property;
   object_class->constructed = gis_eula_page_constructed;

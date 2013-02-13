@@ -335,7 +335,6 @@ gis_location_page_constructed (GObject *object)
   gtk_widget_hide (WID ("location-auto-button"));
 #endif
 
-  gis_page_set_title (GIS_PAGE (page), _("Location"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
@@ -353,12 +352,19 @@ gis_location_page_dispose (GObject *object)
 }
 
 static void
+gis_location_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Location"));
+}
+
+static void
 gis_location_page_class_init (GisLocationPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_location_page_locale_changed;
   object_class->constructed = gis_location_page_constructed;
   object_class->dispose = gis_location_page_dispose;
   

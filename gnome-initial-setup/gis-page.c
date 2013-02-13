@@ -159,6 +159,8 @@ gis_page_constructed (GObject *object)
 
   page->builder = klass->get_builder (page);
 
+  gis_page_locale_changed (page);
+
   G_OBJECT_CLASS (gis_page_parent_class)->constructed (object);
 }
 

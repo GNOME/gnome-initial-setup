@@ -44,12 +44,17 @@ gis_welcome_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_welcome_page_parent_class)->constructed (object);
 
-  gis_page_set_title (GIS_PAGE (page), _("Welcome"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_container_add (GTK_CONTAINER (page), WID ("welcome-page"));
 
   gtk_widget_show (GTK_WIDGET (page));
+}
+
+static void
+gis_welcome_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Welcome"));
 }
 
 static void
@@ -59,6 +64,7 @@ gis_welcome_page_class_init (GisWelcomePageClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_welcome_page_locale_changed;
   object_class->constructed = gis_welcome_page_constructed;
 }
 

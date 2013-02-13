@@ -281,10 +281,15 @@ gis_summary_page_constructed (GObject *object)
 
   g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (done_cb), page);
 
-  gis_page_set_title (GIS_PAGE (page), _("Thank You"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
+}
+
+static void
+gis_summary_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Thank You"));
 }
 
 static void
@@ -295,6 +300,7 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->get_builder = gis_summary_page_get_builder;
+  page_class->locale_changed = gis_summary_page_locale_changed;
   object_class->constructed = gis_summary_page_constructed;
 
   g_type_class_add_private (object_class, sizeof(GisSummaryPagePrivate));

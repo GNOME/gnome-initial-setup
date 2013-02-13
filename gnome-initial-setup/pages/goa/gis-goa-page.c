@@ -352,7 +352,6 @@ gis_goa_page_constructed (GObject *object)
   g_signal_connect (priv->goa_client, "account-removed",
                     G_CALLBACK (goa_account_removed), page);
 
-  gis_page_set_title (GIS_PAGE (page), _("Online Accounts"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
@@ -370,12 +369,19 @@ gis_goa_page_dispose (GObject *object)
 }
 
 static void
+gis_goa_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Online Accounts"));
+}
+
+static void
 gis_goa_page_class_init (GisGoaPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_goa_page_locale_changed;
   object_class->constructed = gis_goa_page_constructed;
   object_class->dispose = gis_goa_page_dispose;
   

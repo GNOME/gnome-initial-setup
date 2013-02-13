@@ -636,7 +636,6 @@ gis_network_page_constructed (GObject *object)
 
   refresh_wireless_list (page);
 
-  gis_page_set_title (GIS_PAGE (page), _("Network"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
  out:
@@ -658,12 +657,19 @@ gis_network_page_dispose (GObject *object)
 }
 
 static void
+gis_network_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Network"));
+}
+
+static void
 gis_network_page_class_init (GisNetworkPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_network_page_locale_changed;
   object_class->constructed = gis_network_page_constructed;
   object_class->dispose = gis_network_page_dispose;
 

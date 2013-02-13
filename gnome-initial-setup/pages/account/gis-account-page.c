@@ -958,8 +958,6 @@ gis_account_page_constructed (GObject *object)
   priv->mode = NUM_MODES;
   set_mode (page, UM_LOCAL);
 
-  gis_page_set_title (GIS_PAGE (page), _("Login"));
-
   gtk_widget_show (GTK_WIDGET (page));
 }
 
@@ -984,12 +982,19 @@ gis_account_page_get_action_widget (GisPage *page)
 }
 
 static void
+gis_account_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Login"));
+}
+
+static void
 gis_account_page_class_init (GisAccountPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_account_page_locale_changed;
   page_class->get_action_widget = gis_account_page_get_action_widget;
   object_class->constructed = gis_account_page_constructed;
   object_class->dispose = gis_account_page_dispose;

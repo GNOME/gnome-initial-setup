@@ -51,10 +51,15 @@ gis_keyboard_page_constructed (GObject *object)
 
   gtk_container_add (GTK_CONTAINER (page), WID("keyboard-page"));
 
-  gis_page_set_title (GIS_PAGE (page), _("Keyboard Layout"));
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
+}
+
+static void
+gis_keyboard_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Keyboard Layout"));
 }
 
 static void
@@ -64,6 +69,7 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
   GisPageClass * page_class = GIS_PAGE_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_keyboard_page_locale_changed;
   object_class->constructed = gis_keyboard_page_constructed;
 }
 

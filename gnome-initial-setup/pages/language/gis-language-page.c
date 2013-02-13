@@ -405,9 +405,14 @@ gis_language_page_constructed (GObject *object)
   egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
-  gis_page_set_title (GIS_PAGE (page), _("Welcome"));
 
   gtk_widget_show (GTK_WIDGET (page));
+}
+
+static void
+gis_language_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Welcome"));
 }
 
 static void
@@ -417,6 +422,7 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_language_page_locale_changed;
   object_class->constructed = gis_language_page_constructed;
 
   g_type_class_add_private (object_class, sizeof(GisLanguagePagePrivate));
