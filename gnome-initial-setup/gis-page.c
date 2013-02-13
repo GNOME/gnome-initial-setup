@@ -233,3 +233,10 @@ gis_page_get_action_widget (GisPage *page)
     return GIS_PAGE_GET_CLASS (page)->get_action_widget (page);
   return NULL;
 }
+
+void
+gis_page_locale_changed (GisPage *page)
+{
+  if (GIS_PAGE_GET_CLASS (page)->locale_changed)
+    return GIS_PAGE_GET_CLASS (page)->locale_changed (page);
+}

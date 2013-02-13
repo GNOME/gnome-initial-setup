@@ -279,8 +279,13 @@ void
 gis_assistant_locale_changed (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
+  GList *l;
+
   gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
   gtk_button_set_label (GTK_BUTTON (priv->back), _("_Back"));
+
+  for (l = priv->pages; l != NULL; l = l->next)
+    gis_page_locale_changed (l->data);
 }
 
 static void

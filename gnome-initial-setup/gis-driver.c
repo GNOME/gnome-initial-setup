@@ -58,6 +58,7 @@ G_DEFINE_TYPE(GisDriver, gis_driver, GTK_TYPE_APPLICATION)
 
 enum {
   REBUILD_PAGES,
+  LOCALE_CHANGED,
   LAST_SIGNAL,
 };
 
@@ -151,12 +152,18 @@ gis_driver_add_page (GisDriver *driver,
   gis_assistant_add_page (priv->assistant, page);
 }
 
-void
-gis_driver_locale_changed (GisDriver *driver)
+static void
+gis_driver_real_locale_changed (GisDriver *driver)
 {
   GisDriverPrivate *priv = driver->priv;
   g_idle_add ((GSourceFunc) rebuild_pages, driver);
   gis_assistant_locale_changed (priv->assistant);
+}
+
+void
+gis_driver_locale_changed (GisDriver *driver)
+{
+  g_signal_emit (G_OBJECT (driver), signals[LOCALE_CHANGED], 0);
 }
 
 GisDriverMode
@@ -274,12 +281,21 @@ gis_driver_class_init (GisDriverClass *klass)
   gobject_class->set_property = gis_driver_set_property;
   application_class->startup = gis_driver_startup;
   application_class->activate = gis_driver_activate;
+  klass->locale_changed = gis_driver_real_locale_changed;
 
   signals[REBUILD_PAGES] =
     g_signal_new ("rebuild-pages",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   G_STRUCT_OFFSET (GisDriverClass, rebuild_pages),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 0);
+
+  signals[LOCALE_CHANGED] =
+    g_signal_new ("locale-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (GisDriverClass, locale_changed),
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 0);
 

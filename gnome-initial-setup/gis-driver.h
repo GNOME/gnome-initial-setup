@@ -53,6 +53,7 @@ struct _GisDriverClass
   GtkApplicationClass parent_class;
 
   void (* rebuild_pages) (GisDriver *driver);
+  void (* locale_changed) (GisDriver *driver);
 };
 
 typedef enum {

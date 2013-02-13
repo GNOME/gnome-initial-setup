@@ -58,6 +58,7 @@ struct _GisPageClass
 
   GtkBuilder * (*get_builder) (GisPage *page);
   GtkWidget  * (*get_action_widget) (GisPage *page);
+  void         (*locale_changed) (GisPage *page);
 };
 
 GType gis_page_get_type (void);
@@ -67,6 +68,7 @@ void         gis_page_set_title (GisPage *page, char *title);
 gboolean     gis_page_get_complete (GisPage *page);
 void         gis_page_set_complete (GisPage *page, gboolean complete);
 GtkWidget *  gis_page_get_action_widget (GisPage *page);
+void         gis_page_locale_changed (GisPage *page);
 
 G_END_DECLS
 
