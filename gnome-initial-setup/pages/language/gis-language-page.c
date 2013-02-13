@@ -424,9 +424,27 @@ gis_language_page_constructed (GObject *object)
 }
 
 static void
+sync_checkmark (GtkWidget *child,
+                gpointer   user_data)
+{
+  LanguageWidget *widget = get_language_widget (child);
+
+  if (widget == NULL)
+    return;
+
+  language_widget_sync_show_checkmark (widget);
+}
+
+static void
 gis_language_page_locale_changed (GisPage *page)
 {
+  GisLanguagePagePrivate *priv = GIS_LANGUAGE_PAGE (page)->priv;
+
   gis_page_set_title (GIS_PAGE (page), _("Welcome"));
+
+  if (priv->language_list)
+    gtk_container_foreach (GTK_CONTAINER (priv->language_list),
+                           sync_checkmark, NULL);
 }
 
 static void
