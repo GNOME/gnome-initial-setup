@@ -134,6 +134,7 @@ padded_label_new (char *text)
   gtk_widget_set_margin_top (widget, 10);
   gtk_widget_set_margin_bottom (widget, 10);
   gtk_box_pack_start (GTK_BOX (widget), gtk_label_new (text), FALSE, FALSE, 0);
+  gtk_widget_show_all (widget);
   return widget;
 }
 
@@ -231,7 +232,7 @@ add_languages (GisLanguagePage *page,
   gtk_container_add (GTK_CONTAINER (priv->language_list),
                      priv->no_results);
 
-  gtk_widget_show_all (priv->language_list);
+  gtk_widget_show (priv->language_list);
 
   priv->adding_languages = FALSE;
 
