@@ -67,6 +67,14 @@ struct _GisLanguagePagePrivate
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
+typedef struct {
+  GtkWidget *box;
+
+  gchar *locale_id;
+  gchar *locale_name;
+  gboolean is_extra;
+} LanguageWidget;
+
 static void
 set_locale_id (GisLanguagePage *page,
                gchar           *new_locale_id)
@@ -84,22 +92,21 @@ sort_languages (gconstpointer a,
                 gconstpointer b,
                 gpointer      data)
 {
-  if (g_object_get_data (G_OBJECT (a), "locale-id") == NULL)
+  LanguageWidget *la, *lb;
+
+  la = g_object_get_data (G_OBJECT (a), "language-widget");
+  lb = g_object_get_data (G_OBJECT (b), "language-widget");
+
+  if (la == NULL)
     return 1;
 
-  if (g_object_get_data (G_OBJECT (b), "locale-id") == NULL)
+  if (lb == NULL)
     return -1;
 
-  const char *la = g_object_get_data (G_OBJECT (a), "locale-name");
-  const char *lb = g_object_get_data (G_OBJECT (b), "locale-name");
-
-  gboolean iea = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (a), "is-extra"));
-  gboolean ieb = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (b), "is-extra"));
-
-  if (iea != ieb) {
-    return ieb - iea;
+  if (la->is_extra != lb->is_extra) {
+    return la->is_extra - lb->is_extra;
   } else {
-    return strcmp (la, lb);
+    return strcmp (la->locale_name, lb->locale_name);
   }
 }
 
@@ -130,32 +137,47 @@ padded_label_new (char *text)
   return widget;
 }
 
+static void
+language_widget_free (gpointer data)
+{
+  LanguageWidget *widget = data;
+
+  /* This is called when the box is destroyed,
+   * so don't bother destroying the widget and
+   * children again. */
+  g_free (widget->locale_id);
+  g_free (widget->locale_name);
+  g_free (widget);
+}
+
 static GtkWidget *
 language_widget_new (char     *locale_id,
                      gboolean  is_extra)
 {
   gchar *locale_name;
-  GtkWidget *widget;
+  LanguageWidget *widget = g_new0 (LanguageWidget, 1);
   gchar *current_locale_id = cc_common_language_get_current_language ();
 
   locale_name = use_language (locale_id);
   setlocale (LC_MESSAGES, current_locale_id);
 
-  widget = padded_label_new (locale_name);
+  widget->box = padded_label_new (locale_name);
+  widget->locale_id = g_strdup (locale_id);
+  widget->locale_name = locale_name;
+  widget->is_extra = is_extra;
 
   if (g_strcmp0 (locale_id, current_locale_id) == 0)
     {
-      gtk_box_pack_start (GTK_BOX (widget),
+      gtk_box_pack_start (GTK_BOX (widget->box),
                           gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU),
                           FALSE, FALSE, 0);
     }
   g_free (current_locale_id);
 
-  g_object_set_data (G_OBJECT (widget), "locale-id", locale_id);
-  g_object_set_data (G_OBJECT (widget), "locale-name", locale_name);
-  g_object_set_data (G_OBJECT (widget), "is-extra", GUINT_TO_POINTER (is_extra));
+  g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
+                          language_widget_free);
 
-  return widget;
+  return widget->box;
 }
 
 static GtkWidget *
@@ -224,6 +246,8 @@ add_all_languages (GisLanguagePage *page)
   GHashTable *initial =  cc_common_language_get_initial_languages ();
 
   add_languages (page, locale_ids, initial);
+
+  g_strfreev (locale_ids);
 }
 
 static gboolean
@@ -232,9 +256,8 @@ language_visible (GtkWidget *child,
 {
   GisLanguagePage *page = user_data;
   GisLanguagePagePrivate *priv = page->priv;
-  gchar *locale_name;
   const gchar *filter_contents;
-  gboolean is_extra;
+  LanguageWidget *widget;
 
   if (child == priv->more_item)
     return !priv->showing_extra;
@@ -243,14 +266,13 @@ language_visible (GtkWidget *child,
   if (child == priv->no_results)
     return TRUE;
 
-  is_extra = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (child), "is-extra"));
-  locale_name = g_object_get_data (G_OBJECT (child), "locale-name");
+  widget = g_object_get_data (G_OBJECT (child), "language-widget");
 
   filter_contents = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
-  if (*filter_contents && strcasestr (locale_name, filter_contents) == NULL)
+  if (*filter_contents && strcasestr (widget->locale_name, filter_contents) == NULL)
     return FALSE;
 
-  if (!priv->showing_extra && !is_extra)
+  if (!priv->showing_extra && !widget->is_extra)
     return FALSE;
 
   return TRUE;
@@ -274,8 +296,6 @@ child_activated (EggListBox      *box,
                  GtkWidget       *child,
                  GisLanguagePage *page)
 {
-  gchar *new_locale_id;
-
   if (page->priv->adding_languages)
     return;
 
@@ -287,8 +307,8 @@ child_activated (EggListBox      *box,
     show_more (page);
   else
     {
-      new_locale_id = g_object_get_data (G_OBJECT (child), "locale-id");
-      set_locale_id (page, new_locale_id);
+      LanguageWidget *widget = g_object_get_data (G_OBJECT (child), "language-widget");
+      set_locale_id (page, widget->locale_id);
     }
 }
 
