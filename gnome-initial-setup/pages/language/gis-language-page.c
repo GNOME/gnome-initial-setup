@@ -113,12 +113,18 @@ sort_languages (gconstpointer a,
 static char *
 use_language (char *locale_id)
 {
+  char *current_locale_id;
   char *use, *language;
+
+  current_locale_id = g_strdup (setlocale (LC_MESSAGES, NULL));
 
   /* Translators: the parameter here is your language's name, like
    * "Use English", "Deutsch verwenden", etc. */
   setlocale (LC_MESSAGES, locale_id);
   use = _("Use %s");
+
+  setlocale (LC_MESSAGES, current_locale_id);
+  g_free (current_locale_id);
 
   language = gdm_get_language_from_name (locale_id, locale_id);
 
@@ -157,10 +163,8 @@ language_widget_new (char     *locale_id,
 {
   gchar *locale_name;
   LanguageWidget *widget = g_new0 (LanguageWidget, 1);
-  gchar *current_locale_id = cc_common_language_get_current_language ();
 
   locale_name = use_language (locale_id);
-  setlocale (LC_MESSAGES, current_locale_id);
 
   widget->box = padded_label_new (locale_name);
   widget->locale_id = g_strdup (locale_id);
@@ -173,7 +177,6 @@ language_widget_new (char     *locale_id,
                           gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU),
                           FALSE, FALSE, 0);
     }
-  g_free (current_locale_id);
 
   g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
                           language_widget_free);
@@ -203,7 +206,6 @@ add_languages (GisLanguagePage *page,
                GHashTable      *initial)
 {
   GisLanguagePagePrivate *priv = page->priv;
-  char *orig_locale_id = cc_common_language_get_current_language ();
 
   priv->adding_languages = TRUE;
 
@@ -235,9 +237,6 @@ add_languages (GisLanguagePage *page,
   gtk_widget_show (priv->language_list);
 
   priv->adding_languages = FALSE;
-
-  setlocale (LC_MESSAGES, orig_locale_id);
-  g_free (orig_locale_id);
 }
 
 static void
