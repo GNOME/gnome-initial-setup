@@ -69,6 +69,7 @@ struct _GisLanguagePagePrivate
 
 typedef struct {
   GtkWidget *box;
+  GtkWidget *checkmark;
 
   gchar *locale_id;
   gchar *locale_name;
@@ -157,6 +158,15 @@ language_widget_free (gpointer data)
   g_free (widget);
 }
 
+static void
+language_widget_sync_show_checkmark (LanguageWidget *widget)
+{
+  gchar *current_locale_id = cc_common_language_get_current_language ();
+  gboolean should_be_visible = g_str_equal (widget->locale_id, current_locale_id);
+  gtk_widget_set_visible (widget->checkmark, should_be_visible);
+  g_free (current_locale_id);
+}
+
 static GtkWidget *
 language_widget_new (char     *locale_id,
                      gboolean  is_extra)
@@ -171,12 +181,11 @@ language_widget_new (char     *locale_id,
   widget->locale_name = locale_name;
   widget->is_extra = is_extra;
 
-  if (g_strcmp0 (locale_id, current_locale_id) == 0)
-    {
-      gtk_box_pack_start (GTK_BOX (widget->box),
-                          gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU),
-                          FALSE, FALSE, 0);
-    }
+  widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+  gtk_box_pack_start (GTK_BOX (widget->box), widget->checkmark,
+                      FALSE, FALSE, 0);
+
+  language_widget_sync_show_checkmark (widget);
 
   g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
                           language_widget_free);
