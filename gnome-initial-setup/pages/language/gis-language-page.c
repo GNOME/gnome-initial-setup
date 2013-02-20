@@ -35,8 +35,10 @@
 
 #include <gtk/gtk.h>
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-languages.h>
+
 #include "cc-common-language.h"
-#include "gdm-languages.h"
 
 #include <glib-object.h>
 
@@ -118,7 +120,7 @@ sort_languages (gconstpointer a,
 }
 
 static char *
-use_language (char *locale_id)
+use_language (const char *locale_id)
 {
   char *current_locale_id;
   char *use, *language;
@@ -133,7 +135,7 @@ use_language (char *locale_id)
   setlocale (LC_MESSAGES, current_locale_id);
   g_free (current_locale_id);
 
-  language = gdm_get_language_from_name (locale_id, locale_id);
+  language = gnome_get_language_from_locale (locale_id, locale_id);
 
   return g_strdup_printf (use, language);
 }
@@ -174,8 +176,8 @@ language_widget_sync_show_checkmark (LanguageWidget *widget)
 }
 
 static GtkWidget *
-language_widget_new (char     *locale_id,
-                     gboolean  is_extra)
+language_widget_new (const char *locale_id,
+                     gboolean    is_extra)
 {
   gchar *locale_name;
   LanguageWidget *widget = g_new0 (LanguageWidget, 1);
@@ -225,7 +227,7 @@ add_languages (GisLanguagePage *page,
   priv->adding_languages = TRUE;
 
   while (*locale_ids) {
-    gchar *locale_id;
+    const gchar *locale_id;
     gboolean is_extra;
     GtkWidget *widget;
 
@@ -257,7 +259,7 @@ add_languages (GisLanguagePage *page,
 static void
 add_all_languages (GisLanguagePage *page)
 {
-  char **locale_ids = gdm_get_all_language_names ();
+  char **locale_ids = gnome_get_all_locales ();
   GHashTable *initial =  cc_common_language_get_initial_languages ();
 
   add_languages (page, locale_ids, initial);
