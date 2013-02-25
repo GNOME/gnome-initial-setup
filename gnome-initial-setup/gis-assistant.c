@@ -58,7 +58,6 @@ struct _GisAssistantPrivate
   GtkWidget *main_layout;
   GtkWidget *action_area;
   GtkWidget *page_action_widget_area;
-  GtkWidget *current_action;
 
   GList *pages;
   GisPage *current_page;
@@ -140,18 +139,26 @@ gis_assistant_previous_page (GisAssistant *assistant)
 }
 
 static void
+remove_from_page_action_area (GtkWidget *widget,
+                              gpointer   user_data)
+{
+  GisAssistantPrivate *priv = user_data;
+  gtk_container_remove (GTK_CONTAINER (priv->page_action_widget_area), widget);
+}
+
+static void
 update_action_widget (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
+  GtkWidget *action;
 
-  if (priv->current_action)
-    gtk_container_remove (GTK_CONTAINER (priv->page_action_widget_area),
-                          priv->current_action);
+  gtk_container_foreach (GTK_CONTAINER (priv->page_action_widget_area),
+                         remove_from_page_action_area, priv);
 
-  priv->current_action = gis_page_get_action_widget (priv->current_page);
-  if (priv->current_action)
+  action = gis_page_get_action_widget (priv->current_page);
+  if (action)
     gtk_container_add (GTK_CONTAINER (priv->page_action_widget_area),
-                       priv->current_action);
+                       action);
 }
 
 static void
