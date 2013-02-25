@@ -57,7 +57,6 @@ struct _GisAssistantPrivate
   GtkWidget *back;
   GtkWidget *main_layout;
   GtkWidget *action_area;
-  GtkWidget *navigation;
   GtkWidget *current_action;
 
   GList *pages;
