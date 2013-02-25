@@ -198,11 +198,6 @@ set_mode (GisAccountPage *page,
 
   priv->mode = mode;
 
-  gtk_button_set_label (GTK_BUTTON (priv->action),
-                        mode == UM_LOCAL ? _("Use _Enterprise Login")
-                                         : _("_Use Local Login"));
-  gtk_button_set_use_underline (GTK_BUTTON (priv->action), TRUE);
-
   nb = WID("account-notebook");
   gtk_notebook_set_current_page (GTK_NOTEBOOK (nb), (mode == UM_LOCAL) ? 0 : 1);
 
@@ -878,13 +873,11 @@ on_entry_changed (GtkEditable *editable,
 }
 
 static void
-toggle_mode (GtkButton *button,
-             gpointer   user_data)
+toggle_mode (GtkToggleButton *button,
+             gpointer         user_data)
 {
   set_mode (GIS_ACCOUNT_PAGE (user_data),
-            GIS_ACCOUNT_PAGE (user_data)->priv->mode == UM_LOCAL
-            ? UM_ENTERPRISE
-            : UM_LOCAL);
+            gtk_toggle_button_get_active (button) ? UM_ENTERPRISE : UM_LOCAL);
 }
 
 static void
@@ -949,8 +942,8 @@ gis_account_page_constructed (GObject *object)
 
   priv->has_enterprise = FALSE;
 
-  priv->action = gtk_button_new_with_mnemonic ("_Use Enterprise Login");
-  g_signal_connect (priv->action, "clicked", G_CALLBACK (toggle_mode), page);
+  priv->action = gtk_toggle_button_new_with_mnemonic ("_Use Enterprise Login");
+  g_signal_connect (priv->action, "toggled", G_CALLBACK (toggle_mode), page);
   gtk_widget_show (priv->action);
   g_object_ref_sink (priv->action);
 
