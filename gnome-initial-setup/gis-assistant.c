@@ -57,6 +57,7 @@ struct _GisAssistantPrivate
   GtkWidget *back;
   GtkWidget *main_layout;
   GtkWidget *action_area;
+  GtkWidget *page_action_widget_area;
   GtkWidget *current_action;
 
   GList *pages;
@@ -144,12 +145,13 @@ update_action_widget (GisAssistant *assistant)
   GisAssistantPrivate *priv = assistant->priv;
 
   if (priv->current_action)
-    gtk_container_remove (GTK_CONTAINER (priv->action_area), priv->current_action);
+    gtk_container_remove (GTK_CONTAINER (priv->page_action_widget_area),
+                          priv->current_action);
 
   priv->current_action = gis_page_get_action_widget (priv->current_page);
   if (priv->current_action)
-    gtk_box_pack_start (GTK_BOX (priv->action_area), priv->current_action,
-                        FALSE, FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (priv->page_action_widget_area),
+                       priv->current_action);
 }
 
 static void
@@ -302,6 +304,11 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
   priv->action_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+
+  priv->page_action_widget_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_pack_start (GTK_BOX (priv->action_area), priv->page_action_widget_area,
+                      FALSE, FALSE, 0);
+
   navigation = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_box_set_homogeneous (GTK_BOX (navigation), TRUE);
   gtk_widget_set_halign (navigation, GTK_ALIGN_END);
