@@ -4,6 +4,7 @@ uidir = $(datadir)/gnome-initial-setup
 
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
+	-I$(top_srcdir)/libgd \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\" \
@@ -15,14 +16,9 @@ gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	gis-assistant.c gis-assistant.h gis-assistant-private.h \
 	gis-assistant-gtk.c gis-assistant-gtk.h \
+	gis-assistant-gd.c gis-assistant-gd.h \
 	gis-page.c gis-page.h \
 	gis-driver.c gis-driver.h
-
-if HAVE_CLUTTER
-gnome_initial_setup_SOURCES += \
-	gis-assistant-clutter.c gis-assistant-clutter.h	\
-	cc-notebook.c cc-notebook.h
-endif
 
 gnome_initial_setup_LDADD =	\
 	pages/welcome/libgiswelcome.la \

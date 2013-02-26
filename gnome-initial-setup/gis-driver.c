@@ -28,10 +28,7 @@
 #include <stdlib.h>
 
 #include "gis-assistant-gtk.h"
-
-#ifdef HAVE_CLUTTER
-#include "gis-assistant-clutter.h"
-#endif
+#include "gis-assistant-gd.h"
 
 #define GIS_TYPE_DRIVER_MODE (gis_driver_mode_get_type ())
 
@@ -176,17 +173,15 @@ gis_driver_get_mode (GisDriver *driver)
 static GType
 get_assistant_type (void)
 {
-#ifdef HAVE_CLUTTER
   gboolean enable_animations;
   g_object_get (gtk_settings_get_default (),
                 "gtk-enable-animations", &enable_animations,
                 NULL);
 
-  if (enable_animations && g_getenv ("GIS_DISABLE_CLUTTER") == NULL)
-    return GIS_TYPE_ASSISTANT_CLUTTER;
-#endif /* HAVE_CLUTTER */
-
-  return GIS_TYPE_ASSISTANT_GTK;
+  if (enable_animations && g_getenv ("GIS_DISABLE_GD") == NULL)
+    return GIS_TYPE_ASSISTANT_GD;
+  else
+    return GIS_TYPE_ASSISTANT_GTK;
 }
 
 static void
