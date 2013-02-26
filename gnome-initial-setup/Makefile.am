@@ -35,6 +35,7 @@ gnome_initial_setup_LDADD =	\
 	pages/goa/libgisgoa.la \
 	pages/summary/libgissummary.la \
 	$(INITIAL_SETUP_LIBS) \
+	$(top_builddir)/libgd/libgd.la	\
 	-lm
 
 gnome_initial_setup_copy_worker_SOURCES =		\

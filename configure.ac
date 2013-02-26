@@ -104,6 +104,8 @@ PKG_CHECK_MODULES(ISOCODES, iso-codes)
 AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],["`$PKG_CONFIG --variable=prefix iso-codes`"],[ISO codes prefix])
 ISO_CODES=iso-codes
 
+LIBGD_INIT([stack])
+
 # systemd
 AC_ARG_WITH([systemdsystemunitdir],
         AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
@@ -148,5 +150,6 @@ gnome-initial-setup/pages/summary/Makefile
 gnome-initial-setup/pages/keyboard/Makefile
 po/Makefile.in
 player/Makefile
+libgd/Makefile
 ])
 AC_OUTPUT
