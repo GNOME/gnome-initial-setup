@@ -84,9 +84,11 @@ widget_destroyed (GtkWidget    *widget,
 }
 
 static void
-gis_assistant_switch_to (GisAssistant *assistant, GisPage *page)
+gis_assistant_switch_to (GisAssistant          *assistant,
+                         GisAssistantDirection  direction,
+                         GisPage               *page)
 {
-  GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, page);
+  GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, direction, page);
 }
 
 void
@@ -117,7 +119,7 @@ static void
 gis_assistant_real_next_page (GisAssistant *assistant,
                               GisPage      *page)
 {
-  gis_assistant_switch_to (assistant, find_next_page (page));
+  gis_assistant_switch_to (assistant, GIS_ASSISTANT_NEXT, find_next_page (page));
 }
 
 static GisPage *
@@ -135,7 +137,7 @@ gis_assistant_previous_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
   g_return_if_fail (priv->current_page != NULL);
-  gis_assistant_switch_to (assistant, find_prev_page (priv->current_page));
+  gis_assistant_switch_to (assistant, GIS_ASSISTANT_PREV, find_prev_page (priv->current_page));
 }
 
 static void

@@ -49,8 +49,9 @@ current_page_changed (GtkNotebook  *notebook,
 }
 
 static void
-gis_assistant_gtk_switch_to (GisAssistant *assistant,
-                             GisPage      *page)
+gis_assistant_gtk_switch_to (GisAssistant          *assistant,
+                             GisAssistantDirection  direction,
+                             GisPage               *page)
 {
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
   gint page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook),

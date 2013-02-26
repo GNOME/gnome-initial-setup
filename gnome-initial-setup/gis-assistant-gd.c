@@ -51,10 +51,26 @@ current_page_changed (GObject    *gobject,
 }
 
 static void
-gis_assistant_gd_switch_to (GisAssistant *assistant,
-                            GisPage      *page)
+gis_assistant_gd_switch_to (GisAssistant          *assistant,
+                            GisAssistantDirection  direction,
+                            GisPage               *page)
 {
   GisAssistantGdPrivate *priv = GIS_ASSISTANT_GD (assistant)->priv;
+  GdStackTransitionType transition_type;
+
+  switch (direction) {
+  case GIS_ASSISTANT_NEXT:
+    transition_type = GD_STACK_TRANSITION_TYPE_SLIDE_LEFT;
+    break;
+  case GIS_ASSISTANT_PREV:
+    transition_type = GD_STACK_TRANSITION_TYPE_SLIDE_RIGHT;
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+
+  gd_stack_set_transition_type (GD_STACK (priv->stack), transition_type);
+
   gd_stack_set_visible_child (GD_STACK (priv->stack),
                               GTK_WIDGET (page));
 }

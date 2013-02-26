@@ -39,6 +39,11 @@ typedef struct _GisAssistant        GisAssistant;
 typedef struct _GisAssistantClass   GisAssistantClass;
 typedef struct _GisAssistantPrivate GisAssistantPrivate;
 
+typedef enum {
+  GIS_ASSISTANT_PREV,
+  GIS_ASSISTANT_NEXT,
+} GisAssistantDirection;
+
 struct _GisAssistant
 {
   GtkBox parent;
@@ -53,7 +58,7 @@ struct _GisAssistantClass
   void (* prepare) (GisAssistant *assistant, GisPage *page);
   void (* next_page) (GisAssistant *assistant, GisPage *page);
 
-  void (* switch_to) (GisAssistant *assistant, GisPage *page);
+  void (* switch_to) (GisAssistant *assistant, GisAssistantDirection direction, GisPage *page);
   void (* add_page) (GisAssistant *assistant, GisPage *page);
 };
 
