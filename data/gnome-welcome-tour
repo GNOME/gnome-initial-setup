@@ -2,7 +2,7 @@
 
 cfgdir=${XDG_CONFIG_DIR:-$HOME/.config}
 prefix=/usr/share/help
-suffix=getting-started
+suffix=gnome-help
 full_locale=$LANG
 locale=`echo $full_locale | sed -e 's/\..*//'`
 lang=`echo $locale | sed -e 's/_.*//'`
@@ -12,8 +12,8 @@ rm -f $cfgdir/run-welcome-tour
 if [ ! -d $cfgdir/yelp ]; then
         mkdir $cfgdir/yelp
         cat <<EOF >>$cfgdir/yelp/yelp.cfg
-[documents/help%3Agetting-started]
-geometry=(910, 620)
+[documents/help%3Agnome-help]
+geometry=(1024, 709)
 EOF
 fi
 
@@ -24,5 +24,5 @@ for name in $locale $lang 'C'; do
         fi
 done
 
-/usr/libexec/gnome-initial-setup-player $intro_path/figures/yelp-intro.webm &
-yelp help:getting-started
+/usr/libexec/gnome-initial-setup-player $intro_path/figures/gnome-yelp-intro.webm &
+yelp help:gnome-help/getting-started
