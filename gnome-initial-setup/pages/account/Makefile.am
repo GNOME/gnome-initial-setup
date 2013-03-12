@@ -35,4 +35,6 @@ libgisaccount_la_LIBADD = $(INITIAL_SETUP_LIBS) -lcrypt
 libgisaccount_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST =	\
-	org.freedesktop.realmd.xml
+	org.freedesktop.realmd.xml	\
+	account.gresource.xml		\
+	$(resource_files)

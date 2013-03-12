@@ -42,7 +42,3 @@ gnome_initial_setup_copy_worker_CFLAGS = \
 
 gnome_initial_setup_copy_worker_LDADD = \
 	$(COPY_WORKER_LIBS)
-
-EXTRA_DIST = \
-	$(UI_FILES) \
-	setup.gresource.xml

@@ -46,4 +46,5 @@ EXTRA_DIST =				\
 	timedated1-interface.xml	\
 	$(resource_files)		\
 	$(resource_files_location)	\
-	datetime.gresource.xml
+	datetime.gresource.xml		\
+	location.gresource.xml
