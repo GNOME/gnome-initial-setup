@@ -1,15 +1,15 @@
 # Estonian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Mattias Põldaru <mahfiaz@gmail.com>, 2012.
+# Mattias Põldaru <mahfiaz@gmail.com>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-12-18 23:57+0000\n"
-"PO-Revision-Date: 2012-12-18 18:39+0300\n"
+"POT-Creation-Date: 2013-03-11 21:37+0000\n"
+"PO-Revision-Date: 2013-03-13 01:43+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
 "Language-Team: Estonian <gnome-et-list@gnome.org>\n"
 "Language: et\n"
@@ -27,8 +27,18 @@ msgstr "_Edasi"
 msgid "_Back"
 msgstr "_Tagasi"
 
+msgid "Force new user mode"
+msgstr "Uue kasutaja režiimi sundimine"
+
+msgid "- GNOME initial setup"
+msgstr "- GNOME esialgne seadistus"
+
 msgid "Passwords do not match"
 msgstr "Paroolid ei kattu"
+
+#, c-format
+msgid "Strength: %s"
+msgstr "Tugevus: %s"
 
 msgid "Failed to register account"
 msgstr "Konto registreerimine nurjus"
@@ -42,14 +52,8 @@ msgstr "Domeeni sisselogimine nurjus"
 msgid "Login"
 msgstr "Logi sisse"
 
-msgid "Choose How to Login"
-msgstr "Sisselogimise viisi valik"
-
-msgid "_Local Account"
-msgstr "_Kohalik konto"
-
-msgid "_Enterprise Login"
-msgstr "_Ettevõtte sisselogimine"
+msgid "Create a Local Account"
+msgstr "Kohaliku konto loomine"
 
 msgid "_Full Name"
 msgstr "_Täisnimi"
@@ -74,14 +78,17 @@ msgstr ""
 "Kasuta vähemalt 8 erinevat märki. Kasuta vaheldumisi suur- ja väiketähti "
 "ning lisa mõni number."
 
+msgid "page 1"
+msgstr "leht 1"
+
+msgid "Create an Enterprise Account"
+msgstr "Ettevõtte konto loomine"
+
 msgid "_Domain"
 msgstr "_Domeen"
 
-msgid "_Login Name"
-msgstr "_Kasutajanimi"
-
-msgid "Tip: Enterprise domain or realm name"
-msgstr "Vihje: ettevõtte domeen või valduse nimi (realm)"
+msgid "Enterprise domain or realm name"
+msgstr "Ettevõtte domeen või valduse (realm) nimi"
 
 msgctxt "Password strength"
 msgid "Too short"
@@ -144,11 +151,6 @@ msgstr ""
 " ➣ numbrid\n"
 " ➣ märgid '.', '-' ja '_'"
 
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr "Ma _nõustun lõppkasutaja litsentsi sätete ja tingimustega."
-
 msgid "License Agreements"
 msgstr "Litsentsileping"
 
@@ -171,46 +173,58 @@ msgstr "See eemaldab serverist selle konto."
 msgid "_Remove"
 msgstr "_Eemalda"
 
-msgid "Remove"
-msgstr "Eemalda"
-
 msgid "Online Accounts"
 msgstr "Veebikontod"
 
-msgid "Link other accounts"
-msgstr "Ühenda teiste kontodega"
+msgid "Connect to your existing data in the cloud"
+msgstr "Pilves asuvate andmete ühendamine"
 
-#. Add some common languages first
-msgid "English"
-msgstr "Inglise"
+msgid ""
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
+msgstr ""
+"Kontode lisamine võimaldab kasutada veebis asuvaid piltide, kontakte, e-"
+"posti ja muud."
 
-msgid "British English"
-msgstr "Briti inglise"
+msgid "Keyboard Layout"
+msgstr "Klaviatuuripaigutus"
 
-msgid "German"
-msgstr "Saksa"
+msgid "Select input sources"
+msgstr "Sisendite valimine"
 
-msgid "French"
-msgstr "Prantsuse"
+msgid "Add Input Source"
+msgstr "Sisendi lisamine"
 
-msgid "Spanish"
-msgstr "Hispaania"
+msgid "Remove Input Source"
+msgstr "Sisendi eemaldamine"
 
-msgid "Chinese (simplified)"
-msgstr "Hiina (lihtsustatud)"
+msgid "Move Input Source Up"
+msgstr "Sisendi liigutamine üles"
 
-msgid "Unspecified"
-msgstr "Määramata"
+msgid "Move Input Source Down"
+msgstr "Sisendi liigutamine alla"
+
+msgid "Input Source Settings"
+msgstr "Sisendi sätted"
+
+msgid "Show Keyboard Layout"
+msgstr "Näita klaviatuuripaigutust"
+
+msgid "Select an input source"
+msgstr "Vali sisend"
 
 #, c-format
 msgid "Use %s"
 msgstr "Kasuta %s"
 
+msgid "More…"
+msgstr "Veel…"
+
+msgid "No languages found"
+msgstr "Ühtegi keelt ei leitud"
+
 msgid "Welcome"
 msgstr "Tere tulemast"
-
-msgid "Show _all"
-msgstr "Näita _kõiki"
 
 msgid "Search for a location"
 msgstr "Otsi asukoha järgi"
@@ -227,12 +241,9 @@ msgstr "_Määra asukoht automaatselt"
 msgid "Time Zone"
 msgstr "Ajavöönd"
 
-#. TRANSLATORS: this is when the access point is not listed
-#. *                           * in the dropdown (or hidden) and the user has to select
-#. *                           * another entry manually
 msgctxt "Wireless access point"
-msgid "Other..."
-msgstr "Muu..."
+msgid "Other…"
+msgstr "Muu…"
 
 msgid "Network is not available."
 msgstr "Võrk pole saadaval."
@@ -252,23 +263,67 @@ msgstr "Juhtmeta võrgud"
 msgid "Thank You"
 msgstr "Aitäh"
 
-msgid "Enjoy GNOME!"
-msgstr "Naudi GNOME kasutamist!"
+msgid "Your computer is ready to use."
+msgstr "Su arvuti on kasutamiseks valmis."
 
-msgid "Your new account is ready to use."
-msgstr "Su uus konto on kasutamiseks valmis."
-
-msgid "You may change any of these options at any time in the System Settings."
-msgstr "Sa võid muuta kõiki valikuid hiljem süsteemi sätete alt."
+msgid "You may change these options at any time in Settings."
+msgstr "Sa võid muuta neid valikuid hiljem süsteemi sätete alt."
 
 msgid "_Start using GNOME 3"
 msgstr "_Alusta GNOME 3 kasutamist"
 
-msgid "New to GNOME 3 and need help finding your way around?"
-msgstr "Oled uus GNOME 3 kasutaja ning vajad abi?"
+#~ msgid "Choose How to Login"
+#~ msgstr "Sisselogimise viisi valik"
 
-msgid "_Take a Tour"
-msgstr "_Kasuta giidi"
+#~ msgid "_Enterprise Login"
+#~ msgstr "_Ettevõtte sisselogimine"
+
+#~ msgid "_Login Name"
+#~ msgstr "_Kasutajanimi"
+
+#~ msgid ""
+#~ "I have _agreed to the terms and conditions in this end user license "
+#~ "agreement."
+#~ msgstr "Ma _nõustun lõppkasutaja litsentsi sätete ja tingimustega."
+
+#~ msgid "Remove"
+#~ msgstr "Eemalda"
+
+#~ msgid "Link other accounts"
+#~ msgstr "Ühenda teiste kontodega"
+
+#~ msgid "English"
+#~ msgstr "Inglise"
+
+#~ msgid "British English"
+#~ msgstr "Briti inglise"
+
+#~ msgid "German"
+#~ msgstr "Saksa"
+
+#~ msgid "French"
+#~ msgstr "Prantsuse"
+
+#~ msgid "Spanish"
+#~ msgstr "Hispaania"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Hiina (lihtsustatud)"
+
+#~ msgid "Unspecified"
+#~ msgstr "Määramata"
+
+#~ msgid "Show _all"
+#~ msgstr "Näita _kõiki"
+
+#~ msgid "Enjoy GNOME!"
+#~ msgstr "Naudi GNOME kasutamist!"
+
+#~ msgid "New to GNOME 3 and need help finding your way around?"
+#~ msgstr "Oled uus GNOME 3 kasutaja ning vajad abi?"
+
+#~ msgid "_Take a Tour"
+#~ msgstr "_Kasuta giidi"
 
 #~ msgid "_Require a password to use this account"
 #~ msgstr "_Selle konto kasutamiseks on vajalik parool"
