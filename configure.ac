@@ -92,7 +92,7 @@ PKG_CHECK_MODULES(ISOCODES, iso-codes)
 AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],["`$PKG_CONFIG --variable=prefix iso-codes`"],[ISO codes prefix])
 ISO_CODES=iso-codes
 
-LIBGD_INIT([stack])
+LIBGD_INIT([stack static])
 
 # systemd
 AC_ARG_WITH([systemdsystemunitdir],
