@@ -119,27 +119,6 @@ sort_languages (gconstpointer a,
   }
 }
 
-static char *
-use_language (const char *locale_id)
-{
-  char *current_locale_id;
-  char *use, *language;
-
-  current_locale_id = g_strdup (setlocale (LC_MESSAGES, NULL));
-
-  /* Translators: the parameter here is your language's name, like
-   * "Use English", "Deutsch verwenden", etc. */
-  setlocale (LC_MESSAGES, locale_id);
-  use = _("Use %s");
-
-  setlocale (LC_MESSAGES, current_locale_id);
-  g_free (current_locale_id);
-
-  language = gnome_get_language_from_locale (locale_id, locale_id);
-
-  return g_strdup_printf (use, language);
-}
-
 static GtkWidget *
 padded_label_new (char *text)
 {
@@ -182,7 +161,7 @@ language_widget_new (const char *locale_id,
   gchar *locale_name;
   LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
-  locale_name = use_language (locale_id);
+  locale_name = gnome_get_language_from_locale (locale_id, locale_id);
 
   widget->box = padded_label_new (locale_name);
   widget->locale_id = g_strdup (locale_id);
