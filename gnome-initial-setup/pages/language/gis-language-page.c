@@ -49,13 +49,6 @@ G_DEFINE_TYPE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_LANGUAGE_PAGE, GisLanguagePagePrivate))
 
-enum {
-  COL_LOCALE_ID,
-  COL_LOCALE_NAME,
-  COL_IS_EXTRA,
-  NUM_COLS,
-};
-
 struct _GisLanguagePagePrivate
 {
   GtkWidget *no_results;
