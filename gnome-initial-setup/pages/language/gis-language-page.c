@@ -65,6 +65,7 @@ struct _GisLanguagePagePrivate
   GtkWidget *language_list;
   gboolean adding_languages;
   gboolean showing_extra;
+  gchar **filter_words;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
@@ -253,6 +254,19 @@ add_all_languages (GisLanguagePage *page)
 }
 
 static gboolean
+match_all (gchar **words,
+           const gchar *str)
+{
+  gchar **w;
+
+  for (w = words; *w; ++w)
+    if (!strstr (str, *w))
+      return FALSE;
+
+  return TRUE;
+}
+
+static gboolean
 language_visible (GtkWidget *child,
                   gpointer   user_data)
 {
@@ -261,7 +275,6 @@ language_visible (GtkWidget *child,
   gchar *locale_name = NULL;
   gchar *locale_current_name = NULL;
   gchar *locale_untranslated_name = NULL;
-  gchar *filter_contents = NULL;
   LanguageWidget *widget;
   gboolean visible;
 
@@ -277,38 +290,51 @@ language_visible (GtkWidget *child,
   if (!priv->showing_extra && !widget->is_extra)
     return FALSE;
 
-  filter_contents =
-    cc_util_normalize_casefold_and_unaccent (gtk_entry_get_text (GTK_ENTRY (priv->filter_entry)));
-
-  if (!filter_contents)
+  if (!priv->filter_words)
     return TRUE;
 
   visible = FALSE;
 
   locale_name = cc_util_normalize_casefold_and_unaccent (widget->locale_name);
-  if (strstr (locale_name, filter_contents)) {
-    visible = TRUE;
+  visible = match_all (priv->filter_words, locale_name);
+  if (visible)
     goto out;
-  }
 
   locale_current_name = cc_util_normalize_casefold_and_unaccent (widget->locale_current_name);
-  if (strstr (locale_current_name, filter_contents)) {
-    visible = TRUE;
+  visible = match_all (priv->filter_words, locale_current_name);
+  if (visible)
     goto out;
-  }
 
   locale_untranslated_name = cc_util_normalize_casefold_and_unaccent (widget->locale_untranslated_name);
-  if (strstr (locale_untranslated_name, filter_contents)) {
-    visible = TRUE;
+  visible = match_all (priv->filter_words, locale_untranslated_name);
+  if (visible)
     goto out;
-  }
 
  out:
-  g_free (filter_contents);
   g_free (locale_untranslated_name);
   g_free (locale_current_name);
   g_free (locale_name);
   return visible;
+}
+
+static void
+filter_changed (GtkEntry        *entry,
+                GisLanguagePage *page)
+{
+  GisLanguagePagePrivate *priv = page->priv;
+  gchar *filter_contents = NULL;
+
+  g_clear_pointer (&priv->filter_words, g_strfreev);
+
+  filter_contents =
+    cc_util_normalize_casefold_and_unaccent (gtk_entry_get_text (GTK_ENTRY (priv->filter_entry)));
+  if (!filter_contents) {
+    egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+    return;
+  }
+  priv->filter_words = g_strsplit_set (g_strstrip (filter_contents), " ", 0);
+  g_free (filter_contents);
+  egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
 }
 
 static void
@@ -424,9 +450,9 @@ gis_language_page_constructed (GObject *object)
                                    GTK_SELECTION_NONE);
   add_all_languages (page);
 
-  g_signal_connect_swapped (priv->filter_entry, "changed",
-                            G_CALLBACK (egg_list_box_refilter),
-                            priv->language_list);
+  g_signal_connect (priv->filter_entry, "changed",
+                    G_CALLBACK (filter_changed),
+                    page);
 
   g_signal_connect (priv->language_list, "child-activated",
                     G_CALLBACK (child_activated), page);
@@ -466,6 +492,15 @@ gis_language_page_locale_changed (GisPage *page)
 }
 
 static void
+gis_language_page_finalize (GObject *object)
+{
+  GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
+  GisLanguagePagePrivate *priv = page->priv;
+
+  g_strfreev (priv->filter_words);
+}
+
+static void
 gis_language_page_class_init (GisLanguagePageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -473,6 +508,7 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_language_page_locale_changed;
+  object_class->finalize = gis_language_page_finalize;
   object_class->constructed = gis_language_page_constructed;
 
   g_type_class_add_private (object_class, sizeof(GisLanguagePagePrivate));
