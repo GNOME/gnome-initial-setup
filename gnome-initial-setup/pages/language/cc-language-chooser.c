@@ -58,7 +58,6 @@ struct _CcLanguageChooserPrivate
 {
         GtkWidget *no_results;
         GtkWidget *more_item;
-        GtkWidget *chooser;
         GtkWidget *filter_entry;
         GtkWidget *language_list;
         gboolean showing_extra;
