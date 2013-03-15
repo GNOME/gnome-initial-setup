@@ -39,6 +39,7 @@
 #include <libgnome-desktop/gnome-languages.h>
 
 #include "cc-common-language.h"
+#include "cc-util.h"
 
 #include <glib-object.h>
 
@@ -75,6 +76,8 @@ typedef struct {
 
   gchar *locale_id;
   gchar *locale_name;
+  gchar *locale_current_name;
+  gchar *locale_untranslated_name;
   gboolean is_extra;
 } LanguageWidget;
 
@@ -142,6 +145,8 @@ language_widget_free (gpointer data)
    * children again. */
   g_free (widget->locale_id);
   g_free (widget->locale_name);
+  g_free (widget->locale_current_name);
+  g_free (widget->locale_untranslated_name);
   g_free (widget);
 }
 
@@ -158,14 +163,18 @@ static GtkWidget *
 language_widget_new (const char *locale_id,
                      gboolean    is_extra)
 {
-  gchar *locale_name;
+  gchar *locale_name, *locale_current_name, *locale_untranslated_name;
   LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
   locale_name = gnome_get_language_from_locale (locale_id, locale_id);
+  locale_current_name = gnome_get_language_from_locale (locale_id, NULL);
+  locale_untranslated_name = gnome_get_language_from_locale (locale_id, "C");
 
   widget->box = padded_label_new (locale_name);
   widget->locale_id = g_strdup (locale_id);
   widget->locale_name = locale_name;
+  widget->locale_current_name = locale_current_name;
+  widget->locale_untranslated_name = locale_untranslated_name;
   widget->is_extra = is_extra;
 
   widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
@@ -253,8 +262,12 @@ language_visible (GtkWidget *child,
 {
   GisLanguagePage *page = user_data;
   GisLanguagePagePrivate *priv = page->priv;
-  const gchar *filter_contents;
+  gchar *locale_name = NULL;
+  gchar *locale_current_name = NULL;
+  gchar *locale_untranslated_name = NULL;
+  gchar *filter_contents = NULL;
   LanguageWidget *widget;
+  gboolean visible;
 
   if (child == priv->more_item)
     return !priv->showing_extra;
@@ -265,14 +278,41 @@ language_visible (GtkWidget *child,
 
   widget = get_language_widget (child);
 
-  filter_contents = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
-  if (*filter_contents && strcasestr (widget->locale_name, filter_contents) == NULL)
-    return FALSE;
-
   if (!priv->showing_extra && !widget->is_extra)
     return FALSE;
 
-  return TRUE;
+  filter_contents =
+    cc_util_normalize_casefold_and_unaccent (gtk_entry_get_text (GTK_ENTRY (priv->filter_entry)));
+
+  if (!filter_contents)
+    return TRUE;
+
+  visible = FALSE;
+
+  locale_name = cc_util_normalize_casefold_and_unaccent (widget->locale_name);
+  if (strstr (locale_name, filter_contents)) {
+    visible = TRUE;
+    goto out;
+  }
+
+  locale_current_name = cc_util_normalize_casefold_and_unaccent (widget->locale_current_name);
+  if (strstr (locale_current_name, filter_contents)) {
+    visible = TRUE;
+    goto out;
+  }
+
+  locale_untranslated_name = cc_util_normalize_casefold_and_unaccent (widget->locale_untranslated_name);
+  if (strstr (locale_untranslated_name, filter_contents)) {
+    visible = TRUE;
+    goto out;
+  }
+
+ out:
+  g_free (filter_contents);
+  g_free (locale_untranslated_name);
+  g_free (locale_current_name);
+  g_free (locale_name);
+  return visible;
 }
 
 static void

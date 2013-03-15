@@ -19,6 +19,7 @@ BUILT_SOURCES += language-resources.c language-resources.h
 
 libgislanguage_la_SOURCES =				\
 	cc-common-language.c cc-common-language.h 	\
+	cc-util.c cc-util.h				\
 	gis-language-page.c gis-language-page.h		\
 	$(BUILT_SOURCES)
 
