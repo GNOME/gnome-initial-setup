@@ -191,12 +191,11 @@ add_languages (CcLanguageChooser  *chooser,
         CcLanguageChooserPrivate *priv = chooser->priv;
 
         while (*locale_ids) {
-                gboolean is_initial;
                 const gchar *locale_id;
+                gboolean is_initial;
                 GtkWidget *widget;
 
                 locale_id = *locale_ids;
-
                 locale_ids ++;
 
                 if (!cc_common_language_has_font (locale_id))
@@ -205,14 +204,11 @@ add_languages (CcLanguageChooser  *chooser,
                 is_initial = (g_hash_table_lookup (initial, locale_id) != NULL);
                 widget = language_widget_new (locale_id, !is_initial);
 
-                gtk_container_add (GTK_CONTAINER (priv->language_list),
-                                   widget);
+                gtk_container_add (GTK_CONTAINER (priv->language_list), widget);
         }
 
-        gtk_container_add (GTK_CONTAINER (priv->language_list),
-                           priv->more_item);
-        gtk_container_add (GTK_CONTAINER (priv->language_list),
-                           priv->no_results);
+        gtk_container_add (GTK_CONTAINER (priv->language_list), priv->more_item);
+        gtk_container_add (GTK_CONTAINER (priv->language_list), priv->no_results);
 
         gtk_widget_show (priv->language_list);
 }
@@ -220,18 +216,19 @@ add_languages (CcLanguageChooser  *chooser,
 static void
 add_all_languages (CcLanguageChooser *chooser)
 {
-        char **locale_ids = gnome_get_all_locales ();
-        GHashTable *initial = cc_common_language_get_initial_languages ();
+        char **locale_ids;
+        GHashTable *initial;
 
+        locale_ids = gnome_get_all_locales ();
+        initial = cc_common_language_get_initial_languages ();
         add_languages (chooser, locale_ids, initial);
-
         g_hash_table_destroy (initial);
         g_strfreev (locale_ids);
 }
 
 static gboolean
-match_all (gchar **words,
-           const gchar *str)
+match_all (gchar       **words,
+           const gchar  *str)
 {
         gchar **w;
 
@@ -347,7 +344,7 @@ show_more (CcLanguageChooser *chooser)
 
 static void
 set_locale_id (CcLanguageChooser *chooser,
-               const gchar        *new_locale_id)
+               const gchar       *new_locale_id)
 {
         CcLanguageChooserPrivate *priv = chooser->priv;
 
@@ -363,8 +360,8 @@ set_locale_id (CcLanguageChooser *chooser,
 }
 
 static void
-child_activated (EggListBox      *box,
-                 GtkWidget       *child,
+child_activated (EggListBox        *box,
+                 GtkWidget         *child,
                  CcLanguageChooser *chooser)
 {
         CcLanguageChooserPrivate *priv = chooser->priv;
@@ -427,12 +424,11 @@ update_separator_func (GtkWidget **separator,
         if (before == NULL)
                 return;
 
-        if (*separator == NULL)
-                {
-                        *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-                        g_object_ref_sink (*separator);
-                        gtk_widget_show (*separator);
-                }
+        if (*separator == NULL) {
+                *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+                g_object_ref_sink (*separator);
+                gtk_widget_show (*separator);
+        }
 }
 
 #define WID(name) ((GtkWidget *) gtk_builder_get_object (builder, name))
@@ -471,7 +467,6 @@ cc_language_chooser_constructed (GObject *object)
                                       language_visible, chooser, NULL);
         egg_list_box_set_separator_funcs (EGG_LIST_BOX (priv->language_list),
                                           update_separator_func, chooser, NULL);
-
         egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->language_list),
                                          GTK_SELECTION_NONE);
         add_all_languages (chooser);
