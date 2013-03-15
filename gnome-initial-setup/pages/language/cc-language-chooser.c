@@ -367,17 +367,22 @@ child_activated (EggListBox      *box,
                  GtkWidget       *child,
                  CcLanguageChooser *chooser)
 {
+        CcLanguageChooserPrivate *priv = chooser->priv;
+        LanguageWidget *widget;
+
         if (child == NULL)
                 return;
-        else if (child == chooser->priv->no_results)
+
+        if (child == priv->no_results)
                 return;
-        else if (child == chooser->priv->more_item)
+
+        if (child == priv->more_item) {
                 show_more (chooser);
-        else
-                {
-                        LanguageWidget *widget = get_language_widget (child);
-                        set_locale_id (chooser, widget->locale_id);
-                }
+                return;
+        }
+
+        widget = get_language_widget (child);
+        set_locale_id (chooser, widget->locale_id);
 }
 
 typedef struct {
