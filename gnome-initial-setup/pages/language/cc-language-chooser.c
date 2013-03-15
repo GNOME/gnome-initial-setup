@@ -166,7 +166,9 @@ sync_all_checkmarks (CcLanguageChooser *chooser)
 static GtkWidget *
 more_widget_new (void)
 {
-        GtkWidget *widget = padded_label_new ("…");
+        GtkWidget *widget;
+
+        widget = padded_label_new ("…");
         gtk_widget_set_tooltip_text (widget, _("More…"));
         return widget;
 }
@@ -174,7 +176,9 @@ more_widget_new (void)
 static GtkWidget *
 no_results_widget_new (void)
 {
-        GtkWidget *widget = padded_label_new (_("No languages found"));
+        GtkWidget *widget;
+
+        widget = padded_label_new (_("No languages found"));
         gtk_widget_set_sensitive (widget, FALSE);
         return widget;
 }
