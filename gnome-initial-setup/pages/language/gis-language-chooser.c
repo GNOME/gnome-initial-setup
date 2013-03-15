@@ -60,7 +60,6 @@ struct _GisLanguageChooserPrivate
   GtkWidget *chooser;
   GtkWidget *filter_entry;
   GtkWidget *language_list;
-  gboolean adding_languages;
   gboolean showing_extra;
   gchar **filter_words;
   gchar *language;
@@ -187,8 +186,6 @@ add_languages (GisLanguageChooser  *chooser,
 {
   GisLanguageChooserPrivate *priv = chooser->priv;
 
-  priv->adding_languages = TRUE;
-
   while (*locale_ids) {
     const gchar *locale_id;
     gboolean is_extra;
@@ -215,8 +212,6 @@ add_languages (GisLanguageChooser  *chooser,
                      priv->no_results);
 
   gtk_widget_show (priv->language_list);
-
-  priv->adding_languages = FALSE;
 }
 
 static void
@@ -369,9 +364,6 @@ child_activated (EggListBox      *box,
                  GtkWidget       *child,
                  GisLanguageChooser *chooser)
 {
-  if (chooser->priv->adding_languages)
-    return;
-
   if (child == NULL)
     return;
   else if (child == chooser->priv->no_results)
