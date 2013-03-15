@@ -1,5 +1,5 @@
-/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
-/*
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+ *
  * Copyright (C) 2013 Red Hat
  *
  * This program is free software; you can redistribute it and/or
@@ -43,14 +43,14 @@ typedef struct _CcLanguageChooserPrivate CcLanguageChooserPrivate;
 
 struct _CcLanguageChooser
 {
-  GtkBin parent;
+        GtkBin parent;
 
-  CcLanguageChooserPrivate *priv;
+        CcLanguageChooserPrivate *priv;
 };
 
 struct _CcLanguageChooserClass
 {
-  GtkBinClass parent_class;
+        GtkBinClass parent_class;
 };
 
 GType cc_language_chooser_get_type (void);
@@ -58,7 +58,7 @@ GType cc_language_chooser_get_type (void);
 void          cc_language_chooser_clear_filter (CcLanguageChooser *chooser);
 const gchar * cc_language_chooser_get_language (CcLanguageChooser *chooser);
 void          cc_language_chooser_set_language (CcLanguageChooser *chooser,
-                                                 const gchar        *language);
+                                                const gchar        *language);
 gboolean      cc_language_chooser_get_showing_extra (CcLanguageChooser *chooser);
 
 G_END_DECLS
