@@ -191,8 +191,8 @@ add_languages (CcLanguageChooser  *chooser,
         CcLanguageChooserPrivate *priv = chooser->priv;
 
         while (*locale_ids) {
+                gboolean is_initial;
                 const gchar *locale_id;
-                gboolean is_extra;
                 GtkWidget *widget;
 
                 locale_id = *locale_ids;
@@ -202,9 +202,8 @@ add_languages (CcLanguageChooser  *chooser,
                 if (!cc_common_language_has_font (locale_id))
                         continue;
 
-                is_extra = (g_hash_table_lookup (initial, locale_id) != NULL);
-
-                widget = language_widget_new (locale_id, is_extra);
+                is_initial = (g_hash_table_lookup (initial, locale_id) != NULL);
+                widget = language_widget_new (locale_id, !is_initial);
 
                 gtk_container_add (GTK_CONTAINER (priv->language_list),
                                    widget);
@@ -264,7 +263,7 @@ language_visible (GtkWidget *child,
 
         widget = get_language_widget (child);
 
-        if (!priv->showing_extra && !widget->is_extra)
+        if (!priv->showing_extra && widget->is_extra)
                 return FALSE;
 
         if (!priv->filter_words)
