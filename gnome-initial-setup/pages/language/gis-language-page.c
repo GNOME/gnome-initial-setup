@@ -115,11 +115,7 @@ sort_languages (gconstpointer a,
   if (lb == NULL)
     return -1;
 
-  if (la->is_extra != lb->is_extra) {
-    return la->is_extra - lb->is_extra;
-  } else {
-    return strcmp (la->locale_name, lb->locale_name);
-  }
+  return strcmp (la->locale_name, lb->locale_name);
 }
 
 static GtkWidget *
