@@ -5,37 +5,11 @@
     <property name="name">language-page</property>
     <property name="visible">True</property>
     <property name="orientation">vertical</property>
-    <property name="spacing">10</property>
     <property name="margin-left">80</property>
     <property name="margin-right">80</property>
     <child>
-      <object class="GtkScrolledWindow" id="language-scrolledwindow">
+      <object class="GisLanguageChooser" id="language-chooser">
         <property name="visible">True</property>
-        <property name="hscrollbar-policy">never</property>
-        <property name="vscrollbar-policy">automatic</property>
-        <property name="shadow-type">in</property>
-        <child>
-          <object class="GtkViewport" id="language-viewport">
-            <property name="visible">True</property>
-            <child>
-              <object class="EggListBox" id="language-list">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
-                <property name="halign">fill</property>
-                <property name="valign">fill</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-    </child>
-    <child>
-      <object class="GtkSearchEntry" id="language-filter-entry">
-        <property name="visible">False</property>
-        <property name="hexpand">True</property>
       </object>
     </child>
   </object>

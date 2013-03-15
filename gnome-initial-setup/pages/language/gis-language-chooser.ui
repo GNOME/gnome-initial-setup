@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <object class="GtkBox" id="language-chooser">
+    <property name="name">language-chooser</property>
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">10</property>
+    <child>
+      <object class="GtkScrolledWindow" id="language-scrolledwindow">
+        <property name="visible">True</property>
+        <property name="hscrollbar-policy">never</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <property name="shadow-type">in</property>
+        <child>
+          <object class="GtkViewport" id="language-viewport">
+            <property name="visible">True</property>
+            <child>
+              <object class="EggListBox" id="language-list">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="vexpand">True</property>
+                <property name="halign">fill</property>
+                <property name="valign">fill</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+    </child>
+    <child>
+      <object class="GtkSearchEntry" id="language-filter-entry">
+        <property name="visible">False</property>
+        <property name="hexpand">True</property>
+      </object>
+    </child>
+  </object>
+</interface>
