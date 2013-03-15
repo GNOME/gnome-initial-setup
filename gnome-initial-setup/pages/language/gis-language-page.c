@@ -243,6 +243,7 @@ add_all_languages (GisLanguagePage *page)
 
   add_languages (page, locale_ids, initial);
 
+  g_hash_table_destroy (initial);
   g_strfreev (locale_ids);
 }
 
