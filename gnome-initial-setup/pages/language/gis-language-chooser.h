@@ -59,6 +59,7 @@ void          gis_language_chooser_clear_filter (GisLanguageChooser *chooser);
 const gchar * gis_language_chooser_get_language (GisLanguageChooser *chooser);
 void          gis_language_chooser_set_language (GisLanguageChooser *chooser,
                                                  const gchar        *language);
+gboolean      gis_language_chooser_get_showing_extra (GisLanguageChooser *chooser);
 
 G_END_DECLS
 

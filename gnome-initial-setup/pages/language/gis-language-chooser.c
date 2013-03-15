@@ -48,6 +48,7 @@ G_DEFINE_TYPE (GisLanguageChooser, gis_language_chooser, GTK_TYPE_BIN);
 enum {
   PROP_0,
   PROP_LANGUAGE,
+  PROP_SHOWING_EXTRA,
   PROP_LAST,
 };
 
@@ -338,8 +339,8 @@ show_more (GisLanguageChooser *chooser)
   gtk_widget_grab_focus (priv->filter_entry);
 
   priv->showing_extra = TRUE;
-
   egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+  g_object_notify_by_pspec (G_OBJECT (chooser), obj_props[PROP_SHOWING_EXTRA]);
 }
 
 static void
@@ -498,6 +499,9 @@ gis_language_chooser_get_property (GObject      *object,
     case PROP_LANGUAGE:
       g_value_set_string (value, gis_language_chooser_get_language (chooser));
       break;
+    case PROP_SHOWING_EXTRA:
+      g_value_set_boolean (value, gis_language_chooser_get_showing_extra (chooser));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -547,6 +551,10 @@ gis_language_chooser_class_init (GisLanguageChooserClass *klass)
     g_param_spec_string ("language", "", "", "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
+  obj_props[PROP_SHOWING_EXTRA] =
+    g_param_spec_string ("showing-extra", "", "", "",
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 }
 
@@ -575,4 +583,11 @@ gis_language_chooser_set_language (GisLanguageChooser *chooser,
                                    const gchar        *language)
 {
   set_locale_id (chooser, language);
+}
+
+gboolean
+gis_language_chooser_get_showing_extra (GisLanguageChooser *chooser)
+{
+  GisLanguageChooserPrivate *priv = chooser->priv;
+  return priv->showing_extra;
 }
