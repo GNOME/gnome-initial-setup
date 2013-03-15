@@ -23,7 +23,7 @@
  */
 
 #include "config.h"
-#include "gis-language-chooser.h"
+#include "cc-language-chooser.h"
 
 #include <locale.h>
 #include <glib/gi18n.h>
@@ -41,9 +41,9 @@
 
 #include <egg-list-box.h>
 
-G_DEFINE_TYPE (GisLanguageChooser, gis_language_chooser, GTK_TYPE_BIN);
+G_DEFINE_TYPE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BIN);
 
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_LANGUAGE_CHOOSER, GisLanguageChooserPrivate))
+#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CC_TYPE_LANGUAGE_CHOOSER, CcLanguageChooserPrivate))
 
 enum {
   PROP_0,
@@ -54,7 +54,7 @@ enum {
 
 static GParamSpec *obj_props[PROP_LAST];
 
-struct _GisLanguageChooserPrivate
+struct _CcLanguageChooserPrivate
 {
   GtkWidget *no_results;
   GtkWidget *more_item;
@@ -156,9 +156,9 @@ sync_checkmark (GtkWidget *child,
 }
 
 static void
-sync_all_checkmarks (GisLanguageChooser *chooser)
+sync_all_checkmarks (CcLanguageChooser *chooser)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
 
   gtk_container_foreach (GTK_CONTAINER (priv->language_list),
                          sync_checkmark, priv->language);
@@ -181,11 +181,11 @@ no_results_widget_new (void)
 }
 
 static void
-add_languages (GisLanguageChooser  *chooser,
+add_languages (CcLanguageChooser  *chooser,
                char               **locale_ids,
                GHashTable          *initial)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
 
   while (*locale_ids) {
     const gchar *locale_id;
@@ -216,7 +216,7 @@ add_languages (GisLanguageChooser  *chooser,
 }
 
 static void
-add_all_languages (GisLanguageChooser *chooser)
+add_all_languages (CcLanguageChooser *chooser)
 {
   char **locale_ids = gnome_get_all_locales ();
   GHashTable *initial = cc_common_language_get_initial_languages ();
@@ -244,8 +244,8 @@ static gboolean
 language_visible (GtkWidget *child,
                   gpointer   user_data)
 {
-  GisLanguageChooser *chooser = user_data;
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooser *chooser = user_data;
+  CcLanguageChooserPrivate *priv = chooser->priv;
   gchar *locale_name = NULL;
   gchar *locale_current_name = NULL;
   gchar *locale_untranslated_name = NULL;
@@ -312,9 +312,9 @@ sort_languages (gconstpointer a,
 
 static void
 filter_changed (GtkEntry        *entry,
-                GisLanguageChooser *chooser)
+                CcLanguageChooser *chooser)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
   gchar *filter_contents = NULL;
 
   g_clear_pointer (&priv->filter_words, g_strfreev);
@@ -331,9 +331,9 @@ filter_changed (GtkEntry        *entry,
 }
 
 static void
-show_more (GisLanguageChooser *chooser)
+show_more (CcLanguageChooser *chooser)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
 
   gtk_widget_show (priv->filter_entry);
   gtk_widget_grab_focus (priv->filter_entry);
@@ -344,10 +344,10 @@ show_more (GisLanguageChooser *chooser)
 }
 
 static void
-set_locale_id (GisLanguageChooser *chooser,
+set_locale_id (CcLanguageChooser *chooser,
                const gchar        *new_locale_id)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
 
   if (g_strcmp0 (priv->language, new_locale_id) == 0)
     return;
@@ -363,7 +363,7 @@ set_locale_id (GisLanguageChooser *chooser,
 static void
 child_activated (EggListBox      *box,
                  GtkWidget       *child,
-                 GisLanguageChooser *chooser)
+                 CcLanguageChooser *chooser)
 {
   if (child == NULL)
     return;
@@ -398,8 +398,8 @@ static void
 end_refilter (EggListBox *list_box,
               gpointer    user_data)
 {
-  GisLanguageChooser *chooser = GIS_LANGUAGE_CHOOSER (user_data);
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (user_data);
+  CcLanguageChooserPrivate *priv = chooser->priv;
 
   CountChildrenData data = { 0 };
 
@@ -431,17 +431,17 @@ update_separator_func (GtkWidget **separator,
 #define WID(name) ((GtkWidget *) gtk_builder_get_object (builder, name))
 
 static void
-gis_language_chooser_constructed (GObject *object)
+cc_language_chooser_constructed (GObject *object)
 {
   GtkBuilder *builder;
-  GisLanguageChooser *chooser = GIS_LANGUAGE_CHOOSER (object);
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
+  CcLanguageChooserPrivate *priv = chooser->priv;
   GError *error = NULL;
 
-  G_OBJECT_CLASS (gis_language_chooser_parent_class)->constructed (object);
+  G_OBJECT_CLASS (cc_language_chooser_parent_class)->constructed (object);
 
   builder = gtk_builder_new ();
-  if (gtk_builder_add_from_resource (builder, "/org/gnome/initial-setup/gis-language-chooser.ui", &error) == 0) {
+  if (gtk_builder_add_from_resource (builder, "/org/gnome/control-center/language-chooser.ui", &error) == 0) {
     g_object_unref (builder);
     g_warning ("failed to load language chooser: %s", error->message);
     g_error_free (error);
@@ -488,19 +488,19 @@ gis_language_chooser_constructed (GObject *object)
 }
 
 static void
-gis_language_chooser_get_property (GObject      *object,
+cc_language_chooser_get_property (GObject      *object,
                                    guint         prop_id,
                                    GValue       *value,
                                    GParamSpec   *pspec)
 {
-  GisLanguageChooser *chooser = GIS_LANGUAGE_CHOOSER (object);
+  CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
   switch (prop_id)
     {
     case PROP_LANGUAGE:
-      g_value_set_string (value, gis_language_chooser_get_language (chooser));
+      g_value_set_string (value, cc_language_chooser_get_language (chooser));
       break;
     case PROP_SHOWING_EXTRA:
-      g_value_set_boolean (value, gis_language_chooser_get_showing_extra (chooser));
+      g_value_set_boolean (value, cc_language_chooser_get_showing_extra (chooser));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -509,16 +509,16 @@ gis_language_chooser_get_property (GObject      *object,
 }
 
 static void
-gis_language_chooser_set_property (GObject      *object,
+cc_language_chooser_set_property (GObject      *object,
                                    guint         prop_id,
                                    const GValue *value,
                                    GParamSpec   *pspec)
 {
-  GisLanguageChooser *chooser = GIS_LANGUAGE_CHOOSER (object);
+  CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
   switch (prop_id)
     {
     case PROP_LANGUAGE:
-      gis_language_chooser_set_language (chooser, g_value_get_string (value));
+      cc_language_chooser_set_language (chooser, g_value_get_string (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -527,25 +527,25 @@ gis_language_chooser_set_property (GObject      *object,
 }
 
 static void
-gis_language_chooser_finalize (GObject *object)
+cc_language_chooser_finalize (GObject *object)
 {
-  GisLanguageChooser *chooser = GIS_LANGUAGE_CHOOSER (object);
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
+  CcLanguageChooserPrivate *priv = chooser->priv;
 
   g_strfreev (priv->filter_words);
 }
 
 static void
-gis_language_chooser_class_init (GisLanguageChooserClass *klass)
+cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  g_type_class_add_private (object_class, sizeof(GisLanguageChooserPrivate));
+  g_type_class_add_private (object_class, sizeof(CcLanguageChooserPrivate));
 
-  object_class->get_property = gis_language_chooser_get_property;
-  object_class->set_property = gis_language_chooser_set_property;
-  object_class->finalize = gis_language_chooser_finalize;
-  object_class->constructed = gis_language_chooser_constructed;
+  object_class->get_property = cc_language_chooser_get_property;
+  object_class->set_property = cc_language_chooser_set_property;
+  object_class->finalize = cc_language_chooser_finalize;
+  object_class->constructed = cc_language_chooser_constructed;
 
   obj_props[PROP_LANGUAGE] =
     g_param_spec_string ("language", "", "", "",
@@ -559,35 +559,35 @@ gis_language_chooser_class_init (GisLanguageChooserClass *klass)
 }
 
 void
-gis_language_chooser_init (GisLanguageChooser *chooser)
+cc_language_chooser_init (CcLanguageChooser *chooser)
 {
   chooser->priv = GET_PRIVATE (chooser);
 }
 
 void
-gis_language_chooser_clear_filter (GisLanguageChooser *chooser)
+cc_language_chooser_clear_filter (CcLanguageChooser *chooser)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
   gtk_entry_set_text (GTK_ENTRY (priv->filter_entry), "");
 }
 
 const gchar *
-gis_language_chooser_get_language (GisLanguageChooser *chooser)
+cc_language_chooser_get_language (CcLanguageChooser *chooser)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
   return priv->language;
 }
 
 void
-gis_language_chooser_set_language (GisLanguageChooser *chooser,
+cc_language_chooser_set_language (CcLanguageChooser *chooser,
                                    const gchar        *language)
 {
   set_locale_id (chooser, language);
 }
 
 gboolean
-gis_language_chooser_get_showing_extra (GisLanguageChooser *chooser)
+cc_language_chooser_get_showing_extra (CcLanguageChooser *chooser)
 {
-  GisLanguageChooserPrivate *priv = chooser->priv;
+  CcLanguageChooserPrivate *priv = chooser->priv;
   return priv->showing_extra;
 }

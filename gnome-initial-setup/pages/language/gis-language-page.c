@@ -27,7 +27,7 @@
 
 #include "config.h"
 #include "language-resources.h"
-#include "gis-language-chooser.h"
+#include "cc-language-chooser.h"
 #include "gis-language-page.h"
 
 #include <locale.h>
@@ -46,11 +46,11 @@ struct _GisLanguagePagePrivate
 #define WID(name) OBJ(GtkWidget*,name)
 
 static void
-language_changed (GisLanguageChooser *chooser,
+language_changed (CcLanguageChooser  *chooser,
                   GParamSpec         *pspec,
                   GisLanguagePage    *page)
 {
-  const char *new_locale_id = gis_language_chooser_get_language (chooser);
+  const char *new_locale_id = cc_language_chooser_get_language (chooser);
   setlocale (LC_MESSAGES, new_locale_id);
   gis_driver_locale_changed (GIS_PAGE (page)->driver);
 }
@@ -61,7 +61,7 @@ gis_language_page_constructed (GObject *object)
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
   GisLanguagePagePrivate *priv = page->priv;
 
-  g_type_ensure (GIS_TYPE_LANGUAGE_CHOOSER);
+  g_type_ensure (CC_TYPE_LANGUAGE_CHOOSER);
 
   G_OBJECT_CLASS (gis_language_page_parent_class)->constructed (object);
 
