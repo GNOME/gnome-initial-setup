@@ -21,7 +21,6 @@ gnome_initial_setup_SOURCES =	\
 	gis-driver.c gis-driver.h
 
 gnome_initial_setup_LDADD =	\
-	pages/welcome/libgiswelcome.la \
 	pages/language/libgislanguage.la \
 	pages/keyboard/libgiskeyboard.la \
 	pages/eulas/libgiseulas.la \

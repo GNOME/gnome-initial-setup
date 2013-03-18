@@ -127,7 +127,6 @@ Makefile
 data/Makefile
 gnome-initial-setup/Makefile
 gnome-initial-setup/pages/Makefile
-gnome-initial-setup/pages/welcome/Makefile
 gnome-initial-setup/pages/language/Makefile
 gnome-initial-setup/pages/eulas/Makefile
 gnome-initial-setup/pages/account/Makefile

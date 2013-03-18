@@ -40,7 +40,6 @@
 
 #include <egg-list-box.h>
 
-#include "pages/welcome/gis-welcome-page.h"
 #include "pages/language/gis-language-page.h"
 #include "pages/keyboard/gis-keyboard-page.h"
 #include "pages/eulas/gis-eula-pages.h"
@@ -68,7 +67,6 @@ typedef struct {
 #define PAGE(name) { #name, gis_prepare_ ## name ## _page }
 
 static PageData page_table[] = {
-  PAGE (welcome),
   PAGE (language),
   PAGE (keyboard),
   PAGE (eula),

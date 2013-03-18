@@ -1,6 +1,5 @@
 
 SUBDIRS = \
-	welcome \
 	language \
 	keyboard \
 	eulas \
