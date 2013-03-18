@@ -29,6 +29,7 @@
 
 #include "gis-assistant.h"
 #include "gis-assistant-private.h"
+#include "gis-center-container.h"
 
 G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 
@@ -303,6 +304,7 @@ gis_assistant_init (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = GET_PRIVATE (assistant);
   GtkWidget *navigation;
+  GtkWidget *dummy;
   assistant->priv = priv;
 
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
@@ -312,17 +314,12 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_frame_set_shadow_type (GTK_FRAME (priv->frame), GTK_SHADOW_NONE);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
-  priv->action_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-
   priv->page_action_widget_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_box_pack_start (GTK_BOX (priv->action_area), priv->page_action_widget_area,
-                      FALSE, FALSE, 0);
 
   navigation = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_box_set_homogeneous (GTK_BOX (navigation), TRUE);
   gtk_widget_set_halign (navigation, GTK_ALIGN_END);
   gtk_widget_set_hexpand (navigation, TRUE);
-  gtk_box_pack_end (GTK_BOX (priv->action_area), navigation, TRUE, TRUE, 0);
 
   priv->forward = gtk_button_new ();
   gtk_button_set_image (GTK_BUTTON (priv->forward),
@@ -340,6 +337,12 @@ gis_assistant_init (GisAssistant *assistant)
 
   g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
   g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
+
+  dummy = gtk_label_new ("");
+
+  priv->action_area = gis_center_container_new (priv->page_action_widget_area,
+                                                dummy,
+                                                navigation);
 
   gis_assistant_locale_changed (assistant);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
