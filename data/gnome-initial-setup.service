@@ -1,6 +1,8 @@
+[Unit]
 Description=GNOME initial setup
 After=livesys.service
 Before=display-manager.service getty@tty1.service
+ConditionKernelCommandLine=!rd.live.image
 
 [Service]
 Type=oneshot
