@@ -1,4 +1,5 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
+/* -*- encoding: utf8 -*- */
 /*
  * Copyright (C) 2012 Red Hat
  *
@@ -56,6 +57,7 @@ struct _GisAssistantPrivate
   GtkWidget *frame;
   GtkWidget *forward;
   GtkWidget *back;
+  GtkWidget *progress_indicator;
   GtkWidget *main_layout;
   GtkWidget *action_area;
   GtkWidget *page_action_widget_area;
@@ -165,6 +167,39 @@ update_action_widget (GisAssistant *assistant)
 }
 
 static void
+remove_from_progress_indicator (GtkWidget *widget,
+                                gpointer   user_data)
+{
+  GisAssistantPrivate *priv = user_data;
+  gtk_container_remove (GTK_CONTAINER (priv->progress_indicator), widget);
+}
+
+static void
+update_progress_indicator (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  GList *l;
+
+  gtk_container_foreach (GTK_CONTAINER (priv->progress_indicator),
+                         remove_from_progress_indicator, priv);
+
+  for (l = priv->pages; l != NULL; l = l->next)
+    {
+      GisPage *page = GIS_PAGE (l->data);
+      GtkWidget *label = gtk_label_new ("•");
+
+      if (page != priv->current_page)
+        {
+          GtkStyleContext *context = gtk_widget_get_style_context (label);
+          gtk_style_context_add_class (context, "dim-label");
+        }
+
+      gtk_container_add (GTK_CONTAINER (priv->progress_indicator), label);
+      gtk_widget_show (label);
+    }
+}
+
+static void
 update_navigation_buttons (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
@@ -191,6 +226,7 @@ gis_assistant_real_prepare (GisAssistant *assistant,
 {
   update_action_widget (assistant);
   update_navigation_buttons (assistant);
+  update_progress_indicator (assistant);
 }
 
 static void
@@ -227,6 +263,8 @@ gis_assistant_add_page (GisAssistant *assistant,
 
   if (priv->current_page->assistant_priv->link == link->prev)
     update_navigation_buttons (assistant);
+
+  update_progress_indicator (assistant);
 }
 
 GisPage *
@@ -304,7 +342,6 @@ gis_assistant_init (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = GET_PRIVATE (assistant);
   GtkWidget *navigation;
-  GtkWidget *dummy;
   assistant->priv = priv;
 
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
@@ -338,10 +375,11 @@ gis_assistant_init (GisAssistant *assistant)
   g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
   g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
 
-  dummy = gtk_label_new ("");
+  priv->progress_indicator = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_widget_set_halign (priv->progress_indicator, GTK_ALIGN_CENTER);
 
   priv->action_area = gis_center_container_new (priv->page_action_widget_area,
-                                                dummy,
+                                                priv->progress_indicator,
                                                 navigation);
 
   gis_assistant_locale_changed (assistant);
