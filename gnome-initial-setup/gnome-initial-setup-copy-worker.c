@@ -53,6 +53,7 @@ main (int    argc,
   GFile *dest;
   GError *error = NULL;
   char *initial_setup_homedir;
+  gchar *gis_done_file_path;
 
   g_type_init ();
 
@@ -74,6 +75,14 @@ main (int    argc,
   FILE (".config/dconf/user");
   FILE (".config/goa-1.0/accounts.conf");
   FILE (".local/share/keyrings/login.keyring");
+
+  gis_done_file_path = g_build_filename (g_get_user_config_dir (),
+                                         "gnome-initial-setup-done",
+                                         NULL);
+
+  if (!g_file_set_contents (gis_done_file_path, "yes", -1, &error))
+    g_warning ("Unable to create %s", gis_done_file_path, error->message);
+
 
   if (!g_file_delete (src, NULL, &error))
     {

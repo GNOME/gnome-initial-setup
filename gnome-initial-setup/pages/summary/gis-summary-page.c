@@ -208,6 +208,24 @@ remove_trigger_file (GisSummaryPage *page)
 }
 
 static void
+add_setup_done_file (void)
+{
+  gchar *gis_done_path;
+  GError *error = NULL;
+
+  gis_done_path = g_build_filename (g_get_user_config_dir (),
+                                    "gnome-initial-setup-done",
+                                    NULL);
+
+  if (!g_file_set_contents (gis_done_path, "yes", -1, &error)) {
+      g_warning ("Unable to create %s", gis_done_path, error->message);
+      g_clear_error (&error);
+  }
+
+  g_free (gis_done_path);
+}
+
+static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
   gchar *file;
@@ -224,6 +242,7 @@ done_cb (GtkButton *button, GisSummaryPage *page)
       remove_trigger_file (page);
       break;
     case GIS_DRIVER_MODE_EXISTING_USER:
+      add_setup_done_file ();
       g_application_quit (G_APPLICATION (GIS_PAGE (page)->driver));
     default:
       break;
