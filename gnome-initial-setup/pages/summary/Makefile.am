@@ -8,6 +8,13 @@ AM_CPPFLAGS = \
 
 BUILT_SOURCES =
 
+pk.c: pk.h
+pk.h: $(srcdir)/org.freedesktop.PackageKit.xml
+	$(AM_V_GEN) gdbus-codegen \
+		--interface-prefix org.freedesktop. \
+		--generate-c-code pk $<
+BUILT_SOURCES += pk.c pk.h
+
 resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/summary.gresource.xml)
 summary-resources.c: summary.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
