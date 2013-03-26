@@ -81,8 +81,7 @@ main (int    argc,
                                          NULL);
 
   if (!g_file_set_contents (gis_done_file_path, "yes", -1, &error))
-    g_warning ("Unable to create %s", gis_done_file_path, error->message);
-
+    g_warning ("Unable to create %s: %s", gis_done_file_path, error->message);
 
   if (!g_file_delete (src, NULL, &error))
     {
