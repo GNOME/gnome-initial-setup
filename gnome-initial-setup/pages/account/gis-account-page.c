@@ -311,10 +311,10 @@ refresh_reason_timeout (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
 
-  if (page->priv->reason_timeout != 0)
-    g_source_remove (page->priv->reason_timeout);
+  if (priv->reason_timeout != 0)
+    g_source_remove (priv->reason_timeout);
 
-  page->priv->reason_timeout = g_timeout_add (600, reason_timeout_cb, page);
+  priv->reason_timeout = g_timeout_add (600, reason_timeout_cb, page);
 }
 
 static void
