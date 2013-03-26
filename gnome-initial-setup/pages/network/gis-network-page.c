@@ -162,7 +162,6 @@ get_access_point_security (NMAccessPoint *ap)
 static gint
 ap_sort (gconstpointer a, gconstpointer b, gpointer data)
 {
-        gboolean aa, ab;
         guint sa, sb;
 
         sa = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (a), "strength"));
@@ -308,7 +307,6 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 static void
 add_access_point_other (GisNetworkPage *page)
 {
-  GisNetworkPagePrivate *priv = page->priv;
   GtkWidget *row;
   GtkWidget *widget;
   GtkWidget *list;
