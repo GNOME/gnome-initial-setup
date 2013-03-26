@@ -489,7 +489,7 @@ child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
     return;
 
   object_path = g_object_get_data (G_OBJECT (child), "object-path");
-  ssid = g_object_get_data (G_OBJECT (child), "ssid");
+  ssid_target = g_object_get_data (G_OBJECT (child), "ssid");
 
   if (g_strcmp0 (object_path, "ap-other...") == 0) {
     connect_to_hidden_network (page);
