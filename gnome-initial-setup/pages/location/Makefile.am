@@ -3,11 +3,7 @@ noinst_LTLIBRARIES = libgislocation.la
 
 BUILT_SOURCES =
 
-# GNOMECC_DATA_DIR is used in tz.c
-# these two files are copied from gnome-control-center,
-# which explains the slightly odd locations
-
-# XXX -- move to libtimezonemap at some point
+# Used for backward file
 AM_CPPFLAGS = \
 	-DGNOMECC_DATA_DIR="\"$(datadir)/gnome-control-center\""
 
