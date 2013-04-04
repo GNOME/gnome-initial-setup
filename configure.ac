@@ -94,18 +94,6 @@ ISO_CODES=iso-codes
 
 LIBGD_INIT([stack static])
 
-# systemd
-AC_ARG_WITH([systemdsystemunitdir],
-        AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
-        [],
-        [with_systemdsystemunitdir=yes])
-if test "x$with_systemdsystemunitdir" = "xyes"; then
-    with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)
-fi
-if test "x$with_systemdsystemunitdir" != "xno"; then
-    AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
-fi
-
 GLIB_VERSION_DEFINES="-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_30 '-DGLIB_VERSION_MAX_ALLOWED=G_ENCODE_VERSION(2,34)'"
 
 INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $GLIB_VERSION_DEFINES"

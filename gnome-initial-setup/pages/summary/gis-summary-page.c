@@ -194,19 +194,6 @@ log_user_in (GisSummaryPage *page)
   }
 }
 
-#define INITIAL_SETUP_TRIGGER_FILE LOCALSTATEDIR "/lib/gdm/run-initial-setup"
-
-static void
-remove_trigger_file (GisSummaryPage *page)
-{
-  GError *error = NULL;
-  if (!g_spawn_command_line_sync ("/usr/bin/pkexec /usr/bin/rm " INITIAL_SETUP_TRIGGER_FILE, NULL, NULL, NULL, &error))
-    {
-      g_warning ("Failed to remove '" INITIAL_SETUP_TRIGGER_FILE "': %s", error->message);
-      g_error_free (error);
-  }
-}
-
 static void
 add_setup_done_file (void)
 {
@@ -239,7 +226,6 @@ done_cb (GtkButton *button, GisSummaryPage *page)
     {
     case GIS_DRIVER_MODE_NEW_USER:
       log_user_in (page);
-      remove_trigger_file (page);
       break;
     case GIS_DRIVER_MODE_EXISTING_USER:
       add_setup_done_file ();

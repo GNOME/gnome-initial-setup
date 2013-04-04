@@ -15,9 +15,6 @@ edit = $(AM_V_GEN) sed \
 rulesdir = $(datadir)/polkit-1/rules.d
 rules_DATA = 20-gnome-initial-setup.rules
 
-actiondir = $(datadir)/polkit-1/actions
-action_DATA = org.gnome.initial-setup.policy
-
 sessiondir = $(datadir)/gnome-session/sessions
 session_DATA = gnome-initial-setup.session
 
@@ -27,11 +24,8 @@ desktop_DATA =						\
 	setup-shell.desktop				\
 	$(NULL)
 
-systemdsystemunit_DATA = gnome-initial-setup.service
-
 EXTRA_DIST =						\
 	20-gnome-initial-setup.rules			\
-	org.gnome.initial-setup.policy			\
 	gnome-welcome-tour				\
 	setup-shell.desktop				\
 	gnome-welcome-tour.desktop.in.in		\
@@ -39,7 +33,6 @@ EXTRA_DIST =						\
 	gnome-initial-setup.desktop.in.in		\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
-	gnome-initial-setup.service			\
 	$(NULL)
 
 CLEANFILES =						\
