@@ -9,6 +9,12 @@ lang=`echo $locale | sed -e 's/_.*//'`
 
 rm -f $cfgdir/run-welcome-tour
 
+# Don't do anything if yelp isn't installed
+yelp_path=$(which yelp 2>/dev/null)
+if test -z "${yelp_path}"; then
+    exit
+fi
+
 if [ ! -d $cfgdir/yelp ]; then
         mkdir $cfgdir/yelp
         cat <<EOF >>$cfgdir/yelp/yelp.cfg
