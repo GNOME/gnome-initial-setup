@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libgiskeyboard.la
 
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
+	-I$(top_srcdir)/libgd \
 	-DLOCALSTATEDIR="\"$(localstatedir)\"" \
 	-DUIDIR="\"$(uidir)\""
 
@@ -15,9 +16,10 @@ keyboard-resources.h: keyboard.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
 BUILT_SOURCES += keyboard-resources.c keyboard-resources.h
 
-libgiskeyboard_la_SOURCES =					\
-	gis-keyboard-page.c gis-keyboard-page.h			\
-	gnome-region-panel-input.c gnome-region-panel-input.h	\
+libgiskeyboard_la_SOURCES =				\
+	cc-input-chooser.c cc-input-chooser.h		\
+	cc-ibus-utils.c cc-ibus-utils.h			\
+	gis-keyboard-page.c gis-keyboard-page.h		\
 	$(BUILT_SOURCES)
 
 libgiskeyboard_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."

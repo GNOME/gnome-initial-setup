@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2012 Intel, Inc
- * Copyright (C) 2013 Red Hat, Inc.
+ * Copyright (C) 2010 Intel, Inc
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * Authors:
- *   Michael Wood <michael.g.wood@intel.com>
- *   Jasper St. Pierre <jstpierre@mecheye.net>
- *
- * Based on gnome-control-center region page by:
- *  Sergey Udaltsov <svu@gnome.org>
+ * Author: Sergey Udaltsov <svu@gnome.org>
  *
  */
+
 
 #ifndef _GIS_KEYBOARD_PAGE_H
 #define _GIS_KEYBOARD_PAGE_H
@@ -72,7 +67,7 @@ struct _GisKeyboardPageClass
 
 GType gis_keyboard_page_get_type (void) G_GNUC_CONST;
 
-void  gis_prepare_keyboard_page (GisDriver *driver);
+void gis_prepare_keyboard_page (GisDriver *driver);
 
 G_END_DECLS
 
