@@ -3,78 +3,68 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Adam Matoušek <adamatousek@gmail.com>, 2012, 2013.
+# Marek Černocký <marek@manet.cz>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-09 17:07+0000\n"
-"PO-Revision-Date: 2013-02-24 22:04+0100\n"
-"Last-Translator: Adam Matoušek <adamatousek@gmail.com>\n"
+"POT-Creation-Date: 2013-04-09 16:58+0000\n"
+"PO-Revision-Date: 2013-04-09 23:35+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Prvotní nastavení"
 
-#: ../gnome-initial-setup/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "Nespecifikováno"
-
-#: ../gnome-initial-setup/gis-assistant.c:288
+#: ../gnome-initial-setup/gis-assistant.c:333
 msgid "_Next"
 msgstr "_Další"
 
-#: ../gnome-initial-setup/gis-assistant.c:289
+#: ../gnome-initial-setup/gis-assistant.c:334
 msgid "_Back"
 msgstr "_Předchozí"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Vynutit režim nového uživatele"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:208
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "– Prvotní nastavení"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Use _Enterprise Login"
-msgstr "Použít _firemní přihlášení"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
-msgid "_Use Local Login"
-msgstr "Použít _místní účet"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
 msgid "Passwords do not match"
 msgstr "Hesla se neshodují"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
 #, c-format
 msgid "Strength: %s"
 msgstr "Síla: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
 msgid "Failed to register account"
 msgstr "Registrace účtu selhala"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
 msgid "Failed to join domain"
 msgstr "Připojení do domény selhalo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
 msgid "Failed to log into domain"
 msgstr "Přihlášení do domény selhalo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:961
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
 msgid "Login"
 msgstr "Přihlašování"
 
@@ -200,7 +190,7 @@ msgstr ""
 " ➣ písmen anglické abecedy (bez diakritiky) ➣ číslic ➣ znaků „.“, „-“ a "
 "„_“ (tečka, spojovník a podtržítko)"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:264
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Licenční ujednání"
@@ -230,7 +220,7 @@ msgstr "Tímto nesmažete účet na serveru."
 msgid "_Remove"
 msgstr "_Odstranit"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:355
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
 msgid "Online Accounts"
 msgstr "Účty on-line"
 
@@ -246,90 +236,75 @@ msgstr ""
 "Přidáním účtu můžete přistupovat on-line ke svým fotografiím, kontaktům, "
 "poště a dalším datům."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:54
-msgid "Keyboard Layout"
-msgstr "Rozložení klávesnice"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "Více…"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+msgid "No input sources found"
+msgstr "Nenalezen žádný vstupní zdroj"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+msgid "Other"
+msgstr "Jiný…"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr "Aby se změny projevily, musíte restartovat své sezení"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "Restartovat hned"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "Žádný"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "Litujeme"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr "Vstupní metodu nelze použít na přihlašovací obrazovce"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+msgid "No input source selected"
+msgstr "Žádný vstupní zdroj není vybrán"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Zvolit vstupní zdroje"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
-msgstr "Přidat vstupní zdroj"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Odebrat vstupní zdroj"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Posunout vstupní zdroj nahoru"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Posunout vstupní zdroj dolů"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Nastavení vstupních zdrojů"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Zobrazit rozložení klávesnice"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"Nastavení přihlašování je používáno všemi uživateli, kteří se do systému "
+"přihlašují"
 
 #: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
 msgid "Select an input source"
 msgstr "Zvolte vstupní zdroj"
 
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "Angličtina"
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "Přidat vstupní zdroj"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "Britská angličtina"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "Němčina"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "Francouzština"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "Španělština"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "Čínština (zjednodušená)"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:119
-#, c-format
-msgid "Use %s"
-msgstr "Použijte %s"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:170
-msgid "More…"
-msgstr "Více…"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:177
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "No languages found"
 msgstr "Žádné jazyky nenalezeny"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:372
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:47
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "Vítejte"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:304
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
 msgid "Search for a location"
 msgstr "Vyhledat umístění"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:341
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Umístění"
@@ -346,24 +321,24 @@ msgstr "Zvolit umístění _automaticky"
 msgid "Time Zone"
 msgstr "Časové pásmo"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Jiná…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "Síť není dostupná."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "Nebyla nalezena síťová zařízení."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "Hledají se dostupné bezdrátové sítě"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "Síť"
 
@@ -371,7 +346,7 @@ msgstr "Síť"
 msgid "Wireless Networks"
 msgstr "Bezdrátové sítě"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:284
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Děkujeme"
 
