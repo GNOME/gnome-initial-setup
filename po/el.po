@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-25 20:59+0000\n"
-"PO-Revision-Date: 2013-03-03 21:06+0300\n"
+"POT-Creation-Date: 2013-04-09 16:58+0000\n"
+"PO-Revision-Date: 2013-04-09 23:26+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "Language: el\n"
@@ -21,23 +21,23 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Αρχική ρύθμιση"
 
-#: ../gnome-initial-setup/gis-assistant.c:292
+#: ../gnome-initial-setup/gis-assistant.c:333
 msgid "_Next"
 msgstr "Επόμε_νο"
 
-#: ../gnome-initial-setup/gis-assistant.c:293
+#: ../gnome-initial-setup/gis-assistant.c:334
 msgid "_Back"
 msgstr "Πί_σω"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:222
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Εξαναγκασμός λειτουργίας νέου χρήστη"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:226
-#| msgid "Initial Setup"
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- Αρχική ρύθμιση GNOME"
 
@@ -100,7 +100,7 @@ msgid ""
 msgstr ""
 "Προσπαθήστε να χρησιμοποιήσετε τουλάχιστον 8 διαφορετικούς χαρακτήρες. "
 "Συνδυάστε μικρά και κεφαλαία γράμμα και χρησιμοποιήστε έναν ή περισσότερους "
-"αριθμούς. "
+"αριθμούς."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
@@ -237,59 +237,74 @@ msgid ""
 "photos, contacts, mail, and more."
 msgstr ""
 "Η προσθήκη λογαριασμών θα σας επιτρέψει να συνδεθείτε με τις διαδικτυακές "
-"φωτογραφίες σας, επαφές, αλληλογραφία και πολλά άλλα. "
+"φωτογραφίες σας, επαφές, αλληλογραφία και πολλά άλλα."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "Διάταξη πληκτρολογίου"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "Περισσότερα…"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+#| msgid "Move Input Source Down"
+msgid "No input sources found"
+msgstr "Δεν βρέθηκαν πηγές εισόδου"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+#| msgctxt "Wireless access point"
+#| msgid "Other…"
+msgid "Other"
+msgstr "Άλλο"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr "Η συνεδρία σας πρέπει να επανεκκινηθεί για να εφαρμοστούν οι αλλαγές"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "Επανεκκίνηση τώρα"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "Καμία"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "Συγνώμη"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr "Οι μέθοδοι εισαγωγής δεν μπορούν να χρησιμοποιηθούν στην οθόνη σύνδεσης"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+#| msgid "Select input sources"
+msgid "No input source selected"
+msgstr "Δεν επιλέχτηκε πηγή εισόδου"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Επιλογή πηγών εισόδου"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
-msgstr "Προσθήκη πηγής εισόδου"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Αφαίρεση πηγής εισόδου"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Μετακίνηση πηγής εισόδου πάνω"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Μετακίνηση πηγής εισόδου κάτω"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Ρυθμίσεις πηγών εισόδου"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Εμφάνιση διάταξης πληκτρολογίου"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"Οι ρυθμίσεις σύνδεσης χρησιμοποιούνται από όλους τους χρήστες κατά τη "
+"σύνδεση στο σύστημα"
 
 #: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
 msgid "Select an input source"
 msgstr "Επιλογή πηγής εισόδου"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:133
-#, c-format
-msgid "Use %s"
-msgstr "Χρησιμοποιήστε %s"
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+#| msgid "Add Input Source"
+msgid "Add an Input Source"
+msgstr "Προσθήκη πηγής εισόδου"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:208
-msgid "More…"
-msgstr "Περισσότερα..."
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "No languages found"
 msgstr "Δε βρέθηκαν γλώσσες"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:445
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:57
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "Καλώς ήλθατε"
 
@@ -314,24 +329,24 @@ msgstr "Π_ροσδιορισμός της τοποθεσία σας αυτόμ�
 msgid "Time Zone"
 msgstr "Ζώνη ώρας"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
 msgid "Other…"
-msgstr "Άλλο..."
+msgstr "Άλλο…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "Δεν είναι διαθέσιμο το δίκτυο."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "Δεν βρέθηκαν συσκευές δικτύου."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "Γίνετε έλεγχος για διαθέσιμα ασύρματα δίκτυα"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "Δίκτυο"
 
@@ -339,7 +354,7 @@ msgstr "Δίκτυο"
 msgid "Wireless Networks"
 msgstr "Ασύρματα δίκτυα"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Ευχαριστούμε"
 
@@ -356,6 +371,24 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "Ξεκινή_στε να χρησιμοποιείται το GNOME 3"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Διάταξη πληκτρολογίου"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "Αφαίρεση πηγής εισόδου"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "Μετακίνηση πηγής εισόδου πάνω"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "Ρυθμίσεις πηγών εισόδου"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "Εμφάνιση διάταξης πληκτρολογίου"
+
+#~ msgid "Use %s"
+#~ msgstr "Χρησιμοποιήστε %s"
 
 #~ msgid "Unspecified"
 #~ msgstr "Ακαθόριστο"
