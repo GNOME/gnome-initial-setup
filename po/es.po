@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-09 17:07+0000\n"
-"PO-Revision-Date: 2013-02-11 13:43+0100\n"
+"POT-Creation-Date: 2013-04-09 10:26+0000\n"
+"PO-Revision-Date: 2013-04-09 13:41+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -20,61 +20,49 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
-#: ../gnome-initial-setup/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "No especificado"
-
-#: ../gnome-initial-setup/gis-assistant.c:288
+#: ../gnome-initial-setup/gis-assistant.c:333
 msgid "_Next"
 msgstr "Siguie_nte"
 
-#: ../gnome-initial-setup/gis-assistant.c:289
+#: ../gnome-initial-setup/gis-assistant.c:334
 msgid "_Back"
 msgstr "A_trás"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Forzar el modo del nuevo usuario"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:208
-#| msgid "Initial Setup"
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- Configuración inicial de GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Use _Enterprise Login"
-msgstr "Usar inicio de s_esión corporativo"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
-msgid "_Use Local Login"
-msgstr "_Usar inicio de sesión local"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
 msgid "Passwords do not match"
 msgstr "Las contraseñas no coinciden"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
 #, c-format
 msgid "Strength: %s"
 msgstr "Fuerza: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
 msgid "Failed to register account"
 msgstr "Falló al registrar la cuenta"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
 msgid "Failed to join domain"
 msgstr "Falló al unirse al dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
 msgid "Failed to log into domain"
 msgstr "Falló al iniciar sesión en el dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:961
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -201,7 +189,7 @@ msgstr ""
 " ➣ dígitos\n"
 " ➣ cualquiera de los caracteres «.», «-» y «_»"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:264
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Acuerdo de licencia"
@@ -231,7 +219,7 @@ msgstr "Esto no quitará la cuenta en el servidor."
 msgid "_Remove"
 msgstr "Quita_r"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:355
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
 msgid "Online Accounts"
 msgstr "Cuentas en línea"
 
@@ -247,90 +235,77 @@ msgstr ""
 "Añadir cuentas le permite conectarse de manera transparente a sus "
 "aplicaciones en línea de fotos, contactos, correo-e y más."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:54
-msgid "Keyboard Layout"
-msgstr "Distribución de teclado"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "Más…"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+#| msgid "Move Input Source Down"
+msgid "No input sources found"
+msgstr "No se han encontrado fuentes de entrada"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+#| msgctxt "Wireless access point"
+#| msgid "Other…"
+msgid "Other"
+msgstr "Otra"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr "Debe reiniciar la sesión para que se apliquen los cambios"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "Reiniciar ahora"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "Ninguno"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "Disculpe"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr ""
+"Los métodos de entrada no se pueden usar en la pantalla de inicio de sesión"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+#| msgid "Select input sources"
+msgid "No input source selected"
+msgstr "No se ha seleccionado ninguna fuente de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Seleccionar las fuentes de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"La configuración de inicio de sesión la usan todos los usuarios cuando "
+"inician sesión en el sistema"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+#| msgid "Add Input Source"
+msgid "Add an Input Source"
 msgstr "Añadir fuente de entrada"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Quitar fuente de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Subir fuente de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Bajar fuente de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Configuración de la fuente de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Mostrar la distribución del teclado"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "Seleccionar una fuente de entrada"
-
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "Inglés"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "Inglés británico"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "Alemán"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "Francés"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "Español"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "Chino (simplificado)"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:119
-#, c-format
-msgid "Use %s"
-msgstr "Usar %s"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:170
-msgid "More…"
-msgstr "Más…"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:177
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "No languages found"
 msgstr "No se han encontrado idiomas"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:372
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:47
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "Bienvenido"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:304
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
 msgid "Search for a location"
 msgstr "Buscar una ubicación"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:341
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Ubicación"
@@ -347,24 +322,24 @@ msgstr "_Determinar su ubicación automáticamente"
 msgid "Time Zone"
 msgstr "Zona horaria"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Otro…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "La red no está disponible."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "No se han encontrado dispositivos de red."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "Comprobando si hay redes inalámbricas disponibles"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "Red"
 
@@ -372,7 +347,7 @@ msgstr "Red"
 msgid "Wireless Networks"
 msgstr "Redes inalámbricas"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:284
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Gracias"
 
@@ -387,6 +362,54 @@ msgstr "Puede cambiar estas opciones en cualquier momento en Configuración."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Empezar a usar GNOME 3"
+
+#~ msgid "Unspecified"
+#~ msgstr "No especificado"
+
+#~ msgid "Use _Enterprise Login"
+#~ msgstr "Usar inicio de s_esión corporativo"
+
+#~ msgid "_Use Local Login"
+#~ msgstr "_Usar inicio de sesión local"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Distribución de teclado"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "Quitar fuente de entrada"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "Subir fuente de entrada"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "Configuración de la fuente de entrada"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "Mostrar la distribución del teclado"
+
+#~ msgid "Select an input source"
+#~ msgstr "Seleccionar una fuente de entrada"
+
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid "British English"
+#~ msgstr "Inglés británico"
+
+#~ msgid "German"
+#~ msgstr "Alemán"
+
+#~ msgid "French"
+#~ msgstr "Francés"
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Chino (simplificado)"
+
+#~ msgid "Use %s"
+#~ msgstr "Usar %s"
 
 #~ msgid ""
 #~ "I have _agreed to the terms and conditions in this end user license "
