@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-20 10:55+0100\n"
-"PO-Revision-Date: 2013-02-20 11:04+0200\n"
+"POT-Creation-Date: 2013-04-10 13:57+0200\n"
+"PO-Revision-Date: 2013-04-10 13:58+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -22,60 +22,49 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
-#: ../gnome-initial-setup/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "Non especificado"
-
-#: ../gnome-initial-setup/gis-assistant.c:284
+#: ../gnome-initial-setup/gis-assistant.c:333
 msgid "_Next"
 msgstr "Segui_nte"
 
-#: ../gnome-initial-setup/gis-assistant.c:285
+#: ../gnome-initial-setup/gis-assistant.c:334
 msgid "_Back"
 msgstr "_Anterior"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:222
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Forzar modo de novo usuario"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:226
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- Configuración inicial de GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Use _Enterprise Login"
-msgstr "Usar o inicio de s_esión corporativo"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
-msgid "_Use Local Login"
-msgstr "_Usar una conta local"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
 msgid "Passwords do not match"
 msgstr "Os contrasinais non coinciden"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
 #, c-format
 msgid "Strength: %s"
 msgstr "Forza: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
 msgid "Failed to register account"
 msgstr "Produciuse un erro ao rexistrar a conta"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
 msgid "Failed to join domain"
 msgstr "Produciuse un erro ao unirse ao dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
 msgid "Failed to log into domain"
 msgstr "Produciuse un erro ao iniciar sesión no dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:987
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
 msgid "Login"
 msgstr "Chave de acceso"
 
@@ -248,82 +237,67 @@ msgstr ""
 "Se engade unha conta podera acceder dende os seus aplicativos a documentos "
 "en liña, correo-e, contactos, calendario, conversas e máis."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "Disposición do teclado"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "Máis…"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+msgid "No input sources found"
+msgstr "Non se atopou ningunha orixe de entrada"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+msgid "Other"
+msgstr "Outra"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr "Debe reiniciar a súa sesión para que se apliquen os cambios"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "Reiniciar agora"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "Ningún"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "Desculpe"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr "Os métodos de entrada non poden usarse na pantalla de inicio de sesión"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+msgid "No input source selected"
+msgstr "Non se seleccionou ningunha orixe de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Seleccionar a orixe de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
-msgstr "Engadir orixe de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Retirar orixe de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Mover orixe de entrada arriba"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Mover orixe de entrada abaixo"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Preferencias das orixes de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Mostrar a distribución do teclado"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"As preferencias de inicio de sesión úsanas todos os usuarios ao iniciar a "
+"sesión no sistema"
 
 #: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
 msgid "Select an input source"
 msgstr "Seleccione unha orixe de entrada"
 
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "Inglés"
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "Engadir unha orixe de entrada"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "Inglés británico"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "Alemán"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "Francés"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "Español"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "Chinés (Simplificado)"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:131
-#, c-format
-msgid "Use %s"
-msgstr "Usar %s"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:206
-msgid "More…"
-msgstr "Máis…"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:213
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "No languages found"
 msgstr "Non se atoparon idiomas"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:443
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:57
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "Benvido/a"
 
@@ -348,24 +322,24 @@ msgstr "_Determinar a súa localización automaticamente"
 msgid "Time Zone"
 msgstr "Fuso horario"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Outro…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "Rede non dispoñíbel."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "Non foi posíbel atopar ningún dispositivo de rede."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "Buscando redes sen fíos dispoñíbeis"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "Rede"
 
@@ -373,7 +347,7 @@ msgstr "Rede"
 msgid "Wireless Networks"
 msgstr "Redes sen fíos"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Grazas"
 
@@ -388,6 +362,51 @@ msgstr "Pode cambiar estas opcións en calquera momento desde Preferencias."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Comezar a usar GNOME 3"
+
+#~ msgid "Unspecified"
+#~ msgstr "Non especificado"
+
+#~ msgid "Use _Enterprise Login"
+#~ msgstr "Usar o inicio de s_esión corporativo"
+
+#~ msgid "_Use Local Login"
+#~ msgstr "_Usar una conta local"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Disposición do teclado"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "Retirar orixe de entrada"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "Mover orixe de entrada arriba"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "Preferencias das orixes de entrada"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "Mostrar a distribución do teclado"
+
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid "British English"
+#~ msgstr "Inglés británico"
+
+#~ msgid "German"
+#~ msgstr "Alemán"
+
+#~ msgid "French"
+#~ msgstr "Francés"
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Chinés (Simplificado)"
+
+#~ msgid "Use %s"
+#~ msgstr "Usar %s"
 
 #~ msgid "_Login Name"
 #~ msgstr "Nome de _usuario"
