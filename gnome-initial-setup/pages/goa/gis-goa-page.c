@@ -321,12 +321,23 @@ goa_account_removed (GoaClient *client, GoaObject *object, gpointer user_data)
 }
 
 static void
+network_status_changed (GNetworkMonitor *monitor,
+                        gboolean         available,
+                        gpointer         user_data)
+{
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
+
+  gtk_widget_set_visible (GTK_WIDGET (page), available);
+}
+
+static void
 gis_goa_page_constructed (GObject *object)
 {
   GisGoaPage *page = GIS_GOA_PAGE (object);
   GisGoaPagePrivate *priv = page->priv;
   GtkWidget *button;
   GError *error = NULL;
+  GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
 
@@ -352,9 +363,13 @@ gis_goa_page_constructed (GObject *object)
   g_signal_connect (priv->goa_client, "account-removed",
                     G_CALLBACK (goa_account_removed), page);
 
+  g_signal_connect (network_monitor, "network-changed",
+                    G_CALLBACK (network_status_changed), page);
+
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  if (g_network_monitor_get_network_available (network_monitor))
+    gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void
