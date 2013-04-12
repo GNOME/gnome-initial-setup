@@ -61,7 +61,6 @@ struct _GisAccountPagePrivate
 
   gboolean valid_name;
   gboolean valid_username;
-  gboolean valid_password;
   gboolean valid_confirm;
   const gchar *password_reason;
   guint reason_timeout;
@@ -119,7 +118,6 @@ clear_account_page (GisAccountPage *page)
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
-  priv->valid_password = FALSE;
   priv->valid_confirm = FALSE;
 
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
@@ -137,9 +135,9 @@ static gboolean
 local_validate (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
+
   return priv->valid_name &&
          priv->valid_username &&
-         priv->valid_password &&
          priv->valid_confirm;
 }
 
@@ -220,6 +218,18 @@ set_has_enterprise (GisAccountPage *page,
 }
 
 static void
+update_valid_confirm (GisAccountPage *page)
+{
+  GisAccountPagePrivate *priv = page->priv;
+  const gchar *password, *verify;
+
+  password = gtk_entry_get_text (GTK_ENTRY (WID("account-password-entry")));
+  verify = gtk_entry_get_text (GTK_ENTRY (WID("account-confirm-entry")));
+
+  priv->valid_confirm = strcmp (password, verify) == 0;
+}
+
+static void
 fullname_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPage *page)
@@ -275,6 +285,10 @@ username_changed (GtkComboBoxText *combo,
   }
   else {
     clear_entry_validation_error (GTK_ENTRY (entry));
+    /* We hit this the first time when there has been no change to password but
+     * the two empty passwords are valid for no password.
+     */
+    update_valid_confirm (page);
   }
 
   update_account_page_status (page);
@@ -295,7 +309,9 @@ reason_timeout_cb (gpointer data)
   password = gtk_entry_get_text (GTK_ENTRY (password_entry));
   verify = gtk_entry_get_text (GTK_ENTRY (confirm_entry));
 
-  if (strlen (password) > 0 && !priv->valid_password)
+  if (strlen (password) == 0)
+    set_entry_validation_error (GTK_ENTRY (password_entry), _("No password"));
+  else
     set_entry_validation_error (GTK_ENTRY (password_entry), priv->password_reason);
 
   if (strlen (verify) > 0 && !priv->valid_confirm)
@@ -356,25 +372,15 @@ update_password_entries (GisAccountPage *page)
   g_free (strength_hint);
 
   if (strength == 0.0) {
-    priv->valid_password = FALSE;
     priv->password_reason = long_hint ? long_hint : hint;
   }
-  else {
-    priv->valid_password = TRUE;
-    priv->password_reason = NULL;
-  }
 
-  priv->valid_confirm = priv->valid_password &&
-                        strcmp (password, verify) == 0;
+  update_valid_confirm (page);
 
-  if (priv->valid_password) {
+  if (priv->valid_confirm)
     clear_entry_validation_error (GTK_ENTRY (password_entry));
-    gtk_widget_set_sensitive (confirm_entry, TRUE);
-  } else {
-    gtk_widget_set_sensitive (confirm_entry, FALSE);
-    gtk_entry_set_text (GTK_ENTRY (confirm_entry), "");
-    clear_entry_validation_error (GTK_ENTRY (confirm_entry));
-  }
+
+  gtk_widget_set_sensitive (confirm_entry, TRUE);
 
   refresh_reason_timeout (page);
 }
@@ -401,11 +407,6 @@ password_entry_focus_out (GtkWidget      *widget,
 
   if (page->priv->reason_timeout != 0)
     g_source_remove (page->priv->reason_timeout);
-
-  if (!priv->valid_password)
-    set_entry_validation_error (entry, priv->password_reason);
-  else
-    clear_entry_validation_error (entry);
 
   return FALSE;
 }
@@ -478,9 +479,7 @@ local_create_user (GisAccountPage *page)
 
   /* this can happen when going back */
   if (!priv->valid_name ||
-      !priv->valid_username ||
-      !priv->valid_password ||
-      !priv->valid_confirm) {
+      !priv->valid_username) {
     return;
   }
 
@@ -508,7 +507,10 @@ local_create_user (GisAccountPage *page)
   act_user_set_real_name (priv->act_user, realname);
   act_user_set_user_name (priv->act_user, username);
   act_user_set_account_type (priv->act_user, priv->account_type);
-  act_user_set_password (priv->act_user, password, NULL);
+  if (strlen (password) == 0)
+    act_user_set_account_type (priv->act_user, ACT_USER_PASSWORD_MODE_NONE);
+  else
+    act_user_set_password (priv->act_user, password, NULL);
 
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
                                    priv->act_user,
