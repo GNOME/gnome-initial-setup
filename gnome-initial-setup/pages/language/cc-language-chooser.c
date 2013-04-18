@@ -91,7 +91,6 @@ padded_label_new (char *text)
         gtk_widget_set_margin_top (widget, 10);
         gtk_widget_set_margin_bottom (widget, 10);
         gtk_box_pack_start (GTK_BOX (widget), gtk_label_new (text), FALSE, FALSE, 0);
-        gtk_widget_show_all (widget);
         return widget;
 }
 
@@ -176,9 +175,18 @@ static GtkWidget *
 more_widget_new (void)
 {
         GtkWidget *widget;
+        GtkWidget *arrow;
 
-        widget = padded_label_new ("…");
+        widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
         gtk_widget_set_tooltip_text (widget, _("More…"));
+
+        arrow = gtk_image_new_from_icon_name ("view-more-symbolic", GTK_ICON_SIZE_MENU);
+        gtk_style_context_add_class (gtk_widget_get_style_context (arrow), "dim-label");
+        gtk_widget_set_margin_top (widget, 10);
+        gtk_widget_set_margin_bottom (widget, 10);
+        gtk_misc_set_alignment (GTK_MISC (arrow), 0.5, 0.5);
+        gtk_box_pack_start (GTK_BOX (widget), arrow, TRUE, TRUE, 0);
+
         return widget;
 }
 
@@ -219,7 +227,7 @@ add_languages (CcLanguageChooser  *chooser,
         gtk_container_add (GTK_CONTAINER (priv->language_list), priv->more_item);
         gtk_container_add (GTK_CONTAINER (priv->language_list), priv->no_results);
 
-        gtk_widget_show (priv->language_list);
+        gtk_widget_show_all (priv->language_list);
 }
 
 static void
