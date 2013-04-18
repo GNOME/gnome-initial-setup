@@ -115,6 +115,7 @@ language_widget_new (const char *locale_id,
                      gboolean    is_extra)
 {
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
+        GtkWidget *checkmark;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
         locale_name = gnome_get_language_from_locale (locale_id, locale_id);
@@ -127,6 +128,12 @@ language_widget_new (const char *locale_id,
         widget->locale_current_name = locale_current_name;
         widget->locale_untranslated_name = locale_untranslated_name;
         widget->is_extra = is_extra;
+
+        /* We add a check on each side of the label to keep it centered. */
+        checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+        gtk_widget_set_opacity (checkmark, 0.0);
+        gtk_box_pack_start (GTK_BOX (widget->box), checkmark, FALSE, FALSE, 0);
+        gtk_box_reorder_child (GTK_BOX (widget->box), checkmark, 0);
 
         widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
         gtk_box_pack_start (GTK_BOX (widget->box), widget->checkmark,
@@ -151,7 +158,7 @@ sync_checkmark (GtkWidget *child,
 
         locale_id = user_data;
         should_be_visible = g_str_equal (widget->locale_id, locale_id);
-        gtk_widget_set_visible (widget->checkmark, should_be_visible);
+        gtk_widget_set_opacity (widget->checkmark, should_be_visible ? 1.0 : 0.0);
 }
 
 static void
