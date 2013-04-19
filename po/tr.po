@@ -1,150 +1,189 @@
 # Turkish translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
+# Muhammet Kara <muhammetk@gmail.com>, 2012, 2013.
 #
-# Muhammet Kara <muhammetk@acikkaynak.name.tr>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-08-08 17:41+0000\n"
-"PO-Revision-Date: 2012-08-08 21:31+0000\n"
-"Last-Translator: Muhammet Kara <muhammetk@acikkaynak.name.tr>\n"
+"POT-Creation-Date: 2013-04-18 09:57+0000\n"
+"PO-Revision-Date: 2013-04-18 21:08+0300\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "İlk Kurulum"
 
-#: ../gnome-initial-setup/gis-assistant.c:150
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "_İleri"
 
-#: ../gnome-initial-setup/gis-assistant.c:151
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "_Geri"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:209
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
+msgid "Force new user mode"
+msgstr "Yeni kullanıcı kipine zorla"
+
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
+msgid "- GNOME initial setup"
+msgstr "- GNOME ilk kurulum"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+msgid "No password"
+msgstr "Parola yok"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "Parolalar eşleşmiyor"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#, c-format
+msgid "Strength: %s"
+msgstr "Güç: %s"
+
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:552
+msgid "Failed to register account"
+msgstr "Hesap kaydedilemedi"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:615
+msgid "Failed to join domain"
+msgstr "Etki alanına katılma başarısız"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:670
+msgid "Failed to log into domain"
+msgstr "Etki alanında oturum açılamadı"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:982
 msgid "Login"
 msgstr "Giriş"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create Local Account"
-msgstr "Yerel Hesap Oluştur"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Cancel"
-msgstr "_Vazgeç"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Done"
-msgstr "_Tamam"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "_Full Name"
-msgstr "_Tam Ad"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Username"
-msgstr "_Kullanıcı adı"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Require a password to use this account"
-msgstr "_Bu hesabı kullanmak için bir parola gerekir"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid "_Password"
-msgstr "_Parola"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "_Confirm Password"
-msgstr "Parolayı _Onayla"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "_Act as administrator of this computer"
-msgstr "Bilgisayar yöneticisi olarak _işlem yap"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
-msgid "Choose How to Login"
-msgstr "Nasıl Oturum Açılacağını Seç"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Create a Local Account"
 msgstr "Yerel Hesap Oluştur"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Use an Enterprise Login"
-msgstr "Kurumsal Giriş Bilgilerini Kullan"
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
+msgid "_Full Name"
+msgstr "_Tam Ad"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:93
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
+msgid "_Username"
+msgstr "_Kullanıcı adı"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
+msgid "This will be used to name your home folder and can't be changed."
+msgstr ""
+"Başlangıç klasörünüzün adlandırılmasında kullanılacaktır ve sonradan "
+"değiştirilemez."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+msgid "_Password"
+msgstr "_Parola"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+msgid "_Confirm password"
+msgstr "Parolayı _onayla"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"En az 8 farklı karakter kullanmaya çalışın. Büyük ve küçük harfleri "
+"karıştırın ve bir iki tane de rakam kullanın."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+msgid "page 1"
+msgstr "sayfa 1"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+msgid "Create an Enterprise Account"
+msgstr "Kurumsal Hesap Oluştur"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+msgid "_Domain"
+msgstr "_Etki Alanı"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+msgid "Enterprise domain or realm name"
+msgstr "Kurumsal etki alanı ya da bölge adı"
+
+#: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "Çok kısa"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:98
+#: ../gnome-initial-setup/pages/account/pw-utils.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "Yeterince iyi değil"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:106
-#: ../gnome-initial-setup/pages/account/pw-utils.c:152
+#: ../gnome-initial-setup/pages/account/pw-utils.c:108
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "Zayıf"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:108
-#: ../gnome-initial-setup/pages/account/pw-utils.c:154
+#: ../gnome-initial-setup/pages/account/pw-utils.c:111
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "Orta"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:110
-#: ../gnome-initial-setup/pages/account/pw-utils.c:156
+#: ../gnome-initial-setup/pages/account/pw-utils.c:114
 msgctxt "Password strength"
 msgid "Good"
 msgstr "İyi"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:112
-#: ../gnome-initial-setup/pages/account/pw-utils.c:158
+#: ../gnome-initial-setup/pages/account/pw-utils.c:117
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "Güçlü"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:245
-msgid "Disable image"
-msgstr "Resmi etkisizleştir"
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#, c-format
+msgid "No such domain or realm found"
+msgstr "Böyle bir etki alanı ya da bölge bulunamadı"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:263
-msgid "Take a photo..."
-msgstr "Fotoğraf çek..."
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#, c-format
+msgid "Cannot log in as %s at the %s domain"
+msgstr "%2$s etki alanında %1$s olarak oturum açılamıyor"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:267
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+msgid "Invalid password, please try again"
+msgstr "Geçersiz parola, lütfen tekrar deneyin"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#, c-format
+msgid "Couldn't connect to the %s domain: %s"
+msgstr "%s etki alanına bağlanılamadı: %s"
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:129
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "'%s' adlı bir kullanıcı zaten mevcut"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:271
+#: ../gnome-initial-setup/pages/account/um-utils.c:133
 #, c-format
 msgid "The username is too long"
 msgstr "Kullanıcı adı çok uzun"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:274
+#: ../gnome-initial-setup/pages/account/um-utils.c:136
 msgid "The username cannot start with a '-'"
 msgstr "Kullanıcı adı '-' ile başlayamaz"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:277
+#: ../gnome-initial-setup/pages/account/um-utils.c:139
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -156,106 +195,122 @@ msgstr ""
 " ➣ rakamlar\n"
 " ➣ '.', '-' ve '_' karakterlerinden herhangi biri"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:248
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr ""
-"Bu son kullanıcı lisans sözleşmesindeki hüküm ve koşulları _kabul "
-"ediyorum."
-
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:274
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Lisans Sözleşmeleri"
 
-#. translators: This is the title of the "Add Account" dialogue.
-#. * The title is not visible when using GNOME Shell
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:251
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:257
+#. translators: This is the title of the "Add Account" dialog.
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "Hesap Ekle"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:79
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
 msgid "Error creating account"
 msgstr "Hesap oluşturulurken hata meydana geldi"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:111
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
 msgid "Error removing account"
 msgstr "Hesap silinirken hata oluştu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
 msgid "Are you sure you want to remove the account?"
 msgstr "Hesabı silmek istediğinizden emin misiniz?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:139
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
 msgid "This will not remove the account on the server."
 msgstr "Bu işlem, sunucudaki hesabı silmeyecektir."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:140
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "_Remove"
 msgstr "_Sil"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "Remove"
-msgstr "Sil"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:303
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:389
 msgid "Online Accounts"
 msgstr "Çevrimiçi Hesaplar"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Link other accounts"
-msgstr "Diğer hesaplara bağla"
+msgid "Connect to your existing data in the cloud"
+msgstr "Buluttaki verilerinize erişin"
 
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:200
-msgid "English"
-msgstr "İngilizce"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+msgid ""
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
+msgstr ""
+"Hesap ekleyerek çevrimiçi fotoğraflarınıza, kişilerinize, mektuplarınıza ve "
+"daha fazlasına kolayca erişebilirsiniz."
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:202
-msgid "British English"
-msgstr "İngiltere İngilizcesi"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "Hes_ap Ekle"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:205
-msgid "German"
-msgstr "Almanca"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "Daha…"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:208
-msgid "French"
-msgstr "Fransızca"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+msgid "No input sources found"
+msgstr "Girdi kaynağı bulunamadı"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:211
-msgid "Spanish"
-msgstr "İspanyolca"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+msgid "Other"
+msgstr "Diğer"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:213
-msgid "Chinese (simplified)"
-msgstr "Çince (basitleştirilmiş)"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr ""
+"Değişikliklerin etkili olması için oturumunuzun yeniden başlatılması "
+"gerekiyor"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:781
-msgid "Unspecified"
-msgstr "Belirtilmemiş"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "Şimdi Yeniden Başlat"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:44
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "Hiçbiri"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "Üzgünüz"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr "Giriş yöntemleri oturum açma ekranında kullanılamaz"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+msgid "No input source selected"
+msgstr "Hiç giriş kaynağı seçilmedi"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+msgid "Select input sources"
+msgstr "Giriş kaynaklarını seçin"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"Oturum açma ayarları, oturum açarken tüm kullanıcılar tarafından  kullanılır"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "Giriş Kaynağı Ekle"
+
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "No languages found"
+msgstr "Hiçbir dil bulunamadı"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "Hoş Geldiniz"
 
-#. Translators: the parameter here is your language's name, like
-#. * "Use English", "Deutsch verwenden", etc.
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:95
-#, c-format
-msgid "Use %s"
-msgstr "%s Kullan"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.ui.h:1
-msgid "Show _all"
-msgstr "_Tümünü göster"
-
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:274
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
 msgid "Search for a location"
 msgstr "Bir konum ara"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:312
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Konum"
@@ -272,27 +327,24 @@ msgstr "Konumunuzu otomatik olarak _belirleyin"
 msgid "Time Zone"
 msgstr "Saat Dilimi"
 
-#. TRANSLATORS: this is when the access point is not listed
-#. *                           * in the dropdown (or hidden) and the user has to select
-#. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:239
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
-msgid "Other..."
-msgstr "Diğer..."
+msgid "Other…"
+msgstr "Diğer…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "Ağ kullanılabilir değil."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:321
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "Hiç ağ aygıtı bulunamadı"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "Mevcut kablosuz ağlar denetleniyor"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:707
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "Ağ"
 
@@ -300,33 +352,90 @@ msgstr "Ağ"
 msgid "Wireless Networks"
 msgstr "Kablosuz Ağlar"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:145
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Teşekkürler"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Enjoy GNOME!"
-msgstr "GNOME'un tadını çıkarın!"
+msgid "Your computer is ready to use."
+msgstr "Bilgisayarınız kullanıma hazır."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "Your new account is ready to use."
-msgstr "Yeni hesabınız kullanıma hazır."
+msgid "You may change these options at any time in Settings."
+msgstr ""
+"Bu seçenekleri Sistem Ayarlarından istediğiniz zaman değiştirebilirsiniz."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "You may change any of these options at any time in the System Settings."
-msgstr ""
-"Bu seçeneklerden herhangi birini Sistem Ayarlarından istediğiniz zaman "
-"değiştirebilirsiniz."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:4
 msgid "_Start using GNOME 3"
 msgstr "GNOME 3'ü kullanmaya _başla"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:5
-msgid "New to GNOME 3 and need help finding your way around?"
-msgstr "GNOME 3'te yenisiniz ve yolunuzu bulmakta yardıma mı ihtiyacınız var?"
+#~ msgid "Create Local Account"
+#~ msgstr "Yerel Hesap Oluştur"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:6
-msgid "_Take a Tour"
-msgstr "Bir _Tur Atın"
+#~ msgid "_Cancel"
+#~ msgstr "_Vazgeç"
 
+#~ msgid "_Done"
+#~ msgstr "_Tamam"
+
+#~ msgid "_Require a password to use this account"
+#~ msgstr "_Bu hesabı kullanmak için bir parola gerekir"
+
+#~ msgid "_Act as administrator of this computer"
+#~ msgstr "Bilgisayar yöneticisi olarak _işlem yap"
+
+#~ msgid "Choose How to Login"
+#~ msgstr "Nasıl Oturum Açılacağını Seç"
+
+#~ msgid "Disable image"
+#~ msgstr "Resmi etkisizleştir"
+
+#~ msgid "Take a photo..."
+#~ msgstr "Fotoğraf çek..."
+
+#~ msgid ""
+#~ "I have _agreed to the terms and conditions in this end user license "
+#~ "agreement."
+#~ msgstr ""
+#~ "Bu son kullanıcı lisans sözleşmesindeki hüküm ve koşulları _kabul "
+#~ "ediyorum."
+
+#~ msgid "Remove"
+#~ msgstr "Sil"
+
+#~ msgid "English"
+#~ msgstr "İngilizce"
+
+#~ msgid "British English"
+#~ msgstr "İngiltere İngilizcesi"
+
+#~ msgid "German"
+#~ msgstr "Almanca"
+
+#~ msgid "French"
+#~ msgstr "Fransızca"
+
+#~ msgid "Spanish"
+#~ msgstr "İspanyolca"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Çince (basitleştirilmiş)"
+
+#~ msgid "Unspecified"
+#~ msgstr "Belirtilmemiş"
+
+#~ msgid "Use %s"
+#~ msgstr "%s Kullan"
+
+#~ msgid "Show _all"
+#~ msgstr "_Tümünü göster"
+
+#~ msgid "Enjoy GNOME!"
+#~ msgstr "GNOME'un tadını çıkarın!"
+
+#~ msgid "New to GNOME 3 and need help finding your way around?"
+#~ msgstr ""
+#~ "GNOME 3'te yenisiniz ve yolunuzu bulmakta yardıma mı ihtiyacınız var?"
+
+#~ msgid "_Take a Tour"
+#~ msgstr "Bir _Tur Atın"
