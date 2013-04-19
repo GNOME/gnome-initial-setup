@@ -2,150 +2,192 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Abhay Kadam <abhaykadam@fedoraproject.org>, 2012.
-# Sandeep Shedmake <sshedmak@redhat.com>, 2012.
+# Sandeep Shedmake <sshedmak@redhat.com>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-20 04:18+0000\n"
-"PO-Revision-Date: 2012-09-23 20:28+0530\n"
+"POT-Creation-Date: 2013-04-17 00:52+0000\n"
+"PO-Revision-Date: 2013-04-19 11:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
-"Language-Team: Marathi\n"
+"Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
 "Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Lokalize 1.5\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "प्रारंभिक सेटअप"
 
-#: ../gnome-initial-setup/gis-assistant.c:185
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "पुढे (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:186
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "मागे (_B)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:191
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
+msgid "Force new user mode"
+msgstr "बळपूर्वक नवीन वापरकर्ता मोडचा वापर करा"
+
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#| msgid "Initial Setup"
+msgid "- GNOME initial setup"
+msgstr "- GNOME प्रारंभिक सेटअप"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#| msgid "_Password"
+msgid "No password"
+msgstr "पासवर्ड नाही"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "पासवर्ड जुळत नाहीत"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:533
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#, c-format
+msgid "Strength: %s"
+msgstr "सामर्थ्य : %s"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
+#| msgid "Link other accounts"
+msgid "Failed to register account"
+msgstr "खात्याची नोंदणी अपयशी"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:615
+msgid "Failed to join domain"
+msgstr "डोमेनशी जोडणी अपयशी"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:670
+msgid "Failed to log into domain"
+msgstr "डोमेनमध्ये प्रवेश अपयशी"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:982
 msgid "Login"
 msgstr "प्रवेश"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create Local Account"
-msgstr "स्थानिक खातं बनवा"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Cancel"
-msgstr "रद्द (_C)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Done"
-msgstr "झाले (_D)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "_Full Name"
-msgstr "पूर्ण नाव (_F)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Username"
-msgstr "वापरकर्त्याचे नाव (_U)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Require a password to use this account"
-msgstr "हे खाते वापरण्यासाठी पासवर्ड लागतो (_R)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid "_Password"
-msgstr "पासवर्ड (_P)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "_Confirm Password"
-msgstr "पासवर्डची खात्री करा (_C)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "_Act as administrator of this computer"
-msgstr "ह्या संगणकाचा कारभारी असल्यासारखे वागा (_A)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
-msgid "Choose How to Login"
-msgstr "प्रवेश कसा करायचा ते ठरवा"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Create a Local Account"
 msgstr "स्थानिक खाते बनवा"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Use an Enterprise Login"
-msgstr "उद्योगातला प्रवेश वापरा"
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
+msgid "_Full Name"
+msgstr "पूर्ण नाव (_F)"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:94
-#: ../gnome-initial-setup/pages/account/pw-utils.c:118
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
+msgid "_Username"
+msgstr "वापरकर्त्याचे नाव (_U)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
+msgid "This will be used to name your home folder and can't be changed."
+msgstr "हे तुमच्या होम फोल्डरच्या नावाकरीता वापरले जाईल व ते बदलता येणार नाही."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+msgid "_Password"
+msgstr "पासवर्ड (_P)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+#| msgid "_Confirm Password"
+msgid "_Confirm password"
+msgstr "पासवर्डची खात्री करा (_C)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"किमान ८ वेगळी अक्षरे वापरण्याचा प्रयत्न करा. अप्पर व लोअर केसचे मिश्रण करा व "
+"एक किंवा दोन संख्यांचा वापर करा."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+msgid "page 1"
+msgstr "पान १"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+#| msgid "Use an Enterprise Login"
+msgid "Create an Enterprise Account"
+msgstr "एंटरप्राइज खाते बनवा"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+msgid "_Domain"
+msgstr "डोमेन (_D)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+msgid "Enterprise domain or realm name"
+msgstr "एंटरप्राइज डोमेन किंवा रिअल्म नाव"
+
+#: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "तोकडी आहे"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:99
+#: ../gnome-initial-setup/pages/account/pw-utils.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "इतकी चांगली नाही"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:107
-#: ../gnome-initial-setup/pages/account/pw-utils.c:153
+#: ../gnome-initial-setup/pages/account/pw-utils.c:108
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "सौम्य"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:109
-#: ../gnome-initial-setup/pages/account/pw-utils.c:155
+#: ../gnome-initial-setup/pages/account/pw-utils.c:111
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "योग्य"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:111
-#: ../gnome-initial-setup/pages/account/pw-utils.c:157
+#: ../gnome-initial-setup/pages/account/pw-utils.c:114
 msgctxt "Password strength"
 msgid "Good"
 msgstr "उचित"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:113
-#: ../gnome-initial-setup/pages/account/pw-utils.c:159
+#: ../gnome-initial-setup/pages/account/pw-utils.c:117
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "भक्कम"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
-msgid "Disable image"
-msgstr "प्रतिमा बंद करा"
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#, c-format
+msgid "No such domain or realm found"
+msgstr "असे डोमेन किंवा रिअल्म आढळले नाही"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
-msgstr "फोटो काढा..."
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#, c-format
+msgid "Cannot log in as %s at the %s domain"
+msgstr "%2$s डोमेनवर %1$s असे प्रवेश अशक्य"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:268
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+msgid "Invalid password, please try again"
+msgstr "अवैध पासवर्ड, कृपया पुन्हा प्रयत्न करा"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#, c-format
+msgid "Couldn't connect to the %s domain: %s"
+msgstr "%s डोमेन: %sसह जोडणी अशक्य"
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:129
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "वापरकर्तानाव '%s' आधिपासूनच अस्तित्वात आहे"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:272
+#: ../gnome-initial-setup/pages/account/um-utils.c:133
 #, c-format
 msgid "The username is too long"
 msgstr "वापरकर्त्याचे नाव फारच लांब आहे"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:275
+#: ../gnome-initial-setup/pages/account/um-utils.c:136
 msgid "The username cannot start with a '-'"
 msgstr "वापरकर्त्याचे नाव '-'ने सुरू होणे अशक्य"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:278
+#: ../gnome-initial-setup/pages/account/um-utils.c:139
 msgid ""
 "The username must consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -157,102 +199,124 @@ msgstr ""
 " ➣ अंक\n"
 " ➣ '.', '-' आणि '_' यांपैकी कोणतेही अक्षर"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:248
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr "मला ह्या वापरकर्ता परवाना करारामधील अटि व शर्ती मान्य आहे (_a)."
-
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:274
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "परवाना करार"
 
-#. translators: This is the title of the "Add Account" dialogue.
-#. * The title is not visible when using GNOME Shell
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:251
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:257
+#. translators: This is the title of the "Add Account" dialog.
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "खाते समाविष्ट करा"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:79
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
 msgid "Error creating account"
 msgstr "खाते निर्माण करतेवेळी त्रुटी"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:111
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
 msgid "Error removing account"
 msgstr "खाते काढूण टाकतेवेळी त्रुटी"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
 msgid "Are you sure you want to remove the account?"
 msgstr "तुम्हाला हे खाते नक्की काढून टाकायचे?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:139
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
 msgid "This will not remove the account on the server."
 msgstr "ह्यामुळे सर्व्हरवरील खाते काढून टाकणे अशक्य."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:140
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "_Remove"
 msgstr "काढून टाका (_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "Remove"
-msgstr "कढून टाका"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:303
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
 msgid "Online Accounts"
 msgstr "ऑनलाइन खाती"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Link other accounts"
-msgstr "इतर खाती जोडा"
+msgid "Connect to your existing data in the cloud"
+msgstr "क्लाउडमधील अस्तित्वातील डाटाशी जोडणी करा"
 
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "इंग्रजी"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+msgid ""
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
+msgstr ""
+"खाती समाविष्ट केल्याने ऑनलाइन फोटो, संपर्क, मेल, व अधिक यांच्यासह "
+"पारदर्शकरित्या जोडणी शक्य होईल."
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "ब्रिटिश इंग्रजी"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+#| msgid "Add Account"
+msgid "_Add Account"
+msgstr "खाते समावेश (_A)"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "जर्मन"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "अधिक…"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "फ्रेंच"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+#| msgid "No network devices found."
+msgid "No input sources found"
+msgstr "इंपुट स्रोत आढळले नाही"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "स्पॅनिश"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+#| msgctxt "Wireless access point"
+#| msgid "Other..."
+msgid "Other"
+msgstr "इतर"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "चिनी (सोपी)"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr "बदल लागू करण्यासाठी सत्रला पुन्हासुरू करा"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "अनुल्लेखित"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "आता पुन्हासुरू करा"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:89
-#, c-format
-msgid "Use %s"
-msgstr "%s चा वापर करा"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "काहीच नाही"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:283
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "माफ करा"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr "प्रवेश पडद्यावर इंपुट पद्धतींचा वापर शक्य नाही"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+msgid "No input source selected"
+msgstr "इंपुट स्रोत निवडले नाही"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+msgid "Select input sources"
+msgstr "इंपुट स्रोत निवडा"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"प्रणालीमध्ये प्रवेश करतेवेळी प्रवेश सेटिंग्ज सर्व वापरकर्त्यांसह वापरले जाते"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "इंपुट स्रोत समाविष्ट करा"
+
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "No languages found"
+msgstr "भाषा आढळले नाही"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "सुस्वागतम"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.ui.h:1
-msgid "Show _all"
-msgstr "सर्व दाखवा (_a)"
-
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:274
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
 msgid "Search for a location"
 msgstr "ठिकाण शोधा"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:312
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "ठिकाण"
@@ -269,27 +333,26 @@ msgstr "स्वयं स्थळ निश्चित करा (_D)"
 msgid "Time Zone"
 msgstr "वेळ क्षेत्र"
 
-#. TRANSLATORS: this is when the access point is not listed
-#. *                           * in the dropdown (or hidden) and the user has to select
-#. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:239
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
+#| msgctxt "Wireless access point"
+#| msgid "Other..."
 msgctxt "Wireless access point"
-msgid "Other..."
+msgid "Other…"
 msgstr "इतर..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "नेटवर्क उपलब्ध नाही."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:321
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "नेटवर्क साधने आढळली नाही."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "उपलब्ध वायरलेस नेटवर्कची तपासणी सुरू आहे"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:707
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "नेटवर्क"
 
@@ -297,30 +360,89 @@ msgstr "नेटवर्क"
 msgid "Wireless Networks"
 msgstr "वायरलेस नेटवर्क्स्"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "धन्यवाद"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Enjoy GNOME!"
-msgstr "GNOME ची मजा लूटा!"
+#| msgid "Your new account is ready to use."
+msgid "Your computer is ready to use."
+msgstr "संगणक वापरण्यासाठी सज्ज आहे."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "Your new account is ready to use."
-msgstr "खाते वापरण्यासाठी सज्ज आहे."
+#| msgid ""
+#| "You may change any of these options at any time in the System Settings."
+msgid "You may change these options at any time in Settings."
+msgstr "तुम्ही यापैकी कोणतेही सेटिंग्ज कधीही बदलू शकता."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "You may change any of these options at any time in the System Settings."
-msgstr "तुम्ही यांपैकी कोणत्याही सिस्टिम सेटिंग कधीही बदलू शकता."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:4
 msgid "_Start using GNOME 3"
-msgstr "GNOME 3 चा वापर करून सुरू करा (_S)"
+msgstr "GNOME 3चा वापर सुरू करा (_S)"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:5
-msgid "New to GNOME 3 and need help finding your way around?"
-msgstr "GNOME 3 प्रथमच वापरत आहात आणि काही शोधण्यासाठी मदत पाहिजे?"
+#~ msgid "Create Local Account"
+#~ msgstr "स्थानिक खातं बनवा"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:6
-msgid "_Take a Tour"
-msgstr "फेरफटका मारा (_T)"
+#~ msgid "_Cancel"
+#~ msgstr "रद्द (_C)"
+
+#~ msgid "_Done"
+#~ msgstr "झाले (_D)"
+
+#~ msgid "_Require a password to use this account"
+#~ msgstr "हे खाते वापरण्यासाठी पासवर्ड लागतो (_R)"
+
+#~ msgid "_Act as administrator of this computer"
+#~ msgstr "ह्या संगणकाचा कारभारी असल्यासारखे वागा (_A)"
+
+#~ msgid "Choose How to Login"
+#~ msgstr "प्रवेश कसा करायचा ते ठरवा"
+
+#~ msgid "Disable image"
+#~ msgstr "प्रतिमा बंद करा"
+
+#~ msgid "Take a photo..."
+#~ msgstr "फोटो काढा..."
+
+#~ msgid ""
+#~ "I have _agreed to the terms and conditions in this end user license "
+#~ "agreement."
+#~ msgstr "मला ह्या वापरकर्ता परवाना करारामधील अटि व शर्ती मान्य आहे (_a)."
+
+#~ msgid "Remove"
+#~ msgstr "कढून टाका"
+
+#~ msgid "English"
+#~ msgstr "इंग्रजी"
+
+#~ msgid "British English"
+#~ msgstr "ब्रिटिश इंग्रजी"
+
+#~ msgid "German"
+#~ msgstr "जर्मन"
+
+#~ msgid "French"
+#~ msgstr "फ्रेंच"
+
+#~ msgid "Spanish"
+#~ msgstr "स्पॅनिश"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "चिनी (सोपी)"
+
+#~ msgid "Unspecified"
+#~ msgstr "अनुल्लेखित"
+
+#~ msgid "Use %s"
+#~ msgstr "%s चा वापर करा"
+
+#~ msgid "Show _all"
+#~ msgstr "सर्व दाखवा (_a)"
+
+#~ msgid "Enjoy GNOME!"
+#~ msgstr "GNOME ची मजा लूटा!"
+
+#~ msgid "New to GNOME 3 and need help finding your way around?"
+#~ msgstr "GNOME 3 प्रथमच वापरत आहात आणि काही शोधण्यासाठी मदत पाहिजे?"
+
+#~ msgid "_Take a Tour"
+#~ msgstr "फेरफटका मारा (_T)"
