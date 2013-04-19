@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Cheng Lu <chenglu1990@gmail.com>, 2012.
 # Aron Xu <aronxu@gnome.org>, 2012.
+# tuhaihe <1132321739qq@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-04-04 18:41+0000\n"
-"PO-Revision-Date: 2013-02-23 13:25+0800\n"
+"POT-Creation-Date: 2013-04-17 16:10+0000\n"
+"PO-Revision-Date: 2013-04-11 22:01+0800\n"
 "Last-Translator: tuhaihe <1132321739qq@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -25,16 +26,15 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "初始配置"
 
-#: ../gnome-initial-setup/gis-assistant.c:333
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "前进(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:334
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "返回(_B)"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
-#, fuzzy
 msgid "Force new user mode"
 msgstr "强制新建用户模式"
 
@@ -42,29 +42,35 @@ msgstr "强制新建用户模式"
 msgid "- GNOME initial setup"
 msgstr "- GNOME 初始配置"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#, fuzzy
+#| msgid "_Confirm password"
+msgid "No password"
+msgstr "确认密码(_C)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "密码不匹配"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
 #, c-format
 msgid "Strength: %s"
 msgstr "密码强度：%s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
 msgid "Failed to register account"
 msgstr "注册帐号失败"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:615
 msgid "Failed to join domain"
 msgstr "加入域失败"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:670
 msgid "Failed to log into domain"
 msgstr "登录到域失败"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:982
 msgid "Login"
 msgstr "登录"
 
@@ -219,7 +225,7 @@ msgstr "这不会将该帐号从服务器上移除。"
 msgid "_Remove"
 msgstr "移除(_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:389
 msgid "Online Accounts"
 msgstr "在线帐号"
 
@@ -233,45 +239,59 @@ msgid ""
 "photos, contacts, mail, and more."
 msgstr "添加帐号将允许您无缝连接到在线照片、联系人、邮件等更多服务。"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "键盘布局"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "添加帐号(_A)"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+msgid "More…"
+msgstr "更多..."
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+msgid "No input sources found"
+msgstr "未找到输入源"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+msgid "Other"
+msgstr "其他"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr "需要重启会话，以使更改生效"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "现在重启"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "无"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "对不起"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr "在登录界面无法使用输入法"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+msgid "No input source selected"
+msgstr "未选择输入源"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "选择输入源"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
+msgid "Login settings are used by all users when logging into the system"
+msgstr "所有用户登录系统时都将使用这些登录设置"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
 msgstr "添加输入源"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "移除输入源"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "上移输入源"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "下移输入源"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "输入源设置"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "显示键盘布局"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "选择一个输入源"
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
-msgid "More…"
-msgstr "更多..."
 
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "No languages found"
@@ -342,6 +362,24 @@ msgstr "您可以随时在“系统设置”中更改这些选项。"
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "开始使用 GNOME 3(_S)"
+
+#~ msgid "Select an input source"
+#~ msgstr "选择一个输入源"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "键盘布局"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "移除输入源"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "上移输入源"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "输入源设置"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "显示键盘布局"
 
 #~ msgid "Unspecified"
 #~ msgstr "未指定"
