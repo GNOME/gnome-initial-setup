@@ -27,6 +27,7 @@
 #include <egg-list-box.h>
 
 #include <../language/cc-common-language.h>
+#include <../language/cc-util.h>
 #include "cc-input-chooser.h"
 
 #ifdef HAVE_IBUS
