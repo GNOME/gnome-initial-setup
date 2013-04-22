@@ -131,6 +131,7 @@ language_widget_new (const char *locale_id,
 
         /* We add a check on each side of the label to keep it centered. */
         checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+        gtk_widget_show (checkmark);
         gtk_widget_set_opacity (checkmark, 0.0);
         gtk_box_pack_start (GTK_BOX (widget->box), checkmark, FALSE, FALSE, 0);
         gtk_box_reorder_child (GTK_BOX (widget->box), checkmark, 0);
@@ -138,6 +139,7 @@ language_widget_new (const char *locale_id,
         widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
         gtk_box_pack_start (GTK_BOX (widget->box), widget->checkmark,
                             FALSE, FALSE, 0);
+        gtk_widget_show (widget->checkmark);
 
         g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
                                 language_widget_free);
