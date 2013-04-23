@@ -237,8 +237,8 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
   GisDriverPrivate *priv = GIS_DRIVER (user_data)->priv;
   GdkWindow *window;
   window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
-  /* disable minimize */
-  gdk_window_set_functions (window, GDK_FUNC_ALL | GDK_FUNC_MINIMIZE);
+  /* disable WM functions except move */
+  gdk_window_set_functions (window, GDK_FUNC_MOVE);
 }
 
 static void
@@ -254,7 +254,6 @@ gis_driver_startup (GApplication *app)
                                     "type", GTK_WINDOW_TOPLEVEL,
                                     "border-width", 12,
                                     "icon-name", "preferences-system",
-                                    "deletable", FALSE,
                                     "resizable", FALSE,
                                     "window-position", GTK_WIN_POS_CENTER_ALWAYS,
                                     NULL);
