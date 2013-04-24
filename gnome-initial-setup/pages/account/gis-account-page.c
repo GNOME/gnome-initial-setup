@@ -453,6 +453,11 @@ create_user (GisAccountPage *page)
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
   }
+  /* TODO:We don't support coming back to this page to modify the values after
+   * the user has been created. For now just disable it
+   */
+  gtk_widget_set_sensitive (GTK_WIDGET (page), FALSE);
+  gtk_widget_set_sensitive (priv->action, FALSE);
 }
 
 static void save_account_data (GisAccountPage *page);
