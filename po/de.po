@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2012.
+# Christian Kirbach <christian.kirbach@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-09 14:10+0000\n"
-"PO-Revision-Date: 2013-03-09 16:43+0100\n"
-"Last-Translator: Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>\n"
+"POT-Creation-Date: 2013-04-24 16:07+0000\n"
+"PO-Revision-Date: 2013-04-24 20:29+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -21,49 +22,54 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Ersteinrichtung"
 
 # Das ist bei assistentbasierten Dialogen besser als irgendeine Form von »nächstes«
-#: ../gnome-initial-setup/gis-assistant.c:294
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "_Weiter"
 
-#: ../gnome-initial-setup/gis-assistant.c:295
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "_Zurück"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:222
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Neuen Benutzermodus erzwingen"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:226
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- GNOME-Ersteinrichtung"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+msgid "No password"
+msgstr "Kein Passwort"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "Passwörter stimmen nicht überein"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
 #, c-format
 msgid "Strength: %s"
 msgstr "Stärke: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
 msgid "Failed to register account"
 msgstr "Kontoerstellung fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:615
 msgid "Failed to join domain"
 msgstr "Beitreten zur Domäne fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:670
 msgid "Failed to log into domain"
 msgstr "Anmeldung in der Domäne fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:982
 msgid "Login"
 msgstr "Anmelden"
 
@@ -98,7 +104,7 @@ msgid ""
 "Try to use at least 8 different characters. Mix upper and lower case and use "
 "a number or two."
 msgstr ""
-"Sie sollten mindestens 8 verschiedene Buchstaben verwenden. Wechseln Sie "
+"Sie sollten mindestens 8 verschiedene Zeichen verwenden. Wechseln Sie "
 "zwischen Groß- und Kleinbuchstaben und verwenden Sie ein oder zwei "
 "verschiedene Ziffern."
 
@@ -181,6 +187,7 @@ msgstr "Der Benutzername ist zu lang"
 msgid "The username cannot start with a '-'"
 msgstr "Der Benutzername darf nicht mit einem »-« beginnen"
 
+# "kann" drückt mMn eher aus, dass die Gruppen [a-z] [0-9] und [._-] möglich sind, aber nicht aus allen Gruppen Zeichen verwendet werden müssen ([a-z] alleine geht ja auch)
 #: ../gnome-initial-setup/pages/account/um-utils.c:139
 msgid ""
 "The username must consist of:\n"
@@ -188,7 +195,7 @@ msgid ""
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"Der Benutzername muss bestehen aus:\n"
+"Der Benutzername kann bestehen aus:\n"
 " ➣ Buchstaben des englischen Alphabets\n"
 " ➣ Ziffern\n"
 " ➣ den Sonderzeichen ».«, »-« und »_«"
@@ -223,7 +230,7 @@ msgstr "Dies wird nicht das Konto auf dem Server entfernen."
 msgid "_Remove"
 msgstr "_Entfernen"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:389
 msgid "Online Accounts"
 msgstr "Online-Konten"
 
@@ -239,58 +246,69 @@ msgstr ""
 "Das Hinzufügen eines Kontos erlaubt einer Anwendung Zugriff auf Dokumente, E-"
 "Mails, Kontakte, Kalender, Unterhaltungen und anderes."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "Tastaturbelegung"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "Konto _hinzufügen"
+
+# weitere Sprachen
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "Weitere …"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+msgid "No input sources found"
+msgstr "Es wurden keine Eingabemethode gefunden"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+msgid "Other"
+msgstr "Andere"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
+msgid "Your session needs to be restarted for changes to take effect"
+msgstr ""
+"Ihre Sitzung muss neu gestartet werden, damit die Änderungen wirksam werden"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
+msgid "Restart Now"
+msgstr "Jetzt neu starten"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
+msgctxt "Language"
+msgid "None"
+msgstr "Keine"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+msgid "Sorry"
+msgstr "Entschuldigung"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+msgid "Input methods can't be used on the login screen"
+msgstr ""
+"Es können keine Eingabemethoden auf dem Anmeldebildschirm verwendet werden"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+msgid "No input source selected"
+msgstr "Keine Eingabemethode gewählt"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Eingabemethoden auswählen"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
-msgstr "Eingabemethode hinzufügen"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"Anmeldeeinstellungen sind für alle Benutzer während der Anmeldung gültig"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Eingabemethode entfernen"
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "Eine Eingabemethode hinzufügen"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Eingabemethode nach oben verschieben"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Eingabemethode nach unten verschieben"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Eingabemethodeneinstellungen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Tastaturbelegung zeigen"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "Eine Eingabemethode auswählen"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:133
-#, c-format
-msgid "Use %s"
-msgstr "%s verwenden"
-
-# weitere Sprachen
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:208
-msgid "More…"
-msgstr "Weitere …"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "Keine Sprachen gefunden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:445
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:57
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
 msgid "Welcome"
 msgstr "Willkommen"
 
@@ -315,25 +333,25 @@ msgstr "Ihren Standort automatisch _festlegen"
 msgid "Time Zone"
 msgstr "Zeitzone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Andere …"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "Das Netzwerk ist nicht verfügbar."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "Keine Netzwerkgeräte gefunden."
 
 # Funknetzwerk heißt es im Netzwerkmanager.
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "Auf verfügbare Funknetzwerke prüfen"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "Netzwerk"
 
@@ -341,7 +359,7 @@ msgstr "Netzwerk"
 msgid "Wireless Networks"
 msgstr "Funknetzwerke"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Vielen Dank"
 
@@ -357,6 +375,27 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "GNOME 3 _starten"
+
+#~ msgid "Select an input source"
+#~ msgstr "Eine Eingabemethode auswählen"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Tastaturbelegung"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "Eingabemethode entfernen"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "Eingabemethode nach oben verschieben"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "Eingabemethodeneinstellungen"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "Tastaturbelegung zeigen"
+
+#~ msgid "Use %s"
+#~ msgstr "%s verwenden"
 
 #~ msgid "Unspecified"
 #~ msgstr "Nicht angegeben"
