@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * Author: Sergey Udaltsov <svu@gnome.org>
+ *         Michael Wood <michael.g.wood@intel.com>
  *
+ * Based on gnome-control-center cc-region-panel.c
  */
 
 #define PAGE_ID "keyboard"
@@ -34,7 +36,6 @@
 #include "cc-input-chooser.h"
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-languages.h>
 #include <libgnome-desktop/gnome-xkb-info.h>
 
 #ifdef HAVE_IBUS
@@ -51,9 +52,6 @@
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 
-#define GNOME_SYSTEM_LOCALE_DIR "org.gnome.system.locale"
-#define KEY_REGION "region"
-
 #define INPUT_SOURCE_TYPE_XKB "xkb"
 #define INPUT_SOURCE_TYPE_IBUS "ibus"
 
@@ -66,7 +64,6 @@ G_DEFINE_TYPE (GisKeyboardPage, gis_keyboard_page, GIS_TYPE_PAGE)
 #define KEYBOARD_PAGE_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_KEYBOARD_PAGE, GisKeyboardPagePrivate))
 
 typedef enum {
-        CHOOSE_LANGUAGE,
         ADD_INPUT,
         REMOVE_INPUT
 } SystemOp;
@@ -81,25 +78,9 @@ struct _GisKeyboardPagePrivate {
         SystemOp     op;
         GDBusProxy  *localed;
         GDBusProxy  *session;
-        GCancellable *cancellable;
 
         GtkWidget *overlay;
         GtkWidget *notification;
-
-        GtkWidget *language_section;
-        GtkWidget *language_row;
-        GtkWidget *language_label;
-        GtkWidget *formats_row;
-        GtkWidget *formats_label;
-
-        ActUserManager *user_manager;
-        ActUser        *user;
-        GSettings      *locale_settings;
-
-        gchar *language;
-        gchar *region;
-        gchar *system_language;
-        gchar *system_region;
 
         GtkWidget *input_section;
         GtkWidget *input_list;
@@ -125,24 +106,9 @@ gis_keyboard_page_finalize (GObject *object)
 	GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
 	GisKeyboardPagePrivate *priv = self->priv;
 
-        g_cancellable_cancel (priv->cancellable);
-        g_clear_object (&priv->cancellable);
-
-        if (priv->user_manager) {
-                g_signal_handlers_disconnect_by_data (priv->user_manager, self);
-                priv->user_manager = NULL;
-        }
-
-        if (priv->user) {
-                g_signal_handlers_disconnect_by_data (priv->user, self);
-                priv->user = NULL;
-        }
-
         g_clear_object (&priv->permission);
         g_clear_object (&priv->localed);
         g_clear_object (&priv->session);
-        g_clear_object (&priv->builder);
-        g_clear_object (&priv->locale_settings);
         g_clear_object (&priv->input_settings);
         g_clear_object (&priv->xkb_info);
 #ifdef HAVE_IBUS
@@ -152,10 +118,6 @@ gis_keyboard_page_finalize (GObject *object)
         g_clear_object (&priv->ibus_cancellable);
         g_clear_pointer (&priv->ibus_engines, g_hash_table_destroy);
 #endif
-        g_free (priv->language);
-        g_free (priv->region);
-        g_free (priv->system_language);
-        g_free (priv->system_region);
 
 	G_OBJECT_CLASS (gis_keyboard_page_parent_class)->finalize (object);
 }
@@ -204,64 +166,6 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 }
 
 static void
-restart_now (GisKeyboardPage *self)
-{
-        GisKeyboardPagePrivate *priv = self->priv;
-
-        gd_notification_dismiss (GD_NOTIFICATION (self->priv->notification));
-
-        g_dbus_proxy_call (priv->session,
-                           "Logout",
-                           g_variant_new ("(u)", 0),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1, NULL, NULL, NULL);
-}
-
-static void
-show_restart_notification (GisKeyboardPage *self,
-                           const gchar   *locale)
-{
-	GisKeyboardPagePrivate *priv = self->priv;
-        GtkWidget *box;
-        GtkWidget *label;
-        GtkWidget *button;
-        gchar *current_locale;
-
-        if (priv->notification)
-                return;
-
-        if (locale) {
-                current_locale = g_strdup (setlocale (LC_MESSAGES, NULL));
-                setlocale (LC_MESSAGES, locale);
-        }
-
-        priv->notification = gd_notification_new ();
-        g_object_add_weak_pointer (G_OBJECT (priv->notification),
-                                   (gpointer *)&priv->notification);
-        box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 24);
-        gtk_widget_set_margin_left (box, 12);
-        gtk_widget_set_margin_right (box, 12);
-        gtk_widget_set_margin_top (box, 6);
-        gtk_widget_set_margin_bottom (box, 6);
-        label = gtk_label_new (_("Your session needs to be restarted for changes to take effect"));
-        button = gtk_button_new_with_label (_("Restart Now"));
-        g_signal_connect_swapped (button, "clicked",
-                                  G_CALLBACK (restart_now), self);
-        gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
-        gtk_box_pack_start (GTK_BOX (box), button, FALSE, FALSE, 0);
-        gtk_widget_show_all (box);
-
-        gtk_container_add (GTK_CONTAINER (priv->notification), box);
-        gtk_overlay_add_overlay (GTK_OVERLAY (self->priv->overlay), priv->notification);
-        gtk_widget_show (priv->notification);
-
-        if (locale) {
-                setlocale (LC_MESSAGES, current_locale);
-                g_free (current_locale);
-        }
-}
-
-static void
 update_separator_func (GtkWidget **separator,
                        GtkWidget  *child,
                        GtkWidget  *before,
@@ -277,102 +181,6 @@ update_separator_func (GtkWidget **separator,
         }
 }
 
-typedef struct {
-        GisKeyboardPage *self;
-        int category;
-        gchar *target_locale;
-} MaybeNotifyData;
-
-static void
-maybe_notify_finish (GObject      *source,
-                     GAsyncResult *res,
-                     gpointer      data)
-{
-        MaybeNotifyData *mnd = data;
-        GisKeyboardPage *self = mnd->self;
-        GError *error = NULL;
-        GVariant *retval = NULL;
-        gchar *current_lang_code = NULL;
-        gchar *current_country_code = NULL;
-        gchar *target_lang_code = NULL;
-        gchar *target_country_code = NULL;
-        const gchar *current_locale = NULL;
-
-        retval = g_dbus_proxy_call_finish (G_DBUS_PROXY (source), res, &error);
-        if (!retval) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to get locale: %s\n", error->message);
-                goto out;
-        }
-
-        g_variant_get (retval, "(&s)", &current_locale);
-
-        if (!gnome_parse_locale (current_locale,
-                                 &current_lang_code,
-                                 &current_country_code,
-                                 NULL,
-                                 NULL))
-                goto out;
-
-        if (!gnome_parse_locale (mnd->target_locale,
-                                 &target_lang_code,
-                                 &target_country_code,
-                                 NULL,
-                                 NULL))
-                goto out;
-
-        if (g_str_equal (current_lang_code, target_lang_code) == FALSE ||
-            g_str_equal (current_country_code, target_country_code) == FALSE)
-                show_restart_notification (self,
-                                           mnd->category == LC_MESSAGES ? mnd->target_locale : NULL);
-out:
-        g_free (target_country_code);
-        g_free (target_lang_code);
-        g_free (current_country_code);
-        g_free (current_lang_code);
-        g_clear_pointer (&retval, g_variant_unref);
-        g_clear_error (&error);
-        g_free (mnd->target_locale);
-        g_free (mnd);
-}
-
-static void
-maybe_notify (GisKeyboardPage *self,
-              int            category,
-              const gchar   *target_locale)
-{
-        GisKeyboardPagePrivate *priv = self->priv;
-        MaybeNotifyData *mnd;
-
-        mnd = g_new0 (MaybeNotifyData, 1);
-        mnd->self = self;
-        mnd->category = category;
-        mnd->target_locale = g_strdup (target_locale);
-
-        g_dbus_proxy_call (priv->session,
-                           "GetLocale",
-                           g_variant_new ("(i)", category),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           priv->cancellable,
-                           maybe_notify_finish,
-                           mnd);
-}
-
-static void set_localed_locale (GisKeyboardPage *self);
-
-static void
-update_region (GisKeyboardPage *self,
-               const gchar   *region)
-{
-	GisKeyboardPagePrivate *priv = self->priv;
-
-        if (g_strcmp0 (region, priv->region) == 0)
-                return;
-
-        g_settings_set_string (priv->locale_settings, KEY_REGION, region);
-        maybe_notify (self, LC_TIME, region);
-}
 
 static void show_input_chooser (GisKeyboardPage *self);
 static void remove_selected_input (GisKeyboardPage *self);
@@ -410,54 +218,6 @@ permission_acquired (GObject      *source,
         }
 }
 
-static void
-update_region_label (GisKeyboardPage *self)
-{
-        GisKeyboardPagePrivate *priv = self->priv;
-        const gchar *region;
-        gchar *name;
-
-        if (priv->region == NULL || priv->region[0] == '\0')
-                region = priv->language;
-        else
-                region = priv->region;
-
-        name = gnome_get_country_from_locale (region, region);
-        gtk_label_set_label (GTK_LABEL (priv->formats_label), name);
-        g_free (name);
-}
-
-static void
-update_region_from_setting (GisKeyboardPage *self)
-{
-        GisKeyboardPagePrivate *priv = self->priv;
-
-        g_free (priv->region);
-        priv->region = g_settings_get_string (priv->locale_settings, KEY_REGION);
-        update_region_label (self);
-}
-
-static void
-update_language_label (GisKeyboardPage *self)
-{
-	GisKeyboardPagePrivate *priv = self->priv;
-        const gchar *language;
-        gchar *name;
-
-        if (priv->login)
-                language = priv->system_language;
-        else
-                language = priv->language;
-        if (language)
-                name = gnome_get_language_from_locale (language, language);
-        else
-                name = g_strdup (C_("Language", "None"));
-        gtk_label_set_label (GTK_LABEL (priv->language_label), name);
-        g_free (name);
-
-        /* Formats will change too if not explicitly set. */
-        update_region_label (self);
-}
 
 #ifdef HAVE_IBUS
 static void
@@ -1216,53 +976,6 @@ setup_input_section (GisKeyboardPage *self)
 }
 
 static void
-on_localed_properties_changed (GDBusProxy     *proxy,
-                               GVariant       *changed_properties,
-                               const gchar   **invalidated_properties,
-                               GisKeyboardPage  *self)
-{
-	GisKeyboardPagePrivate *priv = self->priv;
-        GVariant *v;
-
-        v = g_dbus_proxy_get_cached_property (proxy, "Locale");
-        if (v) {
-                const gchar **strv;
-                gsize len;
-                gint i;
-                const gchar *lang, *messages, *time;
-
-                strv = g_variant_get_strv (v, &len);
-
-                lang = messages = time = NULL;
-                for (i = 0; strv[i]; i++) {
-                        if (g_str_has_prefix (strv[i], "LANG=")) {
-                                lang = strv[i] + strlen ("LANG=");
-                        } else if (g_str_has_prefix (strv[i], "LC_MESSAGES=")) {
-                                messages = strv[i] + strlen ("LC_MESSAGES=");
-                        } else if (g_str_has_prefix (strv[i], "LC_TIME=")) {
-                                time = strv[i] + strlen ("LC_TIME=");
-                        }
-                }
-                if (!lang) {
-                        lang = "";
-                }
-                if (!messages) {
-                        messages = lang;
-                }
-                if (!time) {
-                        time = lang;
-                }
-                g_free (priv->system_language);
-                priv->system_language = g_strdup (messages);
-                g_free (priv->system_region);
-                priv->system_region = g_strdup (time);
-                g_variant_unref (v);
-
-                update_language_label (self);
-        }
-}
-
-static void
 add_input_sources_from_localed (GisKeyboardPage *self)
 {
 	GisKeyboardPagePrivate *priv = self->priv;
@@ -1318,43 +1031,6 @@ add_input_sources_from_localed (GisKeyboardPage *self)
 
         g_strfreev (variants);
         g_strfreev (layouts);
-}
-
-static void
-set_localed_locale (GisKeyboardPage *self)
-{
-	GisKeyboardPagePrivate *priv = self->priv;
-        GVariantBuilder *b;
-        gchar *s;
-
-        b = g_variant_builder_new (G_VARIANT_TYPE ("as"));
-        s = g_strconcat ("LANG=", priv->system_language, NULL);
-        g_variant_builder_add (b, "s", s);
-        g_free (s);
-
-        if (g_strcmp0 (priv->system_language, priv->system_region) != 0) {
-                s = g_strconcat ("LC_TIME=", priv->system_region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_NUMERIC=", priv->system_region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_MONETARY=", priv->system_region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_MEASUREMENT=", priv->system_region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_PAPER=", priv->system_region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-        }
-        g_dbus_proxy_call (priv->localed,
-                           "SetLocale",
-                           g_variant_new ("(asb)", b, TRUE),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1, NULL, NULL, NULL);
-        g_variant_builder_unref (b);
 }
 
 static void
@@ -1421,39 +1097,7 @@ localed_proxy_ready (GObject      *source,
         priv->localed = proxy;
 
         gtk_widget_set_sensitive (priv->login_button, TRUE);
-
-        g_signal_connect (priv->localed, "g-properties-changed",
-                          G_CALLBACK (on_localed_properties_changed), self);
-        on_localed_properties_changed (priv->localed, NULL, NULL, self);
 }
-
-static void
-login_changed (GisKeyboardPage *self)
-{
-	GisKeyboardPagePrivate *priv = self->priv;
-        gboolean can_acquire;
-
-        priv->login = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->login_button));
-        gtk_widget_set_visible (priv->formats_row, !priv->login);
-        gtk_widget_set_visible (priv->login_label, priv->login);
-
-        can_acquire = priv->permission &&
-                (g_permission_get_allowed (priv->permission) ||
-                 g_permission_get_can_acquire (priv->permission));
-        /* FIXME: insensitive doesn't look quite right for this */
-        gtk_widget_set_sensitive (priv->language_section, !priv->login || can_acquire);
-        gtk_widget_set_sensitive (priv->input_section, !priv->login || can_acquire);
-
-        clear_input_sources (self);
-        if (priv->login)
-                add_input_sources_from_localed (self);
-        else
-                add_input_sources_from_settings (self);
-
-        update_language_label (self);
-        update_buttons (self);
-}
-
 
 static void
 session_proxy_ready (GObject      *source,
@@ -1495,20 +1139,6 @@ gis_keyboard_page_init (GisKeyboardPage *self)
 		g_error_free (error);
 		return;
 	}
-
-        priv->user_manager = act_user_manager_get_default ();
-
-        priv->cancellable = g_cancellable_new ();
-
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_NONE,
-                                  NULL,
-                                  "org.gnome.SessionManager",
-                                  "/org/gnome/SessionManager",
-                                  "org.gnome.SessionManager",
-                                  priv->cancellable,
-                                  session_proxy_ready,
-                                  self);
 
         setup_input_section (self);
 
