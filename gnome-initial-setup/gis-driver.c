@@ -29,7 +29,6 @@
 #include <locale.h>
 
 #include "gis-assistant-gtk.h"
-#include "gis-assistant-gd.h"
 
 #define GIS_TYPE_DRIVER_MODE (gis_driver_mode_get_type ())
 
@@ -199,20 +198,6 @@ gis_driver_get_mode (GisDriver *driver)
   return priv->mode;
 }
 
-static GType
-get_assistant_type (void)
-{
-  gboolean enable_animations;
-  g_object_get (gtk_settings_get_default (),
-                "gtk-enable-animations", &enable_animations,
-                NULL);
-
-  if (enable_animations && g_getenv ("GIS_DISABLE_GD") == NULL)
-    return GIS_TYPE_ASSISTANT_GD;
-  else
-    return GIS_TYPE_ASSISTANT_GTK;
-}
-
 static void
 gis_driver_get_property (GObject      *object,
                          guint         prop_id,
@@ -292,7 +277,7 @@ gis_driver_startup (GApplication *app)
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
 
-  priv->assistant = g_object_new (get_assistant_type (), NULL);
+  priv->assistant = g_object_new (GIS_TYPE_ASSISTANT_GTK, NULL);
   gtk_container_add (GTK_CONTAINER (priv->main_window), GTK_WIDGET (priv->assistant));
 
   gtk_widget_show (GTK_WIDGET (priv->assistant));

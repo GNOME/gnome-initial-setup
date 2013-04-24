@@ -94,8 +94,6 @@ PKG_CHECK_MODULES(ISOCODES, iso-codes)
 AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],["`$PKG_CONFIG --variable=prefix iso-codes`"],[ISO codes prefix])
 ISO_CODES=iso-codes
 
-LIBGD_INIT([stack static])
-
 GLIB_VERSION_DEFINES="-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_36 '-DGLIB_VERSION_MAX_ALLOWED=G_ENCODE_VERSION(2,36)'"
 
 INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $GLIB_VERSION_DEFINES"
@@ -127,6 +125,5 @@ gnome-initial-setup/pages/summary/Makefile
 gnome-initial-setup/pages/keyboard/Makefile
 po/Makefile.in
 player/Makefile
-libgd/Makefile
 ])
 AC_OUTPUT

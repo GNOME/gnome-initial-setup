@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012 Red Hat
+ * Copyright (C) 2013 Red Hat
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -36,36 +36,51 @@ G_DEFINE_TYPE (GisAssistantGtk, gis_assistant_gtk, GIS_TYPE_ASSISTANT)
 
 struct _GisAssistantGtkPrivate
 {
-  GtkWidget *notebook;
+  GtkWidget *stack;
 };
 
 static void
-current_page_changed (GtkNotebook  *notebook,
-                      GtkWidget    *new_page,
-                      gint          new_page_num,
-                      GisAssistant *assistant)
+current_page_changed (GObject    *gobject,
+                      GParamSpec *pspec,
+                      gpointer    user_data)
 {
+  GtkStack *stack = GTK_STACK (gobject);
+  GisAssistant *assistant = GIS_ASSISTANT (user_data);
+  GtkWidget *new_page = gtk_stack_get_visible_child (stack);
   _gis_assistant_current_page_changed (assistant, GIS_PAGE (new_page));
 }
 
 static void
 gis_assistant_gtk_switch_to (GisAssistant          *assistant,
-                             GisAssistantDirection  direction,
-                             GisPage               *page)
+                            GisAssistantDirection  direction,
+                            GisPage               *page)
 {
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
-  gint page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook),
-                                         GTK_WIDGET (page));
-  gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), page_num);
+  GtkStackTransitionType transition_type;
+
+  switch (direction) {
+  case GIS_ASSISTANT_NEXT:
+    transition_type = GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT;
+    break;
+  case GIS_ASSISTANT_PREV:
+    transition_type = GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT;
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+
+  gtk_stack_set_transition_type (GTK_STACK (priv->stack), transition_type);
+
+  gtk_stack_set_visible_child (GTK_STACK (priv->stack),
+                              GTK_WIDGET (page));
 }
 
 static void
 gis_assistant_gtk_add_page (GisAssistant *assistant,
-                            GisPage      *page)
+                           GisPage      *page)
 {
   GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
-  gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook),
-                            GTK_WIDGET (page), NULL);
+  gtk_container_add (GTK_CONTAINER (priv->stack), GTK_WIDGET (page));
 }
 
 static void
@@ -78,13 +93,14 @@ gis_assistant_gtk_init (GisAssistantGtk *assistant_gtk)
   assistant_gtk->priv = priv;
 
   frame = _gis_assistant_get_frame (assistant);
-  priv->notebook = gtk_notebook_new ();
-  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (priv->notebook), FALSE);
-  gtk_container_add (GTK_CONTAINER (frame), priv->notebook);
+  priv->stack = gtk_stack_new ();
+  gtk_stack_set_transition_type (GTK_STACK (priv->stack),
+                                GTK_STACK_TRANSITION_TYPE_CROSSFADE);
+  gtk_container_add (GTK_CONTAINER (frame), priv->stack);
 
-  gtk_widget_show (priv->notebook);
+  gtk_widget_show (priv->stack);
 
-  g_signal_connect (priv->notebook, "switch-page",
+  g_signal_connect (priv->stack, "notify::visible-child",
                     G_CALLBACK (current_page_changed), assistant);
 }
 

@@ -3,7 +3,6 @@ noinst_LTLIBRARIES = libgiskeyboard.la
 
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
-	-I$(top_srcdir)/libgd \
 	-DLOCALSTATEDIR="\"$(localstatedir)\"" \
 	-DUIDIR="\"$(uidir)\""
 

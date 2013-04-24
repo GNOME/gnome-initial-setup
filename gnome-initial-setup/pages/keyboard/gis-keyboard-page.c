@@ -47,7 +47,6 @@
 #include <act/act.h>
 #include <unistd.h>
 #include <egg-list-box.h>
-#include <libgd/gd.h>
 
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
