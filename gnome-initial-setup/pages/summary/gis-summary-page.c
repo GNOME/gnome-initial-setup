@@ -32,18 +32,12 @@
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
-#include <locale.h>
 #include <stdlib.h>
 #include <errno.h>
 
 #include <act/act-user-manager.h>
 
 #include <gdm/gdm-client.h>
-
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-languages.h>
-
-#include "pk.h"
 
 #define SERVICE_NAME "gdm-password"
 
@@ -218,54 +212,6 @@ add_setup_done_file (void)
   g_free (gis_done_path);
 }
 
-static gchar *
-getting_started_package_name (void)
-{
-  gchar *lc = setlocale (LC_MESSAGES, NULL);
-  gchar *locale = gnome_normalize_locale (lc);
-  gchar *package_name;
-
-  if (strcmp (locale, "en"))
-    package_name = g_strdup ("gnome-getting-started-docs");
-  else
-    package_name = g_strdup_printf ("gnome-getting-started-docs-%s", locale);
-
-  g_free (locale);
-  return package_name;
-}
-
-static void
-download_language_pack (GisSummaryPage *page)
-{
-  gchar *package_name = getting_started_package_name ();
-  gchar *package_names[2] = { package_name, NULL };
-  PackageKitModify *proxy;
-  GError *error = NULL;
-
-  proxy = package_kit_modify_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                                     G_DBUS_PROXY_FLAGS_NONE,
-                                                     "org.freedesktop.PackageKit",
-                                                     "/org/freedesktop/PackageKit",
-                                                     NULL, NULL);
-
-  if (!package_kit_modify_call_install_package_names_sync (proxy,
-                                                           0,
-                                                           (const gchar *const *) package_names,
-                                                           "hide-confirm-search,hide-confirm-deps,hide-confirm-install,hide-progress,hide-finished,hide-warning",
-                                                           NULL, &error)) {
-
-    /* we need to get a better api than this broken pile of trash */
-    if (!(g_dbus_error_is_remote_error (error) &&
-          g_strcmp0 (g_dbus_error_get_remote_error (error), "org.freedesktop.PackageKit.Modify.Failed") == 0 &&
-          g_dbus_error_strip_remote_error (error) &&
-          g_strcmp0 (error->message, "package already found") == 0))
-      g_warning ("Error installing packages: %s", error->message);
-  }
-
-  g_clear_error (&error);
-  g_free (package_name);
-}
-
 static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
@@ -300,8 +246,6 @@ prepare_cb (GisAssistant   *assistant,
       gis_driver_get_user_permissions (GIS_PAGE (this_page)->driver,
                                        &priv->user_account,
                                        &priv->user_password);
-
-      download_language_pack (this_page);
     }
 }
 
