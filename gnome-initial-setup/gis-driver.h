@@ -74,6 +74,11 @@ void gis_driver_get_user_permissions (GisDriver    *driver,
                                       ActUser     **user,
                                       const gchar **password);
 
+void gis_driver_set_user_language (GisDriver   *driver,
+                                   const gchar *lang_id);
+
+const gchar *gis_driver_get_user_language (GisDriver   *driver);
+
 GisDriverMode gis_driver_get_mode (GisDriver *driver);
 
 void gis_driver_add_page (GisDriver *driver,

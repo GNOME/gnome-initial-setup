@@ -444,6 +444,8 @@ create_user (GisAccountPage *page)
   error = NULL;
 
   priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
+  act_user_set_language (priv->act_user, gis_driver_get_user_language (GIS_PAGE (page)->driver));
+
   if (error != NULL) {
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);

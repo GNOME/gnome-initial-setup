@@ -74,6 +74,7 @@ struct _GisDriverPrivate {
 
   ActUser *user_account;
   const gchar *user_password;
+  const gchar *lang_id;
 
   GisDriverMode mode;
 };
@@ -118,6 +119,20 @@ gis_driver_get_assistant (GisDriver *driver)
 {
   GisDriverPrivate *priv = driver->priv;
   return priv->assistant;
+}
+
+void
+gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id)
+{
+  GisDriverPrivate *priv = driver->priv;
+  priv->lang_id = lang_id;
+}
+
+const gchar *
+gis_driver_get_user_language (GisDriver *driver)
+{
+  GisDriverPrivate *priv = driver->priv;
+  return priv->lang_id;
 }
 
 void

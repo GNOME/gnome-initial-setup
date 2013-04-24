@@ -20,6 +20,7 @@ GTK_REQUIRED_VERSION=3.7.11
 PANGO_REQUIRED_VERSION=1.32.5
 IBUS_REQUIRED_VERSION=1.4.99
 GNOME_DESKTOP_REQUIRED_VERSION=3.7.5
+POLKIT_REQUIRED_VERSION=0.103
 
 # EggListBox submodule
 prev_top_build_prefix=$ac_top_build_prefix
@@ -35,6 +36,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   libnm-glib >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-util >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-gtk >= $NETWORK_MANAGER_REQUIRED_VERSION
+                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
                   accountsservice
                   gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
                   gstreamer-1.0
