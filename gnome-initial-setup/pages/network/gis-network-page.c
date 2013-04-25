@@ -67,17 +67,6 @@ struct _GisNetworkPagePrivate {
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
 
-enum {
-  PANEL_WIRELESS_COLUMN_ID,
-  PANEL_WIRELESS_COLUMN_TITLE,
-  PANEL_WIRELESS_COLUMN_STRENGTH,
-  PANEL_WIRELESS_COLUMN_MODE,
-  PANEL_WIRELESS_COLUMN_SECURITY,
-  PANEL_WIRELESS_COLUMN_ACTIVATING,
-  PANEL_WIRELESS_COLUMN_ACTIVE,
-  PANEL_WIRELESS_COLUMN_PULSE
-};
-
 static GPtrArray *
 get_strongest_unique_aps (const GPtrArray *aps)
 {
