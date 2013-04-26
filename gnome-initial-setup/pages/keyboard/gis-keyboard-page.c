@@ -80,7 +80,6 @@ struct _GisKeyboardPagePrivate {
         GDBusProxy  *session;
 
         GtkWidget *overlay;
-        GtkWidget *notification;
 
         GtkWidget *input_section;
         GtkWidget *input_list;
