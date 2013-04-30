@@ -377,8 +377,11 @@ gis_goa_page_dispose (GObject *object)
 {
   GisGoaPage *page = GIS_GOA_PAGE (object);
   GisGoaPagePrivate *priv = page->priv;
+  GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
 
   g_clear_object (&priv->goa_client);
+
+  g_signal_handlers_disconnect_by_func (network_monitor, G_CALLBACK (network_status_changed), page);
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->dispose (object);
 }
