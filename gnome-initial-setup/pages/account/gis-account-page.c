@@ -436,6 +436,7 @@ create_user (GisAccountPage *page)
   GisAccountPagePrivate *priv = page->priv;
   const gchar *username;
   const gchar *fullname;
+  const gchar *language;
   GError *error;
 
   username = gtk_combo_box_text_get_active_text (OBJ(GtkComboBoxText*, "account-username-combo"));
@@ -444,7 +445,9 @@ create_user (GisAccountPage *page)
   error = NULL;
 
   priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
-  act_user_set_language (priv->act_user, gis_driver_get_user_language (GIS_PAGE (page)->driver));
+  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
+  if (language)
+    act_user_set_language (priv->act_user, language);
 
   if (error != NULL) {
     g_warning ("Failed to create user: %s", error->message);
