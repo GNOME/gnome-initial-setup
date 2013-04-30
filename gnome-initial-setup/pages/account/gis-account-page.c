@@ -515,7 +515,7 @@ local_create_user (GisAccountPage *page)
   if (strlen (password) == 0)
     act_user_set_account_type (priv->act_user, ACT_USER_PASSWORD_MODE_NONE);
   else
-    act_user_set_password (priv->act_user, password, NULL);
+    act_user_set_password (priv->act_user, password, "");
 
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
                                    priv->act_user,
