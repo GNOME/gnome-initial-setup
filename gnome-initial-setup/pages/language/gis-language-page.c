@@ -99,6 +99,18 @@ change_locale_permission_acquired (GObject      *source,
 }
 
 static void
+user_loaded (GObject    *object,
+             GParamSpec *pspec,
+             gpointer    user_data)
+{
+  gchar *new_locale_id = user_data;
+
+  act_user_set_language (ACT_USER (object), new_locale_id);
+
+  g_free (new_locale_id);
+}
+
+static void
 language_changed (CcLanguageChooser  *chooser,
                   GParamSpec         *pspec,
                   GisLanguagePage    *page)
@@ -123,7 +135,13 @@ language_changed (CcLanguageChooser  *chooser,
   }
   user = act_user_manager_get_user (act_user_manager_get_default (),
                                     g_get_user_name ());
-  act_user_set_language (user, priv->new_locale_id);
+  if (act_user_is_loaded (user))
+    act_user_set_language (user, priv->new_locale_id);
+  else
+    g_signal_connect (user,
+                      "notify::is-loaded",
+                      G_CALLBACK (user_loaded),
+                      g_strdup (priv->new_locale_id));
 
   gis_driver_set_user_language (driver, priv->new_locale_id);
 }
