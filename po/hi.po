@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # chandan kumar <chandankumar.093047@gmail.com>, 2012, 2013.
+# Rajesh Ranjan <rajeshkajha@yahoo.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-16 21:51+0000\n"
-"PO-Revision-Date: 2013-03-25 12:41+0000\n"
-"Last-Translator: chandankumar <chandankumar.093047@gmail.com>\n"
+"POT-Creation-Date: 2013-04-26 15:16+0000\n"
+"PO-Revision-Date: 2013-05-02 14:52+0530\n"
+"Last-Translator: Rajesh Ranjan <rajeshkajha@yahoo.com>\n"
 "Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
@@ -20,50 +21,54 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "आरंभिक सेटअप"
 
-#: ../gnome-initial-setup/gis-assistant.c:294
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "अगला (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:295
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "पीछे (_B)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:222
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "नया उपयोगकर्ता मोड बलपूर्वक डालें"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:226
-#| msgid "Initial Setup"
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- गनोम प्रारंभिक सेटअप"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#| msgid "_Confirm password"
+msgid "No password"
+msgstr "कोई कूटशब्द नहीं"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "पासवर्ड मेल नहीं खाता."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
 #, c-format
 msgid "Strength: %s"
 msgstr "ताकत: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
-#| msgid "Link other accounts"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
 msgid "Failed to register account"
 msgstr "खाता पंजीयन में विफल"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:615
 msgid "Failed to join domain"
 msgstr "डोमेन में शामिल होने में विफल"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:670
 msgid "Failed to log into domain"
 msgstr "डोमेन में लॉगिन में विफल"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:982
 msgid "Login"
 msgstr "लॉगइन"
 
@@ -90,7 +95,6 @@ msgid "_Password"
 msgstr "कूटशब्द (_P)"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-#| msgid "_Confirm Password"
 msgid "_Confirm password"
 msgstr "कूटशब्द की पुष्टि करें (_C) "
 
@@ -100,14 +104,14 @@ msgid ""
 "a number or two."
 msgstr ""
 "कम से कम 8 अलग अलग अक्षरों का उपयोग करने के लिए प्रयास करें.ऊपरी और निचले "
-"मामले मिश्रण और एक या दो नंबर का उपयोग करें."
+"मामले मिश्रण "
+"और एक या दो नंबर का उपयोग करें."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
 msgstr "पृष्ठ 1"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-#| msgid "Use an Enterprise Login"
 msgid "Create an Enterprise Account"
 msgstr "एक उद्यम ख़ाता बनाएँ"
 
@@ -224,7 +228,7 @@ msgstr "यह सर्वर पर खाता को हटा देगा
 msgid "_Remove"
 msgstr "हटाएं (_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:389
 msgid "Online Accounts"
 msgstr "ऑनलाइन खाता"
 
@@ -238,54 +242,63 @@ msgid ""
 "photos, contacts, mail, and more."
 msgstr ""
 "खातों जोड़ना आप अपने ऑनलाइन तस्वीरें, संपर्क, मेल, और अधिक पारदर्शी करने के "
-"लिए कनेक्ट करने के लिए अनुमति देगा."
+"लिए कनेक्ट करने "
+"के लिए अनुमति देगा."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "कुंजीपट ख़ाका"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+#| msgid "Add Account"
+msgid "_Add Account"
+msgstr "खाता जोड़ें (_A)"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "अधिक…"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#| msgid "Move Input Source Down"
+msgid "No input sources found"
+msgstr "कोई  इनपुट स्रोत नहीं मिला"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#| msgctxt "Wireless access point"
+#| msgid "Other…"
+msgid "Other"
+msgstr "अन्य"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:650
+msgid "Sorry"
+msgstr "क्षमा करें"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:652
+msgid "Input methods can't be used on the login screen"
+msgstr "इनपुट विधि लॉगिन स्क्रीन पर नहीं किया जा सकता"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1029
+#| msgid "Select input sources"
+msgid "No input source selected"
+msgstr "कोई इनपुट स्रोत चयनित नहीं"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "इनपुट सूत्रों का चयन करें"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"लॉगइन सेटिंग्स सभी उपयोक्ताओं द्वारा उपयोग किया जाता है जब तंत्र में प्रवेश "
+"करते हैं"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+#| msgid "Add Input Source"
+msgid "Add an Input Source"
 msgstr "इनपुट स्रोत जोड़ें "
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "इनपुट स्रोत निकालें"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "इनपुट स्रोत ऊपर ले जाएं"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "इनपुट स्रोत नीचे ले जाएं"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "इनपुट स्रोत सेटिंग्स"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "कुंजीपट लेआउट दिखाएँ"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "एक इनपुट स्रोत का चयन करें"
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
-msgid "More…"
-msgstr "अधिक…"
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "कोई भाषाएँ नहीं मिला"
 
 #: ../gnome-initial-setup/pages/language/gis-language-page.c:82
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:57
 msgid "Welcome"
 msgstr "सुस्वागतम"
 
@@ -310,26 +323,24 @@ msgstr "अपने स्थान को स्वतः सुनिश्�
 msgid "Time Zone"
 msgstr "समय क्षेत्र"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
-#| msgctxt "Wireless access point"
-#| msgid "Other..."
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "अन्य..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
 msgid "Network is not available."
 msgstr "संजाल उपलब्ध नहीं है."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
 msgid "No network devices found."
 msgstr "कोई संजाल युक्ति नहीं मिला."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
 msgid "Checking for available wireless networks"
 msgstr "उपलब्ध बेतार संजाल के लिए जाँच हो रही है"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
 msgid "Network"
 msgstr "संजाल"
 
@@ -337,24 +348,39 @@ msgstr "संजाल"
 msgid "Wireless Networks"
 msgstr "बेतार संजाल"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "शुक्रिया"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "Your new account is ready to use."
 msgid "Your computer is ready to use."
 msgstr "आपका कंप्यूटर का उपयोग करने के लिए तैयार है."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-#| msgid ""
-#| "You may change any of these options at any time in the System Settings."
 msgid "You may change these options at any time in Settings."
 msgstr "आप सेटिंग में किसी भी समय पर इन विकल्पों को बदल सकते हैं."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "गनोम का उपयोग करना प्रारंभ करें (_S)"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "कुंजीपट ख़ाका"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "इनपुट स्रोत निकालें"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "इनपुट स्रोत ऊपर ले जाएं"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "इनपुट स्रोत सेटिंग्स"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "कुंजीपट लेआउट दिखाएँ"
+
+#~ msgid "Select an input source"
+#~ msgstr "एक इनपुट स्रोत का चयन करें"
 
 #~ msgid "Create Local Account"
 #~ msgstr "स्थानीय खाता बनाएँ"
