@@ -150,6 +150,12 @@ gis_keyboard_page_get_builder (GisPage *page)
 }
 
 static void
+gis_keyboard_page_locale_changed (GisPage *page)
+{
+        gis_page_set_title (GIS_PAGE (page), _("Input Sources"));
+}
+
+static void
 gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -159,6 +165,7 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 
         page_class->page_id = PAGE_ID;
         page_class->get_builder = gis_keyboard_page_get_builder;
+        page_class->locale_changed = gis_keyboard_page_locale_changed;
 
         object_class->constructed = gis_keyboard_page_constructed;
 	object_class->finalize = gis_keyboard_page_finalize;
