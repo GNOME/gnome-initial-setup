@@ -2,33 +2,33 @@
 # Copyright (C) 2012. Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2012.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013.
 # Balázs Úr <urbalazs at gmail dot com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-13 22:21+0200\n"
-"PO-Revision-Date: 2013-04-10 22:46+0200\n"
-"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
+"POT-Creation-Date: 2013-05-05 23:07+0200\n"
+"PO-Revision-Date: 2013-05-05 23:07+0200\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Kiinduló beállítások"
 
-#: ../gnome-initial-setup/gis-assistant.c:333
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "_Következő"
 
-#: ../gnome-initial-setup/gis-assistant.c:334
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "_Vissza"
 
@@ -54,19 +54,19 @@ msgstr "A jelszavak nem egyeznek"
 msgid "Strength: %s"
 msgstr "Erősség: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
 msgid "Failed to register account"
 msgstr "A fiók regisztrálása sikertelen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:615
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
 msgid "Failed to join domain"
 msgstr "Nem sikerült a tartományhoz csatlakozni"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:670
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
 msgid "Failed to log into domain"
 msgstr "Nem sikerült bejelentkezni a tartományba"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:982
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
 msgid "Login"
 msgstr "Bejelentkezés"
 
@@ -225,7 +225,7 @@ msgstr "Ez nem törli a kiszolgálón a fiókot."
 msgid "_Remove"
 msgstr "_Eltávolítás"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
 msgid "Online Accounts"
 msgstr "Online fiókok"
 
@@ -245,41 +245,32 @@ msgstr ""
 msgid "_Add Account"
 msgstr "_Fiók hozzáadása"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "More…"
 msgstr "Több…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:178
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
 msgid "No input sources found"
 msgstr "Bemeneti források nem találhatók"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1014
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
 msgid "Other"
 msgstr "Egyéb"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:246
-msgid "Your session needs to be restarted for changes to take effect"
-msgstr "A változtatások életbe lépéséhez újra kell indítani a munkamenetet"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:155
+msgid "Input Sources"
+msgstr "Bemeneti források"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:247
-msgid "Restart Now"
-msgstr "Újraindítás most"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:454
-msgctxt "Language"
-msgid "None"
-msgstr "Nincs"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:890
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:656
 msgid "Sorry"
 msgstr "Elnézést"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:892
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:658
 msgid "Input methods can't be used on the login screen"
 msgstr "A beviteli módok nem használhatók a bejelentkező képernyőn"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1316
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1035
 msgid "No input source selected"
 msgstr "Nincs kiválasztva bemeneti forrás"
 
@@ -293,19 +284,15 @@ msgstr ""
 "A belépési beállításokat minden felhasználó használja, amikor bejelentkezik "
 "a rendszerbe"
 
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "Válasszon egy bemeneti forrást"
-
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
 msgstr "Bemeneti forrás hozzáadása"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "Nyelvek nem találhatók"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
 msgid "Welcome"
 msgstr "Üdvözlet"
 
@@ -330,24 +317,24 @@ msgstr "_Tartózkodási helyének automatikus meghatározása"
 msgid "Time Zone"
 msgstr "Időzóna"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:317
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Egyéb…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:355
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "Network is not available."
 msgstr "A hálózat nem érhető el."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
 msgid "No network devices found."
 msgstr "Nem találhatók hálózati eszközök."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:407
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
 msgid "Checking for available wireless networks"
 msgstr "Elérhető vezeték nélküli hálózatok keresése"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:660
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
 msgid "Network"
 msgstr "Hálózat"
 
@@ -371,6 +358,19 @@ msgstr "Ezen beállításokat bármikor megváltoztathatja a Beállításokban."
 msgid "_Start using GNOME 3"
 msgstr "_A GNOME 3 használatba vétele"
 
+#~ msgid "Your session needs to be restarted for changes to take effect"
+#~ msgstr "A változtatások életbe lépéséhez újra kell indítani a munkamenetet"
+
+#~ msgid "Restart Now"
+#~ msgstr "Újraindítás most"
+
+#~ msgctxt "Language"
+#~ msgid "None"
+#~ msgstr "Nincs"
+
+#~ msgid "Select an input source"
+#~ msgstr "Válasszon egy bemeneti forrást"
+
 #~ msgid "Keyboard Layout"
 #~ msgstr "Billentyűzetkiosztás"
 
@@ -379,9 +379,6 @@ msgstr "_A GNOME 3 használatba vétele"
 
 #~ msgid "Move Input Source Up"
 #~ msgstr "Bemeneti forrás mozgatása fel"
-
-#~ msgid "Input Source Settings"
-#~ msgstr "Bemeneti forrás beállításai"
 
 #~ msgid "Show Keyboard Layout"
 #~ msgstr "Billentyűzetkiosztás megjelenítése"
