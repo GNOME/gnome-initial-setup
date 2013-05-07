@@ -18,6 +18,9 @@ rules_DATA = 20-gnome-initial-setup.rules
 sessiondir = $(datadir)/gnome-session/sessions
 session_DATA = gnome-initial-setup.session
 
+modedir = $(datadir)/gnome-shell/modes
+mode_DATA = initial-setup.json
+
 desktopdir = $(datadir)/gdm/greeter/applications
 desktop_DATA =						\
 	gnome-initial-setup.desktop			\
