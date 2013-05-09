@@ -59,17 +59,11 @@
 
 G_DEFINE_TYPE (GisKeyboardPage, gis_keyboard_page, GIS_TYPE_PAGE)
 
-#define WID(s) GTK_WIDGET (gtk_builder_get_object (self->priv->builder, s))
-
 #define KEYBOARD_PAGE_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_KEYBOARD_PAGE, GisKeyboardPagePrivate))
 
 struct _GisKeyboardPagePrivate {
-	GtkBuilder *builder;
-
         GDBusProxy  *localed;
         GCancellable *cancellable;
-
-        GtkWidget *overlay;
 
         GtkWidget *input_section;
         GtkWidget *input_list;
@@ -88,6 +82,9 @@ struct _GisKeyboardPagePrivate {
         GCancellable *ibus_cancellable;
 #endif
 };
+
+#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (self)->builder,(name)))
+#define WID(name) OBJ(GtkWidget*,name)
 
 static void
 gis_keyboard_page_finalize (GObject *object)
@@ -120,20 +117,10 @@ gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = self->priv;
-        GError *error = NULL;
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
 
-        priv->builder = gtk_builder_new ();
-
-        gtk_builder_add_from_resource (priv->builder,
-                                       "/org/gnome/initial-setup/gis-keyboard-page.ui",
-                                       &error);
-        if (error != NULL) {
-                g_warning ("Error loading UI file: %s", error->message);
-                g_error_free (error);
-                return;
-        }
+        gtk_container_add (GTK_CONTAINER (self), WID ("keyboard_page"));
 
         setup_input_section (self);
 
@@ -149,10 +136,6 @@ gis_keyboard_page_constructed (GObject *object)
                                   (GAsyncReadyCallback) localed_proxy_ready,
                                   self);
 
-        priv->overlay = GTK_WIDGET (gtk_builder_get_object (priv->builder,
-                                                            "keyboard_page"));
-        gtk_container_add (GTK_CONTAINER (self), priv->overlay);
-
         gis_page_set_complete (GIS_PAGE (self), TRUE);
         gtk_widget_show (GTK_WIDGET (self));
 }
@@ -161,15 +144,6 @@ static const char *
 gis_keyboard_page_get_help_uri (GisPage *page)
 {
         return "help:gnome-help/prefs-language";
-}
-
-static GtkBuilder *
-gis_keyboard_page_get_builder (GisPage *page)
-{
-        GisKeyboardPage *self = GIS_KEYBOARD_PAGE (page);
-        GisKeyboardPagePrivate *priv = self->priv;
-
-        return priv->builder;
 }
 
 static void
@@ -187,7 +161,6 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 	g_type_class_add_private (klass, sizeof (GisKeyboardPagePrivate));
 
         page_class->page_id = PAGE_ID;
-        page_class->get_builder = gis_keyboard_page_get_builder;
         page_class->locale_changed = gis_keyboard_page_locale_changed;
 
         object_class->constructed = gis_keyboard_page_constructed;
