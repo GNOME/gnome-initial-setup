@@ -112,16 +112,48 @@ gis_keyboard_page_finalize (GObject *object)
 	G_OBJECT_CLASS (gis_keyboard_page_parent_class)->finalize (object);
 }
 
+static void localed_proxy_ready (GObject *source, GAsyncResult *res, gpointer data);
+static void setup_input_section (GisKeyboardPage *self);
+
 static void
 gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = self->priv;
+        GError *error = NULL;
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
 
-        gis_page_set_complete (GIS_PAGE (self), TRUE);
+        priv->builder = gtk_builder_new ();
 
+        gtk_builder_add_from_resource (priv->builder,
+                                       "/org/gnome/initial-setup/gis-keyboard-page.ui",
+                                       &error);
+        if (error != NULL) {
+                g_warning ("Error loading UI file: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+
+        setup_input_section (self);
+
+        priv->cancellable = g_cancellable_new ();
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+                                  NULL,
+                                  "org.freedesktop.locale1",
+                                  "/org/freedesktop/locale1",
+                                  "org.freedesktop.locale1",
+                                  priv->cancellable,
+                                  (GAsyncReadyCallback) localed_proxy_ready,
+                                  self);
+
+        priv->overlay = GTK_WIDGET (gtk_builder_get_object (priv->builder,
+                                                            "keyboard_page"));
+        gtk_container_add (GTK_CONTAINER (self), priv->overlay);
+
+        gis_page_set_complete (GIS_PAGE (self), TRUE);
         gtk_widget_show (GTK_WIDGET (self));
 }
 
@@ -993,40 +1025,8 @@ localed_proxy_ready (GObject      *source,
 static void
 gis_keyboard_page_init (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv;
-	GError *error = NULL;
-
-	priv = self->priv = KEYBOARD_PAGE_PRIVATE (self);
+        self->priv = KEYBOARD_PAGE_PRIVATE (self);
         g_resources_register (keyboard_get_resource ());
-
-	priv->builder = gtk_builder_new ();
-
-	gtk_builder_add_from_resource (priv->builder,
-                                       "/org/gnome/initial-setup/gis-keyboard-page.ui",
-                                       &error);
-	if (error != NULL) {
-		g_warning ("Error loading UI file: %s", error->message);
-		g_error_free (error);
-		return;
-	}
-
-        setup_input_section (self);
-
-        priv->cancellable = g_cancellable_new ();
-
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
-                                  NULL,
-                                  "org.freedesktop.locale1",
-                                  "/org/freedesktop/locale1",
-                                  "org.freedesktop.locale1",
-                                  priv->cancellable,
-                                  (GAsyncReadyCallback) localed_proxy_ready,
-                                  self);
-
-        priv->overlay = GTK_WIDGET (gtk_builder_get_object (priv->builder,
-                                                            "keyboard_page"));
-        gtk_container_add (GTK_CONTAINER (self), priv->overlay);
 }
 
 void
