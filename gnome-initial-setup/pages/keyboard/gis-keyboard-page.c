@@ -830,6 +830,22 @@ show_selected_layout (GisKeyboardPage *self)
 }
 
 static void
+add_default_input_source_for_locale (GisKeyboardPage *self)
+{
+        GisKeyboardPagePrivate *priv = self->priv;
+        const gchar *locale;
+        const gchar *type;
+        const gchar *id;
+
+        locale = gis_driver_get_user_language (GIS_PAGE (self)->driver);
+
+        if (!gnome_get_input_source_from_locale (locale, &type, &id))
+                return;
+
+        add_input_source (self, type, id);
+}
+
+static void
 setup_input_section (GisKeyboardPage *self)
 {
 	GisKeyboardPagePrivate *priv = self->priv;
@@ -879,6 +895,8 @@ setup_input_section (GisKeyboardPage *self)
 
         g_signal_connect (priv->input_settings, "changed::" KEY_INPUT_SOURCES,
                           G_CALLBACK (input_sources_changed), self);
+
+        add_default_input_source_for_locale (self);
 }
 
 static void
@@ -925,9 +943,10 @@ add_input_sources_from_localed (GisKeyboardPage *self)
                 else
                         id = g_strdup (layouts[i]);
 
-                gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
-
-                add_input_row (self, INPUT_SOURCE_TYPE_XKB, id, name ? name : id, NULL);
+                if (!input_source_already_added (self, id)) {
+                        gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
+                        add_input_row (self, INPUT_SOURCE_TYPE_XKB, id, name ? name : id, NULL);
+                }
 
                 g_free (id);
         }
