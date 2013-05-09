@@ -63,21 +63,10 @@ G_DEFINE_TYPE (GisKeyboardPage, gis_keyboard_page, GIS_TYPE_PAGE)
 
 #define KEYBOARD_PAGE_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_KEYBOARD_PAGE, GisKeyboardPagePrivate))
 
-typedef enum {
-        ADD_INPUT,
-        REMOVE_INPUT
-} SystemOp;
-
 struct _GisKeyboardPagePrivate {
 	GtkBuilder *builder;
 
-        GtkWidget   *login_button;
-        GtkWidget   *login_label;
-        gboolean     login;
-        GPermission *permission;
-        SystemOp     op;
         GDBusProxy  *localed;
-        GDBusProxy  *session;
 
         GtkWidget *overlay;
 
@@ -105,9 +94,7 @@ gis_keyboard_page_finalize (GObject *object)
 	GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
 	GisKeyboardPagePrivate *priv = self->priv;
 
-        g_clear_object (&priv->permission);
         g_clear_object (&priv->localed);
-        g_clear_object (&priv->session);
         g_clear_object (&priv->input_settings);
         g_clear_object (&priv->xkb_info);
 #ifdef HAVE_IBUS
@@ -190,40 +177,6 @@ update_separator_func (GtkWidget **separator,
 
 static void show_input_chooser (GisKeyboardPage *self);
 static void remove_selected_input (GisKeyboardPage *self);
-
-static void
-permission_acquired (GObject      *source,
-                     GAsyncResult *res,
-                     gpointer      data)
-{
-        GisKeyboardPage *self = data;
-	GisKeyboardPagePrivate *priv = self->priv;
-        GError *error = NULL;
-        gboolean allowed;
-
-        allowed = g_permission_acquire_finish (priv->permission, res, &error);
-        if (error) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to acquire permission: %s\n", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        if (allowed) {
-                switch (priv->op) {
-                case ADD_INPUT:
-                        show_input_chooser (self);
-                        break;
-                case REMOVE_INPUT:
-                        remove_selected_input (self);
-                        break;
-                default:
-                        g_warning ("Unknown privileged operation: %d\n", priv->op);
-                        break;
-                }
-        }
-}
-
 
 #ifdef HAVE_IBUS
 static void
@@ -390,15 +343,6 @@ add_input_row (GisKeyboardPage   *self,
         GtkWidget *row;
         GtkWidget *label;
         GtkWidget *image;
-
-        if (priv->login) {
-                GList *l;
-                l = gtk_container_get_children (GTK_CONTAINER (priv->input_list));
-                if (l && l->next == NULL &&
-                    g_strcmp0 (g_object_get_data (G_OBJECT (l->data), "type"), "none") == 0)
-                        gtk_container_remove (GTK_CONTAINER (priv->input_list), GTK_WIDGET (l->data));
-                g_list_free (l);
-        }
 
         row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
         label = gtk_label_new (name);
@@ -631,38 +575,7 @@ static void set_localed_input (GisKeyboardPage *self);
 static void
 update_input (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
-
-        if (priv->login) {
-                set_localed_input (self);
-        } else {
-                set_input_settings (self);
-        }
-}
-
-static void
-apologize_for_no_ibus_login (GisKeyboardPage *self)
-{
-        GtkWidget *dialog;
-        GtkWidget *toplevel;
-        GtkWidget *image;
-
-        toplevel = gtk_widget_get_toplevel (GTK_WIDGET (self));
-
-        dialog = gtk_message_dialog_new (GTK_WINDOW (toplevel),
-                                         GTK_DIALOG_MODAL,
-                                         GTK_MESSAGE_OTHER,
-                                         GTK_BUTTONS_OK,
-                                         _("Sorry"));
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                                  "%s", _("Input methods can't be used on the login screen"));
-        image = gtk_image_new_from_icon_name ("face-sad-symbolic",
-                                              GTK_ICON_SIZE_DIALOG);
-        gtk_widget_show (image);
-        gtk_message_dialog_set_image (GTK_MESSAGE_DIALOG (dialog), image);
-
-        gtk_dialog_run (GTK_DIALOG (dialog));
-        gtk_widget_destroy (dialog);
+        set_input_settings (self);
 }
 
 static gboolean
@@ -708,13 +621,10 @@ input_response (GtkWidget *chooser, gint response_id, gpointer data)
                                 type = INPUT_SOURCE_TYPE_XKB;
                         }
 
-                        if (priv->login && g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
-                                apologize_for_no_ibus_login (self);
-                        } else {
-                                add_input_row (self, type, id, name, app_info);
-                                update_buttons (self);
-                                update_input (self);
-                        }
+                        add_input_row (self, type, id, name, app_info);
+                        update_buttons (self);
+                        update_input (self);
+
                         g_free (id);
                         g_free (name);
                         g_clear_object (&app_info);
@@ -750,19 +660,7 @@ show_input_chooser (GisKeyboardPage *self)
 static void
 add_input (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
-
-        if (!priv->login) {
-                show_input_chooser (self);
-        } else if (g_permission_get_allowed (priv->permission)) {
-                show_input_chooser (self);
-        } else if (g_permission_get_can_acquire (priv->permission)) {
-                priv->op = ADD_INPUT;
-                g_permission_acquire_async (priv->permission,
-                                            NULL,
-                                            permission_acquired,
-                                            self);
-        }
+        show_input_chooser (self);
 }
 
 static GtkWidget *
@@ -820,19 +718,7 @@ do_remove_selected_input (GisKeyboardPage *self)
 static void
 remove_selected_input (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
-
-        if (!priv->login) {
-                do_remove_selected_input (self);
-        } else if (g_permission_get_allowed (priv->permission)) {
-                do_remove_selected_input (self);
-        } else if (g_permission_get_can_acquire (priv->permission)) {
-                priv->op = REMOVE_INPUT;
-                g_permission_acquire_async (priv->permission,
-                                            NULL,
-                                            permission_acquired,
-                                            self);
-        }
+        do_remove_selected_input (self);
 }
 
 static void
@@ -1031,9 +917,6 @@ add_input_sources_from_localed (GisKeyboardPage *self)
 
                 g_free (id);
         }
-        if (n == 0) {
-                add_input_row (self, "none", "none", _("No input source selected"), NULL);
-        }
 
         g_strfreev (variants);
         g_strfreev (layouts);
@@ -1102,28 +985,6 @@ localed_proxy_ready (GObject      *source,
         priv = self->priv;
         priv->localed = proxy;
 
-        gtk_widget_set_sensitive (priv->login_button, TRUE);
-}
-
-static void
-session_proxy_ready (GObject      *source,
-                     GAsyncResult *res,
-                     gpointer      data)
-{
-        GisKeyboardPage *self = data;
-        GDBusProxy *proxy;
-        GError *error = NULL;
-
-        proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-
-        if (!proxy) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to contact gnome-session: %s\n", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        self->priv->session = proxy;
 }
 
 static void
