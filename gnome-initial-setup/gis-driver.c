@@ -26,6 +26,7 @@
 #include "gnome-initial-setup.h"
 
 #include <stdlib.h>
+#include <locale.h>
 
 #include "gis-assistant-gtk.h"
 #include "gis-assistant-gd.h"
@@ -75,10 +76,22 @@ struct _GisDriverPrivate {
 
   ActUser *user_account;
   const gchar *user_password;
-  const gchar *lang_id;
+
+  gchar *lang_id;
 
   GisDriverMode mode;
 };
+
+static void
+gis_driver_finalize (GObject *object)
+{
+  GisDriver *driver = GIS_DRIVER (object);
+  GisDriverPrivate *priv = driver->priv;
+
+  g_free (priv->lang_id);
+
+  G_OBJECT_CLASS (gis_driver_parent_class)->finalize (object);
+}
 
 static void
 title_changed_cb (GisAssistant *assistant,
@@ -126,7 +139,8 @@ void
 gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id)
 {
   GisDriverPrivate *priv = driver->priv;
-  priv->lang_id = lang_id;
+  g_free (priv->lang_id);
+  priv->lang_id = g_strdup (lang_id);
 }
 
 const gchar *
@@ -283,6 +297,8 @@ gis_driver_startup (GApplication *app)
 
   gtk_widget_show (GTK_WIDGET (priv->assistant));
 
+  gis_driver_set_user_language (driver, setlocale (LC_MESSAGES, NULL));
+
   prepare_main_window (driver);
   rebuild_pages (driver);
 }
@@ -303,6 +319,7 @@ gis_driver_class_init (GisDriverClass *klass)
 
   gobject_class->get_property = gis_driver_get_property;
   gobject_class->set_property = gis_driver_set_property;
+  gobject_class->finalize = gis_driver_finalize;
   application_class->startup = gis_driver_startup;
   application_class->activate = gis_driver_activate;
   klass->locale_changed = gis_driver_real_locale_changed;
