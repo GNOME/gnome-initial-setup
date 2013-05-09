@@ -67,6 +67,7 @@ struct _GisKeyboardPagePrivate {
 	GtkBuilder *builder;
 
         GDBusProxy  *localed;
+        GCancellable *cancellable;
 
         GtkWidget *overlay;
 
@@ -93,6 +94,9 @@ gis_keyboard_page_finalize (GObject *object)
 {
 	GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
 	GisKeyboardPagePrivate *priv = self->priv;
+
+        g_cancellable_cancel (priv->cancellable);
+        g_clear_object (&priv->cancellable);
 
         g_clear_object (&priv->localed);
         g_clear_object (&priv->input_settings);
@@ -862,9 +866,6 @@ setup_input_section (GisKeyboardPage *self)
 
         g_signal_connect (priv->input_settings, "changed::" KEY_INPUT_SOURCES,
                           G_CALLBACK (input_sources_changed), self);
-
-        add_input_sources_from_settings (self);
-        update_buttons (self);
 }
 
 static void
@@ -985,6 +986,8 @@ localed_proxy_ready (GObject      *source,
         priv = self->priv;
         priv->localed = proxy;
 
+        add_input_sources_from_localed (self);
+        update_buttons (self);
 }
 
 static void
@@ -1008,6 +1011,18 @@ gis_keyboard_page_init (GisKeyboardPage *self)
 	}
 
         setup_input_section (self);
+
+        priv->cancellable = g_cancellable_new ();
+
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+                                  NULL,
+                                  "org.freedesktop.locale1",
+                                  "/org/freedesktop/locale1",
+                                  "org.freedesktop.locale1",
+                                  priv->cancellable,
+                                  (GAsyncReadyCallback) localed_proxy_ready,
+                                  self);
 
         priv->overlay = GTK_WIDGET (gtk_builder_get_object (priv->builder,
                                                             "keyboard_page"));
