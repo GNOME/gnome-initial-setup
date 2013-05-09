@@ -389,51 +389,59 @@ add_input_row (GisKeyboardPage   *self,
 }
 
 static void
-add_input_sources (GisKeyboardPage *self,
-                   GVariant      *sources)
+add_input_source (GisKeyboardPage *self,
+                  const gchar     *type,
+                  const gchar     *id)
 {
         GisKeyboardPagePrivate *priv = self->priv;
-        GVariantIter iter;
-        const gchar *type;
-        const gchar *id;
         const gchar *name;
         gchar *display_name;
         GDesktopAppInfo *app_info;
 
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, &id)) {
-                display_name = NULL;
-                app_info = NULL;
+        display_name = NULL;
+        app_info = NULL;
 
-                if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
-                        gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
-                        if (!name) {
-                                g_warning ("Couldn't find XKB input source '%s'", id);
-                                continue;
-                        }
-                        display_name = g_strdup (name);
-                        type = INPUT_SOURCE_TYPE_XKB;
-#ifdef HAVE_IBUS
-                } else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
-                        IBusEngineDesc *engine_desc = NULL;
-
-                        if (priv->ibus_engines)
-                                engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
-                        if (engine_desc)
-                                display_name = engine_get_display_name (engine_desc);
-
-                        app_info = setup_app_info_for_id (id);
-                        type = INPUT_SOURCE_TYPE_IBUS;
-#endif
-                } else {
-                        g_warning ("Unhandled input source type '%s'", type);
-                        continue;
+        if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
+                gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
+                if (!name) {
+                        g_warning ("Couldn't find XKB input source '%s'", id);
+                        return;
                 }
+                display_name = g_strdup (name);
+                type = INPUT_SOURCE_TYPE_XKB;
+#ifdef HAVE_IBUS
+        } else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
+                IBusEngineDesc *engine_desc = NULL;
 
-                add_input_row (self, type, id, display_name ? display_name : id, app_info);
-                g_free (display_name);
-                g_clear_object (&app_info);
+                if (priv->ibus_engines)
+                        engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
+                if (engine_desc)
+                        display_name = engine_get_display_name (engine_desc);
+
+                app_info = setup_app_info_for_id (id);
+                type = INPUT_SOURCE_TYPE_IBUS;
+#endif
+        } else {
+                g_warning ("Unhandled input source type '%s'", type);
+                return;
         }
+
+        add_input_row (self, type, id, display_name ? display_name : id, app_info);
+        g_free (display_name);
+        g_clear_object (&app_info);
+}
+
+static void
+add_input_sources (GisKeyboardPage *self,
+                   GVariant        *sources)
+{
+        GVariantIter iter;
+        const gchar *type;
+        const gchar *id;
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, &id))
+                add_input_source (self, type, id);
 }
 
 static void
