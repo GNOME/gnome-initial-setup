@@ -36,6 +36,7 @@ EXTRA_DIST =						\
 	gnome-initial-setup.desktop.in.in		\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
+	initial-setup.json				\
 	$(NULL)
 
 CLEANFILES =						\
