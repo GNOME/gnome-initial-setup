@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup 3.7.x\n"
+"Project-Id-Version: gnome-initial-setup 3.8.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-25 17:57+0100\n"
-"PO-Revision-Date: 2013-02-25 17:57+0100\n"
+"POT-Creation-Date: 2013-05-13 10:11+0200\n"
+"PO-Revision-Date: 2013-05-13 10:12+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -19,60 +19,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Førstegangsoppsett"
 
-#: ../gnome-initial-setup/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "Uspesifisert"
-
-#: ../gnome-initial-setup/gis-assistant.c:284
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "_Neste"
 
-#: ../gnome-initial-setup/gis-assistant.c:285
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "Til_bake"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:222
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Tving ny bruker modus"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:226
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- Førstegangsoppsett for GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Use _Enterprise Login"
-msgstr "Bruk b_edriftspålogging"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+msgid "No password"
+msgstr "Uten passord"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
-msgid "_Use Local Login"
-msgstr "Br_uk lokal pålogging"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "Passordene er ikke like"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
 #, c-format
 msgid "Strength: %s"
 msgstr "Styrke: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
 msgid "Failed to register account"
 msgstr "Klarte ikke å registrere konto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
 msgid "Failed to join domain"
 msgstr "Klarte ikke å bli medlem av domenet"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
 msgid "Failed to log into domain"
 msgstr "Klarte ikke å logge inn i domenet"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:987
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
 msgid "Login"
 msgstr "Brukernavn"
 
@@ -230,7 +223,7 @@ msgstr "Dette vil ikke fjerne kontoen på tjeneren."
 msgid "_Remove"
 msgstr "Fje_rn"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
 msgid "Online Accounts"
 msgstr "Kontoer på nettet"
 
@@ -246,82 +239,44 @@ msgstr ""
 "Ved å legge til kontoer kan du koble til dine bilder, kontakter, e-post og "
 "annet på nettet uten ekstra arbeid."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "Tastaturutforming"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "_Legg til konto"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "Mer …"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+msgid "No input sources found"
+msgstr "Ingen inndatakilde funnet"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+msgid "Other"
+msgstr "Annet"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:152
+msgid "Input Sources"
+msgstr "Inndatakilder"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Velg inndatakilder"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
+msgid "Login settings are used by all users when logging into the system"
+msgstr "Innstillinger for pålogging brukes av alle brukere som logger inn på systemer"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
 msgstr "Legg til inndatakilde"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Fjern inndatakilde"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Flytt inndatakilde opp"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Flytt inndatakilde ned"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Innstillinger for inndatakilde"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Vis tastaturutforming"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "Velg en inndatakilde"
-
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "Engelsk"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "Britisk engelsk"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "Tysk"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "Fransk"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "Spansk"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "Kinesisk (forenklet)"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:131
-#, c-format
-msgid "Use %s"
-msgstr "Bruk %s"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:206
-msgid "More…"
-msgstr "Mer …"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:213
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "Ingen språk funnet"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:443
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:57
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
 msgid "Welcome"
 msgstr "Velkommen"
 
@@ -346,24 +301,24 @@ msgstr "_Bestemm din lokasjon automatisk"
 msgid "Time Zone"
 msgstr "Tidssone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Annet …"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "Network is not available."
 msgstr "Nettverk er ikke tilgjengelig."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
 msgid "No network devices found."
 msgstr "Ingen nettverksenheter funnet."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
 msgid "Checking for available wireless networks"
 msgstr "Se etter tilgjengelige trådløse nettverk"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
 msgid "Network"
 msgstr "Nettverk"
 
@@ -371,7 +326,7 @@ msgstr "Nettverk"
 msgid "Wireless Networks"
 msgstr "Trådløss nettverk"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Takk"
 
