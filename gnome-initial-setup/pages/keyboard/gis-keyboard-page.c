@@ -44,7 +44,7 @@
 #endif
 
 #include <act/act.h>
-
+#include <unistd.h>
 #include <egg-list-box.h>
 #include <libgd/gd.h>
 
@@ -73,6 +73,7 @@ struct _GisKeyboardPagePrivate {
         GtkWidget *show_layout;
         GtkWidget *input_scrolledwindow;
         guint n_input_rows;
+        guint gkbd_pid;
 
         GSettings *input_settings;
         GnomeXkbInfo *xkb_info;
@@ -781,6 +782,7 @@ show_selected_layout (GisKeyboardPage *self)
         const gchar *layout;
         const gchar *variant;
         gchar *commandline;
+        gchar **argv = NULL;
 
         selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->input_list));
         if (selected == NULL)
@@ -825,7 +827,28 @@ show_selected_layout (GisKeyboardPage *self)
                 commandline = g_strdup_printf ("gkbd-keyboard-display -l %s",
                                                layout);
 
-        g_spawn_command_line_async (commandline, NULL);
+        if (!g_shell_parse_argv (commandline,
+                            NULL,
+                            &argv,
+                            NULL))
+          goto out;
+
+        if (priv->gkbd_pid)
+          {
+            kill (priv->gkbd_pid, 9);
+            priv->gkbd_pid = 0;
+          }
+
+        g_spawn_async (NULL,
+                       argv,
+                       NULL,
+                       G_SPAWN_SEARCH_PATH,
+                       NULL,
+                       NULL,
+                       &priv->gkbd_pid,
+                       NULL);
+        g_strfreev (argv);
+  out:
         g_free (commandline);
 }
 
