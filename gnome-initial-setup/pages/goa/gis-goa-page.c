@@ -47,6 +47,7 @@ G_DEFINE_TYPE (GisGoaPage, gis_goa_page, GIS_TYPE_PAGE);
 
 struct _GisGoaPagePrivate {
   GoaClient *goa_client;
+  gboolean accounts_exist;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
@@ -184,6 +185,7 @@ update_visibility (GisGoaPage *page)
   GList *accounts;
 
   accounts = goa_client_get_accounts (priv->goa_client);
+  priv->accounts_exist = (accounts != NULL);
   gtk_widget_set_visible (WID ("online-accounts-label"), accounts == NULL);
   gtk_widget_set_visible (WID ("online-accounts-frame"), accounts != NULL);
   g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
@@ -326,7 +328,17 @@ network_status_changed (GNetworkMonitor *monitor,
                         gpointer         user_data)
 {
   GisGoaPage *page = GIS_GOA_PAGE (user_data);
+  GisGoaPagePrivate *priv = page->priv;
+  GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (page)->driver);
 
+  /* Ignore the network change if we're the current page or if an account
+   * has been configured.
+   */
+
+  if (gis_assistant_get_current_page (assistant) == GIS_PAGE (page))
+    return;
+
+  available = (available || priv->accounts_exist);
   gtk_widget_set_visible (GTK_WIDGET (page), available);
 }
 
@@ -338,6 +350,7 @@ gis_goa_page_constructed (GObject *object)
   GtkWidget *button;
   GError *error = NULL;
   GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
+  gboolean available;
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
 
@@ -366,10 +379,12 @@ gis_goa_page_constructed (GObject *object)
   g_signal_connect (network_monitor, "network-changed",
                     G_CALLBACK (network_status_changed), page);
 
-  gis_page_set_complete (GIS_PAGE (page), TRUE);
+  available = g_network_monitor_get_network_available (network_monitor);
+  network_status_changed (network_monitor,
+                          available,
+                          page);
 
-  if (g_network_monitor_get_network_available (network_monitor))
-    gtk_widget_show (GTK_WIDGET (page));
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
 }
 
 static void
