@@ -112,12 +112,23 @@ gis_keyboard_page_finalize (GObject *object)
 
 static void localed_proxy_ready (GObject *source, GAsyncResult *res, gpointer data);
 static void setup_input_section (GisKeyboardPage *self);
+static void update_input (GisKeyboardPage *self);
+
+static void
+next_page_cb (GisAssistant *assistant,
+              GisPage      *which_page,
+              GisPage      *this_page)
+{
+        if (which_page == this_page)
+                update_input (GIS_KEYBOARD_PAGE (this_page));
+}
 
 static void
 gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = self->priv;
+        GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (self)->driver);
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
 
@@ -136,6 +147,8 @@ gis_keyboard_page_constructed (GObject *object)
                                   priv->cancellable,
                                   (GAsyncReadyCallback) localed_proxy_ready,
                                   self);
+
+        g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), self);
 
         gis_page_set_complete (GIS_PAGE (self), TRUE);
         gtk_widget_show (GTK_WIDGET (self));
