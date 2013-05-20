@@ -972,8 +972,8 @@ gis_account_page_dispose (GObject *object)
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
   GisAccountPagePrivate *priv = page->priv;
 
-  g_clear_object (&priv->act_user);
-  g_clear_object (&priv->act_client);
+  if (priv->realm_manager && priv->realmd_watch)
+    g_bus_unwatch_name (priv->realmd_watch);
   g_clear_object (&priv->realm_manager);
   g_clear_object (&priv->action);
 
