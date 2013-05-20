@@ -81,11 +81,30 @@ is_username_used (const gchar *username)
 gboolean
 is_valid_name (const gchar *name)
 {
-        gboolean valid;
+        gboolean is_empty = TRUE;
+        const gchar *c;
 
-        valid = (strlen (name) > 0);
+        /* Valid names must contain:
+         *   1) at least one character.
+         *   2) at least one non-"space" character.
+         */
+        for (c = name; *c; c++) {
+                gunichar unichar;
 
-        return valid;
+                unichar = g_utf8_get_char_validated (c, -1);
+
+                /* Partial UTF-8 sequence or end of string */
+                if (unichar == (gunichar) -1 || unichar == (gunichar) -2)
+                        break;
+
+                /* Check for non-space character */
+                if (!g_unichar_isspace (unichar)) {
+                        is_empty = FALSE;
+                        break;
+                }
+        }
+
+        return !is_empty;
 }
 
 gboolean
@@ -136,7 +155,7 @@ is_valid_username (const gchar *username, gchar **tip)
                         *tip = g_strdup (_("The username cannot start with a '-'"));
                 }
                 else {
-                        *tip = g_strdup (_("The username must consist of:\n"
+                        *tip = g_strdup (_("The username must only consist of:\n"
                                           " \xe2\x9e\xa3 letters from the English alphabet\n"
                                           " \xe2\x9e\xa3 digits\n"
                                           " \xe2\x9e\xa3 any of the characters '.', '-' and '_'"));
@@ -307,6 +326,7 @@ generate_username_choices (const gchar  *name,
                 gtk_list_store_set (store, &iter, 0, item1->str, -1);
                 g_hash_table_insert (items, item1->str, item1->str);
         }
+
         /* if there's only one word, would be the same as item1 */
         if (nwords2 > 1) {
                 /* add other items */
