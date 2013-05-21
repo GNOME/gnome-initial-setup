@@ -274,6 +274,25 @@ insert_language (GHashTable *ht,
         g_free (label_untranslated);
 }
 
+static void
+insert_user_languages (GHashTable *ht)
+{
+        char *name;
+        char *language;
+
+        /* Add the languages used by other users on the system */
+        add_other_users_language (ht);
+
+        /* Add current locale */
+        name = cc_common_language_get_current_language ();
+        if (g_hash_table_lookup (ht, name) == NULL) {
+                language = gnome_get_language_from_locale (name, NULL);
+                g_hash_table_insert (ht, name, language);
+        } else {
+                g_free (name);
+        }
+}
+
 GHashTable *
 cc_common_language_get_initial_languages (void)
 {
@@ -291,29 +310,7 @@ cc_common_language_get_initial_languages (void)
         insert_language (ht, "ru_RU");
         insert_language (ht, "ar_EG");
 
-        return ht;
-}
-
-GHashTable *
-cc_common_language_get_user_languages (void)
-{
-        GHashTable *ht;
-        char *name;
-        char *language;
-
-        ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-
-        /* Add the languages used by other users on the system */
-        add_other_users_language (ht);
-
-        /* Add current locale */
-        name = cc_common_language_get_current_language ();
-        if (g_hash_table_lookup (ht, name) == NULL) {
-                language = gnome_get_language_from_locale (name, NULL);
-                g_hash_table_insert (ht, name, language);
-        } else {
-                g_free (name);
-        }
+        insert_user_languages (ht);
 
         return ht;
 }
