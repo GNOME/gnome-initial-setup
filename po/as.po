@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-02 13:24+0000\n"
-"PO-Revision-Date: 2013-05-03 18:36+0530\n"
+"POT-Creation-Date: 2013-05-20 15:03+0000\n"
+"PO-Revision-Date: 2013-05-21 14:25+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
 "Language-Team: Assamese <kde-i18n-doc@kde.org>\n"
 "Language: as\n"
@@ -170,23 +170,28 @@ msgstr "অবৈধ পাছৱাৰ্ড, অনুগ্ৰহ কৰি �
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "%s ডমেইনলে সংযোগ কৰিব নোৱাৰি: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "'%s' ব্যৱহাৰকাৰীনামৰ সৈতে এজন ব্যৱহাৰকাৰী ইতিমধ্যে অস্তিত্ববান"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "ব্যৱহাৰকাৰীনাম অতি দীঘল"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "ব্যৱহাৰকাৰীনাম '-' ৰ সৈতে আৰম্ভ হব নোৱাৰে"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#| msgid ""
+#| "The username must consist of:\n"
+#| " ➣ letters from the English alphabet\n"
+#| " ➣ digits\n"
+#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
@@ -206,27 +211,27 @@ msgstr "অনুজ্ঞা চুক্তিসমূহ"
 msgid "Add Account"
 msgstr "একাওন্ট যোগ কৰক"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "একাওন্ট সৃষ্টি কৰোতে ত্ৰুটি"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "একাওন্ট আতৰাওতে ত্ৰুটি"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "আপুনি একাওন্ট আতৰাবলে নিশ্চিত নে?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "ই চাৰ্ভাৰত একাওন্টক আতৰাই নিদিয়ে।"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "আতৰাওক (_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "অনলাইন একাওন্টসমূহ"
 
@@ -260,22 +265,9 @@ msgstr "কোনো ইনপুট উৎস পোৱা নগল"
 msgid "Other"
 msgstr "অন্য"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:155
-#| msgid "Input Source Settings"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "ইনপুট উৎসসমূহ"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:656
-msgid "Sorry"
-msgstr "ক্ষমা কৰিব"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:658
-msgid "Input methods can't be used on the login screen"
-msgstr "ইনপুট পদ্ধতিসমূহ লগিন পৰ্দাত ব্যৱহাৰ কৰিব নোৱাৰি"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1035
-msgid "No input source selected"
-msgstr "কোনো ইনপুট উৎস নিৰ্বাচন কৰা হোৱা নাই"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
@@ -359,6 +351,15 @@ msgstr "আপুনি এই বিকল্পসমূহক যিকোন
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "GNOME 3 ব্যৱহাৰ কৰা আৰম্ভ কৰক (_S)"
+
+#~ msgid "Sorry"
+#~ msgstr "ক্ষমা কৰিব"
+
+#~ msgid "Input methods can't be used on the login screen"
+#~ msgstr "ইনপুট পদ্ধতিসমূহ লগিন পৰ্দাত ব্যৱহাৰ কৰিব নোৱাৰি"
+
+#~ msgid "No input source selected"
+#~ msgstr "কোনো ইনপুট উৎস নিৰ্বাচন কৰা হোৱা নাই"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "পৰিবৰ্তনসমূহ প্ৰভাৱশালী হবলে আপোনাৰ অধিবেশন পুনৰাম্ভ কৰিব লাগিব"
