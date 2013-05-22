@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-02 13:24+0000\n"
-"PO-Revision-Date: 2013-05-02 18:17+0200\n"
+"POT-Creation-Date: 2013-05-20 15:03+0000\n"
+"PO-Revision-Date: 2013-05-22 11:37+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -167,30 +167,35 @@ msgstr "Contraseña no válida, inténtelo de nuevo"
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "No se pudo conectar al dominio %s: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Ya existe un nombre de usuario con el nombre «%s»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "El nombre de usuario es demasiado largo"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "El nombre de usuario no puede comenzar por «-»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#| msgid ""
+#| "The username must consist of:\n"
+#| " ➣ letters from the English alphabet\n"
+#| " ➣ digits\n"
+#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
 "El nombre de usuario debe consistir de:\n"
 " ➣ letras del alfabeto inglés\n"
-" ➣ dígitos\n"
+" ➣ dígitos\n"
 " ➣ cualquiera de los caracteres «.», «-» y «_»"
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
@@ -203,27 +208,27 @@ msgstr "Acuerdo de licencia"
 msgid "Add Account"
 msgstr "Añadir cuenta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "Error al crear la cuenta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "Error al quitar la cuenta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "¿Está seguro de que quiere quitar la cuenta?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "Esto no quitará la cuenta en el servidor."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "Quita_r"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "Cuentas en línea"
 
@@ -256,23 +261,9 @@ msgstr "No se han encontrado fuentes de entrada"
 msgid "Other"
 msgstr "Otra"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:155
-#| msgid "Input Source Settings"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Fuentes de entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:656
-msgid "Sorry"
-msgstr "Disculpe"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:658
-msgid "Input methods can't be used on the login screen"
-msgstr ""
-"Los métodos de entrada no se pueden usar en la pantalla de inicio de sesión"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1035
-msgid "No input source selected"
-msgstr "No se ha seleccionado ninguna fuente de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
@@ -357,6 +348,17 @@ msgstr "Puede cambiar estas opciones en cualquier momento en Configuración."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Empezar a usar GNOME 3"
+
+#~ msgid "Sorry"
+#~ msgstr "Disculpe"
+
+#~ msgid "Input methods can't be used on the login screen"
+#~ msgstr ""
+#~ "Los métodos de entrada no se pueden usar en la pantalla de inicio de "
+#~ "sesión"
+
+#~ msgid "No input source selected"
+#~ msgstr "No se ha seleccionado ninguna fuente de entrada"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "Debe reiniciar la sesión para que se apliquen los cambios"
