@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Khaled Hosny <khaledhosny@eglug.org>, 2012.
+# Khaled Hosny <khaledhosny@eglug.org>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-24 13:30+0200\n"
-"PO-Revision-Date: 2012-12-24 13:29+0200\n"
+"POT-Creation-Date: 2013-05-23 16:10+0200\n"
+"PO-Revision-Date: 2013-05-23 16:15+0200\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "Language: ar\n"
@@ -19,70 +19,81 @@ msgstr ""
 "X-Generator: Virtaal 0.7.0\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "الإعداد الأولي"
 
-#: ../gnome-initial-setup/gis-assistant.c:317
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "ال_تالي"
 
-#: ../gnome-initial-setup/gis-assistant.c:318
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
-msgstr "ال_سالق"
+msgstr "ال_سابق"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:311
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
+msgid "Force new user mode"
+msgstr "افرِض وضع المستخدم الجديد"
+
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
+msgid "- GNOME initial setup"
+msgstr "- إعداد جنوم الأولي"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+msgid "No password"
+msgstr "بلا كلمة السر"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "لا تتطابق كلمتا السر"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:489
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#, c-format
+msgid "Strength: %s"
+msgstr "القوّة: %s"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
 msgid "Failed to register account"
 msgstr "فشل تسجيل الحساب"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:552
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
 msgid "Failed to join domain"
 msgstr "فشل الانضمام إلى النطاق"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:607
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
 msgid "Failed to log into domain"
 msgstr "فشل الولوج إلى النطاق"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:902
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
 msgid "Login"
 msgstr "الولوج"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Choose How to Login"
-msgstr "اختر كيفية الولوج"
+msgid "Create a Local Account"
+msgstr "أنشئ حسابًا محليًا"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Local Account"
-msgstr "حساب _محلي"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Enterprise Login"
-msgstr "ولوج ال_مؤسسات"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "_Full Name"
 msgstr "الاسم بال_كامل"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
 msgid "_Username"
 msgstr "اسم المست_خدم"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "This will be used to name your home folder and can't be changed."
 msgstr "سيُستخدم هذا لتسمية مجلد المنزل ولا يمكن تغييره."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
 msgid "_Password"
 msgstr "_كلمة السر"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
 msgid "_Confirm password"
 msgstr "أكّ_د كلمة السّر"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
 msgid ""
 "Try to use at least 8 different characters. Mix upper and lower case and use "
 "a number or two."
@@ -90,17 +101,21 @@ msgstr ""
 "حاول أن تستخدم 8 حروف مختلفة على الأقل. اخلط بين الحروف الكبيرة والصغيرة "
 "واستخدم رقما أو أكثر."
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+msgid "page 1"
+msgstr "صفحة 1"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+msgid "Create an Enterprise Account"
+msgstr "أنشئ حساب مؤسسة"
+
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
 msgid "_Domain"
 msgstr "الن_طاق"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
-msgid "_Login Name"
-msgstr "اسم ال_ولوج"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Tip: Enterprise domain or realm name"
-msgstr "تلميحة: نطاق مؤسسة أو اسم مجال"
+msgid "Enterprise domain or realm name"
+msgstr "نطاق مؤسسة أو اسم حقيقي"
 
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
@@ -151,39 +166,34 @@ msgstr "كلمة سر خطأ، من فضلك أعد المحاولة"
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "تعذّر الاتصال بالنطاق %s:‏ %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:268
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "اسم المستخدم '%s' موجود بالفعل"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:272
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "اسم المستخدم طويل جدا"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:275
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "لا يمكن أن يبدأ اسم المستخدم بعلامة '-'"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:278
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"يجب أن يتكون اسم المستخدم من:\n"
-" ➣ حروف إنجليزية\n"
-" ➣ أرقام\n"
-" ➣ أي من العلامات '.'، '-' و '_'"
+"يجب أن لا يتعدى اسم المستخدم:\n"
+" ◂ الحروف الإنجليزية\n"
+" ◂ الأرقام\n"
+" ◂ أي من الحروف: '.' و '-' و '_'"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:268
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr "وا_فقت على بنود اتفاقية المستخدم النهائي."
-
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:293
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "اتفاقية الترخيص"
 
@@ -192,85 +202,87 @@ msgstr "اتفاقية الترخيص"
 msgid "Add Account"
 msgstr "أضف حسابًا"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:102
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "حدث عُطل أثناء إنشاء الحساب"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:134
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "حدث عُطل أثناء حذف الحساب"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:160
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "أمتأكد أنك تريد حذف الحساب؟"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:162
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "هذا لن يحذف الحساب من على الخادوم."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "ا_حذف"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:209
-msgid "Remove"
-msgstr "احذف"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:328
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "حسابات الإنترنت"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Link other accounts"
-msgstr "اربط حسابات أخرى"
+msgid "Connect to your existing data in the cloud"
+msgstr "اتّصل ببياناتك الموجودة على السحاب"
 
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "الإنجليزية"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+msgid ""
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
+msgstr ""
+"إضافة الحسابات سيتيح لك الاتصال لصورك و معارفك و بريدك على الشبكة، و غيرها."
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "الإنجليزية البريطانية"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "أ_ضف حسابًا"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "الألمانية"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "المزيد…"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "الفرنسية"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+msgid "No input sources found"
+msgstr "لا يوجد أي مصادر إدخال"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "الإسبانية"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+msgid "Other"
+msgstr "أخرى"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "الصينية (المبسطة)"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+msgid "Input Sources"
+msgstr "مصادر الإدخال"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "غير محددة"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+msgid "Select input sources"
+msgstr "اختر مصادر الإدخال"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:107
-#, c-format
-msgid "Use %s"
-msgstr "استخدم %s"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Login settings are used by all users when logging into the system"
+msgstr "يستخدم إعدادات الولوج كل المستخدمين أثناء الولوج إلى النظام"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:264
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "أضف مصْدَر إدخال"
+
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+msgid "No languages found"
+msgstr "لا يوجد أي لغات"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
 msgid "Welcome"
 msgstr "مرحبًا"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.ui.h:1
-msgid "Show _all"
-msgstr "أظهر ال_كل"
-
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:302
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
 msgid "Search for a location"
 msgstr "ابحث عن مكان"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:339
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "المكان"
@@ -287,27 +299,24 @@ msgstr "_حدد مكانك تلقائيا"
 msgid "Time Zone"
 msgstr "المنطقة الزمنية"
 
-#. TRANSLATORS: this is when the access point is not listed
-#. *                           * in the dropdown (or hidden) and the user has to select
-#. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:263
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
 msgctxt "Wireless access point"
-msgid "Other..."
-msgstr "أخرى..."
+msgid "Other…"
+msgstr "أخرى…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:342
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "Network is not available."
 msgstr "لا تتوفر شبكة."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
 msgid "No network devices found."
 msgstr "لم يُعثر أجهزة اتصال شبكي."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:392
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
 msgid "Checking for available wireless networks"
 msgstr "يبحث عن شبكات اللاسلكي المتاحة"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:689
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
 msgid "Network"
 msgstr "الشبكة"
 
@@ -315,33 +324,80 @@ msgstr "الشبكة"
 msgid "Wireless Networks"
 msgstr "الشبكات اللاسلكية"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:290
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "شكرًا"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Enjoy GNOME!"
-msgstr "استمتع بجنوم"
+msgid "Your computer is ready to use."
+msgstr "حاسوبك جاهز للاستخدام."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "Your new account is ready to use."
-msgstr "حسابك الجديد جاهز للاستخدام."
+msgid "You may change these options at any time in Settings."
+msgstr "يمكنك تغيير أي من هذه الخيارات من ”الإعدادات“."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "You may change any of these options at any time in the System Settings."
-msgstr "يمكنك تغيير أي من هذه الخيارات من ”إعدادات النظام“."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:4
 msgid "_Start using GNOME 3"
 msgstr "اب_دأ باستخدام جنوم 3"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:5
-msgid "New to GNOME 3 and need help finding your way around?"
-msgstr "هل تستخدم جنوم 3 لأول مرة وتحتاج للمساعدة في التعرف عليها؟"
+#~ msgid "Choose How to Login"
+#~ msgstr "اختر كيفية الولوج"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:6
-msgid "_Take a Tour"
-msgstr "_خذ جولة"
+#~ msgid "_Local Account"
+#~ msgstr "حساب _محلي"
+
+#~ msgid "_Enterprise Login"
+#~ msgstr "ولوج ال_مؤسسات"
+
+#~ msgid "_Login Name"
+#~ msgstr "اسم ال_ولوج"
+
+#~ msgid ""
+#~ "I have _agreed to the terms and conditions in this end user license "
+#~ "agreement."
+#~ msgstr "وا_فقت على بنود اتفاقية المستخدم النهائي."
+
+#~ msgid "Remove"
+#~ msgstr "احذف"
+
+#~ msgid "Link other accounts"
+#~ msgstr "اربط حسابات أخرى"
+
+#~ msgid "English"
+#~ msgstr "الإنجليزية"
+
+#~ msgid "British English"
+#~ msgstr "الإنجليزية البريطانية"
+
+#~ msgid "German"
+#~ msgstr "الألمانية"
+
+#~ msgid "French"
+#~ msgstr "الفرنسية"
+
+#~ msgid "Spanish"
+#~ msgstr "الإسبانية"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "الصينية (المبسطة)"
+
+#~ msgid "Unspecified"
+#~ msgstr "غير محددة"
+
+#~ msgid "Use %s"
+#~ msgstr "استخدم %s"
+
+#~ msgid "Show _all"
+#~ msgstr "أظهر ال_كل"
+
+#~ msgid "Enjoy GNOME!"
+#~ msgstr "استمتع بجنوم"
+
+#~ msgid "New to GNOME 3 and need help finding your way around?"
+#~ msgstr "هل تستخدم جنوم 3 لأول مرة وتحتاج للمساعدة في التعرف عليها؟"
+
+#~ msgid "_Take a Tour"
+#~ msgstr "_خذ جولة"
 
 #~ msgid "_Cancel"
 #~ msgstr "أ_لغِ"
@@ -354,9 +410,6 @@ msgstr "_خذ جولة"
 
 #~ msgid "_Act as administrator of this computer"
 #~ msgstr "ت_صرّف كمدير لهذا الحاسوب"
-
-#~ msgid "Create a Local Account"
-#~ msgstr "أنشئ حسابًا محليًا"
 
 #~ msgid "Disable image"
 #~ msgstr "عطّل الصورة"
