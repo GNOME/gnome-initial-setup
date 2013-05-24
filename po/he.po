@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-21 19:34+0200\n"
-"PO-Revision-Date: 2013-02-21 19:35+0200\n"
+"POT-Creation-Date: 2013-05-24 11:28+0300\n"
+"PO-Revision-Date: 2013-05-24 11:29+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -21,60 +21,53 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "התקנה ראשונית"
 
-#: ../gnome-initial-setup/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "לא צוינה"
-
-#: ../gnome-initial-setup/gis-assistant.c:284
+#: ../gnome-initial-setup/gis-assistant.c:347
 msgid "_Next"
 msgstr "ה_בא"
 
-#: ../gnome-initial-setup/gis-assistant.c:285
+#: ../gnome-initial-setup/gis-assistant.c:348
 msgid "_Back"
 msgstr "ה_קודם"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:222
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "אילוץ מצב משתמש חדש"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:226
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "- הגדרות ראשוניות של GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Use _Enterprise Login"
-msgstr "שימוש בכניסה א_רגונית"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+msgid "No password"
+msgstr "ללא ססמה"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
-msgid "_Use Local Login"
-msgstr "שימוש בחשבון מ_קומי"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
 msgid "Passwords do not match"
 msgstr "הססמאות אינן תואמות"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
 #, c-format
 msgid "Strength: %s"
 msgstr "חוזק: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
 msgid "Failed to register account"
 msgstr "רישום החשבון נכשל"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
 msgid "Failed to join domain"
 msgstr "ההצטרפות למתחם נכשלה"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
 msgid "Failed to log into domain"
 msgstr "הכניסה למתחם נכשלה"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:987
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
 msgid "Login"
 msgstr "כניסה"
 
@@ -171,28 +164,28 @@ msgstr "ססמה שגויה, נא לנסות שוב"
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "לא ניתן להתחבר למתחם %s:‏ %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "משתמש בשם '%s' כבר קיים"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "שם המשתמש ארוך מדי"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "שם המשתמש לא יכול להתחיל ב־'-'"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"שם המשתמש חייב להיות מורכב מהבאים:\n"
+"שם המשתמש חייב להיות מורכב מהבאים בלבד:\n"
 " ⇦ אותיות מהאלפבית האנגלי\n"
 " ⇦ ספרות\n"
 " ⇦ כל אחד מהתווים '.', '-' ו־'_'"
@@ -207,27 +200,27 @@ msgstr "הסכמי רישוי"
 msgid "Add Account"
 msgstr "הוספת חשבון"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "שגיאה ביצירת חשבון"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "שגיאה בהסרת חשבון"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "האם אכן ברצונך להסיר את החשבון?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "פעולה זו לא תסיר את החשבון מהשרת."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "ה_סרה"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "חשבונות מקוונים"
 
@@ -239,82 +232,44 @@ msgstr "ניתן להתחבר לנתונים הנוכחיים שלך בענן"
 msgid "Adding accounts will allow you to transparently connect to your online photos, contacts, mail, and more."
 msgstr "הוספת חשבונות תאפשר לך להתחבר לתמונות, אנשי הקשר, הדוא״ל ושירותים מקוונים נוספים שלרשותך באופן שקוף."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "פריסת מקלדת"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "הו_ספת חשבון"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "עוד…"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+msgid "No input sources found"
+msgstr "לא נמצאו מקורות קלט"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+msgid "Other"
+msgstr "אחר"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+msgid "Input Sources"
+msgstr "מקורות קלט"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "נא לבחור במקורות קלט"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
+msgid "Login settings are used by all users when logging into the system"
+msgstr "הגדרות הכניסה משמשות את כל המשתמשים בעת הכניסה למערכת"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
 msgstr "הוספת מקור קלט"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "הסרת מקור קלט"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "הגבהת מקור הקלט"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "הנמכת מקור הקלט"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "הגדרות מקור הקלט"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "הצגת פריסת המקלדת"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "נא לבחור במקור קלט"
-
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "אנגלית"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "אנגלית בריטית"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "גרמנית"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "צרפתית"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "ספרדית"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "סינית (מפושטת)"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:131
-#, c-format
-msgid "Use %s"
-msgstr "שימוש ב%s"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:206
-msgid "More…"
-msgstr "עוד…"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:213
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "לא נמצאו שפות"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:443
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:57
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
 msgid "Welcome"
 msgstr "ברוך בואך"
 
@@ -339,24 +294,24 @@ msgstr "_איתור המיקום שלך אוטומטית"
 msgid "Time Zone"
 msgstr "אזור זמן"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "אחר…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "Network is not available."
 msgstr "הרשת אינה זמינה."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
 msgid "No network devices found."
 msgstr "לא נמצא התקן רשת."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
 msgid "Checking for available wireless networks"
 msgstr "מתבצע חיפוש אחר רשתות אלחוטיות זמינות"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
 msgid "Network"
 msgstr "רשת"
 
@@ -364,7 +319,7 @@ msgstr "רשת"
 msgid "Wireless Networks"
 msgstr "רשתות אלחוטיות"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "תודה רבה לך"
 
@@ -379,6 +334,54 @@ msgstr "ניתן לשנות כל אחת מאפשרויות אלה בכל עת ד
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "להת_חיל להשתמש ב־GNOME 3"
+
+#~ msgid "Unspecified"
+#~ msgstr "לא צוינה"
+
+#~ msgid "Use _Enterprise Login"
+#~ msgstr "שימוש בכניסה א_רגונית"
+
+#~ msgid "_Use Local Login"
+#~ msgstr "שימוש בחשבון מ_קומי"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "פריסת מקלדת"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "הסרת מקור קלט"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "הגבהת מקור הקלט"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "הגדרות מקור הקלט"
+
+#~ msgid "Show Keyboard Layout"
+#~ msgstr "הצגת פריסת המקלדת"
+
+#~ msgid "Select an input source"
+#~ msgstr "נא לבחור במקור קלט"
+
+#~ msgid "English"
+#~ msgstr "אנגלית"
+
+#~ msgid "British English"
+#~ msgstr "אנגלית בריטית"
+
+#~ msgid "German"
+#~ msgstr "גרמנית"
+
+#~ msgid "French"
+#~ msgstr "צרפתית"
+
+#~ msgid "Spanish"
+#~ msgstr "ספרדית"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "סינית (מפושטת)"
+
+#~ msgid "Use %s"
+#~ msgstr "שימוש ב%s"
 
 #~ msgid "_Login Name"
 #~ msgstr "שם ה_כניסה"
