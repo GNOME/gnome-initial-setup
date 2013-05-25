@@ -779,31 +779,80 @@ save_account_data (GisAccountPage *page)
   }
 }
 
+static gchar *
+realm_get_name (UmRealmObject *realm)
+{
+  UmRealmCommon *common;
+  gchar *name;
+
+  common = um_realm_object_get_common (realm);
+  name = g_strdup (um_realm_common_get_name (common));
+  g_object_unref (common);
+
+  return name;
+}
+
+static gboolean
+model_contains_realm (GtkTreeModel *model,
+                      const gchar *realm_name)
+{
+  gboolean contains = FALSE;
+  GtkTreeIter iter;
+  gboolean match;
+  gchar *name;
+  gboolean ret;
+
+  ret = gtk_tree_model_get_iter_first (model, &iter);
+  while (ret) {
+    gtk_tree_model_get (model, &iter, 0, &name, -1);
+    match = (g_strcmp0 (name, realm_name) == 0);
+    g_free (name);
+    if (match) {
+      g_debug ("ignoring duplicate realm: %s", realm_name);
+      contains = TRUE;
+      break;
+    }
+    ret = gtk_tree_model_iter_next (model, &iter);
+  }
+
+  return contains;
+}
+
 static void
 enterprise_add_realm (GisAccountPage *page,
                       UmRealmObject  *realm)
 {
   GisAccountPagePrivate *priv = page->priv;
   GtkTreeIter iter;
-  UmRealmCommon *common;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
-  GtkListStore *model = OBJ(GtkListStore*, "enterprise-realms-model");
+  GtkTreeModel *model = OBJ(GtkTreeModel*, "enterprise-realms-model");
+  gchar *name;
+  gboolean ret;
 
-  g_debug ("Adding new realm to drop down: %s",
-           g_dbus_object_get_object_path (G_DBUS_OBJECT (realm)));
+  name = realm_get_name (realm);
 
-  common = um_realm_object_get_common (realm);
+  /*
+   * Don't add a second realm if we already have one with this name.
+   * Sometimes realmd returns two realms for the same name, if it has
+   * different ways to use that realm. The first one that realmd
+   * returns is the one it prefers.
+   */
 
-  gtk_list_store_append (model, &iter);
-  gtk_list_store_set (model, &iter,
-                      0, um_realm_common_get_name (common),
-                      1, realm,
-                      -1);
+  if (!model_contains_realm (model, name)) {
+    gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                        0, name,
+                        1, realm,
+                        -1);
 
-  if (!priv->domain_chosen && um_realm_is_configured (realm))
-    gtk_combo_box_set_active_iter (domain, &iter);
+    if (!priv->domain_chosen && um_realm_is_configured (realm))
+      gtk_combo_box_set_active_iter (domain, &iter);
 
-  g_object_unref (common);
+    g_debug ("added realm to drop down: %s %s", name,
+             g_dbus_object_get_object_path (G_DBUS_OBJECT (realm)));
+  }
+
+  g_free (name);
 }
 
 static void
