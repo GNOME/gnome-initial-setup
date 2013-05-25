@@ -637,9 +637,19 @@ on_realm_login (GObject *source,
   GisAccountPage *page = user_data;
   UmRealmObject *realm = UM_REALM_OBJECT (source);
   GError *error = NULL;
-  GBytes *creds;
+  GBytes *creds = NULL;
 
   um_realm_login_finish (result, &creds, &error);
+
+  /*
+   * User login is valid, but cannot authenticate right now (eg: user needs
+   * to change password at next login etc.)
+   */
+  if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_CANNOT_AUTH)) {
+    g_clear_error (&error);
+    creds = NULL;
+  }
+
   if (error == NULL) {
 
     /* Already joined to the domain, just register this user */
@@ -648,7 +658,8 @@ on_realm_login (GObject *source,
       enterprise_permit_user_login (page, realm);
 
       /* Join the domain, try using the user's creds */
-    } else if (!um_realm_join_as_user (realm,
+    } else if (creds == NULL ||
+               !um_realm_join_as_user (realm,
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
                                        creds, NULL,
