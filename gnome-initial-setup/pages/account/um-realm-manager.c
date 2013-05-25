@@ -522,6 +522,7 @@ realm_join_as_owner (UmRealmObject *realm,
         GSimpleAsyncResult *async;
         GVariant *contents;
         GVariant *options;
+        GVariant *option;
         GVariant *creds;
         const gchar *type;
 
@@ -554,7 +555,8 @@ realm_join_as_owner (UmRealmObject *realm,
         }
 
         creds = g_variant_new ("(ssv)", type, owner, contents);
-        options = g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0);
+        option = g_variant_new ("{sv}", "manage-system", g_variant_new_boolean (FALSE));
+        options = g_variant_new_array (G_VARIANT_TYPE ("{sv}"), &option, 1);
 
         g_debug ("Calling the Join() method with %s credentials", owner);
 
