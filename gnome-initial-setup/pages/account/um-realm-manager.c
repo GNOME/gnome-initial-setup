@@ -98,8 +98,10 @@ on_object_added (GDBusObjectManager *manager,
                  GDBusObject *object,
                  gpointer user_data)
 {
-        if (is_realm_with_kerberos_and_membership (object))
+        if (is_realm_with_kerberos_and_membership (object)) {
+                g_debug ("Saw realm: %s", g_dbus_object_get_object_path (object));
                 g_signal_emit (user_data, signals[REALM_ADDED], 0, object);
+        }
 }
 
 static void
@@ -313,6 +315,7 @@ on_provider_discover (GObject *source,
         DiscoverClosure *discover = g_simple_async_result_get_op_res_gpointer (async);
         GDBusObject *object;
         GError *error = NULL;
+        gboolean no_membership = FALSE;
         gchar **realms;
         gint relevance;
         gint i;
@@ -322,13 +325,25 @@ on_provider_discover (GObject *source,
         if (error == NULL) {
                 for (i = 0; realms[i]; i++) {
                         object = g_dbus_object_manager_get_object (discover->manager, realms[i]);
-                        if (object == NULL)
+                        if (object == NULL) {
                                 g_warning ("Realm is not in object manager: %s", realms[i]);
-                        else
-                                discover->realms = g_list_prepend (discover->realms, object);
+                        } else {
+                                if (is_realm_with_kerberos_and_membership (object)) {
+                                        g_debug ("Discovered realm: %s", realms[i]);
+                                        discover->realms = g_list_prepend (discover->realms, object);
+                                } else {
+                                        g_debug ("Realm does not support kerberos membership: %s", realms[i]);
+                                        no_membership = TRUE;
+                                        g_object_unref (object);
+                                }
+                        }
                 }
                 g_strfreev (realms);
 
+                if (!discover->realms && no_membership) {
+                        g_simple_async_result_set_error (async, UM_REALM_ERROR, UM_REALM_ERROR_GENERIC,
+                                                         _("Cannot automatically join this type of domain"));
+                }
         } else {
                 g_simple_async_result_take_error (async, error);
         }
