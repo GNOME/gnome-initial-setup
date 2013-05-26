@@ -669,6 +669,11 @@ um_realm_join_finish (UmRealmObject *realm,
                 g_set_error (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN,
                              "%s", call_error->message);
                 g_error_free (call_error);
+        } else if (g_str_equal (dbus_error, "org.freedesktop.realmd.Error.BadHostname")) {
+                g_debug ("Join() failed because of invalid/conflicting host name");
+                g_set_error (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_HOSTNAME,
+                             "%s", call_error->message);
+                g_error_free (call_error);
         } else {
                 g_debug ("Join() failed because of %s", call_error->message);
                 g_propagate_error (error, call_error);
