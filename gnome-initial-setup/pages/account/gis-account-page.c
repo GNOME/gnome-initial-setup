@@ -759,7 +759,7 @@ enterprise_add_user (GisAccountPage *page)
                                gtk_entry_get_text (OBJ (GtkEntry*, "enterprise-domain-entry")),
                                NULL,
                                on_realm_discover_input,
-                               priv);
+                               page);
   }
 }
 
