@@ -62,6 +62,7 @@ struct _GisAssistantPrivate
   GtkWidget *main_layout;
   GtkWidget *action_area;
   GtkWidget *page_action_widget_area;
+  GtkWidget *spinner;
 
   GList *pages;
   GisPage *current_page;
@@ -261,6 +262,12 @@ update_applying_state (GisAssistant *assistant)
   gtk_widget_set_sensitive (assistant->priv->forward, !applying);
   gtk_widget_set_visible (assistant->priv->back, !applying);
   gtk_widget_set_visible (assistant->priv->cancel, applying);
+  gtk_widget_set_visible (assistant->priv->spinner, applying);
+
+  if (applying)
+    gtk_spinner_start (GTK_SPINNER (assistant->priv->spinner));
+  else
+    gtk_spinner_stop (GTK_SPINNER (assistant->priv->spinner));
 }
 
 static void
@@ -397,6 +404,8 @@ gis_assistant_init (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = GET_PRIVATE (assistant);
   GtkWidget *navigation;
+  GtkWidget *widget;
+
   assistant->priv = priv;
 
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
@@ -428,6 +437,13 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_button_set_image (GTK_BUTTON (priv->cancel),
                         gtk_image_new_from_stock (GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON));
   gtk_button_set_use_underline (GTK_BUTTON (priv->cancel), TRUE);
+
+  priv->spinner = gtk_spinner_new ();
+  widget = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (widget), 0, 0, 12, 6);
+  gtk_box_pack_start (GTK_BOX (navigation), widget, FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (widget), priv->spinner);
+  gtk_widget_show (widget);
 
   gtk_box_pack_start (GTK_BOX (navigation), priv->cancel, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (navigation), priv->back, FALSE, FALSE, 0);
