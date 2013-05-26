@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-02 13:24+0000\n"
-"PO-Revision-Date: 2013-05-06 22:34+0300\n"
+"POT-Creation-Date: 2013-05-20 15:03+0000\n"
+"PO-Revision-Date: 2013-05-26 21:50+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -169,23 +169,28 @@ msgstr "Netinkamas slaptažodis, mėginkite dar kartą"
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Nepavyko prisijungti prie domeno %s: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Naudotojas vardu „%s“ jau yra"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Naudotojo vardas yra per ilgas"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Naudotojo vardas negali prasidėti „-“"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#| msgid ""
+#| "The username must consist of:\n"
+#| " ➣ letters from the English alphabet\n"
+#| " ➣ digits\n"
+#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
@@ -205,27 +210,27 @@ msgstr "Sutikimai su licencijomis"
 msgid "Add Account"
 msgstr "Pridėti paskyrą"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "Klaida kuriant paskyrą"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "Klaida šalinant paskyrą"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "Ar tikrai norite pašalinti paskyrą?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "Tai nepašalins paskyros serveryje."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "Š_alinti"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "Internetinės paskyros"
 
@@ -258,22 +263,9 @@ msgstr "Nerasta įvesties šaltinių"
 msgid "Other"
 msgstr "Kita"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:155
-#| msgid "Add an Input Source"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Įvesties šaltiniai"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:656
-msgid "Sorry"
-msgstr "Atleiskite"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:658
-msgid "Input methods can't be used on the login screen"
-msgstr "Įvesties metodų negalima naudoti prisijungimo ekrane"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1035
-msgid "No input source selected"
-msgstr "Nepasirinktas įvesties šaltinis"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
@@ -358,6 +350,15 @@ msgstr "Galite bet kada pakeisti šiuos nustatymus sistemos nustatymuose."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Pradėti naudoti GNOME 3"
+
+#~ msgid "Sorry"
+#~ msgstr "Atleiskite"
+
+#~ msgid "Input methods can't be used on the login screen"
+#~ msgstr "Įvesties metodų negalima naudoti prisijungimo ekrane"
+
+#~ msgid "No input source selected"
+#~ msgstr "Nepasirinktas įvesties šaltinis"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "Kad įsigaliotų pakeitimai, reikia atsijungti"
