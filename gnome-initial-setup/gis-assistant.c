@@ -57,6 +57,7 @@ struct _GisAssistantPrivate
   GtkWidget *frame;
   GtkWidget *forward;
   GtkWidget *back;
+  GtkWidget *cancel;
   GtkWidget *progress_indicator;
   GtkWidget *main_layout;
   GtkWidget *action_area;
@@ -258,6 +259,8 @@ update_applying_state (GisAssistant *assistant)
     applying = gis_page_get_applying (assistant->priv->current_page);
   gtk_widget_set_sensitive (assistant->priv->frame, !applying);
   gtk_widget_set_sensitive (assistant->priv->forward, !applying);
+  gtk_widget_set_visible (assistant->priv->back, !applying);
+  gtk_widget_set_visible (assistant->priv->cancel, applying);
 }
 
 static void
@@ -337,6 +340,14 @@ go_backward (GtkWidget    *button,
   gis_assistant_previous_page (assistant);
 }
 
+static void
+do_cancel (GtkWidget    *button,
+           GisAssistant *assistant)
+{
+  if (assistant->priv->current_page)
+    gis_page_apply_cancel (assistant->priv->current_page);
+}
+
 gchar *
 gis_assistant_get_title (GisAssistant *assistant)
 {
@@ -375,6 +386,7 @@ gis_assistant_locale_changed (GisAssistant *assistant)
 
   gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
   gtk_button_set_label (GTK_BUTTON (priv->back), _("_Back"));
+  gtk_button_set_label (GTK_BUTTON (priv->cancel), _("_Cancel"));
 
   for (l = priv->pages; l != NULL; l = l->next)
     gis_page_locale_changed (l->data);
@@ -412,11 +424,18 @@ gis_assistant_init (GisAssistant *assistant)
                         gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
   gtk_button_set_use_underline (GTK_BUTTON (priv->back), TRUE);
 
+  priv->cancel = gtk_button_new ();
+  gtk_button_set_image (GTK_BUTTON (priv->cancel),
+                        gtk_image_new_from_stock (GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON));
+  gtk_button_set_use_underline (GTK_BUTTON (priv->cancel), TRUE);
+
+  gtk_box_pack_start (GTK_BOX (navigation), priv->cancel, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (navigation), priv->back, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (navigation), priv->forward, FALSE, FALSE, 0);
 
   g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
   g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
+  g_signal_connect (priv->cancel, "clicked", G_CALLBACK (do_cancel), assistant);
 
   priv->progress_indicator = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_widget_set_halign (priv->progress_indicator, GTK_ALIGN_CENTER);

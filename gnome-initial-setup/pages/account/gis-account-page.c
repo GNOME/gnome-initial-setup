@@ -72,6 +72,7 @@ struct _GisAccountPagePrivate
   guint realmd_watch;
   UmRealmManager *realm_manager;
   gboolean domain_chosen;
+  GCancellable *cancellable;
 
   GtkWidget *action;
 };
@@ -85,6 +86,9 @@ show_error_dialog (GisAccountPage *page,
                    GError *error)
 {
   GtkWidget *dialog;
+
+  if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+    return;
 
   dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -590,7 +594,7 @@ enterprise_permit_user_login (GisAccountPage *page, UmRealmObject *realm)
 
   um_realm_common_call_change_login_policy (common, "",
                                             add, remove, options,
-                                            NULL,
+                                            page->priv->cancellable,
                                             on_permit_user_login,
                                             page);
 
@@ -666,7 +670,7 @@ on_realm_login (GObject *source,
                !um_realm_join_as_user (realm,
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
-                                       creds, NULL,
+                                       creds, page->priv->cancellable,
                                        on_realm_joined,
                                        page)) {
 
@@ -711,7 +715,7 @@ enterprise_check_login (GisAccountPage *page, UmRealmObject *realm)
   um_realm_login (realm,
                   gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
                   gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
-                  NULL,
+                  page->priv->cancellable,
                   on_realm_login,
                   page);
 }
@@ -766,7 +770,7 @@ enterprise_add_user (GisAccountPage *page)
   } else {
     um_realm_manager_discover (priv->realm_manager,
                                gtk_entry_get_text (OBJ (GtkEntry*, "enterprise-domain-entry")),
-                               NULL,
+                               priv->cancellable,
                                on_realm_discover_input,
                                page);
   }
@@ -963,10 +967,13 @@ toggle_mode (GtkToggleButton *button,
 }
 
 static void
-gis_account_page_apply (GisPage *page,
-                           GCancellable *cancellable)
+gis_account_page_apply (GisPage *gis_page,
+                        GCancellable *cancellable)
 {
-  save_account_data (GIS_ACCOUNT_PAGE (page));
+  GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
+  g_clear_object (&page->priv->cancellable);
+  page->priv->cancellable = g_object_ref (cancellable);
+  save_account_data (page);
 }
 
 static void
