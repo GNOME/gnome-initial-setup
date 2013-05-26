@@ -251,6 +251,16 @@ update_navigation_buttons (GisAssistant *assistant)
 }
 
 static void
+update_applying_state (GisAssistant *assistant)
+{
+  gboolean applying = FALSE;
+  if (assistant->priv->current_page)
+    applying = gis_page_get_applying (assistant->priv->current_page);
+  gtk_widget_set_sensitive (assistant->priv->frame, !applying);
+  gtk_widget_set_sensitive (assistant->priv->forward, !applying);
+}
+
+static void
 gis_assistant_real_prepare (GisAssistant *assistant,
                             GisPage      *page)
 {
@@ -269,6 +279,8 @@ page_notify (GisPage      *page,
 
   if (strcmp (pspec->name, "title") == 0)
     g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
+  else if (strcmp (pspec->name, "applying") == 0)
+    update_applying_state (assistant);
   else
     update_navigation_buttons (assistant);
 }
@@ -349,6 +361,7 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
 
   if (priv->current_page != page) {
     priv->current_page = page;
+    update_applying_state (assistant);
     g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
     g_signal_emit (assistant, signals[PREPARE], 0, page);
   }
@@ -415,6 +428,7 @@ gis_assistant_init (GisAssistant *assistant)
   gis_assistant_locale_changed (assistant);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
 
+  update_applying_state (assistant);
   gtk_widget_show_all (GTK_WIDGET (assistant));
 }
 

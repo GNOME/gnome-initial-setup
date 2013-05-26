@@ -1022,6 +1022,7 @@ gis_account_page_constructed (GObject *object)
 
   priv->action = gtk_toggle_button_new_with_mnemonic ("_Use Enterprise Login");
   g_signal_connect (priv->action, "toggled", G_CALLBACK (toggle_mode), page);
+  g_object_bind_property (page, "applying", priv->action, "sensitive", G_BINDING_INVERT_BOOLEAN);
   gtk_widget_show (priv->action);
   g_object_ref_sink (priv->action);
 
