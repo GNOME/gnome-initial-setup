@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-02 13:24+0000\n"
-"PO-Revision-Date: 2013-05-08 00:35+0200\n"
+"POT-Creation-Date: 2013-05-20 15:03+0000\n"
+"PO-Revision-Date: 2013-05-26 08:30+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -169,28 +168,28 @@ msgstr "La contrasenya no és vàlida, torneu-ho a intentar"
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "No s'ha pogut connectar al domini %s: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Ja existeix un usuari amb el nom d'usuari «%s»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "El nom d'usuari és massa curt"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "El nom d'usuari no pot començar amb «-»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"El nom d'usuari ha d'estar compost per:\n"
+"El nom d'usuari només pot estar compost per:\n"
 " ➣ lletres de l'alfabet anglès\n"
 " ➣ números\n"
 " ➣ qualsevol dels caràcters «.», «-» i «_»"
@@ -205,27 +204,27 @@ msgstr "Acords de llicència"
 msgid "Add Account"
 msgstr "Afegeix un compte"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "S'ha produït un error en crear el compte"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "S'ha produït un error en suprimir el compte"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "Segur que voleu suprimir el compte?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "Amb això suprimireu el compte al servidor."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "_Suprimeix"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "Comptes en línia"
 
@@ -258,21 +257,9 @@ msgstr "No s'ha trobat cap font d'entrada"
 msgid "Other"
 msgstr "Altres"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:155
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Fonts d'entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:656
-msgid "Sorry"
-msgstr "Disculpes"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:658
-msgid "Input methods can't be used on the login screen"
-msgstr "No es poden fer servir els mètodes d'entrada en la pantalla d'entrada"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1035
-msgid "No input source selected"
-msgstr "No s'ha seleccionat cap mètode d'entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
@@ -358,3 +345,13 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Comenceu a utilitzar el GNOME 3"
+
+#~ msgid "Sorry"
+#~ msgstr "Disculpes"
+
+#~ msgid "Input methods can't be used on the login screen"
+#~ msgstr ""
+#~ "No es poden fer servir els mètodes d'entrada en la pantalla d'entrada"
+
+#~ msgid "No input source selected"
+#~ msgstr "No s'ha seleccionat cap mètode d'entrada"
