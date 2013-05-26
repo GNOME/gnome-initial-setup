@@ -556,12 +556,14 @@ on_permit_user_login (GObject *source,
     g_debug ("Caching remote user: %s", login);
 
     priv->act_user = act_user_manager_cache_user (priv->act_client, login, NULL);
+    gis_page_apply_complete (GIS_PAGE (page), TRUE);
 
     g_free (login);
   } else {
     show_error_dialog (page, _("Failed to register account"), error);
     g_message ("Couldn't permit logins on account: %s", error->message);
     g_error_free (error);
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
   }
 }
 
@@ -619,11 +621,13 @@ on_realm_joined (GObject *source,
 
     /* XXX */
     /* join_show_prompt (self, error); */
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
 
     /* Other failure */
   } else {
     show_error_dialog (page, _("Failed to join domain"), error);
     g_message ("Failed to join the domain: %s", error->message);
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
   }
 
   g_clear_error (&error);
@@ -671,6 +675,7 @@ on_realm_login (GObject *source,
 
       /* XXX: creds */
       /* join_show_prompt (self, NULL); */
+      gis_page_apply_complete (GIS_PAGE (page), FALSE);
     }
 
     g_bytes_unref (creds);
@@ -680,16 +685,19 @@ on_realm_login (GObject *source,
     g_debug ("Problem with the user's login: %s", error->message);
     set_entry_validation_error (OBJ (GtkEntry *, "enterprise-login"), error->message);
     gtk_widget_grab_focus (WID ("enterprise-login"));
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Problem with the user's password: %s", error->message);
     set_entry_validation_error (OBJ (GtkEntry *, "enterprise-password"), error->message);
     gtk_widget_grab_focus (WID ("enterprise-password"));
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
 
     /* Other login failure */
   } else {
     show_error_dialog (page, _("Failed to log into domain"), error);
     g_message ("Couldn't log in as user: %s", error->message);
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
   }
 
   g_clear_error (&error);
@@ -735,6 +743,7 @@ on_realm_discover_input (GObject *source,
     g_message ("Couldn't discover domain: %s", error->message);
     gtk_widget_grab_focus (WID ("enterprise-domain-entry"));
     set_entry_validation_error (OBJ (GtkEntry*, "enterprise-domain-entry"), error->message);
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
     g_error_free (error);
   }
 }
@@ -770,6 +779,7 @@ save_account_data (GisAccountPage *page)
   switch (priv->mode) {
   case UM_LOCAL:
     local_create_user (page);
+    gis_page_apply_complete (GIS_PAGE (page), TRUE);
     break;
   case UM_ENTERPRISE:
     enterprise_add_user (page);
@@ -953,12 +963,10 @@ toggle_mode (GtkToggleButton *button,
 }
 
 static void
-next_page_cb (GisAssistant *assistant,
-              GisPage      *which_page,
-              GisPage      *this_page)
+gis_account_page_apply (GisPage *page,
+                           GCancellable *cancellable)
 {
-  if (which_page == this_page)
-    save_account_data (GIS_ACCOUNT_PAGE (this_page));
+  save_account_data (GIS_ACCOUNT_PAGE (page));
 }
 
 static void
@@ -1006,8 +1014,6 @@ gis_account_page_constructed (GObject *object)
                     G_CALLBACK (on_entry_changed), page);
 
   priv->act_client = act_user_manager_get_default ();
-
-  g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), page);
 
   clear_account_page (page);
   update_account_page_status (page);
@@ -1061,6 +1067,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_account_page_locale_changed;
   page_class->get_action_widget = gis_account_page_get_action_widget;
+  page_class->apply = gis_account_page_apply;
   object_class->constructed = gis_account_page_constructed;
   object_class->dispose = gis_account_page_dispose;
 

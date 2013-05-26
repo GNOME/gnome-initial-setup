@@ -35,6 +35,11 @@ struct _GisPagePrivate
 {
   char *title;
 
+  gboolean applying;
+  GCancellable *apply_cancel;
+  GisPageApplyCallback apply_cb;
+  gpointer apply_data;
+
   guint complete : 1;
   guint padding : 6;
 };
@@ -45,6 +50,7 @@ enum
   PROP_DRIVER,
   PROP_TITLE,
   PROP_COMPLETE,
+  PROP_APPLYING,
   PROP_LAST,
 };
 
@@ -67,6 +73,9 @@ gis_page_get_property (GObject    *object,
       break;
     case PROP_COMPLETE:
       g_value_set_boolean (value, page->priv->complete);
+      break;
+    case PROP_APPLYING:
+      g_value_set_boolean (value, gis_page_get_applying (page));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -104,6 +113,9 @@ gis_page_finalize (GObject *object)
   GisPage *page = GIS_PAGE (object);
 
   g_free (page->priv->title);
+  g_assert (!page->priv->applying);
+  g_assert (page->priv->apply_cb == NULL);
+  g_assert (page->priv->apply_cancel == NULL);
 
   G_OBJECT_CLASS (gis_page_parent_class)->finalize (object);
 }
@@ -112,6 +124,9 @@ static void
 gis_page_dispose (GObject *object)
 {
   GisPage *page = GIS_PAGE (object);
+
+  if (page->priv->apply_cancel)
+    g_cancellable_cancel (page->priv->apply_cancel);
 
   g_clear_object (&page->driver);
   g_clear_object (&page->builder);
@@ -187,6 +202,9 @@ gis_page_class_init (GisPageClass *klass)
   obj_props[PROP_COMPLETE] =
     g_param_spec_boolean ("complete", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
+  obj_props[PROP_APPLYING] =
+    g_param_spec_boolean ("applying", "", "", FALSE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 
@@ -242,4 +260,78 @@ gis_page_locale_changed (GisPage *page)
 {
   if (GIS_PAGE_GET_CLASS (page)->locale_changed)
     return GIS_PAGE_GET_CLASS (page)->locale_changed (page);
+}
+
+void
+gis_page_apply_begin (GisPage                *page,
+                      GisPageApplyCallback callback,
+                      gpointer                user_data)
+{
+  GisPageClass *klass;
+
+  g_return_if_fail (GIS_IS_PAGE (page));
+  g_return_if_fail (page->priv->applying == FALSE);
+
+  klass = GIS_PAGE_GET_CLASS (page);
+
+  /* Shortcut case where no apply vfunc, to avoid flicker */
+  if (!klass->apply) {
+    if (callback)
+      (callback) (page, TRUE, user_data);
+    return;
+  }
+
+  /* Unrefs in gis_page_apply_complete() */
+  g_object_ref (page);
+
+  page->priv->apply_cb = callback;
+  page->priv->apply_data = user_data;
+  page->priv->apply_cancel = g_cancellable_new ();
+  page->priv->applying = TRUE;
+  g_object_notify (G_OBJECT (page), "applying");
+
+  (klass->apply) (page, page->priv->apply_cancel);
+}
+
+void
+gis_page_apply_complete (GisPage *page,
+                         gboolean valid)
+{
+  GisPageApplyCallback callback;
+  gpointer user_data;
+
+  g_return_if_fail (GIS_IS_PAGE (page));
+  g_return_if_fail (page->priv->applying == TRUE);
+
+  callback = page->priv->apply_cb;
+  page->priv->apply_cb = NULL;
+  user_data = page->priv->apply_data;
+  page->priv->apply_data = NULL;
+
+  g_clear_object (&page->priv->apply_cancel);
+  page->priv->applying = FALSE;
+  g_object_notify (G_OBJECT (page), "applying");
+
+  if (callback)
+    (callback) (page, valid, user_data);
+
+  /* Matches ref in gis_page_apply_begin() */
+  g_object_unref (page);
+}
+
+gboolean
+gis_page_get_applying (GisPage *page)
+{
+  g_return_val_if_fail (GIS_IS_PAGE (page), FALSE);
+
+  return page->priv->applying;
+}
+
+void
+gis_page_apply_cancel (GisPage *page)
+{
+  g_return_if_fail (GIS_IS_PAGE (page));
+  g_return_if_fail (page->priv->applying == TRUE);
+
+  g_cancellable_cancel (page->priv->apply_cancel);
 }

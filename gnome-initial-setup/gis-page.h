@@ -40,6 +40,10 @@ typedef struct _GisPageClass   GisPageClass;
 typedef struct _GisPagePrivate GisPagePrivate;
 typedef struct _GisAssistantPagePrivate GisAssistantPagePrivate;
 
+typedef void (* GisPageApplyCallback) (GisPage *page,
+                                       gboolean valid,
+                                       gpointer user_data);
+
 struct _GisPage
 {
   GtkBin parent;
@@ -59,6 +63,8 @@ struct _GisPageClass
   GtkBuilder * (*get_builder) (GisPage *page);
   GtkWidget  * (*get_action_widget) (GisPage *page);
   void         (*locale_changed) (GisPage *page);
+  void         (*apply) (GisPage *page,
+                         GCancellable *cancellable);
 };
 
 GType gis_page_get_type (void);
@@ -69,6 +75,10 @@ gboolean     gis_page_get_complete (GisPage *page);
 void         gis_page_set_complete (GisPage *page, gboolean complete);
 GtkWidget *  gis_page_get_action_widget (GisPage *page);
 void         gis_page_locale_changed (GisPage *page);
+void         gis_page_apply_begin (GisPage *page, GisPageApplyCallback callback, gpointer user_data);
+void         gis_page_apply_cancel (GisPage *page);
+void         gis_page_apply_complete (GisPage *page, gboolean valid);
+gboolean     gis_page_get_applying (GisPage *page);
 
 G_END_DECLS
 

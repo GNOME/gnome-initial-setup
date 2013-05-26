@@ -94,12 +94,28 @@ gis_assistant_switch_to (GisAssistant          *assistant,
   GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, direction, page);
 }
 
+static void
+on_apply_done (GisPage *page,
+               gboolean valid,
+               gpointer user_data)
+{
+  GisAssistant *assistant = GIS_ASSISTANT (user_data);
+  if (valid)
+    g_signal_emit (assistant, signals[NEXT_PAGE], 0,
+                   assistant->priv->current_page);
+  g_object_unref (assistant);
+}
+
 void
 gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = assistant->priv;
-  g_signal_emit (assistant, signals[NEXT_PAGE], 0,
-                 priv->current_page);
+  if (priv->current_page)
+    gis_page_apply_begin (priv->current_page, on_apply_done,
+                          g_object_ref (assistant));
+  else
+    g_signal_emit (assistant, signals[NEXT_PAGE], 0,
+                   priv->current_page);
 }
 
 static inline gboolean
