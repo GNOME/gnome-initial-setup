@@ -138,13 +138,14 @@ gis_page_real_get_builder (GisPage *page)
   builder = gtk_builder_new ();
   gtk_builder_add_from_resource (builder, resource_path, &error);
 
-  g_free (resource_path);
-
   if (error != NULL) {
     g_warning ("Error while loading %s: %s", resource_path, error->message);
+    g_free (resource_path);
+    g_error_free (error);
     goto err;
   }
 
+  g_free (resource_path);
   return builder;
  err:
   g_object_unref (builder);
