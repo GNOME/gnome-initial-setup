@@ -42,6 +42,14 @@
 #include <cheese-gtk.h>
 #endif
 
+static void        on_join_login       (GObject *source,
+                                        GAsyncResult *result,
+                                        gpointer user_data);
+
+static void        on_realm_joined     (GObject *source,
+                                        GAsyncResult *result,
+                                        gpointer user_data);
+
 G_DEFINE_TYPE (GisAccountPage, gis_account_page, GIS_TYPE_PAGE);
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ACCOUNT_PAGE, GisAccountPagePrivate))
@@ -73,6 +81,7 @@ struct _GisAccountPagePrivate
   UmRealmManager *realm_manager;
   gboolean domain_chosen;
   GCancellable *cancellable;
+  gboolean join_prompted;
 
   GtkWidget *action;
 };
@@ -603,6 +612,131 @@ enterprise_permit_user_login (GisAccountPage *page, UmRealmObject *realm)
 }
 
 static void
+on_join_response (GtkDialog *dialog,
+                  gint response,
+                  gpointer user_data)
+{
+  GisAccountPage *page = user_data;
+  const gchar *name;
+
+  gtk_widget_hide (GTK_WIDGET (dialog));
+  if (response != GTK_RESPONSE_OK) {
+    gis_page_apply_complete (GIS_PAGE (page), FALSE);
+    return;
+  }
+
+  name = gtk_entry_get_text (OBJ (GtkEntry *, "join-name"));
+  g_debug ("Logging in as admin user: %s", name);
+
+  /* Prompted for some admin credentials, try to use them to log in */
+  um_realm_login (g_object_get_data (G_OBJECT (dialog), "join-realm"),
+                  name, gtk_entry_get_text (OBJ (GtkEntry *, "join-password")),
+                  NULL, on_join_login, page);
+}
+
+static void
+join_show_prompt (GisAccountPage *page,
+                  UmRealmObject *realm,
+                  GError *error)
+{
+  UmRealmKerberosMembership *membership;
+  UmRealmKerberos *kerberos;
+  gchar hostname[128];
+  const gchar *name;
+  GtkDialog *join_dialog;
+  GtkEntry *join_name;
+  GtkEntry *join_password;
+  GtkLabel *join_domain;
+  GtkLabel *join_computer;
+
+  join_dialog = OBJ (GtkDialog *, "join-dialog");
+  join_domain = OBJ (GtkLabel *, "join-domain");
+  join_name = OBJ (GtkEntry *, "join-name");
+  join_password = OBJ (GtkEntry *, "join-password");
+  join_computer = OBJ (GtkLabel *, "join-computer");
+
+  gtk_entry_set_text (join_password, "");
+  gtk_widget_grab_focus (GTK_WIDGET (join_password));
+
+  kerberos = um_realm_object_get_kerberos (realm);
+  membership = um_realm_object_get_kerberos_membership (realm);
+
+  gtk_label_set_text (join_domain,
+                      um_realm_kerberos_get_domain_name (kerberos));
+
+  if (gethostname (hostname, sizeof (hostname)) == 0)
+    gtk_label_set_text (join_computer, hostname);
+
+  clear_entry_validation_error (join_name);
+  clear_entry_validation_error (join_password);
+
+  if (!page->priv->join_prompted) {
+    name = um_realm_kerberos_membership_get_suggested_administrator (membership);
+    if (name && !g_str_equal (name, "")) {
+      g_debug ("Suggesting admin user: %s", name);
+      gtk_entry_set_text (join_name, name);
+    } else {
+      gtk_widget_grab_focus (GTK_WIDGET (join_name));
+    }
+
+  } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
+    g_debug ("Bad admin password: %s", error->message);
+    set_entry_validation_error (join_password, error->message);
+
+  } else {
+    g_debug ("Admin login failure: %s", error->message);
+    g_dbus_error_strip_remote_error (error);
+    set_entry_validation_error (join_name, error->message);
+  }
+
+  g_debug ("Showing admin password dialog");
+  g_object_set_data_full (G_OBJECT (join_dialog), "join-realm",
+                          g_object_ref (realm), g_object_unref);
+  gtk_window_set_transient_for (GTK_WINDOW (join_dialog),
+                                GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))));
+  gtk_window_set_modal (GTK_WINDOW (join_dialog), TRUE);
+  gtk_window_present (GTK_WINDOW (join_dialog));
+
+  page->priv->join_prompted = TRUE;
+  g_object_unref (kerberos);
+  g_object_unref (membership);
+
+  /* And now we wait for on_join_response() */
+}
+
+static void
+on_join_login (GObject *source,
+               GAsyncResult *result,
+               gpointer user_data)
+{
+  GisAccountPage *page = user_data;
+  UmRealmObject *realm = UM_REALM_OBJECT (source);
+  GError *error = NULL;
+  GBytes *creds;
+
+  um_realm_login_finish (realm, result, &creds, &error);
+
+  /* Logged in as admin successfully, use creds to join domain */
+  if (error == NULL) {
+    if (!um_realm_join_as_admin (realm,
+                                 gtk_entry_get_text (OBJ (GtkEntry *, "join-name")),
+                                 gtk_entry_get_text (OBJ (GtkEntry *, "join-password")),
+                                 creds, NULL, on_realm_joined, page)) {
+      show_error_dialog (page, _("No supported way to authenticate with this domain"), NULL);
+      g_message ("Authenticating as admin is not supported by the realm");
+    }
+
+    g_bytes_unref (creds);
+
+  /* Couldn't login as admin, show prompt again */
+  } else {
+    join_show_prompt (page, realm, error);
+    g_message ("Couldn't log in as admin to join domain: %s", error->message);
+    g_error_free (error);
+  }
+}
+
+static void
 on_realm_joined (GObject *source,
                  GAsyncResult *result,
                  gpointer user_data)
@@ -623,9 +757,7 @@ on_realm_joined (GObject *source,
              g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Joining realm failed due to credentials");
 
-    /* XXX */
-    /* join_show_prompt (self, error); */
-    gis_page_apply_complete (GIS_PAGE (page), FALSE);
+    join_show_prompt (page, realm, error);
 
     /* Other failure */
   } else {
@@ -677,9 +809,7 @@ on_realm_login (GObject *source,
       /* If we can't do user auth, try to authenticate as admin */
       g_debug ("Cannot join with user credentials");
 
-      /* XXX: creds */
-      /* join_show_prompt (self, NULL); */
-      gis_page_apply_complete (GIS_PAGE (page), FALSE);
+      join_show_prompt (page, realm, error);
     }
 
     g_bytes_unref (creds);
@@ -759,6 +889,8 @@ enterprise_add_user (GisAccountPage *page)
   UmRealmObject *realm;
   GtkTreeIter iter;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
+
+  priv->join_prompted = FALSE;
 
   /* Already know about this realm, try to login as user */
   if (gtk_combo_box_get_active_iter (domain, &iter)) {
@@ -1015,6 +1147,8 @@ gis_account_page_constructed (GObject *object)
   g_signal_connect_after (confirm_entry, "focus-out-event",
                           G_CALLBACK (confirm_entry_focus_out), page);
 
+  g_signal_connect (WID("join-dialog"), "response",
+                    G_CALLBACK (on_join_response), page);
   g_signal_connect (WID("enterprise-domain"), "changed",
                     G_CALLBACK (on_domain_changed), page);
   g_signal_connect (WID("enterprise-login"), "changed",
