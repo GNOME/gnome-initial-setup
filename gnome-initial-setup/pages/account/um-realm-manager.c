@@ -763,11 +763,12 @@ login_perform_kinit (krb5_context k5,
 }
 
 static void
-kinit_thread_func (GSimpleAsyncResult *async,
-                   GObject *object,
+kinit_thread_func (GTask *task,
+                   gpointer source_object,
+                   gpointer task_data,
                    GCancellable *cancellable)
 {
-        LoginClosure *login = g_simple_async_result_get_op_res_gpointer (async);
+        LoginClosure *login = task_data;
         krb5_context k5 = NULL;
         krb5_error_code code;
         GError *error = NULL;
@@ -807,32 +808,33 @@ kinit_thread_func (GSimpleAsyncResult *async,
                                 g_error_free (error);
                         }
                 }
+                g_task_return_boolean (task, TRUE);
                 break;
 
         case KRB5KDC_ERR_C_PRINCIPAL_UNKNOWN:
         case KRB5KDC_ERR_POLICY:
-                g_simple_async_result_set_error (async, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN,
-                                                 _("Cannot log in as %s at the %s domain"),
-                                                 login->user, login->domain);
+                g_task_return_new_error (task, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN,
+                                         _("Cannot log in as %s at the %s domain"),
+                                         login->user, login->domain);
                 break;
         case KRB5KDC_ERR_PREAUTH_FAILED:
         case KRB5KRB_AP_ERR_BAD_INTEGRITY:
-                g_simple_async_result_set_error (async, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD,
-                                                 _("Invalid password, please try again"));
+                g_task_return_new_error (task, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD,
+                                         _("Invalid password, please try again"));
                 break;
         case KRB5_PREAUTH_FAILED:
         case KRB5KDC_ERR_KEY_EXP:
         case KRB5KDC_ERR_CLIENT_REVOKED:
         case KRB5KDC_ERR_ETYPE_NOSUPP:
         case KRB5_PROG_ETYPE_NOSUPP:
-                g_simple_async_result_set_error (async, UM_REALM_ERROR, UM_REALM_ERROR_CANNOT_AUTH,
-                                                 _("Cannot log in as %s at the %s domain"),
-                                                 login->user, login->domain);
+                g_task_return_new_error (task, UM_REALM_ERROR, UM_REALM_ERROR_CANNOT_AUTH,
+                                         _("Cannot log in as %s at the %s domain"),
+                                         login->user, login->domain);
                 break;
         default:
-                g_simple_async_result_set_error (async, UM_REALM_ERROR, UM_REALM_ERROR_GENERIC,
-                                                 _("Couldn't connect to the %s domain: %s"),
-                                                 login->domain, krb5_get_error_message (k5, code));
+                g_task_return_new_error (task, UM_REALM_ERROR, UM_REALM_ERROR_GENERIC,
+                                         _("Couldn't connect to the %s domain: %s"),
+                                         login->domain, krb5_get_error_message (k5, code));
                 break;
         }
 
@@ -854,7 +856,7 @@ um_realm_login (UmRealmObject *realm,
                 GAsyncReadyCallback callback,
                 gpointer user_data)
 {
-        GSimpleAsyncResult *async;
+        GTask *task;
         LoginClosure *login;
         UmRealmKerberos *kerberos;
 
@@ -866,40 +868,40 @@ um_realm_login (UmRealmObject *realm,
         kerberos = um_realm_object_get_kerberos (realm);
         g_return_if_fail (kerberos != NULL);
 
-        async = g_simple_async_result_new (NULL, callback, user_data,
-                                           um_realm_login);
+        task = g_task_new (realm, cancellable, callback, user_data);
         login = g_slice_new0 (LoginClosure);
         login->domain = g_strdup (um_realm_kerberos_get_domain_name (kerberos));
         login->realm = g_strdup (um_realm_kerberos_get_realm_name (kerberos));
         login->user = g_strdup (user);
         login->password = g_strdup (password);
-        g_simple_async_result_set_op_res_gpointer (async, login, login_closure_free);
+        g_task_set_task_data (task, login, login_closure_free);
 
-        g_simple_async_result_set_handle_cancellation (async, TRUE);
-        g_simple_async_result_run_in_thread (async, kinit_thread_func,
-                                             G_PRIORITY_DEFAULT, cancellable);
+        g_task_set_check_cancellable (task, TRUE);
+        g_task_set_return_on_cancel (task, TRUE);
 
-        g_object_unref (async);
+        g_task_run_in_thread (task, kinit_thread_func);
+
+        g_object_unref (task);
         g_object_unref (kerberos);
 }
 
 gboolean
-um_realm_login_finish (GAsyncResult *result,
+um_realm_login_finish (UmRealmObject *realm,
+                       GAsyncResult *result,
                        GBytes **credentials,
                        GError **error)
 {
-        GSimpleAsyncResult *async;
+        GTask *task;
         LoginClosure *login;
 
-        g_return_val_if_fail (g_simple_async_result_is_valid (result, NULL,
-                              um_realm_login), FALSE);
+        g_return_val_if_fail (g_task_is_valid (result, realm), FALSE);
         g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-        async = G_SIMPLE_ASYNC_RESULT (result);
-        if (g_simple_async_result_propagate_error (async, error))
+        task = G_TASK (result);
+        if (!g_task_propagate_boolean (task, error))
                 return FALSE;
 
-        login = g_simple_async_result_get_op_res_gpointer (async);
+        login = g_task_get_task_data (task);
         if (credentials) {
                 if (login->credentials)
                         *credentials = g_bytes_ref (login->credentials);

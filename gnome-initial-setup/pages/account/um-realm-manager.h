@@ -71,7 +71,8 @@ void             um_realm_login                   (UmRealmObject *realm,
                                                    GAsyncReadyCallback callback,
                                                    gpointer user_data);
 
-gboolean         um_realm_login_finish            (GAsyncResult *result,
+gboolean         um_realm_login_finish            (UmRealmObject *realm,
+                                                   GAsyncResult *result,
                                                    GBytes **credentials,
                                                    GError **error);
 

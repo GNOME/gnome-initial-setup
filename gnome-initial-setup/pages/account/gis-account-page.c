@@ -647,7 +647,7 @@ on_realm_login (GObject *source,
   GError *error = NULL;
   GBytes *creds = NULL;
 
-  um_realm_login_finish (result, &creds, &error);
+  um_realm_login_finish (realm, result, &creds, &error);
 
   /*
    * User login is valid, but cannot authenticate right now (eg: user needs
