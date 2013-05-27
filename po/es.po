@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-20 15:03+0000\n"
-"PO-Revision-Date: 2013-05-22 11:37+0200\n"
+"POT-Creation-Date: 2013-05-26 20:13+0000\n"
+"PO-Revision-Date: 2013-05-27 13:24+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -62,11 +62,11 @@ msgstr "Falló al registrar la cuenta"
 msgid "Failed to join domain"
 msgstr "Falló al unirse al dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:691
 msgid "Failed to log into domain"
 msgstr "Falló al iniciar sesión en el dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1003
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -148,21 +148,26 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Fuerte"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "No se puede unir automáticamente a este tipo de dominio"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "No existe el dominio o no se ha encontrado el reino"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:815
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:829
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "No se puede iniciar sesión como %s en el dominio %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:821
 msgid "Invalid password, please try again"
 msgstr "Contraseña no válida, inténtelo de nuevo"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:834
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "No se pudo conectar al dominio %s: %s"
@@ -182,11 +187,6 @@ msgid "The username cannot start with a '-'"
 msgstr "El nombre de usuario no puede comenzar por «-»"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:158
-#| msgid ""
-#| "The username must consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
