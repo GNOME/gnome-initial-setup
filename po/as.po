@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-20 15:03+0000\n"
-"PO-Revision-Date: 2013-05-21 14:25+0530\n"
+"POT-Creation-Date: 2013-05-26 20:13+0000\n"
+"PO-Revision-Date: 2013-05-27 18:58+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
 "Language-Team: Assamese <kde-i18n-doc@kde.org>\n"
 "Language: as\n"
@@ -62,11 +62,11 @@ msgstr "একাওন্ট ৰেজিস্টাৰ কৰিবলে ব
 msgid "Failed to join domain"
 msgstr "ডমেইনত অংশগ্ৰহণ কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:691
 msgid "Failed to log into domain"
 msgstr "ডমেইনত লগিন কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1003
 msgid "Login"
 msgstr "লগিন"
 
@@ -151,21 +151,26 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "শক্তিশালী"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "এই ধৰণৰ ডমেইনত স্বচালিতভাৱে অংশগ্ৰহণ কৰিব নোৱাৰি"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "এনেধৰণৰ কোনো ডমেইন অথবা ৰাজত্ব পোৱা নগল"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:815
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:829
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "%s ডমেইনত %s হিচাপে লগিন কৰিব নোৱাৰি"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:821
 msgid "Invalid password, please try again"
 msgstr "অবৈধ পাছৱাৰ্ড, অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:834
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "%s ডমেইনলে সংযোগ কৰিব নোৱাৰি: %s"
@@ -185,11 +190,6 @@ msgid "The username cannot start with a '-'"
 msgstr "ব্যৱহাৰকাৰীনাম '-' ৰ সৈতে আৰম্ভ হব নোৱাৰে"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:158
-#| msgid ""
-#| "The username must consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
