@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-20 15:03+0000\n"
-"PO-Revision-Date: 2013-05-23 17:19+0200\n"
+"POT-Creation-Date: 2013-05-27 16:29+0000\n"
+"PO-Revision-Date: 2013-05-28 07:12+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -27,13 +27,17 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Prvotní nastavení"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "_Další"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
+#: ../gnome-initial-setup/gis-assistant.c:395
 msgid "_Back"
 msgstr "_Předchozí"
+
+#: ../gnome-initial-setup/gis-assistant.c:396
+msgid "_Cancel"
+msgstr "_Zrušit"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -43,33 +47,37 @@ msgstr "Vynutit režim nového uživatele"
 msgid "- GNOME initial setup"
 msgstr "– Prvotní nastavení"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
 msgid "No password"
 msgstr "Žádné heslo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
 msgid "Passwords do not match"
 msgstr "Hesla se neshodují"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
 #, c-format
 msgid "Strength: %s"
 msgstr "Síla: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
 msgid "Failed to register account"
 msgstr "Registrace účtu selhala"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+msgid "No supported way to authenticate with this domain"
+msgstr "Není žádný podporovaný způsob, jak provést ověření vůči této doméně"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
 msgid "Failed to join domain"
 msgstr "Připojení do domény selhalo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
 msgid "Failed to log into domain"
 msgstr "Přihlášení do domény selhalo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
 msgid "Login"
 msgstr "Přihlašování"
 
@@ -121,6 +129,38 @@ msgstr "_Doména"
 msgid "Enterprise domain or realm name"
 msgstr "Název firemní domény nebo sféry"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "P_okračovat"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Přihlášení správce domény"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Aby šlo používat firemní přihlášování, musí být počítač\n"
+"zaregistrován do domény. Požádejte prosím správce sítě\n"
+"o zadání jeho hesla k doméně sem a zvolte pro svůj počítač\n"
+"jedinečný název."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Počítač"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "J_méno správce"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "Heslo správce"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -151,21 +191,26 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Silné"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "Nelze automaticky připojit tento typ domény"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Doména nebo sféra nenalezena"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Nelze se přihlásit jako „%s“ do domény „%s“"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Špatné heslo, zkuste to prosím znovu"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Nelze se připojit k doméně „%s“: %s"
