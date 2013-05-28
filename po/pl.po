@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-27 00:18+0200\n"
-"PO-Revision-Date: 2013-05-27 00:19+0200\n"
+"POT-Creation-Date: 2013-05-28 20:09+0200\n"
+"PO-Revision-Date: 2013-05-28 20:10+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -28,13 +28,17 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Początkowe ustawienia"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "_Dalej"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
+#: ../gnome-initial-setup/gis-assistant.c:395
 msgid "_Back"
 msgstr "_Wstecz"
+
+#: ../gnome-initial-setup/gis-assistant.c:396
+msgid "_Cancel"
+msgstr "_Anuluj"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -44,33 +48,37 @@ msgstr "Wymusza tryb nowego użytkownika"
 msgid "- GNOME initial setup"
 msgstr "- początkowe ustawienia środowiska GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
 msgid "No password"
 msgstr "Brak hasła"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
 msgid "Passwords do not match"
 msgstr "Hasła się nie zgadzają"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
 #, c-format
 msgid "Strength: %s"
 msgstr "Siła: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
 msgid "Failed to register account"
 msgstr "Zarejestrowanie konta się nie powiodło"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+msgid "No supported way to authenticate with this domain"
+msgstr "Brak obsługiwanego sposobu na uwierzytelnienie za pomocą tej domeny"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
 msgid "Failed to join domain"
 msgstr "Dołączenie do domeny się nie powiodło"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:691
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
 msgid "Failed to log into domain"
 msgstr "Zalogowanie do domeny się nie powiodło"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1003
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
 msgid "Login"
 msgstr "Logowanie"
 
@@ -123,6 +131,37 @@ msgstr "_Domena"
 msgid "Enterprise domain or realm name"
 msgstr "Nazwa domeny lub obszaru firmowego"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "K_ontynuuj"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Login administratora domeny"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Aby używać tej logowania firmowego, komputer wymaga zapisania\n"
+"do domeny. Należy poprosić administratora sieci, aby wpisał\n"
+"hasło domeny w tym miejscu i wybrać unikalną nazwę komputera."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Komputer"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "_Nazwa administratora"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "Hasło administratora"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -162,17 +201,17 @@ msgstr "Nie można automatycznie dołączyć do tego typu domeny"
 msgid "No such domain or realm found"
 msgstr "Nie odnaleziono takiej domeny lub obszaru"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:815
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:829
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Nie można zalogować się jako %s do domeny %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:821
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Nieprawidłowe hasło, proszę spróbować ponownie"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:834
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Nie można połączyć z domeną %s: %s"
