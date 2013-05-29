@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-26 20:13+0000\n"
-"PO-Revision-Date: 2013-05-27 18:58+0530\n"
+"POT-Creation-Date: 2013-05-27 16:29+0000\n"
+"PO-Revision-Date: 2013-05-29 14:37+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
 "Language-Team: Assamese <kde-i18n-doc@kde.org>\n"
 "Language: as\n"
@@ -24,13 +24,17 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "আৰম্ভণিৰ সংস্থাপন"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "পৰবৰ্তী (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
+#: ../gnome-initial-setup/gis-assistant.c:395
 msgid "_Back"
 msgstr "পিছলৈ (_B)"
+
+#: ../gnome-initial-setup/gis-assistant.c:396
+msgid "_Cancel"
+msgstr "বাতিল কৰক (_C)"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -40,33 +44,37 @@ msgstr "নতুন ব্যৱহাৰকাৰী অৱস্থা বল
 msgid "- GNOME initial setup"
 msgstr "- GNOME আৰম্ভণি সংস্থাপন"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
 msgid "No password"
 msgstr "কোনো পাছৱাৰ্ড নাই"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
 msgid "Passwords do not match"
 msgstr "পাছৱাৰ্ডসমূহ মিল নাখায়"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
 #, c-format
 msgid "Strength: %s"
 msgstr "শক্তি: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
 msgid "Failed to register account"
 msgstr "একাওন্ট ৰেজিস্টাৰ কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+msgid "No supported way to authenticate with this domain"
+msgstr "এই ডমেইনৰ সৈতে প্ৰমাণীত কৰিবলে কোনো সমৰ্থিত পদ্ধতি নাই"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
 msgid "Failed to join domain"
 msgstr "ডমেইনত অংশগ্ৰহণ কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:691
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
 msgid "Failed to log into domain"
 msgstr "ডমেইনত লগিন কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1003
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
 msgid "Login"
 msgstr "লগিন"
 
@@ -121,6 +129,38 @@ msgstr "ডমেইন (_D)"
 msgid "Enterprise domain or realm name"
 msgstr "এন্টাৰপ্ৰাইজ ডমেইন অথবা ৰাজত্বৰ নাম"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "অব্যাহত ৰাখক (_o)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "ডমেইন প্ৰশাসকৰ লগিন"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"এন্টাৰপ্ৰাইজ লগিনসমূহ ব্যৱহাৰ কৰিবলে, এই কমপিউটাৰক ডমেইনত\n"
+"এনৰোল কৰিব লাগিব। অনুগ্ৰহ কৰি আপোনাৰ নেটৱাৰ্ক প্ৰশাসকলক\n"
+"তেওলোকৰ ডমেইন পাছৱাৰ্ড ইয়াত টাইপ কৰিব দিয়ক, আৰু আপোনাৰ\n"
+"কমপিউটাৰৰ বাবে এটা অবিকল্প নাম বাছক।"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "কমপিউটাৰ (_C)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "প্ৰশাসকৰ নাম (_N)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "প্ৰশাসকৰ পাছৱাৰ্ড"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -160,17 +200,17 @@ msgstr "এই ধৰণৰ ডমেইনত স্বচালিতভাৱ
 msgid "No such domain or realm found"
 msgstr "এনেধৰণৰ কোনো ডমেইন অথবা ৰাজত্ব পোৱা নগল"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:815
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:829
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "%s ডমেইনত %s হিচাপে লগিন কৰিব নোৱাৰি"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:821
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "অবৈধ পাছৱাৰ্ড, অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:834
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "%s ডমেইনলে সংযোগ কৰিব নোৱাৰি: %s"
@@ -391,9 +431,6 @@ msgstr "GNOME 3 ব্যৱহাৰ কৰা আৰম্ভ কৰক (_S)"
 
 #~ msgid "Create Local Account"
 #~ msgstr "স্থানীয় একাওন্ট সৃষ্টি কৰক"
-
-#~ msgid "_Cancel"
-#~ msgstr "বাতিল কৰক (_C)"
 
 #~ msgid "_Done"
 #~ msgstr "কৰা হল (_D)"
