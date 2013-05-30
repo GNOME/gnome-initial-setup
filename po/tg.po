@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Tajik Gnome\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-18 22:54+0000\n"
-"PO-Revision-Date: 2013-05-30 16:11+0500\n"
+"POT-Creation-Date: 2013-05-30 11:13+0000\n"
+"PO-Revision-Date: 2013-05-30 16:26+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: \n"
 "Language: Tajik\n"
@@ -19,16 +19,21 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Барпосозии ибтидоӣ"
 
-#: ../gnome-initial-setup/gis-assistant.c:333
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "_Навбатӣ"
 
-#: ../gnome-initial-setup/gis-assistant.c:334
+#: ../gnome-initial-setup/gis-assistant.c:395
 msgid "_Back"
 msgstr "_Қаблӣ"
+
+#: ../gnome-initial-setup/gis-assistant.c:396
+msgid "_Cancel"
+msgstr "_Бекор кардан"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -38,29 +43,38 @@ msgstr "Маҷбур кардани ҳолати корбари нав"
 msgid "- GNOME initial setup"
 msgstr "- барпосозии ибтидоии GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:302
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:425
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
+#| msgid "_Confirm password"
+msgid "No password"
+msgstr "Бе парол"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
 msgid "Passwords do not match"
 msgstr "Паролҳо мувофиқат намекунанд"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:354
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
 #, c-format
 msgid "Strength: %s"
 msgstr "Тавоноӣ:  %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:550
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
 msgid "Failed to register account"
 msgstr "Ҳангоми қайдкунии ҳисоб хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:613
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+msgid "No supported way to authenticate with this domain"
+msgstr "Ягон тарзи санҷиши ҳаққоният барои ин домен дастгирӣ намешавад"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
 msgid "Failed to join domain"
 msgstr "Ҳангоми ҳамроҳ шудан ба домен хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:668
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
 msgid "Failed to log into domain"
 msgstr "Ҳангоми ворид шудан ба домен хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:980
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
 msgid "Login"
 msgstr "Воридшавӣ"
 
@@ -113,6 +127,38 @@ msgstr "_Домен"
 msgid "Enterprise domain or realm name"
 msgstr "Домени тиҷорӣ ё номи соҳиб"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "_Идома додан"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Воридшавии маъмури домен"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Барои истифодаи бурдани воридшавии корӣ, ин компютер бояд дар\n"
+"сервер қайд карда шавад. Лутфан, маъмури шабакаро пурсед, ки пароли доменро\n"
+"ин ҷо ворид кунад ва номи ягонаи компютерро барои компютери шумо\n"
+"гузарад."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Компютер"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "_Номи маъмур"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "Пароли маъмур"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -143,42 +189,52 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Қавӣ"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "Ҳамроҳ шудан ба ин намуди домен ба таври худкор имконнопазир аст"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Чунин домен ё соҳиб ёфт нашуд"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Ҳамчун %s ба домени %s ворид намешавад"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Пароли беэътибор, лутфан, амалро такрор кунед"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Ба домени %s пайваст нашуд: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Корбар бо номи '%s' аллакай мавҷуд аст"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Номи корбар хеле дароз аст"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Номи корбар бояд бо '-' сар нашавад"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#| msgid ""
+#| "The username must consist of:\n"
+#| " ➣ letters from the English alphabet\n"
+#| " ➣ digits\n"
+#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
@@ -198,27 +254,27 @@ msgstr "Шартномаи иҷозатнома"
 msgid "Add Account"
 msgstr "Илова кардани ҳисоб"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "Ҳангоми эҷодкунии ҳисоб хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "Ҳангоми тозакунии ҳисоб хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "Шумо мутмаин ҳастед, ки мехоҳед ҳисобро тоза кунед?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "Ин ҳисобро дар сервер нест намекунад."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "_Тоза кардан"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:374
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
 msgid "Online Accounts"
 msgstr "Ҳисобҳои онлайн"
 
@@ -234,52 +290,52 @@ msgstr ""
 "Иловакунии ҳисоб ба шумо имкон медиҳад, ки тавонед ба суратҳои онлайн, "
 "тамосҳо, почта ва хидматҳои дигар дастрасии шаффофӣ пайдо кунед."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:62
-msgid "Keyboard Layout"
-msgstr "Тарҳбандии клавиатура"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+#| msgid "Add Account"
+msgid "_Add Account"
+msgstr "_Илова кардани ҳисоб"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "Бештар..."
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#| msgid "Move Input Source Down"
+msgid "No input sources found"
+msgstr "Ягон манбаи вуруд ёфт нашуд"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#| msgctxt "Wireless access point"
+#| msgid "Other…"
+msgid "Other"
+msgstr "Дигар"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#| msgid "Add Input Source"
+msgid "Input Sources"
+msgstr "Манбаҳои вуруд"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select input sources"
 msgstr "Интихоби манбаҳои вуруд"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"Танзимоти воридшавӣ бо ҳамаи корбарон барои ворид шудан ба система истифода "
+"мешаванд"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+#| msgid "Add Input Source"
+msgid "Add an Input Source"
 msgstr "Илова кардани манбаи вуруд"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Тоза кардани манбаи вуруд"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Интиқол додани манбаи вуруд ба боло"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Интиқол додани манбаи вуруд ба поён"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Танзимоти манбаи вуруд"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-#| msgid "Keyboard Layout"
-msgid "Show Keyboard Layout"
-msgstr "Намоиш додани тарҳбандии клавиатура"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "Интихоби манбаи вуруд"
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:172
-msgid "More…"
-msgstr "Бештар..."
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "Ягон забон ёфт нашуд"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:82
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
 msgid "Welcome"
 msgstr "Хуш омадед"
 
@@ -304,24 +360,24 @@ msgstr "_Муайян кардани ҷойгиршавии худ ба тавр
 msgid "Time Zone"
 msgstr "Минтақаи вақт"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Дигар..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "Network is not available."
 msgstr "Шабака дастнорас аст."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
 msgid "No network devices found."
 msgstr "Ягон дастгоҳи шабакавӣ ёфт нашуд."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
 msgid "Checking for available wireless networks"
 msgstr "Ҷустуҷӯи шабакаҳои бесими дастрас"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
 msgid "Network"
 msgstr "Шабака"
 
@@ -329,7 +385,7 @@ msgstr "Шабака"
 msgid "Wireless Networks"
 msgstr "Шабакаҳои бесим"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:292
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
 msgid "Thank You"
 msgstr "Ташаккур ба шумо"
 
@@ -345,20 +401,14 @@ msgstr "Шумо метавонед ин имконотро дар Танзим�
 msgid "_Start using GNOME 3"
 msgstr "_Оғози кор бо GNOME 3"
 
-#~ msgid "Unspecified"
-#~ msgstr "Муайяннашуда"
+#~ msgid "Keyboard Layout"
+#~ msgstr "Тарҳбандии клавиатура"
 
-#~ msgid "English"
-#~ msgstr "Англисӣ"
+#~ msgid "Remove Input Source"
+#~ msgstr "Тоза кардани манбаи вуруд"
 
-#~ msgid "German"
-#~ msgstr "Олмонӣ"
+#~ msgid "Move Input Source Up"
+#~ msgstr "Интиқол додани манбаи вуруд ба боло"
 
-#~ msgid "French"
-#~ msgstr "Фаронсавӣ"
-
-#~ msgid "Spanish"
-#~ msgstr "Испанӣ"
-
-#~ msgid "Chinese (simplified)"
-#~ msgstr "Хитоӣ (оддӣ)"
+#~ msgid "Input Source Settings"
+#~ msgstr "Танзимоти манбаи вуруд"
