@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 01:10+0200\n"
-"PO-Revision-Date: 2013-05-20 01:10+0200\n"
+"POT-Creation-Date: 2013-05-31 00:40+0200\n"
+"PO-Revision-Date: 2013-05-31 00:41+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -26,13 +26,17 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "Segui_nte"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
+#: ../gnome-initial-setup/gis-assistant.c:395
 msgid "_Back"
 msgstr "_Anterior"
+
+#: ../gnome-initial-setup/gis-assistant.c:396
+msgid "_Cancel"
+msgstr "_Cancelar"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -42,33 +46,37 @@ msgstr "Forzar modo de novo usuario"
 msgid "- GNOME initial setup"
 msgstr "- Configuración inicial de GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
 msgid "No password"
 msgstr "Sen contrasinal"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
 msgid "Passwords do not match"
 msgstr "Os contrasinais non coinciden"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
 #, c-format
 msgid "Strength: %s"
 msgstr "Forza: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
 msgid "Failed to register account"
 msgstr "Produciuse un erro ao rexistrar a conta"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+msgid "No supported way to authenticate with this domain"
+msgstr "Non hai unha maneira admitida de autenticar con este dominio"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
 msgid "Failed to join domain"
 msgstr "Produciuse un erro ao unirse ao dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
 msgid "Failed to log into domain"
 msgstr "Produciuse un erro ao iniciar sesión no dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
 msgid "Login"
 msgstr "Chave de acceso"
 
@@ -120,6 +128,38 @@ msgstr "_Dominio"
 msgid "Enterprise domain or realm name"
 msgstr "Dominio da empresa ou nome do reino"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "C_ontinuar"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Inicio de sesión do administrador do dominio"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Para usar inicios de sesión corporativos, este equipo precisa \n"
+"formar parte dun dominio. Pida ao administrador do seu sistema \n"
+"que escriba aquí o contrasinal do dominio, e seleccione un nome\n"
+"para o seu computador."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Computador"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "_Nome do administrador"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "Contrasinal do administrador"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -150,48 +190,53 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Forte"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "Non é posíbel unirse automaticamente a este tipo de dominio"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Non existe o dominio ou non se atopou o reino"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Non foi posíbel iniciar sesión como %s no dominio %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Contrasinal incorrecto, ténteo de novo"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Non foi posíbel conectarse ao dominio %s: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Xa existe un usuario co nome de usuario «%s»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "O nome de usuario é demasiado longo"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "O nome de usuario non pode comezar con «-»"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
 "O nome de usuario debe estar formado por:\n"
-" ➣ letras do alfabeto inglés en minúsculas\n"
+" ➣ letras do alfabeto inglés\n"
 " ➣ díxitos\n"
 " ➣ calquera dos caracteres «.», «-» e «_»"
 
@@ -451,9 +496,6 @@ msgstr "_Comezar a usar GNOME 3"
 
 #~ msgid "Take a photo..."
 #~ msgstr "Sacar unha foto…"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Cancelar"
 
 #~ msgid "_Done"
 #~ msgstr "_Feito"
