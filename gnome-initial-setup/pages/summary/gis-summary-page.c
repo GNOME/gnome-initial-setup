@@ -154,6 +154,27 @@ on_session_opened (GdmGreeter     *greeter,
 }
 
 static void
+add_uid_file (uid_t uid)
+{
+  gchar *gis_uid_path;
+  gchar *uid_str;
+  GError *error = NULL;
+
+  gis_uid_path = g_build_filename (g_get_home_dir (),
+                                   "gnome-initial-setup-uid",
+                                   NULL);
+  uid_str = g_strdup_printf ("%u", uid);
+
+  if (!g_file_set_contents (gis_uid_path, uid_str, -1, &error)) {
+      g_warning ("Unable to create %s: %s", gis_uid_path, error->message);
+      g_clear_error (&error);
+  }
+
+  g_free (uid_str);
+  g_free (gis_uid_path);
+}
+
+static void
 log_user_in (GisSummaryPage *page)
 {
   GisSummaryPagePrivate *priv = page->priv;
@@ -182,6 +203,11 @@ log_user_in (GisSummaryPage *page)
 
   g_signal_connect (greeter, "session-opened",
                     G_CALLBACK (on_session_opened), page);
+
+  /* We are in NEW_USER mode and we want to make it possible for third
+   * parties to find out which user ID we created.
+   */
+  add_uid_file (act_user_get_uid (priv->user_account));
 
   gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
                                                            SERVICE_NAME,
