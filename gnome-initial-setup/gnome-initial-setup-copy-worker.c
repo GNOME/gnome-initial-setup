@@ -21,6 +21,26 @@ get_gnome_initial_setup_home_dir (void)
     return NULL;
 }
 
+static gboolean
+file_is_ours (GFile *file)
+{
+  GFileInfo *info;
+  uid_t uid;
+
+  info = g_file_query_info (file,
+                            G_FILE_ATTRIBUTE_UNIX_UID,
+                            G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                            NULL,
+                            NULL);
+  if (!info)
+    return FALSE;
+
+  uid = g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_UNIX_UID);
+  g_object_unref (info);
+
+  return uid == geteuid ();
+}
+
 static void
 move_file_from_tmpfs (GFile       *src_base,
                       GFile       *dest_base,
@@ -63,7 +83,8 @@ main (int    argc,
 
   src = g_file_new_for_path (initial_setup_homedir);
 
-  if (!g_file_query_exists (src, NULL))
+  if (!g_file_query_exists (src, NULL) ||
+      !file_is_ours (src))
     exit (EXIT_SUCCESS);
 
   dest = g_file_new_for_path (g_get_home_dir ());
