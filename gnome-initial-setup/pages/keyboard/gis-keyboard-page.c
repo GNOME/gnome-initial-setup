@@ -30,6 +30,7 @@
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <gtk/gtk.h>
+#include <polkit/polkit.h>
 
 #include "gis-keyboard-page.h"
 #include "keyboard-resources.h"
@@ -74,6 +75,8 @@ struct _GisKeyboardPagePrivate {
         GtkWidget *input_scrolledwindow;
         guint n_input_rows;
         guint gkbd_pid;
+        GPermission *permission;
+
 
         GSettings *input_settings;
         GnomeXkbInfo *xkb_info;
@@ -96,6 +99,7 @@ gis_keyboard_page_finalize (GObject *object)
         g_cancellable_cancel (priv->cancellable);
         g_clear_object (&priv->cancellable);
 
+        g_clear_object (&priv->permission);
         g_clear_object (&priv->localed);
         g_clear_object (&priv->input_settings);
         g_clear_object (&priv->xkb_info);
@@ -128,6 +132,7 @@ gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = self->priv;
+        GDBusConnection *bus;
         GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (self)->driver);
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
@@ -138,15 +143,23 @@ gis_keyboard_page_constructed (GObject *object)
 
         priv->cancellable = g_cancellable_new ();
 
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
-                                  NULL,
-                                  "org.freedesktop.locale1",
-                                  "/org/freedesktop/locale1",
-                                  "org.freedesktop.locale1",
-                                  priv->cancellable,
-                                  (GAsyncReadyCallback) localed_proxy_ready,
-                                  self);
+        /* If we're in new user mode then we're manipulating system settings */
+        if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER)
+          {
+            priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-keyboard", NULL, NULL, NULL);
+
+            bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+            g_dbus_proxy_new (bus,
+                              G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+                              NULL,
+                              "org.freedesktop.locale1",
+                              "/org/freedesktop/locale1",
+                              "org.freedesktop.locale1",
+                              priv->cancellable,
+                              (GAsyncReadyCallback) localed_proxy_ready,
+                              object);
+            g_object_unref (bus);
+          }
 
         g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), self);
 
@@ -601,13 +614,53 @@ set_input_settings (GisKeyboardPage *self)
         g_variant_unref (old_sources);
 }
 
+
 static void set_localed_input (GisKeyboardPage *self);
+
+static void
+change_locale_permission_acquired (GObject      *source,
+                                   GAsyncResult *res,
+                                   gpointer      data)
+{
+  GisKeyboardPagePrivate *priv;
+  GError *error = NULL;
+  gboolean allowed;
+
+  priv = GIS_KEYBOARD_PAGE (data)->priv;
+
+  allowed = g_permission_acquire_finish (priv->permission, res, &error);
+  if (error) {
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("Failed to acquire permission: %s\n", error->message);
+      g_error_free (error);
+      return;
+  }
+
+  if (allowed)
+    set_localed_input (GIS_KEYBOARD_PAGE (data));
+}
+
 
 static void
 update_input (GisKeyboardPage *self)
 {
-        set_input_settings (self);
-        set_localed_input (self);
+  GisKeyboardPagePrivate *priv;
+
+  priv = self->priv;
+
+  set_input_settings (self);
+
+  if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER) {
+      if (g_permission_get_allowed (priv->permission)) {
+          set_localed_input (self);
+      }
+      else if (g_permission_get_can_acquire (priv->permission)) {
+          g_permission_acquire_async (priv->permission,
+                                      NULL,
+                                      change_locale_permission_acquired,
+                                      self);
+      }
+  }
 }
 
 static gboolean
