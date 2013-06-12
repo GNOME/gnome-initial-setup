@@ -52,8 +52,7 @@ struct _GisCenterContainerClass
 GType gis_center_container_get_type (void);
 
 GtkWidget * gis_center_container_new (GtkWidget *left,
-                                      GtkWidget *center,
-                                      GtkWidget *right);
+                                      GtkWidget *center);
 
 G_END_DECLS
 

@@ -92,15 +92,6 @@ gis_driver_finalize (GObject *object)
 }
 
 static void
-title_changed_cb (GisAssistant *assistant,
-                  GParamSpec   *gparam,
-                  GisDriver    *driver)
-{
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  gtk_window_set_title (priv->main_window, gis_assistant_get_title (assistant));
-}
-
-static void
 prepare_main_window (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
@@ -115,8 +106,8 @@ prepare_main_window (GisDriver *driver)
                                  &size_hints,
                                  GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
 
-  g_signal_connect (priv->assistant, "notify::title",
-                    G_CALLBACK (title_changed_cb), driver);
+  gtk_window_set_titlebar (priv->main_window,
+                           gis_assistant_get_titlebar (priv->assistant));
 }
 
 static gboolean

@@ -58,6 +58,7 @@ struct _GisAssistantPrivate
   GtkWidget *action_area;
   GtkWidget *page_action_widget_area;
   GtkWidget *spinner;
+  GtkWidget *titlebar;
 
   GList *pages;
   GisPage *current_page;
@@ -250,6 +251,10 @@ update_navigation_buttons (GisAssistant *assistant)
 
       can_go_forward = gis_page_get_complete (page);
       gtk_widget_set_sensitive (priv->forward, can_go_forward);
+      if (can_go_forward)
+        gtk_style_context_add_class (gtk_widget_get_style_context (priv->forward), "suggested-action");
+      else
+        gtk_style_context_remove_class (gtk_widget_get_style_context (priv->forward), "suggested-action");
     }
 }
 
@@ -270,6 +275,15 @@ update_applying_state (GisAssistant *assistant)
     gtk_spinner_start (GTK_SPINNER (priv->spinner));
   else
     gtk_spinner_stop (GTK_SPINNER (priv->spinner));
+}
+
+static void
+update_titlebar (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+
+  gtk_header_bar_set_title (GTK_HEADER_BAR (priv->titlebar),
+                            gis_assistant_get_title (assistant));
 }
 
 static void
@@ -351,7 +365,7 @@ do_cancel (GtkWidget    *button,
     gis_page_apply_cancel (priv->current_page);
 }
 
-gchar *
+const gchar *
 gis_assistant_get_title (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
@@ -359,6 +373,13 @@ gis_assistant_get_title (GisAssistant *assistant)
     return gis_page_get_title (priv->current_page);
   else
     return "";
+}
+
+GtkWidget *
+gis_assistant_get_titlebar (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+  return priv->titlebar;
 }
 
 GtkWidget *
@@ -380,6 +401,7 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
   priv->current_page = page;
   g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
 
+  update_titlebar (assistant);
   update_applying_state (assistant);
   update_action_widget (assistant);
   update_navigation_buttons (assistant);
@@ -415,8 +437,10 @@ static void
 gis_assistant_init (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  GtkWidget *navigation;
   GtkWidget *widget;
+
+  priv->titlebar = gtk_header_bar_new ();
+  gtk_widget_show (priv->titlebar);
 
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
   gtk_box_pack_start (GTK_BOX (assistant), priv->main_layout, TRUE, TRUE, 0);
@@ -426,11 +450,6 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
 
   priv->page_action_widget_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-
-  navigation = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_box_set_homogeneous (GTK_BOX (navigation), TRUE);
-  gtk_widget_set_halign (navigation, GTK_ALIGN_END);
-  gtk_widget_set_hexpand (navigation, TRUE);
 
   priv->forward = gtk_button_new ();
   gtk_button_set_image (GTK_BUTTON (priv->forward),
@@ -448,16 +467,17 @@ gis_assistant_init (GisAssistant *assistant)
                         gtk_image_new_from_stock (GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON));
   gtk_button_set_use_underline (GTK_BUTTON (priv->cancel), TRUE);
 
+  gtk_header_bar_pack_start (GTK_HEADER_BAR (priv->titlebar), priv->cancel);
+  gtk_header_bar_pack_start (GTK_HEADER_BAR (priv->titlebar), priv->back);
+
   priv->spinner = gtk_spinner_new ();
   widget = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
   gtk_alignment_set_padding (GTK_ALIGNMENT (widget), 0, 0, 12, 6);
-  gtk_box_pack_start (GTK_BOX (navigation), widget, FALSE, FALSE, 0);
+  gtk_header_bar_pack_end (GTK_HEADER_BAR (priv->titlebar), widget);
   gtk_container_add (GTK_CONTAINER (widget), priv->spinner);
   gtk_widget_show (widget);
 
-  gtk_box_pack_start (GTK_BOX (navigation), priv->cancel, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (navigation), priv->back, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (navigation), priv->forward, FALSE, FALSE, 0);
+  gtk_header_bar_pack_end (GTK_HEADER_BAR (priv->titlebar), priv->forward);
 
   g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
   g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
@@ -467,8 +487,7 @@ gis_assistant_init (GisAssistant *assistant)
   gtk_widget_set_halign (priv->progress_indicator, GTK_ALIGN_CENTER);
 
   priv->action_area = gis_center_container_new (priv->page_action_widget_area,
-                                                priv->progress_indicator,
-                                                navigation);
+                                                priv->progress_indicator);
 
   gis_assistant_locale_changed (assistant);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);

@@ -28,7 +28,6 @@ struct _GisCenterContainerPrivate
 {
   GtkWidget *left;
   GtkWidget *center;
-  GtkWidget *right;
 };
 typedef struct _GisCenterContainerPrivate GisCenterContainerPrivate;
 
@@ -61,10 +60,6 @@ gis_center_container_get_preferred_width (GtkWidget *widget,
   sum_min = sum_min + child_min;
   sum_nat = sum_nat + child_nat + SPACING;
 
-  gtk_widget_get_preferred_width (priv->right, &child_min, &child_nat);
-  sum_min = sum_min + child_min;
-  sum_nat = sum_nat + child_nat + SPACING;
-
   if (minimum_size)
     *minimum_size = sum_min;
   if (natural_size)
@@ -89,10 +84,6 @@ gis_center_container_get_preferred_height (GtkWidget *widget,
   max_min = MAX (max_min, child_min);
   max_nat = MAX (max_nat, child_nat);
 
-  gtk_widget_get_preferred_height (priv->right, &child_min, &child_nat);
-  max_min = MAX (max_min, child_min);
-  max_nat = MAX (max_nat, child_nat);
-
   if (minimum_size)
     *minimum_size = max_min;
   if (natural_size)
@@ -106,7 +97,7 @@ gis_center_container_size_allocate (GtkWidget     *widget,
   GisCenterContainer *center = GIS_CENTER_CONTAINER (widget);
   GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (center);
   GtkAllocation child_allocation;
-  gint max_side;
+  gint left_side;
 
   gtk_widget_set_allocation (widget, allocation);
 
@@ -114,23 +105,14 @@ gis_center_container_size_allocate (GtkWidget     *widget,
   child_allocation.height = allocation->height;
 
   /* XXX -- fix minimum allocations */
-  {
-    gint left_side, right_side;
-    gtk_widget_get_preferred_width (priv->left, NULL, &left_side);
-    gtk_widget_get_preferred_width (priv->right, NULL, &right_side);
-    max_side = MAX (left_side, right_side);
-  }
-
-  child_allocation.width = max_side;
+  gtk_widget_get_preferred_width (priv->left, NULL, &left_side);
 
   child_allocation.x = allocation->x;
+  child_allocation.width = left_side;
   gtk_widget_size_allocate (priv->left, &child_allocation);
 
-  child_allocation.x = allocation->x + allocation->width - max_side;
-  gtk_widget_size_allocate (priv->right, &child_allocation);
-
-  child_allocation.x = allocation->x + max_side + SPACING;
-  child_allocation.width = allocation->width - max_side * 2 - SPACING * 2;
+  child_allocation.x = allocation->x + left_side + SPACING;
+  child_allocation.width = allocation->width - left_side * 2 - SPACING * 2;
   gtk_widget_size_allocate (priv->center, &child_allocation);
 }
 
@@ -151,7 +133,6 @@ gis_center_container_forall (GtkContainer *container,
 
   callback (priv->left, callback_data);
   callback (priv->center, callback_data);
-  callback (priv->right, callback_data);
 }
 
 static void
@@ -171,8 +152,7 @@ gis_center_container_class_init (GisCenterContainerClass *class)
 
 GtkWidget *
 gis_center_container_new (GtkWidget *left,
-                          GtkWidget *center,
-                          GtkWidget *right)
+                          GtkWidget *center)
 {
   GisCenterContainer *container = g_object_new (GIS_TYPE_CENTER_CONTAINER, NULL);
   GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (container);
@@ -182,9 +162,6 @@ gis_center_container_new (GtkWidget *left,
 
   priv->center = center;
   gtk_widget_set_parent (center, GTK_WIDGET (container));
-
-  priv->right = right;
-  gtk_widget_set_parent (right, GTK_WIDGET (container));
 
   return GTK_WIDGET (container);
 }
