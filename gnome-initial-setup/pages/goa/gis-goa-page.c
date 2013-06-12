@@ -84,29 +84,39 @@ show_online_account_dialog (GtkButton *button,
     }
 
   gtk_widget_show_all (dialog);
-  goa_panel_add_account_dialog_run (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog));
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response != GTK_RESPONSE_OK)
+    {
+      gtk_widget_destroy (dialog);
+      goto out;
+    }
 
   error = NULL;
   object = goa_panel_add_account_dialog_get_account (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), &error);
-  gtk_widget_destroy (dialog);
 
-  if (error && !g_error_matches (error, GOA_ERROR, GOA_ERROR_DIALOG_DISMISSED))
+  if (object == NULL)
     {
-      dialog = gtk_message_dialog_new (parent,
-                                       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       _("Error creating account"));
-      gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                                "%s",
-                                                error->message);
-      gtk_widget_show_all (dialog);
-      gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
+      if (!(error->domain == GOA_ERROR && error->code == GOA_ERROR_DIALOG_DISMISSED))
+        {
+          dialog = gtk_message_dialog_new (parent,
+                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                           GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE,
+                                           _("Error creating account"));
+          gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                                    "%s",
+                                                    error->message);
+          gtk_widget_show_all (dialog);
+          gtk_dialog_run (GTK_DIALOG (dialog));
+          gtk_widget_destroy (dialog);
+        }
       g_error_free (error);
     }
 
-  g_list_free_full (providers, g_object_unref);
+ out:
+  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
+  g_list_free (providers);
 }
 
 static void
