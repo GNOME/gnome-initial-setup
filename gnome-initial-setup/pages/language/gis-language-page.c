@@ -125,13 +125,16 @@ language_changed (CcLanguageChooser  *chooser,
   setlocale (LC_MESSAGES, priv->new_locale_id);
   gis_driver_locale_changed (driver);
 
-  if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER &&
-      g_permission_get_can_acquire (priv->permission)) {
-
-      g_permission_acquire_async (priv->permission,
-                                  NULL,
-                                  change_locale_permission_acquired,
-                                  page);
+  if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
+      if (g_permission_get_allowed (priv->permission)) {
+          set_localed_locale (page);
+      }
+      else if (g_permission_get_can_acquire (priv->permission)) {
+          g_permission_acquire_async (priv->permission,
+                                      NULL,
+                                      change_locale_permission_acquired,
+                                      page);
+      }
   }
   user = act_user_manager_get_user (act_user_manager_get_default (),
                                     g_get_user_name ());
