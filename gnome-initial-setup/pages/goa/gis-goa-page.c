@@ -215,7 +215,7 @@ add_account_to_list (GisGoaPage *page, GoaObject *object)
 
   button = gtk_button_new ();
   gtk_button_set_image (GTK_BUTTON (button),
-                        gtk_image_new_from_icon_name ("user-trash-symbolic", GTK_ICON_SIZE_MENU));
+                        gtk_image_new_from_icon_name ("list-remove-symbolic", GTK_ICON_SIZE_MENU));
   gtk_widget_set_margin_left (button, 10);
   gtk_widget_set_margin_right (button, 10);
   gtk_widget_set_halign (button, GTK_ALIGN_END);
