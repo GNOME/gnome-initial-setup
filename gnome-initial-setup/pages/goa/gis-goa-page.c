@@ -343,6 +343,23 @@ network_status_changed (GNetworkMonitor *monitor,
 }
 
 static void
+update_separator_func (GtkWidget **separator,
+                       GtkWidget  *child,
+                       GtkWidget  *before,
+                       gpointer    user_data)
+{
+  if (before == NULL)
+    return;
+
+  if (*separator == NULL)
+    {
+      *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+      g_object_ref_sink (*separator);
+      gtk_widget_show (*separator);
+    }
+}
+
+static void
 gis_goa_page_constructed (GObject *object)
 {
   GisGoaPage *page = GIS_GOA_PAGE (object);
@@ -351,6 +368,7 @@ gis_goa_page_constructed (GObject *object)
   GError *error = NULL;
   GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
   gboolean available;
+  GtkWidget *list;
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
 
@@ -383,6 +401,11 @@ gis_goa_page_constructed (GObject *object)
   network_status_changed (network_monitor,
                           available,
                           page);
+
+  list = WID ("online-accounts-list");
+  egg_list_box_set_separator_funcs (EGG_LIST_BOX (list),
+                                    update_separator_func,
+                                    NULL, NULL);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 }
