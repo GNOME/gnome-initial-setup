@@ -15,7 +15,7 @@ libgisgoa_la_SOURCES =	\
 	gis-goa-page.c gis-goa-page.h	\
 	$(BUILT_SOURCES)
 
-libgisgoa_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
+libgisgoa_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.." -I "$(top_srcdir)" -I "$(top_builddir)"
 libgisgoa_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgisgoa_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
