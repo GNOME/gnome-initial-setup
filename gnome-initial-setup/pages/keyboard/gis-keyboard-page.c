@@ -607,6 +607,7 @@ static void
 update_input (GisKeyboardPage *self)
 {
         set_input_settings (self);
+        set_localed_input (self);
 }
 
 static gboolean
