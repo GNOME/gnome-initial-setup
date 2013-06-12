@@ -186,7 +186,6 @@ update_visibility (GisGoaPage *page)
 
   accounts = goa_client_get_accounts (priv->goa_client);
   priv->accounts_exist = (accounts != NULL);
-  gtk_widget_set_visible (WID ("online-accounts-label"), accounts == NULL);
   gtk_widget_set_visible (WID ("online-accounts-frame"), accounts != NULL);
   g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
 }
