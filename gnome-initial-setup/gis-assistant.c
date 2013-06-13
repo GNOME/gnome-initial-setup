@@ -245,7 +245,7 @@ update_navigation_buttons (GisAssistant *assistant)
       gtk_widget_show (priv->forward);
 
       is_first_page = (page_priv->link->prev == NULL);
-      gtk_widget_set_sensitive (priv->back, !is_first_page);
+      gtk_widget_set_visible (priv->back, !is_first_page);
 
       can_go_forward = gis_page_get_complete (page);
       gtk_widget_set_sensitive (priv->forward, can_go_forward);
