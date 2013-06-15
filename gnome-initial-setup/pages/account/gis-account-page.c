@@ -357,7 +357,6 @@ update_password_entries (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
   const gchar *password;
-  const gchar *verify;
   const gchar *username;
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
@@ -377,7 +376,6 @@ update_password_entries (GisAccountPage *page)
   strength_label = WID("account-password-strength-label");
 
   password = gtk_entry_get_text (GTK_ENTRY (password_entry));
-  verify = gtk_entry_get_text (GTK_ENTRY (confirm_entry));
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (username_combo));
 
   strength = pw_strength (password, NULL, username, &hint, &long_hint, &strength_level);
@@ -409,7 +407,6 @@ password_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
   clear_entry_validation_error (GTK_ENTRY (w));
   update_password_entries (page);
   priv->user_data_unsaved = TRUE;
@@ -421,9 +418,6 @@ password_entry_focus_out (GtkWidget      *widget,
                           GdkEventFocus  *event,
                           GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
-  GtkEntry *entry = GTK_ENTRY (widget);
-
   if (page->priv->reason_timeout != 0)
     g_source_remove (page->priv->reason_timeout);
 
@@ -924,7 +918,6 @@ on_realm_discover_input (GObject *source,
 
   /* Found a realm, log user into domain */
   if (error == NULL) {
-    UmRealmObject *realm;
     g_assert (realms != NULL);
     priv->realm = g_object_ref (realms->data);
     enterprise_check_login (page);
@@ -945,7 +938,6 @@ static void
 enterprise_add_user (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
-  UmRealmObject *realm;
   GtkTreeIter iter;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
 
@@ -1033,7 +1025,6 @@ enterprise_add_realm (GisAccountPage *page,
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
   GtkTreeModel *model = OBJ(GtkTreeModel*, "enterprise-realms-model");
   gchar *name;
-  gboolean ret;
 
   name = realm_get_name (realm);
 
@@ -1173,7 +1164,6 @@ gis_account_page_constructed (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
   GisAccountPagePrivate *priv = page->priv;
-  GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (page)->driver);
 
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
