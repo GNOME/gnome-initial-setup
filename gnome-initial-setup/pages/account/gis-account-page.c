@@ -77,8 +77,6 @@ struct _GisAccountPagePrivate
   guint reason_timeout;
   ActUserAccountType account_type;
 
-  gboolean user_data_unsaved;
-
   gboolean has_enterprise;
   guint realmd_watch;
   UmRealmManager *realm_manager;
@@ -141,8 +139,6 @@ clear_account_page (GisAccountPage *page)
 
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
   priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
-
-  priv->user_data_unsaved = FALSE;
 
   gtk_entry_set_text (GTK_ENTRY (fullname_entry), "");
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (username_combo))));
@@ -268,7 +264,6 @@ fullname_changed (GtkWidget      *w,
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
   priv->valid_name = is_valid_name (name);
-  priv->user_data_unsaved = TRUE;
 
   if (!priv->valid_name) {
     gtk_entry_set_text (GTK_ENTRY (entry), "");
@@ -294,7 +289,6 @@ username_changed (GtkComboBoxText *combo,
   username = gtk_combo_box_text_get_active_text (combo);
 
   priv->valid_username = is_valid_username (username, &tip);
-  priv->user_data_unsaved = TRUE;
 
   entry = gtk_bin_get_child (GTK_BIN (combo));
 
@@ -407,10 +401,8 @@ password_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
   clear_entry_validation_error (GTK_ENTRY (w));
   update_password_entries (page);
-  priv->user_data_unsaved = TRUE;
   update_account_page_status (page);
 }
 
@@ -467,62 +459,15 @@ create_user (GisAccountPage *page)
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
   }
-  /* TODO:We don't support coming back to this page to modify the values after
-   * the user has been created. For now just disable it
-   */
-  gtk_widget_set_sensitive (GTK_WIDGET (page), FALSE);
-  gtk_widget_set_sensitive (priv->action, FALSE);
-}
-
-static void save_account_data (GisAccountPage *page);
-
-static gulong when_loaded;
-
-static void
-save_when_loaded (ActUser        *user,
-                  GParamSpec     *pspec,
-                  GisAccountPage *page)
-{
-  g_signal_handler_disconnect (user, when_loaded);
-  when_loaded = 0;
-
-  save_account_data (page);
 }
 
 static void
-local_create_user (GisAccountPage *page)
+save_user_data (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
   const gchar *realname;
   const gchar *username;
   const gchar *password;
-
-  if (!priv->user_data_unsaved) {
-    return;
-  }
-
-  /* this can happen when going back */
-  if (!priv->valid_name ||
-      !priv->valid_username) {
-    return;
-  }
-
-  if (priv->act_user == NULL) {
-    create_user (page);
-  }
-
-  if (priv->act_user == NULL) {
-    g_warning ("User creation failed");
-    clear_account_page (page);
-    return;
-  }
-
-  if (!act_user_is_loaded (priv->act_user)) {
-    if (when_loaded == 0)
-      when_loaded = g_signal_connect (priv->act_user, "notify::is-loaded",
-                                      G_CALLBACK (save_when_loaded), page);
-    return;
-  }
 
   realname = gtk_entry_get_text (OBJ (GtkEntry*, "account-fullname-entry"));
   username = gtk_combo_box_text_get_active_text (OBJ (GtkComboBoxText*, "account-username-combo"));
@@ -539,8 +484,33 @@ local_create_user (GisAccountPage *page)
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
                                    priv->act_user,
                                    password);
+}
 
-  priv->user_data_unsaved = FALSE;
+static gulong when_loaded;
+
+static void
+save_when_loaded (ActUser        *user,
+                  GParamSpec     *pspec,
+                  GisAccountPage *page)
+{
+  g_signal_handler_disconnect (user, when_loaded);
+  when_loaded = 0;
+
+  save_user_data (page);
+}
+
+static void
+local_create_user (GisAccountPage *page)
+{
+  GisAccountPagePrivate *priv = page->priv;
+
+  create_user (page);
+
+  if (act_user_is_loaded (priv->act_user))
+    save_user_data (page);
+  else
+    when_loaded = g_signal_connect (priv->act_user, "notify::is-loaded",
+                                    G_CALLBACK (save_when_loaded), page);
 }
 
 static void
@@ -967,7 +937,6 @@ save_account_data (GisAccountPage *page)
   GisAccountPagePrivate *priv = page->priv;
   switch (priv->mode) {
   case UM_LOCAL:
-    local_create_user (page);
     gis_page_apply_complete (GIS_PAGE (page), TRUE);
     break;
   case UM_ENTERPRISE:
@@ -1161,6 +1130,23 @@ gis_account_page_apply (GisPage *gis_page,
 }
 
 static void
+gis_account_page_save_data (GisPage *gis_page)
+{
+  GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
+  GisAccountPagePrivate *priv = page->priv;
+
+  switch (priv->mode) {
+  case UM_LOCAL:
+    local_create_user (page);
+    break;
+  case UM_ENTERPRISE:
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+}
+
+static void
 gis_account_page_constructed (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
@@ -1267,6 +1253,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   page_class->locale_changed = gis_account_page_locale_changed;
   page_class->get_action_widget = gis_account_page_get_action_widget;
   page_class->apply = gis_account_page_apply;
+  page_class->save_data = gis_account_page_save_data;
   object_class->constructed = gis_account_page_constructed;
   object_class->dispose = gis_account_page_dispose;
 
