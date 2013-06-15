@@ -931,22 +931,6 @@ enterprise_add_user (GisAccountPage *page)
   }
 }
 
-static void
-save_account_data (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = page->priv;
-  switch (priv->mode) {
-  case UM_LOCAL:
-    gis_page_apply_complete (GIS_PAGE (page), TRUE);
-    break;
-  case UM_ENTERPRISE:
-    enterprise_add_user (page);
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-}
-
 static gchar *
 realm_get_name (UmRealmObject *realm)
 {
@@ -1119,14 +1103,23 @@ toggle_mode (GtkToggleButton *button,
             gtk_toggle_button_get_active (button) ? UM_ENTERPRISE : UM_LOCAL);
 }
 
-static void
+static gboolean
 gis_account_page_apply (GisPage *gis_page,
                         GCancellable *cancellable)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
-  g_clear_object (&page->priv->cancellable);
-  page->priv->cancellable = g_object_ref (cancellable);
-  save_account_data (page);
+  GisAccountPagePrivate *priv = page->priv;
+
+  switch (priv->mode) {
+  case UM_LOCAL:
+    return FALSE;
+  case UM_ENTERPRISE:
+    page->priv->cancellable = g_object_ref (cancellable);
+    enterprise_add_user (page);
+    return TRUE;
+  default:
+    g_assert_not_reached ();
+  }
 }
 
 static void

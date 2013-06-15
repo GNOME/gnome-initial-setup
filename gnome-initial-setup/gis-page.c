@@ -180,6 +180,13 @@ gis_page_constructed (GObject *object)
   G_OBJECT_CLASS (gis_page_parent_class)->constructed (object);
 }
 
+static gboolean
+gis_page_real_apply (GisPage      *page,
+                     GCancellable *cancellable)
+{
+  return FALSE;
+}
+
 static void
 gis_page_class_init (GisPageClass *klass)
 {
@@ -192,6 +199,7 @@ gis_page_class_init (GisPageClass *klass)
   object_class->set_property = gis_page_set_property;
 
   klass->get_builder = gis_page_real_get_builder;
+  klass->apply = gis_page_real_apply;
 
   obj_props[PROP_DRIVER] =
     g_param_spec_object ("driver", "", "", GIS_TYPE_DRIVER,
@@ -274,13 +282,6 @@ gis_page_apply_begin (GisPage                *page,
 
   klass = GIS_PAGE_GET_CLASS (page);
 
-  /* Shortcut case where no apply vfunc, to avoid flicker */
-  if (!klass->apply) {
-    if (callback)
-      (callback) (page, TRUE, user_data);
-    return;
-  }
-
   /* Unrefs in gis_page_apply_complete() */
   g_object_ref (page);
 
@@ -288,9 +289,14 @@ gis_page_apply_begin (GisPage                *page,
   page->priv->apply_data = user_data;
   page->priv->apply_cancel = g_cancellable_new ();
   page->priv->applying = TRUE;
-  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_APPLYING]);
 
-  (klass->apply) (page, page->priv->apply_cancel);
+  if (!klass->apply (page, page->priv->apply_cancel))
+    {
+      /* Shortcut case where we don't want apply, to avoid flicker */
+      gis_page_apply_complete (page, TRUE);
+    }
+
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_APPLYING]);
 }
 
 void

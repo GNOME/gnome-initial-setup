@@ -63,7 +63,7 @@ struct _GisPageClass
   GtkBuilder * (*get_builder) (GisPage *page);
   GtkWidget  * (*get_action_widget) (GisPage *page);
   void         (*locale_changed) (GisPage *page);
-  void         (*apply) (GisPage *page,
+  gboolean     (*apply) (GisPage *page,
                          GCancellable *cancellable);
   void         (*save_data) (GisPage *page);
   void         (*shown) (GisPage *page);
