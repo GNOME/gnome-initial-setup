@@ -349,6 +349,12 @@ gis_driver_class_init (GisDriverClass *klass)
   g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
 }
 
+void
+gis_driver_save_data (GisDriver *driver)
+{
+  gis_assistant_save_data (driver->priv->assistant);
+}
+
 GisDriver *
 gis_driver_new (GisDriverMode mode)
 {

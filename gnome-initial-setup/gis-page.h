@@ -65,6 +65,7 @@ struct _GisPageClass
   void         (*locale_changed) (GisPage *page);
   void         (*apply) (GisPage *page,
                          GCancellable *cancellable);
+  void         (*save_data) (GisPage *page);
 };
 
 GType gis_page_get_type (void);
@@ -79,6 +80,7 @@ void         gis_page_apply_begin (GisPage *page, GisPageApplyCallback callback,
 void         gis_page_apply_cancel (GisPage *page);
 void         gis_page_apply_complete (GisPage *page, gboolean valid);
 gboolean     gis_page_get_applying (GisPage *page);
+void         gis_page_save_data (GisPage *page);
 
 G_END_DECLS
 

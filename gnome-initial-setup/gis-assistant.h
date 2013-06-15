@@ -74,6 +74,7 @@ GList   * gis_assistant_get_all_pages     (GisAssistant *assistant);
 gchar *   gis_assistant_get_title         (GisAssistant *assistant);
 
 void      gis_assistant_locale_changed    (GisAssistant *assistant);
+void      gis_assistant_save_data         (GisAssistant *assistant);
 
 G_END_DECLS
 

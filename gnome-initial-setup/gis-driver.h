@@ -84,6 +84,8 @@ GisDriverMode gis_driver_get_mode (GisDriver *driver);
 void gis_driver_add_page (GisDriver *driver,
                           GisPage   *page);
 
+void gis_driver_save_data (GisDriver *driver);
+
 GisDriver *gis_driver_new (GisDriverMode mode);
 
 G_END_DECLS

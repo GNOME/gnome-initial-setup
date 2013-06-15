@@ -399,6 +399,16 @@ gis_assistant_locale_changed (GisAssistant *assistant)
     gis_page_locale_changed (l->data);
 }
 
+void
+gis_assistant_save_data (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = assistant->priv;
+  GList *l;
+
+  for (l = priv->pages; l != NULL; l = l->next)
+    gis_page_save_data (l->data);
+}
+
 static void
 gis_assistant_init (GisAssistant *assistant)
 {

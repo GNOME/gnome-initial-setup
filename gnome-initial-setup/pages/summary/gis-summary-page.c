@@ -269,6 +269,9 @@ prepare_cb (GisAssistant   *assistant,
   if (GIS_PAGE (which_page) == GIS_PAGE (this_page))
     {
       GisSummaryPagePrivate *priv = this_page->priv;
+
+      gis_driver_save_data (GIS_PAGE (this_page)->driver);
+
       gis_driver_get_user_permissions (GIS_PAGE (this_page)->driver,
                                        &priv->user_account,
                                        &priv->user_password);

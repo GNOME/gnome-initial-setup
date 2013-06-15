@@ -335,3 +335,10 @@ gis_page_apply_cancel (GisPage *page)
 
   g_cancellable_cancel (page->priv->apply_cancel);
 }
+
+void
+gis_page_save_data (GisPage *page)
+{
+  if (GIS_PAGE_GET_CLASS (page)->save_data)
+    return GIS_PAGE_GET_CLASS (page)->save_data (page);
+}
