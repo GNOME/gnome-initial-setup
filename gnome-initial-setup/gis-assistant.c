@@ -45,7 +45,6 @@ enum {
 static GParamSpec *obj_props[PROP_LAST];
 
 enum {
-  PREPARE,
   NEXT_PAGE,
   LAST_SIGNAL,
 };
@@ -271,15 +270,6 @@ update_applying_state (GisAssistant *assistant)
 }
 
 static void
-gis_assistant_real_prepare (GisAssistant *assistant,
-                            GisPage      *page)
-{
-  update_action_widget (assistant);
-  update_navigation_buttons (assistant);
-  update_progress_indicator (assistant);
-}
-
-static void
 page_notify (GisPage      *page,
              GParamSpec   *pspec,
              GisAssistant *assistant)
@@ -377,12 +367,17 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
 {
   GisAssistantPrivate *priv = assistant->priv;
 
-  if (priv->current_page != page) {
-    priv->current_page = page;
-    update_applying_state (assistant);
-    g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
-    g_signal_emit (assistant, signals[PREPARE], 0, page);
-  }
+  if (priv->current_page == page)
+    return;
+
+  priv->current_page = page;
+  g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
+
+  update_applying_state (assistant);
+  update_action_widget (assistant);
+  update_navigation_buttons (assistant);
+  update_progress_indicator (assistant);
+  gis_page_shown (page);
 }
 
 void
@@ -506,7 +501,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
 
   gobject_class->get_property = gis_assistant_get_property;
 
-  klass->prepare = gis_assistant_real_prepare;
   klass->next_page = gis_assistant_real_next_page;
 
   obj_props[PROP_TITLE] =
@@ -532,24 +526,4 @@ gis_assistant_class_init (GisAssistantClass *klass)
                   G_STRUCT_OFFSET (GisAssistantClass, next_page),
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 1, GIS_TYPE_PAGE);
-
-  /**
-   * GisAssistant::prepare:
-   * @assistant: the #GisAssistant
-   * @page: the current page
-   *
-   * The ::prepare signal is emitted when a new page is set as the
-   * assistant's current page, before making the new page visible.
-   *
-   * A handler for this signal can do any preparations which are
-   * necessary before showing @page.
-   */
-  signals[PREPARE] =
-    g_signal_new ("prepare",
-                  G_TYPE_FROM_CLASS (gobject_class),
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (GisAssistantClass, prepare),
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 1, GIS_TYPE_PAGE);
-
 }

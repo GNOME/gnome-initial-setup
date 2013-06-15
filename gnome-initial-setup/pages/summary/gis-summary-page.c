@@ -262,20 +262,15 @@ done_cb (GtkButton *button, GisSummaryPage *page)
 }
 
 static void
-prepare_cb (GisAssistant   *assistant,
-            GisPage        *which_page,
-            GisSummaryPage *this_page)
+gis_summary_page_shown (GisPage *page)
 {
-  if (GIS_PAGE (which_page) == GIS_PAGE (this_page))
-    {
-      GisSummaryPagePrivate *priv = this_page->priv;
+  GisSummaryPagePrivate *priv = GIS_SUMMARY_PAGE (page)->priv;
 
-      gis_driver_save_data (GIS_PAGE (this_page)->driver);
+  gis_driver_save_data (GIS_PAGE (page)->driver);
 
-      gis_driver_get_user_permissions (GIS_PAGE (this_page)->driver,
-                                       &priv->user_account,
-                                       &priv->user_password);
-    }
+  gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
+                                   &priv->user_account,
+                                   &priv->user_password);
 }
 
 static GtkBuilder *
@@ -305,13 +300,10 @@ static void
 gis_summary_page_constructed (GObject *object)
 {
   GisSummaryPage *page = GIS_SUMMARY_PAGE (object);
-  GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (page)->driver);
 
   G_OBJECT_CLASS (gis_summary_page_parent_class)->constructed (object);
 
   gtk_container_add (GTK_CONTAINER (page), WID ("summary-page"));
-
-  g_signal_connect_object (assistant, "prepare", G_CALLBACK (prepare_cb), page, 0);
 
   g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (done_cb), page);
 
@@ -335,6 +327,7 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   page_class->page_id = PAGE_ID;
   page_class->get_builder = gis_summary_page_get_builder;
   page_class->locale_changed = gis_summary_page_locale_changed;
+  page_class->shown = gis_summary_page_shown;
   object_class->constructed = gis_summary_page_constructed;
 
   g_type_class_add_private (object_class, sizeof(GisSummaryPagePrivate));

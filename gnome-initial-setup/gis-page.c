@@ -342,3 +342,10 @@ gis_page_save_data (GisPage *page)
   if (GIS_PAGE_GET_CLASS (page)->save_data)
     return GIS_PAGE_GET_CLASS (page)->save_data (page);
 }
+
+void
+gis_page_shown (GisPage *page)
+{
+  if (GIS_PAGE_GET_CLASS (page)->shown)
+    return GIS_PAGE_GET_CLASS (page)->shown (page);
+}
