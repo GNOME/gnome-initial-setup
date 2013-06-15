@@ -111,19 +111,13 @@ user_loaded (GObject    *object,
 }
 
 static void
-language_changed (CcLanguageChooser  *chooser,
-                  GParamSpec         *pspec,
-                  GisLanguagePage    *page)
+set_language (GisLanguagePage *page)
 {
   GisLanguagePagePrivate *priv = page->priv;
+  GisDriver *driver = GIS_PAGE (page)->driver;
   ActUser *user;
-  GisDriver *driver;
 
-  priv->new_locale_id = cc_language_chooser_get_language (chooser);
-  driver = GIS_PAGE (page)->driver;
-
-  setlocale (LC_MESSAGES, priv->new_locale_id);
-  gis_driver_locale_changed (driver);
+  priv->new_locale_id = cc_language_chooser_get_language (CC_LANGUAGE_CHOOSER (priv->language_chooser));
 
   if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
       if (g_permission_get_allowed (priv->permission)) {
@@ -147,6 +141,19 @@ language_changed (CcLanguageChooser  *chooser,
                       g_strdup (priv->new_locale_id));
 
   gis_driver_set_user_language (driver, priv->new_locale_id);
+}
+
+static void
+language_changed (CcLanguageChooser  *chooser,
+                  GParamSpec         *pspec,
+                  GisLanguagePage    *page)
+{
+  GisLanguagePagePrivate *priv = page->priv;
+  GisDriver *driver = GIS_PAGE (page)->driver;
+
+  set_language (page);
+  setlocale (LC_MESSAGES, priv->new_locale_id);
+  gis_driver_locale_changed (driver);
 }
 
 static void
@@ -207,6 +214,8 @@ gis_language_page_constructed (GObject *object)
                         object);
       g_object_unref (bus);
   }
+
+  set_language (page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
   gtk_widget_show (GTK_WIDGET (page));
