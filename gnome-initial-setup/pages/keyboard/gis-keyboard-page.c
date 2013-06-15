@@ -74,7 +74,7 @@ struct _GisKeyboardPagePrivate {
         GtkWidget *show_layout;
         GtkWidget *input_scrolledwindow;
         guint n_input_rows;
-        guint gkbd_pid;
+        GPid gkbd_pid;
         GPermission *permission;
 
 
@@ -165,12 +165,6 @@ gis_keyboard_page_constructed (GObject *object)
 
         gis_page_set_complete (GIS_PAGE (self), TRUE);
         gtk_widget_show (GTK_WIDGET (self));
-}
-
-static const char *
-gis_keyboard_page_get_help_uri (GisPage *page)
-{
-        return "help:gnome-help/prefs-language";
 }
 
 static void
@@ -686,7 +680,6 @@ static void
 input_response (GtkWidget *chooser, gint response_id, gpointer data)
 {
 	GisKeyboardPage *self = data;
-        GisKeyboardPagePrivate *priv = self->priv;
         gchar *type;
         gchar *id;
         gchar *name;
@@ -922,7 +915,6 @@ show_selected_layout (GisKeyboardPage *self)
 static void
 add_default_input_source_for_locale (GisKeyboardPage *self)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
         const gchar *locale;
         const gchar *type;
         const gchar *id;
