@@ -407,6 +407,7 @@ password_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPage *page)
 {
+  GisAccountPagePrivate *priv = page->priv;
   clear_entry_validation_error (GTK_ENTRY (w));
   update_password_entries (page);
   priv->user_data_unsaved = TRUE;
