@@ -288,7 +288,7 @@ gis_page_apply_begin (GisPage                *page,
   page->priv->apply_data = user_data;
   page->priv->apply_cancel = g_cancellable_new ();
   page->priv->applying = TRUE;
-  g_object_notify (G_OBJECT (page), "applying");
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_APPLYING]);
 
   (klass->apply) (page, page->priv->apply_cancel);
 }
@@ -310,7 +310,7 @@ gis_page_apply_complete (GisPage *page,
 
   g_clear_object (&page->priv->apply_cancel);
   page->priv->applying = FALSE;
-  g_object_notify (G_OBJECT (page), "applying");
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_APPLYING]);
 
   if (callback)
     (callback) (page, valid, user_data);
