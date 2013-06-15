@@ -296,7 +296,7 @@ gis_location_page_constructed (GObject *object)
 
   gtk_container_add (GTK_CONTAINER (frame), map);
 
-  world = gweather_location_new_world (FALSE);
+  world = gweather_location_new_world (TRUE);
   entry = gweather_location_entry_new (world);
   gtk_entry_set_placeholder_text (GTK_ENTRY (entry), _("Search for a location"));
   gtk_widget_set_halign (entry, GTK_ALIGN_FILL);
