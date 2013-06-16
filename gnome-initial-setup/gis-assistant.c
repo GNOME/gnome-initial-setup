@@ -392,7 +392,7 @@ gis_assistant_locale_changed (GisAssistant *assistant)
   GList *l;
 
   gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
-  gtk_button_set_label (GTK_BUTTON (priv->back), _("_Back"));
+  gtk_button_set_label (GTK_BUTTON (priv->back), _("_Previous"));
   gtk_button_set_label (GTK_BUTTON (priv->cancel), _("_Cancel"));
 
   for (l = priv->pages; l != NULL; l = l->next)
