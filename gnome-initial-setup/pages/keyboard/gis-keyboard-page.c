@@ -132,7 +132,6 @@ gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = self->priv;
-        GDBusConnection *bus;
         GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (self)->driver);
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
@@ -143,23 +142,19 @@ gis_keyboard_page_constructed (GObject *object)
 
         priv->cancellable = g_cancellable_new ();
 
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+                                  NULL,
+                                  "org.freedesktop.locale1",
+                                  "/org/freedesktop/locale1",
+                                  "org.freedesktop.locale1",
+                                  priv->cancellable,
+                                  (GAsyncReadyCallback) localed_proxy_ready,
+                                  self);
+
         /* If we're in new user mode then we're manipulating system settings */
         if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER)
-          {
-            priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-keyboard", NULL, NULL, NULL);
-
-            bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
-            g_dbus_proxy_new (bus,
-                              G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
-                              NULL,
-                              "org.freedesktop.locale1",
-                              "/org/freedesktop/locale1",
-                              "org.freedesktop.locale1",
-                              priv->cancellable,
-                              (GAsyncReadyCallback) localed_proxy_ready,
-                              object);
-            g_object_unref (bus);
-          }
+                priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-keyboard", NULL, NULL, NULL);
 
         g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), self);
 
