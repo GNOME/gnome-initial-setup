@@ -57,15 +57,15 @@ gis_center_container_get_preferred_width (GtkWidget *widget,
   gint sum_min, sum_nat;
   gint child_min, child_nat;
 
-  gtk_widget_get_preferred_height (priv->left, &child_min, &child_nat);
+  gtk_widget_get_preferred_width (priv->left, &child_min, &child_nat);
   sum_min = child_min;
   sum_nat = child_nat;
 
-  gtk_widget_get_preferred_height (priv->center, &child_min, &child_nat);
+  gtk_widget_get_preferred_width (priv->center, &child_min, &child_nat);
   sum_min = sum_min + child_min;
   sum_nat = sum_nat + child_nat + SPACING;
 
-  gtk_widget_get_preferred_height (priv->right, &child_min, &child_nat);
+  gtk_widget_get_preferred_width (priv->right, &child_min, &child_nat);
   sum_min = sum_min + child_min;
   sum_nat = sum_nat + child_nat + SPACING;
 
