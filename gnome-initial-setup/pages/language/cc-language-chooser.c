@@ -308,14 +308,14 @@ language_visible (GtkWidget *child,
 }
 
 static gint
-sort_languages (gconstpointer a,
-                gconstpointer b,
-                gpointer      data)
+sort_languages (GtkWidget *a,
+                GtkWidget *b,
+                gpointer   data)
 {
         LanguageWidget *la, *lb;
 
-        la = get_language_widget (GTK_WIDGET (a));
-        lb = get_language_widget (GTK_WIDGET (b));
+        la = get_language_widget (a);
+        lb = get_language_widget (b);
 
         if (la == NULL)
                 return 1;

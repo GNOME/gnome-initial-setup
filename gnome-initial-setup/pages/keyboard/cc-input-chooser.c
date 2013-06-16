@@ -439,9 +439,9 @@ show_locale_widgets (GtkWidget *chooser)
 }
 
 static gint
-list_sort (gconstpointer a,
-           gconstpointer b,
-           gpointer      data)
+list_sort (GtkWidget *a,
+           GtkWidget *b,
+           gpointer   data)
 {
   GtkWidget *chooser = data;
   CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
