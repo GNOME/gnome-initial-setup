@@ -436,7 +436,7 @@ confirm_entry_focus_out (GtkWidget      *widget,
   return FALSE;
 }
 
-static void
+static gboolean
 create_user (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
@@ -458,7 +458,9 @@ create_user (GisAccountPage *page)
   if (error != NULL) {
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
+    return FALSE;
   }
+  return TRUE;
 }
 
 static void
@@ -504,7 +506,8 @@ local_create_user (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
 
-  create_user (page);
+  if (create_user (page) == FALSE)
+    return;
 
   if (act_user_is_loaded (priv->act_user))
     save_user_data (page);
