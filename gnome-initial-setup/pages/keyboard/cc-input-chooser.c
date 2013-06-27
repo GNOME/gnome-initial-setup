@@ -24,8 +24,6 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-languages.h>
 
-#include <egg-list-box.h>
-
 #include <../language/cc-common-language.h>
 #include <../language/cc-util.h>
 #include "cc-input-chooser.h"
@@ -307,23 +305,18 @@ set_fixed_size (GtkWidget *chooser)
 }
 
 static void
-update_separator (GtkWidget **separator,
-                  GtkWidget  *child,
-                  GtkWidget  *before,
-                  gpointer    user_data)
+update_header_func (GtkListBoxRow *child,
+                    GtkListBoxRow *before,
+                    gpointer       user_data)
 {
-  if (*separator && !GTK_IS_SEPARATOR (*separator))
-    {
-      gtk_widget_destroy (*separator);
-      *separator = NULL;
-    }
+  GtkWidget *header;
 
-  if (*separator == NULL)
-    {
-      *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-      g_object_ref_sink (*separator);
-      gtk_widget_show (*separator);
-    }
+  if (before == NULL)
+    return;
+
+  header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_list_box_row_set_header (child, header);
+  gtk_widget_show (header);
 }
 
 static void
@@ -371,9 +364,8 @@ show_input_sources_for_locale (GtkWidget   *chooser,
 
   gtk_adjustment_set_value (priv->adjustment,
                             gtk_adjustment_get_lower (priv->adjustment));
-  egg_list_box_set_separator_funcs (EGG_LIST_BOX (priv->list), update_separator, NULL, NULL);
-  egg_list_box_refilter (EGG_LIST_BOX (priv->list));
-  egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->list), GTK_SELECTION_SINGLE);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->list), update_header_func, NULL, NULL);
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->list), GTK_SELECTION_SINGLE);
 
   if (gtk_widget_is_visible (priv->filter_entry))
     gtk_widget_grab_focus (priv->filter_entry);
@@ -425,9 +417,8 @@ show_locale_widgets (GtkWidget *chooser)
 
   gtk_adjustment_set_value (priv->adjustment,
                             gtk_adjustment_get_lower (priv->adjustment));
-  egg_list_box_set_separator_funcs (EGG_LIST_BOX (priv->list), update_separator, NULL, NULL);
-  egg_list_box_refilter (EGG_LIST_BOX (priv->list));
-  egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->list), GTK_SELECTION_NONE);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->list), update_header_func, NULL, NULL);
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->list), GTK_SELECTION_NONE);
 
   if (gtk_widget_is_visible (priv->filter_entry))
     gtk_widget_grab_focus (priv->filter_entry);
@@ -439,32 +430,30 @@ show_locale_widgets (GtkWidget *chooser)
 }
 
 static gint
-list_sort (GtkWidget *a,
-           GtkWidget *b,
-           gpointer   data)
+list_sort (GtkListBoxRow *a,
+           GtkListBoxRow *b,
+           gpointer data)
 {
   GtkWidget *chooser = data;
   CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
+  GtkWidget *wa, *wb;
   LocaleInfo *ia;
   LocaleInfo *ib;
   const gchar *la;
   const gchar *lb;
   gint retval;
 
-  /* Always goes at the start */
-  if (a == priv->no_results)
-    return -1;
-  if (b == priv->no_results)
-    return 1;
+  wa = gtk_bin_get_child (GTK_BIN (a));
+  wb = gtk_bin_get_child (GTK_BIN (b));
 
   /* Always goes at the end */
-  if (a == priv->more_item)
+  if (wa == priv->more_item)
     return 1;
-  if (b == priv->more_item)
+  if (wb == priv->more_item)
     return -1;
 
-  ia = g_object_get_data (G_OBJECT (a), "locale-info");
-  ib = g_object_get_data (G_OBJECT (b), "locale-info");
+  ia = g_object_get_data (G_OBJECT (wa), "locale-info");
+  ib = g_object_get_data (G_OBJECT (wb), "locale-info");
 
   /* The "Other" locale always goes at the end */
   if (!ia->id[0] && ib->id[0])
@@ -511,21 +500,20 @@ match_all (gchar       **words,
 }
 
 static gboolean
-list_filter (GtkWidget *child,
-             gpointer   user_data)
+list_filter (GtkListBoxRow *row,
+             gpointer user_data)
 {
   GtkDialog *chooser = user_data;
   CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
   LocaleInfo *info;
   gboolean is_extra;
   const gchar *source_name;
+  GtkWidget *child;
+
+  child = gtk_bin_get_child (GTK_BIN (row));
 
   if (child == priv->more_item)
     return !priv->showing_extra;
-
-  /* We hide this in the after-refilter handler below. */
-  if (child == priv->no_results)
-    return TRUE;
 
   is_extra = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (child), "is-extra"));
 
@@ -551,13 +539,20 @@ list_filter (GtkWidget *child,
 }
 
 static void
-update_separator_filter (GtkWidget **separator,
-                         GtkWidget  *child,
-                         GtkWidget  *before,
-                         gpointer    user_data)
+update_header_func_filter (GtkListBoxRow *row,
+                           GtkListBoxRow *row_before,
+                           gpointer       user_data)
 {
+  GtkWidget *child;
+  GtkWidget *before;
+
   LocaleInfo *child_info = NULL;
   LocaleInfo *before_info = NULL;
+
+  GtkWidget *header;
+
+  child = gtk_bin_get_child (GTK_BIN (row));
+  before = gtk_bin_get_child (GTK_BIN (row_before));
 
   if (child)
     child_info = g_object_get_data (G_OBJECT (child), "locale-info");
@@ -569,32 +564,12 @@ update_separator_filter (GtkWidget **separator,
     return;
 
   if (child_info == before_info)
-    {
-      /* Create a regular separator if we don't have one */
-      if (*separator && !GTK_IS_SEPARATOR (*separator))
-        {
-          gtk_widget_destroy (*separator);
-          *separator = NULL;
-        }
-
-      if (*separator == NULL)
-        *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-    }
+    header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
   else
-    {
-      /* Create a locale heading separator if we don't have one */
-      if (*separator && GTK_IS_SEPARATOR (*separator))
-        {
-          gtk_widget_destroy (*separator);
-          *separator = NULL;
-        }
+    header = locale_separator_widget_new (child_info->name);
 
-      if (*separator == NULL)
-        *separator = locale_separator_widget_new (child_info->name);
-    }
-
-  g_object_ref_sink (*separator);
-  gtk_widget_show_all (*separator);
+  gtk_widget_show_all (header);
+  gtk_list_box_row_set_header (row, header);
 }
 
 static void
@@ -606,8 +581,6 @@ show_filter_widgets (GtkWidget *chooser)
 
   remove_all_children (GTK_CONTAINER (priv->list));
 
-  gtk_container_add (GTK_CONTAINER (priv->list), priv->no_results);
-
   g_hash_table_iter_init (&iter, priv->locales);
   while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &info))
     add_input_source_widgets_for_locale (chooser, info);
@@ -616,10 +589,10 @@ show_filter_widgets (GtkWidget *chooser)
 
   gtk_adjustment_set_value (priv->adjustment,
                             gtk_adjustment_get_lower (priv->adjustment));
-  egg_list_box_set_separator_funcs (EGG_LIST_BOX (priv->list),
-                                    update_separator_filter, NULL, NULL);
-  egg_list_box_refilter (EGG_LIST_BOX (priv->list));
-  egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->list), GTK_SELECTION_SINGLE);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->list),
+                                update_header_func_filter, NULL, NULL);
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->list), GTK_SELECTION_SINGLE);
+  gtk_list_box_set_placeholder (GTK_LIST_BOX (priv->list), priv->no_results);
 
   if (gtk_widget_is_visible (priv->filter_entry))
     gtk_widget_grab_focus (priv->filter_entry);
@@ -672,47 +645,10 @@ filter_changed (GtkWidget *chooser)
       if (!was_filtering)
         show_filter_widgets (chooser);
       else if (strvs_differ (priv->filter_words, previous_words))
-        egg_list_box_refilter (EGG_LIST_BOX (priv->list));
+        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->list));
     }
 
   g_strfreev (previous_words);
-}
-
-typedef struct {
-  gint count;
-  GtkWidget *ignore;
-} CountChildrenData;
-
-static void
-count_visible_children (GtkWidget *widget,
-                        gpointer   user_data)
-{
-  CountChildrenData *data = user_data;
-  if (widget != data->ignore &&
-      gtk_widget_get_child_visible (widget) &&
-      gtk_widget_get_visible (widget))
-    data->count++;
-}
-
-static void
-end_refilter (EggListBox *list_box,
-              gpointer    user_data)
-{
-  GtkDialog *chooser = user_data;
-  CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
-  CountChildrenData data = { 0 };
-  gboolean visible;
-
-  data.ignore = priv->no_results;
-
-  gtk_container_foreach (GTK_CONTAINER (list_box),
-                         count_visible_children, &data);
-
-  visible = (data.count == 0);
-
-  gtk_widget_set_visible (priv->no_results, visible);
-  egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->list),
-                                   visible ? GTK_SELECTION_NONE : GTK_SELECTION_SINGLE);
 }
 
 static void
@@ -727,19 +663,22 @@ show_more (GtkWidget *chooser)
 
   priv->showing_extra = TRUE;
 
-  egg_list_box_refilter (EGG_LIST_BOX (priv->list));
+  gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->list));
 }
 
 static void
-child_activated (EggListBox *box,
-                 GtkWidget  *child,
-                 GtkWidget  *chooser)
+row_activated (GtkListBox *box,
+               GtkListBoxRow *row,
+               GtkWidget  *chooser)
 {
   CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
   gpointer data;
+  GtkWidget *child;
 
-  if (!child)
+  if (!row)
     return;
+
+  child = gtk_bin_get_child (GTK_BIN (row));
 
   if (child == priv->more_item)
     {
@@ -770,13 +709,12 @@ child_activated (EggListBox *box,
 }
 
 static void
-child_selected (EggListBox *box,
-                GtkWidget  *child,
-                GtkWidget  *chooser)
+row_selected (GtkListBox *box,
+              GtkListBoxRow *row,
+              GtkWidget  *chooser)
 {
   CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
-
-  gtk_widget_set_sensitive (priv->add_button, child != NULL);
+  gtk_widget_set_sensitive (priv->add_button, row != NULL);
 }
 
 static void
@@ -1141,12 +1079,10 @@ cc_input_chooser_new (GtkWindow    *main_window,
   priv->more_item = g_object_ref_sink (more_widget_new ());
   priv->no_results = g_object_ref_sink (no_results_widget_new ());
 
-  egg_list_box_set_adjustment (EGG_LIST_BOX (priv->list), priv->adjustment);
-  egg_list_box_set_filter_func (EGG_LIST_BOX (priv->list), list_filter, chooser, NULL);
-  egg_list_box_set_sort_func (EGG_LIST_BOX (priv->list), list_sort, chooser, NULL);
-  g_signal_connect (priv->list, "child-activated", G_CALLBACK (child_activated), chooser);
-  g_signal_connect (priv->list, "child-selected", G_CALLBACK (child_selected), chooser);
-  g_signal_connect_after (priv->list, "refilter", G_CALLBACK (end_refilter), chooser);
+  gtk_list_box_set_filter_func (GTK_LIST_BOX (priv->list), list_filter, chooser, NULL);
+  gtk_list_box_set_sort_func (GTK_LIST_BOX (priv->list), list_sort, chooser, NULL);
+  g_signal_connect (priv->list, "row-activated", G_CALLBACK (row_activated), chooser);
+  g_signal_connect (priv->list, "row-selected", G_CALLBACK (row_selected), chooser);
 
   g_signal_connect_swapped (priv->filter_entry, "changed", G_CALLBACK (filter_changed), chooser);
 
@@ -1190,13 +1126,15 @@ cc_input_chooser_get_selected (GtkWidget  *chooser,
                                gchar     **name)
 {
   CcInputChooserPrivate *priv = GET_PRIVATE (chooser);
+  GtkListBoxRow *row;
   GtkWidget *selected;
   const gchar *t, *i, *n;
 
-  selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->list));
-  if (!selected)
+  row = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->list));
+  if (!row)
     return FALSE;
 
+  selected = gtk_bin_get_child (GTK_BIN (row));
   t = g_object_get_data (G_OBJECT (selected), "type");
   i = g_object_get_data (G_OBJECT (selected), "id");
   n = g_object_get_data (G_OBJECT (selected), "name");

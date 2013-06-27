@@ -47,7 +47,6 @@
 
 #include <act/act.h>
 #include <unistd.h>
-#include <egg-list-box.h>
 
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
@@ -181,19 +180,22 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 }
 
 static void
-update_separator_func (GtkWidget **separator,
-                       GtkWidget  *child,
-                       GtkWidget  *before,
-                       gpointer    user_data)
+update_header_func (GtkListBoxRow  *row,
+                    GtkListBoxRow  *before,
+                    gpointer    user_data)
 {
-        if (before == NULL)
-                return;
+  GtkWidget *current;
 
-        if (*separator == NULL) {
-                *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-                g_object_ref_sink (*separator);
-                gtk_widget_show (*separator);
-        }
+  if (before == NULL)
+    return;
+
+  current = gtk_list_box_row_get_header (row);
+  if (current == NULL)
+    {
+      current = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+      gtk_widget_show (current);
+      gtk_list_box_row_set_header (row, current);
+    }
 }
 
 
@@ -354,6 +356,22 @@ adjust_input_list_scrolling (GisKeyboardPage *self)
         }
 }
 
+static void
+remove_no_input_row (GtkContainer *list)
+{
+        GList *l;
+
+        l = gtk_container_get_children (list);
+        if (!l)
+                return;
+        if (l->next != NULL)
+                goto out;
+        if (g_strcmp0 (g_object_get_data (G_OBJECT (l->data), "type"), "none") == 0)
+                gtk_container_remove (list, GTK_WIDGET (l->data));
+out:
+        g_list_free (l);
+}
+
 static GtkWidget *
 add_input_row (GisKeyboardPage   *self,
                const gchar     *type,
@@ -363,17 +381,22 @@ add_input_row (GisKeyboardPage   *self,
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *row;
+        GtkWidget *box;
         GtkWidget *label;
         GtkWidget *image;
 
-        row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+        remove_no_input_row (GTK_CONTAINER (priv->input_list));
+
+        row = gtk_list_box_row_new ();
+        box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+        gtk_container_add (GTK_CONTAINER (row), box);
         label = gtk_label_new (name);
         gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
         gtk_widget_set_margin_left (label, 20);
         gtk_widget_set_margin_right (label, 20);
         gtk_widget_set_margin_top (label, 6);
         gtk_widget_set_margin_bottom (label, 6);
-        gtk_box_pack_start (GTK_BOX (row), label, TRUE, TRUE, 0);
+        gtk_box_pack_start (GTK_BOX (box), label, TRUE, TRUE, 0);
 
         if (strcmp (type, INPUT_SOURCE_TYPE_IBUS) == 0) {
                 image = gtk_image_new_from_icon_name ("system-run-symbolic", GTK_ICON_SIZE_BUTTON);
@@ -382,7 +405,7 @@ add_input_row (GisKeyboardPage   *self,
                 gtk_widget_set_margin_top (image, 6);
                 gtk_widget_set_margin_bottom (image, 6);
                 gtk_style_context_add_class (gtk_widget_get_style_context (image), "dim-label");
-                gtk_box_pack_start (GTK_BOX (row), image, FALSE, TRUE, 0);
+                gtk_box_pack_start (GTK_BOX (box), image, FALSE, TRUE, 0);
         }
 
         gtk_widget_show_all (row);
@@ -408,11 +431,8 @@ add_input_source (GisKeyboardPage *self,
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         const gchar *name;
-        gchar *display_name;
-        GDesktopAppInfo *app_info;
-
-        display_name = NULL;
-        app_info = NULL;
+        gchar *display_name = NULL;
+        GDesktopAppInfo *app_info = NULL;
 
         if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
                 gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
@@ -445,12 +465,23 @@ add_input_source (GisKeyboardPage *self,
 }
 
 static void
+add_no_input_row (GisKeyboardPage *self)
+{
+        add_input_row (self, "none", "none", _("No input source selected"), NULL);
+}
+
+static void
 add_input_sources (GisKeyboardPage *self,
                    GVariant        *sources)
 {
         GVariantIter iter;
         const gchar *type;
         const gchar *id;
+
+        if (g_variant_n_children (sources) < 1) {
+                add_no_input_row (self);
+                return;
+        }
 
         g_variant_iter_init (&iter, sources);
         while (g_variant_iter_next (&iter, "(&s&s)", &type, &id))
@@ -491,7 +522,7 @@ select_by_id (GtkWidget   *row,
 
         row_id = (const gchar *)g_object_get_data (G_OBJECT (row), "id");
         if (g_strcmp0 (row_id, id) == 0)
-                egg_list_box_select_child (EGG_LIST_BOX (gtk_widget_get_parent (row)), row);
+                gtk_list_box_select_row (GTK_LIST_BOX (gtk_widget_get_parent (row)), GTK_LIST_BOX_ROW (row));
 }
 
 static void
@@ -510,10 +541,10 @@ input_sources_changed (GSettings     *settings,
                        GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        GtkWidget *selected;
+        GtkListBoxRow *selected;
         gchar *id = NULL;
 
-        selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->input_list));
+        selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->input_list));
         if (selected)
                 id = g_strdup (g_object_get_data (G_OBJECT (selected), "id"));
         clear_input_sources (self);
@@ -524,12 +555,11 @@ input_sources_changed (GSettings     *settings,
         }
 }
 
-
 static void
 update_buttons (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        GtkWidget *selected;
+        GtkListBoxRow *selected;
         GList *children;
         gboolean multiple_sources;
 
@@ -537,7 +567,7 @@ update_buttons (GisKeyboardPage *self)
         multiple_sources = g_list_next (children) != NULL;
         g_list_free (children);
 
-        selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->input_list));
+        selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->input_list));
         if (selected == NULL) {
                 gtk_widget_set_visible (priv->show_config, FALSE);
                 gtk_widget_set_sensitive (priv->remove_input, FALSE);
@@ -766,16 +796,16 @@ static void
 do_remove_selected_input (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        GtkWidget *selected;
+        GtkListBoxRow *selected;
         GtkWidget *sibling;
 
-        selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->input_list));
+        selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->input_list));
         if (selected == NULL)
                 return;
 
-        sibling = find_sibling (GTK_CONTAINER (priv->input_list), selected);
-        gtk_container_remove (GTK_CONTAINER (priv->input_list), selected);
-        egg_list_box_select_child (EGG_LIST_BOX (priv->input_list), sibling);
+        sibling = find_sibling (GTK_CONTAINER (priv->input_list), GTK_WIDGET (selected));
+        gtk_container_remove (GTK_CONTAINER (priv->input_list), GTK_WIDGET (selected));
+        gtk_list_box_select_row (GTK_LIST_BOX (priv->input_list), GTK_LIST_BOX_ROW (sibling));
 
         priv->n_input_rows -= 1;
         adjust_input_list_scrolling (self);
@@ -794,13 +824,13 @@ static void
 show_selected_settings (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        GtkWidget *selected;
+        GtkListBoxRow *selected;
         GdkAppLaunchContext *ctx;
         GDesktopAppInfo *app_info;
         const gchar *id;
         GError *error = NULL;
 
-        selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->input_list));
+        selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->input_list));
         if (selected == NULL)
                 return;
 
@@ -827,15 +857,14 @@ static void
 show_selected_layout (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        GtkWidget *selected;
+        GtkListBoxRow *selected;
         const gchar *type;
         const gchar *id;
         const gchar *layout;
         const gchar *variant;
         gchar *commandline;
-        gchar **argv = NULL;
 
-        selected = egg_list_box_get_selected_child (EGG_LIST_BOX (priv->input_list));
+        selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->input_list));
         if (selected == NULL)
                 return;
 
@@ -878,28 +907,7 @@ show_selected_layout (GisKeyboardPage *self)
                 commandline = g_strdup_printf ("gkbd-keyboard-display -l %s",
                                                layout);
 
-        if (!g_shell_parse_argv (commandline,
-                            NULL,
-                            &argv,
-                            NULL))
-          goto out;
-
-        if (priv->gkbd_pid)
-          {
-            kill (priv->gkbd_pid, 9);
-            priv->gkbd_pid = 0;
-          }
-
-        g_spawn_async (NULL,
-                       argv,
-                       NULL,
-                       G_SPAWN_SEARCH_PATH,
-                       NULL,
-                       NULL,
-                       &priv->gkbd_pid,
-                       NULL);
-        g_strfreev (argv);
-  out:
+        g_spawn_command_line_async (commandline, NULL);
         g_free (commandline);
 }
 
@@ -958,18 +966,19 @@ setup_input_section (GisKeyboardPage *self)
         g_signal_connect_swapped (priv->show_layout, "clicked",
                                   G_CALLBACK (show_selected_layout), self);
 
-        egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->input_list),
+        gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->input_list),
                                          GTK_SELECTION_SINGLE);
-        egg_list_box_set_separator_funcs (EGG_LIST_BOX (priv->input_list),
-                                          update_separator_func,
-                                          NULL, NULL);
-        g_signal_connect_swapped (priv->input_list, "child-selected",
+        gtk_list_box_set_header_func (GTK_LIST_BOX (priv->input_list),
+                                      update_header_func,
+                                      NULL, NULL);
+        g_signal_connect_swapped (priv->input_list, "row-selected",
                                   G_CALLBACK (update_buttons), self);
 
         g_signal_connect (priv->input_settings, "changed::" KEY_INPUT_SOURCES,
                           G_CALLBACK (input_sources_changed), self);
 
         add_default_input_source_for_locale (self);
+        update_buttons (self);
 }
 
 static void

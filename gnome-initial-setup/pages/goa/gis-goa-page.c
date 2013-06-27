@@ -34,8 +34,6 @@
 #define GOA_BACKEND_API_IS_SUBJECT_TO_CHANGE
 #include <goabackend/goabackend.h>
 
-#include <egg-list-box.h>
-
 #include "cc-online-accounts-add-account-dialog.h"
 
 #include <glib/gi18n.h>
@@ -219,7 +217,7 @@ add_account_to_list (GisGoaPage *page, GoaObject *object)
                             goa_account_get_presentation_identity (account));
 
   list = WID ("online-accounts-list");
-  egg_list_box_set_selection_mode (EGG_LIST_BOX (list), GTK_SELECTION_NONE);
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_NONE);
 
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_set_hexpand (box, TRUE);
@@ -350,20 +348,18 @@ network_status_changed (GNetworkMonitor *monitor,
 }
 
 static void
-update_separator_func (GtkWidget **separator,
-                       GtkWidget  *child,
-                       GtkWidget  *before,
-                       gpointer    user_data)
+update_header_func (GtkListBoxRow *child,
+                    GtkListBoxRow *before,
+                    gpointer       user_data)
 {
+  GtkWidget *header;
+
   if (before == NULL)
     return;
 
-  if (*separator == NULL)
-    {
-      *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-      g_object_ref_sink (*separator);
-      gtk_widget_show (*separator);
-    }
+  header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_list_box_row_set_header (child, header);
+  gtk_widget_show (header);
 }
 
 static void
@@ -410,9 +406,9 @@ gis_goa_page_constructed (GObject *object)
                           page);
 
   list = WID ("online-accounts-list");
-  egg_list_box_set_separator_funcs (EGG_LIST_BOX (list),
-                                    update_separator_func,
-                                    NULL, NULL);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (list),
+                                update_header_func,
+                                NULL, NULL);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 }

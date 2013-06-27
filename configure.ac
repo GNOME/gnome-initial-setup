@@ -23,15 +23,6 @@ GNOME_DESKTOP_REQUIRED_VERSION=3.7.5
 POLKIT_REQUIRED_VERSION=0.103
 GDM_REQUIRED_VERSION=3.8.3
 
-# EggListBox submodule
-prev_top_build_prefix=$ac_top_build_prefix
-prev_ac_configure_args=$ac_configure_args
-AX_CONFIG_DIR([egg-list-box])
-ac_top_build_prefix=$prev_top_build_prefix
-ac_configure_args=$prev_ac_configure_args
-
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:"$ac_top_build_prefix"egg-list-box
-
 PKG_CHECK_MODULES(INITIAL_SETUP,
                   NetworkManager >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-glib >= $NETWORK_MANAGER_REQUIRED_VERSION
@@ -49,8 +40,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm >= $GDM_REQUIRED_VERSION
                   pango >= $PANGO_REQUIRED_VERSION
-                  pwquality
-                  egg-list-box-uninstalled)
+                  pwquality)
 
 PKG_CHECK_MODULES(COPY_WORKER, gio-2.0)
 

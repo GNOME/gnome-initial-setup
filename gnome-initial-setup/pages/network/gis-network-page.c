@@ -34,8 +34,6 @@
 
 #include <gtk/gtk.h>
 
-#include <egg-list-box.h>
-
 #include <nm-client.h>
 #include <nm-device-wifi.h>
 #include <nm-access-point.h>
@@ -148,33 +146,37 @@ get_access_point_security (NMAccessPoint *ap)
 }
 
 static gint
-ap_sort (gconstpointer a, gconstpointer b, gpointer data)
+ap_sort (GtkListBoxRow *a,
+         GtkListBoxRow *b,
+         gpointer data)
 {
-        guint sa, sb;
+  GtkWidget *wa, *wb;
+  guint sa, sb;
 
-        sa = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (a), "strength"));
-        sb = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (b), "strength"));
-        if (sa > sb) return -1;
-        if (sb > sa) return 1;
+  wa = gtk_bin_get_child (GTK_BIN (a));
+  wb = gtk_bin_get_child (GTK_BIN (b));
 
-        return 0;
+  sa = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (wa), "strength"));
+  sb = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (wb), "strength"));
+  if (sa > sb) return -1;
+  if (sb > sa) return 1;
+
+  return 0;
 }
 
 static void
-update_separator (GtkWidget **separator,
-                  GtkWidget  *child,
-                  GtkWidget  *before,
-                  gpointer    user_data)
+update_header_func (GtkListBoxRow *child,
+                    GtkListBoxRow *before,
+                    gpointer       user_data)
 {
+  GtkWidget *header;
+
   if (before == NULL)
     return;
 
-  if (*separator == NULL)
-    {
-      *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-      gtk_widget_show (*separator);
-      g_object_ref_sink (*separator);
-    }
+  header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_list_box_row_set_header (child, header);
+  gtk_widget_show (header);
 }
 
 static void
@@ -461,7 +463,9 @@ connect_to_hidden_network (GisNetworkPage *page)
 }
 
 static void
-child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
+row_activated (GtkListBox *box,
+               GtkListBoxRow *row,
+               GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   gchar *object_path;
@@ -471,10 +475,12 @@ child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
   NMSettingWireless *setting;
   const GByteArray *ssid_target;
   const GByteArray *ssid;
+  GtkWidget *child;
 
   if (priv->refreshing)
     return;
 
+  child = gtk_bin_get_child (GTK_BIN (row));
   object_path = g_object_get_data (G_OBJECT (child), "object-path");
   ssid_target = g_object_get_data (G_OBJECT (child), "ssid");
 
@@ -611,13 +617,12 @@ gis_network_page_constructed (GObject *object)
 
   box = WID ("network-list");
 
-  egg_list_box_set_selection_mode (EGG_LIST_BOX (box), GTK_SELECTION_NONE);
-  egg_list_box_set_separator_funcs (EGG_LIST_BOX (box), update_separator, NULL, NULL);
-  egg_list_box_set_sort_func (EGG_LIST_BOX (box), ap_sort, NULL, NULL);
-  egg_list_box_set_adjustment (EGG_LIST_BOX (box), gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (WID ("network-scrolledwindow"))));
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (box), GTK_SELECTION_NONE);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (box), update_header_func, NULL, NULL);
+  gtk_list_box_set_sort_func (GTK_LIST_BOX (box), ap_sort, NULL, NULL);
 
-  g_signal_connect (box, "child-activated",
-                    G_CALLBACK (child_activated), page);
+  g_signal_connect (box, "row-activated",
+                    G_CALLBACK (row_activated), page);
 
   refresh_wireless_list (page);
 

@@ -39,8 +39,6 @@
 
 #include <glib-object.h>
 
-#include <egg-list-box.h>
-
 G_DEFINE_TYPE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BIN);
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CC_TYPE_LANGUAGE_CHOOSER, CcLanguageChooserPrivate))
@@ -147,12 +145,16 @@ language_widget_new (const char *locale_id,
 }
 
 static void
-sync_checkmark (GtkWidget *child,
+sync_checkmark (GtkWidget *row,
                 gpointer   user_data)
 {
-        LanguageWidget *widget = get_language_widget (child);
+        GtkWidget *child;
+        LanguageWidget *widget;
         gchar *locale_id;
         gboolean should_be_visible;
+
+        child = gtk_bin_get_child (GTK_BIN (row));
+        widget = get_language_widget (child);
 
         if (widget == NULL)
                 return;
@@ -225,7 +227,7 @@ add_languages (CcLanguageChooser  *chooser,
         }
 
         gtk_container_add (GTK_CONTAINER (priv->language_list), priv->more_item);
-        gtk_container_add (GTK_CONTAINER (priv->language_list), priv->no_results);
+        gtk_list_box_set_placeholder (GTK_LIST_BOX (priv->language_list), priv->no_results);
 
         gtk_widget_show_all (priv->language_list);
 }
@@ -257,8 +259,8 @@ match_all (gchar       **words,
 }
 
 static gboolean
-language_visible (GtkWidget *child,
-                  gpointer   user_data)
+language_visible (GtkListBoxRow *row,
+                  gpointer       user_data)
 {
         CcLanguageChooser *chooser = user_data;
         CcLanguageChooserPrivate *priv = chooser->priv;
@@ -267,13 +269,11 @@ language_visible (GtkWidget *child,
         gchar *locale_untranslated_name = NULL;
         LanguageWidget *widget;
         gboolean visible;
+        GtkWidget *child;
 
+        child = gtk_bin_get_child (GTK_BIN (row));
         if (child == priv->more_item)
                 return !priv->showing_extra;
-
-        /* We hide this in the after-refilter handler below. */
-        if (child == priv->no_results)
-                return TRUE;
 
         widget = get_language_widget (child);
 
@@ -308,14 +308,14 @@ language_visible (GtkWidget *child,
 }
 
 static gint
-sort_languages (GtkWidget *a,
-                GtkWidget *b,
-                gpointer   data)
+sort_languages (GtkListBoxRow *a,
+                GtkListBoxRow *b,
+                gpointer       data)
 {
         LanguageWidget *la, *lb;
 
-        la = get_language_widget (a);
-        lb = get_language_widget (b);
+        la = get_language_widget (gtk_bin_get_child (GTK_BIN (a)));
+        lb = get_language_widget (gtk_bin_get_child (GTK_BIN (a)));
 
         if (la == NULL)
                 return 1;
@@ -337,13 +337,11 @@ filter_changed (GtkEntry        *entry,
 
         filter_contents =
                 cc_util_normalize_casefold_and_unaccent (gtk_entry_get_text (GTK_ENTRY (priv->filter_entry)));
-        if (!filter_contents) {
-                egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+        if (!filter_contents)
                 return;
-        }
         priv->filter_words = g_strsplit_set (g_strstrip (filter_contents), " ", 0);
         g_free (filter_contents);
-        egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->language_list));
 }
 
 static void
@@ -355,7 +353,7 @@ show_more (CcLanguageChooser *chooser)
         gtk_widget_grab_focus (priv->filter_entry);
 
         priv->showing_extra = TRUE;
-        egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->language_list));
         g_object_notify_by_pspec (G_OBJECT (chooser), obj_props[PROP_SHOWING_EXTRA]);
 }
 
@@ -377,75 +375,41 @@ set_locale_id (CcLanguageChooser *chooser,
 }
 
 static void
-child_activated (EggListBox        *box,
-                 GtkWidget         *child,
-                 CcLanguageChooser *chooser)
+row_activated (GtkListBox        *box,
+               GtkListBoxRow     *row,
+               CcLanguageChooser *chooser)
 {
+        GtkWidget *child;
         CcLanguageChooserPrivate *priv = chooser->priv;
         LanguageWidget *widget;
 
-        if (child == NULL)
+        if (row == NULL)
                 return;
 
-        if (child == priv->no_results)
-                return;
-
+        child = gtk_bin_get_child (GTK_BIN (row));
         if (child == priv->more_item) {
                 show_more (chooser);
-                return;
+        } else {
+                widget = get_language_widget (child);
+                if (widget == NULL)
+                        return;
+                set_locale_id (chooser, widget->locale_id);
         }
-
-        widget = get_language_widget (child);
-        set_locale_id (chooser, widget->locale_id);
-}
-
-typedef struct {
-        gint count;
-        GtkWidget *ignore;
-} CountChildrenData;
-
-static void
-count_visible_children (GtkWidget *widget,
-                        gpointer   user_data)
-{
-        CountChildrenData *data = user_data;
-        if (widget != data->ignore &&
-            gtk_widget_get_child_visible (widget) &&
-            gtk_widget_get_visible (widget))
-                data->count++;
 }
 
 static void
-end_refilter (EggListBox *list_box,
-              gpointer    user_data)
+update_header_func (GtkListBoxRow *child,
+                    GtkListBoxRow *before,
+                    gpointer       user_data)
 {
-        CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (user_data);
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        GtkWidget *header;
 
-        CountChildrenData data = { 0 };
-
-        data.ignore = priv->no_results;
-
-        gtk_container_foreach (GTK_CONTAINER (list_box),
-                               count_visible_children, &data);
-
-        gtk_widget_set_visible (priv->no_results, (data.count == 0));
-}
-
-static void
-update_separator_func (GtkWidget **separator,
-                       GtkWidget  *child,
-                       GtkWidget  *before,
-                       gpointer    user_data)
-{
         if (before == NULL)
                 return;
 
-        if (*separator == NULL) {
-                *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-                g_object_ref_sink (*separator);
-                gtk_widget_show (*separator);
-        }
+        header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+        gtk_list_box_row_set_header (child, header);
+        gtk_widget_show (header);
 }
 
 #define WID(name) ((GtkWidget *) gtk_builder_get_object (builder, name))
@@ -475,16 +439,13 @@ cc_language_chooser_constructed (GObject *object)
         priv->more_item = more_widget_new ();
         priv->no_results = no_results_widget_new ();
 
-        egg_list_box_set_adjustment (EGG_LIST_BOX (priv->language_list),
-                                     gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (WID ("language-scrolledwindow"))));
-
-        egg_list_box_set_sort_func (EGG_LIST_BOX (priv->language_list),
+        gtk_list_box_set_sort_func (GTK_LIST_BOX (priv->language_list),
                                     sort_languages, chooser, NULL);
-        egg_list_box_set_filter_func (EGG_LIST_BOX (priv->language_list),
+        gtk_list_box_set_filter_func (GTK_LIST_BOX (priv->language_list),
                                       language_visible, chooser, NULL);
-        egg_list_box_set_separator_funcs (EGG_LIST_BOX (priv->language_list),
-                                          update_separator_func, chooser, NULL);
-        egg_list_box_set_selection_mode (EGG_LIST_BOX (priv->language_list),
+        gtk_list_box_set_header_func (GTK_LIST_BOX (priv->language_list),
+                                      update_header_func, chooser, NULL);
+        gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->language_list),
                                          GTK_SELECTION_NONE);
         add_all_languages (chooser);
 
@@ -492,13 +453,8 @@ cc_language_chooser_constructed (GObject *object)
                           G_CALLBACK (filter_changed),
                           chooser);
 
-        g_signal_connect (priv->language_list, "child-activated",
-                          G_CALLBACK (child_activated), chooser);
-
-        g_signal_connect_after (priv->language_list, "refilter",
-                                G_CALLBACK (end_refilter), chooser);
-
-        egg_list_box_refilter (EGG_LIST_BOX (priv->language_list));
+        g_signal_connect (priv->language_list, "row-activated",
+                          G_CALLBACK (row_activated), chooser);
 
         if (priv->language == NULL)
                 priv->language = cc_common_language_get_current_language ();

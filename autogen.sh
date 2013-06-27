@@ -18,11 +18,5 @@ which gnome-autogen.sh || {
     exit 1
 }
 
-git submodule update --init --recursive
-
-cd egg-list-box
-sh autogen.sh --no-configure
-cd ..
-
 REQUIRED_AUTOMAKE_VERSION=1.7
 . gnome-autogen.sh
