@@ -270,6 +270,7 @@ gis_driver_startup (GApplication *app)
                                     "icon-name", "preferences-system",
                                     "resizable", FALSE,
                                     "window-position", GTK_WIN_POS_CENTER_ALWAYS,
+                                    "deletable", FALSE,
                                     NULL);
 
   g_signal_connect (priv->main_window,
