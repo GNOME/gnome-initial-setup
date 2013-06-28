@@ -21,6 +21,7 @@ PANGO_REQUIRED_VERSION=1.32.5
 IBUS_REQUIRED_VERSION=1.4.99
 GNOME_DESKTOP_REQUIRED_VERSION=3.7.5
 POLKIT_REQUIRED_VERSION=0.103
+GDM_REQUIRED_VERSION=3.8.3
 
 # EggListBox submodule
 prev_top_build_prefix=$ac_top_build_prefix
@@ -46,7 +47,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   goa-backend-1.0
                   gtk+-3.0 >= $GTK_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
-                  gdm
+                  gdm >= $GDM_REQUIRED_VERSION
                   pango >= $PANGO_REQUIRED_VERSION
                   pwquality
                   egg-list-box-uninstalled)
