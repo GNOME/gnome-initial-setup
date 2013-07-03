@@ -183,7 +183,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 {
   GisNetworkPagePrivate *priv = page->priv;
   const GByteArray *ssid;
-  const gchar *ssid_text;
+  gchar *ssid_text;
   const gchar *object_path;
   gboolean activated, activating;
   guint security;
@@ -199,7 +199,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 
   if (ssid == NULL)
     return;
-  ssid_text = nm_utils_escape_ssid (ssid->data, ssid->len);
+  ssid_text = nm_utils_ssid_to_utf8 (ssid);
 
   if (active &&
       nm_utils_same_ssid (ssid, nm_access_point_get_ssid (active), TRUE)) {
@@ -285,8 +285,8 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 
   gtk_widget_show_all (row);
 
-  g_object_set_data (G_OBJECT (row), "object-path", (gpointer)object_path);
-  g_object_set_data (G_OBJECT (row), "ssid", (gpointer)ssid_text);
+  g_object_set_data (G_OBJECT (row), "object-path", (gpointer) object_path);
+  g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
 
   list = WID ("network-list");
@@ -466,13 +466,12 @@ child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = page->priv;
   gchar *object_path;
-  gchar *ssid_target;
   GSList *list, *filtered, *l;
   NMConnection *connection;
   NMConnection *connection_to_activate;
   NMSettingWireless *setting;
+  const GByteArray *ssid_target;
   const GByteArray *ssid;
-  const gchar *ssid_tmp;
 
   if (priv->refreshing)
     return;
@@ -499,8 +498,12 @@ child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
     ssid = nm_setting_wireless_get_ssid (setting);
     if (ssid == NULL)
       continue;
-    ssid_tmp = nm_utils_escape_ssid (ssid->data, ssid->len);
-    if (g_strcmp0 (ssid_target, ssid_tmp) == 0) {
+
+    g_print ("%s %s\n",
+             nm_utils_ssid_to_utf8 (ssid),
+             nm_utils_ssid_to_utf8 (ssid_target));
+
+    if (nm_utils_same_ssid (ssid, ssid_target, TRUE)) {
       connection_to_activate = connection;
       break;
     }
