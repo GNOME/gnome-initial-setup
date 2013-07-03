@@ -438,46 +438,27 @@ confirm_entry_focus_out (GtkWidget      *widget,
   return FALSE;
 }
 
-static gboolean
-create_user (GisAccountPage *page)
+static void
+local_create_user (GisAccountPage *page)
 {
   GisAccountPagePrivate *priv = page->priv;
   const gchar *username;
+  const gchar *password;
   const gchar *fullname;
   const gchar *language;
-  GError *error;
+  GError *error = NULL;
 
   username = gtk_combo_box_text_get_active_text (OBJ(GtkComboBoxText*, "account-username-combo"));
-  fullname = gtk_entry_get_text (OBJ(GtkEntry*, "account-fullname-entry"));
-
-  error = NULL;
+  fullname = gtk_entry_get_text (OBJ (GtkEntry*, "account-fullname-entry"));
+  password = gtk_entry_get_text (OBJ (GtkEntry*, "account-password-entry"));
 
   priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
-  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
-  if (language)
-    act_user_set_language (priv->act_user, language);
-
   if (error != NULL) {
     g_warning ("Failed to create user: %s", error->message);
     g_error_free (error);
-    return FALSE;
+    return;
   }
-  return TRUE;
-}
 
-static void
-save_user_data (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = page->priv;
-  const gchar *realname;
-  const gchar *username;
-  const gchar *password;
-
-  realname = gtk_entry_get_text (OBJ (GtkEntry*, "account-fullname-entry"));
-  username = gtk_combo_box_text_get_active_text (OBJ (GtkComboBoxText*, "account-username-combo"));
-  password = gtk_entry_get_text (OBJ (GtkEntry*, "account-password-entry"));
-
-  act_user_set_real_name (priv->act_user, realname);
   act_user_set_user_name (priv->act_user, username);
   act_user_set_account_type (priv->act_user, priv->account_type);
   if (strlen (password) == 0)
@@ -485,37 +466,13 @@ save_user_data (GisAccountPage *page)
   else
     act_user_set_password (priv->act_user, password, "");
 
+  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
+  if (language)
+    act_user_set_language (priv->act_user, language);
+
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
                                    priv->act_user,
                                    password);
-}
-
-static gulong when_loaded;
-
-static void
-save_when_loaded (ActUser        *user,
-                  GParamSpec     *pspec,
-                  GisAccountPage *page)
-{
-  g_signal_handler_disconnect (user, when_loaded);
-  when_loaded = 0;
-
-  save_user_data (page);
-}
-
-static void
-local_create_user (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = page->priv;
-
-  if (create_user (page) == FALSE)
-    return;
-
-  if (act_user_is_loaded (priv->act_user))
-    save_user_data (page);
-  else
-    when_loaded = g_signal_connect (priv->act_user, "notify::is-loaded",
-                                    G_CALLBACK (save_when_loaded), page);
 }
 
 static void
