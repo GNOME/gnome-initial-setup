@@ -499,10 +499,6 @@ child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
     if (ssid == NULL)
       continue;
 
-    g_print ("%s %s\n",
-             nm_utils_ssid_to_utf8 (ssid),
-             nm_utils_ssid_to_utf8 (ssid_target));
-
     if (nm_utils_same_ssid (ssid, ssid_target, TRUE)) {
       connection_to_activate = connection;
       break;
