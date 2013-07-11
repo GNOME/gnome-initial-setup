@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-27 16:29+0000\n"
-"PO-Revision-Date: 2013-05-25 18:08+0800\n"
+"POT-Creation-Date: 2013-07-05 00:16+0000\n"
+"PO-Revision-Date: 2013-07-08 22:21+0800\n"
 "Last-Translator: tuhaihe <1132321739qq@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -26,17 +26,17 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "初始配置"
 
-#: ../gnome-initial-setup/gis-assistant.c:394
+#: ../gnome-initial-setup/gis-assistant.c:389
 msgid "_Next"
 msgstr "前进(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:395
-msgid "_Back"
-msgstr "返回(_B)"
+#: ../gnome-initial-setup/gis-assistant.c:390
+msgid "_Previous"
+msgstr "返回(_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:391
 msgid "_Cancel"
-msgstr ""
+msgstr "取消(_C)"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -46,37 +46,37 @@ msgstr "强制新建用户模式"
 msgid "- GNOME initial setup"
 msgstr "- GNOME 初始配置"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "无密码"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
 msgid "Passwords do not match"
 msgstr "密码不匹配"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "密码强度：%s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
 msgid "Failed to register account"
 msgstr "注册帐号失败"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
 msgid "No supported way to authenticate with this domain"
-msgstr ""
+msgstr "无法支持在该域进行认证"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
 msgid "Failed to join domain"
 msgstr "加入域失败"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
 msgid "Failed to log into domain"
 msgstr "登录到域失败"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
 msgid "Login"
 msgstr "登录"
 
@@ -124,15 +124,15 @@ msgstr "域(_D)"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Enterprise domain or realm name"
-msgstr "企业域或 realm 名称"
+msgstr "企业域或领域名称"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
 msgid "C_ontinue"
-msgstr ""
+msgstr "继续(_O)"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
 msgid "Domain Administrator Login"
-msgstr ""
+msgstr "域管理员登陆"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
 msgid ""
@@ -141,18 +141,21 @@ msgid ""
 "type their domain password here, and choose a unique computer\n"
 "name for your computer."
 msgstr ""
+"要想使用企业登录，该计算机需要在该域内进行登记。请网络管理员在此输入域密码，"
+"并为您的计算机设置\n"
+"一个唯一的计算机名。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
 msgid "_Computer"
-msgstr ""
+msgstr "计算机(_C)"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
 msgid "Administrator _Name"
-msgstr ""
+msgstr "管理员姓名(_N)"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
 msgid "Administrator Password"
-msgstr ""
+msgstr "管理员密码"
 
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
@@ -186,12 +189,12 @@ msgstr "强"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
 msgid "Cannot automatically join this type of domain"
-msgstr ""
+msgstr "无法自动加入该类型的域"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
-msgstr "未找到此域或 realm"
+msgstr "未找到此域或领域"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
@@ -264,7 +267,7 @@ msgstr "这不会将该帐号从服务器上移除。"
 msgid "_Remove"
 msgstr "移除(_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
 msgid "Online Accounts"
 msgstr "在线帐号"
 
@@ -295,7 +298,7 @@ msgstr "未找到输入源"
 msgid "Other"
 msgstr "其他"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "输入源"
 
@@ -315,7 +318,7 @@ msgstr "添加输入源"
 msgid "No languages found"
 msgstr "未找到其他语言"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
 msgid "Welcome"
 msgstr "欢迎"
 
@@ -357,7 +360,7 @@ msgstr "未发现网络设备。"
 msgid "Checking for available wireless networks"
 msgstr "正在检查可用的无线网络"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
 msgid "Network"
 msgstr "网络"
 
@@ -365,7 +368,7 @@ msgstr "网络"
 msgid "Wireless Networks"
 msgstr "无线网络"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
 msgid "Thank You"
 msgstr "谢谢"
 
@@ -380,6 +383,9 @@ msgstr "您可以随时在“系统设置”中更改这些选项。"
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "开始使用 GNOME 3(_S)"
+
+#~ msgid "_Back"
+#~ msgstr "返回(_B)"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "需要重启会话，以使更改生效"
