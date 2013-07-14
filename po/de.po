@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-09 19:08+0200\n"
-"PO-Revision-Date: 2013-06-09 19:09+0100\n"
+"POT-Creation-Date: 2013-07-14 12:05+0200\n"
+"PO-Revision-Date: 2013-07-14 12:07+0100\n"
 "Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
@@ -26,15 +26,16 @@ msgid "Initial Setup"
 msgstr "Ersteinrichtung"
 
 # Das ist bei assistentbasierten Dialogen besser als irgendeine Form von »nächstes«
-#: ../gnome-initial-setup/gis-assistant.c:394
+#: ../gnome-initial-setup/gis-assistant.c:389
 msgid "_Next"
 msgstr "_Weiter"
 
-#: ../gnome-initial-setup/gis-assistant.c:395
-msgid "_Back"
+# Im Assistenten
+#: ../gnome-initial-setup/gis-assistant.c:390
+msgid "_Previous"
 msgstr "_Zurück"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:391
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -46,39 +47,39 @@ msgstr "Neuen Benutzermodus erzwingen"
 msgid "- GNOME initial setup"
 msgstr "- GNOME-Ersteinrichtung"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "Kein Passwort"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
 msgid "Passwords do not match"
 msgstr "Passwörter stimmen nicht überein"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "Stärke: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
 msgid "Failed to register account"
 msgstr "Kontoerstellung fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
 msgid "No supported way to authenticate with this domain"
 msgstr ""
 "Es gibt keine unterstützte Möglichkeit für eine Legitimierung mit dieser "
 "Domäne"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
 msgid "Failed to join domain"
 msgstr "Beitreten zur Domäne fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
 msgid "Failed to log into domain"
 msgstr "Anmeldung in der Domäne fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1266
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
 msgid "Login"
 msgstr "Anmelden"
 
@@ -148,6 +149,10 @@ msgid ""
 "type their domain password here, and choose a unique computer\n"
 "name for your computer."
 msgstr ""
+"Um Unternehmensanmeldungen zu verwenden muss dieser\n"
+"Rechner in der Domäne registriert werden. Bitten Sie den Netzwerk-\n"
+"verwalter das Domänen-Passwort hier einzugeben, und wählen\n"
+"Sie einen eindeutigen Namen für Ihren Rechner."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
 msgid "_Computer"
@@ -272,7 +277,7 @@ msgstr "Dies wird nicht das Konto auf dem Server entfernen."
 msgid "_Remove"
 msgstr "_Entfernen"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
 msgid "Online Accounts"
 msgstr "Online-Konten"
 
@@ -306,7 +311,7 @@ msgstr "Es wurden keine Eingabemethode gefunden"
 msgid "Other"
 msgstr "Andere"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "Eingabemethoden"
 
@@ -327,7 +332,7 @@ msgstr "Eine Eingabemethode hinzufügen"
 msgid "No languages found"
 msgstr "Keine Sprachen gefunden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
 msgid "Welcome"
 msgstr "Willkommen"
 
@@ -370,7 +375,7 @@ msgstr "Keine Netzwerkgeräte gefunden."
 msgid "Checking for available wireless networks"
 msgstr "Auf verfügbare Funknetzwerke prüfen"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
 msgid "Network"
 msgstr "Netzwerk"
 
@@ -378,7 +383,7 @@ msgstr "Netzwerk"
 msgid "Wireless Networks"
 msgstr "Funknetzwerke"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:323
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
 msgid "Thank You"
 msgstr "Vielen Dank"
 
@@ -394,6 +399,9 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "GNOME 3 _starten"
+
+#~ msgid "_Back"
+#~ msgstr "_Zurück"
 
 #~ msgid "Sorry"
 #~ msgstr "Entschuldigung"
