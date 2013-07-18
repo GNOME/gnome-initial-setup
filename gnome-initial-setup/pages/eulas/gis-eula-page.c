@@ -76,9 +76,9 @@ get_file_type (GFile *file)
   path = g_file_get_path (file);
   last_dot = strrchr (path, '.');
 
-  if (strcmp(last_dot, ".txt") == 0)
+  if (g_strcmp0 (last_dot, ".txt") == 0)
     type = TEXT;
-  else if (strcmp (last_dot, ".xml") == 0)
+  else if (g_strcmp0 (last_dot, ".xml") == 0)
     type = MARKUP;
   else
     type = SKIP;
