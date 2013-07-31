@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-24 11:28+0300\n"
-"PO-Revision-Date: 2013-05-24 11:29+0200\n"
+"POT-Creation-Date: 2013-07-31 11:52+0300\n"
+"PO-Revision-Date: 2013-07-31 11:54+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -16,22 +16,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Hebrew\n"
-"X-Poedit-Country: ISRAEL\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "התקנה ראשונית"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:389
 msgid "_Next"
 msgstr "ה_בא"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
-msgid "_Back"
+#: ../gnome-initial-setup/gis-assistant.c:390
+msgid "_Previous"
 msgstr "ה_קודם"
+
+#: ../gnome-initial-setup/gis-assistant.c:391
+msgid "_Cancel"
+msgstr "_ביטול"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -41,33 +44,37 @@ msgstr "אילוץ מצב משתמש חדש"
 msgid "- GNOME initial setup"
 msgstr "- הגדרות ראשוניות של GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "ללא ססמה"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
 msgid "Passwords do not match"
 msgstr "הססמאות אינן תואמות"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "חוזק: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
 msgid "Failed to register account"
 msgstr "רישום החשבון נכשל"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+msgid "No supported way to authenticate with this domain"
+msgstr "אין דרך נתמכת לאימות מול מתחם זה"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
 msgid "Failed to join domain"
 msgstr "ההצטרפות למתחם נכשלה"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
 msgid "Failed to log into domain"
 msgstr "הכניסה למתחם נכשלה"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
 msgid "Login"
 msgstr "כניסה"
 
@@ -96,8 +103,12 @@ msgid "_Confirm password"
 msgstr "_אימות הססמה"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid "Try to use at least 8 different characters. Mix upper and lower case and use a number or two."
-msgstr "נא להשתמש ב־8 תווים שונים זה מזה לפחות. ניתן לערבב בין אותיות קטנות וגדולות ולהשתמש בספרה או שתיים."
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"נא להשתמש ב־8 תווים שונים זה מזה לפחות. ניתן לערבב בין אותיות קטנות וגדולות "
+"ולהשתמש בספרה או שתיים."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
@@ -114,6 +125,37 @@ msgstr "מ_תחם"
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Enterprise domain or realm name"
 msgstr "שם התחום או המתחם הארגוני"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "להמ_שיך"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "כניסה לניהול המתחם"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"כדי להשתמש בכניסה ארגונית על מחשב זה להיות רשום\n"
+"במתחם. נא לבקש ממנהל הרשת שלך להזין את ססמת המתחם\n"
+"להלן ולבחור בשם ייחודי למחשב שלך."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "מ_חשב"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "שם המ_נהל"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "ססמת המנהל"
 
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
@@ -145,21 +187,26 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "חזקה"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "לא ניתן להצטרף אוטומטית למתחם מסוג זה"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "לא נמצאו מתחמים או תחומים כאלה"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "לא ניתן להיכנס בשם %s למתחם %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "ססמה שגויה, נא לנסות שוב"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "לא ניתן להתחבר למתחם %s:‏ %s"
@@ -220,7 +267,7 @@ msgstr "פעולה זו לא תסיר את החשבון מהשרת."
 msgid "_Remove"
 msgstr "ה_סרה"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
 msgid "Online Accounts"
 msgstr "חשבונות מקוונים"
 
@@ -229,8 +276,12 @@ msgid "Connect to your existing data in the cloud"
 msgstr "ניתן להתחבר לנתונים הנוכחיים שלך בענן"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-msgid "Adding accounts will allow you to transparently connect to your online photos, contacts, mail, and more."
-msgstr "הוספת חשבונות תאפשר לך להתחבר לתמונות, אנשי הקשר, הדוא״ל ושירותים מקוונים נוספים שלרשותך באופן שקוף."
+msgid ""
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
+msgstr ""
+"הוספת חשבונות תאפשר לך להתחבר לתמונות, אנשי הקשר, הדוא״ל ושירותים מקוונים "
+"נוספים שלרשותך באופן שקוף."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid "_Add Account"
@@ -249,7 +300,7 @@ msgstr "לא נמצאו מקורות קלט"
 msgid "Other"
 msgstr "אחר"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "מקורות קלט"
 
@@ -269,7 +320,7 @@ msgstr "הוספת מקור קלט"
 msgid "No languages found"
 msgstr "לא נמצאו שפות"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
 msgid "Welcome"
 msgstr "ברוך בואך"
 
@@ -311,7 +362,7 @@ msgstr "לא נמצא התקן רשת."
 msgid "Checking for available wireless networks"
 msgstr "מתבצע חיפוש אחר רשתות אלחוטיות זמינות"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
 msgid "Network"
 msgstr "רשת"
 
@@ -319,7 +370,7 @@ msgstr "רשת"
 msgid "Wireless Networks"
 msgstr "רשתות אלחוטיות"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
 msgid "Thank You"
 msgstr "תודה רבה לך"
 
@@ -334,6 +385,9 @@ msgstr "ניתן לשנות כל אחת מאפשרויות אלה בכל עת ד
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "להת_חיל להשתמש ב־GNOME 3"
+
+#~ msgid "_Back"
+#~ msgstr "ה_קודם"
 
 #~ msgid "Unspecified"
 #~ msgstr "לא צוינה"
@@ -411,9 +465,6 @@ msgstr "להת_חיל להשתמש ב־GNOME 3"
 
 #~ msgid "Show _all"
 #~ msgstr "הצגת ה_כול"
-
-#~ msgid "_Cancel"
-#~ msgstr "_ביטול"
 
 #~ msgid "_Done"
 #~ msgstr "_בוצע"
