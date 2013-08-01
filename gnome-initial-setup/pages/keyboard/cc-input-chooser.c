@@ -565,7 +565,7 @@ update_separator_filter (GtkWidget **separator,
   if (before)
     before_info = g_object_get_data (G_OBJECT (before), "locale-info");
 
-  if (!child_info && !before_info)
+  if (!child_info || !before_info)
     return;
 
   if (child_info == before_info)
