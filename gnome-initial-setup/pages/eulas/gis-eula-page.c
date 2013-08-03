@@ -34,10 +34,6 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-G_DEFINE_TYPE (GisEulaPage, gis_eula_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_EULA_PAGE, GisEulaPagePrivate))
-
 struct _GisEulaPagePrivate
 {
   GFile *eula;
@@ -48,6 +44,9 @@ struct _GisEulaPagePrivate
   gboolean require_checkbox;
   gboolean require_scroll;
 };
+typedef struct _GisEulaPagePrivate GisEulaPagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisEulaPage, gis_eula_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -163,7 +162,7 @@ build_eula_text_view (GFile *eula)
 static gboolean
 get_page_complete (GisEulaPage *page)
 {
-  GisEulaPagePrivate *priv = page->priv;
+  GisEulaPagePrivate *priv = gis_eula_page_get_instance_private (page);
 
   if (priv->require_checkbox) {
     GtkToggleButton *checkbox = GTK_TOGGLE_BUTTON (priv->checkbox);
@@ -223,7 +222,7 @@ static void
 gis_eula_page_constructed (GObject *object)
 {
   GisEulaPage *page = GIS_EULA_PAGE (object);
-  GisEulaPagePrivate *priv = page->priv;
+  GisEulaPagePrivate *priv = gis_eula_page_get_instance_private (page);
   GtkWidget *text_view;
 
   gboolean require_checkbox = FALSE;
@@ -275,7 +274,8 @@ gis_eula_page_get_property (GObject    *object,
                             GParamSpec *pspec)
 {
   GisEulaPage *page = GIS_EULA_PAGE (object);
-  GisEulaPagePrivate *priv = page->priv;
+  GisEulaPagePrivate *priv = gis_eula_page_get_instance_private (page);
+
   switch (prop_id)
     {
     case PROP_EULA:
@@ -294,7 +294,8 @@ gis_eula_page_set_property (GObject      *object,
                             GParamSpec   *pspec)
 {
   GisEulaPage *page = GIS_EULA_PAGE (object);
-  GisEulaPagePrivate *priv = page->priv;
+  GisEulaPagePrivate *priv = gis_eula_page_get_instance_private (page);
+
   switch (prop_id)
     {
     case PROP_EULA:
@@ -310,7 +311,7 @@ static void
 gis_eula_page_dispose (GObject *object)
 {
   GisEulaPage *page = GIS_EULA_PAGE (object);
-  GisEulaPagePrivate *priv = page->priv;
+  GisEulaPagePrivate *priv = gis_eula_page_get_instance_private (page);
 
   g_clear_object (&priv->eula);
 
@@ -342,13 +343,10 @@ gis_eula_page_class_init (GisEulaPageClass *klass)
                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
-
-  g_type_class_add_private (object_class, sizeof(GisEulaPagePrivate));
 }
 
 static void
 gis_eula_page_init (GisEulaPage *page)
 {
   g_resources_register (eulas_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }

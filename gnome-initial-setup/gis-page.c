@@ -27,10 +27,6 @@
 
 #include "gis-page.h"
 
-G_DEFINE_ABSTRACT_TYPE (GisPage, gis_page, GTK_TYPE_BIN);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_PAGE, GisPagePrivate))
-
 struct _GisPagePrivate
 {
   char *title;
@@ -43,6 +39,9 @@ struct _GisPagePrivate
   guint complete : 1;
   guint padding : 6;
 };
+typedef struct _GisPagePrivate GisPagePrivate;
+
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (GisPage, gis_page, GTK_TYPE_BIN);
 
 enum
 {
@@ -63,16 +62,17 @@ gis_page_get_property (GObject    *object,
                        GParamSpec *pspec)
 {
   GisPage *page = GIS_PAGE (object);
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
   switch (prop_id)
     {
     case PROP_DRIVER:
       g_value_set_object (value, page->driver);
       break;
     case PROP_TITLE:
-      g_value_set_string (value, page->priv->title);
+      g_value_set_string (value, priv->title);
       break;
     case PROP_COMPLETE:
-      g_value_set_boolean (value, page->priv->complete);
+      g_value_set_boolean (value, priv->complete);
       break;
     case PROP_APPLYING:
       g_value_set_boolean (value, gis_page_get_applying (page));
@@ -90,6 +90,7 @@ gis_page_set_property (GObject      *object,
                        GParamSpec   *pspec)
 {
   GisPage *page = GIS_PAGE (object);
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
   switch (prop_id)
     {
     case PROP_DRIVER:
@@ -99,7 +100,7 @@ gis_page_set_property (GObject      *object,
       gis_page_set_title (page, (char *) g_value_get_string (value));
       break;
     case PROP_COMPLETE:
-      page->priv->complete = g_value_get_boolean (value);
+      priv->complete = g_value_get_boolean (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -111,11 +112,12 @@ static void
 gis_page_finalize (GObject *object)
 {
   GisPage *page = GIS_PAGE (object);
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
 
-  g_free (page->priv->title);
-  g_assert (!page->priv->applying);
-  g_assert (page->priv->apply_cb == NULL);
-  g_assert (page->priv->apply_cancel == NULL);
+  g_free (priv->title);
+  g_assert (!priv->applying);
+  g_assert (priv->apply_cb == NULL);
+  g_assert (priv->apply_cancel == NULL);
 
   G_OBJECT_CLASS (gis_page_parent_class)->finalize (object);
 }
@@ -124,9 +126,10 @@ static void
 gis_page_dispose (GObject *object)
 {
   GisPage *page = GIS_PAGE (object);
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
 
-  if (page->priv->apply_cancel)
-    g_cancellable_cancel (page->priv->apply_cancel);
+  if (priv->apply_cancel)
+    g_cancellable_cancel (priv->apply_cancel);
 
   g_clear_object (&page->driver);
   g_clear_object (&page->builder);
@@ -215,21 +218,19 @@ gis_page_class_init (GisPageClass *klass)
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
-
-  g_type_class_add_private (object_class, sizeof(GisPagePrivate));
 }
 
 static void
 gis_page_init (GisPage *page)
 {
-  page->priv = GET_PRIVATE (page);
 }
 
 char *
 gis_page_get_title (GisPage *page)
 {
-  if (page->priv->title != NULL)
-    return page->priv->title;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  if (priv->title != NULL)
+    return priv->title;
   else
     return "";
 }
@@ -237,21 +238,24 @@ gis_page_get_title (GisPage *page)
 void
 gis_page_set_title (GisPage *page, char *title)
 {
-  g_clear_pointer (&page->priv->title, g_free);
-  page->priv->title = g_strdup (title);
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  g_clear_pointer (&priv->title, g_free);
+  priv->title = g_strdup (title);
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_TITLE]);
 }
 
 gboolean
 gis_page_get_complete (GisPage *page)
 {
-  return page->priv->complete;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  return priv->complete;
 }
 
 void
 gis_page_set_complete (GisPage *page, gboolean complete)
 {
-  page->priv->complete = complete;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  priv->complete = complete;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_COMPLETE]);
 }
 
@@ -276,21 +280,22 @@ gis_page_apply_begin (GisPage                *page,
                       gpointer                user_data)
 {
   GisPageClass *klass;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
 
   g_return_if_fail (GIS_IS_PAGE (page));
-  g_return_if_fail (page->priv->applying == FALSE);
+  g_return_if_fail (priv->applying == FALSE);
 
   klass = GIS_PAGE_GET_CLASS (page);
 
   /* Unrefs in gis_page_apply_complete() */
   g_object_ref (page);
 
-  page->priv->apply_cb = callback;
-  page->priv->apply_data = user_data;
-  page->priv->apply_cancel = g_cancellable_new ();
-  page->priv->applying = TRUE;
+  priv->apply_cb = callback;
+  priv->apply_data = user_data;
+  priv->apply_cancel = g_cancellable_new ();
+  priv->applying = TRUE;
 
-  if (!klass->apply (page, page->priv->apply_cancel))
+  if (!klass->apply (page, priv->apply_cancel))
     {
       /* Shortcut case where we don't want apply, to avoid flicker */
       gis_page_apply_complete (page, TRUE);
@@ -305,17 +310,18 @@ gis_page_apply_complete (GisPage *page,
 {
   GisPageApplyCallback callback;
   gpointer user_data;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
 
   g_return_if_fail (GIS_IS_PAGE (page));
-  g_return_if_fail (page->priv->applying == TRUE);
+  g_return_if_fail (priv->applying == TRUE);
 
-  callback = page->priv->apply_cb;
-  page->priv->apply_cb = NULL;
-  user_data = page->priv->apply_data;
-  page->priv->apply_data = NULL;
+  callback = priv->apply_cb;
+  priv->apply_cb = NULL;
+  user_data = priv->apply_data;
+  priv->apply_data = NULL;
 
-  g_clear_object (&page->priv->apply_cancel);
-  page->priv->applying = FALSE;
+  g_clear_object (&priv->apply_cancel);
+  priv->applying = FALSE;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_APPLYING]);
 
   if (callback)
@@ -328,18 +334,15 @@ gis_page_apply_complete (GisPage *page,
 gboolean
 gis_page_get_applying (GisPage *page)
 {
-  g_return_val_if_fail (GIS_IS_PAGE (page), FALSE);
-
-  return page->priv->applying;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  return priv->applying;
 }
 
 void
 gis_page_apply_cancel (GisPage *page)
 {
-  g_return_if_fail (GIS_IS_PAGE (page));
-  g_return_if_fail (page->priv->applying == TRUE);
-
-  g_cancellable_cancel (page->priv->apply_cancel);
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  g_cancellable_cancel (priv->apply_cancel);
 }
 
 void

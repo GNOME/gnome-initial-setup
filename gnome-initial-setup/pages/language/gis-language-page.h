@@ -39,13 +39,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisLanguagePage        GisLanguagePage;
 typedef struct _GisLanguagePageClass   GisLanguagePageClass;
-typedef struct _GisLanguagePagePrivate GisLanguagePagePrivate;
 
 struct _GisLanguagePage
 {
   GisPage parent;
-
-  GisLanguagePagePrivate *priv;
 };
 
 struct _GisLanguagePageClass

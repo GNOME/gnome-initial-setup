@@ -37,13 +37,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisGoaPage        GisGoaPage;
 typedef struct _GisGoaPageClass   GisGoaPageClass;
-typedef struct _GisGoaPagePrivate GisGoaPagePrivate;
 
 struct _GisGoaPage
 {
   GisPage parent;
-
-  GisGoaPagePrivate *priv;
 };
 
 struct _GisGoaPageClass

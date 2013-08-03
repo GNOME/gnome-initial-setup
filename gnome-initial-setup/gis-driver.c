@@ -49,10 +49,6 @@ gis_driver_mode_get_type (void) {
   return enum_type_id;
 }
 
-G_DEFINE_TYPE(GisDriver, gis_driver, GTK_TYPE_APPLICATION)
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_DRIVER, GisDriverPrivate))
-
 enum {
   REBUILD_PAGES,
   LOCALE_CHANGED,
@@ -80,12 +76,15 @@ struct _GisDriverPrivate {
 
   GisDriverMode mode;
 };
+typedef struct _GisDriverPrivate GisDriverPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE(GisDriver, gis_driver, GTK_TYPE_APPLICATION)
 
 static void
 gis_driver_finalize (GObject *object)
 {
   GisDriver *driver = GIS_DRIVER (object);
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   g_free (priv->lang_id);
 
@@ -97,14 +96,14 @@ title_changed_cb (GisAssistant *assistant,
                   GParamSpec   *gparam,
                   GisDriver    *driver)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   gtk_window_set_title (priv->main_window, gis_assistant_get_title (assistant));
 }
 
 static void
 prepare_main_window (GisDriver *driver)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkGeometry size_hints;
 
   size_hints.min_width = 680;
@@ -130,14 +129,14 @@ rebuild_pages (GisDriver *driver)
 GisAssistant *
 gis_driver_get_assistant (GisDriver *driver)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->assistant;
 }
 
 void
 gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_free (priv->lang_id);
   priv->lang_id = g_strdup (lang_id);
 }
@@ -145,7 +144,7 @@ gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id)
 const gchar *
 gis_driver_get_user_language (GisDriver *driver)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->lang_id;
 }
 
@@ -154,7 +153,7 @@ gis_driver_set_user_permissions (GisDriver   *driver,
                                  ActUser     *user,
                                  const gchar *password)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   priv->user_account = user;
   priv->user_password = password;
 }
@@ -164,7 +163,7 @@ gis_driver_get_user_permissions (GisDriver    *driver,
                                  ActUser     **user,
                                  const gchar **password)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   *user = priv->user_account;
   *password = priv->user_password;
 }
@@ -173,14 +172,14 @@ void
 gis_driver_add_page (GisDriver *driver,
                      GisPage   *page)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   gis_assistant_add_page (priv->assistant, page);
 }
 
 static void
 gis_driver_real_locale_changed (GisDriver *driver)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_idle_add ((GSourceFunc) rebuild_pages, driver);
   gis_assistant_locale_changed (priv->assistant);
 }
@@ -194,7 +193,7 @@ gis_driver_locale_changed (GisDriver *driver)
 GisDriverMode
 gis_driver_get_mode (GisDriver *driver)
 {
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->mode;
 }
 
@@ -205,10 +204,11 @@ gis_driver_get_property (GObject      *object,
                          GParamSpec   *pspec)
 {
   GisDriver *driver = GIS_DRIVER (object);
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   switch (prop_id)
     {
     case PROP_MODE:
-      g_value_set_enum (value, driver->priv->mode);
+      g_value_set_enum (value, priv->mode);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -223,10 +223,11 @@ gis_driver_set_property (GObject      *object,
                          GParamSpec   *pspec)
 {
   GisDriver *driver = GIS_DRIVER (object);
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   switch (prop_id)
     {
     case PROP_MODE:
-      driver->priv->mode = g_value_get_enum (value);
+      priv->mode = g_value_get_enum (value);
       break;
    default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -238,7 +239,7 @@ static void
 gis_driver_activate (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->activate (app);
 
@@ -248,7 +249,8 @@ gis_driver_activate (GApplication *app)
 static void
 window_realize_cb (GtkWidget *widget, gpointer user_data)
 {
-  GisDriverPrivate *priv = GIS_DRIVER (user_data)->priv;
+  GisDriver *driver = GIS_DRIVER (user_data);
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkWindow *window;
   window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
   /* disable WM functions except move */
@@ -259,7 +261,7 @@ static void
 gis_driver_startup (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
-  GisDriverPrivate *priv = driver->priv;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
 
@@ -292,7 +294,6 @@ gis_driver_startup (GApplication *app)
 static void
 gis_driver_init (GisDriver *driver)
 {
-  driver->priv = GET_PRIVATE (driver);
 }
 
 static void
@@ -300,8 +301,6 @@ gis_driver_class_init (GisDriverClass *klass)
 {
   GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-  g_type_class_add_private (klass, sizeof (GisDriverPrivate));
 
   gobject_class->get_property = gis_driver_get_property;
   gobject_class->set_property = gis_driver_set_property;
@@ -338,7 +337,8 @@ gis_driver_class_init (GisDriverClass *klass)
 void
 gis_driver_save_data (GisDriver *driver)
 {
-  gis_assistant_save_data (driver->priv->assistant);
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  gis_assistant_save_data (priv->assistant);
 }
 
 GisDriver *

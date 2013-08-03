@@ -39,13 +39,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisLocationPage        GisLocationPage;
 typedef struct _GisLocationPageClass   GisLocationPageClass;
-typedef struct _GisLocationPagePrivate GisLocationPagePrivate;
 
 struct _GisLocationPage
 {
   GisPage parent;
-
-  GisLocationPagePrivate *priv;
 };
 
 struct _GisLocationPageClass

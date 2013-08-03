@@ -41,15 +41,14 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-G_DEFINE_TYPE (GisGoaPage, gis_goa_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_GOA_PAGE, GisGoaPagePrivate))
-
 struct _GisGoaPagePrivate {
   GoaClient *goa_client;
   GtkWidget *dialog;
   gboolean accounts_exist;
 };
+typedef struct _GisGoaPagePrivate GisGoaPagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisGoaPage, gis_goa_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -63,7 +62,7 @@ on_have_providers (GObject       *source,
   GList *l;
   GError *error = NULL;
   GisGoaPage *page = GIS_GOA_PAGE (user_data);
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
 
   if (!goa_provider_get_all_finish (&providers, res, &error))
     goto out;
@@ -92,7 +91,7 @@ show_online_account_dialog (GtkButton *button,
                             gpointer   user_data)
 {
   GisGoaPage *page = GIS_GOA_PAGE (user_data);
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GtkWindow *parent;
   GtkWidget *dialog;
   gint response;
@@ -201,7 +200,7 @@ confirm_remove_account (GtkButton *button, gpointer user_data)
 static void
 update_visibility (GisGoaPage *page)
 {
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GList *accounts;
 
   accounts = goa_client_get_accounts (priv->goa_client);
@@ -304,7 +303,7 @@ remove_account_from_list (GisGoaPage *page, GoaObject *object)
 static void
 populate_account_list (GisGoaPage *page)
 {
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GList *accounts, *l;
   GoaObject *object;
 
@@ -347,7 +346,7 @@ network_status_changed (GNetworkMonitor *monitor,
                         gpointer         user_data)
 {
   GisGoaPage *page = GIS_GOA_PAGE (user_data);
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (page)->driver);
 
   /* Ignore the network change if we're the current page or if an account
@@ -382,7 +381,7 @@ static void
 gis_goa_page_constructed (GObject *object)
 {
   GisGoaPage *page = GIS_GOA_PAGE (object);
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GtkWidget *button;
   GError *error = NULL;
   GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
@@ -433,7 +432,7 @@ static void
 gis_goa_page_dispose (GObject *object)
 {
   GisGoaPage *page = GIS_GOA_PAGE (object);
-  GisGoaPagePrivate *priv = page->priv;
+  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
 
   g_clear_object (&priv->goa_client);
@@ -459,15 +458,12 @@ gis_goa_page_class_init (GisGoaPageClass *klass)
   page_class->locale_changed = gis_goa_page_locale_changed;
   object_class->constructed = gis_goa_page_constructed;
   object_class->dispose = gis_goa_page_dispose;
-  
-  g_type_class_add_private (object_class, sizeof(GisGoaPagePrivate));
 }
 
 static void
 gis_goa_page_init (GisGoaPage *page)
 {
   g_resources_register (goa_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }
 
 void

@@ -39,13 +39,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisDriver        GisDriver;
 typedef struct _GisDriverClass   GisDriverClass;
-typedef struct _GisDriverPrivate GisDriverPrivate;
 
 struct _GisDriver
 {
   GtkApplication parent;
-
-  GisDriverPrivate *priv;
 };
 
 struct _GisDriverClass

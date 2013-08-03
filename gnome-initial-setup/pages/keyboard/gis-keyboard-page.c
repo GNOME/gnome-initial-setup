@@ -57,10 +57,6 @@
 
 #define MAX_INPUT_ROWS_VISIBLE 5
 
-G_DEFINE_TYPE (GisKeyboardPage, gis_keyboard_page, GIS_TYPE_PAGE)
-
-#define KEYBOARD_PAGE_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_KEYBOARD_PAGE, GisKeyboardPagePrivate))
-
 struct _GisKeyboardPagePrivate {
         GDBusProxy  *localed;
         GCancellable *cancellable;
@@ -85,15 +81,18 @@ struct _GisKeyboardPagePrivate {
         GCancellable *ibus_cancellable;
 #endif
 };
+typedef struct _GisKeyboardPagePrivate GisKeyboardPagePrivate;
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (self)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisKeyboardPage, gis_keyboard_page, GIS_TYPE_PAGE);
 
 static void
 gis_keyboard_page_finalize (GObject *object)
 {
 	GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 
         g_cancellable_cancel (priv->cancellable);
         g_clear_object (&priv->cancellable);
@@ -130,7 +129,7 @@ static void
 gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (self)->driver);
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
@@ -173,8 +172,6 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	GisPageClass * page_class = GIS_PAGE_CLASS (klass);
 
-	g_type_class_add_private (klass, sizeof (GisKeyboardPagePrivate));
-
         page_class->page_id = PAGE_ID;
         page_class->locale_changed = gis_keyboard_page_locale_changed;
 
@@ -206,7 +203,7 @@ static void remove_selected_input (GisKeyboardPage *self);
 static void
 update_ibus_active_sources (GisKeyboardPage *self)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GList *rows, *l;
         GtkWidget *row;
         const gchar *type;
@@ -237,7 +234,7 @@ update_ibus_active_sources (GisKeyboardPage *self)
 static void
 update_input_chooser (GisKeyboardPage *self)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *chooser;
 
         chooser = g_object_get_data (G_OBJECT (self), "input-chooser");
@@ -252,7 +249,7 @@ fetch_ibus_engines_result (GObject       *object,
                            GAsyncResult  *result,
                            GisKeyboardPage *self)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GList *list, *l;
         GError *error;
 
@@ -286,7 +283,7 @@ fetch_ibus_engines_result (GObject       *object,
 static void
 fetch_ibus_engines (GisKeyboardPage *self)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 
         priv->ibus_cancellable = g_cancellable_new ();
 
@@ -337,7 +334,7 @@ setup_app_info_for_id (const gchar *id)
 static void
 adjust_input_list_scrolling (GisKeyboardPage *self)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 
         if (priv->n_input_rows >= MAX_INPUT_ROWS_VISIBLE) {
                 GtkWidget *parent;
@@ -363,7 +360,7 @@ add_input_row (GisKeyboardPage   *self,
                const gchar     *name,
                GDesktopAppInfo *app_info)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *row;
         GtkWidget *label;
         GtkWidget *image;
@@ -388,7 +385,7 @@ add_input_row (GisKeyboardPage   *self,
         }
 
         gtk_widget_show_all (row);
-        gtk_container_add (GTK_CONTAINER (self->priv->input_list), row);
+        gtk_container_add (GTK_CONTAINER (priv->input_list), row);
 
         g_object_set_data (G_OBJECT (row), "label", label);
         g_object_set_data (G_OBJECT (row), "type", (gpointer)type);
@@ -408,7 +405,7 @@ add_input_source (GisKeyboardPage *self,
                   const gchar     *type,
                   const gchar     *id)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         const gchar *name;
         gchar *display_name;
         GDesktopAppInfo *app_info;
@@ -462,7 +459,7 @@ add_input_sources (GisKeyboardPage *self,
 static void
 add_input_sources_from_settings (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GVariant *sources;
         sources = g_settings_get_value (priv->input_settings, "sources");
         add_input_sources (self, sources);
@@ -472,7 +469,7 @@ add_input_sources_from_settings (GisKeyboardPage *self)
 static void
 clear_input_sources (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GList *list, *l;
         list = gtk_container_get_children (GTK_CONTAINER (priv->input_list));
         for (l = list; l; l = l->next) {
@@ -500,7 +497,9 @@ static void
 select_input (GisKeyboardPage *self,
               const gchar   *id)
 {
-        gtk_container_foreach (GTK_CONTAINER (self->priv->input_list),
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
+
+        gtk_container_foreach (GTK_CONTAINER (priv->input_list),
                                select_by_id, (gpointer)id);
 }
 
@@ -509,7 +508,7 @@ input_sources_changed (GSettings     *settings,
                        const gchar   *key,
                        GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *selected;
         gchar *id = NULL;
 
@@ -528,7 +527,7 @@ input_sources_changed (GSettings     *settings,
 static void
 update_buttons (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *selected;
         GList *children;
         gboolean multiple_sources;
@@ -556,7 +555,7 @@ update_buttons (GisKeyboardPage *self)
 static void
 set_input_settings (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         const gchar *type;
         const gchar *id;
         GVariantBuilder builder;
@@ -610,11 +609,10 @@ change_locale_permission_acquired (GObject      *source,
                                    GAsyncResult *res,
                                    gpointer      data)
 {
-  GisKeyboardPagePrivate *priv;
+  GisKeyboardPage *page = GIS_KEYBOARD_PAGE (data);
+  GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (page);
   GError *error = NULL;
   gboolean allowed;
-
-  priv = GIS_KEYBOARD_PAGE (data)->priv;
 
   allowed = g_permission_acquire_finish (priv->permission, res, &error);
   if (error) {
@@ -632,9 +630,7 @@ change_locale_permission_acquired (GObject      *source,
 static void
 update_input (GisKeyboardPage *self)
 {
-  GisKeyboardPagePrivate *priv;
-
-  priv = self->priv;
+  GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 
   set_input_settings (self);
 
@@ -655,7 +651,7 @@ static gboolean
 input_source_already_added (GisKeyboardPage *self,
                             const gchar   *id)
 {
-        GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GList *list, *l;
         gboolean retval = FALSE;
 
@@ -709,7 +705,7 @@ input_response (GtkWidget *chooser, gint response_id, gpointer data)
 static void
 show_input_chooser (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *chooser;
         GtkWidget *toplevel;
 
@@ -768,7 +764,7 @@ out:
 static void
 do_remove_selected_input (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *selected;
         GtkWidget *sibling;
 
@@ -796,7 +792,7 @@ remove_selected_input (GisKeyboardPage *self)
 static void
 show_selected_settings (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *selected;
         GdkAppLaunchContext *ctx;
         GDesktopAppInfo *app_info;
@@ -829,7 +825,7 @@ show_selected_settings (GisKeyboardPage *self)
 static void
 show_selected_layout (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GtkWidget *selected;
         const gchar *type;
         const gchar *id;
@@ -924,7 +920,7 @@ add_default_input_source_for_locale (GisKeyboardPage *self)
 static void
 setup_input_section (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 
         priv->input_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
         g_settings_delay (priv->input_settings);
@@ -978,7 +974,7 @@ setup_input_section (GisKeyboardPage *self)
 static void
 add_input_sources_from_localed (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GVariant *v;
         const gchar *s;
         gchar **layouts = NULL;
@@ -1034,7 +1030,7 @@ add_input_sources_from_localed (GisKeyboardPage *self)
 static void
 set_localed_input (GisKeyboardPage *self)
 {
-	GisKeyboardPagePrivate *priv = self->priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GString *layouts;
         GString *variants;
         const gchar *type, *id;
@@ -1078,7 +1074,7 @@ localed_proxy_ready (GObject      *source,
                      gpointer      data)
 {
         GisKeyboardPage *self = data;
-        GisKeyboardPagePrivate *priv;
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GDBusProxy *proxy;
         GError *error = NULL;
 
@@ -1091,7 +1087,6 @@ localed_proxy_ready (GObject      *source,
                 return;
         }
 
-        priv = self->priv;
         priv->localed = proxy;
 
         add_input_sources_from_localed (self);
@@ -1101,7 +1096,6 @@ localed_proxy_ready (GObject      *source,
 static void
 gis_keyboard_page_init (GisKeyboardPage *self)
 {
-        self->priv = KEYBOARD_PAGE_PRIVATE (self);
         g_resources_register (keyboard_get_resource ());
 }
 

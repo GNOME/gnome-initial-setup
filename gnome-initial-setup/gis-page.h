@@ -37,7 +37,6 @@ G_BEGIN_DECLS
 
 typedef struct _GisPage        GisPage;
 typedef struct _GisPageClass   GisPageClass;
-typedef struct _GisPagePrivate GisPagePrivate;
 typedef struct _GisAssistantPagePrivate GisAssistantPagePrivate;
 
 typedef void (* GisPageApplyCallback) (GisPage *page,
@@ -51,7 +50,6 @@ struct _GisPage
   GisDriver *driver;
   GtkBuilder *builder;
 
-  GisPagePrivate *priv;
   GisAssistantPagePrivate *assistant_priv;
 };
 

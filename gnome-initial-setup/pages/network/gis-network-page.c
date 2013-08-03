@@ -52,10 +52,6 @@ typedef enum {
   NM_AP_SEC_WPA2
 } NMAccessPointSecurity;
 
-G_DEFINE_TYPE (GisNetworkPage, gis_network_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_NETWORK_PAGE, GisNetworkPagePrivate))
-
 struct _GisNetworkPagePrivate {
   NMClient *nm_client;
   NMRemoteSettings *nm_settings;
@@ -63,6 +59,9 @@ struct _GisNetworkPagePrivate {
   gboolean refreshing;
   GtkSizeGroup *icons;
 };
+typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisNetworkPage, gis_network_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -181,7 +180,7 @@ update_separator (GtkWidget **separator,
 static void
 add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active)
 {
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   const GByteArray *ssid;
   gchar *ssid_text;
   const gchar *object_path;
@@ -329,7 +328,7 @@ refresh_again (gpointer user_data)
 static void
 refresh_without_device (GisNetworkPage *page)
 {
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   GtkWidget *label;
   GtkWidget *spinner;
   GtkWidget *swin;
@@ -353,7 +352,7 @@ refresh_without_device (GisNetworkPage *page)
 static void
 refresh_wireless_list (GisNetworkPage *page)
 {
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   NMDeviceState state = NM_DEVICE_STATE_UNAVAILABLE;
   NMAccessPoint *active_ap = NULL;
   NMAccessPoint *ap;
@@ -455,7 +454,7 @@ connection_add_activate_cb (NMClient *client,
 static void
 connect_to_hidden_network (GisNetworkPage *page)
 {
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   cc_network_panel_connect_to_hidden_network (gtk_widget_get_toplevel (GTK_WIDGET (page)),
                                               priv->nm_client,
                                               priv->nm_settings);
@@ -464,7 +463,7 @@ connect_to_hidden_network (GisNetworkPage *page)
 static void
 child_activated (EggListBox *box, GtkWidget *child, GisNetworkPage *page)
 {
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   gchar *object_path;
   GSList *list, *filtered, *l;
   NMConnection *connection;
@@ -555,7 +554,7 @@ static void
 gis_network_page_constructed (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   const GPtrArray *devices;
   NMDevice *device;
   guint i;
@@ -632,7 +631,7 @@ static void
 gis_network_page_dispose (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
-  GisNetworkPagePrivate *priv = page->priv;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
 
   g_clear_object (&priv->nm_client);
   g_clear_object (&priv->nm_settings);
@@ -658,15 +657,12 @@ gis_network_page_class_init (GisNetworkPageClass *klass)
   page_class->locale_changed = gis_network_page_locale_changed;
   object_class->constructed = gis_network_page_constructed;
   object_class->dispose = gis_network_page_dispose;
-
-  g_type_class_add_private (object_class, sizeof(GisNetworkPagePrivate));
 }
 
 static void
 gis_network_page_init (GisNetworkPage *page)
 {
   g_resources_register (network_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }
 
 void

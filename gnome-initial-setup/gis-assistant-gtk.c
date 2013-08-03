@@ -30,14 +30,13 @@
 #include "gis-assistant-gtk.h"
 #include "gis-assistant-private.h"
 
-G_DEFINE_TYPE (GisAssistantGtk, gis_assistant_gtk, GIS_TYPE_ASSISTANT)
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ASSISTANT_GTK, GisAssistantGtkPrivate))
-
 struct _GisAssistantGtkPrivate
 {
   GtkWidget *stack;
 };
+typedef struct _GisAssistantGtkPrivate GisAssistantGtkPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisAssistantGtk, gis_assistant_gtk, GIS_TYPE_ASSISTANT)
 
 static void
 current_page_changed (GObject    *gobject,
@@ -52,10 +51,10 @@ current_page_changed (GObject    *gobject,
 
 static void
 gis_assistant_gtk_switch_to (GisAssistant          *assistant,
-                            GisAssistantDirection  direction,
-                            GisPage               *page)
+                             GisAssistantDirection  direction,
+                             GisPage               *page)
 {
-  GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
+  GisAssistantGtkPrivate *priv = gis_assistant_gtk_get_instance_private (GIS_ASSISTANT_GTK (assistant));
   GtkStackTransitionType transition_type;
 
   switch (direction) {
@@ -72,25 +71,23 @@ gis_assistant_gtk_switch_to (GisAssistant          *assistant,
   gtk_stack_set_transition_type (GTK_STACK (priv->stack), transition_type);
 
   gtk_stack_set_visible_child (GTK_STACK (priv->stack),
-                              GTK_WIDGET (page));
+                               GTK_WIDGET (page));
 }
 
 static void
 gis_assistant_gtk_add_page (GisAssistant *assistant,
-                           GisPage      *page)
+                            GisPage      *page)
 {
-  GisAssistantGtkPrivate *priv = GIS_ASSISTANT_GTK (assistant)->priv;
+  GisAssistantGtkPrivate *priv = gis_assistant_gtk_get_instance_private (GIS_ASSISTANT_GTK (assistant));
   gtk_container_add (GTK_CONTAINER (priv->stack), GTK_WIDGET (page));
 }
 
 static void
 gis_assistant_gtk_init (GisAssistantGtk *assistant_gtk)
 {
-  GisAssistantGtkPrivate *priv = GET_PRIVATE (assistant_gtk);
   GisAssistant *assistant = GIS_ASSISTANT (assistant_gtk);
+  GisAssistantGtkPrivate *priv = gis_assistant_gtk_get_instance_private (assistant_gtk);
   GtkWidget *frame;
-
-  assistant_gtk->priv = priv;
 
   frame = _gis_assistant_get_frame (assistant);
   priv->stack = gtk_stack_new ();
@@ -108,8 +105,6 @@ static void
 gis_assistant_gtk_class_init (GisAssistantGtkClass *klass)
 {
   GisAssistantClass *assistant_class = GIS_ASSISTANT_CLASS (klass);
-
-  g_type_class_add_private (klass, sizeof (GisAssistantGtkPrivate));
 
   assistant_class->add_page = gis_assistant_gtk_add_page;
   assistant_class->switch_to = gis_assistant_gtk_switch_to;

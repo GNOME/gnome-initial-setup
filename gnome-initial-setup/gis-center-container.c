@@ -30,19 +30,15 @@ struct _GisCenterContainerPrivate
   GtkWidget *center;
   GtkWidget *right;
 };
+typedef struct _GisCenterContainerPrivate GisCenterContainerPrivate;
 
-G_DEFINE_TYPE (GisCenterContainer, gis_center_container, GTK_TYPE_CONTAINER);
+G_DEFINE_TYPE_WITH_PRIVATE (GisCenterContainer, gis_center_container, GTK_TYPE_CONTAINER);
 
 #define SPACING 6
 
 static void
 gis_center_container_init (GisCenterContainer *center)
 {
-  GisCenterContainerPrivate *priv;
-
-  priv = G_TYPE_INSTANCE_GET_PRIVATE (center, GIS_TYPE_CENTER_CONTAINER, GisCenterContainerPrivate);
-  center->priv = priv;
-
   gtk_widget_set_has_window (GTK_WIDGET (center), FALSE);
 }
 
@@ -52,7 +48,7 @@ gis_center_container_get_preferred_width (GtkWidget *widget,
                                           gint      *natural_size)
 {
   GisCenterContainer *center = GIS_CENTER_CONTAINER (widget);
-  GisCenterContainerPrivate *priv = center->priv;
+  GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (center);
 
   gint sum_min, sum_nat;
   gint child_min, child_nat;
@@ -81,7 +77,7 @@ gis_center_container_get_preferred_height (GtkWidget *widget,
                                            gint      *natural_size)
 {
   GisCenterContainer *center = GIS_CENTER_CONTAINER (widget);
-  GisCenterContainerPrivate *priv = center->priv;
+  GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (center);
   gint max_min, max_nat;
   gint child_min, child_nat;
 
@@ -108,7 +104,7 @@ gis_center_container_size_allocate (GtkWidget     *widget,
                                     GtkAllocation *allocation)
 {
   GisCenterContainer *center = GIS_CENTER_CONTAINER (widget);
-  GisCenterContainerPrivate *priv = center->priv;
+  GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (center);
   GtkAllocation child_allocation;
   gint max_side;
 
@@ -151,7 +147,7 @@ gis_center_container_forall (GtkContainer *container,
                              gpointer      callback_data)
 {
   GisCenterContainer *center = GIS_CENTER_CONTAINER (container);
-  GisCenterContainerPrivate *priv = center->priv;
+  GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (center);
 
   callback (priv->left, callback_data);
   callback (priv->center, callback_data);
@@ -161,7 +157,6 @@ gis_center_container_forall (GtkContainer *container,
 static void
 gis_center_container_class_init (GisCenterContainerClass *class)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (class);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (class);
 
@@ -172,8 +167,6 @@ gis_center_container_class_init (GisCenterContainerClass *class)
   container_class->forall = gis_center_container_forall;
   container_class->child_type = gis_center_container_child_type;
   gtk_container_class_handle_border_width (container_class);
-
-  g_type_class_add_private (object_class, sizeof (GisCenterContainerPrivate));
 }
 
 GtkWidget *
@@ -182,7 +175,7 @@ gis_center_container_new (GtkWidget *left,
                           GtkWidget *right)
 {
   GisCenterContainer *container = g_object_new (GIS_TYPE_CENTER_CONTAINER, NULL);
-  GisCenterContainerPrivate *priv = container->priv;
+  GisCenterContainerPrivate *priv = gis_center_container_get_instance_private (container);
 
   priv->left = left;
   gtk_widget_set_parent (left, GTK_WIDGET (container));

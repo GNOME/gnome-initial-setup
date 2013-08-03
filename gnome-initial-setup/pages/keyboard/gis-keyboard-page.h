@@ -51,13 +51,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisKeyboardPage GisKeyboardPage;
 typedef struct _GisKeyboardPageClass GisKeyboardPageClass;
-typedef struct _GisKeyboardPagePrivate GisKeyboardPagePrivate;
 
 struct _GisKeyboardPage
 {
   GisPage parent;
-
-  GisKeyboardPagePrivate *priv;
 };
 
 struct _GisKeyboardPageClass

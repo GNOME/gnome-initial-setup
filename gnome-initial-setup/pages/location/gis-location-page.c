@@ -44,16 +44,15 @@
 
 #define DEFAULT_TZ "Europe/London"
 
-G_DEFINE_TYPE (GisLocationPage, gis_location_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_LOCATION_PAGE, GisLocationPagePrivate))
-
 struct _GisLocationPagePrivate
 {
   CcTimezoneMap *map;
   TzLocation *current_location;
   Timedate1 *dtm;
 };
+typedef struct _GisLocationPagePrivate GisLocationPagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisLocationPage, gis_location_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -64,10 +63,11 @@ set_timezone_cb (GObject      *source,
                  gpointer      user_data)
 {
   GisLocationPage *page = user_data;
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
   GError *error;
 
   error = NULL;
-  if (!timedate1_call_set_timezone_finish (page->priv->dtm,
+  if (!timedate1_call_set_timezone_finish (priv->dtm,
                                            res,
                                            &error)) {
     /* TODO: display any error in a user friendly way */
@@ -80,7 +80,7 @@ set_timezone_cb (GObject      *source,
 static void
 queue_set_timezone (GisLocationPage *page)
 {
-  GisLocationPagePrivate *priv = page->priv;
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
 
   /* for now just do it */
   if (priv->current_location) {
@@ -96,13 +96,14 @@ queue_set_timezone (GisLocationPage *page)
 static void
 update_timezone (GisLocationPage *page)
 {
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
   GString *str;
   gchar *location;
   gchar *timezone;
   gchar *c;
 
   str = g_string_new ("");
-  for (c = page->priv->current_location->zone; *c; c++) {
+  for (c = priv->current_location->zone; *c; c++) {
     switch (*c) {
     case '_':
       g_string_append_c (str, ' ');
@@ -133,9 +134,11 @@ location_changed_cb (CcTimezoneMap   *map,
                      TzLocation      *location,
                      GisLocationPage *page)
 {
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+
   g_debug ("location changed to %s/%s", location->country, location->zone);
 
-  page->priv->current_location = location;
+  priv->current_location = location;
 
   update_timezone (page);
 
@@ -146,6 +149,7 @@ static void
 set_location_from_gweather_location (GisLocationPage  *page,
                                      GWeatherLocation *gloc)
 {
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
   GWeatherTimezone *zone = gweather_location_get_timezone (gloc);
   gchar *city = gweather_location_get_city_name (gloc);
 
@@ -163,7 +167,7 @@ set_location_from_gweather_location (GisLocationPage  *page,
       name = id;
     }
     gtk_label_set_label (label, name);
-    cc_timezone_map_set_timezone (page->priv->map, id);
+    cc_timezone_map_set_timezone (priv->map, id);
   }
 
   if (city != NULL) {
@@ -262,7 +266,7 @@ static void
 gis_location_page_constructed (GObject *object)
 {
   GisLocationPage *page = GIS_LOCATION_PAGE (object);
-  GisLocationPagePrivate *priv = page->priv;
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
   GtkWidget *frame, *map, *entry;
   GWeatherLocation *world;
   GError *error;
@@ -344,7 +348,7 @@ static void
 gis_location_page_dispose (GObject *object)
 {
   GisLocationPage *page = GIS_LOCATION_PAGE (object);
-  GisLocationPagePrivate *priv = page->priv;
+  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
 
   g_clear_object (&priv->dtm);
 
@@ -367,8 +371,6 @@ gis_location_page_class_init (GisLocationPageClass *klass)
   page_class->locale_changed = gis_location_page_locale_changed;
   object_class->constructed = gis_location_page_constructed;
   object_class->dispose = gis_location_page_dispose;
-  
-  g_type_class_add_private (object_class, sizeof(GisLocationPagePrivate));
 }
 
 static void
@@ -376,7 +378,6 @@ gis_location_page_init (GisLocationPage *page)
 {
   g_resources_register (location_get_resource ());
   g_resources_register (datetime_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }
 
 void

@@ -38,13 +38,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisCenterContainer        GisCenterContainer;
 typedef struct _GisCenterContainerClass   GisCenterContainerClass;
-typedef struct _GisCenterContainerPrivate GisCenterContainerPrivate;
 
 struct _GisCenterContainer
 {
     GtkContainer parent;
-    
-    GisCenterContainerPrivate *priv;
 };
 
 struct _GisCenterContainerClass

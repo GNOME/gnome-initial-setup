@@ -39,13 +39,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisAssistantGtk        GisAssistantGtk;
 typedef struct _GisAssistantGtkClass   GisAssistantGtkClass;
-typedef struct _GisAssistantGtkPrivate GisAssistantGtkPrivate;
 
 struct _GisAssistantGtk
 {
   GisAssistant parent;
-
-  GisAssistantGtkPrivate *priv;
 };
 
 struct _GisAssistantGtkClass

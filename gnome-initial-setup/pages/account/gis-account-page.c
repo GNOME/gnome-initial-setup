@@ -53,10 +53,6 @@ static void        on_realm_joined     (GObject *source,
                                         GAsyncResult *result,
                                         gpointer user_data);
 
-G_DEFINE_TYPE (GisAccountPage, gis_account_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ACCOUNT_PAGE, GisAccountPagePrivate))
-
 typedef enum {
   UM_LOCAL,
   UM_ENTERPRISE,
@@ -89,6 +85,9 @@ struct _GisAccountPagePrivate
 
   GtkWidget *action;
 };
+typedef struct _GisAccountPagePrivate GisAccountPagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPage, gis_account_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -122,7 +121,7 @@ show_error_dialog (GisAccountPage *page,
 static void
 clear_account_page (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   GtkWidget *password_entry;
@@ -149,7 +148,7 @@ clear_account_page (GisAccountPage *page)
 static gboolean
 local_validate (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   return priv->valid_name &&
          priv->valid_username &&
@@ -182,7 +181,8 @@ enterprise_validate (GisAccountPage *page)
 static gboolean
 page_validate (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
+
   switch (priv->mode) {
   case UM_LOCAL:
     return local_validate (page);
@@ -203,7 +203,7 @@ static void
 set_mode (GisAccountPage *page,
           UmAccountMode   mode)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkWidget *nb;
 
   if (priv->mode == mode)
@@ -221,7 +221,7 @@ static void
 set_has_enterprise (GisAccountPage *page,
                     gboolean        has_enterprise)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   if (priv->has_enterprise == has_enterprise)
     return;
@@ -237,7 +237,7 @@ set_has_enterprise (GisAccountPage *page,
 static void
 update_valid_confirm (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   const gchar *password, *verify;
 
   password = gtk_entry_get_text (GTK_ENTRY (WID("account-password-entry")));
@@ -251,7 +251,7 @@ fullname_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkWidget *combo;
   GtkWidget *entry;
   GtkTreeModel *model;
@@ -283,7 +283,7 @@ static void
 username_changed (GtkComboBoxText *combo,
                   GisAccountPage  *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   const gchar *username;
   gchar *tip;
   GtkWidget *entry;
@@ -313,7 +313,7 @@ static gboolean
 reason_timeout_cb (gpointer data)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (data);
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   const gchar *password;
@@ -340,7 +340,7 @@ reason_timeout_cb (gpointer data)
 static void
 refresh_reason_timeout (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   if (priv->reason_timeout != 0)
     g_source_remove (priv->reason_timeout);
@@ -351,7 +351,7 @@ refresh_reason_timeout (GisAccountPage *page)
 static void
 update_password_entries (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   const gchar *password;
   const gchar *username;
   GtkWidget *password_entry;
@@ -413,8 +413,10 @@ password_entry_focus_out (GtkWidget      *widget,
                           GdkEventFocus  *event,
                           GisAccountPage *page)
 {
-  if (page->priv->reason_timeout != 0)
-    g_source_remove (page->priv->reason_timeout);
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
+
+  if (priv->reason_timeout != 0)
+    g_source_remove (priv->reason_timeout);
 
   return FALSE;
 }
@@ -424,7 +426,7 @@ confirm_entry_focus_out (GtkWidget      *widget,
                          GdkEventFocus  *event,
                          GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkEntry *entry = GTK_ENTRY (widget);
   const gchar *verify;
 
@@ -441,7 +443,7 @@ confirm_entry_focus_out (GtkWidget      *widget,
 static void
 local_create_user (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   const gchar *username;
   const gchar *password;
   const gchar *fullname;
@@ -481,8 +483,7 @@ on_permit_user_login (GObject *source,
                       gpointer user_data)
 {
   GisAccountPage *page = user_data;
-  GisAccountPagePrivate *priv = page->priv;
-
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   UmRealmCommon *common;
   GError *error = NULL;
   gchar *login;
@@ -516,6 +517,7 @@ on_permit_user_login (GObject *source,
 static void
 enterprise_permit_user_login (GisAccountPage *page, UmRealmObject *realm)
 {
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   UmRealmCommon *common;
   gchar *login;
   const gchar *add[2];
@@ -536,7 +538,7 @@ enterprise_permit_user_login (GisAccountPage *page, UmRealmObject *realm)
 
   um_realm_common_call_change_login_policy (common, "",
                                             add, remove, options,
-                                            page->priv->cancellable,
+                                            priv->cancellable,
                                             on_permit_user_login,
                                             page);
 
@@ -550,6 +552,7 @@ on_set_static_hostname (GObject *source,
                         gpointer user_data)
 {
   GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GError *error = NULL;
   GVariant *retval;
   const gchar *name;
@@ -567,9 +570,9 @@ on_set_static_hostname (GObject *source,
   g_debug ("Logging in as admin user: %s", name);
 
   /* Prompted for some admin credentials, try to use them to log in */
-  um_realm_login (page->priv->realm, name,
+  um_realm_login (priv->realm, name,
                   gtk_entry_get_text (OBJ (GtkEntry *, "join-password")),
-                  page->priv->cancellable, on_join_login, page);
+                  priv->cancellable, on_join_login, page);
 }
 
 static void
@@ -578,6 +581,7 @@ on_join_response (GtkDialog *dialog,
                   gpointer user_data)
 {
   GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GDBusConnection *connection;
   GError *error = NULL;
   gchar hostname[128];
@@ -594,7 +598,7 @@ on_join_response (GtkDialog *dialog,
       !g_str_equal (name, hostname)) {
     g_debug ("Setting StaticHostname to '%s'", name);
 
-    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, page->priv->cancellable, &error);
+    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, priv->cancellable, &error);
     if (error != NULL) {
       gis_page_apply_complete (GIS_PAGE (page), FALSE);
       g_warning ("Could not get DBus connection: %s", error->message);
@@ -615,7 +619,7 @@ on_join_response (GtkDialog *dialog,
     g_debug ("Logging in as admin user: %s", name);
 
     /* Prompted for some admin credentials, try to use them to log in */
-    um_realm_login (page->priv->realm, name,
+    um_realm_login (priv->realm, name,
                     gtk_entry_get_text (OBJ (GtkEntry *, "join-password")),
                     NULL, on_join_login, page);
   }
@@ -625,6 +629,7 @@ static void
 join_show_prompt (GisAccountPage *page,
                   GError *error)
 {
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   UmRealmKerberosMembership *membership;
   UmRealmKerberos *kerberos;
   gchar hostname[128];
@@ -644,8 +649,8 @@ join_show_prompt (GisAccountPage *page,
   gtk_entry_set_text (join_password, "");
   gtk_widget_grab_focus (GTK_WIDGET (join_password));
 
-  kerberos = um_realm_object_get_kerberos (page->priv->realm);
-  membership = um_realm_object_get_kerberos_membership (page->priv->realm);
+  kerberos = um_realm_object_get_kerberos (priv->realm);
+  membership = um_realm_object_get_kerberos_membership (priv->realm);
 
   gtk_label_set_text (join_domain,
                       um_realm_kerberos_get_domain_name (kerberos));
@@ -656,7 +661,7 @@ join_show_prompt (GisAccountPage *page,
   clear_entry_validation_error (join_name);
   clear_entry_validation_error (join_password);
 
-  if (!page->priv->join_prompted) {
+  if (!priv->join_prompted) {
     name = um_realm_kerberos_membership_get_suggested_administrator (membership);
     if (name && !g_str_equal (name, "")) {
       g_debug ("Suggesting admin user: %s", name);
@@ -685,7 +690,7 @@ join_show_prompt (GisAccountPage *page,
   gtk_window_set_modal (GTK_WINDOW (join_dialog), TRUE);
   gtk_window_present (GTK_WINDOW (join_dialog));
 
-  page->priv->join_prompted = TRUE;
+  priv->join_prompted = TRUE;
   g_object_unref (kerberos);
   g_object_unref (membership);
 
@@ -698,14 +703,15 @@ on_join_login (GObject *source,
                gpointer user_data)
 {
   GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GError *error = NULL;
   GBytes *creds;
 
-  um_realm_login_finish (page->priv->realm, result, &creds, &error);
+  um_realm_login_finish (priv->realm, result, &creds, &error);
 
   /* Logged in as admin successfully, use creds to join domain */
   if (error == NULL) {
-    if (!um_realm_join_as_admin (page->priv->realm,
+    if (!um_realm_join_as_admin (priv->realm,
                                  gtk_entry_get_text (OBJ (GtkEntry *, "join-name")),
                                  gtk_entry_get_text (OBJ (GtkEntry *, "join-password")),
                                  creds, NULL, on_realm_joined, page)) {
@@ -729,14 +735,15 @@ on_realm_joined (GObject *source,
                  gpointer user_data)
 {
   GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GError *error = NULL;
 
-  um_realm_join_finish (page->priv->realm, result, &error);
+  um_realm_join_finish (priv->realm, result, &error);
 
   /* Yay, joined the domain, register the user locally */
   if (error == NULL) {
     g_debug ("Joining realm completed successfully");
-    enterprise_permit_user_login (page, page->priv->realm);
+    enterprise_permit_user_login (page, priv->realm);
 
     /* Credential failure while joining domain, prompt for admin creds */
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN) ||
@@ -762,10 +769,11 @@ on_realm_login (GObject *source,
                 gpointer user_data)
 {
   GisAccountPage *page = user_data;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GError *error = NULL;
   GBytes *creds = NULL;
 
-  um_realm_login_finish (page->priv->realm, result, &creds, &error);
+  um_realm_login_finish (priv->realm, result, &creds, &error);
 
   /*
    * User login is valid, but cannot authenticate right now (eg: user needs
@@ -779,16 +787,16 @@ on_realm_login (GObject *source,
   if (error == NULL) {
 
     /* Already joined to the domain, just register this user */
-    if (um_realm_is_configured (page->priv->realm)) {
+    if (um_realm_is_configured (priv->realm)) {
       g_debug ("Already joined to this realm");
-      enterprise_permit_user_login (page, page->priv->realm);
+      enterprise_permit_user_login (page, priv->realm);
 
       /* Join the domain, try using the user's creds */
     } else if (creds == NULL ||
-               !um_realm_join_as_user (page->priv->realm,
+               !um_realm_join_as_user (priv->realm,
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
                                        gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
-                                       creds, page->priv->cancellable,
+                                       creds, priv->cancellable,
                                        on_realm_joined,
                                        page)) {
 
@@ -826,12 +834,14 @@ on_realm_login (GObject *source,
 static void
 enterprise_check_login (GisAccountPage *page)
 {
-  g_assert (page->priv->realm);
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
-  um_realm_login (page->priv->realm,
+  g_assert (priv->realm);
+
+  um_realm_login (priv->realm,
                   gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-login")),
                   gtk_entry_get_text (OBJ (GtkEntry *, "enterprise-password")),
-                  page->priv->cancellable,
+                  priv->cancellable,
                   on_realm_login,
                   page);
 }
@@ -842,7 +852,7 @@ on_realm_discover_input (GObject *source,
                          gpointer user_data)
 {
   GisAccountPage *page = user_data;
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GError *error = NULL;
   GList *realms;
 
@@ -870,7 +880,7 @@ on_realm_discover_input (GObject *source,
 static void
 enterprise_add_user (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkTreeIter iter;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
 
@@ -936,7 +946,7 @@ static void
 enterprise_add_realm (GisAccountPage *page,
                       UmRealmObject  *realm)
 {
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkTreeIter iter;
   GtkComboBox *domain = OBJ(GtkComboBox*, "enterprise-domain");
   GtkTreeModel *model = OBJ(GtkTreeModel*, "enterprise-realms-model");
@@ -983,7 +993,7 @@ on_realm_manager_created (GObject *source,
                           gpointer user_data)
 {
   GisAccountPage *page = user_data;
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GError *error = NULL;
   GList *realms, *l;
 
@@ -1026,7 +1036,7 @@ on_realmd_disappeared (GDBusConnection *unused1,
                        gpointer user_data)
 {
   GisAccountPage *page = user_data;
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   if (priv->realm_manager != NULL) {
     g_signal_handlers_disconnect_by_func (priv->realm_manager,
@@ -1043,7 +1053,9 @@ on_domain_changed (GtkComboBox *widget,
                    gpointer user_data)
 {
   GisAccountPage *page = user_data;
-  page->priv->domain_chosen = TRUE;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
+
+  priv->domain_chosen = TRUE;
   update_account_page_status (page);
   clear_entry_validation_error (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (widget))));
 }
@@ -1070,13 +1082,13 @@ gis_account_page_apply (GisPage *gis_page,
                         GCancellable *cancellable)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   switch (priv->mode) {
   case UM_LOCAL:
     return FALSE;
   case UM_ENTERPRISE:
-    page->priv->cancellable = g_object_ref (cancellable);
+    priv->cancellable = g_object_ref (cancellable);
     enterprise_add_user (page);
     return TRUE;
   default:
@@ -1088,7 +1100,7 @@ static void
 gis_account_page_save_data (GisPage *gis_page)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   switch (priv->mode) {
   case UM_LOCAL:
@@ -1105,8 +1117,7 @@ static void
 gis_account_page_constructed (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
-  GisAccountPagePrivate *priv = page->priv;
-
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   GtkWidget *password_entry;
@@ -1169,7 +1180,8 @@ static void
 gis_account_page_dispose (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
-  GisAccountPagePrivate *priv = page->priv;
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
+
   if (priv->realmd_watch)
     g_bus_unwatch_name (priv->realmd_watch);
 
@@ -1188,7 +1200,9 @@ gis_account_page_dispose (GObject *object)
 static GtkWidget *
 gis_account_page_get_action_widget (GisPage *page)
 {
-  return GIS_ACCOUNT_PAGE (page)->priv->action;
+  GisAccountPage *account = GIS_ACCOUNT_PAGE (page);
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (account);
+  return priv->action;
 }
 
 static void
@@ -1210,15 +1224,12 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   page_class->save_data = gis_account_page_save_data;
   object_class->constructed = gis_account_page_constructed;
   object_class->dispose = gis_account_page_dispose;
-
-  g_type_class_add_private (object_class, sizeof(GisAccountPagePrivate));
 }
 
 static void
 gis_account_page_init (GisAccountPage *page)
 {
   g_resources_register (account_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }
 
 void

@@ -38,10 +38,6 @@
 #include <locale.h>
 #include <gtk/gtk.h>
 
-G_DEFINE_TYPE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_LANGUAGE_PAGE, GisLanguagePagePrivate))
-
 struct _GisLanguagePagePrivate
 {
   GtkWidget *language_chooser;
@@ -52,6 +48,9 @@ struct _GisLanguagePagePrivate
 
   GCancellable *cancellable;
 };
+typedef struct _GisLanguagePagePrivate GisLanguagePagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -59,7 +58,7 @@ struct _GisLanguagePagePrivate
 static void
 set_localed_locale (GisLanguagePage *self)
 {
-  GisLanguagePagePrivate *priv = self->priv;
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (self);
   GVariantBuilder *b;
   gchar *s;
 
@@ -81,11 +80,10 @@ change_locale_permission_acquired (GObject      *source,
                                    GAsyncResult *res,
                                    gpointer      data)
 {
-  GisLanguagePagePrivate *priv;
+  GisLanguagePage *page = GIS_LANGUAGE_PAGE (data);
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
   GError *error = NULL;
   gboolean allowed;
-
-  priv = GIS_LANGUAGE_PAGE (data)->priv;
 
   allowed = g_permission_acquire_finish (priv->permission, res, &error);
   if (error) {
@@ -96,7 +94,7 @@ change_locale_permission_acquired (GObject      *source,
   }
 
   if (allowed)
-    set_localed_locale (GIS_LANGUAGE_PAGE (data));
+    set_localed_locale (page);
 }
 
 static void
@@ -124,7 +122,7 @@ language_changed (CcLanguageChooser  *chooser,
                   GParamSpec         *pspec,
                   GisLanguagePage    *page)
 {
-  GisLanguagePagePrivate *priv = page->priv;
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
   ActUser *user;
   GisDriver *driver;
 
@@ -173,7 +171,7 @@ localed_proxy_ready (GObject      *source,
                      gpointer      data)
 {
   GisLanguagePage *self = data;
-  GisLanguagePagePrivate *priv;
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (self);
   GDBusProxy *proxy;
   GError *error = NULL;
 
@@ -186,15 +184,14 @@ localed_proxy_ready (GObject      *source,
       return;
   }
 
-  priv = self->priv;
   priv->localed = proxy;
 }
 
-static void
+ static void
 gis_language_page_constructed (GObject *object)
 {
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
-  GisLanguagePagePrivate *priv = page->priv;
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
   GDBusConnection *bus;
 
   g_type_ensure (CC_TYPE_LANGUAGE_CHOOSER);
@@ -240,7 +237,7 @@ static void
 gis_language_page_dispose (GObject *object)
 {
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
-  GisLanguagePagePrivate *priv = page->priv;
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
 
   g_source_remove (priv->selection_done_source);
   g_clear_object (&priv->permission);
@@ -258,15 +255,12 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
   page_class->locale_changed = gis_language_page_locale_changed;
   object_class->constructed = gis_language_page_constructed;
   object_class->dispose = gis_language_page_dispose;
-
-  g_type_class_add_private (object_class, sizeof(GisLanguagePagePrivate));
 }
 
 static void
 gis_language_page_init (GisLanguagePage *page)
 {
   g_resources_register (language_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }
 
 void

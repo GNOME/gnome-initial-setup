@@ -37,13 +37,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisSummaryPage        GisSummaryPage;
 typedef struct _GisSummaryPageClass   GisSummaryPageClass;
-typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
 
 struct _GisSummaryPage
 {
   GisPage parent;
-
-  GisSummaryPagePrivate *priv;
 };
 
 struct _GisSummaryPageClass

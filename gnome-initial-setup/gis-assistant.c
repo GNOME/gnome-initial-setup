@@ -32,10 +32,6 @@
 #include "gis-assistant-private.h"
 #include "gis-center-container.h"
 
-G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_ASSISTANT, GisAssistantPrivate))
-
 enum {
   PROP_0,
   PROP_TITLE,
@@ -66,6 +62,9 @@ struct _GisAssistantPrivate
   GList *pages;
   GisPage *current_page;
 };
+typedef struct _GisAssistantPrivate GisAssistantPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 
 struct _GisAssistantPagePrivate
 {
@@ -77,7 +76,7 @@ widget_destroyed (GtkWidget    *widget,
                   GisAssistant *assistant)
 {
   GisPage *page = GIS_PAGE (widget);
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
   priv->pages = g_list_delete_link (priv->pages, page->assistant_priv->link);
   if (page == priv->current_page)
@@ -101,16 +100,19 @@ on_apply_done (GisPage *page,
                gpointer user_data)
 {
   GisAssistant *assistant = GIS_ASSISTANT (user_data);
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+
   if (valid)
     g_signal_emit (assistant, signals[NEXT_PAGE], 0,
-                   assistant->priv->current_page);
+                   priv->current_page);
+
   g_object_unref (assistant);
 }
 
 void
 gis_assistant_next_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   if (priv->current_page)
     gis_page_apply_begin (priv->current_page, on_apply_done,
                           g_object_ref (assistant));
@@ -155,7 +157,7 @@ find_prev_page (GisPage *page)
 void
 gis_assistant_previous_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   g_return_if_fail (priv->current_page != NULL);
   gis_assistant_switch_to (assistant, GIS_ASSISTANT_PREV, find_prev_page (priv->current_page));
 }
@@ -171,7 +173,7 @@ remove_from_page_action_area (GtkWidget *widget,
 static void
 update_action_widget (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GtkWidget *action;
 
   gtk_container_foreach (GTK_CONTAINER (priv->page_action_widget_area),
@@ -194,7 +196,7 @@ remove_from_progress_indicator (GtkWidget *widget,
 static void
 update_progress_indicator (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *l;
 
   gtk_container_foreach (GTK_CONTAINER (priv->progress_indicator),
@@ -219,7 +221,7 @@ update_progress_indicator (GisAssistant *assistant)
 static void
 update_navigation_buttons (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GisPage *page = priv->current_page;
   GisAssistantPagePrivate *page_priv;
   gboolean is_last_page;
@@ -255,18 +257,19 @@ static void
 update_applying_state (GisAssistant *assistant)
 {
   gboolean applying = FALSE;
-  if (assistant->priv->current_page)
-    applying = gis_page_get_applying (assistant->priv->current_page);
-  gtk_widget_set_sensitive (assistant->priv->frame, !applying);
-  gtk_widget_set_sensitive (assistant->priv->forward, !applying);
-  gtk_widget_set_visible (assistant->priv->back, !applying);
-  gtk_widget_set_visible (assistant->priv->cancel, applying);
-  gtk_widget_set_visible (assistant->priv->spinner, applying);
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+  if (priv->current_page)
+    applying = gis_page_get_applying (priv->current_page);
+  gtk_widget_set_sensitive (priv->frame, !applying);
+  gtk_widget_set_sensitive (priv->forward, !applying);
+  gtk_widget_set_visible (priv->back, !applying);
+  gtk_widget_set_visible (priv->cancel, applying);
+  gtk_widget_set_visible (priv->spinner, applying);
 
   if (applying)
-    gtk_spinner_start (GTK_SPINNER (assistant->priv->spinner));
+    gtk_spinner_start (GTK_SPINNER (priv->spinner));
   else
-    gtk_spinner_stop (GTK_SPINNER (assistant->priv->spinner));
+    gtk_spinner_stop (GTK_SPINNER (priv->spinner));
 }
 
 static void
@@ -274,7 +277,9 @@ page_notify (GisPage      *page,
              GParamSpec   *pspec,
              GisAssistant *assistant)
 {
-  if (page != assistant->priv->current_page)
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+
+  if (page != priv->current_page)
     return;
 
   if (strcmp (pspec->name, "title") == 0)
@@ -289,7 +294,7 @@ void
 gis_assistant_add_page (GisAssistant *assistant,
                         GisPage      *page)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *link;
 
   g_return_if_fail (page->assistant_priv == NULL);
@@ -312,14 +317,14 @@ gis_assistant_add_page (GisAssistant *assistant,
 GisPage *
 gis_assistant_get_current_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   return priv->current_page;
 }
 
 GList *
 gis_assistant_get_all_pages (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   return priv->pages;
 }
 
@@ -341,14 +346,15 @@ static void
 do_cancel (GtkWidget    *button,
            GisAssistant *assistant)
 {
-  if (assistant->priv->current_page)
-    gis_page_apply_cancel (assistant->priv->current_page);
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+  if (priv->current_page)
+    gis_page_apply_cancel (priv->current_page);
 }
 
 gchar *
 gis_assistant_get_title (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   if (priv->current_page != NULL)
     return gis_page_get_title (priv->current_page);
   else
@@ -358,14 +364,15 @@ gis_assistant_get_title (GisAssistant *assistant)
 GtkWidget *
 _gis_assistant_get_frame (GisAssistant *assistant)
 {
-  return assistant->priv->frame;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+  return priv->frame;
 }
 
 void
 _gis_assistant_current_page_changed (GisAssistant *assistant,
                                      GisPage      *page)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
   if (priv->current_page == page)
     return;
@@ -383,7 +390,7 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
 void
 gis_assistant_locale_changed (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *l;
 
   gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
@@ -397,7 +404,7 @@ gis_assistant_locale_changed (GisAssistant *assistant)
 void
 gis_assistant_save_data (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = assistant->priv;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *l;
 
   for (l = priv->pages; l != NULL; l = l->next)
@@ -407,11 +414,9 @@ gis_assistant_save_data (GisAssistant *assistant)
 static void
 gis_assistant_init (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = GET_PRIVATE (assistant);
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GtkWidget *navigation;
   GtkWidget *widget;
-
-  assistant->priv = priv;
 
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
   gtk_box_pack_start (GTK_BOX (assistant), priv->main_layout, TRUE, TRUE, 0);
@@ -496,8 +501,6 @@ static void
 gis_assistant_class_init (GisAssistantClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-  g_type_class_add_private (klass, sizeof (GisAssistantPrivate));
 
   gobject_class->get_property = gis_assistant_get_property;
 

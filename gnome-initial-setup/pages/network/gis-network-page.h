@@ -37,13 +37,10 @@ G_BEGIN_DECLS
 
 typedef struct _GisNetworkPage        GisNetworkPage;
 typedef struct _GisNetworkPageClass   GisNetworkPageClass;
-typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
 
 struct _GisNetworkPage
 {
   GisPage parent;
-
-  GisNetworkPagePrivate *priv;
 };
 
 struct _GisNetworkPageClass

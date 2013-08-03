@@ -41,14 +41,13 @@
 
 #define SERVICE_NAME "gdm-password"
 
-G_DEFINE_TYPE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIS_TYPE_SUMMARY_PAGE, GisSummaryPagePrivate))
-
 struct _GisSummaryPagePrivate {
   ActUser *user_account;
   const gchar *user_password;
 };
+typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -128,7 +127,7 @@ on_secret_info_query (GdmUserVerifier *user_verifier,
                       const char      *question,
                       GisSummaryPage  *page)
 {
-  GisSummaryPagePrivate *priv = page->priv;
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
   gboolean should_send_password = priv->user_password != NULL;
 
   g_debug ("PAM module secret info query: %s\n", question);
@@ -177,7 +176,7 @@ add_uid_file (uid_t uid)
 static void
 log_user_in (GisSummaryPage *page)
 {
-  GisSummaryPagePrivate *priv = page->priv;
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
   GError *error = NULL;
   GdmGreeter *greeter;
   GdmUserVerifier *user_verifier;
@@ -264,7 +263,8 @@ done_cb (GtkButton *button, GisSummaryPage *page)
 static void
 gis_summary_page_shown (GisPage *page)
 {
-  GisSummaryPagePrivate *priv = GIS_SUMMARY_PAGE (page)->priv;
+  GisSummaryPage *summary = GIS_SUMMARY_PAGE (page);
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (summary);
 
   gis_driver_save_data (GIS_PAGE (page)->driver);
 
@@ -387,15 +387,12 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   page_class->locale_changed = gis_summary_page_locale_changed;
   page_class->shown = gis_summary_page_shown;
   object_class->constructed = gis_summary_page_constructed;
-
-  g_type_class_add_private (object_class, sizeof(GisSummaryPagePrivate));
 }
 
 static void
 gis_summary_page_init (GisSummaryPage *page)
 {
   g_resources_register (summary_get_resource ());
-  page->priv = GET_PRIVATE (page);
 }
 
 void
