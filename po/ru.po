@@ -1,5 +1,7 @@
 #
+#
 # Alexsey Nadtochey <irbis4lan@yandex.com>, 2012.
+# Julia Dronova <juliette.tux@gmail.com>, 2013.
 # Yuri Myasoedov <omerta13@yandex.ru>, 2012, 2013.
 #
 msgid ""
@@ -7,30 +9,34 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-10 16:43+0000\n"
-"PO-Revision-Date: 2013-05-02 19:04+0400\n"
-"Last-Translator: Dmitriy S. Seregin <dseregin@59.ru>\n"
+"POT-Creation-Date: 2013-07-26 08:27+0000\n"
+"PO-Revision-Date: 2013-08-04 09:14+0400\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: русский <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.5\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Первоначальная настройка"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:389
 msgid "_Next"
 msgstr "_Далее"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
-msgid "_Back"
+#: ../gnome-initial-setup/gis-assistant.c:390
+msgid "_Previous"
 msgstr "_Назад"
+
+#: ../gnome-initial-setup/gis-assistant.c:391
+msgid "_Cancel"
+msgstr "_Отмена"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -40,33 +46,37 @@ msgstr "Принудительно использовать режим ново�
 msgid "- GNOME initial setup"
 msgstr "— Первоначальная настройка GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "Пароль не указан"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "Стойкость: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
 msgid "Failed to register account"
 msgstr "Не удалось зарегистрировать учётную запись"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+msgid "No supported way to authenticate with this domain"
+msgstr "Нет поддерживаемых способов аутентификации в этом домене"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
 msgid "Failed to join domain"
 msgstr "Не удалось зарегистрировать в домене"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
 msgid "Failed to log into domain"
 msgstr "Не удалось войти в домен"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
 msgid "Login"
 msgstr "Вход в систему"
 
@@ -120,6 +130,38 @@ msgstr "_Домен"
 msgid "Enterprise domain or realm name"
 msgstr "Название домена предприятия или области"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "П_родолжить"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Вход для администратора домена"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Чтобы использовать корпоративные учётные записи, этот компьютер\n"
+"должен быть зарегистрирован в корпоративном домене. Корпоративный\n"
+"сетевой администратор должен ввести здесь ваш пароль и выбрать\n"
+"уникальное имя для вашей машины."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Компьютер"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "Имя _администратора"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "Пароль администратора"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -128,7 +170,7 @@ msgstr "Слишком короткий"
 #: ../gnome-initial-setup/pages/account/pw-utils.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
-msgstr "Слишком слабый"
+msgstr "Недостаточно хороший"
 
 #: ../gnome-initial-setup/pages/account/pw-utils.c:108
 msgctxt "Password strength"
@@ -150,47 +192,52 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Надёжный"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "Невозможно автоматически присоединиться к данному типу домена"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Домен или область не найдены"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Не удалось войти в систему как %s в домене %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Неправильный пароль. Попробуйте ещё раз"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Не удалось подключиться к домену %s: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Пользователь с именем «%s» уже существует"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Имя пользователя слишком длинное"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Имя пользователя не может начинаться со знака «-»."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"Имя пользователя может состоять из:\n"
+"Имя пользователя может состоять только из:\n"
 " ➣ букв латинского алфавита;\n"
 " ➣ цифр;\n"
 " ➣ символов «.», «-» и «_»."
@@ -205,27 +252,27 @@ msgstr "Лицензионные соглашения"
 msgid "Add Account"
 msgstr "Добавить учётную запись"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "Ошибка при создании учётной записи"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "Ошибка при удалении учётной записи"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "Действительно удалить учётную запись?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "Учётная запись на сервере не будет удалена."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "_Удалить"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
 msgid "Online Accounts"
 msgstr "Сетевые учётные записи"
 
@@ -258,7 +305,7 @@ msgstr "Источники ввода не найдены"
 msgid "Other"
 msgstr "Другой"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:152
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "Источники ввода"
 
@@ -278,7 +325,7 @@ msgstr "Добавить источник ввода"
 msgid "No languages found"
 msgstr "Языки не найдены"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
@@ -320,7 +367,7 @@ msgstr "Не найдено сетевое оборудование."
 msgid "Checking for available wireless networks"
 msgstr "Поиск доступных беспроводных сетей"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
 msgid "Network"
 msgstr "Сеть"
 
@@ -328,7 +375,7 @@ msgstr "Сеть"
 msgid "Wireless Networks"
 msgstr "Беспроводные сети"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
 msgid "Thank You"
 msgstr "Благодарим вас"
 
@@ -343,6 +390,9 @@ msgstr "Вы можете в любой момент изменить эти п�
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Начать работу с GNOME 3"
+
+#~ msgid "_Back"
+#~ msgstr "_Назад"
 
 #~ msgid "Sorry"
 #~ msgstr "Извините"
