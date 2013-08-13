@@ -48,6 +48,7 @@ struct _GisLanguagePagePrivate
   GDBusProxy *localed;
   GPermission *permission;
   const gchar *new_locale_id;
+  guint selection_done_source;
 
   GCancellable *cancellable;
 };
@@ -110,6 +111,14 @@ user_loaded (GObject    *object,
   g_free (new_locale_id);
 }
 
+static gboolean
+_selection_done (gpointer driver)
+{
+  gis_assistant_next_page (gis_driver_get_assistant (GIS_DRIVER (driver)));
+
+  return FALSE;
+}
+
 static void
 language_changed (CcLanguageChooser  *chooser,
                   GParamSpec         *pspec,
@@ -118,6 +127,12 @@ language_changed (CcLanguageChooser  *chooser,
   GisLanguagePagePrivate *priv = page->priv;
   ActUser *user;
   GisDriver *driver;
+
+  if (priv->selection_done_source > 0)
+    {
+      g_source_remove (priv->selection_done_source);
+      priv->selection_done_source = 0;
+    }
 
   priv->new_locale_id = cc_language_chooser_get_language (chooser);
   driver = GIS_PAGE (page)->driver;
@@ -147,6 +162,9 @@ language_changed (CcLanguageChooser  *chooser,
                       g_strdup (priv->new_locale_id));
 
   gis_driver_set_user_language (driver, priv->new_locale_id);
+
+  priv->selection_done_source = g_timeout_add (500, _selection_done,
+                                               (gpointer)driver);
 }
 
 static void
@@ -224,6 +242,7 @@ gis_language_page_dispose (GObject *object)
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
   GisLanguagePagePrivate *priv = page->priv;
 
+  g_source_remove (priv->selection_done_source);
   g_clear_object (&priv->permission);
   g_clear_object (&priv->localed);
   g_clear_object (&priv->cancellable);
