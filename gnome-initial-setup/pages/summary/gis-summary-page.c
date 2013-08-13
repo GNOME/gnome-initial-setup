@@ -298,6 +298,63 @@ gis_summary_page_get_builder (GisPage *page)
   return builder;
 }
 
+static char *
+get_item (const char *buffer, const char *name)
+{
+  char *label, *start, *end, *result;
+  char end_char;
+
+  result = NULL;
+  start = NULL;
+  end = NULL;
+  label = g_strconcat (name, "=", NULL);
+  if ((start = strstr (buffer, label)) != NULL)
+    {
+      start += strlen (label);
+      end_char = '\n';
+      if (*start == '"')
+        {
+          start++;
+          end_char = '"';
+        }
+
+      end = strchr (start, end_char);
+    }
+
+    if (start != NULL && end != NULL)
+      {
+        result = g_strndup (start, end - start);
+      }
+
+  g_free (label);
+
+  return result;
+}
+
+static void
+update_distro_name (GisSummaryPage *page)
+{
+  char *buffer;
+  char *name;
+
+  name = NULL;
+
+  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
+    {
+      name = get_item (buffer, "NAME");
+      g_free (buffer);
+    }
+
+  if (name)
+    {
+      gchar *label;
+      label = g_strdup_printf (_("_Start using %s"), name);
+      gtk_label_set_label (GTK_LABEL (WID ("summary-start-button-label")), label);
+      g_free (label);
+      g_free (name);
+    }
+}
+
 static void
 gis_summary_page_constructed (GObject *object)
 {
@@ -310,6 +367,7 @@ gis_summary_page_constructed (GObject *object)
 
   g_signal_connect_object (assistant, "prepare", G_CALLBACK (prepare_cb), page, 0);
 
+  update_distro_name (page);
   g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (done_cb), page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
@@ -320,7 +378,8 @@ gis_summary_page_constructed (GObject *object)
 static void
 gis_summary_page_locale_changed (GisPage *page)
 {
-  gis_page_set_title (GIS_PAGE (page), _("Thank You"));
+  gis_page_set_title (page, _("Thank You"));
+  update_distro_name (GIS_SUMMARY_PAGE (page));
 }
 
 static void
