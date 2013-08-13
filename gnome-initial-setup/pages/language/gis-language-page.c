@@ -226,6 +226,7 @@ gis_language_page_dispose (GObject *object)
 
   g_clear_object (&priv->permission);
   g_clear_object (&priv->localed);
+  g_clear_object (&priv->cancellable);
 }
 
 static void
