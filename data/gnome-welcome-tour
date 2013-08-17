@@ -1,11 +1,6 @@
 #! /bin/sh
 
 cfgdir=${XDG_CONFIG_DIR:-$HOME/.config}
-prefix=/usr/share/help
-suffix=gnome-help/figures/gnome-yelp-intro.webm
-full_locale=$LANG
-locale=`echo $full_locale | sed -e 's/\..*//'`
-lang=`echo $locale | sed -e 's/_.*//'`
 
 rm -f $cfgdir/run-welcome-tour
 
@@ -23,12 +18,4 @@ geometry=(1024, 709)
 EOF
 fi
 
-for name in $locale $lang 'C'; do
-        if test -f "$prefix/$name/$suffix" ; then
-                intro_path="$prefix/$name/$suffix"
-                break;
-        fi
-done
-
-/usr/libexec/gnome-initial-setup-player $intro_path &
 yelp help:gnome-help/getting-started
