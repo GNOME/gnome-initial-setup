@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-28 12:34+0000\n"
-"PO-Revision-Date: 2013-05-28 20:02+0100\n"
+"POT-Creation-Date: 2013-08-17 02:54+0000\n"
+"PO-Revision-Date: 2013-08-17 16:02+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -27,15 +27,15 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Začetna nastavitev"
 
-#: ../gnome-initial-setup/gis-assistant.c:394
+#: ../gnome-initial-setup/gis-assistant.c:389
 msgid "_Next"
 msgstr "_Naprej"
 
-#: ../gnome-initial-setup/gis-assistant.c:395
-msgid "_Back"
-msgstr "Na_zaj"
+#: ../gnome-initial-setup/gis-assistant.c:390
+msgid "_Previous"
+msgstr "_Predhodni"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:391
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -47,37 +47,37 @@ msgstr "Vsili nov uporabniški način"
 msgid "- GNOME initial setup"
 msgstr "-  začetna nastavitev GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "Ni podanega gesla"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
 msgid "Passwords do not match"
 msgstr "Gesli se ne skladata."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "Moč: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
 msgid "Failed to register account"
 msgstr "Vpisovanje računa je spodletelo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
 msgid "No supported way to authenticate with this domain"
 msgstr "Ni podprtega načina za overitev s to domeno"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
 msgid "Failed to join domain"
 msgstr "Pridruževanje domeni je spodletelo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
 msgid "Failed to log into domain"
 msgstr "Prijava v domeno je spodletela"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1262
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
 msgid "Login"
 msgstr "Prijava"
 
@@ -248,6 +248,12 @@ msgstr ""
 msgid "License Agreements"
 msgstr "Dovoljenja uporabe"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr "_Strinjam se s pogoji in določili dovoljenja uporabe."
+
 #. translators: This is the title of the "Add Account" dialog.
 #: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
@@ -273,7 +279,7 @@ msgstr "S tem dejanjem račun s strežnika ne bo odstranjen."
 msgid "_Remove"
 msgstr "_Odstrani"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
 msgid "Online Accounts"
 msgstr "Spletni računi"
 
@@ -306,13 +312,13 @@ msgstr "Ni mogoče najti vhodnih virov"
 msgid "Other"
 msgstr "Ostalo"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "Vhodni viri"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Izbor vhodnih virov"
+msgid "Select keyboard layouts"
+msgstr "Izbor razporedov tipkovnice"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
 msgid "Login settings are used by all users when logging into the system"
@@ -326,7 +332,7 @@ msgstr "Dodaj vhodni vir"
 msgid "No languages found"
 msgstr "Ni najdenih jezikov"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:236
 msgid "Welcome"
 msgstr "Dobrodošli"
 
@@ -368,7 +374,7 @@ msgstr "Ni mogoče najti nobene omrežne naprave."
 msgid "Checking for available wireless networks"
 msgstr "Preveri za dostopne brezžične omrežne povezave"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
 msgid "Network"
 msgstr "Omrežje"
 
@@ -376,7 +382,12 @@ msgstr "Omrežje"
 msgid "Wireless Networks"
 msgstr "Brezžična omrežja"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+msgid "_Start using %s"
+msgstr "_Začetek uporabljanja %s"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Hvala!"
 
@@ -393,6 +404,12 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Želim začeti uporabljati GNOME 3"
+
+#~ msgid "_Back"
+#~ msgstr "Na_zaj"
+
+#~ msgid "Select input sources"
+#~ msgstr "Izbor vhodnih virov"
 
 #~ msgid "Sorry"
 #~ msgstr "Nedovoljeno dejanje"
@@ -434,9 +451,6 @@ msgstr "_Želim začeti uporabljati GNOME 3"
 #~ msgid "Move Input Source Up"
 #~ msgstr "Premakni vhodni vir navzgor"
 
-#~ msgid "Show Keyboard Layout"
-#~ msgstr "Pokaži razporeditev tipkovnice"
-
 #~ msgid "English"
 #~ msgstr "angleščina"
 
@@ -460,11 +474,6 @@ msgstr "_Želim začeti uporabljati GNOME 3"
 
 #~ msgid "_Login Name"
 #~ msgstr "_Prijavno ime"
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr "_Strinjam se s pogoji in določili dovoljenja uporabe."
 
 #~ msgid "Link other accounts"
 #~ msgstr "Poveži z drugimi računi"
