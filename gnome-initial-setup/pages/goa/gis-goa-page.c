@@ -47,11 +47,45 @@ G_DEFINE_TYPE (GisGoaPage, gis_goa_page, GIS_TYPE_PAGE);
 
 struct _GisGoaPagePrivate {
   GoaClient *goa_client;
+  GtkWidget *dialog;
   gboolean accounts_exist;
 };
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
+
+static void
+on_have_providers (GObject       *source,
+                   GAsyncResult  *res,
+                   gpointer       user_data)
+{
+  GList *providers;
+  GList *l;
+  GError *error = NULL;
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
+  GisGoaPagePrivate *priv = page->priv;
+
+  if (!goa_provider_get_all_finish (&providers, res, &error))
+    goto out;
+  
+  for (l = providers; l != NULL; l = l->next)
+    {
+      GoaProvider *provider;
+
+      provider = GOA_PROVIDER (l->data);
+      goa_panel_add_account_dialog_add_provider (GOA_PANEL_ADD_ACCOUNT_DIALOG (priv->dialog), provider);
+    }
+
+  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
+  g_list_free (providers);
+
+ out:
+  if (error)
+    {
+      g_printerr ("Failed to list providers: %s\n", error->message);
+      g_error_free (error);
+    }
+}
 
 static void
 show_online_account_dialog (GtkButton *button,
@@ -62,36 +96,24 @@ show_online_account_dialog (GtkButton *button,
   GtkWindow *parent;
   GtkWidget *dialog;
   gint response;
-  GList *providers;
-  GList *l;
   GoaObject *object;
   GError *error;
 
-  providers = NULL;
-
   parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page)));
 
-  dialog = goa_panel_add_account_dialog_new (priv->goa_client);
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
+  priv->dialog = goa_panel_add_account_dialog_new (priv->goa_client);
+  gtk_window_set_transient_for (GTK_WINDOW (priv->dialog), parent);
 
-  providers = goa_provider_get_all ();
-  for (l = providers; l != NULL; l = l->next)
-    {
-      GoaProvider *provider;
+  goa_provider_get_all (on_have_providers, page);
 
-      provider = GOA_PROVIDER (l->data);
-      goa_panel_add_account_dialog_add_provider (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), provider);
-    }
-
-  gtk_widget_show_all (dialog);
-  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_show_all (priv->dialog);
+  response = gtk_dialog_run (GTK_DIALOG (priv->dialog));
   if (response != GTK_RESPONSE_OK)
     {
       gtk_widget_destroy (dialog);
       goto out;
     }
 
-  error = NULL;
   object = goa_panel_add_account_dialog_get_account (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), &error);
 
   if (object == NULL)
@@ -113,10 +135,8 @@ show_online_account_dialog (GtkButton *button,
         }
       g_error_free (error);
     }
-
  out:
-  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
-  g_list_free (providers);
+  return;
 }
 
 static void
