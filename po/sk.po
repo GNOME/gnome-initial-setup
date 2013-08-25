@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-06-07 17:00+0000\n"
-"PO-Revision-Date: 2013-06-05 21:31+0100\n"
+"POT-Creation-Date: 2013-08-22 20:19+0000\n"
+"PO-Revision-Date: 2013-08-16 21:08+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -27,16 +27,16 @@ msgid "Initial Setup"
 msgstr "Prvotné nastavenie"
 
 # GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:394
+#: ../gnome-initial-setup/gis-assistant.c:389
 msgid "_Next"
 msgstr "Ď_alej"
 
-# GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:395
-msgid "_Back"
+# gtk button
+#: ../gnome-initial-setup/gis-assistant.c:390
+msgid "_Previous"
 msgstr "_Späť"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:391
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
@@ -50,38 +50,38 @@ msgstr "Vynúti režim nového používateľa"
 msgid "- GNOME initial setup"
 msgstr "- Prvotné nastavenie prostredia GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "Bez hesla"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:445
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
 msgid "Passwords do not match"
 msgstr "Heslá sa nezhodujú"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "Sila: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:582
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
 msgid "Failed to register account"
 msgstr "Zlyhala registrácia účtu"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:785
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
 msgid "No supported way to authenticate with this domain"
 msgstr "Žiadny spôsob overenia nie je pre túto doménu podporovaný"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:824
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
 msgid "Failed to join domain"
 msgstr "Zlyhalo pripojenie k doméne"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:891
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
 msgid "Failed to log into domain"
 msgstr "Zlyhalo prihlásenie do domény"
 
 # page title
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1266
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
 msgid "Login"
 msgstr "Prihlásenie"
 
@@ -263,34 +263,41 @@ msgstr ""
 msgid "License Agreements"
 msgstr "Licenčná zmluva"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr ""
+"Súhl_asím s podmienkami uvedenými v tejto licenčnej zmluve pre koncového používateľa."
+
 #. translators: This is the title of the "Add Account" dialog.
 #: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "Pridanie účtu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:128
 msgid "Error creating account"
 msgstr "Chyba pri vytváraní účtu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:158
 msgid "Error removing account"
 msgstr "Chyba pri odstraňovaní účtu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:184
 msgid "Are you sure you want to remove the account?"
 msgstr "Naozaj chcete odstrániť účet?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "This will not remove the account on the server."
 msgstr "Týmto sa neodstráni účet na serveri."
 
 # button
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:187
 msgid "_Remove"
 msgstr "O_dstrániť"
 
 # page title
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:407
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:449
 msgid "Online Accounts"
 msgstr "Online účty"
 
@@ -328,14 +335,14 @@ msgid "Other"
 msgstr "Iný"
 
 # GtkButton AtkObjekt
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "Zdroje vstupu"
 
-# GtkLabel label
+# GtkLabel
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Vyberte zdroje vstupu"
+msgid "Select keyboard layouts"
+msgstr "Vyberte rozloženia klávesnice"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
 msgid "Login settings are used by all users when logging into the system"
@@ -352,7 +359,7 @@ msgstr "Pridanie zdroja vstupu"
 msgid "No languages found"
 msgstr "Nenašli sa žiadne jazyky"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:236
 msgid "Welcome"
 msgstr "Vitajte"
 
@@ -399,7 +406,7 @@ msgid "Checking for available wireless networks"
 msgstr "Kontrolujú sa dostupné bezdrôtové siete"
 
 # page title
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
 msgid "Network"
 msgstr "Sieť"
 
@@ -407,7 +414,13 @@ msgstr "Sieť"
 msgid "Wireless Networks"
 msgstr "Bezdrôtové siete"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:323
+# GtkButton label
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+msgid "_Start using %s"
+msgstr "_Začať používať %s"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Ďakujeme"
 
@@ -426,6 +439,14 @@ msgstr "Tieto voľby môžete zmeniť kedykoľvek v Nastaveniach systému."
 msgid "_Start using GNOME 3"
 msgstr "_Začať používať GNOME 3"
 
+# GTK_BUTTON
+#~ msgid "_Back"
+#~ msgstr "_Späť"
+
+# GtkLabel label
+#~ msgid "Select input sources"
+#~ msgstr "Vyberte zdroje vstupu"
+
 # page title
 #~ msgid "Keyboard Layout"
 #~ msgstr "Rozloženie klávesnice"
@@ -441,10 +462,6 @@ msgstr "_Začať používať GNOME 3"
 # GtkButton AtkObjekt
 #~ msgid "Input Source Settings"
 #~ msgstr "Nastavenia zdroja vstupu"
-
-# GtkButton label
-#~ msgid "Show Keyboard Layout"
-#~ msgstr "Zobraziť rozloženie klávesnice"
 
 # GtkDialog label
 #~ msgid "Select an input source"
