@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-02 13:04+0200\n"
-"PO-Revision-Date: 2013-08-02 13:04+0200\n"
+"POT-Creation-Date: 2013-08-27 02:30+0200\n"
+"PO-Revision-Date: 2013-08-27 02:30+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -245,32 +245,38 @@ msgstr ""
 msgid "License Agreements"
 msgstr "Acordos de licenza"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr "_Acepto os termos e condicións deste acordo de licenza de usuario."
+
 #. translators: This is the title of the "Add Account" dialog.
 #: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
 msgid "Add Account"
 msgstr "Engadir conta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:128
 msgid "Error creating account"
 msgstr "Produciuse un erro ao crear a conta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:158
 msgid "Error removing account"
 msgstr "Produciuse un erro ao retirar a conta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:184
 msgid "Are you sure you want to remove the account?"
 msgstr "Ten certeza que quere retirar a conta?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "This will not remove the account on the server."
 msgstr "Isto non retirará a conta do servidor."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:187
 msgid "_Remove"
 msgstr "_Retirar"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:449
 msgid "Online Accounts"
 msgstr "Contas en liña"
 
@@ -308,8 +314,8 @@ msgid "Input Sources"
 msgstr "Orixes de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Seleccionar a orixe de entrada"
+msgid "Select keyboard layouts"
+msgstr "Seleccionar disposicións de teclado"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
 msgid "Login settings are used by all users when logging into the system"
@@ -325,7 +331,7 @@ msgstr "Engadir unha orixe de entrada"
 msgid "No languages found"
 msgstr "Non se atoparon idiomas"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:236
 msgid "Welcome"
 msgstr "Benvido/a"
 
@@ -375,7 +381,12 @@ msgstr "Rede"
 msgid "Wireless Networks"
 msgstr "Redes sen fíos"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+msgid "_Start using %s"
+msgstr "_Comezar a usar %s"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Grazas"
 
@@ -390,6 +401,9 @@ msgstr "Pode cambiar estas opcións en calquera momento desde Preferencias."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Comezar a usar GNOME 3"
+
+#~ msgid "Select input sources"
+#~ msgstr "Seleccionar a orixe de entrada"
 
 #~ msgid "_Back"
 #~ msgstr "_Anterior"
@@ -435,9 +449,6 @@ msgstr "_Comezar a usar GNOME 3"
 #~ msgid "Move Input Source Up"
 #~ msgstr "Mover orixe de entrada arriba"
 
-#~ msgid "Show Keyboard Layout"
-#~ msgstr "Mostrar a distribución do teclado"
-
 #~ msgid "English"
 #~ msgstr "Inglés"
 
@@ -461,11 +472,6 @@ msgstr "_Comezar a usar GNOME 3"
 
 #~ msgid "_Login Name"
 #~ msgstr "Nome de _usuario"
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr "_Acepto os termos e condicións deste acordo de licenza de usuario."
 
 #~ msgid "Link other accounts"
 #~ msgstr "Ligar outras contas"
