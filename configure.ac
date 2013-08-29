@@ -104,8 +104,6 @@ INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $GLIB_VERSION_DEFINES"
 AC_SUBST(INITIAL_SETUP_CFLAGS)
 AC_SUBST(INITIAL_SETUP_LIBS)
 
-PKG_CHECK_MODULES(PLAYER, [clutter-gst-2.0 clutter-x11-1.0])
-
 GNOME_COMPILE_WARNINGS([error])
 GNOME_MAINTAINER_MODE_DEFINES
 
@@ -127,7 +125,6 @@ gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/summary/Makefile
 gnome-initial-setup/pages/keyboard/Makefile
 po/Makefile.in
-player/Makefile
 libgd/Makefile
 ])
 AC_OUTPUT
