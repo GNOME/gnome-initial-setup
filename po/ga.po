@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-28 11:19-0600\n"
-"PO-Revision-Date: 2013-08-28 11:53-0600\n"
+"POT-Creation-Date: 2013-08-31 02:42-0600\n"
+"PO-Revision-Date: 2013-08-31 02:45-0600\n"
 "Last-Translator: Seán de Búrca <leftmostcat@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
-"Language: \n"
+"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,15 +23,16 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Socrú Tosaigh"
 
-#: ../gnome-initial-setup/gis-assistant.c:389
+#: ../gnome-initial-setup/gis-assistant.c:418
 msgid "_Next"
 msgstr "Ar _Aghaidh"
 
-#: ../gnome-initial-setup/gis-assistant.c:390
+#: ../gnome-initial-setup/gis-assistant.c:419
 msgid "_Previous"
 msgstr "_Siar"
 
-#: ../gnome-initial-setup/gis-assistant.c:391
+#: ../gnome-initial-setup/gis-assistant.c:420
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
 msgid "_Cancel"
 msgstr "_Cealaigh"
 
@@ -48,7 +49,7 @@ msgid "No password"
 msgstr "Gan focal faire"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "Ní ionann na focail fhaire"
 
@@ -57,23 +58,23 @@ msgstr "Ní ionann na focail fhaire"
 msgid "Strength: %s"
 msgstr "Neart: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr ""
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
 msgid "No supported way to authenticate with this domain"
 msgstr ""
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
 msgstr ""
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
 msgstr "Theip ar logáil isteach i bhfearann"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
 msgid "Login"
 msgstr "Logáil Isteach"
 
@@ -99,7 +100,7 @@ msgstr "_Focal Faire"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
 msgid "_Confirm password"
-msgstr ""
+msgstr "_Dearbhaigh an focal faire"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
 msgid ""
@@ -227,7 +228,7 @@ msgid ""
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Comhaontuithe um Cheadúnais"
@@ -238,38 +239,59 @@ msgid ""
 "agreement."
 msgstr ""
 
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Eile"
+
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
 msgstr "Cuir Cuntas Leis"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:128
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "Post"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "Teagmhálacha"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "Comhrá"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "Acmhainní"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
 msgid "Error creating account"
 msgstr "Earráid agus cuntas á chruthú"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:158
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
 msgid "Error removing account"
 msgstr "Earráid agus cuntas á bhaint"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:184
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
 msgid "Are you sure you want to remove the account?"
 msgstr "An bhfuil tú cinnte gur mhaith leat an cuntas a bhaint?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
 msgid "This will not remove the account on the server."
 msgstr "Ní bhainfidh sé seo an cuntas ón bhfreastalaí."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:187
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "_Remove"
 msgstr "_Bain"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:449
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
 msgid "Online Accounts"
 msgstr "Cuntais ar Líne"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
 msgid "Connect to your existing data in the cloud"
-msgstr ""
+msgstr "Ceangail le do chuid sonraí atá ann sa néal"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
@@ -294,7 +316,7 @@ msgstr "Foinse ionchuir gan aimsiú"
 msgid "Other"
 msgstr "Eile"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Foinsí Ionchuir"
 
@@ -316,15 +338,15 @@ msgstr "Cuir Foinse Ionchuir Leis"
 msgid "No languages found"
 msgstr "Teanga gan aimsiú"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:236
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "Fáilte"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "Cuardaigh suíomh"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Suíomh"
@@ -341,24 +363,24 @@ msgstr "_Socraigh do shuíomh go huathoibríoch"
 msgid "Time Zone"
 msgstr "Crios Ama"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Eile…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "Níl an líonra ar fáil."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "Gléas líonra gan aimsiú."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr ""
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "Líonra"
 
