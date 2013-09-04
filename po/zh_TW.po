@@ -7,30 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-16 13:03+0800\n"
-"PO-Revision-Date: 2013-08-16 10:44+0800\n"
+"POT-Creation-Date: 2013-09-04 14:59+0800\n"
+"PO-Revision-Date: 2013-09-04 13:55+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "初始設定"
 
-#: ../gnome-initial-setup/gis-assistant.c:389
+#: ../gnome-initial-setup/gis-assistant.c:418
 msgid "_Next"
 msgstr "下一步(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:390
+#: ../gnome-initial-setup/gis-assistant.c:419
 msgid "_Previous"
 msgstr "上一個(_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:391
+#: ../gnome-initial-setup/gis-assistant.c:420
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -47,7 +48,7 @@ msgid "No password"
 msgstr "無密碼"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "密碼不相符"
 
@@ -56,23 +57,23 @@ msgstr "密碼不相符"
 msgid "Strength: %s"
 msgstr "強度：%s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr "無法註冊帳號"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
 msgid "No supported way to authenticate with this domain"
 msgstr "沒有支援這個網域的驗證方式"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
 msgstr "無法加入網域"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
 msgstr "無法登入到網域"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
 msgid "Login"
 msgstr "登入"
 
@@ -234,7 +235,7 @@ msgstr ""
 "  ➣ 數字\n"
 "  ➣ 其他字元如 '.'、 '-' 和 '_'"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "授權同意"
@@ -245,32 +246,53 @@ msgid ""
 "agreement."
 msgstr "我已同意這個條款與條件(_A)"
 
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+msgctxt "Online Account"
+msgid "Other"
+msgstr "其他"
+
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
 msgstr "加入帳號"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "郵件"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "連絡人"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "聊天"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "資源"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
 msgid "Error creating account"
 msgstr "建立帳號時發生錯誤"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
 msgid "Error removing account"
 msgstr "移除帳號時發生錯誤"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
 msgid "Are you sure you want to remove the account?"
 msgstr "確定要移除這個帳號？"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
 msgid "This will not remove the account on the server."
 msgstr "這不會移除伺服器上的帳號。"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "_Remove"
 msgstr "移除(_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
 msgid "Online Accounts"
 msgstr "線上帳號"
 
@@ -301,7 +323,7 @@ msgstr "找不到輸入來源"
 msgid "Other"
 msgstr "其他"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "輸入來源"
 
@@ -321,15 +343,15 @@ msgstr "加入輸入來源"
 msgid "No languages found"
 msgstr "找不到語言"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:236
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "歡迎使用"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "搜尋位置"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "位置"
@@ -346,24 +368,24 @@ msgstr "自動判斷您的位置(_D)"
 msgid "Time Zone"
 msgstr "時區"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "其他…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "網路無法使用。"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "找不到網路裝置。"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr "檢查有沒有無線網路可用"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "網路"
 
