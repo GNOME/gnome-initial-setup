@@ -7,18 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-07-26 08:27+0000\n"
-"PO-Revision-Date: 2013-08-04 09:14+0400\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-08-29 20:13+0000\n"
+"PO-Revision-Date: 2013-09-06 10:21+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: русский <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -26,15 +24,16 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Первоначальная настройка"
 
-#: ../gnome-initial-setup/gis-assistant.c:389
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Next"
 msgstr "_Далее"
 
-#: ../gnome-initial-setup/gis-assistant.c:390
+#: ../gnome-initial-setup/gis-assistant.c:397
 msgid "_Previous"
 msgstr "_Назад"
 
-#: ../gnome-initial-setup/gis-assistant.c:391
+#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
 msgid "_Cancel"
 msgstr "_Отмена"
 
@@ -51,7 +50,7 @@ msgid "No password"
 msgstr "Пароль не указан"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
@@ -60,23 +59,23 @@ msgstr "Пароли не совпадают"
 msgid "Strength: %s"
 msgstr "Стойкость: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr "Не удалось зарегистрировать учётную запись"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
 msgid "No supported way to authenticate with this domain"
 msgstr "Нет поддерживаемых способов аутентификации в этом домене"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
 msgstr "Не удалось зарегистрировать в домене"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
 msgstr "Не удалось войти в домен"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
 msgid "Login"
 msgstr "Вход в систему"
 
@@ -94,9 +93,7 @@ msgstr "_Имя пользователя"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"Будет использовано для именования вашей домашней папки; не может быть "
-"изменено."
+msgstr "Будет использовано для именования вашей домашней папки; не может быть изменено."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
 msgid "_Password"
@@ -107,12 +104,8 @@ msgid "_Confirm password"
 msgstr "П_одтвердите пароль"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
-msgstr ""
-"Постарайтесь ввести 8 различных символов, используя как верхний, так и "
-"нижний регистр, используйте одну или несколько цифр."
+msgid "Try to use at least 8 different characters. Mix upper and lower case and use a number or two."
+msgstr "Постарайтесь ввести 8 различных символов, используя как верхний, так и нижний регистр, используйте одну или несколько цифр."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
@@ -242,37 +235,63 @@ msgstr ""
 " ➣ цифр;\n"
 " ➣ символов «.», «-» и «_»."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Лицензионные соглашения"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid "I have _agreed to the terms and conditions in this end user license agreement."
+msgstr "Я _принимаю соглашения и условия этой лицензии."
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+#| msgid "Other"
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Другой"
+
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
 msgstr "Добавить учётную запись"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "Почта"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "Контакты"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "Чат"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "Ресурсы"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
 msgid "Error creating account"
 msgstr "Ошибка при создании учётной записи"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
 msgid "Error removing account"
 msgstr "Ошибка при удалении учётной записи"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
 msgid "Are you sure you want to remove the account?"
 msgstr "Действительно удалить учётную запись?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
 msgid "This will not remove the account on the server."
 msgstr "Учётная запись на сервере не будет удалена."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "_Remove"
 msgstr "_Удалить"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
 msgid "Online Accounts"
 msgstr "Сетевые учётные записи"
 
@@ -281,12 +300,8 @@ msgid "Connect to your existing data in the cloud"
 msgstr "Подключиться к личным существующим данных в облаке"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
-msgstr ""
-"Добавление учётных записей позволит получать прямой доступ к вашим "
-"фотографиям, контактам, почте и другим данных в сети."
+msgid "Adding accounts will allow you to transparently connect to your online photos, contacts, mail, and more."
+msgstr "Добавление учётных записей позволит получать прямой доступ к вашим фотографиям, контактам, почте и другим данных в сети."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid "_Add Account"
@@ -305,13 +320,14 @@ msgstr "Источники ввода не найдены"
 msgid "Other"
 msgstr "Другой"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Источники ввода"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Выберите источники ввода"
+#| msgid "Show Keyboard Layout"
+msgid "Select keyboard layouts"
+msgstr "Выбор раскладок клавиатуры"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
 msgid "Login settings are used by all users when logging into the system"
@@ -325,15 +341,15 @@ msgstr "Добавить источник ввода"
 msgid "No languages found"
 msgstr "Языки не найдены"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "Поиск местоположения"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Местоположение"
@@ -350,24 +366,24 @@ msgstr "_Определить местоположение автоматиче�
 msgid "Time Zone"
 msgstr "Часовой пояс"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Другая…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "Сеть недоступна."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "Не найдено сетевое оборудование."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr "Поиск доступных беспроводных сетей"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "Сеть"
 
@@ -375,7 +391,13 @@ msgstr "Сеть"
 msgid "Wireless Networks"
 msgstr "Беспроводные сети"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+#| msgid "_Start using GNOME 3"
+msgid "_Start using %s"
+msgstr "_Начать работу с %s"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Благодарим вас"
 
@@ -390,6 +412,9 @@ msgstr "Вы можете в любой момент изменить эти п�
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Начать работу с GNOME 3"
+
+#~ msgid "Select input sources"
+#~ msgstr "Выберите источники ввода"
 
 #~ msgid "_Back"
 #~ msgstr "_Назад"
@@ -408,8 +433,8 @@ msgstr "_Начать работу с GNOME 3"
 
 #~ msgid "Restart Now"
 #~ msgstr "Перезагрузить сейчас"
-
 #~ msgctxt "Language"
+
 #~ msgid "None"
 #~ msgstr "Нет"
 
@@ -421,9 +446,6 @@ msgstr "_Начать работу с GNOME 3"
 
 #~ msgid "Move Input Source Up"
 #~ msgstr "Переместить источник вверх"
-
-#~ msgid "Show Keyboard Layout"
-#~ msgstr "Показать раскладку клавиатуры"
 
 #~ msgid "Select an input source"
 #~ msgstr "Выберите источник ввода"
