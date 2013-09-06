@@ -164,7 +164,7 @@ gis_keyboard_page_constructed (GObject *object)
 static void
 gis_keyboard_page_locale_changed (GisPage *page)
 {
-        gis_page_set_title (GIS_PAGE (page), _("Input Sources"));
+        gis_page_set_title (GIS_PAGE (page), _("Typing"));
 }
 
 static void
