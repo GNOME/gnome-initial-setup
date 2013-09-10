@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-22 20:19+0000\n"
-"PO-Revision-Date: 2013-08-16 21:08+0100\n"
+"POT-Creation-Date: 2013-09-02 16:09+0000\n"
+"PO-Revision-Date: 2013-09-03 10:38+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -27,16 +27,17 @@ msgid "Initial Setup"
 msgstr "Prvotné nastavenie"
 
 # GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:389
+#: ../gnome-initial-setup/gis-assistant.c:418
 msgid "_Next"
 msgstr "Ď_alej"
 
 # gtk button
-#: ../gnome-initial-setup/gis-assistant.c:390
+#: ../gnome-initial-setup/gis-assistant.c:419
 msgid "_Previous"
 msgstr "_Späť"
 
-#: ../gnome-initial-setup/gis-assistant.c:391
+#: ../gnome-initial-setup/gis-assistant.c:420
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
@@ -55,7 +56,7 @@ msgid "No password"
 msgstr "Bez hesla"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "Heslá sa nezhodujú"
 
@@ -64,24 +65,24 @@ msgstr "Heslá sa nezhodujú"
 msgid "Strength: %s"
 msgstr "Sila: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr "Zlyhala registrácia účtu"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
 msgid "No supported way to authenticate with this domain"
 msgstr "Žiadny spôsob overenia nie je pre túto doménu podporovaný"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
 msgstr "Zlyhalo pripojenie k doméne"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
 msgstr "Zlyhalo prihlásenie do domény"
 
 # page title
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
 msgid "Login"
 msgstr "Prihlásenie"
 
@@ -258,7 +259,7 @@ msgstr ""
 " ➣ čísel\n"
 " ➣ ktoréhokoľvek zo znakov „.“, „-“ a „_“"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Licenčná zmluva"
@@ -268,36 +269,58 @@ msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
 msgstr ""
-"Súhl_asím s podmienkami uvedenými v tejto licenčnej zmluve pre koncového používateľa."
+"Súhl_asím s podmienkami uvedenými v tejto licenčnej zmluve pre koncového "
+"používateľa."
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Iný"
 
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
 msgstr "Pridanie účtu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:128
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "Pošta"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "Kontakty"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "Rozhovor"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "Zdroje"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
 msgid "Error creating account"
 msgstr "Chyba pri vytváraní účtu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:158
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
 msgid "Error removing account"
 msgstr "Chyba pri odstraňovaní účtu"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:184
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
 msgid "Are you sure you want to remove the account?"
 msgstr "Naozaj chcete odstrániť účet?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
 msgid "This will not remove the account on the server."
 msgstr "Týmto sa neodstráni účet na serveri."
 
 # button
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:187
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "_Remove"
 msgstr "O_dstrániť"
 
 # page title
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:449
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
 msgid "Online Accounts"
 msgstr "Online účty"
 
@@ -335,7 +358,7 @@ msgid "Other"
 msgstr "Iný"
 
 # GtkButton AtkObjekt
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Zdroje vstupu"
 
@@ -359,16 +382,16 @@ msgstr "Pridanie zdroja vstupu"
 msgid "No languages found"
 msgstr "Nenašli sa žiadne jazyky"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:236
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "Vitajte"
 
 # location (London, ...)
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "Vyhľadajte miesto"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Miesto"
@@ -388,25 +411,25 @@ msgstr "_Určiť moju polohu automaticky"
 msgid "Time Zone"
 msgstr "Časová zóna"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Iný…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "Sieť nie je dostupná."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "Nenašli sa žiadne sieťové zariadenia."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr "Kontrolujú sa dostupné bezdrôtové siete"
 
 # page title
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "Sieť"
 
