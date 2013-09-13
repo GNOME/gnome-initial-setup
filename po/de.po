@@ -8,17 +8,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-14 12:05+0200\n"
-"PO-Revision-Date: 2013-07-14 12:07+0100\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-09-13 16:59+0000\n"
+"PO-Revision-Date: 2013-09-13 20:20+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -26,16 +27,17 @@ msgid "Initial Setup"
 msgstr "Ersteinrichtung"
 
 # Das ist bei assistentbasierten Dialogen besser als irgendeine Form von »nächstes«
-#: ../gnome-initial-setup/gis-assistant.c:389
+#: ../gnome-initial-setup/gis-assistant.c:418
 msgid "_Next"
 msgstr "_Weiter"
 
 # Im Assistenten
-#: ../gnome-initial-setup/gis-assistant.c:390
+#: ../gnome-initial-setup/gis-assistant.c:419
 msgid "_Previous"
 msgstr "_Zurück"
 
-#: ../gnome-initial-setup/gis-assistant.c:391
+#: ../gnome-initial-setup/gis-assistant.c:420
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -52,7 +54,7 @@ msgid "No password"
 msgstr "Kein Passwort"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:434
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "Passwörter stimmen nicht überein"
 
@@ -61,25 +63,25 @@ msgstr "Passwörter stimmen nicht überein"
 msgid "Strength: %s"
 msgstr "Stärke: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:509
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr "Kontoerstellung fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:712
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
 msgid "No supported way to authenticate with this domain"
 msgstr ""
 "Es gibt keine unterstützte Möglichkeit für eine Legitimierung mit dieser "
 "Domäne"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:751
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
 msgstr "Beitreten zur Domäne fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:818
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
 msgstr "Anmeldung in der Domäne fehlgeschlagen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1197
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
 msgid "Login"
 msgstr "Anmelden"
 
@@ -247,37 +249,67 @@ msgstr ""
 " ➣ Ziffern\n"
 " ➣ den Zeichen ».«, »-« und »_«"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Lizenzvereinbarung"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr ""
+"Ich bin mit den Bestimmungen und Bedingungen dieser Endbenutzer-"
+"Lizenzvereinbarung _einverstanden."
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+#| msgid "Other"
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Andere"
+
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
 msgstr "Konto hinzufügen"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "E-Mail"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "Kontakte"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "Unterhaltung"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "Ressourcen"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
 msgid "Error creating account"
 msgstr "Fehler beim Erstellen eines Kontos"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
 msgid "Error removing account"
 msgstr "Fehler beim Entfernen eines Kontos"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
 msgid "Are you sure you want to remove the account?"
 msgstr "Sind Sie sich sicher, dass Sie dieses Konto entfernen wollen?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
 msgid "This will not remove the account on the server."
 msgstr "Dies wird nicht das Konto auf dem Server entfernen."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "_Remove"
 msgstr "_Entfernen"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
 msgid "Online Accounts"
 msgstr "Online-Konten"
 
@@ -311,18 +343,14 @@ msgstr "Es wurden keine Eingabemethode gefunden"
 msgid "Other"
 msgstr "Andere"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Eingabemethoden"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Eingabemethoden auswählen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"Anmeldeeinstellungen sind für alle Benutzer während der Anmeldung gültig"
+#| msgid "Show Keyboard Layout"
+msgid "Select keyboard layouts"
+msgstr "Tastaturbelegungen wählen"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
@@ -332,15 +360,15 @@ msgstr "Eine Eingabemethode hinzufügen"
 msgid "No languages found"
 msgstr "Keine Sprachen gefunden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "Einen Standort suchen"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Standort"
@@ -357,25 +385,25 @@ msgstr "Ihren Standort automatisch _festlegen"
 msgid "Time Zone"
 msgstr "Zeitzone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Andere …"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "Das Netzwerk ist nicht verfügbar."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "Keine Netzwerkgeräte gefunden."
 
 # Funknetzwerk heißt es im Netzwerkmanager.
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr "Auf verfügbare Funknetzwerke prüfen"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:648
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "Netzwerk"
 
@@ -383,7 +411,13 @@ msgstr "Netzwerk"
 msgid "Wireless Networks"
 msgstr "Funknetzwerke"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+#| msgid "_Start using GNOME 3"
+msgid "_Start using %s"
+msgstr "%s _starten"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Vielen Dank"
 
@@ -399,6 +433,13 @@ msgstr ""
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "GNOME 3 _starten"
+
+#~ msgid "Select input sources"
+#~ msgstr "Eingabemethoden auswählen"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "Anmeldeeinstellungen sind für alle Benutzer während der Anmeldung gültig"
 
 #~ msgid "_Back"
 #~ msgstr "_Zurück"
@@ -437,9 +478,6 @@ msgstr "GNOME 3 _starten"
 #~ msgid "Move Input Source Up"
 #~ msgstr "Eingabemethode nach oben verschieben"
 
-#~ msgid "Show Keyboard Layout"
-#~ msgstr "Tastaturbelegung zeigen"
-
 #~ msgid "Use %s"
 #~ msgstr "%s verwenden"
 
@@ -472,13 +510,6 @@ msgstr "GNOME 3 _starten"
 
 #~ msgid "_Login Name"
 #~ msgstr "_Benutzername"
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr ""
-#~ "Ich bin mit den Bestimmungen und Bedingungen dieser Endbenutzer-"
-#~ "Lizenzvereinbarung _einverstanden."
 
 #~ msgid "Link other accounts"
 #~ msgstr "Mit anderen Konten verknüpfen"
