@@ -4,14 +4,15 @@
 #
 # Kris Thomsen <mail@kristhomsen.dk>, 2012.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2013.
+# Kenneth Nielsen <k.nielsen81@gmail.com>, 2013
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-10 17:30+0200\n"
-"PO-Revision-Date: 2013-05-10 12:45+0200\n"
-"Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
+"POT-Creation-Date: 2013-09-16 00:42+0200\n"
+"PO-Revision-Date: 2013-09-16 00:39+0200\n"
+"Last-Translator: Kenneth Nielsen <k.nielsen81@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -25,13 +26,18 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Førstegangsopsætning"
 
-#: ../gnome-initial-setup/gis-assistant.c:347
+#: ../gnome-initial-setup/gis-assistant.c:418
 msgid "_Next"
 msgstr "_Næste"
 
-#: ../gnome-initial-setup/gis-assistant.c:348
-msgid "_Back"
-msgstr "_Tilbage"
+#: ../gnome-initial-setup/gis-assistant.c:419
+msgid "_Previous"
+msgstr "_Forrige"
+
+#: ../gnome-initial-setup/gis-assistant.c:420
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+msgid "_Cancel"
+msgstr "_Annullér"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
@@ -41,33 +47,37 @@ msgstr "Tving ny bruger-tilstand"
 msgid "- GNOME initial setup"
 msgstr "- Førstegangsopsætning af GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:313
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
 msgid "No password"
 msgstr "Ingen adgangskode"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:318
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:426
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "Adgangskoder er ikke ens"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:370
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "Styrke: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:562
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr "Kunne ikke registrere konto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:625
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+msgid "No supported way to authenticate with this domain"
+msgstr "Ingen understøttet måde at godkende med dette domæne"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
 msgstr "Kunne ikke tilslutte domæne"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:680
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
 msgstr "Kunne ikke logge ind i domæne"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:992
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
 msgid "Login"
 msgstr "Logind"
 
@@ -120,6 +130,38 @@ msgstr "_Domæne"
 msgid "Enterprise domain or realm name"
 msgstr "Enterprise-domæne eller realm-navn"
 
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "F_ortsæt"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Logind for domæneadministrator"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"For at kunne bruge enterprise-logind skal computeren\n"
+"tilknyttes domænet. Bed venligst netværksadministratoren\n"
+"om at skrive sin adgangskode her og vælg et unikt\n"
+"navn til din computer."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Computer"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "Administrator_navn"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "Adgangskode for administrator"
+
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
@@ -150,82 +192,116 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Stærk"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "Kan ikke forbinde til denne type af domæne automatisk"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Intet sådant domæne eller realm fundet"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Kan ikke logge ind som %s på domænet %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Ugyldig adgangskode. Prøv venligst igen"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Kunne ikke forbinde til %s-domænet: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "En bruger med brugernavnet \"%s\" findes allerede"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Brugernavnet er for langt"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Brugernavnet må ikke begynde med \"-\""
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"Brugernavnet må indeholde:\n"
+"Brugernavnet må kun bestå af:\n"
 " ➣ bogstaver fra det engelske alfabet\n"
 " ➣ tal\n"
 " ➣ hvilken som helst af tegnene \".\", \"-\" og \"_\""
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Licensbetingelser"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr ""
+"Jeg har _accepteret betingelserne og forholdene i denne slutbruger-"
+"licensaftale."
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Anden"
+
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
 msgstr "Tilføj konto"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "Post"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "Kontaktpersoner"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "Chat"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "Ressourcer"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
 msgid "Error creating account"
 msgstr "Fejl under oprettelse af konto"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
 msgid "Error removing account"
 msgstr "Fejl under fjernelse af konto"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
 msgid "Are you sure you want to remove the account?"
 msgstr "Er du sikker på, at du vil fjerne kontoen?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
 msgid "This will not remove the account on the server."
 msgstr "Dette vil ikke fjerne kontoen fra serveren."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
 msgid "_Remove"
 msgstr "_Fjern"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:392
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
 msgid "Online Accounts"
 msgstr "Online konti"
 
@@ -260,31 +336,13 @@ msgstr "Ingen inputkilder fundet"
 msgid "Other"
 msgstr "Anden"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:155
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
 msgid "Input Sources"
 msgstr "Inputkilder"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:656
-msgid "Sorry"
-msgstr "Beklager"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:658
-msgid "Input methods can't be used on the login screen"
-msgstr "Inputmetoder kan ikke bruges i logindskærmen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:1035
-msgid "No input source selected"
-msgstr "Ingen inputkilde valgt"
-
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Vælg inputkilder"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"Indstillinger for indlogning gælder for alle brugere, når de logger ind i "
-"systemet"
+msgid "Select keyboard layouts"
+msgstr "Vælg tastaturlayouts"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
@@ -294,15 +352,15 @@ msgstr "Tilføj en inputkilde"
 msgid "No languages found"
 msgstr "Ingen sprog fundet"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "Søg efter en placering"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Placering"
@@ -319,24 +377,24 @@ msgstr "_Bestem automatisk din placering"
 msgid "Time Zone"
 msgstr "Tidszone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Andre…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "Netværk er ikke tilgængeligt."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "Ingen netværksenheder fundet."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr "Kontrollerér for tilgængelige trådløse netværk"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "Netværk"
 
@@ -344,7 +402,12 @@ msgstr "Netværk"
 msgid "Wireless Networks"
 msgstr "Trådløse netværk"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:297
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+msgid "_Start using %s"
+msgstr "_Kom i gang med at bruge %s"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Tak"
 
@@ -360,6 +423,26 @@ msgstr "Du kan når som helst ændre disse valg i indstillingerne."
 msgid "_Start using GNOME 3"
 msgstr "_Kom i gang med at bruge GNOME 3"
 
+#~ msgid "_Back"
+#~ msgstr "_Tilbage"
+
+#~ msgid "Sorry"
+#~ msgstr "Beklager"
+
+#~ msgid "Input methods can't be used on the login screen"
+#~ msgstr "Inputmetoder kan ikke bruges i logindskærmen"
+
+#~ msgid "No input source selected"
+#~ msgstr "Ingen inputkilde valgt"
+
+#~ msgid "Select input sources"
+#~ msgstr "Vælg inputkilder"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "Indstillinger for indlogning gælder for alle brugere, når de logger ind i "
+#~ "systemet"
+
 #~ msgid "Keyboard Layout"
 #~ msgstr "Tastaturlayout"
 
@@ -372,17 +455,11 @@ msgstr "_Kom i gang med at bruge GNOME 3"
 #~ msgid "Input Source Settings"
 #~ msgstr "Indstillinger for inputkilde"
 
-#~ msgid "Show Keyboard Layout"
-#~ msgstr "Vis tastaturlayout"
-
 #~ msgid "Select an input source"
 #~ msgstr "Vælg en inputkilde"
 
 #~ msgid "Create Local Account"
 #~ msgstr "Opret lokal konto"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annullér"
 
 #~ msgid "_Done"
 #~ msgstr "_Færdig"
@@ -401,13 +478,6 @@ msgstr "_Kom i gang med at bruge GNOME 3"
 
 #~ msgid "Take a photo..."
 #~ msgstr "Tag et billede..."
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr ""
-#~ "Jeg har _accepteret betingelserne og forholdene i denne slutbruger-"
-#~ "licensaftale."
 
 #~ msgid "Remove"
 #~ msgstr "Fjern"
