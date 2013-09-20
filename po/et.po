@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-03-11 21:37+0000\n"
-"PO-Revision-Date: 2013-03-13 01:43+0300\n"
+"POT-Creation-Date: 2013-09-18 20:38+0000\n"
+"PO-Revision-Date: 2013-09-19 20:38+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
 "Language-Team: Estonian <gnome-et-list@gnome.org>\n"
 "Language: et\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
 msgid "Initial Setup"
 msgstr "Esialgne seadistus"
@@ -24,14 +25,20 @@ msgstr "Esialgne seadistus"
 msgid "_Next"
 msgstr "_Edasi"
 
-msgid "_Back"
-msgstr "_Tagasi"
+msgid "_Previous"
+msgstr "_Eelmine"
+
+msgid "_Cancel"
+msgstr "_Loobu"
 
 msgid "Force new user mode"
 msgstr "Uue kasutaja režiimi sundimine"
 
 msgid "- GNOME initial setup"
 msgstr "- GNOME esialgne seadistus"
+
+msgid "No password"
+msgstr "Parooli pole"
 
 msgid "Passwords do not match"
 msgstr "Paroolid ei kattu"
@@ -42,6 +49,9 @@ msgstr "Tugevus: %s"
 
 msgid "Failed to register account"
 msgstr "Konto registreerimine nurjus"
+
+msgid "No supported way to authenticate with this domain"
+msgstr "Pole ühtegi toetatud viisi, kuidas end selles domeenis autentida"
 
 msgid "Failed to join domain"
 msgstr "Domeeniga liitumine nurjus"
@@ -90,6 +100,32 @@ msgstr "_Domeen"
 msgid "Enterprise domain or realm name"
 msgstr "Ettevõtte domeen või valduse (realm) nimi"
 
+msgid "C_ontinue"
+msgstr "_Jätka"
+
+msgid "Domain Administrator Login"
+msgstr "Domeeni halduri sisselogimine"
+
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Ettevõtte sisselogimise kasutamiseks peab su arvuti olema\n"
+"domeeni registreeritud. Palun võta ühendust oma võrgu\n"
+"halduriga ning lase tal domeeni parool siia sisestada ning\n"
+"vali arvutile unikaalne nimi."
+
+msgid "_Computer"
+msgstr "_Arvuti"
+
+msgid "Administrator _Name"
+msgstr "Halduri _nimi"
+
+msgid "Administrator Password"
+msgstr "Halduri parool"
+
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "Liiga lühike"
@@ -113,6 +149,9 @@ msgstr "Hea"
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "Tugev"
+
+msgid "Cannot automatically join this type of domain"
+msgstr "Seda liiki domeeniga pole võimalik automaatselt liituda"
 
 #, c-format
 msgid "No such domain or realm found"
@@ -141,22 +180,43 @@ msgid "The username cannot start with a '-'"
 msgstr "Kasutajanimi ei saa alata märgiga '-'"
 
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"Kasutajanimi võib koosneda järgnevatest märkidest:\n"
-" ➣ inglise tähestiku tähed\n"
+"Kasutajanimi võib koosneda ainult järgnevatest märkidest:\n"
+" ➣ täppideta tähed\n"
 " ➣ numbrid\n"
 " ➣ märgid '.', '-' ja '_'"
 
 msgid "License Agreements"
 msgstr "Litsentsileping"
 
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr "Ma _nõustun lõppkasutaja litsentsi sätete ja tingimustega."
+
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Muu"
+
 #. translators: This is the title of the "Add Account" dialog.
 msgid "Add Account"
 msgstr "Konto lisamine"
+
+msgid "Mail"
+msgstr "E-mail"
+
+msgid "Contacts"
+msgstr "Kontaktid"
+
+msgid "Chat"
+msgstr "Vestlus"
+
+msgid "Resources"
+msgstr "Ressursid"
 
 msgid "Error creating account"
 msgstr "Viga konto loomisel"
@@ -186,39 +246,26 @@ msgstr ""
 "Kontode lisamine võimaldab kasutada veebis asuvaid piltide, kontakte, e-"
 "posti ja muud."
 
-msgid "Keyboard Layout"
-msgstr "Klaviatuuripaigutus"
-
-msgid "Select input sources"
-msgstr "Sisendite valimine"
-
-msgid "Add Input Source"
-msgstr "Sisendi lisamine"
-
-msgid "Remove Input Source"
-msgstr "Sisendi eemaldamine"
-
-msgid "Move Input Source Up"
-msgstr "Sisendi liigutamine üles"
-
-msgid "Move Input Source Down"
-msgstr "Sisendi liigutamine alla"
-
-msgid "Input Source Settings"
-msgstr "Sisendi sätted"
-
-msgid "Show Keyboard Layout"
-msgstr "Näita klaviatuuripaigutust"
-
-msgid "Select an input source"
-msgstr "Vali sisend"
-
-#, c-format
-msgid "Use %s"
-msgstr "Kasuta %s"
+msgid "_Add Account"
+msgstr "_Lisa konto"
 
 msgid "More…"
 msgstr "Veel…"
+
+msgid "No input sources found"
+msgstr "Ühtegi sisendallikat ei leitud"
+
+msgid "Other"
+msgstr "Muu"
+
+msgid "Input Sources"
+msgstr "Sisendid"
+
+msgid "Select keyboard layouts"
+msgstr "Klaviatuuripaigutuse valimine"
+
+msgid "Add an Input Source"
+msgstr "Sisendi lisamine"
 
 msgid "No languages found"
 msgstr "Ühtegi keelt ei leitud"
@@ -260,6 +307,10 @@ msgstr "Võrk"
 msgid "Wireless Networks"
 msgstr "Juhtmeta võrgud"
 
+#, c-format
+msgid "_Start using %s"
+msgstr "_Alusta %s kasutamist"
+
 msgid "Thank You"
 msgstr "Aitäh"
 
@@ -272,6 +323,30 @@ msgstr "Sa võid muuta neid valikuid hiljem süsteemi sätete alt."
 msgid "_Start using GNOME 3"
 msgstr "_Alusta GNOME 3 kasutamist"
 
+#~ msgid "_Back"
+#~ msgstr "_Tagasi"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Klaviatuuripaigutus"
+
+#~ msgid "Select input sources"
+#~ msgstr "Sisendite valimine"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "Sisendi eemaldamine"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "Sisendi liigutamine üles"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "Sisendi sätted"
+
+#~ msgid "Select an input source"
+#~ msgstr "Vali sisend"
+
+#~ msgid "Use %s"
+#~ msgstr "Kasuta %s"
+
 #~ msgid "Choose How to Login"
 #~ msgstr "Sisselogimise viisi valik"
 
@@ -280,11 +355,6 @@ msgstr "_Alusta GNOME 3 kasutamist"
 
 #~ msgid "_Login Name"
 #~ msgstr "_Kasutajanimi"
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr "Ma _nõustun lõppkasutaja litsentsi sätete ja tingimustega."
 
 #~ msgid "Remove"
 #~ msgstr "Eemalda"
