@@ -48,7 +48,6 @@ static guint signals[LAST_SIGNAL];
 
 struct _GisAssistantPrivate
 {
-  GtkWidget *frame;
   GtkWidget *forward;
   GtkWidget *back;
   GtkWidget *cancel;
@@ -267,7 +266,6 @@ update_applying_state (GisAssistant *assistant)
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   if (priv->current_page)
     applying = gis_page_get_applying (priv->current_page);
-  gtk_widget_set_sensitive (priv->frame, !applying);
   gtk_widget_set_sensitive (priv->forward, !applying);
   gtk_widget_set_visible (priv->back, !applying);
   gtk_widget_set_visible (priv->cancel, applying);
@@ -452,14 +450,10 @@ gis_assistant_init (GisAssistant *assistant)
   priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
   gtk_box_pack_start (GTK_BOX (assistant), priv->main_layout, TRUE, TRUE, 0);
 
-  priv->frame = gtk_frame_new ("");
-  gtk_frame_set_shadow_type (GTK_FRAME (priv->frame), GTK_SHADOW_NONE);
-  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
-
   priv->stack = gtk_stack_new ();
   gtk_stack_set_transition_type (GTK_STACK (priv->stack),
                                  GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
-  gtk_container_add (GTK_CONTAINER (priv->frame), priv->stack);
+  gtk_container_add (GTK_CONTAINER (priv->main_layout), priv->stack);
 
   g_signal_connect (priv->stack, "notify::visible-child",
                     G_CALLBACK (current_page_changed), assistant);
