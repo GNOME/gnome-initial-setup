@@ -29,7 +29,6 @@
 #include <gtk/gtk.h>
 
 #include "gis-assistant.h"
-#include "gis-assistant-private.h"
 #include "gis-center-container.h"
 
 enum {
@@ -59,6 +58,7 @@ struct _GisAssistantPrivate
   GtkWidget *page_action_widget_area;
   GtkWidget *spinner;
   GtkWidget *titlebar;
+  GtkWidget *stack;
 
   GList *pages;
   GisPage *current_page;
@@ -92,7 +92,9 @@ gis_assistant_switch_to (GisAssistant          *assistant,
                          GisAssistantDirection  direction,
                          GisPage               *page)
 {
-  GIS_ASSISTANT_GET_CLASS (assistant)->switch_to (assistant, direction, page);
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+
+  gtk_stack_set_visible_child (GTK_STACK (priv->stack), GTK_WIDGET (page));
 }
 
 static void
@@ -320,7 +322,7 @@ gis_assistant_add_page (GisAssistant *assistant,
   g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), assistant);
   g_signal_connect (page, "notify", G_CALLBACK (page_notify), assistant);
 
-  GIS_ASSISTANT_GET_CLASS (assistant)->add_page (assistant, page);
+  gtk_container_add (GTK_CONTAINER (priv->stack), GTK_WIDGET (page));
 
   if (priv->current_page->assistant_priv->link == link->prev)
     update_navigation_buttons (assistant);
@@ -382,16 +384,9 @@ gis_assistant_get_titlebar (GisAssistant *assistant)
   return priv->titlebar;
 }
 
-GtkWidget *
-_gis_assistant_get_frame (GisAssistant *assistant)
-{
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  return priv->frame;
-}
-
-void
-_gis_assistant_current_page_changed (GisAssistant *assistant,
-                                     GisPage      *page)
+static void
+update_current_page (GisAssistant *assistant,
+                     GisPage      *page)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
@@ -407,6 +402,18 @@ _gis_assistant_current_page_changed (GisAssistant *assistant,
   update_navigation_buttons (assistant);
   update_progress_indicator (assistant);
   gis_page_shown (page);
+}
+
+static void
+current_page_changed (GObject    *gobject,
+                      GParamSpec *pspec,
+                      gpointer    user_data)
+{
+  GisAssistant *assistant = GIS_ASSISTANT (user_data);
+  GtkStack *stack = GTK_STACK (gobject);
+  GtkWidget *new_page = gtk_stack_get_visible_child (stack);
+
+  update_current_page (assistant, GIS_PAGE (new_page));
 }
 
 void
@@ -448,6 +455,14 @@ gis_assistant_init (GisAssistant *assistant)
   priv->frame = gtk_frame_new ("");
   gtk_frame_set_shadow_type (GTK_FRAME (priv->frame), GTK_SHADOW_NONE);
   gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->frame, TRUE, TRUE, 0);
+
+  priv->stack = gtk_stack_new ();
+  gtk_stack_set_transition_type (GTK_STACK (priv->stack),
+                                 GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
+  gtk_container_add (GTK_CONTAINER (priv->frame), priv->stack);
+
+  g_signal_connect (priv->stack, "notify::visible-child",
+                    G_CALLBACK (current_page_changed), assistant);
 
   priv->page_action_widget_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 

@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
-#include "gis-assistant-gtk.h"
+#include "gis-assistant.h"
 
 #define GIS_TYPE_DRIVER_MODE (gis_driver_mode_get_type ())
 
@@ -271,7 +271,7 @@ gis_driver_startup (GApplication *app)
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
 
-  priv->assistant = g_object_new (GIS_TYPE_ASSISTANT_GTK, NULL);
+  priv->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
   gtk_container_add (GTK_CONTAINER (priv->main_window), GTK_WIDGET (priv->assistant));
 
   gtk_widget_show (GTK_WIDGET (priv->assistant));

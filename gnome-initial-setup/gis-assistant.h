@@ -53,9 +53,6 @@ struct _GisAssistantClass
   GtkBoxClass parent_class;
 
   void (* next_page) (GisAssistant *assistant, GisPage *page);
-
-  void (* switch_to) (GisAssistant *assistant, GisAssistantDirection direction, GisPage *page);
-  void (* add_page) (GisAssistant *assistant, GisPage *page);
 };
 
 GType gis_assistant_get_type (void);

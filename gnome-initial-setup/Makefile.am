@@ -14,8 +14,7 @@ libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 gnome_initial_setup_SOURCES =	\
 	gnome-initial-setup.c gnome-initial-setup.h \
 	gis-center-container.c gis-center-container.h \
-	gis-assistant.c gis-assistant.h gis-assistant-private.h \
-	gis-assistant-gtk.c gis-assistant-gtk.h \
+	gis-assistant.c gis-assistant.h \
 	gis-page.c gis-page.h \
 	gis-driver.c gis-driver.h
 
