@@ -75,8 +75,6 @@ main (int    argc,
   char *initial_setup_homedir;
   gchar *gis_done_file_path;
 
-  g_type_init ();
-
   initial_setup_homedir = get_gnome_initial_setup_home_dir ();
   if (initial_setup_homedir == NULL)
     exit (EXIT_SUCCESS);
