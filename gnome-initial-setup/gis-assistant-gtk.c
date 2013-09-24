@@ -55,23 +55,7 @@ gis_assistant_gtk_switch_to (GisAssistant          *assistant,
                              GisPage               *page)
 {
   GisAssistantGtkPrivate *priv = gis_assistant_gtk_get_instance_private (GIS_ASSISTANT_GTK (assistant));
-  GtkStackTransitionType transition_type;
-
-  switch (direction) {
-  case GIS_ASSISTANT_NEXT:
-    transition_type = GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT;
-    break;
-  case GIS_ASSISTANT_PREV:
-    transition_type = GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT;
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-
-  gtk_stack_set_transition_type (GTK_STACK (priv->stack), transition_type);
-
-  gtk_stack_set_visible_child (GTK_STACK (priv->stack),
-                               GTK_WIDGET (page));
+  gtk_stack_set_visible_child (GTK_STACK (priv->stack), GTK_WIDGET (page));
 }
 
 static void
@@ -92,7 +76,7 @@ gis_assistant_gtk_init (GisAssistantGtk *assistant_gtk)
   frame = _gis_assistant_get_frame (assistant);
   priv->stack = gtk_stack_new ();
   gtk_stack_set_transition_type (GTK_STACK (priv->stack),
-                                GTK_STACK_TRANSITION_TYPE_CROSSFADE);
+                                 GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
   gtk_container_add (GTK_CONTAINER (frame), priv->stack);
 
   gtk_widget_show (priv->stack);
