@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <!-- interface-requires gtk+ 3.10 -->
+  <object class="GtkHeaderBar" id="titlebar">
+    <property name="visible">True</property>
+    <child>
+      <object class="GtkButton" id="cancel">
+        <property name="visible">True</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="back">
+        <property name="visible">True</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSpinner" id="spinner">
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="forward">
+        <property name="visible">True</property>
+        <property name="use-underline">True</property>
+        <property name="can-default">True</property>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+  </object>
+
+  <template class="GisAssistant" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="main_layout">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">20</property>
+        <child>
+          <object class="GtkStack" id="stack">
+            <property name="visible">True</property>
+            <property name="transition-type">slide-left-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="progress_indicator">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="halign">center</property>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -415,63 +415,18 @@ static void
 gis_assistant_init (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  GtkWidget *widget;
 
-  priv->titlebar = gtk_header_bar_new ();
-  gtk_widget_show (priv->titlebar);
-
-  priv->main_layout = gtk_box_new (GTK_ORIENTATION_VERTICAL, 20);
-  gtk_box_pack_start (GTK_BOX (assistant), priv->main_layout, TRUE, TRUE, 0);
-
-  priv->stack = gtk_stack_new ();
-  gtk_stack_set_transition_type (GTK_STACK (priv->stack),
-                                 GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
-  gtk_container_add (GTK_CONTAINER (priv->main_layout), priv->stack);
+  gtk_widget_init_template (GTK_WIDGET (assistant));
 
   g_signal_connect (priv->stack, "notify::visible-child",
                     G_CALLBACK (current_page_changed), assistant);
-
-  priv->forward = gtk_button_new ();
-  gtk_button_set_image (GTK_BUTTON (priv->forward),
-                        gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
-  gtk_button_set_use_underline (GTK_BUTTON (priv->forward), TRUE);
-  gtk_widget_set_can_default (priv->forward, TRUE);
-
-  priv->back = gtk_button_new ();
-  gtk_button_set_image (GTK_BUTTON (priv->back),
-                        gtk_image_new_from_stock (GTK_STOCK_GO_BACK, GTK_ICON_SIZE_BUTTON));
-  gtk_button_set_use_underline (GTK_BUTTON (priv->back), TRUE);
-
-  priv->cancel = gtk_button_new ();
-  gtk_button_set_image (GTK_BUTTON (priv->cancel),
-                        gtk_image_new_from_stock (GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON));
-  gtk_button_set_use_underline (GTK_BUTTON (priv->cancel), TRUE);
-
-  gtk_header_bar_pack_start (GTK_HEADER_BAR (priv->titlebar), priv->cancel);
-  gtk_header_bar_pack_start (GTK_HEADER_BAR (priv->titlebar), priv->back);
-
-  priv->spinner = gtk_spinner_new ();
-  widget = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (widget), 0, 0, 12, 6);
-  gtk_header_bar_pack_end (GTK_HEADER_BAR (priv->titlebar), widget);
-  gtk_container_add (GTK_CONTAINER (widget), priv->spinner);
-  gtk_widget_show (widget);
-
-  gtk_header_bar_pack_end (GTK_HEADER_BAR (priv->titlebar), priv->forward);
 
   g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
   g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
   g_signal_connect (priv->cancel, "clicked", G_CALLBACK (do_cancel), assistant);
 
-  priv->progress_indicator = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_set_halign (priv->progress_indicator, GTK_ALIGN_CENTER);
-
-  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->progress_indicator, FALSE, TRUE, 0);
-
   gis_assistant_locale_changed (assistant);
   update_applying_state (assistant);
-
-  gtk_widget_show_all (GTK_WIDGET (assistant));
 }
 
 static void
@@ -498,6 +453,17 @@ static void
 gis_assistant_class_init (GisAssistantClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-assistant.ui");
+
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, forward);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, back);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, progress_indicator);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, stack);
 
   gobject_class->get_property = gis_assistant_get_property;
 

@@ -1,5 +1,7 @@
 SUBDIRS = pages
 
+BUILT_SOURCES =
+
 uidir = $(datadir)/gnome-initial-setup
 
 AM_CPPFLAGS = \
@@ -11,7 +13,15 @@ AM_CPPFLAGS = \
 
 libexec_PROGRAMS = gnome-initial-setup gnome-initial-setup-copy-worker
 
-gnome_initial_setup_SOURCES =	\
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/gis-assistant.gresource.xml)
+gis-assistant-resources.c: gis-assistant.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
+gis-assistant-resources.h: gis-assistant.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
+BUILT_SOURCES += gis-assistant-resources.c gis-assistant-resources.h
+
+gnome_initial_setup_SOURCES = \
+	$(BUILT_SOURCES) \
 	gnome-initial-setup.c gnome-initial-setup.h \
 	gis-assistant.c gis-assistant.h \
 	gis-page.c gis-page.h \
