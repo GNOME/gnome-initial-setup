@@ -38,6 +38,7 @@
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-xkb-info.h>
+#include <libgnome-desktop/gnome-languages.h>
 
 #ifdef HAVE_IBUS
 #include <ibus.h>
