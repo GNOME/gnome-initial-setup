@@ -43,7 +43,6 @@
 
 struct _GisGoaPagePrivate {
   GoaClient *goa_client;
-  GtkWidget *dialog;
   gboolean accounts_exist;
 };
 typedef struct _GisGoaPagePrivate GisGoaPagePrivate;
@@ -58,66 +57,40 @@ on_have_providers (GObject       *source,
                    GAsyncResult  *res,
                    gpointer       user_data)
 {
-  GList *providers;
-  GList *l;
-  GError *error = NULL;
   GisGoaPage *page = GIS_GOA_PAGE (user_data);
   GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
+  GList *providers;
+  GList *l;
+  GtkWindow *parent;
+  GtkWidget *dialog;
+  GError *error = NULL;
 
   if (!goa_provider_get_all_finish (&providers, res, &error))
     goto out;
-  
+
+  parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page)));
+
+  dialog = goa_panel_add_account_dialog_new (priv->goa_client);
+  gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
+
   for (l = providers; l != NULL; l = l->next)
     {
       GoaProvider *provider;
 
       provider = GOA_PROVIDER (l->data);
-      goa_panel_add_account_dialog_add_provider (GOA_PANEL_ADD_ACCOUNT_DIALOG (priv->dialog), provider);
+      goa_panel_add_account_dialog_add_provider (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), provider);
     }
 
-  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
-  g_list_free (providers);
+  goa_panel_add_account_dialog_run (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog));
+  goa_panel_add_account_dialog_get_account (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), &error);
+  gtk_widget_destroy (dialog);
 
- out:
-  if (error)
+  /* We might have an object even when error is set.
+   * eg., if we failed to store the credentials in the keyring.
+   */
+
+  if (error != NULL)
     {
-      g_printerr ("Failed to list providers: %s\n", error->message);
-      g_error_free (error);
-    }
-}
-
-static void
-show_online_account_dialog (GtkButton *button,
-                            gpointer   user_data)
-{
-  GisGoaPage *page = GIS_GOA_PAGE (user_data);
-  GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
-  GtkWindow *parent;
-  GtkWidget *dialog;
-  gint response;
-  GoaObject *object;
-  GError *error;
-
-  parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page)));
-
-  priv->dialog = goa_panel_add_account_dialog_new (priv->goa_client);
-  gtk_window_set_transient_for (GTK_WINDOW (priv->dialog), parent);
-
-  goa_provider_get_all (on_have_providers, page);
-
-  gtk_widget_show_all (priv->dialog);
-  response = gtk_dialog_run (GTK_DIALOG (priv->dialog));
-  if (response != GTK_RESPONSE_OK)
-    {
-      gtk_widget_destroy (dialog);
-      goto out;
-    }
-
-  object = goa_panel_add_account_dialog_get_account (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), &error);
-
-  if (object == NULL)
-    {
-      gtk_widget_destroy (dialog);
       if (!(error->domain == GOA_ERROR && error->code == GOA_ERROR_DIALOG_DISMISSED))
         {
           dialog = gtk_message_dialog_new (parent,
@@ -134,8 +107,24 @@ show_online_account_dialog (GtkButton *button,
         }
       g_error_free (error);
     }
+
+  g_list_free_full (providers, g_object_unref);
+
  out:
-  return;
+  if (error)
+    {
+      g_printerr ("Failed to list providers: %s\n", error->message);
+      g_error_free (error);
+    }
+}
+
+static void
+show_online_account_dialog (GtkButton *button,
+                            gpointer   user_data)
+{
+  GisGoaPage *page = GIS_GOA_PAGE (user_data);
+
+  goa_provider_get_all (on_have_providers, page);
 }
 
 static void
