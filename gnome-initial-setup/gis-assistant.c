@@ -29,7 +29,6 @@
 #include <gtk/gtk.h>
 
 #include "gis-assistant.h"
-#include "gis-center-container.h"
 
 enum {
   PROP_0,
@@ -53,8 +52,6 @@ struct _GisAssistantPrivate
   GtkWidget *cancel;
   GtkWidget *progress_indicator;
   GtkWidget *main_layout;
-  GtkWidget *action_area;
-  GtkWidget *page_action_widget_area;
   GtkWidget *spinner;
   GtkWidget *titlebar;
   GtkWidget *stack;
@@ -162,29 +159,6 @@ gis_assistant_previous_page (GisAssistant *assistant)
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   g_return_if_fail (priv->current_page != NULL);
   gis_assistant_switch_to (assistant, GIS_ASSISTANT_PREV, find_prev_page (priv->current_page));
-}
-
-static void
-remove_from_page_action_area (GtkWidget *widget,
-                              gpointer   user_data)
-{
-  GisAssistantPrivate *priv = user_data;
-  gtk_container_remove (GTK_CONTAINER (priv->page_action_widget_area), widget);
-}
-
-static void
-update_action_widget (GisAssistant *assistant)
-{
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  GtkWidget *action;
-
-  gtk_container_foreach (GTK_CONTAINER (priv->page_action_widget_area),
-                         remove_from_page_action_area, priv);
-
-  action = gis_page_get_action_widget (priv->current_page);
-  if (action)
-    gtk_container_add (GTK_CONTAINER (priv->page_action_widget_area),
-                       action);
 }
 
 static void
@@ -396,7 +370,6 @@ update_current_page (GisAssistant *assistant,
 
   update_titlebar (assistant);
   update_applying_state (assistant);
-  update_action_widget (assistant);
   update_navigation_buttons (assistant);
   update_progress_indicator (assistant);
   gis_page_shown (page);
@@ -458,8 +431,6 @@ gis_assistant_init (GisAssistant *assistant)
   g_signal_connect (priv->stack, "notify::visible-child",
                     G_CALLBACK (current_page_changed), assistant);
 
-  priv->page_action_widget_area = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-
   priv->forward = gtk_button_new ();
   gtk_button_set_image (GTK_BUTTON (priv->forward),
                         gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, GTK_ICON_SIZE_BUTTON));
@@ -495,13 +466,11 @@ gis_assistant_init (GisAssistant *assistant)
   priv->progress_indicator = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_widget_set_halign (priv->progress_indicator, GTK_ALIGN_CENTER);
 
-  priv->action_area = gis_center_container_new (priv->page_action_widget_area,
-                                                priv->progress_indicator);
+  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->progress_indicator, FALSE, TRUE, 0);
 
   gis_assistant_locale_changed (assistant);
-  gtk_box_pack_start (GTK_BOX (priv->main_layout), priv->action_area, FALSE, TRUE, 0);
-
   update_applying_state (assistant);
+
   gtk_widget_show_all (GTK_WIDGET (assistant));
 }
 

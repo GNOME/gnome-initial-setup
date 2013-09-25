@@ -259,14 +259,6 @@ gis_page_set_complete (GisPage *page, gboolean complete)
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_COMPLETE]);
 }
 
-GtkWidget *
-gis_page_get_action_widget (GisPage *page)
-{
-  if (GIS_PAGE_GET_CLASS (page)->get_action_widget)
-    return GIS_PAGE_GET_CLASS (page)->get_action_widget (page);
-  return NULL;
-}
-
 void
 gis_page_locale_changed (GisPage *page)
 {
