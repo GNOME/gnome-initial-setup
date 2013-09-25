@@ -10,8 +10,10 @@
       <object class="GtkNotebook" id="account-notebook">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <property name="valign">start</property>
         <property name="margin_left">80</property>
         <property name="margin_right">80</property>
+        <property name="vexpand">True</property>
         <property name="show_tabs">False</property>
         <property name="show_border">False</property>
         <child>
@@ -493,6 +495,15 @@
         <property name="fill">True</property>
         <property name="position">0</property>
       </packing>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="page-toggle">
+        <property name="visible">True</property>
+        <property name="use_underline">True</property>
+        <property name="label" translatable="true">_Use Enterprise Login</property>
+        <property name="halign">start</property>
+        <property name="valign">end</property>
+      </object>
     </child>
   </object>
   <object class="GtkDialog" id="join-dialog">

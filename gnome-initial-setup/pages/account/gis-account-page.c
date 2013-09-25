@@ -1164,10 +1164,9 @@ gis_account_page_constructed (GObject *object)
 
   priv->has_enterprise = FALSE;
 
-  priv->action = gtk_toggle_button_new_with_mnemonic ("_Use Enterprise Login");
+  priv->action = WID("page-toggle");
   g_signal_connect (priv->action, "toggled", G_CALLBACK (toggle_mode), page);
   g_object_bind_property (page, "applying", priv->action, "sensitive", G_BINDING_INVERT_BOOLEAN);
-  g_object_ref_sink (priv->action);
 
   /* force a refresh by setting to an invalid value */
   priv->mode = NUM_MODES;
@@ -1190,19 +1189,10 @@ gis_account_page_dispose (GObject *object)
   g_cancellable_cancel (priv->cancellable);
 
   g_clear_object (&priv->realm_manager);
-  g_clear_object (&priv->action);
   g_clear_object (&priv->realm);
   g_clear_object (&priv->cancellable);
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->dispose (object);
-}
-
-static GtkWidget *
-gis_account_page_get_action_widget (GisPage *page)
-{
-  GisAccountPage *account = GIS_ACCOUNT_PAGE (page);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (account);
-  return priv->action;
 }
 
 static void
@@ -1219,7 +1209,6 @@ gis_account_page_class_init (GisAccountPageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_account_page_locale_changed;
-  page_class->get_action_widget = gis_account_page_get_action_widget;
   page_class->apply = gis_account_page_apply;
   page_class->save_data = gis_account_page_save_data;
   object_class->constructed = gis_account_page_constructed;
