@@ -5,78 +5,82 @@
 # brentx <deweerdt.brent@gmail.com>, 2013.
 # Reinout van Schouwen <reinouts@gnome.org>, 2013.
 # Wouter Bolsterlee <wbolster@gnome.org>, 2013.
+# Erwin Poeze <donnut@outlook.com>, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup gnome-3-6\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-09 18:07+0100\n"
-"PO-Revision-Date: 2013-02-09 18:07+0100\n"
-"Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
-"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"Project-Id-Version: gnome-initial-setup\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-09-26 00:04+0000\n"
+"PO-Revision-Date: 2013-09-29 17:34+0100\n"
+"Last-Translator: Erwin Poeze <donnut@outlook.com>\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Instellingen voor eerste gebruik"
 
-#: ../gnome-initial-setup/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "Niet aangegeven"
-
-#: ../gnome-initial-setup/gis-assistant.c:288
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Next"
 msgstr "V_olgende"
 
-#: ../gnome-initial-setup/gis-assistant.c:289
-msgid "_Back"
-msgstr "_Terug"
+#: ../gnome-initial-setup/gis-assistant.c:397
+msgid "_Previous"
+msgstr "_Vorige"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+msgid "_Cancel"
+msgstr "_Annuleren"
+
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
 msgid "Force new user mode"
 msgstr "Modus voor nieuwe gebruiker forceren"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:208
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
 msgid "- GNOME initial setup"
 msgstr "– Instellingen voor eerste gebruik van Gnome"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Use _Enterprise Login"
-msgstr "Een _Enterprise-login gebruiken"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
+msgid "No password"
+msgstr "Geen wachtwoord"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
-msgid "_Use Local Login"
-msgstr "_Lokale login gebruiken"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:430
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
 msgid "Passwords do not match"
 msgstr "Wachtwoorden komen niet overeen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:359
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
 #, c-format
 msgid "Strength: %s"
 msgstr "Sterkte: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:555
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
 msgid "Failed to register account"
 msgstr "Registreren van account is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:618
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+msgid "No supported way to authenticate with this domain"
+msgstr "Authenticatie met dit domein is niet ondersteund"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
 msgid "Failed to join domain"
-msgstr "Lid worden van domein mislukt"
+msgstr "Lid worden van domein is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:673
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
 msgid "Failed to log into domain"
-msgstr "Aanmelden op domein mislukt"
+msgstr "Aanmelden bij domein is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:961
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1201
 msgid "Login"
 msgstr "Aanmelden"
 
@@ -111,8 +115,8 @@ msgid ""
 "Try to use at least 8 different characters. Mix upper and lower case and use "
 "a number or two."
 msgstr ""
-"Probeer tenminste 8 verschillende tekens te gebruiken. Meng hoofd– en kleine "
-"letters en gebruik een paar getallen."
+"Probeer tenminste acht verschillende tekens te gebruiken. Meng hoofd– en "
+"kleine letters en gebruik een paar getallen."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
 msgid "page 1"
@@ -120,15 +124,46 @@ msgstr "pagina 1"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
 msgid "Create an Enterprise Account"
-msgstr "Een Enterprise-account aanmaken"
+msgstr "Een bedrijfsaccount aanmaken"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
 msgid "_Domain"
-msgstr "_Domein:"
+msgstr "_Domein"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Enterprise domain or realm name"
-msgstr "Enterprisedomein– of realmnaam"
+msgstr "Bedrijfsdomein– of realmnaam"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+msgid "C_ontinue"
+msgstr "_Verder"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "Aanmelden domeinbeheerder"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"Om bedrijfsaanmeldingen te gebruiken moet deze computer ingeschreven zijn\n"
+"bij het domein. Laat uw netwerkbeheerder het domeinwachtwoord\n"
+"hier invoeren en kies een unieke naam voor uw computer."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "_Computer"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "_Naam beheerder"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "_Wachtwoord beheerder"
 
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
@@ -160,42 +195,47 @@ msgctxt "Password strength"
 msgid "Strong"
 msgstr "Sterk"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "Automatisch aanmelden bij dit type domein is niet mogelijk"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Dergelijk domein of realm niet gevonden"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
-msgstr "Kan niet aanmelden als %s op domein %s"
+msgstr "Aanmelden als %s bij domein %s is mislukt"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Onjuist wachtwoord; probeer het nogmaals"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
-msgstr "Kon geen verbinding maken met het domein %s: %s"
+msgstr "Verbinding maken met het domein %s is mislukt: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:129
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Een gebruiker met de gebruikersnaam ‘%s’ bestaat al"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:133
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "De gebruikersnaam is te lang"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:136
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
-msgstr "De gebruikersnaam kan niet beginnen met een '-'"
+msgstr "De gebruikersnaam kan niet beginnen met een ‘-’"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:139
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
@@ -205,43 +245,72 @@ msgstr ""
 " ➣ cijfers\n"
 " ➣ de tekens ‘.’, ‘-’ en ‘_’"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:264
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Licentieovereenkomsten"
 
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
+msgstr ""
+"Ik ga akkoord met de voorwaarden en bepalingen in deze "
+"gebruiksrechtovereenkomst."
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
+msgctxt "Online Account"
+msgid "Other"
+msgstr "Overige"
+
 #. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
 msgid "Add Account"
-msgstr "Een account toevoegen"
+msgstr "Account toevoegen"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:105
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
+msgid "Mail"
+msgstr "E-mail"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
+msgid "Contacts"
+msgstr "Contactpersonen"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
+msgid "Chat"
+msgstr "Chat"
+
+#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
+msgid "Resources"
+msgstr "Bronnen"
+
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:100
 msgid "Error creating account"
-msgstr "Fout tijdens aanmaken van het account"
+msgstr "Aanmaken van het account is mislukt"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:137
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:146
 msgid "Error removing account"
-msgstr "Fout tijdens verwijderen van het account"
+msgstr "Verwijderen van het account is mislukt"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:172
 msgid "Are you sure you want to remove the account?"
-msgstr "Ben je zeker dat je het account wilt verwijderen?"
+msgstr "Ben u zeker dat u het account wilt verwijderen?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:165
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:174
 msgid "This will not remove the account on the server."
-msgstr "Dit zal je account op de server niet verwijderen."
+msgstr "Dit zal uw account op de server niet verwijderen."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:175
 msgid "_Remove"
 msgstr "Verwij_deren"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:355
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:437
 msgid "Online Accounts"
 msgstr "Online accounts"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
 msgid "Connect to your existing data in the cloud"
-msgstr "Met huidige gegevens in de cloud verbinden"
+msgstr "Met uw huidige gegevens in de cloud verbinden"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
@@ -251,90 +320,48 @@ msgstr ""
 "Door accounts toe te voegen kun u transparant verbinding maken met online "
 "fotoboeken, contactpersonen, e-mail en meer."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:54
-msgid "Keyboard Layout"
-msgstr "Toetsenbordindeling"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "Een _account toevoegen"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "Invoerapparaat selecteren"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Add Input Source"
-msgstr "Invoerapparaat toevoegen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:3
-msgid "Remove Input Source"
-msgstr "Invoerapparaat verwijderen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:4
-msgid "Move Input Source Up"
-msgstr "Invoerapparaat omhoog verplaatsen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:5
-msgid "Move Input Source Down"
-msgstr "Invoerapparaat omlaag verplaatsen"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:6
-msgid "Input Source Settings"
-msgstr "Instellingen invoerapparaat"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:7
-msgid "Show Keyboard Layout"
-msgstr "Toetsenbordindeling tonen"
-
-#: ../gnome-initial-setup/pages/keyboard/gnome-region-panel-input-chooser.ui.h:1
-msgid "Select an input source"
-msgstr "Selecteer een invoerapparaat"
-
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "Engels"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "Brits Engels"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "Duits"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "Frans"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "Spaans"
-
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "Chinees (vereenvoudigd)"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:119
-#, c-format
-msgid "Use %s"
-msgstr "%s gebruiken"
-
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:170
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "More…"
 msgstr "Meer…"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:177
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+msgid "No input sources found"
+msgstr "Geen invoerapparaat gevonden"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+msgid "Other"
+msgstr "Overige"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
+msgid "Input Sources"
+msgstr "Invoerapparaten"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+msgid "Select keyboard layouts"
+msgstr "Toetsenbordindelingen selecteren"
+
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "Een invoerapparaat toevoegen"
+
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "Geen talen gevonden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:372
-#: ../gnome-initial-setup/pages/welcome/gis-welcome-page.c:47
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
 msgid "Welcome"
 msgstr "Welkom"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:304
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:305
 msgid "Search for a location"
 msgstr "Een locatie zoeken"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:341
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:361
 #: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "Locatie"
@@ -351,24 +378,24 @@ msgstr "Uw _locatie automatisch bepalen"
 msgid "Time Zone"
 msgstr "Tijdzone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:319
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Overige…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:357
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
 msgid "Network is not available."
 msgstr "Netwerk niet beschikbaar."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:359
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
 msgid "No network devices found."
 msgstr "Geen netwerkapparaten gevonden."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:409
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
 msgid "Checking for available wireless networks"
 msgstr "Zoeken naar beschikbare draadloze netwerken"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
 msgid "Network"
 msgstr "Netwerk"
 
@@ -376,7 +403,12 @@ msgstr "Netwerk"
 msgid "Wireless Networks"
 msgstr "Draadloze netwerken"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:284
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#, c-format
+msgid "_Start using %s"
+msgstr "_Beginnen met %s"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
 msgid "Thank You"
 msgstr "Dank u"
 
@@ -386,30 +418,71 @@ msgstr "Uw computer is klaar voor gebruik."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
 msgid "You may change these options at any time in Settings."
-msgstr "U kunt deze opties op elk gewenst moment wijzigen in de Instellingen."
+msgstr "U kunt deze opties op elk gewenst moment wijzigen in ‘Instellingen’."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Beginnen met Gnome 3"
 
+#~ msgid "Unspecified"
+#~ msgstr "Niet aangegeven"
+
+#~ msgid "_Back"
+#~ msgstr "_Terug"
+
+#~ msgid "Use _Enterprise Login"
+#~ msgstr "Een _Enterprise-login gebruiken"
+
+#~ msgid "_Use Local Login"
+#~ msgstr "_Lokale login gebruiken"
+
+#~ msgid "Keyboard Layout"
+#~ msgstr "Toetsenbordindeling"
+
+#~ msgid "Select input sources"
+#~ msgstr "Invoerapparaat selecteren"
+
+#~ msgid "Remove Input Source"
+#~ msgstr "Invoerapparaat verwijderen"
+
+#~ msgid "Move Input Source Up"
+#~ msgstr "Invoerapparaat omhoog verplaatsen"
+
+#~ msgid "Input Source Settings"
+#~ msgstr "Instellingen invoerapparaat"
+
+#~ msgid "Select an input source"
+#~ msgstr "Selecteer een invoerapparaat"
+
+#~ msgid "English"
+#~ msgstr "Engels"
+
+#~ msgid "British English"
+#~ msgstr "Brits Engels"
+
+#~ msgid "German"
+#~ msgstr "Duits"
+
+#~ msgid "French"
+#~ msgstr "Frans"
+
+#~ msgid "Spanish"
+#~ msgstr "Spaans"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Chinees (vereenvoudigd)"
+
+#~ msgid "Use %s"
+#~ msgstr "%s gebruiken"
+
 #~ msgid "_Login Name"
 #~ msgstr "Aanmeld_naam"
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr ""
-#~ "Ik ga akkoord met de voorwaarden en bepalingen in deze "
-#~ "gebruiksrechtovereenkomst."
 
 #~ msgid "Link other accounts"
 #~ msgstr "Andere accounts koppelen"
 
 #~ msgid "Create Local Account"
 #~ msgstr "Een lokaal account aanmaken"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annuleren"
 
 #~ msgid "_Done"
 #~ msgstr "_Klaar"
