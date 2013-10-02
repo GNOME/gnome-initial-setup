@@ -231,8 +231,8 @@ add_other_users_language (GHashTable *ht)
 }
 
 static void
-insert_language (GHashTable *ht,
-                 const char *lang)
+insert_language_internal (GHashTable *ht,
+                          const char *lang)
 {
         gboolean has_translations;
         char *label_own_lang;
@@ -252,7 +252,7 @@ insert_language (GHashTable *ht,
 
         g_debug ("We have translations for %s", lang);
 
-        key = g_strdup_printf ("%s.utf8", lang);
+        key = g_strdup (lang);
 
         label_own_lang = gnome_get_language_from_locale (key, key);
         label_current_lang = gnome_get_language_from_locale (key, NULL);
@@ -272,6 +272,16 @@ insert_language (GHashTable *ht,
         g_free (label_own_lang);
         g_free (label_current_lang);
         g_free (label_untranslated);
+}
+
+static void
+insert_language (GHashTable *ht,
+                 const char *lang)
+{
+        char *utf8_variant = g_strconcat (lang, ".utf8", NULL);
+        insert_language_internal (ht, lang);
+        insert_language_internal (ht, utf8_variant);
+        g_free (utf8_variant);
 }
 
 static void
