@@ -47,3 +47,5 @@ gnome_initial_setup_copy_worker_CFLAGS = \
 
 gnome_initial_setup_copy_worker_LDADD = \
 	$(COPY_WORKER_LIBS)
+
+EXTRA_DIST = gis-assistant.gresource.xml $(resource_files)
