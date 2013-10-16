@@ -181,7 +181,12 @@ update_progress_indicator (GisAssistant *assistant)
   for (l = priv->pages; l != NULL; l = l->next)
     {
       GisPage *page = GIS_PAGE (l->data);
-      GtkWidget *label = gtk_label_new ("•");
+      GtkWidget *label;
+
+      if (!gtk_widget_get_visible (GTK_WIDGET (page)))
+        continue;
+
+      label = gtk_label_new ("•");
 
       if (page != priv->current_page)
         {
