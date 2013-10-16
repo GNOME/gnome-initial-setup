@@ -523,7 +523,7 @@ gis_network_page_constructed (GObject *object)
   const GPtrArray *devices;
   NMDevice *device;
   guint i;
-  gboolean visible = TRUE;
+  gboolean visible = FALSE;
   GtkWidget *box;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
@@ -533,9 +533,6 @@ gis_network_page_constructed (GObject *object)
   priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
   priv->nm_client = nm_client_new ();
-
-  g_signal_connect (priv->nm_client, "notify::active-connections",
-                    G_CALLBACK (active_connections_changed), page);
 
   devices = nm_client_get_devices (priv->nm_client);
   if (devices) {
@@ -553,12 +550,17 @@ gis_network_page_constructed (GObject *object)
     }
   }
 
-  if (priv->nm_device == NULL) {
-    visible = FALSE;
+  if (priv->nm_device == NULL)
     goto out;
-  }
 
+  if (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED)
+    goto out;
+
+  visible = TRUE;
   priv->nm_settings = nm_remote_settings_new (NULL);
+
+  g_signal_connect (priv->nm_client, "notify::active-connections",
+                    G_CALLBACK (active_connections_changed), page);
 
   box = WID ("network-list");
 
