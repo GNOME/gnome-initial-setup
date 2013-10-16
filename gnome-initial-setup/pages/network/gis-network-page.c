@@ -328,34 +328,9 @@ refresh_again (gpointer user_data)
 }
 
 static void
-refresh_without_device (GisNetworkPage *page)
-{
-  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  GtkWidget *label;
-  GtkWidget *spinner;
-  GtkWidget *swin;
-
-  swin = WID("network-scrolledwindow");
-  label = WID("no-network-label");
-  spinner = WID("no-network-spinner");
-
-  if (nm_client_get_state (priv->nm_client) == NM_STATE_CONNECTED_GLOBAL)
-    ;
-  else if (priv->nm_device != NULL)
-    gtk_label_set_text (GTK_LABEL (label), _("Network is not available."));
-  else
-    gtk_label_set_text (GTK_LABEL (label), _("No network devices found."));
-
-  gtk_widget_hide (swin);
-  gtk_widget_hide (spinner);
-  gtk_widget_show (label);
-}
-
-static void
 refresh_wireless_list (GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  NMDeviceState state = NM_DEVICE_STATE_UNAVAILABLE;
   NMAccessPoint *active_ap = NULL;
   NMAccessPoint *ap;
   const GPtrArray *aps;
@@ -369,31 +344,24 @@ refresh_wireless_list (GisNetworkPage *page)
 
   priv->refreshing = TRUE;
 
-  if (NM_IS_DEVICE_WIFI (priv->nm_device)) {
-    state = nm_device_get_state (priv->nm_device);
+  g_assert (NM_IS_DEVICE_WIFI (priv->nm_device));
 
-    active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
+  active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
 
-    list = WID ("network-list");
-    children = gtk_container_get_children (GTK_CONTAINER (list));
-    for (l = children; l; l = l->next) {
-      gtk_container_remove (GTK_CONTAINER (list), l->data);
-    }
-    g_list_free (children);
+  list = WID ("network-list");
 
-    aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (priv->nm_device));
-  }
+  children = gtk_container_get_children (GTK_CONTAINER (list));
+  for (l = children; l; l = l->next)
+    gtk_container_remove (GTK_CONTAINER (list), l->data);
+  g_list_free (children);
+
+  aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (priv->nm_device));
 
   swin = WID("network-scrolledwindow");
   label = WID("no-network-label");
   spinner = WID("no-network-spinner");
 
-  if (state == NM_DEVICE_STATE_UNMANAGED ||
-      state == NM_DEVICE_STATE_UNAVAILABLE) {
-    refresh_without_device (page);
-    goto out;
-  }
-  else if (aps == NULL || aps->len == 0) {
+  if (aps == NULL || aps->len == 0) {
     gtk_label_set_text (GTK_LABEL (label), _("Checking for available wireless networks"));
     gtk_widget_hide (swin);
     gtk_widget_show (spinner);
@@ -418,15 +386,6 @@ refresh_wireless_list (GisNetworkPage *page)
 
  out:
   priv->refreshing = FALSE;
-}
-
-static void
-device_state_changed (NMDevice   *device,
-                      GParamSpec *pspec,
-                      gpointer    user_data)
-{
-  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
-  refresh_wireless_list (page);
 }
 
 static void
@@ -564,8 +523,6 @@ gis_network_page_constructed (GObject *object)
   const GPtrArray *devices;
   NMDevice *device;
   guint i;
-  DBusGConnection *bus;
-  GError *error;
   gboolean visible = TRUE;
   GtkWidget *box;
 
@@ -591,8 +548,6 @@ gis_network_page_constructed (GObject *object)
       if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
         /* FIXME deal with multiple, dynamic devices */
         priv->nm_device = g_object_ref (device);
-        g_signal_connect (G_OBJECT (device), "notify::state",
-                          G_CALLBACK (device_state_changed), page);
         break;
       }
     }
@@ -600,20 +555,10 @@ gis_network_page_constructed (GObject *object)
 
   if (priv->nm_device == NULL) {
     visible = FALSE;
-    refresh_without_device (page);
     goto out;
   }
 
-  error = NULL;
-  bus = dbus_g_bus_get (DBUS_BUS_SYSTEM, &error);
-  if (!bus) {
-    g_warning ("Error connecting to system D-Bus: %s",
-               error->message);
-    g_error_free (error);
-    visible = FALSE;
-    goto out;
-  }
-  priv->nm_settings = nm_remote_settings_new (bus);
+  priv->nm_settings = nm_remote_settings_new (NULL);
 
   box = WID ("network-list");
 
