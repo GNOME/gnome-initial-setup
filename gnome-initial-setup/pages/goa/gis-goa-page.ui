@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Wed Oct 16 17:29:50 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkGrid" id="goa-page">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="halign">fill</property>
     <property name="margin_left">80</property>
     <property name="margin_right">80</property>
     <child>
-      <object class="GtkLabel" id="online-title">
+      <object class="GtkImage" id="image1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">start</property>
-        <property name="margin_bottom">18</property>
-        <property name="label" translatable="yes">Connect to your existing data in the cloud</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="1.2"/>
-        </attributes>
+        <property name="pixel_size">128</property>
+        <property name="icon_name">goa-panel-symbolic</property>
+        <property name="icon_size">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -28,15 +23,34 @@
       </packing>
     </child>
     <child>
+      <object class="GtkLabel" id="online-title">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="valign">start</property>
+        <property name="margin_bottom">18</property>
+        <property name="label" translatable="yes">Connect Your Online Accounts</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="1.6"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkLabel" id="online-accounts-label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_bottom">18</property>
-        <property name="halign">fill</property>
-        <property name="xalign">0</property>
         <property name="valign">start</property>
+        <property name="margin_bottom">18</property>
+        <property name="label" translatable="yes">Connecting your accounts will allow you to easily access your email, online calendar, contacts, documents and photos.</property>
+        <property name="justify">center</property>
         <property name="wrap">True</property>
-        <property name="label" translatable="yes">Adding accounts will allow you to transparently connect to your online photos, contacts, mail, and more.</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -49,11 +63,9 @@
       <object class="GtkFrame" id="online-accounts-frame">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
         <property name="label_xalign">0</property>
         <property name="shadow_type">in</property>
-        <property name="margin-left">0</property>
-        <property name="margin-right">0</property>
-        <property name="hexpand">True</property>
         <child>
           <object class="GtkListBox" id="online-accounts-list">
             <property name="visible">True</property>
