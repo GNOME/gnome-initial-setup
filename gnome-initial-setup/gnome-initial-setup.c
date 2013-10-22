@@ -49,7 +49,7 @@
 
 /* main {{{1 */
 
-static gboolean force_new_user_mode;
+static gboolean force_existing_user_mode;
 
 typedef void (*PreparePage) (GisDriver *driver);
 
@@ -173,28 +173,13 @@ rebuild_pages_cb (GisDriver *driver)
   g_strfreev (skip_pages);
 }
 
-static gboolean
-is_running_as_gnome_initial_setup_user (void)
-{
-  struct passwd pw, *pwp;
-  char buf[4096];
-
-  getpwnam_r ("gnome-initial-setup", &pw, buf, sizeof (buf), &pwp);
-  if (pwp == NULL)
-    return FALSE;
-
-  return pw.pw_uid == getuid ();
-}
-
 static GisDriverMode
 get_mode (void)
 {
-  if (force_new_user_mode)
-    return GIS_DRIVER_MODE_NEW_USER;
-  else if (is_running_as_gnome_initial_setup_user ())
-    return GIS_DRIVER_MODE_NEW_USER;
-  else
+  if (force_existing_user_mode)
     return GIS_DRIVER_MODE_EXISTING_USER;
+  else
+    return GIS_DRIVER_MODE_NEW_USER;
 }
 
 int
@@ -205,8 +190,8 @@ main (int argc, char *argv[])
   GOptionContext *context;
 
   GOptionEntry entries[] = {
-    { "force-new-user", 0, 0, G_OPTION_ARG_NONE, &force_new_user_mode,
-      _("Force new user mode"), NULL },
+    { "existing-user", 0, 0, G_OPTION_ARG_NONE, &force_existing_user_mode,
+      _("Force exisitng user mode"), NULL },
     { NULL }
   };
 
