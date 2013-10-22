@@ -50,29 +50,26 @@
 /* main {{{1 */
 
 static gboolean force_new_user_mode;
-static const gchar *system_setup_pages[] = {
-    "account",
-    "timezone"
-};
 
 typedef void (*PreparePage) (GisDriver *driver);
 
 typedef struct {
-    const gchar *page_id;
-    PreparePage prepare_page_func;
+  const gchar *page_id;
+  PreparePage prepare_page_func;
+  gboolean new_user_only;
 } PageData;
 
-#define PAGE(name) { #name, gis_prepare_ ## name ## _page }
+#define PAGE(name, new_user_only) { #name, gis_prepare_ ## name ## _page, new_user_only }
 
 static PageData page_table[] = {
-  PAGE (language),
-  PAGE (keyboard),
-  PAGE (eula),
-  PAGE (network),
-  PAGE (timezone),
-  PAGE (goa),
-  PAGE (account),
-  PAGE (summary),
+  PAGE (language, FALSE),
+  PAGE (keyboard, FALSE),
+  PAGE (eula,     FALSE),
+  PAGE (network,  FALSE),
+  PAGE (timezone, TRUE),
+  PAGE (goa,      FALSE),
+  PAGE (account,  TRUE),
+  PAGE (summary,  FALSE),
   { NULL },
 };
 
@@ -84,6 +81,7 @@ should_skip_page (GisDriver    *driver,
                   gchar       **skip_pages)
 {
   guint i = 0;
+
   /* check through our skip pages list for pages we don't want */
   if (skip_pages) {
     while (skip_pages[i]) {
@@ -92,21 +90,6 @@ should_skip_page (GisDriver    *driver,
       i++;
     }
   }
-
-  switch (gis_driver_get_mode (driver)) {
-  case GIS_DRIVER_MODE_EXISTING_USER:
-    i = 0;
-    while (i < G_N_ELEMENTS (system_setup_pages)) {
-      if (g_strcmp0 (system_setup_pages[i], page_id) == 0)
-        return TRUE;
-      i++;
-    }
-    break;
-  case GIS_DRIVER_MODE_NEW_USER:
-  default:
-    break;
-  }
-
   return FALSE;
 }
 
@@ -157,6 +140,7 @@ rebuild_pages_cb (GisDriver *driver)
   GisAssistant *assistant;
   GisPage *current_page;
   gchar **skip_pages;
+  gboolean is_new_user;
 
   assistant = gis_driver_get_assistant (driver);
   current_page = gis_assistant_get_current_page (assistant);
@@ -175,9 +159,16 @@ rebuild_pages_cb (GisDriver *driver)
     ++page_data;
   }
 
-  for (; page_data->page_id != NULL; ++page_data)
-    if (!should_skip_page (driver, page_data->page_id, skip_pages))
-      page_data->prepare_page_func (driver);
+  is_new_user = (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER);
+  for (; page_data->page_id != NULL; ++page_data) {
+    if (page_data->new_user_only && !is_new_user)
+      continue;
+
+    if (should_skip_page (driver, page_data->page_id, skip_pages))
+      continue;
+
+    page_data->prepare_page_func (driver);
+  }
 
   g_strfreev (skip_pages);
 }
