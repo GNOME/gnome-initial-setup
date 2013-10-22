@@ -1,5 +1,5 @@
-Initial setup
--------------
+Initial Setup
+=============
 
 The first time a new system is booted is a special situation. There is
 no user account yet, and a few basic setup steps need to be performed
@@ -36,7 +36,7 @@ changed during the initial setup session from the gnome-initial-setup
 user to the real user.
 
 Mechanics
----------
+=========
 
 To enable the initial-setup functionality in gdm, set
 
@@ -44,7 +44,7 @@ InitialSetupEnable=True
 
 in the [daemon] section of /etc/gdm/custom.conf. To actually
 trigger the initial-setup, gdm additionally looks for the file
-/var/lib/gdm/run-initial-setup. gnome-initial-setup removes this file after
+/var/lib/gdm/run-initial-setup. gdm removes this file after
 the initial setup has been performed.
 
 The session that gdm starts for the initial-setup session is
@@ -59,14 +59,4 @@ user. The rules file is removed again together with the
 gnome-initial-setup user account.
 
 TODO
-----
-
-- Network login is not implemented
-
-- Automatic detection of location/timezone is not implemented
-
-- Figure out how to unlock the copied keyring after the autologin
-  into the newly created session.
-
-- Split the setup/teardown for the temporary account into a
-  helper binary, to make selinux happy.
+====
