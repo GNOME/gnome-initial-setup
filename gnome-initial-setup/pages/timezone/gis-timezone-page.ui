@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <object class="GtkGrid" id="location-page">
-    <property name="name">location-page</property>
+  <object class="GtkGrid" id="timezone-page">
+    <property name="name">timezone-page</property>
     <property name="visible">True</property>
     <property name="halign">center</property>
     <property name="valign">start</property>
     <property name="hexpand">True</property>
     <child>
-      <object class="GtkLabel" id="location-title">
+      <object class="GtkLabel" id="timezone-title">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Choose Your Location</property>
+        <property name="label" translatable="yes">Time Zone</property>
         <property name="hexpand">False</property>
         <property name="halign">start</property>
         <property name="valign">start</property>
@@ -28,9 +28,9 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="location-auto-button">
+      <object class="GtkButton" id="timezone-auto-button">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">_Determine your location automatically</property>
+        <property name="label" translatable="yes">_Determine your timezone automatically</property>
         <property name="use_underline">True</property>
         <property name="halign">start</property>
         <property name="margin-right">24</property>
@@ -43,7 +43,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkFrame" id="location-map-frame">
+      <object class="GtkFrame" id="timezone-map-frame">
         <property name="visible">True</property>
         <property name="halign">fill</property>
         <property name="valign">fill</property>
@@ -60,7 +60,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkGrid" id="location-info-grid">
+      <object class="GtkGrid" id="timezone-info-grid">
         <property name="visible">True</property>
         <property name="halign">start</property>
         <property name="valign">start</property>

@@ -1,5 +1,5 @@
 
-noinst_LTLIBRARIES = libgislocation.la
+noinst_LTLIBRARIES = libgistimezone.la
 
 BUILT_SOURCES =
 
@@ -21,26 +21,26 @@ cc-datetime-resources.h: datetime.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
 BUILT_SOURCES += cc-datetime-resources.c cc-datetime-resources.h
 
-resource_files_location = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/location.gresource.xml)
-location-resources.c: location.gresource.xml $(resource_files_location)
+resource_files_timezone = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/timezone.gresource.xml)
+timezone-resources.c: timezone.gresource.xml $(resource_files_timezone)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
-location-resources.h: location.gresource.xml $(resource_files_location)
+timezone-resources.h: timezone.gresource.xml $(resource_files_timezone)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
-BUILT_SOURCES += location-resources.c location-resources.h
+BUILT_SOURCES += timezone-resources.c timezone-resources.h
 
-libgislocation_la_SOURCES =	\
+libgistimezone_la_SOURCES =	\
 	tz.c tz.h \
 	cc-timezone-map.c cc-timezone-map.h \
-	gis-location-page.c gis-location-page.h \
+	gis-timezone-page.c gis-timezone-page.h \
 	$(BUILT_SOURCES)
 
-libgislocation_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
-libgislocation_la_LIBADD = $(INITIAL_SETUP_LIBS)
-libgislocation_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
+libgistimezone_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
+libgistimezone_la_LIBADD = $(INITIAL_SETUP_LIBS)
+libgistimezone_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST =				\
 	timedated1-interface.xml	\
 	$(resource_files)		\
-	$(resource_files_location)	\
+	$(resource_files_timezone)	\
 	datetime.gresource.xml		\
-	location.gresource.xml
+	timezone.gresource.xml

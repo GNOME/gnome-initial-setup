@@ -103,7 +103,7 @@ gnome-initial-setup/pages/Makefile
 gnome-initial-setup/pages/language/Makefile
 gnome-initial-setup/pages/eulas/Makefile
 gnome-initial-setup/pages/account/Makefile
-gnome-initial-setup/pages/location/Makefile
+gnome-initial-setup/pages/timezone/Makefile
 gnome-initial-setup/pages/network/Makefile
 gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/summary/Makefile

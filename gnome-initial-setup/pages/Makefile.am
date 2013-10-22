@@ -5,6 +5,6 @@ SUBDIRS = \
 	eulas \
 	network \
 	account \
-	location \
+	timezone \
 	goa \
 	summary

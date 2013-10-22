@@ -43,7 +43,7 @@
 #include "pages/eulas/gis-eula-pages.h"
 #include "pages/network/gis-network-page.h"
 #include "pages/account/gis-account-page.h"
-#include "pages/location/gis-location-page.h"
+#include "pages/timezone/gis-timezone-page.h"
 #include "pages/goa/gis-goa-page.h"
 #include "pages/summary/gis-summary-page.h"
 
@@ -52,7 +52,7 @@
 static gboolean force_new_user_mode;
 static const gchar *system_setup_pages[] = {
     "account",
-    "location"
+    "timezone"
 };
 
 typedef void (*PreparePage) (GisDriver *driver);
@@ -70,7 +70,7 @@ static PageData page_table[] = {
   PAGE (eula),
   PAGE (network),
   PAGE (account),
-  PAGE (location),
+  PAGE (timezone),
   PAGE (goa),
   PAGE (summary),
   { NULL },

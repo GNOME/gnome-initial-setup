@@ -21,14 +21,14 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-/* Location page {{{1 */
+/* Timezone page {{{1 */
 
-#define PAGE_ID "location"
+#define PAGE_ID "timezone"
 
 #include "config.h"
 #include "cc-datetime-resources.h"
-#include "location-resources.h"
-#include "gis-location-page.h"
+#include "timezone-resources.h"
+#include "gis-timezone-page.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -44,15 +44,15 @@
 
 #define DEFAULT_TZ "Europe/London"
 
-struct _GisLocationPagePrivate
+struct _GisTimezonePagePrivate
 {
   CcTimezoneMap *map;
   TzLocation *current_location;
   Timedate1 *dtm;
 };
-typedef struct _GisLocationPagePrivate GisLocationPagePrivate;
+typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisLocationPage, gis_location_page, GIS_TYPE_PAGE);
+G_DEFINE_TYPE_WITH_PRIVATE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
 
 #define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
 #define WID(name) OBJ(GtkWidget*,name)
@@ -62,8 +62,8 @@ set_timezone_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      user_data)
 {
-  GisLocationPage *page = user_data;
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePage *page = user_data;
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GError *error;
 
   error = NULL;
@@ -78,9 +78,9 @@ set_timezone_cb (GObject      *source,
 
 
 static void
-queue_set_timezone (GisLocationPage *page)
+queue_set_timezone (GisTimezonePage *page)
 {
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   /* for now just do it */
   if (priv->current_location) {
@@ -94,9 +94,9 @@ queue_set_timezone (GisLocationPage *page)
 }
 
 static void
-update_timezone (GisLocationPage *page)
+update_timezone (GisTimezonePage *page)
 {
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GString *str;
   gchar *location;
   gchar *timezone;
@@ -132,9 +132,9 @@ update_timezone (GisLocationPage *page)
 static void
 location_changed_cb (CcTimezoneMap   *map,
                      TzLocation      *location,
-                     GisLocationPage *page)
+                     GisTimezonePage *page)
 {
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   g_debug ("location changed to %s/%s", location->country, location->zone);
 
@@ -146,10 +146,10 @@ location_changed_cb (CcTimezoneMap   *map,
 }
 
 static void
-set_location_from_gweather_location (GisLocationPage  *page,
+set_timezone_from_gweather_location (GisTimezonePage  *page,
                                      GWeatherLocation *gloc)
 {
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GWeatherTimezone *zone = gweather_location_get_timezone (gloc);
   gchar *city = gweather_location_get_city_name (gloc);
 
@@ -181,7 +181,7 @@ set_location_from_gweather_location (GisLocationPage  *page,
 }
 
 static void
-location_changed (GObject *object, GParamSpec *param, GisLocationPage *page)
+location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
 {
   GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
   GWeatherLocation *gloc;
@@ -190,7 +190,7 @@ location_changed (GObject *object, GParamSpec *param, GisLocationPage *page)
   if (gloc == NULL)
     return;
 
-  set_location_from_gweather_location (page, gloc);
+  set_timezone_from_gweather_location (page, gloc);
 
   gweather_location_unref (gloc);
 }
@@ -207,7 +207,7 @@ position_callback (GeocluePosition      *pos,
 		   double                altitude,
 		   GeoclueAccuracy      *accuracy,
 		   GError               *error,
-		   GisLocationPage      *page)
+		   GisTimezonePage      *page)
 {
   if (error) {
     g_printerr ("Error getting position: %s\n", error->message);
@@ -216,7 +216,7 @@ position_callback (GeocluePosition      *pos,
     if (fields & GEOCLUE_POSITION_FIELDS_LATITUDE &&
         fields & GEOCLUE_POSITION_FIELDS_LONGITUDE) {
       GWeatherLocation *city = gweather_location_find_nearest_city (latitude, longitude);
-      set_location_from_gweather_location (page, city);
+      set_timezone_from_gweather_location (page, city);
     } else {
       g_print ("Position not available.\n");
     }
@@ -224,8 +224,8 @@ position_callback (GeocluePosition      *pos,
 }
 
 static void
-determine_location (GtkWidget       *widget,
-                    GisLocationPage *page)
+determine_timezone (GtkWidget       *widget,
+                    GisTimezonePage *page)
 {
   GeoclueMaster *master;
   GeoclueMasterClient *client;
@@ -263,20 +263,20 @@ determine_location (GtkWidget       *widget,
 #endif
 
 static void
-gis_location_page_constructed (GObject *object)
+gis_timezone_page_constructed (GObject *object)
 {
-  GisLocationPage *page = GIS_LOCATION_PAGE (object);
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GtkWidget *frame, *map, *entry;
   GWeatherLocation *world;
   GError *error;
   const gchar *timezone;
 
-  G_OBJECT_CLASS (gis_location_page_parent_class)->constructed (object);
+  G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
-  gtk_container_add (GTK_CONTAINER (page), WID ("location-page"));
+  gtk_container_add (GTK_CONTAINER (page), WID ("timezone-page"));
 
-  frame = WID("location-map-frame");
+  frame = WID("timezone-map-frame");
 
   error = NULL;
   priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
@@ -306,7 +306,7 @@ gis_location_page_constructed (GObject *object)
   gtk_widget_set_halign (entry, GTK_ALIGN_FILL);
   gtk_widget_show (entry);
 
-  frame = WID("location-page");
+  frame = WID("timezone-page");
 #if WANT_GEOCLUE
   gtk_grid_attach (GTK_GRID (frame), entry, 1, 1, 1, 1);
 #else
@@ -333,10 +333,10 @@ gis_location_page_constructed (GObject *object)
                     G_CALLBACK (location_changed_cb), page);
 
 #if WANT_GEOCLUE
-  g_signal_connect (WID ("location-auto-button"), "clicked",
-                    G_CALLBACK (determine_location), page);
+  g_signal_connect (WID ("timezone-auto-button"), "clicked",
+                    G_CALLBACK (determine_timezone), page);
 #else
-  gtk_widget_hide (WID ("location-auto-button"));
+  gtk_widget_hide (WID ("timezone-auto-button"));
 #endif
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
@@ -345,46 +345,46 @@ gis_location_page_constructed (GObject *object)
 }
 
 static void
-gis_location_page_dispose (GObject *object)
+gis_timezone_page_dispose (GObject *object)
 {
-  GisLocationPage *page = GIS_LOCATION_PAGE (object);
-  GisLocationPagePrivate *priv = gis_location_page_get_instance_private (page);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   g_clear_object (&priv->dtm);
 
-  G_OBJECT_CLASS (gis_location_page_parent_class)->dispose (object);
+  G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }
 
 static void
-gis_location_page_locale_changed (GisPage *page)
+gis_timezone_page_locale_changed (GisPage *page)
 {
-  gis_page_set_title (GIS_PAGE (page), _("Location"));
+  gis_page_set_title (GIS_PAGE (page), _("Time Zone"));
 }
 
 static void
-gis_location_page_class_init (GisLocationPageClass *klass)
+gis_timezone_page_class_init (GisTimezonePageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   page_class->page_id = PAGE_ID;
-  page_class->locale_changed = gis_location_page_locale_changed;
-  object_class->constructed = gis_location_page_constructed;
-  object_class->dispose = gis_location_page_dispose;
+  page_class->locale_changed = gis_timezone_page_locale_changed;
+  object_class->constructed = gis_timezone_page_constructed;
+  object_class->dispose = gis_timezone_page_dispose;
 }
 
 static void
-gis_location_page_init (GisLocationPage *page)
+gis_timezone_page_init (GisTimezonePage *page)
 {
-  g_resources_register (location_get_resource ());
+  g_resources_register (timezone_get_resource ());
   g_resources_register (datetime_get_resource ());
 }
 
 void
-gis_prepare_location_page (GisDriver *driver)
+gis_prepare_timezone_page (GisDriver *driver)
 {
   gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_LOCATION_PAGE,
+                       g_object_new (GIS_TYPE_TIMEZONE_PAGE,
                                      "driver", driver,
                                      NULL));
 }

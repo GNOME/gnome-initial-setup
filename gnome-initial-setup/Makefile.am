@@ -32,7 +32,7 @@ gnome_initial_setup_LDADD =	\
 	pages/keyboard/libgiskeyboard.la \
 	pages/eulas/libgiseulas.la \
 	pages/network/libgisnetwork.la \
-	pages/location/libgislocation.la \
+	pages/timezone/libgistimezone.la \
 	pages/account/libgisaccount.la \
 	pages/goa/libgisgoa.la \
 	pages/summary/libgissummary.la \
