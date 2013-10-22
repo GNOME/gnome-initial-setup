@@ -25,7 +25,6 @@
 #include "cc-timezone-map.h"
 #include <math.h>
 #include <string.h>
-#include "tz.h"
 
 G_DEFINE_TYPE (CcTimezoneMap, cc_timezone_map, GTK_TYPE_WIDGET)
 
@@ -33,89 +32,19 @@ G_DEFINE_TYPE (CcTimezoneMap, cc_timezone_map, GTK_TYPE_WIDGET)
   (G_TYPE_INSTANCE_GET_PRIVATE ((o), CC_TYPE_TIMEZONE_MAP, CcTimezoneMapPrivate))
 
 #define PIN_HOT_POINT_X 8
-#define PIN_HOT_POINT_Y 14
+#define PIN_HOT_POINT_Y 15
 
 #define DATETIME_RESOURCE_PATH "/org/gnome/control-center/datetime"
-
-typedef struct
-{
-  gdouble offset;
-  guchar red;
-  guchar green;
-  guchar blue;
-  guchar alpha;
-} CcTimezoneMapOffset;
 
 struct _CcTimezoneMapPrivate
 {
   GdkPixbuf *orig_background;
   GdkPixbuf *orig_background_dim;
-  GdkPixbuf *orig_color_map;
 
   GdkPixbuf *background;
-  GdkPixbuf *color_map;
 
-  guchar *visible_map_pixels;
-  gint visible_map_rowstride;
-
-  gdouble selected_offset;
-
-  TzDB *tzdb;
-  TzLocation *location;
+  GWeatherLocation *location;
 };
-
-enum
-{
-  LOCATION_CHANGED,
-  LAST_SIGNAL
-};
-
-static guint signals[LAST_SIGNAL];
-
-
-static CcTimezoneMapOffset color_codes[] =
-{
-    {-11.0, 43, 0, 0, 255 },
-    {-10.0, 85, 0, 0, 255 },
-    {-9.5, 102, 255, 0, 255 },
-    {-9.0, 128, 0, 0, 255 },
-    {-8.0, 170, 0, 0, 255 },
-    {-7.0, 212, 0, 0, 255 },
-    {-6.0, 255, 0, 1, 255 }, // north
-    {-6.0, 255, 0, 0, 255 }, // south
-    {-5.0, 255, 42, 42, 255 },
-    {-4.5, 192, 255, 0, 255 },
-    {-4.0, 255, 85, 85, 255 },
-    {-3.5, 0, 255, 0, 255 },
-    {-3.0, 255, 128, 128, 255 },
-    {-2.0, 255, 170, 170, 255 },
-    {-1.0, 255, 213, 213, 255 },
-    {0.0, 43, 17, 0, 255 },
-    {1.0, 85, 34, 0, 255 },
-    {2.0, 128, 51, 0, 255 },
-    {3.0, 170, 68, 0, 255 },
-    {3.5, 0, 255, 102, 255 },
-    {4.0, 212, 85, 0, 255 },
-    {4.5, 0, 204, 255, 255 },
-    {5.0, 255, 102, 0, 255 },
-    {5.5, 0, 102, 255, 255 },
-    {5.75, 0, 238, 207, 247 },
-    {6.0, 255, 127, 42, 255 },
-    {6.5, 204, 0, 254, 254 },
-    {7.0, 255, 153, 85, 255 },
-    {8.0, 255, 179, 128, 255 },
-    {9.0, 255, 204, 170, 255 },
-    {9.5, 170, 0, 68, 250 },
-    {10.0, 255, 230, 213, 255 },
-    {10.5, 212, 124, 21, 250 },
-    {11.0, 212, 170, 0, 255 },
-    {11.5, 249, 25, 87, 253 },
-    {12.0, 255, 204, 0, 255 },
-    {12.75, 254, 74, 100, 248 },
-    {13.0, 255, 85, 153, 250 },
-    {-100, 0, 0, 0, 0 }
-};
-
 
 static void
 cc_timezone_map_get_property (GObject    *object,
@@ -151,43 +80,13 @@ cc_timezone_map_dispose (GObject *object)
   g_clear_object (&priv->orig_background);
   g_clear_object (&priv->orig_background_dim);
 
-  if (priv->orig_color_map)
-    {
-      g_object_unref (priv->orig_color_map);
-      priv->orig_color_map = NULL;
-    }
-
   if (priv->background)
     {
       g_object_unref (priv->background);
       priv->background = NULL;
     }
 
-  if (priv->color_map)
-    {
-      g_object_unref (priv->color_map);
-      priv->color_map = NULL;
-
-      priv->visible_map_pixels = NULL;
-      priv->visible_map_rowstride = 0;
-    }
-
   G_OBJECT_CLASS (cc_timezone_map_parent_class)->dispose (object);
-}
-
-static void
-cc_timezone_map_finalize (GObject *object)
-{
-  CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (object)->priv;
-
-  if (priv->tzdb)
-    {
-      tz_db_free (priv->tzdb);
-      priv->tzdb = NULL;
-    }
-
-
-  G_OBJECT_CLASS (cc_timezone_map_parent_class)->finalize (object);
 }
 
 /* GtkWidget functions */
@@ -243,51 +142,11 @@ cc_timezone_map_size_allocate (GtkWidget     *widget,
                                               allocation->height,
                                               GDK_INTERP_BILINEAR);
 
-  if (priv->color_map)
-    g_object_unref (priv->color_map);
-
-  priv->color_map = gdk_pixbuf_scale_simple (priv->orig_color_map,
-                                             allocation->width,
-                                             allocation->height,
-                                             GDK_INTERP_BILINEAR);
-
-  priv->visible_map_pixels = gdk_pixbuf_get_pixels (priv->color_map);
-  priv->visible_map_rowstride = gdk_pixbuf_get_rowstride (priv->color_map);
-
-  GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->size_allocate (widget,
-                                                                  allocation);
+  GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->size_allocate (widget, allocation); 
 }
-
-static void
-cc_timezone_map_realize (GtkWidget *widget)
-{
-  GdkWindowAttr attr = { 0, };
-  GtkAllocation allocation;
-  GdkWindow *window;
-
-  gtk_widget_get_allocation (widget, &allocation);
-
-  gtk_widget_set_realized (widget, TRUE);
-
-  attr.window_type = GDK_WINDOW_CHILD;
-  attr.wclass = GDK_INPUT_OUTPUT;
-  attr.width = allocation.width;
-  attr.height = allocation.height;
-  attr.x = allocation.x;
-  attr.y = allocation.y;
-  attr.event_mask = gtk_widget_get_events (widget)
-                                 | GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK;
-
-  window = gdk_window_new (gtk_widget_get_parent_window (widget), &attr,
-                           GDK_WA_X | GDK_WA_Y);
-
-  gdk_window_set_user_data (window, widget);
-  gtk_widget_set_window (widget, window);
-}
-
 
 static gdouble
-convert_longtitude_to_x (gdouble longitude, gint map_width)
+convert_longitude_to_x (gdouble longitude, gint map_width)
 {
   const gdouble xdeg_offset = -6;
   gdouble x;
@@ -322,123 +181,104 @@ convert_latitude_to_y (gdouble latitude, gdouble map_height)
   return y;
 }
 
+static void
+draw_hilight (CcTimezoneMap *map,
+              cairo_t       *cr)
+{
+  GtkWidget *widget = GTK_WIDGET (map);
+  CcTimezoneMapPrivate *priv = map->priv;
+  const char *fmt;
+  GWeatherTimezone *zone;
+  double selected_offset;
+  GdkPixbuf *hilight, *orig_hilight;
+  GtkAllocation alloc;
+  char *file;
+  GError *err = NULL;
+
+  if (!priv->location)
+    return;
+
+  gtk_widget_get_allocation (widget, &alloc);
+
+  /* paint hilight */
+  if (gtk_widget_is_sensitive (widget))
+    fmt = DATETIME_RESOURCE_PATH "/timezone_%g.png";
+  else
+    fmt = DATETIME_RESOURCE_PATH "/timezone_%g_dim.png";
+
+  zone = gweather_location_get_timezone (priv->location);
+
+  /* XXX: Do we need to do anything for DST? I don't think so... */
+  selected_offset = gweather_timezone_get_offset (zone) / 60.0;
+
+  file = g_strdup_printf (fmt, selected_offset);
+  orig_hilight = gdk_pixbuf_new_from_resource (file, &err);
+  g_free (file);
+  file = NULL;
+
+  hilight = gdk_pixbuf_scale_simple (orig_hilight, alloc.width, alloc.height, GDK_INTERP_BILINEAR);
+  gdk_cairo_set_source_pixbuf (cr, hilight, 0, 0);
+
+  cairo_paint (cr);
+  g_object_unref (hilight);
+  g_object_unref (orig_hilight);
+
+  g_clear_error (&err);
+}
+
+static void
+draw_pin (CcTimezoneMap *map,
+          cairo_t       *cr)
+{
+  GtkWidget *widget = GTK_WIDGET (map);
+  CcTimezoneMapPrivate *priv = map->priv;
+  GdkPixbuf *pin;
+  GtkAllocation alloc;
+  GError *err = NULL;
+  double longitude, latitude;
+  double pointx, pointy;
+
+  gtk_widget_get_allocation (widget, &alloc);
+
+  if (!priv->location)
+    return;
+
+  if (!gweather_location_has_coords (priv->location))
+    return;
+
+  /* load pin icon */
+  pin = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/pin.png", &err);
+
+  gweather_location_get_coords (priv->location, &longitude, &latitude);
+
+  pointx = convert_longitude_to_x (longitude, alloc.width);
+  pointy = convert_latitude_to_y (latitude, alloc.height);
+
+  if (pointy > alloc.height)
+    pointy = alloc.height;
+
+  gdk_cairo_set_source_pixbuf (cr, pin, pointx - PIN_HOT_POINT_X, pointy - PIN_HOT_POINT_Y);
+  cairo_paint (cr);
+
+  g_object_unref (pin);
+}
 
 static gboolean
 cc_timezone_map_draw (GtkWidget *widget,
                       cairo_t   *cr)
 {
-  CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (widget)->priv;
-  GdkPixbuf *hilight, *orig_hilight, *pin;
-  GtkAllocation alloc;
-  gchar *file;
-  GError *err = NULL;
-  gdouble pointx, pointy;
-  char buf[16];
-  const char *fmt;
-
-  gtk_widget_get_allocation (widget, &alloc);
+  CcTimezoneMap *map = CC_TIMEZONE_MAP (widget);
+  CcTimezoneMapPrivate *priv = map->priv;
 
   /* paint background */
   gdk_cairo_set_source_pixbuf (cr, priv->background, 0, 0);
   cairo_paint (cr);
 
-  /* paint hilight */
-  if (gtk_widget_is_sensitive (widget))
-    fmt = DATETIME_RESOURCE_PATH "/timezone_%s.png";
-  else
-    fmt = DATETIME_RESOURCE_PATH "/timezone_%s_dim.png";
-
-  file = g_strdup_printf (fmt,
-                          g_ascii_formatd (buf, sizeof (buf),
-                                           "%g", priv->selected_offset));
-  orig_hilight = gdk_pixbuf_new_from_resource (file, &err);
-  g_free (file);
-  file = NULL;
-
-  if (!orig_hilight)
-    {
-      g_warning ("Could not load hilight: %s",
-                 (err) ? err->message : "Unknown Error");
-      if (err)
-        g_clear_error (&err);
-    }
-  else
-    {
-
-      hilight = gdk_pixbuf_scale_simple (orig_hilight, alloc.width,
-                                         alloc.height, GDK_INTERP_BILINEAR);
-      gdk_cairo_set_source_pixbuf (cr, hilight, 0, 0);
-
-      cairo_paint (cr);
-      g_object_unref (hilight);
-      g_object_unref (orig_hilight);
-    }
-
-  /* load pin icon */
-  pin = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/pin.png", &err);
-
-  if (err)
-    {
-      g_warning ("Could not load pin icon: %s", err->message);
-      g_clear_error (&err);
-    }
-
-  if (priv->location)
-    {
-      pointx = convert_longtitude_to_x (priv->location->longitude, alloc.width);
-      pointy = convert_latitude_to_y (priv->location->latitude, alloc.height);
-
-      if (pointy > alloc.height)
-        pointy = alloc.height;
-
-      if (pin)
-        {
-          gdk_cairo_set_source_pixbuf (cr, pin, pointx - PIN_HOT_POINT_X, pointy - PIN_HOT_POINT_Y);
-          cairo_paint (cr);
-        }
-    }
-
-  if (pin)
-    {
-      g_object_unref (pin);
-    }
+  draw_hilight (map, cr);
+  draw_pin (map, cr);
 
   return TRUE;
 }
-
-static void
-update_cursor (GtkWidget *widget)
-{
-  GdkWindow *window;
-  GdkCursor *cursor = NULL;
-
-  if (!gtk_widget_get_realized (widget))
-    return;
-
-  if (gtk_widget_is_sensitive (widget))
-    {
-      GdkDisplay *display;
-      display = gtk_widget_get_display (widget);
-      cursor = gdk_cursor_new_for_display (display, GDK_HAND2);
-    }
-
-  window = gtk_widget_get_window (widget);
-  gdk_window_set_cursor (window, cursor);
-
-  if (cursor)
-    g_object_unref (cursor);
-}
-
-static void
-cc_timezone_map_state_flags_changed (GtkWidget     *widget,
-                                     GtkStateFlags  prev_state)
-{
-  update_cursor (widget);
-
-  if (GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->state_flags_changed)
-    GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->state_flags_changed (widget, prev_state);
-}
-
 
 static void
 cc_timezone_map_class_init (CcTimezoneMapClass *klass)
@@ -451,130 +291,11 @@ cc_timezone_map_class_init (CcTimezoneMapClass *klass)
   object_class->get_property = cc_timezone_map_get_property;
   object_class->set_property = cc_timezone_map_set_property;
   object_class->dispose = cc_timezone_map_dispose;
-  object_class->finalize = cc_timezone_map_finalize;
 
   widget_class->get_preferred_width = cc_timezone_map_get_preferred_width;
   widget_class->get_preferred_height = cc_timezone_map_get_preferred_height;
   widget_class->size_allocate = cc_timezone_map_size_allocate;
-  widget_class->realize = cc_timezone_map_realize;
   widget_class->draw = cc_timezone_map_draw;
-  widget_class->state_flags_changed = cc_timezone_map_state_flags_changed;
-
-  signals[LOCATION_CHANGED] = g_signal_new ("location-changed",
-                                            CC_TYPE_TIMEZONE_MAP,
-                                            G_SIGNAL_RUN_FIRST,
-                                            0,
-                                            NULL,
-                                            NULL,
-                                            g_cclosure_marshal_VOID__POINTER,
-                                            G_TYPE_NONE, 1,
-                                            G_TYPE_POINTER);
-}
-
-
-static gint
-sort_locations (TzLocation *a,
-                TzLocation *b)
-{
-  if (a->dist > b->dist)
-    return 1;
-
-  if (a->dist < b->dist)
-    return -1;
-
-  return 0;
-}
-
-static void
-set_location (CcTimezoneMap *map,
-              TzLocation    *location)
-{
-  CcTimezoneMapPrivate *priv = map->priv;
-  TzInfo *info;
-
-  priv->location = location;
-
-  info = tz_info_from_location (priv->location);
-
-  priv->selected_offset = tz_location_get_utc_offset (priv->location)
-    / (60.0*60.0) + ((info->daylight) ? -1.0 : 0.0);
-
-  g_signal_emit (map, signals[LOCATION_CHANGED], 0, priv->location);
-
-  tz_info_free (info);
-}
-
-static gboolean
-button_press_event (GtkWidget      *widget,
-                    GdkEventButton *event)
-{
-  CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (widget)->priv;
-  gint x, y;
-  guchar r, g, b, a;
-  guchar *pixels;
-  gint rowstride;
-  gint i;
-
-  const GPtrArray *array;
-  gint width, height;
-  GList *distances = NULL;
-  GtkAllocation alloc;
-
-  x = event->x;
-  y = event->y;
-
-
-  rowstride = priv->visible_map_rowstride;
-  pixels = priv->visible_map_pixels;
-
-  r = pixels[(rowstride * y + x * 4)];
-  g = pixels[(rowstride * y + x * 4) + 1];
-  b = pixels[(rowstride * y + x * 4) + 2];
-  a = pixels[(rowstride * y + x * 4) + 3];
-
-
-  for (i = 0; color_codes[i].offset != -100; i++)
-    {
-       if (color_codes[i].red == r && color_codes[i].green == g
-           && color_codes[i].blue == b && color_codes[i].alpha == a)
-         {
-           priv->selected_offset = color_codes[i].offset;
-         }
-    }
-
-  gtk_widget_queue_draw (widget);
-
-  /* work out the co-ordinates */
-
-  array = tz_get_locations (priv->tzdb);
-
-  gtk_widget_get_allocation (widget, &alloc);
-  width = alloc.width;
-  height = alloc.height;
-
-  for (i = 0; i < array->len; i++)
-    {
-      gdouble pointx, pointy, dx, dy;
-      TzLocation *loc = array->pdata[i];
-
-      pointx = convert_longtitude_to_x (loc->longitude, width);
-      pointy = convert_latitude_to_y (loc->latitude, height);
-
-      dx = pointx - x;
-      dy = pointy - y;
-
-      loc->dist = dx * dx + dy * dy;
-      distances = g_list_prepend (distances, loc);
-
-    }
-  distances = g_list_sort (distances, (GCompareFunc) sort_locations);
-
-
-  set_location (CC_TIMEZONE_MAP (widget), (TzLocation*) distances->data);
-
-  g_list_free (distances);
-
-  return TRUE;
 }
 
 static void
@@ -605,19 +326,7 @@ cc_timezone_map_init (CcTimezoneMap *self)
       g_clear_error (&err);
     }
 
-  priv->orig_color_map = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/cc.png",
-                                                       &err);
-  if (!priv->orig_color_map)
-    {
-      g_warning ("Could not load background image: %s",
-                 (err) ? err->message : "Unknown error");
-      g_clear_error (&err);
-    }
-
-  priv->tzdb = tz_load_db ();
-
-  g_signal_connect (self, "button-press-event", G_CALLBACK (button_press_event),
-                    NULL);
+  gtk_widget_set_has_window (GTK_WIDGET (self), FALSE);
 }
 
 CcTimezoneMap *
@@ -626,42 +335,19 @@ cc_timezone_map_new (void)
   return g_object_new (CC_TYPE_TIMEZONE_MAP, NULL);
 }
 
-gboolean
-cc_timezone_map_set_timezone (CcTimezoneMap *map,
-                              const gchar   *timezone)
+void
+cc_timezone_map_set_location (CcTimezoneMap    *map,
+                              GWeatherLocation *location)
 {
-  GPtrArray *locations;
-  guint i;
-  char *real_tz;
-  gboolean ret;
+  CcTimezoneMapPrivate *priv = map->priv;
 
-  real_tz = tz_info_get_clean_name (map->priv->tzdb, timezone);
+  if (priv->location)
+    gweather_location_unref (priv->location);
 
-  locations = tz_get_locations (map->priv->tzdb);
-  ret = FALSE;
+  if (location)
+    priv->location = gweather_location_ref (location);
+  else
+    priv->location = NULL;
 
-  for (i = 0; i < locations->len; i++)
-    {
-      TzLocation *loc = locations->pdata[i];
-
-      if (!g_strcmp0 (loc->zone, real_tz ? real_tz : timezone))
-        {
-          set_location (map, loc);
-          ret = TRUE;
-          break;
-        }
-    }
-
-  if (ret)
-    gtk_widget_queue_draw (GTK_WIDGET (map));
-
-  g_free (real_tz);
-
-  return ret;
-}
-
-TzLocation *
-cc_timezone_map_get_location (CcTimezoneMap *map)
-{
-  return map->priv->location;
+  gtk_widget_queue_draw (GTK_WIDGET (map));
 }

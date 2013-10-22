@@ -37,7 +37,7 @@
 #include <string.h>
 
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
-#include <libgweather/location-entry.h>
+#include <libgweather/gweather.h>
 
 #include "cc-timezone-map.h"
 #include "timedated.h"
@@ -47,7 +47,8 @@
 struct _GisTimezonePagePrivate
 {
   CcTimezoneMap *map;
-  TzLocation *current_location;
+  GWeatherLocation *auto_location;
+  GWeatherLocation *current_location;
   Timedate1 *dtm;
 };
 typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
@@ -78,199 +79,218 @@ set_timezone_cb (GObject      *source,
 
 
 static void
-queue_set_timezone (GisTimezonePage *page)
+queue_set_timezone (GisTimezonePage *page,
+                    const char      *tzid)
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   /* for now just do it */
-  if (priv->current_location) {
-    timedate1_call_set_timezone (priv->dtm,
-                                 priv->current_location->zone,
-                                 TRUE,
-                                 NULL,
-                                 set_timezone_cb,
-                                 page);
-  }
+  timedate1_call_set_timezone (priv->dtm,
+                               tzid,
+                               TRUE,
+                               NULL,
+                               set_timezone_cb,
+                               page);
 }
 
 static void
-update_timezone (GisTimezonePage *page)
-{
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-  GString *str;
-  gchar *location;
-  gchar *timezone;
-  gchar *c;
-
-  str = g_string_new ("");
-  for (c = priv->current_location->zone; *c; c++) {
-    switch (*c) {
-    case '_':
-      g_string_append_c (str, ' ');
-      break;
-    case '/':
-      g_string_append (str, " / ");
-      break;
-    default:
-      g_string_append_c (str, *c);
-    }
-  }
-
-  c = strstr (str->str, " / ");
-  location = g_strdup (c + 3);
-  timezone = g_strdup (str->str);
-
-  gtk_label_set_label (OBJ(GtkLabel*,"current-location-label"), location);
-  gtk_label_set_label (OBJ(GtkLabel*,"current-timezone-label"), timezone);
-
-  g_free (location);
-  g_free (timezone);
-
-  g_string_free (str, TRUE);
-}
-
-static void
-location_changed_cb (CcTimezoneMap   *map,
-                     TzLocation      *location,
-                     GisTimezonePage *page)
+set_location (GisTimezonePage  *page,
+              GWeatherLocation *location)
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
-  g_debug ("location changed to %s/%s", location->country, location->zone);
+  if (priv->current_location)
+    gweather_location_unref (priv->current_location);
 
-  priv->current_location = location;
+  cc_timezone_map_set_location (priv->map, location);
 
-  update_timezone (page);
+  if (location)
+    {
+      GWeatherTimezone *zone;
+      const char *tzid;
 
-  queue_set_timezone (page);
+      priv->current_location = gweather_location_ref (location);
+
+      zone = gweather_location_get_timezone (location);
+      tzid = gweather_timezone_get_tzid (zone);
+
+      queue_set_timezone (page, tzid);
+    }
+}
+
+static char *
+get_location_name (GWeatherLocation *location)
+{
+  GWeatherTimezone *zone = gweather_location_get_timezone (location);
+
+  /* XXX -- do something smarter eventually */
+  return g_strdup_printf ("%s (GMT%+g)",
+                          gweather_location_get_name (location),
+                          gweather_timezone_get_offset (zone) / 60.0);
 }
 
 static void
-set_timezone_from_gweather_location (GisTimezonePage  *page,
-                                     GWeatherLocation *gloc)
+set_auto_location (GisTimezonePage  *page,
+                   GWeatherLocation *location)
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-  GWeatherTimezone *zone = gweather_location_get_timezone (gloc);
-  gchar *city = gweather_location_get_city_name (gloc);
 
-  if (zone != NULL) {
-    const gchar *name;
-    const gchar *id;
-    GtkLabel *label;
+  if (priv->auto_location)
+    gweather_location_unref (priv->auto_location);
 
-    label = OBJ(GtkLabel*, "current-timezone-label");
+  if (location)
+    {
+      char *tzname, *markup;
+      priv->auto_location = gweather_location_ref (location);
 
-    name = gweather_timezone_get_name (zone);
-    id = gweather_timezone_get_tzid (zone);
-    if (name == NULL) {
-      /* Why does this happen ? */
-      name = id;
+      tzname = get_location_name (location);
+      markup = g_strdup_printf (_("We think that your timezone is <b>%s</b>. Press Next to continue"
+                                  " or search for a city to manually set the time zone."),
+                                tzname);
+      gtk_label_set_markup (GTK_LABEL (WID ("timezone-auto-result")), markup);
+      g_free (tzname);
+      g_free (markup);
+   }
+  else
+    {
+      priv->auto_location = NULL;
+
+      /* We have no automatic location; transition to search automatically */
+      gtk_widget_hide (WID ("timezone-search-button"));
+      gtk_widget_hide (WID ("timezone-auto-result"));
     }
-    gtk_label_set_label (label, name);
-    cc_timezone_map_set_timezone (priv->map, id);
-  }
 
-  if (city != NULL) {
-    GtkLabel *label;
-
-    label = OBJ(GtkLabel*, "current-location-label");
-    gtk_label_set_label (label, city);
-  }
-
-  g_free (city);
+  gtk_widget_show (WID ("timezone-stack"));
 }
 
 static void
-location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
+get_location_from_geoclue (GisTimezonePage *page)
 {
-  GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
-  GWeatherLocation *gloc;
+  GDBusProxy *manager, *client, *location;
+  GVariant *value;
+  const char *object_path;
+  double latitude, longitude;
+  GWeatherLocation *glocation = NULL;
 
-  gloc = gweather_location_entry_get_location (entry);
-  if (gloc == NULL)
-    return;
-
-  set_timezone_from_gweather_location (page, gloc);
-
-  gweather_location_unref (gloc);
-}
-
-#define WANT_GEOCLUE 0
-
-#if WANT_GEOCLUE
-static void
-position_callback (GeocluePosition      *pos,
-		   GeocluePositionFields fields,
-		   int                   timestamp,
-		   double                latitude,
-		   double                longitude,
-		   double                altitude,
-		   GeoclueAccuracy      *accuracy,
-		   GError               *error,
-		   GisTimezonePage      *page)
-{
-  if (error) {
-    g_printerr ("Error getting position: %s\n", error->message);
-    g_error_free (error);
-  } else {
-    if (fields & GEOCLUE_POSITION_FIELDS_LATITUDE &&
-        fields & GEOCLUE_POSITION_FIELDS_LONGITUDE) {
-      GWeatherLocation *city = gweather_location_find_nearest_city (latitude, longitude);
-      set_timezone_from_gweather_location (page, city);
-    } else {
-      g_print ("Position not available.\n");
-    }
-  }
-}
-
-static void
-determine_timezone (GtkWidget       *widget,
-                    GisTimezonePage *page)
-{
-  GeoclueMaster *master;
-  GeoclueMasterClient *client;
-  GeocluePosition *position = NULL;
-  GError *error = NULL;
-
-  master = geoclue_master_get_default ();
-  client = geoclue_master_create_client (master, NULL, NULL);
-  g_object_unref (master);
-
-  if (!geoclue_master_client_set_requirements (client, 
-                                               GEOCLUE_ACCURACY_LEVEL_LOCALITY,
-                                               0, TRUE,
-                                               GEOCLUE_RESOURCE_ALL,
-                                               NULL)){
-    g_printerr ("Setting requirements failed");
+  manager = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                           G_DBUS_PROXY_FLAGS_NONE,
+                                           NULL,
+                                           "org.freedesktop.GeoClue2",
+                                           "/org/freedesktop/GeoClue2/Manager",
+                                           "org.freedesktop.GeoClue2.Manager",
+                                           NULL, NULL);
+  if (!manager)
     goto out;
-  }
 
-  position = geoclue_master_client_create_position (client, &error);
-  if (position == NULL) {
-    g_warning ("Creating GeocluePosition failed: %s", error->message);
+  value = g_dbus_proxy_call_sync (manager, "GetClient", NULL,
+                                  G_DBUS_CALL_FLAGS_NONE, -1,
+                                  NULL, NULL);
+  g_variant_get_child (value, 0, "&o", &object_path);
+
+  client = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                          G_DBUS_PROXY_FLAGS_NONE,
+                                          NULL,
+                                          "org.freedesktop.GeoClue2",
+                                          object_path,
+                                          "org.freedesktop.GeoClue2.Client",
+                                          NULL, NULL);
+  g_variant_unref (value);
+
+  if (!client)
     goto out;
-  }
 
-  geoclue_position_get_position_async (position,
-                                       (GeocluePositionCallback) position_callback,
-                                       page);
+  value = g_dbus_proxy_get_cached_property (client, "Location");
+  object_path = g_variant_get_string (value, NULL);
+
+  location = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                            G_DBUS_PROXY_FLAGS_NONE,
+                                            NULL,
+                                            "org.freedesktop.GeoClue2",
+                                            object_path,
+                                            "org.freedesktop.GeoClue2.Location",
+                                            NULL, NULL);
+  g_variant_unref (value);
+
+  if (!location)
+    goto out;
+
+  value = g_dbus_proxy_get_cached_property (location, "Latitude");
+
+  /* this happens under some circumstances, iunno why. needs zeenix */
+  if (!value)
+    goto out;
+
+  latitude = g_variant_get_double (value);
+  g_variant_unref (value);
+  value = g_dbus_proxy_get_cached_property (location, "Longitude");
+  longitude = g_variant_get_double (value);
+  g_variant_unref (value);
+
+  glocation = gweather_location_find_nearest_city (latitude, longitude);
 
  out:
-  g_clear_error (&error);
-  g_object_unref (client);
-  g_object_unref (position);
+  set_auto_location (page, glocation);
+  set_location (page, glocation);
+  if (glocation)
+    gweather_location_unref (glocation);
+
+  if (manager)
+    g_object_unref (manager);
+  if (client)
+    g_object_unref (client);
+  if (location)
+    g_object_unref (location);
 }
-#endif
+
+static void
+entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
+{
+  GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
+  GWeatherLocation *location;
+
+  location = gweather_location_entry_get_location (entry);
+  if (!location)
+    return;
+
+  set_location (page, location);
+}
+
+static void
+entry_mapped (GtkWidget *widget,
+              gpointer   user_data)
+{
+  gtk_widget_grab_focus (widget);
+}
+
+static void
+visible_child_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
+{
+  /* xxx -- text bubble */
+  /*
+  GtkWidget *child = gtk_stack_get_visible_child (GTK_STACK (WID ("timezone-stack")));
+
+  if (child == WID ("timezone-search")) {
+  }
+  */
+}
+
+static void
+search_button_toggled (GtkToggleButton *button,
+                       GisTimezonePage *page)
+{
+  gboolean want_search = gtk_toggle_button_get_active (button);
+
+  gtk_stack_set_visible_child_name (GTK_STACK (WID ("timezone-stack")),
+                                    want_search ? "search" : "status");
+}
 
 static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-  GtkWidget *frame, *map, *entry;
-  GWeatherLocation *world;
+  GtkWidget *frame, *map;
   GError *error;
-  const gchar *timezone;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
@@ -300,44 +320,18 @@ gis_timezone_page_constructed (GObject *object)
 
   gtk_container_add (GTK_CONTAINER (frame), map);
 
-  world = gweather_location_new_world (TRUE);
-  entry = gweather_location_entry_new (world);
-  gtk_entry_set_placeholder_text (GTK_ENTRY (entry), _("Search for a location"));
-  gtk_widget_set_halign (entry, GTK_ALIGN_FILL);
-  gtk_widget_show (entry);
-
   frame = WID("timezone-page");
-#if WANT_GEOCLUE
-  gtk_grid_attach (GTK_GRID (frame), entry, 1, 1, 1, 1);
-#else
-  gtk_grid_attach (GTK_GRID (frame), entry, 0, 1, 2, 1);
-#endif
 
-  timezone = timedate1_get_timezone (priv->dtm);
+  get_location_from_geoclue (page);
 
-  if (!cc_timezone_map_set_timezone (priv->map, timezone)) {
-    g_warning ("Timezone '%s' is unhandled, setting %s as default", timezone, DEFAULT_TZ);
-    cc_timezone_map_set_timezone (priv->map, DEFAULT_TZ);
-  }
-  else {
-    g_debug ("System timezone is '%s'", timezone);
-  }
-
-  priv->current_location = cc_timezone_map_get_location (priv->map);
-  update_timezone (page);
-
-  g_signal_connect (G_OBJECT (entry), "notify::location",
-                    G_CALLBACK (location_changed), page);
-
-  g_signal_connect (map, "location-changed",
-                    G_CALLBACK (location_changed_cb), page);
-
-#if WANT_GEOCLUE
-  g_signal_connect (WID ("timezone-auto-button"), "clicked",
-                    G_CALLBACK (determine_timezone), page);
-#else
-  gtk_widget_hide (WID ("timezone-auto-button"));
-#endif
+  g_signal_connect (WID ("timezone-search"), "notify::location",
+                    G_CALLBACK (entry_location_changed), page);
+  g_signal_connect (WID ("timezone-search"), "map",
+                    G_CALLBACK (entry_mapped), page);
+  g_signal_connect (WID ("timezone-stack"), "notify::visible-child",
+                    G_CALLBACK (visible_child_changed), page);
+  g_signal_connect (WID ("timezone-search-button"), "toggled",
+                    G_CALLBACK (search_button_toggled), page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 

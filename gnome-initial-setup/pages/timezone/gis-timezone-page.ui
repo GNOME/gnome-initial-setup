@@ -1,125 +1,110 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Tue Oct 22 19:34:41 2013 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
-  <object class="GtkGrid" id="timezone-page">
-    <property name="name">timezone-page</property>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkBox" id="timezone-page">
     <property name="visible">True</property>
-    <property name="halign">center</property>
-    <property name="valign">start</property>
-    <property name="hexpand">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkLabel" id="timezone-title">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Time Zone</property>
-        <property name="hexpand">False</property>
-        <property name="halign">start</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
         <property name="valign">start</property>
-        <property name="margin-bottom">18</property>
+        <property name="margin_bottom">18</property>
+        <property name="label" translatable="yes">Time Zone</property>
         <attributes>
           <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="1.2"/>
+          <attribute name="scale" value="1.6"/>
         </attributes>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-        <property name="width">2</property>
-        <property name="height">1</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="timezone-auto-button">
+      <object class="GtkBox" id="timezone-status-box">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">_Determine your timezone automatically</property>
-        <property name="use_underline">True</property>
-        <property name="halign">start</property>
-        <property name="margin-right">24</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">8</property>
+        <child>
+          <object class="GtkStack" id="timezone-stack">
+            <property name="transition-type">crossfade</property>
+            <child>
+              <object class="GtkLabel" id="timezone-auto-result">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="xalign">0</property>
+                <property name="wrap">True</property>
+              </object>
+              <packing>
+                <property name="name">status</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GWeatherLocationEntry" id="timezone-search">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+              </object>
+              <packing>
+                <property name="name">search</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="timezone-search-button">
+            <property name="width_request">32</property>
+            <property name="height_request">32</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <child>
+              <object class="GtkImage" id="image1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="pixel_size">16</property>
+                <property name="icon_name">edit-find-symbolic</property>
+                <property name="icon_size">0</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-        <property name="width">1</property>
-        <property name="height">1</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
       </packing>
     </child>
     <child>
       <object class="GtkFrame" id="timezone-map-frame">
         <property name="visible">True</property>
-        <property name="halign">fill</property>
-        <property name="valign">fill</property>
+        <property name="can_focus">False</property>
+        <property name="margin_top">6</property>
+        <property name="margin_bottom">6</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="margin-top">6</property>
-        <property name="margin-bottom">6</property>
+        <property name="label_xalign">0</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-        <property name="width">2</property>
-        <property name="height">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkGrid" id="timezone-info-grid">
-        <property name="visible">True</property>
-        <property name="halign">start</property>
-        <property name="valign">start</property>
-        <property name="row-spacing">6</property>
-        <property name="column-spacing">6</property>
-        <child>
-          <object class="GtkLabel" id="location-label">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Location</property>
-            <property name="halign">end</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="current-location-label">
-            <property name="visible">True</property>
-            <property name="label">Boston, MA</property>
-            <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="timezone-label">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Time Zone</property>
-            <property name="halign">end</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="current-timezone-label">
-            <property name="visible">True</property>
-            <property name="label">America / New York</property>
-            <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
       </packing>
     </child>
   </object>

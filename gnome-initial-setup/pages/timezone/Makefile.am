@@ -29,7 +29,6 @@ timezone-resources.h: timezone.gresource.xml $(resource_files_timezone)
 BUILT_SOURCES += timezone-resources.c timezone-resources.h
 
 libgistimezone_la_SOURCES =	\
-	tz.c tz.h \
 	cc-timezone-map.c cc-timezone-map.h \
 	gis-timezone-page.c gis-timezone-page.h \
 	$(BUILT_SOURCES)
