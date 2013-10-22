@@ -4,7 +4,7 @@ SUBDIRS = \
 	keyboard \
 	eulas \
 	network \
-	account \
 	timezone \
 	goa \
+	account \
 	summary

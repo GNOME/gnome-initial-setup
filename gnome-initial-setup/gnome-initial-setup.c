@@ -69,9 +69,9 @@ static PageData page_table[] = {
   PAGE (keyboard),
   PAGE (eula),
   PAGE (network),
-  PAGE (account),
   PAGE (timezone),
   PAGE (goa),
+  PAGE (account),
   PAGE (summary),
   { NULL },
 };
