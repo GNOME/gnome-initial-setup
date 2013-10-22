@@ -97,8 +97,8 @@ prepare_main_window (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkGeometry size_hints;
 
-  size_hints.min_width = 680;
-  size_hints.min_height = 440;
+  size_hints.min_width = 1024;
+  size_hints.min_height = 768;
   size_hints.win_gravity = GDK_GRAVITY_CENTER;
 
   gtk_window_set_geometry_hints (priv->main_window,
