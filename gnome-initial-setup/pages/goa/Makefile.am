@@ -11,7 +11,6 @@ goa-resources.h: goa.gresource.xml $(resource_files)
 BUILT_SOURCES += goa-resources.c goa-resources.h
 
 libgisgoa_la_SOURCES =	\
-	cc-online-accounts-add-account-dialog.c cc-online-accounts-add-account-dialog.h \
 	gis-goa-page.c gis-goa-page.h	\
 	$(BUILT_SOURCES)
 

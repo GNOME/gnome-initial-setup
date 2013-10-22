@@ -34,8 +34,6 @@
 #define GOA_BACKEND_API_IS_SUBJECT_TO_CHANGE
 #include <goabackend/goabackend.h>
 
-#include "cc-online-accounts-add-account-dialog.h"
-
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
