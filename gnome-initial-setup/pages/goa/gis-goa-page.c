@@ -228,6 +228,7 @@ sync_accounts (GisGoaPage *page)
   g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
 
   sync_visibility (page);
+  gis_page_set_skippable (GIS_PAGE (page), !priv->accounts_exist);
 }
 
 static void
@@ -317,7 +318,7 @@ gis_goa_page_constructed (GObject *object)
   populate_provider_list (page);
   sync_accounts (page);
 
-  gis_page_set_complete (GIS_PAGE (page), TRUE);
+  gis_page_set_skippable (GIS_PAGE (page), TRUE);
 }
 
 static void

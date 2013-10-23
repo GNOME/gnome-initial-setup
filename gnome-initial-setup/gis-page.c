@@ -37,6 +37,7 @@ struct _GisPagePrivate
   gpointer apply_data;
 
   guint complete : 1;
+  guint skippable : 1;
   guint padding : 6;
 };
 typedef struct _GisPagePrivate GisPagePrivate;
@@ -49,6 +50,7 @@ enum
   PROP_DRIVER,
   PROP_TITLE,
   PROP_COMPLETE,
+  PROP_SKIPPABLE,
   PROP_APPLYING,
   PROP_LAST,
 };
@@ -74,6 +76,9 @@ gis_page_get_property (GObject    *object,
     case PROP_COMPLETE:
       g_value_set_boolean (value, priv->complete);
       break;
+    case PROP_SKIPPABLE:
+      g_value_set_boolean (value, priv->skippable);
+      break;
     case PROP_APPLYING:
       g_value_set_boolean (value, gis_page_get_applying (page));
       break;
@@ -98,6 +103,9 @@ gis_page_set_property (GObject      *object,
       break;
     case PROP_TITLE:
       gis_page_set_title (page, (char *) g_value_get_string (value));
+      break;
+    case PROP_SKIPPABLE:
+      priv->skippable = g_value_get_boolean (value);
       break;
     case PROP_COMPLETE:
       priv->complete = g_value_get_boolean (value);
@@ -213,6 +221,9 @@ gis_page_class_init (GisPageClass *klass)
   obj_props[PROP_COMPLETE] =
     g_param_spec_boolean ("complete", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
+  obj_props[PROP_SKIPPABLE] =
+    g_param_spec_boolean ("skippable", "", "", FALSE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
   obj_props[PROP_APPLYING] =
     g_param_spec_boolean ("applying", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
@@ -257,6 +268,21 @@ gis_page_set_complete (GisPage *page, gboolean complete)
   GisPagePrivate *priv = gis_page_get_instance_private (page);
   priv->complete = complete;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_COMPLETE]);
+}
+
+gboolean
+gis_page_get_skippable (GisPage *page)
+{
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  return priv->skippable;
+}
+
+void
+gis_page_set_skippable (GisPage *page, gboolean skippable)
+{
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  priv->skippable = skippable;
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_SKIPPABLE]);
 }
 
 void

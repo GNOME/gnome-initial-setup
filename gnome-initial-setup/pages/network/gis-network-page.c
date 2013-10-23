@@ -516,6 +516,22 @@ active_connections_changed (NMClient *client, GParamSpec *pspec, GisNetworkPage 
 }
 
 static void
+sync_complete (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+  gboolean activated;
+
+  activated = (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED);
+  gis_page_set_complete (GIS_PAGE (page), activated);
+}
+
+static void
+device_state_changed (GObject *object, GParamSpec *param, GisNetworkPage *page)
+{
+  sync_complete (page);
+}
+
+static void
 gis_network_page_constructed (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
@@ -559,6 +575,8 @@ gis_network_page_constructed (GObject *object)
   visible = TRUE;
   priv->nm_settings = nm_remote_settings_new (NULL);
 
+  g_signal_connect (priv->nm_device, "notify::state",
+                    G_CALLBACK (device_state_changed), page);
   g_signal_connect (priv->nm_client, "notify::active-connections",
                     G_CALLBACK (active_connections_changed), page);
 
@@ -572,8 +590,9 @@ gis_network_page_constructed (GObject *object)
                     G_CALLBACK (row_activated), page);
 
   refresh_wireless_list (page);
+  sync_complete (page);
 
-  gis_page_set_complete (GIS_PAGE (page), TRUE);
+  gis_page_set_skippable (GIS_PAGE (page), TRUE);
 
  out:
   gtk_widget_set_visible (GTK_WIDGET (page), visible);
