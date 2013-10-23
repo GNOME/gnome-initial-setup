@@ -144,7 +144,7 @@ set_auto_location (GisTimezonePage  *page,
       priv->auto_location = gweather_location_ref (location);
 
       tzname = get_location_name (location);
-      markup = g_strdup_printf (_("We think that your timezone is <b>%s</b>. Press Next to continue"
+      markup = g_strdup_printf (_("We think that your time zone is <b>%s</b>. Press Next to continue"
                                   " or search for a city to manually set the time zone."),
                                 tzname);
       gtk_label_set_markup (GTK_LABEL (WID ("timezone-auto-result")), markup);
