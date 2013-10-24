@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-30 18:03+0000\n"
-"PO-Revision-Date: 2013-08-30 22:41+0100\n"
+"POT-Creation-Date: 2013-10-23 15:58+0000\n"
+"PO-Revision-Date: 2013-10-24 20:37+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -23,28 +23,30 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Začetna nastavitev"
 
-#: ../gnome-initial-setup/gis-assistant.c:418
+#: ../gnome-initial-setup/gis-assistant.c:413
 msgid "_Next"
 msgstr "_Naprej"
 
-#: ../gnome-initial-setup/gis-assistant.c:419
+#: ../gnome-initial-setup/gis-assistant.c:414
+msgid "_Skip"
+msgstr "Pre_skoči"
+
+#: ../gnome-initial-setup/gis-assistant.c:415
 msgid "_Previous"
 msgstr "_Predhodni"
 
-#: ../gnome-initial-setup/gis-assistant.c:420
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:416
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "Vsili nov uporabniški način"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+msgid "Force exisitng user mode"
+msgstr "Vsili obstoječi uporabniški način"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:198
 msgid "- GNOME initial setup"
 msgstr "-  začetna nastavitev GNOME"
 
@@ -78,7 +80,7 @@ msgstr "Pridruževanje domeni je spodletelo"
 msgid "Failed to log into domain"
 msgstr "Prijava v domeno je spodletela"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1201
 msgid "Login"
 msgstr "Prijava"
 
@@ -255,102 +257,64 @@ msgid ""
 "agreement."
 msgstr "_Strinjam se s pogoji in določili dovoljenja uporabe."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Ostalo"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
 msgid "Add Account"
 msgstr "Dodaj račun"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "Pošta"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:93
+msgid "Cancel"
+msgstr "Prekliči"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Stiki"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Klepet"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Viri"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "Napaka med ustvarjanjem računa"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "Napaka med odstranjevanjem računa"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "Ali ste prepričani, da želite izbrisati račun?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "S tem dejanjem račun s strežnika ne bo odstranjen."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "_Odstrani"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:341
 msgid "Online Accounts"
 msgstr "Spletni računi"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Poveži z obstoječim podatkovnim oblakom"
+msgid "Connect Your Online Accounts"
+msgstr "Povezava z spletnih računov"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"Z dodajanjem računov je omogočen odkrit dostop programa do dokumentov, "
-"pošte, stik, koledarjev, klepeta in drugega."
+"Z dodajanjem računov je omogočen enostaven in hiter dostop do dokumentov, "
+"pošte, stikov, koledarjev, klepeta, fotografij in drugega."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "_Dodaj račun"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:183
 msgid "More…"
 msgstr "Več ..."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:184
 msgid "No input sources found"
 msgstr "Ni mogoče najti vhodnih virov"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1013
 msgid "Other"
 msgstr "Ostalo"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "Vhodni viri"
+msgid "Typing"
+msgstr "Tipkanje"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:470
+msgid "No input source selected"
+msgstr "Ni zaznanega vhodnega vira"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "Izbor razporedov tipkovnice"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr "Nastavitve prijave so skupne vsem uporabnikom sistema"
+msgid "Add keyboard layouts or other input methods"
+msgstr ""
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
 msgstr "Dodaj vhodni vir"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:200
 msgid "No languages found"
 msgstr "Ni najdenih jezikov"
 
@@ -358,51 +322,41 @@ msgstr "Ni najdenih jezikov"
 msgid "Welcome"
 msgstr "Dobrodošli"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Iskanje mesta"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:147
+#, c-format
+msgid ""
+"We think that your time zone is <b>%s</b>. Press Next to continue or search "
+"for a city to manually set the time zone."
+msgstr ""
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Mesto"
-
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:355
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Izbor mesta"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "_Mesto določi samodejno"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
 msgid "Time Zone"
 msgstr "Časovni pas"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Drugo ..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "Omrežje ni na voljo."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "Ni mogoče najti nobene omrežne naprave."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:365
 msgid "Checking for available wireless networks"
 msgstr "Preveri za dostopne brezžične omrežne povezave"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:618
 msgid "Network"
 msgstr "Omrežje"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Brezžična omrežja"
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
 #, c-format
@@ -414,18 +368,87 @@ msgid "Thank You"
 msgstr "Hvala!"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Računalnik je pripravljen za uporabo!"
+msgid "That's it!"
+msgstr "To je to!"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr ""
-"Katerokoli izmed teh možnosti je mogoče spreminjati tudi kasneje med "
-"nastavitvami."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Želim začeti uporabljati GNOME 3"
+
+#~ msgctxt "Online Account"
+#~ msgid "Other"
+#~ msgstr "Ostalo"
+
+#~ msgid "Mail"
+#~ msgstr "Pošta"
+
+#~ msgid "Contacts"
+#~ msgstr "Stiki"
+
+#~ msgid "Chat"
+#~ msgstr "Klepet"
+
+#~ msgid "Resources"
+#~ msgstr "Viri"
+
+#~ msgid "Error creating account"
+#~ msgstr "Napaka med ustvarjanjem računa"
+
+#~ msgid "Error removing account"
+#~ msgstr "Napaka med odstranjevanjem računa"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "Ali ste prepričani, da želite izbrisati račun?"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "S tem dejanjem račun s strežnika ne bo odstranjen."
+
+#~ msgid "_Remove"
+#~ msgstr "_Odstrani"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "Poveži z obstoječim podatkovnim oblakom"
+
+#~ msgid "_Add Account"
+#~ msgstr "_Dodaj račun"
+
+#~ msgid "Input Sources"
+#~ msgstr "Vhodni viri"
+
+#~ msgid "Select keyboard layouts"
+#~ msgstr "Izbor razporedov tipkovnice"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr "Nastavitve prijave so skupne vsem uporabnikom sistema"
+
+#~ msgid "Search for a location"
+#~ msgstr "Iskanje mesta"
+
+#~ msgid "Location"
+#~ msgstr "Mesto"
+
+#~ msgid "Choose Your Location"
+#~ msgstr "Izbor mesta"
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "_Mesto določi samodejno"
+
+#~ msgid "Network is not available."
+#~ msgstr "Omrežje ni na voljo."
+
+#~ msgid "No network devices found."
+#~ msgstr "Ni mogoče najti nobene omrežne naprave."
+
+#~ msgid "Wireless Networks"
+#~ msgstr "Brezžična omrežja"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "Računalnik je pripravljen za uporabo!"
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr ""
+#~ "Katerokoli izmed teh možnosti je mogoče spreminjati tudi kasneje med "
+#~ "nastavitvami."
 
 #~ msgid "_Back"
 #~ msgstr "Na_zaj"
@@ -438,9 +461,6 @@ msgstr "_Želim začeti uporabljati GNOME 3"
 
 #~ msgid "Input methods can't be used on the login screen"
 #~ msgstr "Vhodnih načinov ni mogoče uporabiti na prijavnem oknu"
-
-#~ msgid "No input source selected"
-#~ msgstr "Ni zaznanega vhodnega vira"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "Za uveljavitev sprememb je treba sejo ponovno zagnati."
