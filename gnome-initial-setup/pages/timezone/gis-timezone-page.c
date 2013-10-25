@@ -226,7 +226,7 @@ get_location_from_geoclue (GisTimezonePage *page)
   longitude = g_variant_get_double (value);
   g_variant_unref (value);
 
-  glocation = gweather_location_find_nearest_city (latitude, longitude);
+  glocation = gweather_location_find_nearest_city (NULL, latitude, longitude);
 
  out:
   set_auto_location (page, glocation);
