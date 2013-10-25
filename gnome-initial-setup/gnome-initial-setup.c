@@ -191,7 +191,7 @@ main (int argc, char *argv[])
 
   GOptionEntry entries[] = {
     { "existing-user", 0, 0, G_OPTION_ARG_NONE, &force_existing_user_mode,
-      _("Force exisitng user mode"), NULL },
+      _("Force existing user mode"), NULL },
     { NULL }
   };
 
