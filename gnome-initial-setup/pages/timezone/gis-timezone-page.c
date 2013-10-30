@@ -46,7 +46,7 @@
 
 struct _GisTimezonePagePrivate
 {
-  CcTimezoneMap *map;
+  GtkWidget *map;
   GWeatherLocation *auto_location;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
@@ -102,7 +102,7 @@ set_location (GisTimezonePage  *page,
   if (priv->current_location)
     gweather_location_unref (priv->current_location);
 
-  cc_timezone_map_set_location (priv->map, location);
+  cc_timezone_map_set_location (CC_TIMEZONE_MAP (priv->map), location);
 
   if (location)
     {
@@ -292,14 +292,11 @@ gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-  GtkWidget *frame, *map;
   GError *error;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
   gtk_container_add (GTK_CONTAINER (page), WID ("timezone-page"));
-
-  frame = WID("timezone-map-frame");
 
   error = NULL;
   priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
@@ -313,17 +310,7 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
-  priv->map = cc_timezone_map_new ();
-  map = GTK_WIDGET (priv->map);
-  gtk_widget_set_hexpand (map, TRUE);
-  gtk_widget_set_vexpand (map, TRUE);
-  gtk_widget_set_halign (map, GTK_ALIGN_FILL);
-  gtk_widget_set_valign (map, GTK_ALIGN_FILL);
-  gtk_widget_show (map);
-
-  gtk_container_add (GTK_CONTAINER (frame), map);
-
-  frame = WID("timezone-page");
+  priv->map = WID("timezone-map");
 
   get_location_from_geoclue (page);
 
@@ -375,6 +362,7 @@ gis_timezone_page_init (GisTimezonePage *page)
 {
   g_resources_register (timezone_get_resource ());
   g_resources_register (datetime_get_resource ());
+  g_type_ensure (CC_TYPE_TIMEZONE_MAP);
 }
 
 void
