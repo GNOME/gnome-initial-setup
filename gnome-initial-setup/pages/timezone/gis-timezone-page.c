@@ -47,6 +47,11 @@
 struct _GisTimezonePagePrivate
 {
   GtkWidget *map;
+  GtkWidget *stack;
+  GtkWidget *auto_result;
+  GtkWidget *search_button;
+  GtkWidget *search_entry;
+
   GWeatherLocation *auto_location;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
@@ -54,9 +59,6 @@ struct _GisTimezonePagePrivate
 typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
-
-#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (page)->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
 
 static void
 set_timezone_cb (GObject      *source,
@@ -147,7 +149,7 @@ set_auto_location (GisTimezonePage  *page,
       markup = g_strdup_printf (_("We think that your time zone is <b>%s</b>. Press Next to continue"
                                   " or search for a city to manually set the time zone."),
                                 tzname);
-      gtk_label_set_markup (GTK_LABEL (WID ("timezone-auto-result")), markup);
+      gtk_label_set_markup (GTK_LABEL (priv->auto_result), markup);
       g_free (tzname);
       g_free (markup);
    }
@@ -156,11 +158,11 @@ set_auto_location (GisTimezonePage  *page,
       priv->auto_location = NULL;
 
       /* We have no automatic location; transition to search automatically */
-      gtk_widget_hide (WID ("timezone-search-button"));
-      gtk_widget_hide (WID ("timezone-auto-result"));
+      gtk_widget_hide (priv->search_button);
+      gtk_widget_hide (priv->auto_result);
     }
 
-  gtk_widget_show (WID ("timezone-stack"));
+  gtk_widget_show (priv->stack);
 }
 
 static void
@@ -281,9 +283,10 @@ static void
 search_button_toggled (GtkToggleButton *button,
                        GisTimezonePage *page)
 {
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   gboolean want_search = gtk_toggle_button_get_active (button);
 
-  gtk_stack_set_visible_child_name (GTK_STACK (WID ("timezone-stack")),
+  gtk_stack_set_visible_child_name (GTK_STACK (priv->stack),
                                     want_search ? "search" : "status");
 }
 
@@ -295,8 +298,6 @@ gis_timezone_page_constructed (GObject *object)
   GError *error;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
-
-  gtk_container_add (GTK_CONTAINER (page), WID ("timezone-page"));
 
   error = NULL;
   priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
@@ -310,17 +311,15 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
-  priv->map = WID("timezone-map");
-
   get_location_from_geoclue (page);
 
-  g_signal_connect (WID ("timezone-search"), "notify::location",
+  g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
-  g_signal_connect (WID ("timezone-search"), "map",
+  g_signal_connect (priv->search_entry, "map",
                     G_CALLBACK (entry_mapped), page);
-  g_signal_connect (WID ("timezone-stack"), "notify::visible-child",
+  g_signal_connect (priv->stack, "notify::visible-child",
                     G_CALLBACK (visible_child_changed), page);
-  g_signal_connect (WID ("timezone-search-button"), "toggled",
+  g_signal_connect (priv->search_button, "toggled",
                     G_CALLBACK (search_button_toggled), page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
@@ -345,14 +344,30 @@ gis_timezone_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Time Zone"));
 }
 
+static GtkBuilder *
+gis_timezone_page_get_builder (GisPage *page)
+{
+  /* handled by widget templates */
+  return NULL;
+}
+
 static void
 gis_timezone_page_class_init (GisTimezonePageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-timezone-page.ui");
+
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, map);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, stack);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, auto_result);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_button);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_entry);
+
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
+  page_class->get_builder = gis_timezone_page_get_builder;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
 }
@@ -363,6 +378,8 @@ gis_timezone_page_init (GisTimezonePage *page)
   g_resources_register (timezone_get_resource ());
   g_resources_register (datetime_get_resource ());
   g_type_ensure (CC_TYPE_TIMEZONE_MAP);
+
+  gtk_widget_init_template (GTK_WIDGET (page));
 }
 
 void
