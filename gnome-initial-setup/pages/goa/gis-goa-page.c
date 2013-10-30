@@ -334,13 +334,6 @@ gis_goa_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Online Accounts"));
 }
 
-static GtkBuilder *
-gis_goa_page_get_builder (GisPage *page)
-{
-  /* handled by widget templates */
-  return NULL;
-}
-
 static void
 gis_goa_page_class_init (GisGoaPageClass *klass)
 {
@@ -353,7 +346,6 @@ gis_goa_page_class_init (GisGoaPageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_goa_page_locale_changed;
-  page_class->get_builder = gis_goa_page_get_builder;
   object_class->constructed = gis_goa_page_constructed;
   object_class->dispose = gis_goa_page_dispose;
 }

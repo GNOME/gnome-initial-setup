@@ -344,13 +344,6 @@ gis_timezone_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Time Zone"));
 }
 
-static GtkBuilder *
-gis_timezone_page_get_builder (GisPage *page)
-{
-  /* handled by widget templates */
-  return NULL;
-}
-
 static void
 gis_timezone_page_class_init (GisTimezonePageClass *klass)
 {
@@ -367,7 +360,6 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
-  page_class->get_builder = gis_timezone_page_get_builder;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
 }

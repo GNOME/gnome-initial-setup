@@ -48,7 +48,6 @@ struct _GisPage
   GtkBin parent;
 
   GisDriver *driver;
-  GtkBuilder *builder;
 
   GisAssistantPagePrivate *assistant_priv;
 };
@@ -58,7 +57,6 @@ struct _GisPageClass
   GtkBinClass parent_class;
   char *page_id;
 
-  GtkBuilder * (*get_builder) (GisPage *page);
   void         (*locale_changed) (GisPage *page);
   gboolean     (*apply) (GisPage *page,
                          GCancellable *cancellable);

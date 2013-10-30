@@ -273,13 +273,6 @@ gis_summary_page_shown (GisPage *page)
                                    &priv->user_password);
 }
 
-static GtkBuilder *
-gis_summary_page_get_builder (GisPage *page)
-{
-  /* handled by widget templates */
-  return NULL;
-}
-
 static char *
 get_item (const char *buffer, const char *name)
 {
@@ -373,7 +366,6 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, start_button_label);
 
   page_class->page_id = PAGE_ID;
-  page_class->get_builder = gis_summary_page_get_builder;
   page_class->locale_changed = gis_summary_page_locale_changed;
   page_class->shown = gis_summary_page_shown;
   object_class->constructed = gis_summary_page_constructed;

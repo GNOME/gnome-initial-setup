@@ -316,13 +316,6 @@ gis_eula_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("License Agreements"));
 }
 
-static GtkBuilder *
-gis_eula_page_get_builder (GisPage *page)
-{
-  /* handled by widget templates */
-  return NULL;
-}
-
 static void
 gis_eula_page_class_init (GisEulaPageClass *klass)
 {
@@ -336,7 +329,6 @@ gis_eula_page_class_init (GisEulaPageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_eula_page_locale_changed;
-  page_class->get_builder = gis_eula_page_get_builder;
   object_class->get_property = gis_eula_page_get_property;
   object_class->set_property = gis_eula_page_set_property;
   object_class->constructed = gis_eula_page_constructed;

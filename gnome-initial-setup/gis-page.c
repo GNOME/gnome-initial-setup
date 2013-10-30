@@ -140,51 +140,14 @@ gis_page_dispose (GObject *object)
     g_cancellable_cancel (priv->apply_cancel);
 
   g_clear_object (&page->driver);
-  g_clear_object (&page->builder);
 
   G_OBJECT_CLASS (gis_page_parent_class)->dispose (object);
-}
-
-static GtkBuilder *
-gis_page_real_get_builder (GisPage *page)
-{
-  GisPageClass *klass = GIS_PAGE_GET_CLASS (page);
-  GtkBuilder *builder;
-  gchar *resource_path;
-  GError *error = NULL;
-
-  if (klass->page_id == NULL)
-    {
-      g_warning ("Null page ID. Won't construct builder.");
-      return NULL;
-    }
-
-  resource_path = g_strdup_printf ("/org/gnome/initial-setup/gis-%s-page.ui", klass->page_id);
-
-  builder = gtk_builder_new ();
-  gtk_builder_add_from_resource (builder, resource_path, &error);
-
-  if (error != NULL) {
-    g_warning ("Error while loading %s: %s", resource_path, error->message);
-    g_free (resource_path);
-    g_error_free (error);
-    goto err;
-  }
-
-  g_free (resource_path);
-  return builder;
- err:
-  g_object_unref (builder);
-  return NULL;
 }
 
 static void
 gis_page_constructed (GObject *object)
 {
   GisPage *page = GIS_PAGE (object);
-  GisPageClass *klass = GIS_PAGE_GET_CLASS (page);
-
-  page->builder = klass->get_builder (page);
 
   gis_page_locale_changed (page);
 
@@ -209,7 +172,6 @@ gis_page_class_init (GisPageClass *klass)
   object_class->get_property = gis_page_get_property;
   object_class->set_property = gis_page_set_property;
 
-  klass->get_builder = gis_page_real_get_builder;
   klass->apply = gis_page_real_apply;
 
   obj_props[PROP_DRIVER] =

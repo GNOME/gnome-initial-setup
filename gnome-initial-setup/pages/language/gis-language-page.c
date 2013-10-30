@@ -227,13 +227,6 @@ gis_language_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Welcome"));
 }
 
-static GtkBuilder *
-gis_language_page_get_builder (GisPage *page)
-{
-  /* handled by widget templates */
-  return NULL;
-}
-
 static void
 gis_language_page_dispose (GObject *object)
 {
@@ -258,7 +251,6 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_language_page_locale_changed;
-  page_class->get_builder = gis_language_page_get_builder;
   object_class->constructed = gis_language_page_constructed;
   object_class->dispose = gis_language_page_dispose;
 }
