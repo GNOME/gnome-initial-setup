@@ -51,6 +51,11 @@ typedef enum {
 } NMAccessPointSecurity;
 
 struct _GisNetworkPagePrivate {
+  GtkWidget *network_list;
+  GtkWidget *scrolled_window;
+  GtkWidget *no_network_label;
+  GtkWidget *no_network_spinner;
+
   NMClient *nm_client;
   NMRemoteSettings *nm_settings;
   NMDevice *nm_device;
@@ -60,9 +65,6 @@ struct _GisNetworkPagePrivate {
 typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisNetworkPage, gis_network_page, GIS_TYPE_PAGE);
-
-#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
 
 static GPtrArray *
 get_strongest_unique_aps (const GPtrArray *aps)
@@ -193,7 +195,6 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   GtkWidget *row;
   GtkWidget *widget;
   GtkWidget *box;
-  GtkWidget *list;
 
   ssid = nm_access_point_get_ssid (ap);
   object_path = nm_object_get_path (NM_OBJECT (ap));
@@ -290,16 +291,15 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
 
-  list = WID ("network-list");
-  gtk_container_add (GTK_CONTAINER (list), row);
+  gtk_container_add (GTK_CONTAINER (priv->network_list), row);
 }
 
 static void
 add_access_point_other (GisNetworkPage *page)
 {
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   GtkWidget *row;
   GtkWidget *widget;
-  GtkWidget *list;
 
   row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
   gtk_widget_set_margin_left (row, 12);
@@ -313,8 +313,7 @@ add_access_point_other (GisNetworkPage *page)
   g_object_set_data (G_OBJECT (row), "object-path", "ap-other...");
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (0));
 
-  list = WID("network-list");
-  gtk_container_add (GTK_CONTAINER (list), row);
+  gtk_container_add (GTK_CONTAINER (priv->network_list), row);
 }
 
 static void refresh_wireless_list (GisNetworkPage *page);
@@ -336,11 +335,7 @@ refresh_wireless_list (GisNetworkPage *page)
   const GPtrArray *aps;
   GPtrArray *unique_aps;
   guint i;
-  GtkWidget *label;
-  GtkWidget *spinner;
-  GtkWidget *swin;
   GList *children, *l;
-  GtkWidget *list;
 
   priv->refreshing = TRUE;
 
@@ -348,32 +343,25 @@ refresh_wireless_list (GisNetworkPage *page)
 
   active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
 
-  list = WID ("network-list");
-
-  children = gtk_container_get_children (GTK_CONTAINER (list));
+  children = gtk_container_get_children (GTK_CONTAINER (priv->network_list));
   for (l = children; l; l = l->next)
-    gtk_container_remove (GTK_CONTAINER (list), l->data);
+    gtk_container_remove (GTK_CONTAINER (priv->network_list), l->data);
   g_list_free (children);
 
   aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (priv->nm_device));
 
-  swin = WID("network-scrolledwindow");
-  label = WID("no-network-label");
-  spinner = WID("no-network-spinner");
-
   if (aps == NULL || aps->len == 0) {
-    gtk_label_set_text (GTK_LABEL (label), _("Checking for available wireless networks"));
-    gtk_widget_hide (swin);
-    gtk_widget_show (spinner);
-    gtk_widget_show (label);
+    gtk_label_set_text (GTK_LABEL (priv->no_network_label), _("Checking for available wireless networks"));
+    gtk_widget_show (priv->no_network_spinner);
+    gtk_widget_show (priv->no_network_label);
+    gtk_widget_hide (priv->scrolled_window);
     g_timeout_add_seconds (1, refresh_again, page);
 
     goto out;
-  }
-  else {
-    gtk_widget_show (swin);
-    gtk_widget_hide (spinner);
-    gtk_widget_hide (label);
+  } else {
+    gtk_widget_hide (priv->no_network_spinner);
+    gtk_widget_hide (priv->no_network_label);
+    gtk_widget_show (priv->scrolled_window);
   }
 
   unique_aps = get_strongest_unique_aps (aps);
@@ -540,11 +528,8 @@ gis_network_page_constructed (GObject *object)
   NMDevice *device;
   guint i;
   gboolean visible = FALSE;
-  GtkWidget *box;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
-
-  gtk_container_add (GTK_CONTAINER (page), WID ("network-page"));
 
   priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
@@ -580,13 +565,10 @@ gis_network_page_constructed (GObject *object)
   g_signal_connect (priv->nm_client, "notify::active-connections",
                     G_CALLBACK (active_connections_changed), page);
 
-  box = WID ("network-list");
-
-  gtk_list_box_set_selection_mode (GTK_LIST_BOX (box), GTK_SELECTION_NONE);
-  gtk_list_box_set_header_func (GTK_LIST_BOX (box), update_header_func, NULL, NULL);
-  gtk_list_box_set_sort_func (GTK_LIST_BOX (box), ap_sort, NULL, NULL);
-
-  g_signal_connect (box, "row-activated",
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->network_list), GTK_SELECTION_NONE);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->network_list), update_header_func, NULL, NULL);
+  gtk_list_box_set_sort_func (GTK_LIST_BOX (priv->network_list), ap_sort, NULL, NULL);
+  g_signal_connect (priv->network_list, "row-activated",
                     G_CALLBACK (row_activated), page);
 
   refresh_wireless_list (page);
@@ -618,14 +600,29 @@ gis_network_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Network"));
 }
 
+static GtkBuilder *
+gis_network_page_get_builder (GisPage *page)
+{
+  /* handled by widget templates */
+  return NULL;
+}
+
 static void
 gis_network_page_class_init (GisNetworkPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-network-page.ui");
+
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, network_list);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, scrolled_window);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, no_network_label);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, no_network_spinner);
+
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_network_page_locale_changed;
+  page_class->get_builder = gis_network_page_get_builder;
   object_class->constructed = gis_network_page_constructed;
   object_class->dispose = gis_network_page_dispose;
 }
@@ -634,6 +631,8 @@ static void
 gis_network_page_init (GisNetworkPage *page)
 {
   g_resources_register (network_get_resource ());
+
+  gtk_widget_init_template (GTK_WIDGET (page));
 }
 
 void
