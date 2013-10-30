@@ -42,15 +42,15 @@
 #define SERVICE_NAME "gdm-password"
 
 struct _GisSummaryPagePrivate {
+  GtkWidget *start_button;
+  GtkWidget *start_button_label;
+
   ActUser *user_account;
   const gchar *user_password;
 };
 typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
-
-#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
 
 static gboolean
 connect_to_gdm (GdmGreeter      **greeter,
@@ -276,24 +276,8 @@ gis_summary_page_shown (GisPage *page)
 static GtkBuilder *
 gis_summary_page_get_builder (GisPage *page)
 {
-  GtkBuilder *builder = gtk_builder_new ();
-
-  char *filename = g_build_filename (UIDIR, "summary-distro.ui", NULL);
-  GError *error = NULL;
-
-  if (gtk_builder_add_from_file (builder, filename, &error))
-    goto out;
-
-  if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
-    g_warning ("Error while loading summary override: %s", error->message);
-
-  g_clear_error (&error);
-
-  builder = GIS_PAGE_CLASS (gis_summary_page_parent_class)->get_builder (page);
-
- out:
-  g_free (filename);
-  return builder;
+  /* handled by widget templates */
+  return NULL;
 }
 
 static char *
@@ -332,6 +316,7 @@ get_item (const char *buffer, const char *name)
 static void
 update_distro_name (GisSummaryPage *page)
 {
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
   char *buffer;
   char *name;
 
@@ -347,7 +332,7 @@ update_distro_name (GisSummaryPage *page)
     {
       gchar *label;
       label = g_strdup_printf (_("_Start using %s"), name);
-      gtk_label_set_label (GTK_LABEL (WID ("summary-start-button-label")), label);
+      gtk_label_set_label (GTK_LABEL (priv->start_button_label), label);
       g_free (label);
       g_free (name);
     }
@@ -357,12 +342,12 @@ static void
 gis_summary_page_constructed (GObject *object)
 {
   GisSummaryPage *page = GIS_SUMMARY_PAGE (object);
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
 
   G_OBJECT_CLASS (gis_summary_page_parent_class)->constructed (object);
 
-  gtk_container_add (GTK_CONTAINER (page), WID ("summary-page"));
   update_distro_name (page);
-  g_signal_connect (WID("summary-start-button"), "clicked", G_CALLBACK (done_cb), page);
+  g_signal_connect (priv->start_button, "clicked", G_CALLBACK (done_cb), page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
@@ -382,6 +367,11 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-summary-page.ui");
+
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, start_button);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, start_button_label);
+
   page_class->page_id = PAGE_ID;
   page_class->get_builder = gis_summary_page_get_builder;
   page_class->locale_changed = gis_summary_page_locale_changed;
@@ -393,6 +383,8 @@ static void
 gis_summary_page_init (GisSummaryPage *page)
 {
   g_resources_register (summary_get_resource ());
+
+  gtk_widget_init_template (GTK_WIDGET (page));
 }
 
 void
