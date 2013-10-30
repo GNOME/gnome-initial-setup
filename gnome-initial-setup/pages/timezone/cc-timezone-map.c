@@ -223,7 +223,7 @@ draw_pin (CcTimezoneMap *map,
   /* load pin icon */
   pin = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/pin.png", &err);
 
-  gweather_location_get_coords (priv->location, &longitude, &latitude);
+  gweather_location_get_coords (priv->location, &latitude, &longitude);
 
   pointx = convert_longitude_to_x (longitude, alloc.width);
   pointy = convert_latitude_to_y (latitude, alloc.height);
