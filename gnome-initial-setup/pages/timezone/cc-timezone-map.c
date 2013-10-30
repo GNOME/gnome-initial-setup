@@ -47,32 +47,6 @@ struct _CcTimezoneMapPrivate
 };
 
 static void
-cc_timezone_map_get_property (GObject    *object,
-                              guint       property_id,
-                              GValue     *value,
-                              GParamSpec *pspec)
-{
-  switch (property_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-    }
-}
-
-static void
-cc_timezone_map_set_property (GObject      *object,
-                              guint         property_id,
-                              const GValue *value,
-                              GParamSpec   *pspec)
-{
-  switch (property_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-    }
-}
-
-static void
 cc_timezone_map_dispose (GObject *object)
 {
   CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (object)->priv;
@@ -288,8 +262,6 @@ cc_timezone_map_class_init (CcTimezoneMapClass *klass)
 
   g_type_class_add_private (klass, sizeof (CcTimezoneMapPrivate));
 
-  object_class->get_property = cc_timezone_map_get_property;
-  object_class->set_property = cc_timezone_map_set_property;
   object_class->dispose = cc_timezone_map_dispose;
 
   widget_class->get_preferred_width = cc_timezone_map_get_preferred_width;
