@@ -38,6 +38,8 @@
 #include <gio/gio.h>
 
 struct _GisGoaPagePrivate {
+  GtkWidget *accounts_list;
+
   GoaClient *goa_client;
   GHashTable *providers;
   gboolean accounts_exist;
@@ -45,9 +47,6 @@ struct _GisGoaPagePrivate {
 typedef struct _GisGoaPagePrivate GisGoaPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisGoaPage, gis_goa_page, GIS_TYPE_PAGE);
-
-#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE(page)->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
 
 struct _ProviderWidget {
   GisGoaPage *page;
@@ -117,7 +116,6 @@ static void
 add_provider_to_list (GisGoaPage *page, const char *provider_type)
 {
   GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
-  GtkWidget *list;
   GtkWidget *row;
   GtkWidget *box;
   GtkWidget *image;
@@ -172,8 +170,7 @@ add_provider_to_list (GisGoaPage *page, const char *provider_type)
 
   g_hash_table_insert (priv->providers, (char *) provider_type, provider_widget);
 
-  list = WID ("online-accounts-list");
-  gtk_container_add (GTK_CONTAINER (list), row);
+  gtk_container_add (GTK_CONTAINER (priv->accounts_list), row);
 }
 
 static void
@@ -285,11 +282,8 @@ gis_goa_page_constructed (GObject *object)
   GisGoaPagePrivate *priv = gis_goa_page_get_instance_private (page);
   GError *error = NULL;
   GNetworkMonitor *network_monitor = g_network_monitor_get_default ();
-  GtkWidget *list;
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
-
-  gtk_container_add (GTK_CONTAINER (page), WID ("goa-page"));
 
   priv->goa_client = goa_client_new_sync (NULL, &error);
 
@@ -308,11 +302,10 @@ gis_goa_page_constructed (GObject *object)
   g_signal_connect (network_monitor, "network-changed",
                     G_CALLBACK (network_status_changed), page);
 
-  list = WID ("online-accounts-list");
-  gtk_list_box_set_header_func (GTK_LIST_BOX (list),
+  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->accounts_list),
                                 update_header_func,
                                 NULL, NULL);
-  g_signal_connect (list, "row-activated",
+  g_signal_connect (priv->accounts_list, "row-activated",
                     G_CALLBACK (row_activated), page);
 
   populate_provider_list (page);
@@ -341,14 +334,26 @@ gis_goa_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Online Accounts"));
 }
 
+static GtkBuilder *
+gis_goa_page_get_builder (GisPage *page)
+{
+  /* handled by widget templates */
+  return NULL;
+}
+
 static void
 gis_goa_page_class_init (GisGoaPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-goa-page.ui");
+
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisGoaPage, accounts_list);
+
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_goa_page_locale_changed;
+  page_class->get_builder = gis_goa_page_get_builder;
   object_class->constructed = gis_goa_page_constructed;
   object_class->dispose = gis_goa_page_dispose;
 }
@@ -357,6 +362,8 @@ static void
 gis_goa_page_init (GisGoaPage *page)
 {
   g_resources_register (goa_get_resource ());
+
+  gtk_widget_init_template (GTK_WIDGET (page));
 }
 
 void
