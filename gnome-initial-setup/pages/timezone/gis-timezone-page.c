@@ -166,7 +166,7 @@ set_auto_location (GisTimezonePage  *page,
 static void
 get_location_from_geoclue (GisTimezonePage *page)
 {
-  GDBusProxy *manager, *client, *location;
+  GDBusProxy *manager = NULL, *client = NULL, *location = NULL;
   GVariant *value;
   const char *object_path;
   double latitude, longitude;
@@ -185,6 +185,9 @@ get_location_from_geoclue (GisTimezonePage *page)
   value = g_dbus_proxy_call_sync (manager, "GetClient", NULL,
                                   G_DBUS_CALL_FLAGS_NONE, -1,
                                   NULL, NULL);
+  if (!value)
+    goto out;
+
   g_variant_get_child (value, 0, "&o", &object_path);
 
   client = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
