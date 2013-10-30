@@ -58,20 +58,19 @@
 #define MAX_INPUT_ROWS_VISIBLE 5
 
 struct _GisKeyboardPagePrivate {
+        GtkWidget *input_list;
+        GtkWidget *input_source_add;
+        GtkWidget *input_source_remove;
+        GtkWidget *show_config;
+        GtkWidget *show_layout;
+        GtkWidget *scrolled_window;
+
         GDBusProxy  *localed;
         GCancellable *cancellable;
 
-        GtkWidget *input_section;
-        GtkWidget *input_list;
-        GtkWidget *add_input;
-        GtkWidget *remove_input;
-        GtkWidget *show_config;
-        GtkWidget *show_layout;
-        GtkWidget *input_scrolledwindow;
         guint n_input_rows;
         GPid gkbd_pid;
         GPermission *permission;
-
 
         GSettings *input_settings;
         GnomeXkbInfo *xkb_info;
@@ -82,9 +81,6 @@ struct _GisKeyboardPagePrivate {
 #endif
 };
 typedef struct _GisKeyboardPagePrivate GisKeyboardPagePrivate;
-
-#define OBJ(type,name) ((type)gtk_builder_get_object(GIS_PAGE (self)->builder,(name)))
-#define WID(name) OBJ(GtkWidget*,name)
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisKeyboardPage, gis_keyboard_page, GIS_TYPE_PAGE);
 
@@ -134,8 +130,6 @@ gis_keyboard_page_constructed (GObject *object)
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
 
-        gtk_container_add (GTK_CONTAINER (self), WID ("keyboard_page"));
-
         setup_input_section (self);
 
         priv->cancellable = g_cancellable_new ();
@@ -166,15 +160,31 @@ gis_keyboard_page_locale_changed (GisPage *page)
         gis_page_set_title (GIS_PAGE (page), _("Typing"));
 }
 
+static GtkBuilder *
+gis_keyboard_page_get_builder (GisPage *page)
+{
+        /* handled by widget templates */
+        return NULL;
+}
+
 static void
 gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	GisPageClass * page_class = GIS_PAGE_CLASS (klass);
 
+        gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-keyboard-page.ui");
+
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, input_list);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, input_source_add);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, input_source_remove);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, show_layout);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, show_config);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, scrolled_window);
+
         page_class->page_id = PAGE_ID;
         page_class->locale_changed = gis_keyboard_page_locale_changed;
-
+        page_class->get_builder = gis_keyboard_page_get_builder;
         object_class->constructed = gis_keyboard_page_constructed;
 	object_class->finalize = gis_keyboard_page_finalize;
 }
@@ -343,15 +353,15 @@ adjust_input_list_scrolling (GisKeyboardPage *self)
                 GtkWidget *parent;
                 gint height;
 
-                parent = gtk_widget_get_parent (priv->input_scrolledwindow);
+                parent = gtk_widget_get_parent (priv->scrolled_window);
                 gtk_widget_get_preferred_height (parent, NULL, &height);
                 gtk_widget_set_size_request (parent, -1, height);
 
-                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->input_scrolledwindow),
+                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
                                                 GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
         } else {
-                gtk_widget_set_size_request (gtk_widget_get_parent (priv->input_scrolledwindow), -1, -1);
-                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->input_scrolledwindow),
+                gtk_widget_set_size_request (gtk_widget_get_parent (priv->scrolled_window), -1, -1);
+                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
                                                 GTK_POLICY_NEVER, GTK_POLICY_NEVER);
         }
 }
@@ -570,7 +580,7 @@ update_buttons (GisKeyboardPage *self)
         selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (priv->input_list));
         if (selected == NULL) {
                 gtk_widget_set_visible (priv->show_config, FALSE);
-                gtk_widget_set_sensitive (priv->remove_input, FALSE);
+                gtk_widget_set_sensitive (priv->input_source_remove, FALSE);
                 gtk_widget_set_sensitive (priv->show_layout, FALSE);
         } else {
                 GDesktopAppInfo *app_info;
@@ -579,7 +589,7 @@ update_buttons (GisKeyboardPage *self)
 
                 gtk_widget_set_visible (priv->show_config, app_info != NULL);
                 gtk_widget_set_sensitive (priv->show_layout, TRUE);
-                gtk_widget_set_sensitive (priv->remove_input, multiple_sources);
+                gtk_widget_set_sensitive (priv->input_source_remove, multiple_sources);
         }
 }
 
@@ -949,17 +959,9 @@ setup_input_section (GisKeyboardPage *self)
         maybe_start_ibus ();
 #endif
 
-        priv->input_section = WID ("input_section");
-        priv->input_list = WID ("input_list");
-        priv->add_input = WID ("input_source_add");
-        priv->remove_input = WID ("input_source_remove");
-        priv->show_config = WID ("input_source_config");
-        priv->show_layout = WID ("input_source_layout");
-        priv->input_scrolledwindow = WID ("input_scrolledwindow");
-
-        g_signal_connect_swapped (priv->add_input, "clicked",
+        g_signal_connect_swapped (priv->input_source_add, "clicked",
                                   G_CALLBACK (add_input), self);
-        g_signal_connect_swapped (priv->remove_input, "clicked",
+        g_signal_connect_swapped (priv->input_source_remove, "clicked",
                                   G_CALLBACK (remove_selected_input), self);
         g_signal_connect_swapped (priv->show_config, "clicked",
                                   G_CALLBACK (show_selected_settings), self);
@@ -1107,6 +1109,8 @@ static void
 gis_keyboard_page_init (GisKeyboardPage *self)
 {
         g_resources_register (keyboard_get_resource ());
+
+        gtk_widget_init_template (GTK_WIDGET (self));
 }
 
 void

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-     <object class="GtkBox" id="keyboard_page">
+  <template class="GisKeyboardPage" parent="GisPage">
+    <child>
+      <object class="GtkBox" id="page">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
@@ -34,7 +36,7 @@
                     <property name="position">0</property>
                   </packing>
                 </child>
-             </object>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
@@ -48,7 +50,7 @@
                 <property name="label_xalign">0</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkScrolledWindow" id="input_scrolledwindow">
+                  <object class="GtkScrolledWindow" id="scrolled_window">
                     <property name="visible">True</property>
                     <property name="hscrollbar-policy">never</property>
                     <property name="vscrollbar-policy">never</property>
@@ -156,7 +158,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkButton" id="input_source_config">
+                          <object class="GtkButton" id="show_config">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -191,7 +193,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkButton" id="input_source_layout">
+                          <object class="GtkButton" id="show_layout">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -232,4 +234,6 @@
           </packing>
         </child>
       </object>
+    </child>
+  </template>
 </interface>
