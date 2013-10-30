@@ -1,16 +1,20 @@
 <?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <object class="GtkBox" id="language-page">
-    <property name="name">language-page</property>
-    <property name="visible">True</property>
-    <property name="orientation">vertical</property>
-    <property name="margin-left">80</property>
-    <property name="margin-right">80</property>
+  <template class="GisLanguagePage" parent="GisPage">
     <child>
-      <object class="CcLanguageChooser" id="language-chooser">
+      <object class="GtkBox" id="box">
+        <property name="name">language-page</property>
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin-left">80</property>
+        <property name="margin-right">80</property>
+        <child>
+          <object class="CcLanguageChooser" id="language_chooser">
+            <property name="visible">True</property>
+          </object>
+        </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>
