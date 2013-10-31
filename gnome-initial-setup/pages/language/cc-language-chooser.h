@@ -39,13 +39,10 @@ G_BEGIN_DECLS
 
 typedef struct _CcLanguageChooser        CcLanguageChooser;
 typedef struct _CcLanguageChooserClass   CcLanguageChooserClass;
-typedef struct _CcLanguageChooserPrivate CcLanguageChooserPrivate;
 
 struct _CcLanguageChooser
 {
         GtkBin parent;
-
-        CcLanguageChooserPrivate *priv;
 };
 
 struct _CcLanguageChooserClass

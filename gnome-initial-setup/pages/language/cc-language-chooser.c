@@ -39,19 +39,6 @@
 
 #include <glib-object.h>
 
-G_DEFINE_TYPE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BIN);
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CC_TYPE_LANGUAGE_CHOOSER, CcLanguageChooserPrivate))
-
-enum {
-        PROP_0,
-        PROP_LANGUAGE,
-        PROP_SHOWING_EXTRA,
-        PROP_LAST,
-};
-
-static GParamSpec *obj_props[PROP_LAST];
-
 struct _CcLanguageChooserPrivate
 {
         GtkWidget *no_results;
@@ -62,6 +49,17 @@ struct _CcLanguageChooserPrivate
         gchar **filter_words;
         gchar *language;
 };
+typedef struct _CcLanguageChooserPrivate CcLanguageChooserPrivate;
+G_DEFINE_TYPE_WITH_PRIVATE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BIN);
+
+enum {
+        PROP_0,
+        PROP_LANGUAGE,
+        PROP_SHOWING_EXTRA,
+        PROP_LAST,
+};
+
+static GParamSpec *obj_props[PROP_LAST];
 
 typedef struct {
         GtkWidget *box;
@@ -167,7 +165,7 @@ sync_checkmark (GtkWidget *row,
 static void
 sync_all_checkmarks (CcLanguageChooser *chooser)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 
         gtk_container_foreach (GTK_CONTAINER (priv->language_list),
                                sync_checkmark, priv->language);
@@ -207,7 +205,7 @@ add_languages (CcLanguageChooser  *chooser,
                char               **locale_ids,
                GHashTable          *initial)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 
         while (*locale_ids) {
                 const gchar *locale_id;
@@ -263,7 +261,7 @@ language_visible (GtkListBoxRow *row,
                   gpointer       user_data)
 {
         CcLanguageChooser *chooser = user_data;
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         gchar *locale_name = NULL;
         gchar *locale_current_name = NULL;
         gchar *locale_untranslated_name = NULL;
@@ -330,7 +328,7 @@ static void
 filter_changed (GtkEntry        *entry,
                 CcLanguageChooser *chooser)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         gchar *filter_contents = NULL;
 
         g_clear_pointer (&priv->filter_words, g_strfreev);
@@ -347,7 +345,7 @@ filter_changed (GtkEntry        *entry,
 static void
 show_more (CcLanguageChooser *chooser)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 
         gtk_widget_show (priv->filter_entry);
         gtk_widget_grab_focus (priv->filter_entry);
@@ -361,7 +359,7 @@ static void
 set_locale_id (CcLanguageChooser *chooser,
                const gchar       *new_locale_id)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 
         if (g_strcmp0 (priv->language, new_locale_id) == 0)
                 return;
@@ -379,8 +377,8 @@ row_activated (GtkListBox        *box,
                GtkListBoxRow     *row,
                CcLanguageChooser *chooser)
 {
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         GtkWidget *child;
-        CcLanguageChooserPrivate *priv = chooser->priv;
         LanguageWidget *widget;
 
         if (row == NULL)
@@ -417,9 +415,9 @@ update_header_func (GtkListBoxRow *child,
 static void
 cc_language_chooser_constructed (GObject *object)
 {
-        GtkBuilder *builder;
         CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
+        GtkBuilder *builder;
         GError *error = NULL;
 
         G_OBJECT_CLASS (cc_language_chooser_parent_class)->constructed (object);
@@ -503,7 +501,7 @@ static void
 cc_language_chooser_finalize (GObject *object)
 {
         CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 
         g_strfreev (priv->filter_words);
 }
@@ -512,8 +510,6 @@ static void
 cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (object_class, sizeof(CcLanguageChooserPrivate));
 
         object_class->get_property = cc_language_chooser_get_property;
         object_class->set_property = cc_language_chooser_set_property;
@@ -531,23 +527,22 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
         g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 }
 
-void
+static void
 cc_language_chooser_init (CcLanguageChooser *chooser)
 {
-        chooser->priv = GET_PRIVATE (chooser);
 }
 
 void
 cc_language_chooser_clear_filter (CcLanguageChooser *chooser)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         gtk_entry_set_text (GTK_ENTRY (priv->filter_entry), "");
 }
 
 const gchar *
 cc_language_chooser_get_language (CcLanguageChooser *chooser)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         return priv->language;
 }
 
@@ -561,6 +556,6 @@ cc_language_chooser_set_language (CcLanguageChooser *chooser,
 gboolean
 cc_language_chooser_get_showing_extra (CcLanguageChooser *chooser)
 {
-        CcLanguageChooserPrivate *priv = chooser->priv;
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         return priv->showing_extra;
 }
