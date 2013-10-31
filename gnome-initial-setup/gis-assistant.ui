@@ -33,7 +33,15 @@
     </child>
     <child>
       <object class="GtkButton" id="forward">
-        <property name="visible">True</property>
+        <property name="use-underline">True</property>
+        <property name="can-default">True</property>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="accept">
         <property name="use-underline">True</property>
         <property name="can-default">True</property>
       </object>

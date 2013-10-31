@@ -48,9 +48,11 @@ static guint signals[LAST_SIGNAL];
 struct _GisAssistantPrivate
 {
   GtkWidget *forward;
+  GtkWidget *accept;
   GtkWidget *skip;
   GtkWidget *back;
   GtkWidget *cancel;
+
   GtkWidget *progress_indicator;
   GtkWidget *main_layout;
   GtkWidget *spinner;
@@ -222,30 +224,34 @@ update_navigation_buttons (GisAssistant *assistant)
     }
   else
     {
-      gboolean page_complete, page_skippable, is_first_page;
-
-      gtk_widget_show (priv->back);
-      gtk_widget_show (priv->forward);
+      gboolean is_first_page;
+      GtkWidget *forward_widget;
 
       is_first_page = (page_priv->link->prev == NULL);
       gtk_widget_set_visible (priv->back, !is_first_page);
 
-      page_complete = gis_page_get_complete (page);
-      page_skippable = gis_page_get_skippable (page);
+      gtk_widget_hide (priv->forward);
+      gtk_widget_hide (priv->accept);
+      gtk_widget_hide (priv->skip);
 
-      if (page_complete) {
-        gtk_widget_show (priv->forward);
+      if (gis_page_get_needs_accept (page))
+        forward_widget = priv->accept;
+      else
+        forward_widget = priv->forward;
+
+      if (gis_page_get_complete (page)) {
+        gtk_widget_show (forward_widget);
         gtk_widget_hide (priv->skip);
-        gtk_widget_set_sensitive (priv->forward, TRUE);
-        gtk_style_context_add_class (gtk_widget_get_style_context (priv->forward), "suggested-action");
-      } else if (page_skippable) {
-        gtk_widget_hide (priv->forward);
+        gtk_widget_set_sensitive (forward_widget, TRUE);
+        gtk_style_context_add_class (gtk_widget_get_style_context (forward_widget), "suggested-action");
+      } else if (gis_page_get_skippable (page)) {
+        gtk_widget_hide (forward_widget);
         gtk_widget_show (priv->skip);
       } else {
-        gtk_widget_show (priv->forward);
+        gtk_widget_show (forward_widget);
         gtk_widget_hide (priv->skip);
-        gtk_widget_set_sensitive (priv->forward, FALSE);
-        gtk_style_context_remove_class (gtk_widget_get_style_context (priv->forward), "suggested-action");
+        gtk_widget_set_sensitive (forward_widget, FALSE);
+        gtk_style_context_remove_class (gtk_widget_get_style_context (forward_widget), "suggested-action");
       }
     }
 }
@@ -411,6 +417,7 @@ gis_assistant_locale_changed (GisAssistant *assistant)
   GList *l;
 
   gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
+  gtk_button_set_label (GTK_BUTTON (priv->accept), _("_Accept"));
   gtk_button_set_label (GTK_BUTTON (priv->skip), _("_Skip"));
   gtk_button_set_label (GTK_BUTTON (priv->back), _("_Previous"));
   gtk_button_set_label (GTK_BUTTON (priv->cancel), _("_Cancel"));
@@ -440,7 +447,9 @@ gis_assistant_init (GisAssistant *assistant)
                     G_CALLBACK (current_page_changed), assistant);
 
   g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
+  g_signal_connect (priv->accept, "clicked", G_CALLBACK (go_forward), assistant);
   g_signal_connect (priv->skip, "clicked", G_CALLBACK (go_forward), assistant);
+
   g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
   g_signal_connect (priv->cancel, "clicked", G_CALLBACK (do_cancel), assistant);
 
@@ -476,9 +485,11 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-assistant.ui");
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, forward);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, accept);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, skip);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, back);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
+
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, progress_indicator);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
