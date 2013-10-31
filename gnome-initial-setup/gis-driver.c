@@ -259,7 +259,6 @@ gis_driver_startup (GApplication *app)
   priv->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
                                     "application", app,
                                     "type", GTK_WINDOW_TOPLEVEL,
-                                    "border-width", 12,
                                     "icon-name", "preferences-system",
                                     "resizable", FALSE,
                                     "window-position", GTK_WIN_POS_CENTER_ALWAYS,
