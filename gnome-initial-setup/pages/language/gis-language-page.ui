@@ -4,9 +4,14 @@
   <template class="GisLanguagePage" parent="GisPage">
     <child>
       <object class="GtkBox" id="box">
-        <property name="name">language-page</property>
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GisWelcomeWidget" id="welcome_widget">
+            <property name="visible">True</property>
+          </object>
+        </child>
         <child>
           <object class="CcLanguageChooser" id="language_chooser">
             <property name="visible">True</property>

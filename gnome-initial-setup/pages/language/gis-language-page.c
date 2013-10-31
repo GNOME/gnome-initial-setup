@@ -30,6 +30,7 @@
 
 #include "config.h"
 #include "language-resources.h"
+#include "gis-welcome-widget.h"
 #include "cc-language-chooser.h"
 #include "gis-language-page.h"
 
@@ -259,6 +260,7 @@ static void
 gis_language_page_init (GisLanguagePage *page)
 {
   g_resources_register (language_get_resource ());
+  g_type_ensure (GIS_TYPE_WELCOME_WIDGET);
   g_type_ensure (CC_TYPE_LANGUAGE_CHOOSER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
