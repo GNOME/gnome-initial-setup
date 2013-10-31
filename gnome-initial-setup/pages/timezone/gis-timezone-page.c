@@ -108,7 +108,7 @@ set_location (GisTimezonePage  *page,
 
   cc_timezone_map_set_location (CC_TIMEZONE_MAP (priv->map), location);
 
-  gtk_widget_set_visible (priv->search_overlay, (location != NULL));
+  gtk_widget_set_visible (priv->search_overlay, (location == NULL));
 
   if (location)
     {
