@@ -3,40 +3,39 @@
   <!-- interface-requires gtk+ 3.0 -->
   <template class="GisSummaryPage" parent="GisPage">
     <child>
-      <object class="GtkGrid" id="page">
+      <object class="GtkBox" id="box">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="spacing">40</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkImage" id="image">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixel_size">128</property>
+            <property name="icon_name">object-select-symbolic</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
         <child>
           <object class="GtkLabel" id="details">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="margin_top">16</property>
             <property name="label" translatable="yes">You're all set!</property>
             <attributes>
               <attribute name="weight" value="bold"/>
               <attribute name="scale" value="1.6"/>
             </attributes>
           </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
         </child>
         <child>
           <object class="GtkButton" id="start_button">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="margin_top">32</property>
-            <property name="margin_bottom">32</property>
-            <property name="vexpand">True</property>
             <property name="use_underline">True</property>
             <style>
               <class name="suggested-action"/>
@@ -51,29 +50,6 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkImage" id="image">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixel_size">196</property>
-            <property name="icon_name">object-select-symbolic</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
         </child>
       </object>
     </child>
