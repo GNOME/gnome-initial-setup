@@ -336,6 +336,7 @@ update_distro_name (GisSummaryPage *page)
 {
   char *buffer;
   char *name;
+  char *label;
 
   name = NULL;
 
@@ -345,14 +346,13 @@ update_distro_name (GisSummaryPage *page)
       g_free (buffer);
     }
 
-  if (name)
-    {
-      gchar *label;
-      label = g_strdup_printf (_("_Start using %s"), name);
-      gtk_label_set_label (GTK_LABEL (WID ("summary-start-button-label")), label);
-      g_free (label);
-      g_free (name);
-    }
+  if (!name)
+    name = g_strdup ("GNOME 3");
+
+  label = g_strdup_printf (_("_Start using %s"), name);
+  gtk_label_set_label (GTK_LABEL (WID ("summary-start-button-label")), label);
+  g_free (label);
+  g_free (name);
 }
 
 static void
