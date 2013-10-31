@@ -61,12 +61,12 @@ typedef struct {
 
 static PageData page_table[] = {
   PAGE (language, FALSE),
-  PAGE (keyboard, FALSE),
+/*  PAGE (keyboard, FALSE),
   PAGE (eula,     FALSE),
   PAGE (network,  FALSE),
   PAGE (timezone, TRUE),
   PAGE (goa,      FALSE),
-  PAGE (account,  TRUE),
+  PAGE (account,  TRUE), */
   PAGE (summary,  FALSE),
   { NULL },
 };
