@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <template class="GisBubbleWidget" parent="GtkBin">
+    <child>
+      <object class="GtkAspectFrame" id="aspect_frame">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkBox" id="box">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="width-request">128</property>
+            <property name="height-request">128</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <child>
+              <object class="GtkImage" id="icon">
+                <property name="visible">True</property>
+                <property name="vexpand">True</property>
+                <property name="pixel-size">64</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label">
+                <property name="visible">True</property>
+                <property name="vexpand">True</property>
+                <property name="wrap">True</property>
+                <property name="justify">center</property>
+              </object>
+            </child>
+          </object>
+          <style>
+            <class name="gis-bubble-widget" />
+          </style>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

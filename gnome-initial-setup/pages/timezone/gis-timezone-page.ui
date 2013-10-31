@@ -103,10 +103,24 @@
             <property name="vexpand">True</property>
             <property name="label_xalign">0</property>
             <child>
-              <object class="CcTimezoneMap" id="map">
+              <object class="GtkOverlay" id="map_overlay">
                 <property name="visible">True</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
+                <child>
+                  <object class="CcTimezoneMap" id="map">
+                    <property name="visible">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                  </object>
+                </child>
+                <child type="overlay">
+                  <object class="GisBubbleWidget" id="search_overlay">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Please search for a nearby city</property>
+                    <property name="icon-name">edit-find-symbolic</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

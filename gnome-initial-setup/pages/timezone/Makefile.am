@@ -30,6 +30,7 @@ BUILT_SOURCES += timezone-resources.c timezone-resources.h
 
 libgistimezone_la_SOURCES =	\
 	cc-timezone-map.c cc-timezone-map.h \
+	gis-bubble-widget.c gis-bubble-widget.h \
 	gis-timezone-page.c gis-timezone-page.h \
 	$(BUILT_SOURCES)
 

@@ -26,8 +26,6 @@
 #define PAGE_ID "timezone"
 
 #include "config.h"
-#include "cc-datetime-resources.h"
-#include "timezone-resources.h"
 #include "gis-timezone-page.h"
 
 #include <glib/gi18n.h>
@@ -39,8 +37,12 @@
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/gweather.h>
 
-#include "cc-timezone-map.h"
 #include "timedated.h"
+#include "cc-datetime-resources.h"
+#include "timezone-resources.h"
+
+#include "cc-timezone-map.h"
+#include "gis-bubble-widget.h"
 
 #define DEFAULT_TZ "Europe/London"
 
@@ -370,6 +372,7 @@ gis_timezone_page_init (GisTimezonePage *page)
   g_resources_register (timezone_get_resource ());
   g_resources_register (datetime_get_resource ());
   g_type_ensure (CC_TYPE_TIMEZONE_MAP);
+  g_type_ensure (GIS_TYPE_BUBBLE_WIDGET);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
