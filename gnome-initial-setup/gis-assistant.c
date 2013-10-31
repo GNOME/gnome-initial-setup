@@ -53,7 +53,6 @@ struct _GisAssistantPrivate
   GtkWidget *back;
   GtkWidget *cancel;
 
-  GtkWidget *progress_indicator;
   GtkWidget *main_layout;
   GtkWidget *spinner;
   GtkWidget *titlebar;
@@ -162,44 +161,6 @@ gis_assistant_previous_page (GisAssistant *assistant)
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   g_return_if_fail (priv->current_page != NULL);
   gis_assistant_switch_to (assistant, GIS_ASSISTANT_PREV, find_prev_page (priv->current_page));
-}
-
-static void
-remove_from_progress_indicator (GtkWidget *widget,
-                                gpointer   user_data)
-{
-  GisAssistantPrivate *priv = user_data;
-  gtk_container_remove (GTK_CONTAINER (priv->progress_indicator), widget);
-}
-
-static void
-update_progress_indicator (GisAssistant *assistant)
-{
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  GList *l;
-
-  gtk_container_foreach (GTK_CONTAINER (priv->progress_indicator),
-                         remove_from_progress_indicator, priv);
-
-  for (l = priv->pages; l != NULL; l = l->next)
-    {
-      GisPage *page = GIS_PAGE (l->data);
-      GtkWidget *label;
-
-      if (!gtk_widget_get_visible (GTK_WIDGET (page)))
-        continue;
-
-      label = gtk_label_new ("•");
-
-      if (page != priv->current_page)
-        {
-          GtkStyleContext *context = gtk_widget_get_style_context (label);
-          gtk_style_context_add_class (context, "dim-label");
-        }
-
-      gtk_container_add (GTK_CONTAINER (priv->progress_indicator), label);
-      gtk_widget_show (label);
-    }
 }
 
 static void
@@ -334,8 +295,6 @@ gis_assistant_add_page (GisAssistant *assistant,
 
   if (priv->current_page->assistant_priv->link == link->prev)
     update_navigation_buttons (assistant);
-
-  update_progress_indicator (assistant);
 }
 
 GisPage *
@@ -407,7 +366,6 @@ update_current_page (GisAssistant *assistant,
   update_titlebar (assistant);
   update_applying_state (assistant);
   update_navigation_buttons (assistant);
-  update_progress_indicator (assistant);
   gis_page_shown (page);
 }
 
@@ -503,7 +461,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, back);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, progress_indicator);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
