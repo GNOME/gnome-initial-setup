@@ -185,7 +185,7 @@ gis_page_class_init (GisPageClass *klass)
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_SKIPPABLE] =
     g_param_spec_boolean ("skippable", "", "", FALSE,
-                          G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_APPLYING] =
     g_param_spec_boolean ("applying", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
