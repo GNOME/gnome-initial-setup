@@ -58,37 +58,66 @@ cc_timezone_map_dispose (GObject *object)
   G_OBJECT_CLASS (cc_timezone_map_parent_class)->dispose (object);
 }
 
-/* GtkWidget functions */
-static void
-cc_timezone_map_get_preferred_width (GtkWidget *widget,
-                                     gint      *minimum,
-                                     gint      *natural)
+static double
+get_ratio (CcTimezoneMap *map)
 {
-  /* choose a minimum size small enough to prevent the window
-   * from growing horizontally
-   */
-  if (minimum != NULL)
-    *minimum = 300;
-  if (natural != NULL)
-    *natural = 300;
+  CcTimezoneMapPrivate *priv = map->priv;
+  return (double) gdk_pixbuf_get_width (priv->orig_background) / gdk_pixbuf_get_height (priv->orig_background);
 }
 
 static void
-cc_timezone_map_get_preferred_height (GtkWidget *widget,
-                                      gint      *minimum,
-                                      gint      *natural)
+cc_timezone_map_get_preferred_height_for_width (GtkWidget *widget,
+                                                int        width,
+                                                int       *minimum_height,
+                                                int       *natural_height)
 {
-  CcTimezoneMapPrivate *priv = CC_TIMEZONE_MAP (widget)->priv;
-  gint size;
+  double pix_ratio = get_ratio (CC_TIMEZONE_MAP (widget));
 
-  /* The + 20 here is a slight tweak to make the map fill the
-   * panel better without causing horizontal growing
-   */
-  size = 300 * gdk_pixbuf_get_height (priv->orig_background) / gdk_pixbuf_get_width (priv->orig_background) + 20;
-  if (minimum != NULL)
-    *minimum = size;
-  if (natural != NULL)
-    *natural = size;
+  if (minimum_height)
+    *minimum_height = width / pix_ratio;
+  if (natural_height)
+    *natural_height = width / pix_ratio;
+}
+
+static void
+cc_timezone_map_get_preferred_width_for_height (GtkWidget *widget,
+                                                int        height,
+                                                int       *minimum_width,
+                                                int       *natural_width)
+{
+  double pix_ratio = get_ratio (CC_TIMEZONE_MAP (widget));
+
+  if (minimum_width)
+    *minimum_width = height * pix_ratio;
+  if (natural_width)
+    *natural_width = height * pix_ratio;
+}
+
+#define MIN_WIDTH 300
+
+static void
+cc_timezone_map_get_preferred_height (GtkWidget *widget,
+                                      int       *minimum_height,
+                                      int       *natural_height)
+{
+  cc_timezone_map_get_preferred_height_for_width (widget, MIN_WIDTH, minimum_height, natural_height);
+}
+
+static void
+cc_timezone_map_get_preferred_width (GtkWidget *widget,
+                                     int       *minimum_width,
+                                     int       *natural_width)
+{
+  if (minimum_width)
+    *minimum_width = MIN_WIDTH;
+  if (natural_width)
+    *natural_width = MIN_WIDTH;
+}
+
+static GtkSizeRequestMode
+cc_timezone_map_get_request_mode (GtkWidget *widget)
+{
+  return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
 }
 
 static void
@@ -261,6 +290,9 @@ cc_timezone_map_class_init (CcTimezoneMapClass *klass)
 
   widget_class->get_preferred_width = cc_timezone_map_get_preferred_width;
   widget_class->get_preferred_height = cc_timezone_map_get_preferred_height;
+  widget_class->get_preferred_width_for_height = cc_timezone_map_get_preferred_width_for_height;
+  widget_class->get_preferred_height_for_width = cc_timezone_map_get_preferred_height_for_width;
+  widget_class->get_request_mode = cc_timezone_map_get_request_mode;
   widget_class->size_allocate = cc_timezone_map_size_allocate;
   widget_class->draw = cc_timezone_map_draw;
 }
