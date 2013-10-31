@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 20:13+0000\n"
-"PO-Revision-Date: 2013-09-02 14:52+0200\n"
+"POT-Creation-Date: 2013-10-30 21:30+0000\n"
+"PO-Revision-Date: 2013-10-31 16:28+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -20,62 +20,65 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:413
 msgid "_Next"
 msgstr "Siguie_nte"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:414
+msgid "_Skip"
+msgstr "_Omitir"
+
+#: ../gnome-initial-setup/gis-assistant.c:415
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:416
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "Forzar el modo del nuevo usuario"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#| msgid "Force new user mode"
+msgid "Force existing user mode"
+msgstr "Forzar el modo del nuevo existente"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:198
 msgid "- GNOME initial setup"
 msgstr "- Configuración inicial de GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:324
 msgid "No password"
 msgstr "Sin contraseña"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:329
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:421
 msgid "Passwords do not match"
 msgstr "Las contraseñas no coinciden"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:368
 #, c-format
 msgid "Strength: %s"
 msgstr "Fuerza: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:495
 msgid "Failed to register account"
 msgstr "Falló al registrar la cuenta"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:689
 msgid "No supported way to authenticate with this domain"
 msgstr "No hay una manera soportada de autenticar con este dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:729
 msgid "Failed to join domain"
 msgstr "Falló al unirse al dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:797
 msgid "Failed to log into domain"
 msgstr "Falló al iniciar sesión en el dominio"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1157
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -136,16 +139,25 @@ msgid "Domain Administrator Login"
 msgstr "Inicio de sesión del administrador del dominio"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#| msgid ""
+#| "In order to use enterprise logins, this computer needs to be\n"
+#| "enrolled in the domain. Please have your network administrator\n"
+#| "type their domain password here, and choose a unique computer\n"
+#| "name for your computer."
 msgid ""
 "In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"                enrolled in the domain. Please have your network "
+"administrator\n"
+"                type their domain password here, and choose a unique "
+"computer\n"
+"                name for your computer."
 msgstr ""
 "Para usar los inicios de sesión empresariales, este equipo debe estar\n"
-"incluido en el dominio. Pida al administrador de su red que escriba\n"
-"aquí la contraseña del dominio y elija un nombre de equipo único\n"
-"para su equipo."
+"                incluido en el dominio. Pida al administrador de su red que "
+"escriba\n"
+"                aquí la contraseña del dominio y elija un nombre de equipo "
+"único\n"
+"                para su equipo."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
 msgid "_Computer"
@@ -239,7 +251,7 @@ msgstr ""
 " ➣ dígitos\n"
 " ➣ cualquiera de los caracteres «.», «-» y «_»"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:316
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Acuerdo de licencia"
@@ -252,177 +264,210 @@ msgstr ""
 "He leído y _acepto los términos y las condiciones de este contrato de "
 "licencia del usuario final."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Otra"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:89
 msgid "Add Account"
 msgstr "Añadir cuenta"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "Correo"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:92
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "Cancelar"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Contactos"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Chat"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Recursos"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "Error al crear la cuenta"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "Error al quitar la cuenta"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "¿Está seguro de que quiere quitar la cuenta?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "Esto no quitará la cuenta en el servidor."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "Quita_r"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:334
 msgid "Online Accounts"
 msgstr "Cuentas en línea"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Conectarse a sus datos en la nube"
+#| msgid "Online Accounts"
+msgid "Connect Your Online Accounts"
+msgstr "Conectar a sus cuentas en línea"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#| msgid ""
+#| "Adding accounts will allow you to transparently connect to your online "
+#| "photos, contacts, mail, and more."
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"Añadir cuentas le permite conectarse de manera transparente a sus "
-"aplicaciones en línea de fotos, contactos, correo-e y más."
+"Conectarse a sus cuentas le permitirá acceder fácilmente a su correo-e, "
+"calendario, contactos, documentos y fotos."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "_Añadir cuenta"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"Puede revisar sus cuentas en línea (y añadir otras) después de la "
+"configuración."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:183
 msgid "More…"
 msgstr "Más…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:184
 msgid "No input sources found"
 msgstr "No se han encontrado fuentes de entrada"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1013
 msgid "Other"
 msgstr "Otra"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "Fuentes de entrada"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:160
+msgid "Typing"
+msgstr "Escritura"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:472
+msgid "No input source selected"
+msgstr "No se ha seleccionado ninguna fuente de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "Seleccionar las distribuciones del teclado"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"La configuración de inicio de sesión la usan todos los usuarios cuando "
-"inician sesión en el sistema"
+msgid "Add keyboard layouts or other input methods"
+msgstr "Añadir distribuciones del teclado u otros métodos de entrada"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
 msgstr "Añadir fuente de entrada"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:200
 msgid "No languages found"
 msgstr "No se han encontrado idiomas"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:227
 msgid "Welcome"
 msgstr "Bienvenido"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Buscar una ubicación"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:149
+#, c-format
+msgid ""
+"We think that your time zone is <b>%s</b>. Press Next to continue or search "
+"for a city to manually set the time zone."
+msgstr ""
+"Parece ser que su zona horaria es <b>%s</b>. Pulse Siguiente para continuar "
+"o busque una ciudad para establecer la zona horaria manualmente."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Ubicación"
-
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:344
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Elegir su ubicación"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "_Determinar su ubicación automáticamente"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
 msgid "Time Zone"
 msgstr "Zona horaria"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Otro…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "La red no está disponible."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "No se han encontrado dispositivos de red."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:354
 msgid "Checking for available wireless networks"
 msgstr "Comprobando si hay redes inalámbricas disponibles"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:600
 msgid "Network"
 msgstr "Red"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Redes inalámbricas"
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"Conectarse a Internet le permitirá establecer la hora, añadir detalles y "
+"activar su acceso a su correo, su calendario y sus contactos. También es "
+"necesario para las cuentas con inicio de sesión empresarial."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:327
 #, c-format
 msgid "_Start using %s"
 msgstr "_Empezar a usar %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:353
 msgid "Thank You"
 msgstr "Gracias"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Su equipo está listo para usarse."
+msgid "That's it!"
+msgstr "Esto es todo."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "Puede cambiar estas opciones en cualquier momento en Configuración."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Empezar a usar GNOME 3"
+
+#~ msgctxt "Online Account"
+#~ msgid "Other"
+#~ msgstr "Otra"
+
+#~ msgid "Mail"
+#~ msgstr "Correo"
+
+#~ msgid "Contacts"
+#~ msgstr "Contactos"
+
+#~ msgid "Chat"
+#~ msgstr "Chat"
+
+#~ msgid "Resources"
+#~ msgstr "Recursos"
+
+#~ msgid "Error creating account"
+#~ msgstr "Error al crear la cuenta"
+
+#~ msgid "Error removing account"
+#~ msgstr "Error al quitar la cuenta"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "¿Está seguro de que quiere quitar la cuenta?"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "Esto no quitará la cuenta en el servidor."
+
+#~ msgid "_Remove"
+#~ msgstr "Quita_r"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "Conectarse a sus datos en la nube"
+
+#~ msgid "_Add Account"
+#~ msgstr "_Añadir cuenta"
+
+#~ msgid "Input Sources"
+#~ msgstr "Fuentes de entrada"
+
+#~ msgid "Select keyboard layouts"
+#~ msgstr "Seleccionar las distribuciones del teclado"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "La configuración de inicio de sesión la usan todos los usuarios cuando "
+#~ "inician sesión en el sistema"
+
+#~ msgid "Search for a location"
+#~ msgstr "Buscar una ubicación"
+
+#~ msgid "Location"
+#~ msgstr "Ubicación"
+
+#~ msgid "Choose Your Location"
+#~ msgstr "Elegir su ubicación"
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "_Determinar su ubicación automáticamente"
+
+#~ msgid "Network is not available."
+#~ msgstr "La red no está disponible."
+
+#~ msgid "No network devices found."
+#~ msgstr "No se han encontrado dispositivos de red."
+
+#~ msgid "Wireless Networks"
+#~ msgstr "Redes inalámbricas"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "Su equipo está listo para usarse."
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr "Puede cambiar estas opciones en cualquier momento en Configuración."
 
 #~ msgid "Select input sources"
 #~ msgstr "Seleccionar las fuentes de entrada"
@@ -437,9 +482,6 @@ msgstr "_Empezar a usar GNOME 3"
 #~ msgstr ""
 #~ "Los métodos de entrada no se pueden usar en la pantalla de inicio de "
 #~ "sesión"
-
-#~ msgid "No input source selected"
-#~ msgstr "No se ha seleccionado ninguna fuente de entrada"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "Debe reiniciar la sesión para que se apliquen los cambios"
