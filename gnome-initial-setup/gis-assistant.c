@@ -203,6 +203,28 @@ update_progress_indicator (GisAssistant *assistant)
 }
 
 static void
+set_suggested_action_sensitive (GtkWidget *widget,
+                                gboolean   sensitive)
+{
+  gtk_widget_set_sensitive (widget, sensitive);
+  if (sensitive)
+    gtk_style_context_add_class (gtk_widget_get_style_context (widget), "suggested-action");
+  else
+    gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "suggested-action");
+}
+
+static void
+set_navigation_button (GisAssistant *assistant,
+                       GtkWidget    *widget)
+{
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+
+  gtk_widget_set_visible (priv->forward, (widget == priv->forward));
+  gtk_widget_set_visible (priv->accept, (widget == priv->accept));
+  gtk_widget_set_visible (priv->skip, (widget == priv->skip));
+}
+
+void
 update_navigation_buttons (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
@@ -225,33 +247,24 @@ update_navigation_buttons (GisAssistant *assistant)
   else
     {
       gboolean is_first_page;
-      GtkWidget *forward_widget;
+      GtkWidget *next_widget;
 
       is_first_page = (page_priv->link->prev == NULL);
       gtk_widget_set_visible (priv->back, !is_first_page);
 
-      gtk_widget_hide (priv->forward);
-      gtk_widget_hide (priv->accept);
-      gtk_widget_hide (priv->skip);
-
       if (gis_page_get_needs_accept (page))
-        forward_widget = priv->accept;
+        next_widget = priv->accept;
       else
-        forward_widget = priv->forward;
+        next_widget = priv->forward;
 
       if (gis_page_get_complete (page)) {
-        gtk_widget_show (forward_widget);
-        gtk_widget_hide (priv->skip);
-        gtk_widget_set_sensitive (forward_widget, TRUE);
-        gtk_style_context_add_class (gtk_widget_get_style_context (forward_widget), "suggested-action");
+        set_suggested_action_sensitive (next_widget, TRUE);
+        set_navigation_button (assistant, next_widget);
       } else if (gis_page_get_skippable (page)) {
-        gtk_widget_hide (forward_widget);
-        gtk_widget_show (priv->skip);
+        set_navigation_button (assistant, priv->skip);
       } else {
-        gtk_widget_show (forward_widget);
-        gtk_widget_hide (priv->skip);
-        gtk_widget_set_sensitive (forward_widget, FALSE);
-        gtk_style_context_remove_class (gtk_widget_get_style_context (forward_widget), "suggested-action");
+        set_suggested_action_sensitive (next_widget, FALSE);
+        set_navigation_button (assistant, next_widget);
       }
     }
 }
