@@ -185,7 +185,7 @@ localed_proxy_ready (GObject      *source,
   priv->localed = proxy;
 }
 
- static void
+static void
 gis_language_page_constructed (GObject *object)
 {
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
