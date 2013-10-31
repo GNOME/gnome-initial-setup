@@ -22,12 +22,13 @@ account-resources.h: account.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
 BUILT_SOURCES += account-resources.c account-resources.h
 
-libgisaccount_la_SOURCES =				\
-	$(BUILT_SOURCES)				\
-	gis-account-page.c gis-account-page.h		\
-	um-realm-manager.c um-realm-manager.h		\
-	um-utils.c um-utils.h				\
-	pw-utils.c pw-utils.h				\
+libgisaccount_la_SOURCES =					\
+	$(BUILT_SOURCES)					\
+	gis-account-page.c gis-account-page.h			\
+	gis-account-page-local.c gis-account-page-local.h	\
+	um-realm-manager.c um-realm-manager.h			\
+	um-utils.c um-utils.h					\
+	pw-utils.c pw-utils.h					\
 	$(NULL)
 
 libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."

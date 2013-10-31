@@ -28,6 +28,7 @@
 #include "config.h"
 #include "account-resources.h"
 #include "gis-account-page.h"
+#include "gis-account-page-local.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -57,12 +58,7 @@ typedef enum {
 
 struct _GisAccountPagePrivate
 {
-  GtkWidget *local_fullname_entry;
-  GtkWidget *local_username_combo;
-  GtkWidget *local_password_entry;
-  GtkWidget *local_confirm_entry;
-  GtkWidget *local_password_strength;
-  GtkWidget *local_password_strength_label;
+  GtkWidget *page_local;
 
   GtkWidget *enterprise_login;
   GtkWidget *enterprise_password;
@@ -79,17 +75,10 @@ struct _GisAccountPagePrivate
   GtkWidget *page_toggle;
   GtkWidget *notebook;
 
-  ActUser *act_user;
   ActUserManager *act_client;
+  ActUser *act_user;
 
   UmAccountMode mode;
-
-  gboolean valid_name;
-  gboolean valid_username;
-  gboolean valid_confirm;
-  const gchar *password_reason;
-  guint reason_timeout;
-  ActUserAccountType account_type;
 
   gboolean has_enterprise;
   guint realmd_watch;
@@ -131,34 +120,6 @@ show_error_dialog (GisAccountPage *page,
   gtk_window_present (GTK_WINDOW (dialog));
 }
 
-static void
-clear_account_page (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  priv->valid_name = FALSE;
-  priv->valid_username = FALSE;
-  priv->valid_confirm = FALSE;
-
-  /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
-  priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
-
-  gtk_entry_set_text (GTK_ENTRY (priv->local_fullname_entry), "");
-  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->local_username_combo))));
-  gtk_entry_set_text (GTK_ENTRY (priv->local_password_entry), "");
-  gtk_entry_set_text (GTK_ENTRY (priv->local_confirm_entry), "");
-}
-
-static gboolean
-local_validate (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  return priv->valid_name &&
-         priv->valid_username &&
-         priv->valid_confirm;
-}
-
 static gboolean
 enterprise_validate (GisAccountPage *page)
 {
@@ -189,7 +150,7 @@ page_validate (GisAccountPage *page)
 
   switch (priv->mode) {
   case UM_LOCAL:
-    return local_validate (page);
+    return gis_account_page_local_validate (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
   case UM_ENTERPRISE:
     return enterprise_validate (page);
   default:
@@ -198,9 +159,16 @@ page_validate (GisAccountPage *page)
 }
 
 static void
-update_account_page_status (GisAccountPage *page)
+update_page_validation (GisAccountPage *page)
 {
   gis_page_set_complete (GIS_PAGE (page), page_validate (page));
+}
+
+static void
+on_validation_changed (gpointer        page_area,
+                       GisAccountPage *page)
+{
+  update_page_validation (page);
 }
 
 static void
@@ -216,7 +184,7 @@ set_mode (GisAccountPage *page,
 
   gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), (mode == UM_LOCAL) ? 0 : 1);
 
-  update_account_page_status (page);
+  update_page_validation (page);
 }
 
 static void
@@ -234,232 +202,6 @@ set_has_enterprise (GisAccountPage *page,
     set_mode (page, UM_LOCAL);
 
   gtk_widget_set_visible (priv->page_toggle, has_enterprise);
-}
-
-static void
-update_valid_confirm (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  const gchar *password, *verify;
-
-  password = gtk_entry_get_text (GTK_ENTRY (priv->local_password_entry));
-  verify = gtk_entry_get_text (GTK_ENTRY (priv->local_confirm_entry));
-
-  priv->valid_confirm = strcmp (password, verify) == 0;
-}
-
-static void
-fullname_changed (GtkWidget      *w,
-                  GParamSpec     *pspec,
-                  GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  GtkWidget *entry;
-  GtkTreeModel *model;
-  const char *name;
-
-  name = gtk_entry_get_text (GTK_ENTRY (w));
-
-  entry = gtk_bin_get_child (GTK_BIN (priv->local_username_combo));
-  model = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->local_username_combo));
-
-  gtk_list_store_clear (GTK_LIST_STORE (model));
-
-  priv->valid_name = is_valid_name (name);
-
-  if (!priv->valid_name) {
-    gtk_entry_set_text (GTK_ENTRY (entry), "");
-    return;
-  }
-
-  generate_username_choices (name, GTK_LIST_STORE (model));
-
-  gtk_combo_box_set_active (GTK_COMBO_BOX (priv->local_username_combo), 0);
-
-  update_account_page_status (page);
-}
-
-static void
-username_changed (GtkComboBoxText *combo,
-                  GisAccountPage  *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  const gchar *username;
-  gchar *tip;
-  GtkWidget *entry;
-
-  username = gtk_combo_box_text_get_active_text (combo);
-
-  priv->valid_username = is_valid_username (username, &tip);
-
-  entry = gtk_bin_get_child (GTK_BIN (combo));
-
-  if (tip) {
-    set_entry_validation_error (GTK_ENTRY (entry), tip);
-    g_free (tip);
-  }
-  else {
-    clear_entry_validation_error (GTK_ENTRY (entry));
-    /* We hit this the first time when there has been no change to password but
-     * the two empty passwords are valid for no password.
-     */
-    update_valid_confirm (page);
-  }
-
-  update_account_page_status (page);
-}
-
-static gboolean
-reason_timeout_cb (gpointer data)
-{
-  GisAccountPage *page = GIS_ACCOUNT_PAGE (data);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  const gchar *password;
-  const gchar *verify;
-
-  password = gtk_entry_get_text (GTK_ENTRY (priv->local_password_entry));
-  verify = gtk_entry_get_text (GTK_ENTRY (priv->local_confirm_entry));
-
-  if (strlen (password) == 0)
-    set_entry_validation_error (GTK_ENTRY (priv->local_password_entry), _("No password"));
-  else
-    set_entry_validation_error (GTK_ENTRY (priv->local_password_entry), priv->password_reason);
-
-  if (strlen (verify) > 0 && !priv->valid_confirm)
-    set_entry_validation_error (GTK_ENTRY (priv->local_confirm_entry), _("Passwords do not match"));
-
-  priv->reason_timeout = 0;
-
-  return G_SOURCE_REMOVE;
-}
-
-static void
-refresh_reason_timeout (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  if (priv->reason_timeout != 0)
-    g_source_remove (priv->reason_timeout);
-
-  priv->reason_timeout = g_timeout_add (600, reason_timeout_cb, page);
-}
-
-static void
-update_password_entries (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  const gchar *password;
-  const gchar *username;
-  gdouble strength;
-  gint strength_level;
-  const gchar *hint;
-  const gchar *long_hint = NULL;
-  gchar *strength_hint;
-
-  password = gtk_entry_get_text (GTK_ENTRY (priv->local_password_entry));
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->local_username_combo));
-
-  strength = pw_strength (password, NULL, username, &hint, &long_hint, &strength_level);
-  gtk_level_bar_set_value (GTK_LEVEL_BAR (priv->local_password_strength), strength_level);
-
-  if (strlen (password) == 0)
-    strength_hint = g_strdup ("");
-  else
-    strength_hint = g_strdup_printf (_("Strength: %s"), hint);
-  gtk_label_set_label (GTK_LABEL (priv->local_password_strength_label), strength_hint);
-  g_free (strength_hint);
-
-  if (strength == 0.0) {
-    priv->password_reason = long_hint ? long_hint : hint;
-  }
-
-  update_valid_confirm (page);
-
-  if (priv->valid_confirm)
-    clear_entry_validation_error (GTK_ENTRY (priv->local_password_entry));
-
-  gtk_widget_set_sensitive (priv->local_confirm_entry, TRUE);
-
-  refresh_reason_timeout (page);
-}
-
-static void
-password_changed (GtkWidget      *w,
-                  GParamSpec     *pspec,
-                  GisAccountPage *page)
-{
-  clear_entry_validation_error (GTK_ENTRY (w));
-  update_password_entries (page);
-  update_account_page_status (page);
-}
-
-static gboolean
-password_entry_focus_out (GtkWidget      *widget,
-                          GdkEventFocus  *event,
-                          GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  if (priv->reason_timeout != 0)
-    g_source_remove (priv->reason_timeout);
-
-  return FALSE;
-}
-
-static gboolean
-confirm_entry_focus_out (GtkWidget      *widget,
-                         GdkEventFocus  *event,
-                         GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  GtkEntry *entry = GTK_ENTRY (widget);
-  const gchar *verify;
-
-  verify = gtk_entry_get_text (entry);
-
-  if (strlen (verify) > 0 && !priv->valid_confirm)
-    set_entry_validation_error (entry, _("Passwords do not match"));
-  else
-    clear_entry_validation_error (entry);
-
-  return FALSE;
-}
-
-static void
-local_create_user (GisAccountPage *page)
-{
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  const gchar *username;
-  const gchar *password;
-  const gchar *fullname;
-  const gchar *language;
-  GError *error = NULL;
-
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->local_username_combo));
-  fullname = gtk_entry_get_text (GTK_ENTRY (priv->local_fullname_entry));
-  password = gtk_entry_get_text (GTK_ENTRY (priv->local_password_entry));
-
-  priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
-  if (error != NULL) {
-    g_warning ("Failed to create user: %s", error->message);
-    g_error_free (error);
-    return;
-  }
-
-  act_user_set_user_name (priv->act_user, username);
-  act_user_set_account_type (priv->act_user, priv->account_type);
-  if (strlen (password) == 0)
-    act_user_set_password_mode (priv->act_user, ACT_USER_PASSWORD_MODE_NONE);
-  else
-    act_user_set_password (priv->act_user, password, "");
-
-  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
-  if (language)
-    act_user_set_language (priv->act_user, language);
-
-  gis_driver_set_user_permissions (GIS_PAGE (page)->driver,
-                                   priv->act_user,
-                                   password);
 }
 
 static void
@@ -1024,7 +766,7 @@ on_domain_changed (GtkComboBox *widget,
   GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
   priv->domain_chosen = TRUE;
-  update_account_page_status (page);
+  update_page_validation (page);
   clear_entry_validation_error (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (widget))));
 }
 
@@ -1033,7 +775,7 @@ on_entry_changed (GtkEditable *editable,
                   gpointer user_data)
 {
   GisAccountPage *page = user_data;
-  update_account_page_status (page);
+  update_page_validation (page);
   clear_entry_validation_error (GTK_ENTRY (editable));
 }
 
@@ -1072,13 +814,28 @@ gis_account_page_save_data (GisPage *gis_page)
 
   switch (priv->mode) {
   case UM_LOCAL:
-    local_create_user (page);
+    gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
     break;
   case UM_ENTERPRISE:
     break;
   default:
     g_assert_not_reached ();
   }
+}
+
+static void
+on_local_user_created (GtkWidget      *page_local,
+                       ActUser        *user,
+                       char           *password,
+                       GisAccountPage *page)
+{
+  const gchar *language;
+
+  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
+  if (language)
+    act_user_set_language (user, language);
+
+  gis_driver_set_user_permissions (GIS_PAGE (page)->driver, user, password);
 }
 
 static void
@@ -1094,19 +851,6 @@ gis_account_page_constructed (GObject *object)
                                          on_realmd_appeared, on_realmd_disappeared,
                                          page, NULL);
 
-  g_signal_connect (priv->local_fullname_entry, "notify::text",
-                    G_CALLBACK (fullname_changed), page);
-  g_signal_connect (priv->local_username_combo, "changed",
-                    G_CALLBACK (username_changed), page);
-  g_signal_connect (priv->local_password_entry, "notify::text",
-                    G_CALLBACK (password_changed), page);
-  g_signal_connect (priv->local_confirm_entry, "notify::text",
-                    G_CALLBACK (password_changed), page);
-  g_signal_connect_after (priv->local_password_entry, "focus-out-event",
-                          G_CALLBACK (password_entry_focus_out), page);
-  g_signal_connect_after (priv->local_confirm_entry, "focus-out-event",
-                          G_CALLBACK (confirm_entry_focus_out), page);
-
   g_signal_connect (priv->join_dialog, "response",
                     G_CALLBACK (on_join_response), page);
   g_signal_connect (priv->enterprise_domain, "changed",
@@ -1116,8 +860,12 @@ gis_account_page_constructed (GObject *object)
 
   priv->act_client = act_user_manager_get_default ();
 
-  clear_account_page (page);
-  update_account_page_status (page);
+  g_signal_connect (priv->page_local, "validation-changed",
+                    G_CALLBACK (on_validation_changed), page);
+  g_signal_connect (priv->page_local, "user-created",
+                    G_CALLBACK (on_local_user_created), page);
+
+  update_page_validation (page);
 
   priv->has_enterprise = FALSE;
 
@@ -1165,12 +913,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, local_fullname_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, local_username_combo);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, local_password_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, local_confirm_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, local_password_strength);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, local_password_strength_label);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_local);
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, enterprise_login);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, enterprise_password);
@@ -1199,6 +942,7 @@ static void
 gis_account_page_init (GisAccountPage *page)
 {
   g_resources_register (account_get_resource ());
+  g_type_ensure (GIS_TYPE_ACCOUNT_PAGE_LOCAL);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
