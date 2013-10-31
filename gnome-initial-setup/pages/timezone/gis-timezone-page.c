@@ -103,8 +103,7 @@ set_location (GisTimezonePage  *page,
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
-  if (priv->current_location)
-    gweather_location_unref (priv->current_location);
+  g_clear_pointer (&priv->current_location, gweather_location_unref);
 
   cc_timezone_map_set_location (CC_TIMEZONE_MAP (priv->map), location);
 
