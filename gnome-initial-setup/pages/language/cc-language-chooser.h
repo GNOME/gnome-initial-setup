@@ -42,12 +42,12 @@ typedef struct _CcLanguageChooserClass   CcLanguageChooserClass;
 
 struct _CcLanguageChooser
 {
-        GtkBin parent;
+        GtkBox parent;
 };
 
 struct _CcLanguageChooserClass
 {
-        GtkBinClass parent_class;
+        GtkBoxClass parent_class;
 };
 
 GType cc_language_chooser_get_type (void);

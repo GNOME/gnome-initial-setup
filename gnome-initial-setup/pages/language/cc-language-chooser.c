@@ -41,16 +41,18 @@
 
 struct _CcLanguageChooserPrivate
 {
-        GtkWidget *no_results;
-        GtkWidget *more_item;
         GtkWidget *filter_entry;
         GtkWidget *language_list;
+
+        GtkWidget *no_results;
+        GtkWidget *more_item;
+
         gboolean showing_extra;
         gchar **filter_words;
         gchar *language;
 };
 typedef struct _CcLanguageChooserPrivate CcLanguageChooserPrivate;
-G_DEFINE_TYPE_WITH_PRIVATE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BOX);
 
 enum {
         PROP_0,
@@ -410,30 +412,14 @@ update_header_func (GtkListBoxRow *child,
         gtk_widget_show (header);
 }
 
-#define WID(name) ((GtkWidget *) gtk_builder_get_object (builder, name))
-
 static void
 cc_language_chooser_constructed (GObject *object)
 {
         CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
-        GtkBuilder *builder;
-        GError *error = NULL;
 
         G_OBJECT_CLASS (cc_language_chooser_parent_class)->constructed (object);
 
-        builder = gtk_builder_new ();
-        if (gtk_builder_add_from_resource (builder, "/org/gnome/control-center/language-chooser.ui", &error) == 0) {
-                g_object_unref (builder);
-                g_warning ("failed to load language chooser: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        gtk_container_add (GTK_CONTAINER (chooser), WID ("language-chooser"));
-
-        priv->filter_entry = WID ("language-filter-entry");
-        priv->language_list = WID ("language-list");
         priv->more_item = more_widget_new ();
         priv->no_results = no_results_widget_new ();
 
@@ -511,6 +497,11 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+        gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/control-center/language-chooser.ui");
+
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, filter_entry);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, language_list);
+
         object_class->get_property = cc_language_chooser_get_property;
         object_class->set_property = cc_language_chooser_set_property;
         object_class->finalize = cc_language_chooser_finalize;
@@ -530,6 +521,7 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 static void
 cc_language_chooser_init (CcLanguageChooser *chooser)
 {
+        gtk_widget_init_template (GTK_WIDGET (chooser));
 }
 
 void
