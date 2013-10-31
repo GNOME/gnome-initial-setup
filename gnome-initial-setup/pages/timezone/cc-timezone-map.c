@@ -53,12 +53,7 @@ cc_timezone_map_dispose (GObject *object)
 
   g_clear_object (&priv->orig_background);
   g_clear_object (&priv->orig_background_dim);
-
-  if (priv->background)
-    {
-      g_object_unref (priv->background);
-      priv->background = NULL;
-    }
+  g_clear_object (&priv->background);
 
   G_OBJECT_CLASS (cc_timezone_map_parent_class)->dispose (object);
 }
