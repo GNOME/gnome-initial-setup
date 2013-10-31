@@ -53,6 +53,7 @@ struct _GisTimezonePagePrivate
   GtkWidget *auto_result;
   GtkWidget *search_button;
   GtkWidget *search_entry;
+  GtkWidget *search_overlay;
 
   GWeatherLocation *auto_location;
   GWeatherLocation *current_location;
@@ -106,6 +107,8 @@ set_location (GisTimezonePage  *page,
   g_clear_pointer (&priv->current_location, gweather_location_unref);
 
   cc_timezone_map_set_location (CC_TIMEZONE_MAP (priv->map), location);
+
+  gtk_widget_set_visible (priv->search_overlay, (location != NULL));
 
   if (location)
     {
@@ -358,6 +361,7 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, auto_result);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_button);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_entry);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_overlay);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
