@@ -265,7 +265,7 @@ language_visible (GtkListBoxRow *row,
 
         search_term = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
         if (!search_term || !*search_term)
-                return FALSE;
+                return TRUE;
 
         visible = FALSE;
 
