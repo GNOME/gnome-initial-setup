@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 20:13+0000\n"
-"PO-Revision-Date: 2013-09-11 19:15+0530\n"
+"POT-Creation-Date: 2013-11-01 05:58+0000\n"
+"PO-Revision-Date: 2013-11-01 20:14+0530\n"
 "Last-Translator: Nilamdyuti Goswami <ngoswami@redhat.com>\n"
 "Language-Team: Assamese <kde-i18n-doc@kde.org>\n"
 "Language: as\n"
@@ -20,62 +20,69 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "আৰম্ভণিৰ সংস্থাপন"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:390
 msgid "_Next"
 msgstr "পৰবৰ্তী (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:391
+msgid "_Accept"
+msgstr "গ্ৰহণ কৰক (_A)"
+
+#: ../gnome-initial-setup/gis-assistant.c:392
+msgid "_Skip"
+msgstr "বাদ দিয়ক (_S)"
+
+#: ../gnome-initial-setup/gis-assistant.c:393
 msgid "_Previous"
 msgstr "পূৰ্বৱৰ্তী (_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Cancel"
 msgstr "বাতিল কৰক (_C)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "নতুন ব্যৱহাৰকাৰী অৱস্থা বলৱৎ কৰক"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#| msgid "Force new user mode"
+msgid "Force existing user mode"
+msgstr "ব্যৱহাৰকাৰী অৱস্থা বলৱৎভাৱে প্ৰস্থান কৰা হৈছে"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:198
 msgid "- GNOME initial setup"
 msgstr "- GNOME আৰম্ভণি সংস্থাপন"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:324
 msgid "No password"
 msgstr "কোনো পাছৱাৰ্ড নাই"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:329
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:421
 msgid "Passwords do not match"
 msgstr "পাছৱাৰ্ডসমূহ মিল নাখায়"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:368
 #, c-format
 msgid "Strength: %s"
 msgstr "শক্তি: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:495
 msgid "Failed to register account"
 msgstr "একাওন্ট ৰেজিস্টাৰ কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:689
 msgid "No supported way to authenticate with this domain"
 msgstr "এই ডমেইনৰ সৈতে প্ৰমাণীত কৰিবলে কোনো সমৰ্থিত পদ্ধতি নাই"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:729
 msgid "Failed to join domain"
 msgstr "ডমেইনত অংশগ্ৰহণ কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:797
 msgid "Failed to log into domain"
 msgstr "ডমেইনত লগিন কৰিবলে ব্যৰ্থ হল"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1157
 msgid "Login"
 msgstr "লগিন"
 
@@ -139,16 +146,25 @@ msgid "Domain Administrator Login"
 msgstr "ডমেইন প্ৰশাসকৰ লগিন"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#| msgid ""
+#| "In order to use enterprise logins, this computer needs to be\n"
+#| "enrolled in the domain. Please have your network administrator\n"
+#| "type their domain password here, and choose a unique computer\n"
+#| "name for your computer."
 msgid ""
 "In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"                enrolled in the domain. Please have your network "
+"administrator\n"
+"                type their domain password here, and choose a unique "
+"computer\n"
+"                name for your computer."
 msgstr ""
 "এন্টাৰপ্ৰাইজ লগিনসমূহ ব্যৱহাৰ কৰিবলে, এই কমপিউটাৰক ডমেইনত\n"
-"এনৰোল কৰিব লাগিব। অনুগ্ৰহ কৰি আপোনাৰ নেটৱাৰ্ক প্ৰশাসকলক\n"
-"তেওলোকৰ ডমেইন পাছৱাৰ্ড ইয়াত টাইপ কৰিব দিয়ক, আৰু আপোনাৰ\n"
-"কমপিউটাৰৰ বাবে এটা অবিকল্প নাম বাছক।"
+"                এনৰোল কৰিব লাগিব। অনুগ্ৰহ কৰি আপোনাৰ নেটৱাৰ্ক"
+"প্ৰশাসকক\n"
+"                তেওৰ ডমেইন পাছৱাৰ্ড ইয়াত টাইপ কৰিব দিয়ক,"
+"আৰু আপোনাৰ\n"
+"                কমপিউটাৰৰ বাবে এটা অবিকল্প নাম বাছক।"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
 msgid "_Computer"
@@ -242,7 +258,7 @@ msgstr ""
 " ➣ ডিজিটসমূহ\n"
 " ➣ যিকোনো আখৰ '.', '-' আৰু '_'"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:316
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "অনুজ্ঞা চুক্তিসমূহ"
@@ -254,180 +270,240 @@ msgid ""
 msgstr ""
 "মই এই অন্ত ব্যৱহাৰকাৰী অনুজ্ঞা চুক্তিৰ চুক্তি আৰু চৰ্তবোৰ মানি লৈছো (_a)।"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-#| msgid "Other"
-msgctxt "Online Account"
-msgid "Other"
-msgstr "অন্য"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:89
 msgid "Add Account"
 msgstr "একাওন্ট যোগ কৰক"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "মেইল"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:92
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "বাতিল কৰক"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "পৰিচয়সমূহ"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "চেট"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "সম্পদসমূহ"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "একাওন্ট সৃষ্টি কৰোতে ত্ৰুটি"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "একাওন্ট আতৰাওতে ত্ৰুটি"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "আপুনি একাওন্ট আতৰাবলে নিশ্চিত নে?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "ই চাৰ্ভাৰত একাওন্টক আতৰাই নিদিয়ে।"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "আতৰাওক (_R)"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:334
 msgid "Online Accounts"
 msgstr "অনলাইন একাওন্টসমূহ"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "cloud ত আপোনাৰ স্থায়ী তথ্যৰ সৈতে সংযোগ কৰক"
+#| msgid "Online Accounts"
+msgid "Connect Your Online Accounts"
+msgstr "আপোনাৰ অনলাইন একাওন্টসমূহ সংযোগ কৰক"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#| msgid ""
+#| "Adding accounts will allow you to transparently connect to your online "
+#| "photos, contacts, mail, and more."
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"একাওন্টসমূহ যোগ কৰিলে আপুনি স্বচ্ছভাৱে আপোনাৰ অনলাইন ফ'টোসমূহ, পৰিচয়সমূহ, "
-"মেইল, আৰু "
-"অধিকৰ সৈতে সংযোগ কৰিব পাৰিব।"
+"আপোনাৰ একাওন্টসমূহ যোগ কৰিলে আপুনি সহজতে আপোনাৰ ইমেইল, অনলাইন "
+"কেলেন্ডাৰ, পৰিচয়সমূহ, দস্তাবেজসমূহ আৰু ফ'টোসমূহ অভিগম কৰিব পাৰিব।"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "একাওন্ট যোগ কৰক (_A)"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"সংস্থাপনৰ পিছত আপুনি আপোনাৰ অনলাইন একাওন্টসমূহ পুনৰদৰ্শন (আৰু অন্যবোৰ যোগ) "
+"কৰিব পাৰিব।"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:183
 msgid "More…"
 msgstr "অধিক…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:184
 msgid "No input sources found"
 msgstr "কোনো ইনপুট উৎস পোৱা নগল"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1013
 msgid "Other"
 msgstr "অন্য"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "ইনপুট উৎসসমূহ"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:160
+msgid "Typing"
+msgstr "টাইপিং"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:472
+msgid "No input source selected"
+msgstr "কোনো ইনপুট উৎস নিৰ্বাচন কৰা হোৱা নাই"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-#| msgid "Show Keyboard Layout"
-msgid "Select keyboard layouts"
-msgstr "কিবৰ্ড বিন্যাসসমূহ বাছক"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"চিস্টেমত লগিন কৰোতে লগিন সংহতিসমূহ সকলো ব্যৱহাৰকাৰী দ্বাৰা ব্যৱহাৰ কৰা হয়"
+msgid "Add keyboard layouts or other input methods"
+msgstr "কিবৰ্ড বিন্যাসসমূহ অথবা অন্য ইনপুট পদ্ধতিসমূহ যোগ কৰক"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
 msgstr "এটা ইনপুট উৎস যোগ কৰক"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:200
 msgid "No languages found"
 msgstr "কোনো ভাষা পোৱা নগল"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:228
 msgid "Welcome"
 msgstr "স্বাগতম"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "এটা অৱস্থা সন্ধান কৰক"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:120
+#| msgid "Welcome"
+msgid "Welcome!"
+msgstr "স্বাগতম!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "অবস্থান"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:153
+#, c-format
+msgid ""
+"We think that your time zone is <b>%s</b>. Press Next to continue or search "
+"for a city to manually set the time zone."
+msgstr ""
+"আপুনি ভাৱো যে আপোনাৰ সময়অঞ্চল <b>%s</b>। আগবাঢ়িবলৈ পৰৱৰ্তী টিপক অথবা সময়অঞ্চল "
+"হস্তচালিতভাৱে "
+"সংহতি কৰিবলৈ এটা নগৰ সন্ধান কৰক।"
 
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:348
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "আপোনাৰ অৱস্থান বাছক"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "আপোনাৰ অৱস্থান স্বচালিতভাৱে নিৰ্ধাৰণ কৰক (_D)"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
 msgid "Time Zone"
 msgstr "সময় অঞ্চল"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "এটা ওচৰৰ নগৰৰ বাবে সন্ধান কৰক"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "অন্য…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "নেটৱাৰ্ক উপস্থিত নাই।"
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "কোনো নেটৱাৰ্ক ডিভাইচ পোৱা নগল।"
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:354
 msgid "Checking for available wireless networks"
 msgstr "উপলব্ধ বেতাঁৰ নেটৱাৰ্কসমূহৰ বাবে নীৰিক্ষণ কৰা হৈছে"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:600
 msgid "Network"
 msgstr "নেটৱাৰ্ক"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "বেতাঁৰ নেটৱাৰ্কসমূহ"
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"ইন্টাৰনেটৰ সৈতে সংযোগ কৰিলে আপুনি সময় সংহতি কৰিব পাৰিব, আপোনাৰ বিৱৰণসমূহ যোগ "
+"কৰিব পাৰিব, "
+"আৰু আপোনাৰ ইমেইল, কেলেন্ডাৰ, আৰু পৰিচয়সমূহ অভিগম কৰিবলৈ সামৰ্থবান হব। ই লগতে "
+"এন্টাৰপ্ৰাইজ লগিন "
+"একাওন্টসমূহৰ বাবে প্ৰয়োজনীয়।"
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
-#| msgid "_Start using GNOME 3"
 msgid "_Start using %s"
 msgstr "%s ব্যৱহাৰ কৰা আৰম্ভ কৰক (_S)"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "আপোনাক ধন্যবাদ"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"%s বাচি লোৱাৰ বাবে ধন্যবাদ।\n"
+"আপুনি ইয়াক ভাল পাব বুলি আমি আশা কৰিছো।"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
+msgid "Ready to Go"
+msgstr "যাবলৈ প্ৰস্তুত"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "আপোনাৰ কমপিউটাৰ ব্যৱহাৰ কৰিবলে প্ৰস্তুত।"
+msgid "You're all set!"
+msgstr "আপুনি প্ৰস্তুত!"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "আপুনি এই বিকল্পসমূহক যিকোনো সময়তে সংহতিসমূহত সাল সলনি কৰিব পাৰিব।"
+#~| msgid "Other"
+#~ msgctxt "Online Account"
+#~ msgid "Other"
+#~ msgstr "অন্য"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "GNOME 3 ব্যৱহাৰ কৰা আৰম্ভ কৰক (_S)"
+#~ msgid "Mail"
+#~ msgstr "মেইল"
+
+#~ msgid "Contacts"
+#~ msgstr "পৰিচয়সমূহ"
+
+#~ msgid "Chat"
+#~ msgstr "চেট"
+
+#~ msgid "Resources"
+#~ msgstr "সম্পদসমূহ"
+
+#~ msgid "Error creating account"
+#~ msgstr "একাওন্ট সৃষ্টি কৰোতে ত্ৰুটি"
+
+#~ msgid "Error removing account"
+#~ msgstr "একাওন্ট আতৰাওতে ত্ৰুটি"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "আপুনি একাওন্ট আতৰাবলে নিশ্চিত নে?"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "ই চাৰ্ভাৰত একাওন্টক আতৰাই নিদিয়ে।"
+
+#~ msgid "_Remove"
+#~ msgstr "আতৰাওক (_R)"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "cloud ত আপোনাৰ স্থায়ী তথ্যৰ সৈতে সংযোগ কৰক"
+
+#~ msgid "_Add Account"
+#~ msgstr "একাওন্ট যোগ কৰক (_A)"
+
+#~ msgid "Input Sources"
+#~ msgstr "ইনপুট উৎসসমূহ"
+
+#~| msgid "Show Keyboard Layout"
+#~ msgid "Select keyboard layouts"
+#~ msgstr "কিবৰ্ড বিন্যাসসমূহ বাছক"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "চিস্টেমত লগিন কৰোতে লগিন সংহতিসমূহ সকলো ব্যৱহাৰকাৰী দ্বাৰা ব্যৱহাৰ কৰা হয়"
+
+#~ msgid "Search for a location"
+#~ msgstr "এটা অৱস্থা সন্ধান কৰক"
+
+#~ msgid "Location"
+#~ msgstr "অবস্থান"
+
+#~ msgid "Choose Your Location"
+#~ msgstr "আপোনাৰ অৱস্থান বাছক"
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "আপোনাৰ অৱস্থান স্বচালিতভাৱে নিৰ্ধাৰণ কৰক (_D)"
+
+#~ msgid "Network is not available."
+#~ msgstr "নেটৱাৰ্ক উপস্থিত নাই।"
+
+#~ msgid "No network devices found."
+#~ msgstr "কোনো নেটৱাৰ্ক ডিভাইচ পোৱা নগল।"
+
+#~ msgid "Wireless Networks"
+#~ msgstr "বেতাঁৰ নেটৱাৰ্কসমূহ"
+
+#~ msgid "Thank You"
+#~ msgstr "আপোনাক ধন্যবাদ"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "আপোনাৰ কমপিউটাৰ ব্যৱহাৰ কৰিবলে প্ৰস্তুত।"
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr "আপুনি এই বিকল্পসমূহক যিকোনো সময়তে সংহতিসমূহত সাল সলনি কৰিব পাৰিব।"
+
+#~ msgid "_Start using GNOME 3"
+#~ msgstr "GNOME 3 ব্যৱহাৰ কৰা আৰম্ভ কৰক (_S)"
 
 #~ msgid "Select input sources"
 #~ msgstr "ইনপুট উৎসসমূহ বাছক"
@@ -440,9 +516,6 @@ msgstr "GNOME 3 ব্যৱহাৰ কৰা আৰম্ভ কৰক (_S)"
 
 #~ msgid "Input methods can't be used on the login screen"
 #~ msgstr "ইনপুট পদ্ধতিসমূহ লগিন পৰ্দাত ব্যৱহাৰ কৰিব নোৱাৰি"
-
-#~ msgid "No input source selected"
-#~ msgstr "কোনো ইনপুট উৎস নিৰ্বাচন কৰা হোৱা নাই"
 
 #~ msgid "Your session needs to be restarted for changes to take effect"
 #~ msgstr "পৰিবৰ্তনসমূহ প্ৰভাৱশালী হবলে আপোনাৰ অধিবেশন পুনৰাম্ভ কৰিব লাগিব"
