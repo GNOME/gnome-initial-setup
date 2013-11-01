@@ -109,6 +109,7 @@ set_location (GisTimezonePage  *page,
   cc_timezone_map_set_location (CC_TIMEZONE_MAP (priv->map), location);
 
   gtk_widget_set_visible (priv->search_overlay, (location == NULL));
+  gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
   if (location)
     {
@@ -325,8 +326,6 @@ gis_timezone_page_constructed (GObject *object)
                     G_CALLBACK (visible_child_changed), page);
   g_signal_connect (priv->search_button, "toggled",
                     G_CALLBACK (search_button_toggled), page);
-
-  gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
