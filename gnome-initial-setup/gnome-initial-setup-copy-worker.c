@@ -42,9 +42,9 @@ file_is_ours (GFile *file)
 }
 
 static void
-move_file_from_tmpfs (GFile       *src_base,
-                      GFile       *dest_base,
-                      const gchar *path)
+move_file_from_homedir (GFile       *src_base,
+                        GFile       *dest_base,
+                        const gchar *path)
 {
   GFile *dest = g_file_get_child (dest_base, path);
   GFile *dest_parent = g_file_get_parent (dest);
@@ -88,7 +88,7 @@ main (int    argc,
   dest = g_file_new_for_path (g_get_home_dir ());
 
 #define FILE(path) \
-  move_file_from_tmpfs (src, dest, path)
+  move_file_from_homedir (src, dest, path);
 
   FILE (".config/run-welcome-tour");
   FILE (".config/dconf/user");
