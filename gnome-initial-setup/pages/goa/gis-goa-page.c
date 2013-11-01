@@ -81,6 +81,7 @@ on_have_providers (GObject       *source,
       goa_panel_add_account_dialog_add_provider (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), provider);
     }
 
+  gtk_widget_show_all (dialog);
   goa_panel_add_account_dialog_run (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog));
   goa_panel_add_account_dialog_get_account (GOA_PANEL_ADD_ACCOUNT_DIALOG (dialog), &error);
   gtk_widget_destroy (dialog);
