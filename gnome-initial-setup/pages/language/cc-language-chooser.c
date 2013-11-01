@@ -315,7 +315,7 @@ sort_languages (GtkListBoxRow *a,
         LanguageWidget *la, *lb;
 
         la = get_language_widget (gtk_bin_get_child (GTK_BIN (a)));
-        lb = get_language_widget (gtk_bin_get_child (GTK_BIN (a)));
+        lb = get_language_widget (gtk_bin_get_child (GTK_BIN (b)));
 
         if (la == NULL)
                 return 1;
