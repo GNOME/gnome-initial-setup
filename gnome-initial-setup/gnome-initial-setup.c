@@ -47,8 +47,6 @@
 #include "pages/goa/gis-goa-page.h"
 #include "pages/summary/gis-summary-page.h"
 
-/* main {{{1 */
-
 static gboolean force_existing_user_mode;
 
 typedef void (*PreparePage) (GisDriver *driver);
@@ -225,6 +223,3 @@ main (int argc, char *argv[])
   g_option_context_free (context);
   return status;
 }
-
-/* Epilogue {{{1 */
-/* vim: set foldmethod=marker: */
