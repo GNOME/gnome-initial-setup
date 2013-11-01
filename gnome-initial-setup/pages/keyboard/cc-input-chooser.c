@@ -25,8 +25,8 @@
 #include <libgnome-desktop/gnome-languages.h>
 
 #include <../language/cc-common-language.h>
-#include <../language/cc-util.h>
 #include "cc-input-chooser.h"
+#include "cc-util.h"
 
 #ifdef HAVE_IBUS
 #include <ibus.h>

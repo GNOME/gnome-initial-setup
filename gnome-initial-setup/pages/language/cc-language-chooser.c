@@ -35,7 +35,6 @@
 #include <libgnome-desktop/gnome-languages.h>
 
 #include "cc-common-language.h"
-#include "cc-util.h"
 
 #include <glib-object.h>
 
@@ -48,7 +47,6 @@ struct _CcLanguageChooserPrivate
         GtkWidget *more_item;
 
         gboolean showing_extra;
-        gchar **filter_words;
         gchar *language;
 };
 typedef struct _CcLanguageChooserPrivate CcLanguageChooserPrivate;
@@ -246,30 +244,15 @@ add_all_languages (CcLanguageChooser *chooser)
 }
 
 static gboolean
-match_all (gchar       **words,
-           const gchar  *str)
-{
-        gchar **w;
-
-        for (w = words; *w; ++w)
-                if (!strstr (str, *w))
-                        return FALSE;
-
-        return TRUE;
-}
-
-static gboolean
 language_visible (GtkListBoxRow *row,
                   gpointer       user_data)
 {
         CcLanguageChooser *chooser = user_data;
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
-        gchar *locale_name = NULL;
-        gchar *locale_current_name = NULL;
-        gchar *locale_untranslated_name = NULL;
         LanguageWidget *widget;
         gboolean visible;
         GtkWidget *child;
+        const char *search_term;
 
         child = gtk_bin_get_child (GTK_BIN (row));
         if (child == priv->more_item)
@@ -280,30 +263,25 @@ language_visible (GtkListBoxRow *row,
         if (!priv->showing_extra && widget->is_extra)
                 return FALSE;
 
-        if (!priv->filter_words)
-                return TRUE;
+        search_term = gtk_entry_get_text (GTK_ENTRY (priv->filter_entry));
+        if (!search_term || !*search_term)
+                return FALSE;
 
         visible = FALSE;
 
-        locale_name = cc_util_normalize_casefold_and_unaccent (widget->locale_name);
-        visible = match_all (priv->filter_words, locale_name);
+        visible = g_str_match_string (search_term, widget->locale_name, TRUE);
         if (visible)
                 goto out;
 
-        locale_current_name = cc_util_normalize_casefold_and_unaccent (widget->locale_current_name);
-        visible = match_all (priv->filter_words, locale_current_name);
+        visible = g_str_match_string (search_term, widget->locale_current_name, TRUE);
         if (visible)
                 goto out;
 
-        locale_untranslated_name = cc_util_normalize_casefold_and_unaccent (widget->locale_untranslated_name);
-        visible = match_all (priv->filter_words, locale_untranslated_name);
+        visible = g_str_match_string (search_term, widget->locale_untranslated_name, TRUE);
         if (visible)
                 goto out;
 
  out:
-        g_free (locale_untranslated_name);
-        g_free (locale_current_name);
-        g_free (locale_name);
         return visible;
 }
 
@@ -337,16 +315,6 @@ filter_changed (GtkEntry        *entry,
                 CcLanguageChooser *chooser)
 {
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
-        gchar *filter_contents = NULL;
-
-        g_clear_pointer (&priv->filter_words, g_strfreev);
-
-        filter_contents =
-                cc_util_normalize_casefold_and_unaccent (gtk_entry_get_text (GTK_ENTRY (priv->filter_entry)));
-        if (!filter_contents)
-                return;
-        priv->filter_words = g_strsplit_set (g_strstrip (filter_contents), " ", 0);
-        g_free (filter_contents);
         gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->language_list));
 }
 
@@ -490,15 +458,6 @@ cc_language_chooser_set_property (GObject      *object,
 }
 
 static void
-cc_language_chooser_finalize (GObject *object)
-{
-        CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
-        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
-
-        g_strfreev (priv->filter_words);
-}
-
-static void
 cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -510,7 +469,6 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 
         object_class->get_property = cc_language_chooser_get_property;
         object_class->set_property = cc_language_chooser_set_property;
-        object_class->finalize = cc_language_chooser_finalize;
         object_class->constructed = cc_language_chooser_constructed;
 
         obj_props[PROP_LANGUAGE] =

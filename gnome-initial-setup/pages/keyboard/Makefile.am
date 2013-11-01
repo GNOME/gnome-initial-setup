@@ -18,6 +18,7 @@ BUILT_SOURCES += keyboard-resources.c keyboard-resources.h
 libgiskeyboard_la_SOURCES =				\
 	cc-input-chooser.c cc-input-chooser.h		\
 	cc-ibus-utils.c cc-ibus-utils.h			\
+	cc-util.c cc-util.h				\
 	gis-keyboard-page.c gis-keyboard-page.h		\
 	$(BUILT_SOURCES)
 
