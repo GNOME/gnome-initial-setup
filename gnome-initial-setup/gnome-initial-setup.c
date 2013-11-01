@@ -42,9 +42,9 @@
 #include "pages/keyboard/gis-keyboard-page.h"
 #include "pages/eulas/gis-eula-pages.h"
 #include "pages/network/gis-network-page.h"
-#include "pages/account/gis-account-page.h"
 #include "pages/timezone/gis-timezone-page.h"
 #include "pages/goa/gis-goa-page.h"
+#include "pages/account/gis-account-page.h"
 #include "pages/summary/gis-summary-page.h"
 
 static gboolean force_existing_user_mode;
