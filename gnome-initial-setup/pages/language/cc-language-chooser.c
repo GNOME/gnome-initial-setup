@@ -323,6 +323,12 @@ sort_languages (GtkListBoxRow *a,
         if (lb == NULL)
                 return -1;
 
+        if (la->is_extra && !lb->is_extra)
+                return 1;
+
+        if (!la->is_extra && lb->is_extra)
+                return -1;
+
         return strcmp (la->locale_name, lb->locale_name);
 }
 
