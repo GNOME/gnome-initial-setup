@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-10-30 21:30+0000\n"
-"PO-Revision-Date: 2013-10-31 16:28+0100\n"
+"POT-Creation-Date: 2013-11-01 19:50+0000\n"
+"PO-Revision-Date: 2013-11-04 17:56+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -23,28 +23,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
-#: ../gnome-initial-setup/gis-assistant.c:413
+#: ../gnome-initial-setup/gis-assistant.c:390
 msgid "_Next"
 msgstr "Siguie_nte"
 
-#: ../gnome-initial-setup/gis-assistant.c:414
+#: ../gnome-initial-setup/gis-assistant.c:391
+msgid "_Accept"
+msgstr "_Aceptar"
+
+#: ../gnome-initial-setup/gis-assistant.c:392
 msgid "_Skip"
 msgstr "_Omitir"
 
-#: ../gnome-initial-setup/gis-assistant.c:415
+#: ../gnome-initial-setup/gis-assistant.c:393
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../gnome-initial-setup/gis-assistant.c:416
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:194
-#| msgid "Force new user mode"
+#: ../gnome-initial-setup/gnome-initial-setup.c:192
 msgid "Force existing user mode"
 msgstr "Forzar el modo del nuevo existente"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:198
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "- GNOME initial setup"
 msgstr "- Configuración inicial de GNOME"
 
@@ -139,11 +142,6 @@ msgid "Domain Administrator Login"
 msgstr "Inicio de sesión del administrador del dominio"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be\n"
-#| "enrolled in the domain. Please have your network administrator\n"
-#| "type their domain password here, and choose a unique computer\n"
-#| "name for your computer."
 msgid ""
 "In order to use enterprise logins, this computer needs to be\n"
 "                enrolled in the domain. Please have your network "
@@ -269,7 +267,6 @@ msgid "Add Account"
 msgstr "Añadir cuenta"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:92
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -278,14 +275,10 @@ msgid "Online Accounts"
 msgstr "Cuentas en línea"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-#| msgid "Online Accounts"
 msgid "Connect Your Online Accounts"
 msgstr "Conectar a sus cuentas en línea"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-#| msgid ""
-#| "Adding accounts will allow you to transparently connect to your online "
-#| "photos, contacts, mail, and more."
 msgid ""
 "Connecting your accounts will allow you to easily access your email, online "
 "calendar, contacts, documents and photos."
@@ -300,7 +293,7 @@ msgstr ""
 "configuración."
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:183
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "More…"
 msgstr "Más…"
 
@@ -328,27 +321,27 @@ msgstr "Añadir distribuciones del teclado u otros métodos de entrada"
 msgid "Add an Input Source"
 msgstr "Añadir fuente de entrada"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:200
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
 msgid "No languages found"
 msgstr "No se han encontrado idiomas"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:227
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:228
 msgid "Welcome"
 msgstr "Bienvenido"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:149
-#, c-format
-msgid ""
-"We think that your time zone is <b>%s</b>. Press Next to continue or search "
-"for a city to manually set the time zone."
-msgstr ""
-"Parece ser que su zona horaria es <b>%s</b>. Pulse Siguiente para continuar "
-"o busque una ciudad para establecer la zona horaria manualmente."
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:120
+#| msgid "Welcome"
+msgid "Welcome!"
+msgstr "Bienvenido."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:344
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:189
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Zona horaria"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "Busque una ciudad cercana"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
@@ -377,22 +370,49 @@ msgstr ""
 "activar su acceso a su correo, su calendario y sus contactos. También es "
 "necesario para las cuentas con inicio de sesión empresarial."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:327
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
 msgid "_Start using %s"
 msgstr "_Empezar a usar %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:353
-msgid "Thank You"
-msgstr "Gracias"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"Gracias por elegir %s.\n"
+"Esperamos que le guste."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
+msgid "Ready to Go"
+msgstr "Listo para empezar"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "That's it!"
-msgstr "Esto es todo."
+msgid "You're all set!"
+msgstr "Ya está todo listo."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "_Start using GNOME 3"
-msgstr "_Empezar a usar GNOME 3"
+#~ msgid ""
+#~ "We think that your time zone is <b>%s</b>. Press Next to continue or "
+#~ "search for a city to manually set the time zone."
+#~ msgstr ""
+#~ "Parece ser que su zona horaria es <b>%s</b>. Pulse Siguiente para "
+#~ "continuar o busque una ciudad para establecer la zona horaria manualmente."
+
+#~ msgid "Thank You"
+#~ msgstr "Gracias"
+
+#~ msgid "That's it!"
+#~ msgstr "Esto es todo."
+
+#~ msgid "_Start using GNOME 3"
+#~ msgstr "_Empezar a usar GNOME 3"
 
 #~ msgctxt "Online Account"
 #~ msgid "Other"
