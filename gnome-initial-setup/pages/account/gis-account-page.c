@@ -46,11 +46,9 @@ struct _GisAccountPagePrivate
   GtkWidget *page_enterprise;
 
   GtkWidget *page_toggle;
-  GtkWidget *notebook;
+  GtkWidget *stack;
 
   UmAccountMode mode;
-
-  gboolean has_enterprise;
 };
 typedef struct _GisAccountPagePrivate GisAccountPagePrivate;
 
@@ -98,37 +96,17 @@ set_mode (GisAccountPage *page,
           UmAccountMode   mode)
 {
   GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
+  GtkWidget *visible_child;
 
   if (priv->mode == mode)
     return;
 
   priv->mode = mode;
 
-  gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), (mode == UM_LOCAL) ? 0 : 1);
+  visible_child = (mode == UM_LOCAL) ? priv->page_local : priv->page_enterprise;
+  gtk_stack_set_visible_child (GTK_STACK (priv->stack), visible_child);
 
   update_page_validation (page);
-}
-
-static void
-on_enterprise_visible_changed (GObject    *object,
-                               GParamSpec *param,
-                               gpointer    user_data)
-{
-  GisAccountPage *page = GIS_ACCOUNT_PAGE (user_data);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  gboolean has_enterprise;
-
-  has_enterprise = gtk_widget_get_visible (priv->page_enterprise);
-
-  if (priv->has_enterprise == has_enterprise)
-    return;
-
-  priv->has_enterprise = has_enterprise;
-
-  if (!has_enterprise)
-    set_mode (page, UM_LOCAL);
-
-  gtk_widget_set_visible (priv->page_toggle, has_enterprise);
 }
 
 static void
@@ -205,12 +183,8 @@ gis_account_page_constructed (GObject *object)
 
   g_signal_connect (priv->page_enterprise, "validation-changed",
                     G_CALLBACK (on_validation_changed), page);
-  g_signal_connect (priv->page_enterprise, "notify::visible",
-                    G_CALLBACK (on_enterprise_visible_changed), page);
 
   update_page_validation (page);
-
-  priv->has_enterprise = FALSE;
 
   g_signal_connect (priv->page_toggle, "toggled", G_CALLBACK (toggle_mode), page);
   g_object_bind_property (page, "applying", priv->page_toggle, "sensitive", G_BINDING_INVERT_BOOLEAN);
@@ -240,7 +214,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_enterprise);
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_toggle);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, notebook);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, stack);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_account_page_locale_changed;
