@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 20:13+0000\n"
-"PO-Revision-Date: 2013-09-03 18:31+0300\n"
+"POT-Creation-Date: 2013-10-25 14:31+0000\n"
+"PO-Revision-Date: 2013-10-28 21:23+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -19,33 +19,35 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Alkuasetukset"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:413
 msgid "_Next"
 msgstr "_Seuraava"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:414
+msgid "_Skip"
+msgstr "_Ohita"
+
+#: ../gnome-initial-setup/gis-assistant.c:415
 msgid "_Previous"
 msgstr "_Edellinen"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:416
 msgid "_Cancel"
 msgstr "_Peru"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#| msgid "Force new user mode"
+msgid "Force existing user mode"
 msgstr "Pakota uusi käyttäjä -tila"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:198
 msgid "- GNOME initial setup"
 msgstr "- Gnomen alkuasetukset"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:328
-#| msgid "_Confirm password"
 msgid "No password"
 msgstr "Ei salasanaa"
 
@@ -75,7 +77,7 @@ msgstr "Toimialueeseen liittyminen epäonnistui"
 msgid "Failed to log into domain"
 msgstr "Toimialueeseen kirjautuminen epäonnistui"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1201
 msgid "Login"
 msgstr "Kirjautuminen"
 
@@ -126,7 +128,7 @@ msgstr "_Toimialue"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
 msgid "Enterprise domain or realm name"
-msgstr "Yritystoimialue tai verkkoalue"
+msgstr "Yritystoimialueen tai realmin nimi"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
 msgid "C_ontinue"
@@ -197,7 +199,7 @@ msgstr "Tämänlaiseen toimialueeseen ei voi liittyä automaattisesti"
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
-msgstr "Kyseistä toimialuetta ei löytynyt"
+msgstr "Kyseistä toimialuetta tai realmia ei löytynyt"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
@@ -229,11 +231,6 @@ msgid "The username cannot start with a '-'"
 msgstr "Käyttäjätunnus ei voi alkaa merkillä \"-\""
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:158
-#| msgid ""
-#| "The username must consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -256,112 +253,72 @@ msgid ""
 "agreement."
 msgstr "_Hyväksyn loppukäyttäjän lisenssiehdot."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-#| msgctxt "Wireless access point"
-#| msgid "Other…"
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Muu"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
 msgid "Add Account"
 msgstr "Lisää tili"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "Sähköposti"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:93
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "Peru"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Yhteystiedot"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Keskustelut"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Resurssit"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "Virhe tiliä luotaessa"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "Virhe tiliä poistaessa"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "Haluatko varmasti poistaa tilin?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "Tämä toiminto ei poista tiliä palvelimelta."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "_Poista"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:341
 msgid "Online Accounts"
 msgstr "Verkkotilit"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Yhdistä pilvessä olemassa olevaan dataan"
+#| msgid "Online Accounts"
+msgid "Connect Your Online Accounts"
+msgstr "Yhdistä verkkotilisi"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#| msgid ""
+#| "Adding accounts will allow you to transparently connect to your online "
+#| "photos, contacts, mail, and more."
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"Tilien lisääminen mahdollistaa vaivattoman yhdistämisen verkossa oleviin "
-"valokuviin, yhteystietoihin, sähköpostiin ja muihin palveluihin."
+"Tilien lisääminen mahdollistaa sähköpostin, verkkokalenterin, "
+"yhteystietojen, asiakirjojen ja valokuvien vaivattoman käytön."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-#| msgid "Add Account"
-msgid "_Add Account"
-msgstr "_Lisää tili"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"Voit tarkastella verkkotilejäsi ja lisätä uusia asetusten asettamisen "
+"jälkeen."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:183
 msgid "More…"
 msgstr "Lisää…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
-#| msgid "Move Input Source Down"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:184
 msgid "No input sources found"
 msgstr "Syötelähteitä ei löytynyt"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
-#| msgctxt "Wireless access point"
-#| msgid "Other…"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1013
 msgid "Other"
 msgstr "Muu"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-#| msgid "Add Input Source"
-msgid "Input Sources"
-msgstr "Syötelähteet"
+msgid "Typing"
+msgstr "Kirjoittaminen"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:470
+#| msgid "No input sources found"
+msgid "No input source selected"
+msgstr "Syötelähdettä ei ole valittu"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-#| msgid "Show Keyboard Layout"
-msgid "Select keyboard layouts"
-msgstr "Näytä näppäimistön asettelut"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"Kirjautumisasetukset vaikuttavat kaikkiin käyttäjiin koneelle kirjautuessa"
+msgid "Add keyboard layouts or other input methods"
+msgstr "Lisää näppäimistön asettelu tai muita syötetapoja"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
-#| msgid "Add Input Source"
 msgid "Add an Input Source"
 msgstr "Lisää syötelähde"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:200
 msgid "No languages found"
 msgstr "Kieliä ei löytynyt"
 
@@ -369,55 +326,48 @@ msgstr "Kieliä ei löytynyt"
 msgid "Welcome"
 msgstr "Tervetuloa"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Etsi sijaintia"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:147
+#, c-format
+msgid ""
+"We think that your time zone is <b>%s</b>. Press Next to continue or search "
+"for a city to manually set the time zone."
+msgstr ""
+"Aikavyöhykkeesi on ilmeisesti <b>%s</b>. Napsauta \"Seuraava\" jatkaaksesi "
+"tai etsi kaupunkia asettaaksesi muun aikavyöhykkeen."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Sijainti"
-
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:355
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Valitse sijaintisi"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "_Määritä sijainti automaattisesti"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
 msgid "Time Zone"
 msgstr "Aikavyöhyke"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Muu…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "Verkko ei ole käytettävissä."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "Verkkolaitteita ei löytynyt."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:365
 msgid "Checking for available wireless networks"
 msgstr "Tarkistetaan käytettävissä olevia langattomia verkkoja"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:618
 msgid "Network"
 msgstr "Verkko"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Langattomat verkot"
+msgid "Wi-Fi"
+msgstr "Wifi"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"Internetiin yhdistäminen mahdollistaa ajan asettamisen sekä verkkotilien "
+"määrittämisen. Verkkoyhteys vaaditaan myös yritysverkon kirjautumisia varten."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
 #, c-format
-#| msgid "_Start using GNOME 3"
 msgid "_Start using %s"
 msgstr "_Aloita käyttö - %s"
 
@@ -426,16 +376,92 @@ msgid "Thank You"
 msgstr "Kiitos"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Tietokoneesi on valmis käytettäväksi."
+msgid "That's it!"
+msgstr "Siinä kaikki!"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "Voit muuttaa mitä tahansa näistä valinnoista järjestelmäasetuksista."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "Aloita _Gnome 3:n käyttö"
+
+#~| msgctxt "Wireless access point"
+#~| msgid "Other…"
+#~ msgctxt "Online Account"
+#~ msgid "Other"
+#~ msgstr "Muu"
+
+#~ msgid "Mail"
+#~ msgstr "Sähköposti"
+
+#~ msgid "Contacts"
+#~ msgstr "Yhteystiedot"
+
+#~ msgid "Chat"
+#~ msgstr "Keskustelut"
+
+#~ msgid "Resources"
+#~ msgstr "Resurssit"
+
+#~ msgid "Error creating account"
+#~ msgstr "Virhe tiliä luotaessa"
+
+#~ msgid "Error removing account"
+#~ msgstr "Virhe tiliä poistaessa"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "Haluatko varmasti poistaa tilin?"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "Tämä toiminto ei poista tiliä palvelimelta."
+
+#~ msgid "_Remove"
+#~ msgstr "_Poista"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "Yhdistä pilvessä olemassa olevaan dataan"
+
+#~| msgid "Add Account"
+#~ msgid "_Add Account"
+#~ msgstr "_Lisää tili"
+
+#~| msgid "Add Input Source"
+#~ msgid "Input Sources"
+#~ msgstr "Syötelähteet"
+
+#~| msgid "Show Keyboard Layout"
+#~ msgid "Select keyboard layouts"
+#~ msgstr "Näytä näppäimistön asettelut"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "Kirjautumisasetukset vaikuttavat kaikkiin käyttäjiin koneelle kirjautuessa"
+
+#~ msgid "Search for a location"
+#~ msgstr "Etsi sijaintia"
+
+#~ msgid "Location"
+#~ msgstr "Sijainti"
+
+#~ msgid "Choose Your Location"
+#~ msgstr "Valitse sijaintisi"
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "_Määritä sijainti automaattisesti"
+
+#~ msgid "Network is not available."
+#~ msgstr "Verkko ei ole käytettävissä."
+
+#~ msgid "No network devices found."
+#~ msgstr "Verkkolaitteita ei löytynyt."
+
+#~ msgid "Wireless Networks"
+#~ msgstr "Langattomat verkot"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "Tietokoneesi on valmis käytettäväksi."
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr ""
+#~ "Voit muuttaa mitä tahansa näistä valinnoista järjestelmäasetuksista."
 
 #~ msgid "_Back"
 #~ msgstr "_Edellinen"
