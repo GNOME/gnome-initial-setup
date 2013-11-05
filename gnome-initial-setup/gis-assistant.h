@@ -38,11 +38,6 @@ G_BEGIN_DECLS
 typedef struct _GisAssistant        GisAssistant;
 typedef struct _GisAssistantClass   GisAssistantClass;
 
-typedef enum {
-  GIS_ASSISTANT_PREV,
-  GIS_ASSISTANT_NEXT,
-} GisAssistantDirection;
-
 struct _GisAssistant
 {
   GtkBox parent;
