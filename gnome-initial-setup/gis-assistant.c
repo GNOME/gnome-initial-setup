@@ -38,13 +38,6 @@ enum {
 
 static GParamSpec *obj_props[PROP_LAST];
 
-enum {
-  NEXT_PAGE,
-  LAST_SIGNAL,
-};
-
-static guint signals[LAST_SIGNAL];
-
 struct _GisAssistantPrivate
 {
   GtkWidget *forward;
@@ -94,33 +87,6 @@ gis_assistant_switch_to (GisAssistant          *assistant,
   gtk_stack_set_visible_child (GTK_STACK (priv->stack), GTK_WIDGET (page));
 }
 
-static void
-on_apply_done (GisPage *page,
-               gboolean valid,
-               gpointer user_data)
-{
-  GisAssistant *assistant = GIS_ASSISTANT (user_data);
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
-  if (valid)
-    g_signal_emit (assistant, signals[NEXT_PAGE], 0,
-                   priv->current_page);
-
-  g_object_unref (assistant);
-}
-
-void
-gis_assistant_next_page (GisAssistant *assistant)
-{
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  if (priv->current_page)
-    gis_page_apply_begin (priv->current_page, on_apply_done,
-                          g_object_ref (assistant));
-  else
-    g_signal_emit (assistant, signals[NEXT_PAGE], 0,
-                   priv->current_page);
-}
-
 static inline gboolean
 should_show_page (GList *l)
 {
@@ -138,10 +104,34 @@ find_next_page (GisPage *page)
 }
 
 static void
-gis_assistant_real_next_page (GisAssistant *assistant,
-                              GisPage      *page)
+switch_to_next_page (GisAssistant *assistant)
 {
-  gis_assistant_switch_to (assistant, find_next_page (page));
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+  gis_assistant_switch_to (assistant, find_next_page (priv->current_page));
+}
+
+static void
+on_apply_done (GisPage *page,
+               gboolean valid,
+               gpointer user_data)
+{
+  GisAssistant *assistant = GIS_ASSISTANT (user_data);
+
+  if (valid)
+    switch_to_next_page (assistant);
+
+  g_object_unref (assistant);
+}
+
+void
+gis_assistant_next_page (GisAssistant *assistant)
+{
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
+  if (priv->current_page)
+    gis_page_apply_begin (priv->current_page, on_apply_done,
+                          g_object_ref (assistant));
+  else
+    switch_to_next_page (assistant);
 }
 
 static GisPage *
@@ -467,8 +457,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
 
   gobject_class->get_property = gis_assistant_get_property;
 
-  klass->next_page = gis_assistant_real_next_page;
-
   obj_props[PROP_TITLE] =
     g_param_spec_string ("title",
                          "", "",
@@ -476,20 +464,4 @@ gis_assistant_class_init (GisAssistantClass *klass)
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
-
-  /**
-   * GisAssistant::next-page:
-   * @assistant: the #GisAssistant
-   * @page: the page we're leaving
-   *
-   * The ::next-page signal is emitted when we're leaving
-   * a page, allowing a page to do something when it's left.
-   */
-  signals[NEXT_PAGE] =
-    g_signal_new ("next-page",
-                  G_TYPE_FROM_CLASS (gobject_class),
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (GisAssistantClass, next_page),
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 1, GIS_TYPE_PAGE);
 }
