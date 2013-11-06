@@ -112,13 +112,12 @@ static void localed_proxy_ready (GObject *source, GAsyncResult *res, gpointer da
 static void setup_input_section (GisKeyboardPage *self);
 static void update_input (GisKeyboardPage *self);
 
-static void
-next_page_cb (GisAssistant *assistant,
-              GisPage      *which_page,
-              GisPage      *this_page)
+static gboolean
+gis_keyboard_page_apply (GisPage      *page,
+                         GCancellable *cancellable)
 {
-        if (which_page == this_page)
-                update_input (GIS_KEYBOARD_PAGE (this_page));
+        update_input (GIS_KEYBOARD_PAGE (page));
+        return FALSE;
 }
 
 static void
@@ -126,7 +125,6 @@ gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        GisAssistant *assistant = gis_driver_get_assistant (GIS_PAGE (self)->driver);
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
 
@@ -147,8 +145,6 @@ gis_keyboard_page_constructed (GObject *object)
         /* If we're in new user mode then we're manipulating system settings */
         if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER)
                 priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-keyboard", NULL, NULL, NULL);
-
-        g_signal_connect (assistant, "next-page", G_CALLBACK (next_page_cb), self);
 
         gis_page_set_complete (GIS_PAGE (self), TRUE);
         gtk_widget_show (GTK_WIDGET (self));
@@ -176,6 +172,7 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisKeyboardPage, scrolled_window);
 
         page_class->page_id = PAGE_ID;
+        page_class->apply = gis_keyboard_page_apply;
         page_class->locale_changed = gis_keyboard_page_locale_changed;
         object_class->constructed = gis_keyboard_page_constructed;
 	object_class->finalize = gis_keyboard_page_finalize;
