@@ -297,9 +297,6 @@ gis_page_apply_begin (GisPage                *page,
 
   klass = GIS_PAGE_GET_CLASS (page);
 
-  /* Unrefs in gis_page_apply_complete() */
-  g_object_ref (page);
-
   priv->apply_cb = callback;
   priv->apply_data = user_data;
   priv->apply_cancel = g_cancellable_new ();
@@ -336,9 +333,6 @@ gis_page_apply_complete (GisPage *page,
 
   if (callback)
     (callback) (page, valid, user_data);
-
-  /* Matches ref in gis_page_apply_begin() */
-  g_object_unref (page);
 }
 
 gboolean

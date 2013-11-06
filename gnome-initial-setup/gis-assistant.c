@@ -119,8 +119,6 @@ on_apply_done (GisPage *page,
 
   if (valid)
     switch_to_next_page (assistant);
-
-  g_object_unref (assistant);
 }
 
 void
@@ -128,8 +126,7 @@ gis_assistant_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   if (priv->current_page)
-    gis_page_apply_begin (priv->current_page, on_apply_done,
-                          g_object_ref (assistant));
+    gis_page_apply_begin (priv->current_page, on_apply_done, assistant);
   else
     switch_to_next_page (assistant);
 }
