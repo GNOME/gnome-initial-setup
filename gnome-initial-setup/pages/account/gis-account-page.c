@@ -232,12 +232,3 @@ gis_account_page_init (GisAccountPage *page)
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
-
-void
-gis_prepare_account_page (GisDriver *driver)
-{
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_ACCOUNT_PAGE,
-                                     "driver", driver,
-                                     NULL));
-}

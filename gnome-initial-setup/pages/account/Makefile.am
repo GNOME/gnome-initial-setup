@@ -25,6 +25,7 @@ BUILT_SOURCES += account-resources.c account-resources.h
 libgisaccount_la_SOURCES =						\
 	$(BUILT_SOURCES)						\
 	gis-account-page.c gis-account-page.h				\
+	gis-account-pages.c gis-account-pages.h				\
 	gis-account-page-local.c gis-account-page-local.h		\
 	gis-account-page-enterprise.c gis-account-page-enterprise.h	\
 	um-realm-manager.c um-realm-manager.h				\
