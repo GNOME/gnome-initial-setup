@@ -106,7 +106,7 @@ on_have_providers (GObject       *source,
           gtk_dialog_run (GTK_DIALOG (dialog));
           gtk_widget_destroy (dialog);
         }
-      g_error_free (error);
+      g_clear_error (&error);
     }
 
   g_list_free_full (providers, g_object_unref);
