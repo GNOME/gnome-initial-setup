@@ -10,10 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-26 00:04+0000\n"
-"PO-Revision-Date: 2013-09-29 17:34+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-18 19:50+0100\n"
+"PO-Revision-Date: 2013-11-16 08:48+0100\n"
 "Last-Translator: Erwin Poeze <donnut@outlook.com>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -21,66 +20,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Instellingen voor eerste gebruik"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:390
 msgid "_Next"
 msgstr "V_olgende"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:391
+msgid "_Accept"
+msgstr "_Accepteren"
+
+#: ../gnome-initial-setup/gis-assistant.c:392
+msgid "_Skip"
+msgstr "_Overslaan"
+
+#: ../gnome-initial-setup/gis-assistant.c:393
 msgid "_Previous"
 msgstr "_Vorige"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
+#: ../gnome-initial-setup/gnome-initial-setup.c:192
+msgid "Force existing user mode"
 msgstr "Modus voor nieuwe gebruiker forceren"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "- GNOME initial setup"
 msgstr "– Instellingen voor eerste gebruik van Gnome"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:324
 msgid "No password"
 msgstr "Geen wachtwoord"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:329
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:421
 msgid "Passwords do not match"
 msgstr "Wachtwoorden komen niet overeen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:368
 #, c-format
 msgid "Strength: %s"
 msgstr "Sterkte: %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:495
 msgid "Failed to register account"
 msgstr "Registreren van account is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:689
 msgid "No supported way to authenticate with this domain"
 msgstr "Authenticatie met dit domein is niet ondersteund"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:729
 msgid "Failed to join domain"
 msgstr "Lid worden van domein is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:797
 msgid "Failed to log into domain"
 msgstr "Aanmelden bij domein is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1201
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1157
 msgid "Login"
 msgstr "Aanmelden"
 
@@ -145,13 +149,16 @@ msgstr "Aanmelden domeinbeheerder"
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
 msgid ""
 "In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"                enrolled in the domain. Please have your network "
+"administrator\n"
+"                type their domain password here, and choose a unique "
+"computer\n"
+"                name for your computer."
 msgstr ""
-"Om bedrijfsaanmeldingen te gebruiken moet deze computer ingeschreven zijn\n"
-"bij het domein. Laat uw netwerkbeheerder het domeinwachtwoord\n"
-"hier invoeren en kies een unieke naam voor uw computer."
+"Om bedrijfsaanmeldingen te gebruiken moet deze computer\n"
+"                ingeschreven zijn bij het domein. Laat uw netwerkbeheerder\n"
+"                hier het domeinwachtwoord invoeren en kies een unieke naam\n"
+"                voor uw computer."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
 msgid "_Computer"
@@ -245,7 +252,7 @@ msgstr ""
 " ➣ cijfers\n"
 " ➣ de tekens ‘.’, ‘-’ en ‘_’"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:316
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Licentieovereenkomsten"
@@ -258,92 +265,59 @@ msgstr ""
 "Ik ga akkoord met de voorwaarden en bepalingen in deze "
 "gebruiksrechtovereenkomst."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Overige"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:89
 msgid "Add Account"
 msgstr "Account toevoegen"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "E-mail"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:92
+msgid "Cancel"
+msgstr "Annuleren"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Contactpersonen"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Chat"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Bronnen"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:100
-msgid "Error creating account"
-msgstr "Aanmaken van het account is mislukt"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:146
-msgid "Error removing account"
-msgstr "Verwijderen van het account is mislukt"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:172
-msgid "Are you sure you want to remove the account?"
-msgstr "Ben u zeker dat u het account wilt verwijderen?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:174
-msgid "This will not remove the account on the server."
-msgstr "Dit zal uw account op de server niet verwijderen."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:175
-msgid "_Remove"
-msgstr "Verwij_deren"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:437
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:334
 msgid "Online Accounts"
-msgstr "Online accounts"
+msgstr "Online-accounts"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Met uw huidige gegevens in de cloud verbinden"
+msgid "Connect Your Online Accounts"
+msgstr "Uw online-accounts koppelen"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"Door accounts toe te voegen kun u transparant verbinding maken met online "
-"fotoboeken, contactpersonen, e-mail en meer."
+"Door accounts te koppelen kun u transparant verbinding maken met uw e-mail, "
+"agenda, contactpersonen en online-fotoboeken."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "Een _account toevoegen"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"U kunt uw online-accounts bekijken (en andere toevoegen) na het instellen."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "More…"
 msgstr "Meer…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:184
 msgid "No input sources found"
 msgstr "Geen invoerapparaat gevonden"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1013
 msgid "Other"
 msgstr "Overige"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
-msgid "Input Sources"
-msgstr "Invoerapparaten"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:160
+msgid "Typing"
+msgstr "Typen"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:472
+msgid "No input source selected"
+msgstr "Er zijn geen invoerbronnen geselecteerd"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "Toetsenbordindelingen selecteren"
+msgid "Add keyboard layouts or other input methods"
+msgstr "Toetsenbordindelingen of andere invoermethoden toevoegen"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
@@ -353,167 +327,74 @@ msgstr "Een invoerapparaat toevoegen"
 msgid "No languages found"
 msgstr "Geen talen gevonden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:228
 msgid "Welcome"
 msgstr "Welkom"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Een locatie zoeken"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:120
+msgid "Welcome!"
+msgstr "Welkom!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Locatie"
-
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:189
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Kies uw locatie"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "Uw _locatie automatisch bepalen"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
 msgid "Time Zone"
 msgstr "Tijdzone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "Zoek de dichtstbijgelegen stad"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Overige…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "Netwerk niet beschikbaar."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "Geen netwerkapparaten gevonden."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:354
 msgid "Checking for available wireless networks"
 msgstr "Zoeken naar beschikbare draadloze netwerken"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:600
 msgid "Network"
 msgstr "Netwerk"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Draadloze netwerken"
+msgid "Wi-Fi"
+msgstr "WiFi"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"Als er verbinding met het internet is, kunt u de tijd instellen, uw gegevens "
+"toevoegen, en toegang krijgen tot uw e-mail, agenda en contactpersonen. "
+"Verbinding is ook noodzakelijk voor bedrijfsaanmeldingen."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
 msgid "_Start using %s"
 msgstr "_Beginnen met %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "Dank u"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"Bedankt dat u voor %s gekozen heeft.\n"
+"We hopen dat het u bevalt."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
+msgid "Ready to Go"
+msgstr "Klaar om verder te gaan"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Uw computer is klaar voor gebruik."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "U kunt deze opties op elk gewenst moment wijzigen in ‘Instellingen’."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "_Beginnen met Gnome 3"
-
-#~ msgid "Unspecified"
-#~ msgstr "Niet aangegeven"
-
-#~ msgid "_Back"
-#~ msgstr "_Terug"
-
-#~ msgid "Use _Enterprise Login"
-#~ msgstr "Een _Enterprise-login gebruiken"
-
-#~ msgid "_Use Local Login"
-#~ msgstr "_Lokale login gebruiken"
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "Toetsenbordindeling"
-
-#~ msgid "Select input sources"
-#~ msgstr "Invoerapparaat selecteren"
-
-#~ msgid "Remove Input Source"
-#~ msgstr "Invoerapparaat verwijderen"
-
-#~ msgid "Move Input Source Up"
-#~ msgstr "Invoerapparaat omhoog verplaatsen"
-
-#~ msgid "Input Source Settings"
-#~ msgstr "Instellingen invoerapparaat"
-
-#~ msgid "Select an input source"
-#~ msgstr "Selecteer een invoerapparaat"
-
-#~ msgid "English"
-#~ msgstr "Engels"
-
-#~ msgid "British English"
-#~ msgstr "Brits Engels"
-
-#~ msgid "German"
-#~ msgstr "Duits"
-
-#~ msgid "French"
-#~ msgstr "Frans"
-
-#~ msgid "Spanish"
-#~ msgstr "Spaans"
-
-#~ msgid "Chinese (simplified)"
-#~ msgstr "Chinees (vereenvoudigd)"
-
-#~ msgid "Use %s"
-#~ msgstr "%s gebruiken"
-
-#~ msgid "_Login Name"
-#~ msgstr "Aanmeld_naam"
-
-#~ msgid "Link other accounts"
-#~ msgstr "Andere accounts koppelen"
-
-#~ msgid "Create Local Account"
-#~ msgstr "Een lokaal account aanmaken"
-
-#~ msgid "_Done"
-#~ msgstr "_Klaar"
-
-#~ msgid "_Require a password to use this account"
-#~ msgstr "_Een wachtwoord voor dit account vereisen"
-
-#~ msgid "_Act as administrator of this computer"
-#~ msgstr "Als be_heerder van deze computer handelen"
-
-#~ msgid "Choose How to Login"
-#~ msgstr "Hoe wilt u zich aanmelden?"
-
-#~ msgid "Disable image"
-#~ msgstr "Afbeelding uitschakelen"
-
-#~ msgid "Take a photo..."
-#~ msgstr "Een foto nemen…"
-
-#~ msgid "Remove"
-#~ msgstr "Verwijderen"
-
-#~ msgid "Show _all"
-#~ msgstr "Alles _weergeven"
-
-#~ msgid "Enjoy GNOME!"
-#~ msgstr "Geniet van GNOME!"
-
-#~ msgid "New to GNOME 3 and need help finding your way around?"
-#~ msgstr ""
-#~ "Bent u nieuw bij Gnome 3 en heeft u assistentie nodig om de weg te vinden?"
-
-#~ msgid "_Take a Tour"
-#~ msgstr "Neem een _rondleiding"
+msgid "You're all set!"
+msgstr "U bent helemaal klaar!"
