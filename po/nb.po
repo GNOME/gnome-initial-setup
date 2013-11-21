@@ -6,10 +6,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup 3.9.x\n"
+"Project-Id-Version: gnome-initial-setup 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-08 11:31+0200\n"
-"PO-Revision-Date: 2013-09-08 11:32+0200\n"
+"POT-Creation-Date: 2013-11-21 21:15+0100\n"
+"PO-Revision-Date: 2013-11-21 21:18+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -19,145 +19,152 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Førstegangsoppsett"
 
-#: ../gnome-initial-setup/gis-assistant.c:418
+#: ../gnome-initial-setup/gis-assistant.c:376
 msgid "_Next"
 msgstr "_Neste"
 
-#: ../gnome-initial-setup/gis-assistant.c:419
+#: ../gnome-initial-setup/gis-assistant.c:377
+msgid "_Accept"
+msgstr "Godt_a"
+
+#: ../gnome-initial-setup/gis-assistant.c:378
+msgid "_Skip"
+msgstr "Hopp _over"
+
+#: ../gnome-initial-setup/gis-assistant.c:379
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: ../gnome-initial-setup/gis-assistant.c:420
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:380
 msgid "_Cancel"
 msgstr "A_vbryt"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "Tving ny bruker modus"
+#: ../gnome-initial-setup/gnome-initial-setup.c:192
+msgid "Force existing user mode"
+msgstr "Bruk eksisterende brukermodus"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "- GNOME initial setup"
 msgstr "- Førstegangsoppsett for GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
-msgid "No password"
-msgstr "Uten passord"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
-msgid "Passwords do not match"
-msgstr "Passordene er ikke like"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
-#, c-format
-msgid "Strength: %s"
-msgstr "Styrke: %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
-msgid "Failed to register account"
-msgstr "Klarte ikke å registrere konto"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
-msgid "No supported way to authenticate with this domain"
-msgstr "Ingen støttet måte å autentisere mot dette domenet"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
-msgid "Failed to join domain"
-msgstr "Klarte ikke å bli medlem av domenet"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
-msgid "Failed to log into domain"
-msgstr "Klarte ikke å logge inn i domenet"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
 msgid "Login"
 msgstr "Brukernavn"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create a Local Account"
-msgstr "Lag en lokal konto"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+msgid "Failed to register account"
+msgstr "Klarte ikke å registrere konto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Full Name"
-msgstr "_Fullt navn"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
+msgid "No supported way to authenticate with this domain"
+msgstr "Ingen støttet måte å autentisere mot dette domenet"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Username"
-msgstr "Br_ukernavn"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
+msgid "Failed to join domain"
+msgstr "Klarte ikke å bli medlem av domenet"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"Dette vil bli brukt som navn på din hjemmemappe og det kan ikke endres."
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
+msgid "Failed to log into domain"
+msgstr "Klarte ikke å logge inn i domenet"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Password"
-msgstr "_Passord"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Confirm password"
-msgstr "Be_kreft passord"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
-msgstr ""
-"Prøv minst åtte forskjellige tegn. Bland store og små bokstaver og bruk et "
-"tall eller to."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "page 1"
-msgstr "side 1"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
 msgid "Create an Enterprise Account"
 msgstr "Lag en bedriftskonto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid "_Domain"
 msgstr "_Domene"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+msgid "_Username"
+msgstr "Br_ukernavn"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+msgid "_Password"
+msgstr "_Passord"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
 msgid "Enterprise domain or realm name"
 msgstr "Bedriftsdomene eller områdenavn"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
 msgid "C_ontinue"
 msgstr "F_ortsett"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
 msgid "Domain Administrator Login"
 msgstr "Pålogging for domeneadministrator"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#, fuzzy
 msgid ""
 "In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"                enrolled in the domain. Please have your network "
+"administrator\n"
+"                type their domain password here, and choose a unique "
+"computer\n"
+"                name for your computer."
 msgstr ""
 "Datamaskinen må være innlemmet i domenet for å kunne bruke\n"
 "bedriftspålogging. Vennligst få administrator til å skrive\n"
 "inn sitt domenepassord her, og velg et unikt navn for\n"
 "datamaskinen."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
 msgid "_Computer"
 msgstr "_Datamaskin"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:13
 msgid "Administrator _Name"
 msgstr "_Navn på administrator"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:14
 msgid "Administrator Password"
 msgstr "Passord for administrator"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:177
+msgid "No password"
+msgstr "Uten passord"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:182
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:274
+msgid "Passwords do not match"
+msgstr "Passordene er ikke like"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:221
+#, c-format
+msgid "Strength: %s"
+msgstr "Styrke: %s"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+msgid "Create a Local Account"
+msgstr "Lag en lokal konto"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+msgid "_Full Name"
+msgstr "_Fullt navn"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+msgid "This will be used to name your home folder and can't be changed."
+msgstr ""
+"Dette vil bli brukt som navn på din hjemmemappe og det kan ikke endres."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
+msgid "_Confirm password"
+msgstr "Be_kreft passord"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:7
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"Prøv minst åtte forskjellige tegn. Bland store og små bokstaver og bruk et "
+"tall eller to."
 
 #: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
@@ -239,7 +246,7 @@ msgstr ""
 " ➣ tall\n"
 " ➣ tegnene «.», «-» og «_»"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:316
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Lisensavtaler"
@@ -251,97 +258,59 @@ msgid ""
 msgstr ""
 "Jeg godt_ar vilkårene og betingelsene i denne sluttbrukerlisensavtalen."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Annen"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:89
 msgid "Add Account"
 msgstr "Legg til konto"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "E-post"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:92
+msgid "Cancel"
+msgstr "Avbryt"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Kontakter"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Lynmeldinger"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Ressurser"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "Feil under oppretting av konto"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "Feil under fjerning av konto"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "Er du sikker på at du vil fjerne kontoen?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "Dette vil ikke fjerne kontoen på tjeneren."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "Fje_rn"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:334
 msgid "Online Accounts"
 msgstr "Kontoer på nettet"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Koble til dine data i skyen"
+msgid "Connect Your Online Accounts"
+msgstr "Koble til dine kontoer på nettet"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#, fuzzy
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
 "Ved å legge til kontoer kan du koble til dine bilder, kontakter, e-post og "
 "annet på nettet uten ekstra arbeid."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "_Legg til konto"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:170
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
 msgid "More…"
 msgstr "Mer …"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:184
 msgid "No input sources found"
 msgstr "Ingen inndatakilde funnet"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1013
 msgid "Other"
 msgstr "Annet"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "Inndatakilder"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:156
+msgid "Typing"
+msgstr "Skriving"
+
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:469
+msgid "No input source selected"
+msgstr "Ingen inndatakilde valgt"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "Velg tastaturutforminger"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"Innstillinger for pålogging brukes av alle brukere som logger inn på systemer"
+msgid "Add keyboard layouts or other input methods"
+msgstr "Legg til tastaturutforminger eller andre inndatametoder"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
@@ -351,73 +320,71 @@ msgstr "Legg til inndatakilde"
 msgid "No languages found"
 msgstr "Ingen språk funnet"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:228
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Søk etter en lokasjon"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:120
+msgid "Welcome!"
+msgstr "Velkommen!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Plassering"
-
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:189
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Velg din lokasjon"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "_Bestemm din lokasjon automatisk"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
 msgid "Time Zone"
 msgstr "Tidssone"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "Vennligst søk etter en by i nærheten"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Annet …"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "Nettverk er ikke tilgjengelig."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "Ingen nettverksenheter funnet."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:354
 msgid "Checking for available wireless networks"
 msgstr "Se etter tilgjengelige trådløse nettverk"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:600
 msgid "Network"
 msgstr "Nettverk"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Trådløss nettverk"
+msgid "Wi-Fi"
+msgstr "Trådløst"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
 msgid "_Start using %s"
 msgstr "_Ta i bruk %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "Takk"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"Takk for at du valgte %s.\n"
+"Vi håper at du liker det."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
+msgid "Ready to Go"
+msgstr "Alt er klart"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Datamaskinen er klar til bruk."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "Du kan endre alle disse alternativene senere i systeminnstillinger."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "_Begynn å bruke GNOME 3"
+msgid "You're all set!"
+msgstr "Du er klar!"
