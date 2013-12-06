@@ -3,6 +3,14 @@
   <!-- interface-requires gtk+ 3.10 -->
   <object class="GtkHeaderBar" id="titlebar">
     <property name="visible">True</property>
+    <child type="title">
+      <object class="GtkLabel" id="title">
+        <property name="visible">True</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+        </attributes>
+      </object>
+    </child>
     <child>
       <object class="GtkButton" id="cancel">
         <property name="visible">True</property>

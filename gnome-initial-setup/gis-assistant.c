@@ -49,6 +49,7 @@ struct _GisAssistantPrivate
   GtkWidget *main_layout;
   GtkWidget *spinner;
   GtkWidget *titlebar;
+  GtkWidget *title;
   GtkWidget *stack;
 
   GList *pages;
@@ -239,8 +240,8 @@ update_titlebar (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
-  gtk_header_bar_set_title (GTK_HEADER_BAR (priv->titlebar),
-                            gis_assistant_get_title (assistant));
+  gtk_label_set_label (GTK_LABEL (priv->title),
+                       gis_assistant_get_title (assistant));
 }
 
 static void
@@ -450,6 +451,7 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, title);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, stack);
 
   gobject_class->get_property = gis_assistant_get_property;
