@@ -234,7 +234,8 @@ gis_language_page_dispose (GObject *object)
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
   GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
 
-  g_source_remove (priv->selection_done_source);
+  if (priv->selection_done_source > 0)
+    g_source_remove (priv->selection_done_source);
   g_clear_object (&priv->permission);
   g_clear_object (&priv->localed);
   g_clear_object (&priv->cancellable);
