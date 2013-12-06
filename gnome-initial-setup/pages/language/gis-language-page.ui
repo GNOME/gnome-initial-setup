@@ -6,14 +6,16 @@
       <object class="GtkBox" id="box">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">10</property>
         <child>
           <object class="GisWelcomeWidget" id="welcome_widget">
             <property name="visible">True</property>
+            <property name="margin_top">26</property>
           </object>
         </child>
         <child>
           <object class="CcLanguageChooser" id="language_chooser">
+            <property name="margin_top">26</property>
+            <property name="margin_bottom">32</property>
             <property name="visible">True</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
