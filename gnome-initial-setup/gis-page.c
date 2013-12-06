@@ -207,10 +207,10 @@ gis_page_class_init (GisPageClass *klass)
 static void
 gis_page_init (GisPage *page)
 {
-  gtk_widget_set_margin_left (GTK_WIDGET (page), 12);
+  gtk_widget_set_margin_start (GTK_WIDGET (page), 12);
   gtk_widget_set_margin_top (GTK_WIDGET (page), 12);
   gtk_widget_set_margin_bottom (GTK_WIDGET (page), 12);
-  gtk_widget_set_margin_right (GTK_WIDGET (page), 12);
+  gtk_widget_set_margin_end (GTK_WIDGET (page), 12);
 }
 
 char *
