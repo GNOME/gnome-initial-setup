@@ -233,8 +233,8 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   strength = nm_access_point_get_strength (ap);
 
   row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-  gtk_widget_set_margin_left (row, 12);
-  gtk_widget_set_margin_right (row, 12);
+  gtk_widget_set_margin_start (row, 12);
+  gtk_widget_set_margin_end (row, 12);
   widget = gtk_label_new (ssid_text);
   gtk_widget_set_margin_top (widget, 12);
   gtk_widget_set_margin_bottom (widget, 12);
@@ -302,8 +302,8 @@ add_access_point_other (GisNetworkPage *page)
   GtkWidget *widget;
 
   row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-  gtk_widget_set_margin_left (row, 12);
-  gtk_widget_set_margin_right (row, 12);
+  gtk_widget_set_margin_start (row, 12);
+  gtk_widget_set_margin_end (row, 12);
   widget = gtk_label_new (C_("Wireless access point", "Other…"));
   gtk_widget_set_margin_top (widget, 12);
   gtk_widget_set_margin_bottom (widget, 12);
