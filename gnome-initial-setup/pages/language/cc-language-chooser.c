@@ -43,6 +43,7 @@ struct _CcLanguageChooserPrivate
         GtkWidget *filter_entry;
         GtkWidget *language_list;
 
+        GtkWidget *scrolled_window;
         GtkWidget *no_results;
         GtkWidget *more_item;
 
@@ -326,6 +327,11 @@ show_more (CcLanguageChooser *chooser)
         gtk_widget_show (priv->filter_entry);
         gtk_widget_grab_focus (priv->filter_entry);
 
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
+					GTK_POLICY_NEVER,
+					GTK_POLICY_AUTOMATIC);
+	gtk_widget_set_valign (GTK_WIDGET (chooser), GTK_ALIGN_FILL);
+
         priv->showing_extra = TRUE;
         gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->language_list));
         g_object_notify_by_pspec (G_OBJECT (chooser), obj_props[PROP_SHOWING_EXTRA]);
@@ -466,6 +472,7 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, filter_entry);
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, language_list);
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, scrolled_window);
 
         object_class->get_property = cc_language_chooser_get_property;
         object_class->set_property = cc_language_chooser_set_property;
