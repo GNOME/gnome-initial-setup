@@ -1,6 +1,7 @@
 
 SUBDIRS = \
 	language \
+	region \
 	keyboard \
 	eulas \
 	network \

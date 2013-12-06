@@ -101,6 +101,7 @@ data/Makefile
 gnome-initial-setup/Makefile
 gnome-initial-setup/pages/Makefile
 gnome-initial-setup/pages/language/Makefile
+gnome-initial-setup/pages/region/Makefile
 gnome-initial-setup/pages/keyboard/Makefile
 gnome-initial-setup/pages/eulas/Makefile
 gnome-initial-setup/pages/network/Makefile

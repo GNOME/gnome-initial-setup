@@ -29,6 +29,7 @@ gnome_initial_setup_SOURCES = \
 
 gnome_initial_setup_LDADD =	\
 	pages/language/libgislanguage.la \
+	pages/region/libgisregion.la \
 	pages/keyboard/libgiskeyboard.la \
 	pages/eulas/libgiseulas.la \
 	pages/network/libgisnetwork.la \

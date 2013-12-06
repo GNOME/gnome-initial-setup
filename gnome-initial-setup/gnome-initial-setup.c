@@ -39,6 +39,7 @@
 #endif
 
 #include "pages/language/gis-language-page.h"
+#include "pages/region/gis-region-page.h"
 #include "pages/keyboard/gis-keyboard-page.h"
 #include "pages/eulas/gis-eula-pages.h"
 #include "pages/network/gis-network-page.h"
@@ -61,6 +62,7 @@ typedef struct {
 
 static PageData page_table[] = {
   PAGE (language, FALSE),
+  PAGE (region,   FALSE),
   PAGE (keyboard, FALSE),
   PAGE (eula,     FALSE),
   PAGE (network,  FALSE),
