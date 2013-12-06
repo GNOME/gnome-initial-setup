@@ -10,14 +10,14 @@
         <property name="halign">center</property>
         <property name="valign">fill</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">18</property>
         <child>
           <object class="GtkImage" id="image1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixel_size">128</property>
+            <property name="pixel_size">96</property>
             <property name="icon_name">goa-panel-symbolic</property>
             <property name="icon_size">1</property>
+            <property name="margin_top">54</property>
             <style>
               <class name="dim-label" />
             </style>
@@ -34,6 +34,7 @@
             <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
+            <property name="margin_top">26</property>
             <property name="label" translatable="yes">Connect Your Online Accounts</property>
             <attributes>
               <attribute name="weight" value="bold"/>
@@ -51,6 +52,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="valign">start</property>
+            <property name="margin_top">14</property>
             <property name="label" translatable="yes">Connecting your accounts will allow you to easily access your email, online calendar, contacts, documents and photos.</property>
             <property name="justify">center</property>
             <property name="wrap">True</property>
@@ -68,6 +70,7 @@
             <property name="can_focus">False</property>
             <property name="label_xalign">0</property>
             <property name="shadow_type">in</property>
+            <property name="margin_top">18</property>
             <child>
               <object class="GtkListBox" id="accounts_list">
                 <property name="visible">True</property>
@@ -89,6 +92,7 @@
             <property name="label" translatable="yes">You can review your online accounts (and add others) after setup.</property>
             <property name="justify">center</property>
             <property name="wrap">True</property>
+            <property name="margin_bottom">32</property>
           </object>
           <packing>
             <property name="expand">False</property>
