@@ -8,14 +8,15 @@
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">80</property>
-        <property name="margin_right">80</property>
-        <property name="spacing">18</property>
+        <property name="halign">center</property>
+        <property name="valign">fill</property>
+        <property name="margin_top">32</property>
         <child>
           <object class="GtkImage" id="image1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixel_size">128</property>
+            <property name="margin_top">54</property>
+            <property name="pixel_size">96</property>
             <property name="icon_name">network-wireless-signal-excellent-symbolic</property>
             <style>
               <class name="dim-label" />
@@ -26,12 +27,13 @@
           <object class="GtkLabel" id="title">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_top">26</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
             <property name="label" translatable="yes">Wi-Fi</property>
             <attributes>
               <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.6"/>
+              <attribute name="scale" value="1.8"/>
             </attributes>
           </object>
         </child>
@@ -39,13 +41,16 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_top">14</property>
             <property name="label" translatable="yes">Connecting to the Internet will enable you to set the time, add your details, and enable you to access your email, calendar, and contacts. It is also necessary for enterprise login accounts.</property>
             <property name="justify">center</property>
             <property name="wrap">True</property>
+            <property name="max-width-chars">50</property>
           </object>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window">
+            <property name="margin_top">18</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hscrollbar_policy">never</property>
@@ -68,7 +73,8 @@
           <object class="GtkGrid" id="no_network_grid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="halign">start</property>
+            <property name="margin_top">18</property>
+            <property name="halign">center</property>
             <property name="valign">start</property>
             <child>
               <object class="GtkSpinner" id="no_network_spinner">
