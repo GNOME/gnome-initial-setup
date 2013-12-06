@@ -133,7 +133,7 @@ big_label (const char *text)
   label = gtk_label_new (text);
 
   attrs = pango_attr_list_new ();
-  pango_attr_list_insert (attrs, pango_attr_scale_new (1.8));
+  pango_attr_list_insert (attrs, pango_attr_scale_new (2));
   pango_attr_list_insert (attrs, pango_attr_weight_new (PANGO_WEIGHT_BOLD));
   gtk_label_set_attributes (GTK_LABEL (label), attrs);
   pango_attr_list_unref (attrs);
