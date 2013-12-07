@@ -15,28 +15,52 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
+ *
+ * Written by:
+ *     Jasper St. Pierre <jstpierre@mecheye.net>
+ *     Matthias Clasen <mclasen@redhat.com>
  */
 
 #ifndef __GIS_INPUT_CHOOSER_H__
 #define __GIS_INPUT_CHOOSER_H__
 
 #include <gtk/gtk.h>
+#include <glib-object.h>
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-xkb-info.h>
-
+#define CC_TYPE_INPUT_CHOOSER            (cc_input_chooser_get_type ())
+#define CC_INPUT_CHOOSER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CC_TYPE_INPUT_CHOOSER, CcInputChooser))
+#define CC_INPUT_CHOOSER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  CC_TYPE_INPUT_CHOOSER, CcInputChooserClass))
+#define CC_IS_INPUT_CHOOSER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CC_TYPE_INPUT_CHOOSER))
+#define CC_IS_INPUT_CHOOSER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  CC_TYPE_INPUT_CHOOSER))
+#define CC_INPUT_CHOOSER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  CC_TYPE_INPUT_CHOOSER, CcInputChooserClass))
 
 G_BEGIN_DECLS
 
-GtkWidget   *cc_input_chooser_new          (GtkWindow    *parent,
-                                            GnomeXkbInfo *xkb_info,
-                                            GHashTable   *ibus_engines);
-void         cc_input_chooser_set_ibus_engines (GtkWidget *chooser,
-                                                GHashTable *ibus_engines);
-gboolean     cc_input_chooser_get_selected (GtkWidget    *chooser,
-                                            gchar       **type,
-                                            gchar       **id,
-                                            gchar       **name);
+typedef struct _CcInputChooser        CcInputChooser;
+typedef struct _CcInputChooserClass   CcInputChooserClass;
+
+struct _CcInputChooser
+{
+        GtkBox parent;
+};
+
+struct _CcInputChooserClass
+{
+        GtkBoxClass parent_class;
+};
+
+GType cc_input_chooser_get_type (void);
+
+void          cc_input_chooser_clear_filter (CcInputChooser *chooser);
+const gchar * cc_input_chooser_get_input_id (CcInputChooser  *chooser);
+const gchar * cc_input_chooser_get_input_type (CcInputChooser  *chooser);
+void          cc_input_chooser_set_input (CcInputChooser *chooser,
+                                          const gchar    *id,
+                                          const gchar    *type);
+void	      cc_input_chooser_get_layout (CcInputChooser *chooser,
+					   const gchar    **layout,
+					   const gchar    **variant);
+gboolean      cc_input_chooser_get_showing_extra (CcInputChooser *chooser);
 
 G_END_DECLS
 
