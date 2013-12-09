@@ -38,6 +38,7 @@ struct _GisEulaPagePrivate
 {
   GtkWidget *checkbox;
   GtkWidget *scrolled_window;
+  GtkWidget *text_view;
 
   GFile *eula;
 
@@ -83,9 +84,10 @@ get_file_type (GFile *file)
   return type;
 }
 
-static GtkTextBuffer *
-build_eula_text_buffer (GFile     *file,
-                        GError   **error_out)
+static gboolean
+build_eula_text_buffer (GFile          *file,
+                        GtkTextBuffer **buffer_out,
+                        GError        **error_out)
 {
   GtkTextBuffer *buffer = NULL;
   GtkTextIter start, end;
@@ -94,7 +96,7 @@ build_eula_text_buffer (GFile     *file,
   FileType type = get_file_type (file);
 
   if (type == SKIP)
-    return NULL;
+    return FALSE;
 
   input_stream = G_INPUT_STREAM (g_file_read (file, NULL, &error));
   if (input_stream == NULL)
@@ -122,38 +124,14 @@ build_eula_text_buffer (GFile     *file,
     break;
   }
 
-  return buffer;
+  *buffer_out = buffer;
+  return TRUE;
 
  error_out:
   g_propagate_error (error_out, error);
   if (buffer != NULL)
     g_object_unref (buffer);
-  return NULL;
-}
-
-static GtkWidget *
-build_eula_text_view (GFile *eula)
-{
-  GtkWidget *widget = NULL;
-  GtkTextBuffer *buffer;
-  GError *error = NULL;
-
-  buffer = build_eula_text_buffer (eula, &error);
-
-  if (buffer == NULL)
-    goto out;
-
-  widget = gtk_text_view_new_with_buffer (buffer);
-  gtk_text_view_set_editable (GTK_TEXT_VIEW (widget), FALSE);
-  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (widget), FALSE);
-
- out:
-  if (error != NULL) {
-    g_printerr ("Error while reading EULA: %s", error->message);
-    g_error_free (error);
-  }
-
-  return widget;
+  return FALSE;
 }
 
 static gboolean
@@ -220,21 +198,20 @@ gis_eula_page_constructed (GObject *object)
 {
   GisEulaPage *page = GIS_EULA_PAGE (object);
   GisEulaPagePrivate *priv = gis_eula_page_get_instance_private (page);
-  GtkWidget *text_view;
 
   gboolean require_checkbox = FALSE;
   gboolean require_scroll = FALSE;
 
   GFile *eula = priv->eula;
+  GtkTextBuffer *buffer;
+  GError *error = NULL;
 
   G_OBJECT_CLASS (gis_eula_page_parent_class)->constructed (object);
 
-  text_view = build_eula_text_view (eula);
-  if (text_view == NULL)
-    return;
+  if (!build_eula_text_buffer (eula, &buffer, &error))
+    goto out;
 
-  gtk_container_add (GTK_CONTAINER (priv->scrolled_window), text_view);
-  gtk_widget_show (text_view);
+  gtk_text_view_set_buffer (GTK_TEXT_VIEW (priv->text_view), buffer);
 
   get_config (eula, &require_checkbox, &require_scroll);
 
@@ -257,6 +234,11 @@ gis_eula_page_constructed (GObject *object)
   sync_page_complete (page);
 
   gtk_widget_show (GTK_WIDGET (page));
+
+ out:
+  if (error)
+    g_printerr ("Error while reading EULA: %s", error->message);
+  g_clear_error (&error);
 }
 
 static void
@@ -326,6 +308,7 @@ gis_eula_page_class_init (GisEulaPageClass *klass)
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisEulaPage, checkbox);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisEulaPage, scrolled_window);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisEulaPage, text_view);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_eula_page_locale_changed;
