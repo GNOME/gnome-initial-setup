@@ -41,6 +41,7 @@
 
 struct _GisLanguagePagePrivate
 {
+  GtkWidget *welcome_widget;
   GtkWidget *language_chooser;
 
   GDBusProxy *localed;
@@ -144,6 +145,9 @@ language_changed (CcLanguageChooser  *chooser,
                       g_strdup (priv->new_locale_id));
 
   gis_driver_set_user_language (driver, priv->new_locale_id);
+
+  gis_welcome_widget_show_locale (GIS_WELCOME_WIDGET (priv->welcome_widget),
+                                  priv->new_locale_id);
 }
 
 static void
@@ -231,6 +235,7 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-language-page.ui");
 
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisLanguagePage, welcome_widget);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisLanguagePage, language_chooser);
 
   page_class->page_id = PAGE_ID;

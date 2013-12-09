@@ -32,6 +32,7 @@
 struct _GisWelcomeWidgetPrivate
 {
   GtkWidget *stack;
+  GHashTable *translation_widgets;
 
   guint timeout_id;
 };
@@ -163,14 +164,15 @@ fill_stack (GisWelcomeWidget *widget)
         continue;
 
       text = welcome (locale_id);
-      if (g_hash_table_contains (added_translations, text))
-        continue;
+      label = g_hash_table_lookup (added_translations, text);
+      if (label == NULL) {
+        label = big_label (text);
+        gtk_container_add (GTK_CONTAINER (priv->stack), label);
+        gtk_widget_show (label);
+        g_hash_table_insert (added_translations, text, label);
+      }
 
-      label = big_label (text);
-      gtk_container_add (GTK_CONTAINER (priv->stack), label);
-      gtk_widget_show (label);
-
-      g_hash_table_add (added_translations, text);
+      g_hash_table_insert (priv->translation_widgets, locale_id, label);
     }
 
   g_hash_table_destroy (added_translations);
@@ -180,6 +182,17 @@ static void
 gis_welcome_widget_constructed (GObject *object)
 {
   fill_stack (GIS_WELCOME_WIDGET (object));
+}
+
+static void
+gis_welcome_widget_dispose (GObject *object)
+{
+  GisWelcomeWidget *widget = GIS_WELCOME_WIDGET (object);
+  GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
+
+  g_clear_pointer (&priv->translation_widgets, g_hash_table_unref);
+
+  G_OBJECT_CLASS (gis_welcome_widget_parent_class)->dispose (object);
 }
 
 static void
@@ -193,6 +206,7 @@ gis_welcome_widget_class_init (GisWelcomeWidgetClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, GisWelcomeWidget, stack);
 
   object_class->constructed = gis_welcome_widget_constructed;
+  object_class->dispose = gis_welcome_widget_dispose;
   widget_class->map = gis_welcome_widget_map;
   widget_class->unmap = gis_welcome_widget_unmap;
 }
@@ -200,5 +214,25 @@ gis_welcome_widget_class_init (GisWelcomeWidgetClass *klass)
 static void
 gis_welcome_widget_init (GisWelcomeWidget *widget)
 {
+  GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
+
+  priv->translation_widgets = g_hash_table_new (g_str_hash, g_str_equal);
+
   gtk_widget_init_template (GTK_WIDGET (widget));
+}
+
+void
+gis_welcome_widget_show_locale (GisWelcomeWidget *widget,
+                                const char       *locale_id)
+{
+  GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
+  GtkWidget *label;
+
+  /* Restart the widget to reset the timer. */
+  gis_welcome_widget_stop (widget);
+  gis_welcome_widget_start (widget);
+
+  label = g_hash_table_lookup (priv->translation_widgets, locale_id);
+  if (label)
+    gtk_stack_set_visible_child (GTK_STACK (priv->stack), label);
 }

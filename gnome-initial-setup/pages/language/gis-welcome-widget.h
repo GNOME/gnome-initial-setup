@@ -40,15 +40,18 @@ typedef struct _GisWelcomeWidgetClass   GisWelcomeWidgetClass;
 
 struct _GisWelcomeWidget
 {
-    GtkBin parent;
+  GtkBin parent;
 };
 
 struct _GisWelcomeWidgetClass
 {
-    GtkBinClass parent_class;
+  GtkBinClass parent_class;
 };
 
 GType gis_welcome_widget_get_type (void);
+
+void gis_welcome_widget_show_locale (GisWelcomeWidget *widget,
+                                     const char       *locale_id);
 
 G_END_DECLS
 

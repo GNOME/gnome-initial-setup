@@ -110,11 +110,10 @@ prepare_main_window (GisDriver *driver)
                            gis_assistant_get_titlebar (priv->assistant));
 }
 
-static gboolean
+static void
 rebuild_pages (GisDriver *driver)
 {
   g_signal_emit (G_OBJECT (driver), signals[REBUILD_PAGES], 0);
-  return FALSE;
 }
 
 GisAssistant *
@@ -171,7 +170,7 @@ static void
 gis_driver_real_locale_changed (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  g_idle_add ((GSourceFunc) rebuild_pages, driver);
+  rebuild_pages (driver);
   gis_assistant_locale_changed (priv->assistant);
 }
 
