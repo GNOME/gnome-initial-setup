@@ -46,6 +46,7 @@
 #include "pages/timezone/gis-timezone-page.h"
 #include "pages/goa/gis-goa-page.h"
 #include "pages/account/gis-account-pages.h"
+#include "pages/password/gis-password-page.h"
 #include "pages/summary/gis-summary-page.h"
 
 static gboolean force_existing_user_mode;
@@ -69,6 +70,7 @@ static PageData page_table[] = {
   PAGE (timezone, TRUE),
   PAGE (goa,      FALSE),
   PAGE (account,  TRUE),
+  PAGE (password,  TRUE),
   PAGE (summary,  FALSE),
   { NULL },
 };

@@ -36,6 +36,7 @@ gnome_initial_setup_LDADD =	\
 	pages/timezone/libgistimezone.la \
 	pages/goa/libgisgoa.la \
 	pages/account/libgisaccount.la \
+	pages/password/libgispassword.la \
 	pages/summary/libgissummary.la \
 	$(INITIAL_SETUP_LIBS) \
 	-lm

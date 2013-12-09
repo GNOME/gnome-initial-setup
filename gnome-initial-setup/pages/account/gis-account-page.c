@@ -60,6 +60,7 @@ enterprise_apply_complete (GisPage  *dummy,
                            gpointer  user_data)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (user_data);
+  gis_driver_set_username (GIS_PAGE (page)->driver, NULL);
   gis_page_apply_complete (GIS_PAGE (page), valid);
 }
 
@@ -126,13 +127,13 @@ gis_account_page_apply (GisPage *gis_page,
 
   switch (priv->mode) {
   case UM_LOCAL:
-    return FALSE;
+    return gis_account_page_local_apply (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local), gis_page);
   case UM_ENTERPRISE:
     return gis_account_page_enterprise_apply (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise), cancellable,
                                               enterprise_apply_complete, page);
-    return TRUE;
   default:
     g_assert_not_reached ();
+    break;
   }
 }
 
@@ -199,7 +200,7 @@ gis_account_page_constructed (GObject *object)
 static void
 gis_account_page_locale_changed (GisPage *page)
 {
-  gis_page_set_title (GIS_PAGE (page), _("Login"));
+  gis_page_set_title (GIS_PAGE (page), _("About You"));
 }
 
 static void

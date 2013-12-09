@@ -60,6 +60,7 @@ static guint signals[LAST_SIGNAL];
 enum {
   PROP_0,
   PROP_MODE,
+  PROP_USERNAME,
   PROP_LAST,
 };
 
@@ -73,6 +74,7 @@ struct _GisDriverPrivate {
   const gchar *user_password;
 
   gchar *lang_id;
+  gchar *username;
 
   GisDriverMode mode;
 };
@@ -87,6 +89,7 @@ gis_driver_finalize (GObject *object)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   g_free (priv->lang_id);
+  g_free (priv->username);
 
   G_OBJECT_CLASS (gis_driver_parent_class)->finalize (object);
 }
@@ -138,6 +141,21 @@ gis_driver_get_user_language (GisDriver *driver)
   return priv->lang_id;
 }
 
+void
+gis_driver_set_username (GisDriver *driver, const gchar *username)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_free (priv->username);
+  priv->username = g_strdup (username);
+  g_object_notify (G_OBJECT (driver), "username");
+}
+
+const gchar *
+gis_driver_get_username (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  return priv->username;
+}
 void
 gis_driver_set_user_permissions (GisDriver   *driver,
                                  ActUser     *user,
@@ -200,6 +218,9 @@ gis_driver_get_property (GObject      *object,
     case PROP_MODE:
       g_value_set_enum (value, priv->mode);
       break;
+    case PROP_USERNAME:
+      g_value_set_string (value, priv->username);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -218,6 +239,10 @@ gis_driver_set_property (GObject      *object,
     {
     case PROP_MODE:
       priv->mode = g_value_get_enum (value);
+      break;
+    case PROP_USERNAME:
+      g_free (priv->username);
+      priv->username = g_value_dup_string (value);
       break;
    default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -319,6 +344,11 @@ gis_driver_class_init (GisDriverClass *klass)
                        GIS_TYPE_DRIVER_MODE,
                        GIS_DRIVER_MODE_EXISTING_USER,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+  obj_props[PROP_USERNAME] =
+    g_param_spec_string ("username", "", "",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
 }

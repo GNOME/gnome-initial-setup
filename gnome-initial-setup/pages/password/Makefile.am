@@ -1,7 +1,7 @@
 
 NULL =
 
-noinst_LTLIBRARIES = libgisaccount.la
+noinst_LTLIBRARIES = libgispassword.la
 
 BUILT_SOURCES =
 
@@ -15,28 +15,28 @@ um-realm-generated.h: $(srcdir)/org.freedesktop.realmd.xml
 		--annotate "org.freedesktop.realmd.Realm" org.gtk.GDBus.C.Name Common
 BUILT_SOURCES += um-realm-generated.c um-realm-generated.h
 
-resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/account.gresource.xml)
-account-resources.c: account.gresource.xml $(resource_files)
+resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/password.gresource.xml)
+password-resources.c: password.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
-account-resources.h: account.gresource.xml $(resource_files)
+password-resources.h: password.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header $<
-BUILT_SOURCES += account-resources.c account-resources.h
+BUILT_SOURCES += password-resources.c password-resources.h
 
-libgisaccount_la_SOURCES =						\
+libgispassword_la_SOURCES =						\
 	$(BUILT_SOURCES)						\
-	gis-account-page.c gis-account-page.h				\
-	gis-account-pages.c gis-account-pages.h				\
+	gis-password-page.c gis-password-page.h				\
 	gis-account-page-local.c gis-account-page-local.h		\
 	gis-account-page-enterprise.c gis-account-page-enterprise.h	\
 	um-realm-manager.c um-realm-manager.h				\
 	um-utils.c um-utils.h						\
+	pw-utils.c pw-utils.h						\
 	$(NULL)
 
-libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
-libgisaccount_la_LIBADD = $(INITIAL_SETUP_LIBS) -lcrypt
-libgisaccount_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
+libgispassword_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
+libgispassword_la_LIBADD = $(INITIAL_SETUP_LIBS) -lcrypt
+libgispassword_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST =	\
 	org.freedesktop.realmd.xml	\
-	account.gresource.xml		\
+	password.gresource.xml		\
 	$(resource_files)

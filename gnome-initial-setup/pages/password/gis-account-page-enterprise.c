@@ -33,6 +33,7 @@
 
 #include "um-realm-manager.h"
 #include "um-utils.h"
+#include "pw-utils.h"
 
 static void        join_show_prompt    (GisAccountPageEnterprise *page,
                                         GError *error);

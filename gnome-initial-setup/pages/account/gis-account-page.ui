@@ -7,14 +7,13 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
+        <property name="valign">fill</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">start</property>
-            <property name="margin_left">80</property>
-            <property name="margin_right">80</property>
             <property name="vexpand">True</property>
             <child>
               <object class="GisAccountPageLocal" id="page_local">
@@ -37,9 +36,10 @@
           <object class="GtkToggleButton" id="page_toggle">
             <property name="visible">True</property>
             <property name="use_underline">True</property>
-            <property name="label" translatable="true">_Use Enterprise Login</property>
-            <property name="halign">start</property>
+            <property name="label" translatable="true">Setup _Enterprise Login</property>
+            <property name="halign">center</property>
             <property name="valign">end</property>
+            <property name="margin_bottom">32</property>
           </object>
         </child>
       </object>

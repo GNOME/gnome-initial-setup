@@ -108,6 +108,7 @@ gnome-initial-setup/pages/network/Makefile
 gnome-initial-setup/pages/timezone/Makefile
 gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/account/Makefile
+gnome-initial-setup/pages/password/Makefile
 gnome-initial-setup/pages/summary/Makefile
 po/Makefile.in
 ])
