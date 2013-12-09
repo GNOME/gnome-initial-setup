@@ -170,7 +170,6 @@ preview_cb (GtkLabel       *label,
 	    const gchar    *uri,
 	    CcInputChooser *chooser)
 {
-        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 	GtkWidget *row;
 	InputWidget *widget;
 	const gchar *layout;
@@ -200,8 +199,6 @@ input_widget_new (CcInputChooser *chooser,
                    gboolean    is_extra)
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
-        gchar *locale_name, *locale_current_name, *locale_untranslated_name;
-        GtkWidget *checkmark;
 	GtkWidget *label;
         InputWidget *widget = g_new0 (InputWidget, 1);
 	const gchar *name;
@@ -419,11 +416,7 @@ input_visible (GtkListBoxRow *row,
         if (!search_term || !*search_term)
                 return TRUE;
 
-        visible = FALSE;
-
         visible = g_str_match_string (search_term, widget->name, TRUE);
-
- out:
         return visible;
 }
 
@@ -781,20 +774,6 @@ cc_input_chooser_get_property (GObject      *object,
 }
 
 static void
-cc_input_chooser_set_property (GObject      *object,
-                                  guint         prop_id,
-                                  const GValue *value,
-                                  GParamSpec   *pspec)
-{
-        CcInputChooser *chooser = CC_INPUT_CHOOSER (object);
-        switch (prop_id) {
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
-static void
 cc_input_chooser_class_init (CcInputChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -807,7 +786,6 @@ cc_input_chooser_class_init (CcInputChooserClass *klass)
 
 	object_class->finalize = cc_input_chooser_finalize;
         object_class->get_property = cc_input_chooser_get_property;
-        object_class->set_property = cc_input_chooser_set_property;
         object_class->constructed = cc_input_chooser_constructed;
 
         obj_props[PROP_SHOWING_EXTRA] =
