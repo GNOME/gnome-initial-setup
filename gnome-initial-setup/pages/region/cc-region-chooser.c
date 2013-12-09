@@ -296,8 +296,6 @@ add_regions (CcRegionChooser  *chooser,
 		add_one_region (chooser, locale_id);
         }
 
-        gtk_container_add (GTK_CONTAINER (priv->region_list), priv->more_item);
-
         gtk_widget_show_all (priv->region_list);
 }
 
@@ -521,6 +519,8 @@ cc_region_chooser_constructed (GObject *object)
         G_OBJECT_CLASS (cc_region_chooser_parent_class)->constructed (object);
 
         priv->more_item = more_widget_new ();
+        gtk_container_add (GTK_CONTAINER (priv->region_list), priv->more_item);
+
         priv->no_results = no_results_widget_new ();
 
 	priv->regions = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
