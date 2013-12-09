@@ -213,6 +213,11 @@ gis_eula_page_constructed (GObject *object)
 
   gtk_text_view_set_buffer (GTK_TEXT_VIEW (priv->text_view), buffer);
 
+  gtk_text_view_set_border_window_size (GTK_TEXT_VIEW (priv->text_view), GTK_TEXT_WINDOW_TOP, 16);
+  gtk_text_view_set_border_window_size (GTK_TEXT_VIEW (priv->text_view), GTK_TEXT_WINDOW_LEFT, 16);
+  gtk_text_view_set_border_window_size (GTK_TEXT_VIEW (priv->text_view), GTK_TEXT_WINDOW_RIGHT, 16);
+  gtk_text_view_set_border_window_size (GTK_TEXT_VIEW (priv->text_view), GTK_TEXT_WINDOW_BOTTOM, 16);
+
   get_config (eula, &require_checkbox, &require_scroll);
 
   priv->require_checkbox = require_checkbox;
