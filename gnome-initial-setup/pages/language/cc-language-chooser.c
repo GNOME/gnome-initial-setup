@@ -113,7 +113,6 @@ language_widget_new (const char *locale_id,
                      gboolean    is_extra)
 {
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
-        GtkWidget *checkmark;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
         locale_name = gnome_get_language_from_locale (lang, locale_id);
