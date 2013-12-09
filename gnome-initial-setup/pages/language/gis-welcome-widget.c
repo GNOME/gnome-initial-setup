@@ -159,6 +159,9 @@ fill_stack (GisWelcomeWidget *widget)
       char *text;
       GtkWidget *label;
 
+      if (!cc_common_language_has_font (locale_id))
+        continue;
+
       text = welcome (locale_id);
       if (g_hash_table_contains (added_translations, text))
         continue;
