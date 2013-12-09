@@ -39,7 +39,6 @@
 struct _UmRealmManager {
         UmRealmObjectManagerClient parent;
         UmRealmProvider *provider;
-        guint diagnostics_sig;
 };
 
 typedef struct {
@@ -122,16 +121,8 @@ static void
 um_realm_manager_dispose (GObject *obj)
 {
         UmRealmManager *self = UM_REALM_MANAGER (obj);
-        GDBusConnection *connection;
 
         g_clear_object (&self->provider);
-
-        if (self->diagnostics_sig) {
-                connection = g_dbus_object_manager_client_get_connection (G_DBUS_OBJECT_MANAGER_CLIENT (self));
-                if (connection != NULL)
-                        g_dbus_connection_signal_unsubscribe (connection, self->diagnostics_sig);
-                self->diagnostics_sig = 0;
-        }
 
         G_OBJECT_CLASS (um_realm_manager_parent_class)->dispose (obj);
 }
@@ -147,25 +138,6 @@ um_realm_manager_class_init (UmRealmManagerClass *klass)
                                              G_SIGNAL_RUN_FIRST, 0, NULL, NULL,
                                              g_cclosure_marshal_generic,
                                              G_TYPE_NONE, 1, UM_REALM_TYPE_OBJECT);
-}
-
-static void
-on_realm_diagnostics (GDBusConnection *connection,
-                      const gchar *sender_name,
-                      const gchar *object_path,
-                      const gchar *interface_name,
-                      const gchar *signal_name,
-                      GVariant *parameters,
-                      gpointer user_data)
-{
-        const gchar *message;
-        const gchar *unused;
-
-        if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(ss)"))) {
-                /* Data is already formatted appropriately for stderr */
-                g_variant_get (parameters, "(&s&s)", &message, &unused);
-                g_printerr ("%s", message);
-        }
 }
 
 typedef struct {
@@ -216,7 +188,6 @@ on_manager_new (GObject *source,
         GDBusConnection *connection;
         GError *error = NULL;
         GObject *object;
-        guint sig;
 
         object = g_async_initable_new_finish (G_ASYNC_INITABLE (source), result, &error);
         if (error == NULL) {
@@ -224,18 +195,6 @@ on_manager_new (GObject *source,
                 connection = g_dbus_object_manager_client_get_connection (G_DBUS_OBJECT_MANAGER_CLIENT (object));
 
                 g_debug ("Connected to realmd");
-
-                sig = g_dbus_connection_signal_subscribe (connection,
-                                                          "org.freedesktop.realmd",
-                                                          "org.freedesktop.realmd.Service",
-                                                          "Diagnostics",
-                                                          NULL,
-                                                          NULL,
-                                                          G_DBUS_SIGNAL_FLAGS_NONE,
-                                                          on_realm_diagnostics,
-                                                          NULL,
-                                                          NULL);
-                closure->manager->diagnostics_sig = sig;
 
                 um_realm_provider_proxy_new (connection,
                                              G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
