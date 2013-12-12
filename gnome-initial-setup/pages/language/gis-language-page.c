@@ -121,6 +121,7 @@ language_changed (CcLanguageChooser  *chooser,
   driver = GIS_PAGE (page)->driver;
 
   setlocale (LC_MESSAGES, priv->new_locale_id);
+  gtk_widget_set_default_direction (gtk_get_locale_direction ());
   gis_driver_locale_changed (driver);
 
   if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
