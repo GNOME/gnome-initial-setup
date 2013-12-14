@@ -102,7 +102,7 @@ prepare_main_window (GisDriver *driver)
   size_hints.win_gravity = GDK_GRAVITY_CENTER;
 
   gtk_window_set_geometry_hints (priv->main_window,
-                                 GTK_WIDGET (priv->main_window),
+                                 NULL,
                                  &size_hints,
                                  GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
 
