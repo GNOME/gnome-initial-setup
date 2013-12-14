@@ -34,8 +34,17 @@
 #include <act/act-user-manager.h>
 #include "um-utils.h"
 
+#define GOA_API_IS_SUBJECT_TO_CHANGE
+#include <goa/goa.h>
+
+#include <rest/oauth-proxy.h>
+#include <json-glib/json-glib.h>
+
+
 struct _GisAccountPageLocalPrivate
 {
+  GtkWidget *avatar_image;
+  GtkWidget *subtitle;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
 
@@ -65,9 +74,87 @@ validation_changed (GisAccountPageLocal *page)
 }
 
 static void
-clear_account_page (GisAccountPageLocal *page)
+get_profile_sync (const gchar        *access_token,
+                  gchar             **out_name,
+                  gchar             **out_picture,
+                  GCancellable       *cancellable,
+                  GError            **error)
+{
+  GError *identity_error;
+  RestProxy *proxy;
+  RestProxyCall *call;
+  JsonParser *parser;
+  JsonObject *json_object;
+  gchar *ret;
+
+  ret = NULL;
+
+  identity_error = NULL;
+  proxy = NULL;
+  call = NULL;
+  parser = NULL;
+
+  /* TODO: cancellable */
+
+  proxy = rest_proxy_new ("https://www.googleapis.com/oauth2/v2/userinfo", FALSE);
+  call = rest_proxy_new_call (proxy);
+  rest_proxy_call_set_method (call, "GET");
+  rest_proxy_call_add_param (call, "access_token", access_token);
+
+  if (!rest_proxy_call_sync (call, error))
+    goto out;
+  if (rest_proxy_call_get_status_code (call) != 200)
+    {
+      g_set_error (error,
+                   GOA_ERROR,
+                   GOA_ERROR_FAILED,
+                   "Expected status 200 when requesting your identity, instead got status %d (%s)",
+                   rest_proxy_call_get_status_code (call),
+                   rest_proxy_call_get_status_message (call));
+      goto out;
+    }
+
+  parser = json_parser_new ();
+  if (!json_parser_load_from_data (parser,
+                                   rest_proxy_call_get_payload (call),
+                                   rest_proxy_call_get_payload_length (call),
+                                   &identity_error))
+    {
+      g_warning ("json_parser_load_from_data() failed: %s (%s, %d)",
+                   identity_error->message,
+                   g_quark_to_string (identity_error->domain),
+                   identity_error->code);
+      g_set_error (error,
+                   GOA_ERROR,
+                   GOA_ERROR_FAILED,
+                   "Could not parse response");
+      goto out;
+    }
+
+  json_object = json_node_get_object (json_parser_get_root (parser));
+  if (out_name != NULL)
+    *out_name = g_strdup (json_object_get_string_member (json_object, "name"));
+
+  if (out_picture != NULL)
+    *out_picture = g_strdup (json_object_get_string_member (json_object, "picture"));
+
+ out:
+  g_clear_error (&identity_error);
+  if (call != NULL)
+    g_object_unref (call);
+  if (proxy != NULL)
+    g_object_unref (proxy);
+}
+
+static void
+prepopulate_account_page (GisAccountPageLocal *page)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GoaClient *client;
+  GError *error = NULL;
+  gchar *name = NULL;
+  gchar *picture = NULL;
+  GdkPixbuf *pixbuf = NULL;
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
@@ -75,8 +162,57 @@ clear_account_page (GisAccountPageLocal *page)
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
   priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
 
-  gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), "");
-  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
+  client = goa_client_new_sync (NULL, &error);
+  if (client) {
+    GList *accounts, *l;
+    accounts = goa_client_get_accounts (client);
+    for (l = accounts; l != NULL; l = l->next) {
+      GoaOAuth2Based *oa2;
+      oa2 = goa_object_get_oauth2_based (GOA_OBJECT (l->data));
+      if (oa2) {
+        gchar *token;
+        goa_oauth2_based_call_get_access_token_sync (oa2, &token, NULL, NULL, NULL);
+        get_profile_sync (token, &name, &picture, NULL, NULL);
+        /* FIXME: collect information from more than one account
+         * and present at least the pictures in the avatar chooser
+         */
+        break;
+      }
+    }
+    g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
+    g_object_unref (client);
+  }
+
+  if (name) {
+    gtk_label_set_text (GTK_LABEL (priv->subtitle), _("Are these the right details ? You can change them if you want."));
+    gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), name);
+  }
+  else {
+    gtk_label_set_text (GTK_LABEL (priv->subtitle), _("We need a few details to complete setup."));
+    gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), "");
+    gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
+  }
+
+  if (picture) {
+    GFile *file;
+    GInputStream *stream;
+    file = g_file_new_for_uri (picture);
+    stream = G_INPUT_STREAM (g_file_read (file, NULL, NULL));
+    pixbuf = gdk_pixbuf_new_from_stream_at_scale (stream, -1, 96, TRUE, NULL, NULL);
+    g_object_unref (stream);
+    g_object_unref (file);
+  }
+
+  if (pixbuf) {
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), pixbuf);
+  }
+  else {
+    gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
+    gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
+  }
+
+  g_free (name);
+  g_free (picture);
 }
 
 static void
@@ -151,7 +287,7 @@ gis_account_page_local_constructed (GObject *object)
   g_signal_connect (priv->username_combo, "changed",
                     G_CALLBACK (username_changed), page);
 
-  clear_account_page (page);
+  prepopulate_account_page (page);
 }
 
 static void
@@ -185,6 +321,8 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page-local.ui");
 
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, subtitle);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
 

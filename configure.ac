@@ -40,6 +40,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm >= $GDM_REQUIRED_VERSION
                   pango >= $PANGO_REQUIRED_VERSION
+                  rest-0.7
+                  json-glib-1.0
                   pwquality)
 
 PKG_CHECK_MODULES(COPY_WORKER, gio-2.0)
