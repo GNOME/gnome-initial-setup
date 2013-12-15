@@ -184,7 +184,7 @@ prepopulate_account_page (GisAccountPageLocal *page)
   }
 
   if (name) {
-    gtk_label_set_text (GTK_LABEL (priv->subtitle), _("Are these the right details ? You can change them if you want."));
+    gtk_label_set_text (GTK_LABEL (priv->subtitle), _("Are these the right details? You can change them if you want."));
     gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), name);
   }
   else {
