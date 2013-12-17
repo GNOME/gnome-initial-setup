@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: Tajik Gnome\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-12-07 13:08+0000\n"
-"PO-Revision-Date: 2013-12-09 02:08+0500\n"
+"POT-Creation-Date: 2013-12-15 00:29+0000\n"
+"PO-Revision-Date: 2013-12-17 16:10-0000\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: \n"
 "Language: tg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.1\n"
+"X-Generator: Poedit 1.6.2\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 msgid "Initial Setup"
@@ -42,65 +42,89 @@ msgstr "_Қаблӣ"
 msgid "_Cancel"
 msgstr "_Бекор кардан"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "Force existing user mode"
 msgstr "Маҷбур кардани хуруҷ аз ҳолати корбар"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:198
+#: ../gnome-initial-setup/gnome-initial-setup.c:200
 msgid "- GNOME initial setup"
 msgstr "- барпосозии ибтидоии GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
-msgid "Login"
-msgstr "Воридшавӣ"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:203
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
+msgid "About You"
+msgstr "Дар бораи шумо"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Ҳангоми қайдкунии ҳисоб хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:375
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "Ягон тарзи санҷиши ҳаққоният барои ин домен дастгирӣ намешавад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:415
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "Ҳангоми ҳамроҳ шудан ба домен хатогӣ ба вуҷуд омад"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:483
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "Ҳангоми ворид шудан ба домен хатогӣ ба вуҷуд омад"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
-msgid "Create an Enterprise Account"
-msgstr "Эҷод кардани ҳисоби корӣ"
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:1
+msgid "Enterprise Login"
+msgstr "Вуруди тиҷорӣ"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
+msgid ""
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device."
+msgstr ""
+"Вуруди тиҷорӣ имкон медиҳад, ки ҳисоби корбари идорашудаи марказии "
+"мавҷудбуда тавонад дар ин ҳисоб истифода бурда шавад."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "_Домен"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:4
 msgid "_Username"
 msgstr "_Номи корбар"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:6
 msgid "_Password"
 msgstr "_Парол"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "Домени тиҷорӣ ё номи соҳиб"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
 msgstr "_Идома додан"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "Воридшавии маъмури домен"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
 "In order to use enterprise logins, this computer needs to be\n"
 "                enrolled in the domain. Please have your network "
@@ -116,126 +140,91 @@ msgstr ""
 "шумо\n"
 "                гузарад."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:13
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:13
 msgid "_Computer"
 msgstr "_Компютер"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:13
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:14
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:14
 msgid "Administrator _Name"
 msgstr "_Номи маъмур"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:15
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:15
 msgid "Administrator Password"
 msgstr "Пароли маъмур"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:177
-msgid "No password"
-msgstr "Бе парол"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:187
+msgid "Are these the right details? You can change them if you want."
+msgstr ""
+"Оё ин тафсилот дурустанд? Шумо метавонед онҳоро ба таври лозими тағйир диҳед."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:182
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:274
-msgid "Passwords do not match"
-msgstr "Паролҳо мувофиқат намекунанд"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:221
-#, c-format
-msgid "Strength: %s"
-msgstr "Тавоноӣ:  %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
-msgid "Create a Local Account"
-msgstr "Эҷод кардани ҳисоби маҳаллӣ"
-
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:191
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
+msgid "We need a few details to complete setup."
+msgstr "Барои ба анҷом расонидани танзим баъзе тафсилот лозиманд."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
 msgid "_Full Name"
 msgstr "_Номи пурра"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"Ин барои номи ҷузвдони асосӣ истифода мешавад ва тағйир дода намешавад."
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
+msgid "Your username cannot be changed after setup."
+msgstr "Номи корбари шумо баъд аз танзим тағйир дода намешавад."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
-msgid "_Confirm password"
-msgstr "_Паролро тасдиқ намоед"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:7
-msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
-msgstr ""
-"Ақаллан 8 аломати мухталифро истифода баред. Ҳарфҳои хурду калон бо рақамҳо "
-"аралаш кунед."
-
-#: ../gnome-initial-setup/pages/account/pw-utils.c:94
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "Хеле кӯтоҳ"
-
-#: ../gnome-initial-setup/pages/account/pw-utils.c:99
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "Он қадар хуб нест"
-
-#: ../gnome-initial-setup/pages/account/pw-utils.c:108
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "Паст"
-
-#: ../gnome-initial-setup/pages/account/pw-utils.c:111
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "Хуб"
-
-#: ../gnome-initial-setup/pages/account/pw-utils.c:114
-msgctxt "Password strength"
-msgid "Good"
-msgstr "Хуб"
-
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "Қавӣ"
-
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:311
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:352
 msgid "Cannot automatically join this type of domain"
 msgstr "Ҳамроҳ шудан ба ин намуди домен ба таври худкор имконнопазир аст"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:374
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Чунин домен ё соҳиб ёфт нашуд"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:781
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:795
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Ҳамчун %s ба домени %s ворид намешавад"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:787
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "Пароли беэътибор, лутфан, амалро такрор кунед"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:800
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Ба домени %s пайваст нашуд: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:148
+#: ../gnome-initial-setup/pages/password/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Корбар бо номи '%s' аллакай мавҷуд аст"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:152
+#: ../gnome-initial-setup/pages/password/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Номи корбар хеле дароз аст"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:155
+#: ../gnome-initial-setup/pages/password/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Номи корбар бояд бо '-' сар нашавад"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:158
+#: ../gnome-initial-setup/pages/password/um-utils.c:158
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -247,7 +236,7 @@ msgstr ""
 " ➣ рақамҳо\n"
 " ➣ аломатҳои '.', '-' ва '_'"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:316
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:303
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Шартномаи иҷозатнома"
@@ -289,19 +278,17 @@ msgstr ""
 "Шумо метавонед ҳисобҳои онлайни хдро баъд аз танзим бозбинӣ унед (ва "
 "дигаронро илова кунед)."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
-#| msgid "_Previous"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:237
 msgid "Preview"
 msgstr "Пешнамоиш"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:180
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:206
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:292
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:179
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:205
 msgid "More…"
 msgstr "Бештар..."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:313
-#| msgid "No input sources found"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:310
 msgid "No inputs found"
 msgstr "Ягон вуруд ёфт нашуд"
 
@@ -311,19 +298,18 @@ msgid "Typing"
 msgstr "Ҳуруфчинӣ"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-#| msgid "Add keyboard layouts or other input methods"
 msgid "Select your keyboard layout or an input method."
 msgstr "Интихоб кардани тарҳбандии клавиатура ё тарзи вуруд."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:197
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:196
 msgid "No languages found"
 msgstr "Ягон забон ёфт нашуд"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:210
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:215
 msgid "Welcome"
 msgstr "Хуш омадед"
 
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:120
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:121
 msgid "Welcome!"
 msgstr "Хуш омадед!"
 
@@ -355,8 +341,87 @@ msgstr ""
 "тамосҳо дастрасӣ пайдо кунед. Интернет инчунин барои вуруд ба ҳисобҳои корӣ "
 "лозим аст."
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:223
-#| msgid "No languages found"
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:177
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:110
+msgid "No password"
+msgstr "Бе парол"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:182
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:274
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:115
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:201
+msgid "Passwords do not match"
+msgstr "Паролҳо мувофиқат намекунанд"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:221
+#, c-format
+msgid "Strength: %s"
+msgstr "Тавоноӣ:  %s"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Confirm password"
+msgstr "_Паролро тасдиқ намоед"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:5
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"Ақаллан 8 аломати мухталифро истифода баред. Ҳарфҳои хурду калон бо рақамҳо "
+"аралаш кунед."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:258
+#| msgid "_Password"
+msgid "Password"
+msgstr "Парол"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+#| msgid "_Password"
+msgid "Set a Password"
+msgstr "Паролеро танзим кунед"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+msgid "Be careful not to lose your password."
+msgstr "Боэҳтиёт бошед, ки пароли худро гум накунед."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+#| msgid "No password"
+msgid "Choose a _password"
+msgstr "П_аролеро интихоб намоед"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:94
+msgctxt "Password strength"
+msgid "Too short"
+msgstr "Хеле кӯтоҳ"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:99
+msgctxt "Password strength"
+msgid "Not good enough"
+msgstr "Он қадар хуб нест"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:108
+msgctxt "Password strength"
+msgid "Weak"
+msgstr "Паст"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+msgctxt "Password strength"
+msgid "Fair"
+msgstr "Хуб"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:114
+msgctxt "Password strength"
+msgid "Good"
+msgstr "Хуб"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:117
+msgctxt "Password strength"
+msgid "Strong"
+msgstr "Қавӣ"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:222
 msgid "No regions found"
 msgstr "Ягон минтақа ёфт нашуд"
 
@@ -366,7 +431,6 @@ msgid "Region"
 msgstr "Минтақа"
 
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
-#| msgid "Choose Your Location"
 msgid "Choose your country or region."
 msgstr "Минтақа ё кишвари худро интихоб намоед."
 
@@ -406,6 +470,19 @@ msgstr "Минтақаи вақт"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Лутфан, шаҳри наздикеро интихоб кунед"
+
+#~ msgid "Login"
+#~ msgstr "Воридшавӣ"
+
+#~ msgid "Create an Enterprise Account"
+#~ msgstr "Эҷод кардани ҳисоби корӣ"
+
+#~ msgid "Create a Local Account"
+#~ msgstr "Эҷод кардани ҳисоби маҳаллӣ"
+
+#~ msgid "This will be used to name your home folder and can't be changed."
+#~ msgstr ""
+#~ "Ин барои номи ҷузвдони асосӣ истифода мешавад ва тағйир дода намешавад."
 
 #~ msgid "page 1"
 #~ msgstr "саҳифаи 1"
