@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Wed Oct 16 17:37:48 2013 -->
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <template class="GisNetworkPage" parent="GisPage">
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="valign">fill</property>
+        <property name="margin_bottom">32</property>
+        <child>
+          <object class="GtkImage" id="image1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">54</property>
+            <property name="pixel_size">96</property>
+            <property name="icon_name">network-wireless-symbolic</property>
+            <style>
+              <class name="dim-label" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">26</property>
+            <property name="halign">center</property>
+            <property name="valign">start</property>
+            <property name="label" translatable="yes">Wi-Fi</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+              <attribute name="scale" value="1.8"/>
+            </attributes>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">14</property>
+            <property name="label" translatable="yes">Connecting to the Internet will enable you to set the time, add your details, and enable you to access your email, calendar, and contacts. It is also necessary for enterprise login accounts.</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+            <property name="max-width-chars">50</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_window">
+            <property name="margin_top">18</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="hscrollbar_policy">never</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="viewport1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="network_list">
+                    <property name="visible">True</property>
+                    <property name="vexpand">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="no_network_grid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">18</property>
+            <property name="halign">center</property>
+            <property name="valign">start</property>
+            <child>
+              <object class="GtkSpinner" id="no_network_spinner">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin_left">6</property>
+                <property name="margin_right">6</property>
+                <property name="active">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="no_network_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="label">No text</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
