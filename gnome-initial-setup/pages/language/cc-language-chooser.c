@@ -110,6 +110,7 @@ language_widget_new (const char *locale_id,
 		     const char *lang,
                      gboolean    is_extra)
 {
+	GtkWidget *label;
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
@@ -117,10 +118,16 @@ language_widget_new (const char *locale_id,
         locale_current_name = gnome_get_language_from_locale (lang, NULL);
         locale_untranslated_name = gnome_get_language_from_locale (lang, "C");
 
-        widget->box = padded_label_new (locale_name);
-        gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
+        widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+        gtk_widget_set_margin_top (widget->box, 10);
+        gtk_widget_set_margin_bottom (widget->box, 10);
         gtk_widget_set_margin_start (widget->box, 10);
         gtk_widget_set_margin_end (widget->box, 10);
+        gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
+        label = gtk_label_new (locale_name);
+        gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+        gtk_label_set_width_chars (GTK_LABEL (label), 40);
+        gtk_box_pack_start (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
         widget->locale_id = g_strdup (locale_id);
         widget->locale_name = locale_name;
         widget->locale_current_name = locale_current_name;
