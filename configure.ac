@@ -44,6 +44,17 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   json-glib-1.0
                   pwquality)
 
+PKG_CHECK_MODULES(CHEESE,
+                  cheese
+                  cheese-gtk >= 3.3.5,
+                  have_cheese=yes, have_cheese=no)
+AM_CONDITIONAL(HAVE_CHEESE, [test x$have_cheese = xyes])
+if test x$have_cheese = xyes; then
+  INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $CHEESE_CFLAGS"
+  INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $CHEESE_LIBS"
+  AC_DEFINE(HAVE_CHEESE, 1, [Build with Cheese support?])
+fi
+
 PKG_CHECK_MODULES(COPY_WORKER, gio-2.0)
 
 AC_ARG_ENABLE(ibus,

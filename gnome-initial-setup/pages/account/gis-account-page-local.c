@@ -31,6 +31,7 @@
 #include <string.h>
 #include <act/act-user-manager.h>
 #include "um-utils.h"
+#include "um-photo-dialog.h"
 
 #define GOA_API_IS_SUBJECT_TO_CHANGE
 #include <goa/goa.h>
@@ -41,10 +42,15 @@
 
 struct _GisAccountPageLocalPrivate
 {
+  GtkWidget *avatar_button;
   GtkWidget *avatar_image;
   GtkWidget *subtitle;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
+  UmPhotoDialog *photo_dialog;
+
+  GdkPixbuf *avatar_pixbuf;
+  gchar *avatar_filename;
 
   ActUser *act_user;
   ActUserManager *act_client;
@@ -190,6 +196,7 @@ prepopulate_account_page (GisAccountPageLocal *page)
 
   if (pixbuf) {
     gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), pixbuf);
+    priv->avatar_pixbuf = pixbuf;
   }
 
   g_free (name);
@@ -262,6 +269,37 @@ username_changed (GtkComboBoxText     *combo,
 }
 
 static void
+avatar_callback (GdkPixbuf   *pixbuf,
+                 const gchar *filename,
+                 gpointer     user_data)
+{
+  GisAccountPageLocal *page = user_data;
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GdkPixbuf *tmp;
+
+  g_clear_object (&priv->avatar_pixbuf);
+  g_free (priv->avatar_filename);
+  priv->avatar_filename = NULL;
+
+  if (pixbuf) {
+    priv->avatar_pixbuf = g_object_ref (pixbuf);
+    tmp = gdk_pixbuf_scale_simple (pixbuf, 96, 96, GDK_INTERP_BILINEAR);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
+    g_object_unref (tmp);
+  }
+  else if (filename) {
+    priv->avatar_filename = g_strdup (filename);
+    tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
+    g_object_unref (tmp);
+  }
+  else {
+    gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
+    gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
+  }
+}
+
+static void
 gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
@@ -297,6 +335,10 @@ gis_account_page_local_constructed (GObject *object)
                       G_CALLBACK (accounts_changed), page);
     prepopulate_account_page (page);
   }
+
+  priv->photo_dialog = um_photo_dialog_new (priv->avatar_button,
+                                            avatar_callback,
+                                            page);
 }
 
 static void
@@ -306,8 +348,49 @@ gis_account_page_local_dispose (GObject *object)
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
 
   g_clear_object (&priv->goa_client);
+  g_clear_object (&priv->avatar_pixbuf);
+  g_clear_pointer (&priv->avatar_filename, g_free);
+  g_clear_pointer (&priv->photo_dialog, um_photo_dialog_free);
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->dispose (object);
+}
+
+static void
+set_user_avatar (GisAccountPageLocal *page)
+{
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GFile *file = NULL;
+  GFileIOStream *io_stream = NULL;
+  GOutputStream *stream = NULL;
+  GError *error = NULL;
+
+  if (priv->avatar_filename != NULL) {
+    act_user_set_icon_file (priv->act_user, priv->avatar_filename);
+    return;
+  }
+
+  if (priv->avatar_pixbuf == NULL) {
+    return;
+  }
+
+  file = g_file_new_tmp ("usericonXXXXXX", &io_stream, &error);
+  if (error != NULL)
+    goto out;
+
+  stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
+  if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
+    goto out;
+
+  act_user_set_icon_file (priv->act_user, g_file_get_path (file));
+
+ out:
+  if (error != NULL) {
+    g_warning ("failed to save image: %s", error->message);
+    g_error_free (error);
+  }
+  g_clear_object (&stream);
+  g_clear_object (&io_stream);
+  g_clear_object (&file);
 }
 
 static void
@@ -331,6 +414,8 @@ local_create_user (GisAccountPageLocal *page)
   act_user_set_user_name (priv->act_user, username);
   act_user_set_account_type (priv->act_user, priv->account_type);
 
+  set_user_avatar (page);
+
   g_signal_emit (page, signals[USER_CREATED], 0, priv->act_user, "");
 }
 
@@ -341,6 +426,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page-local.ui");
 
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_button);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, subtitle);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);

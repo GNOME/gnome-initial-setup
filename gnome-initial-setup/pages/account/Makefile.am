@@ -30,6 +30,7 @@ libgisaccount_la_SOURCES =						\
 	gis-account-page-enterprise.c gis-account-page-enterprise.h	\
 	um-realm-manager.c um-realm-manager.h				\
 	um-utils.c um-utils.h						\
+	um-photo-dialog.c um-photo-dialog.h				\
 	$(NULL)
 
 libgisaccount_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
