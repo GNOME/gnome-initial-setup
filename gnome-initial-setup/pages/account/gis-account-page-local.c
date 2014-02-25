@@ -276,15 +276,6 @@ gis_account_page_local_constructed (GObject *object)
   g_signal_connect (priv->username_combo, "changed",
                     G_CALLBACK (username_changed), page);
 
-  priv->goa_client = goa_client_new_sync (NULL, NULL);
-  if (priv->goa_client) {
-     g_signal_connect (priv->goa_client, "account-added",
-                       G_CALLBACK (accounts_changed), page);
-      g_signal_connect (priv->goa_client, "account-removed",
-                        G_CALLBACK (accounts_changed), page);
-
-  }
-  
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
 
@@ -297,6 +288,15 @@ gis_account_page_local_constructed (GObject *object)
 
   gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
   gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
+
+  priv->goa_client = goa_client_new_sync (NULL, NULL);
+  if (priv->goa_client) {
+    g_signal_connect (priv->goa_client, "account-added",
+                      G_CALLBACK (accounts_changed), page);
+    g_signal_connect (priv->goa_client, "account-removed",
+                      G_CALLBACK (accounts_changed), page);
+    prepopulate_account_page (page);
+  }
 }
 
 static void
