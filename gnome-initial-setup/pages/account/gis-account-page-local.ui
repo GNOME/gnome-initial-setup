@@ -5,7 +5,6 @@
     <child>
       <object class="GtkBox" id="area">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="halign">center</property>
         <property name="valign">fill</property>
         <property name="orientation">vertical</property>
@@ -17,7 +16,6 @@
             <child>
               <object class="GtkImage" id="avatar_image">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="pixel_size">96</property>
                 <property name="icon_name">avatar-default-symbolic</property>
                 <property name="icon_size">1</property>
@@ -31,7 +29,6 @@
         <child>
           <object class="GtkLabel" id="title">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
             <property name="margin_top">26</property>
@@ -46,7 +43,6 @@
         <child>
           <object class="GtkLabel" id="subtitle">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="valign">start</property>
             <property name="margin_top">14</property>
             <property name="label" translatable="yes">We need a few details to complete setup.</property>
@@ -58,14 +54,12 @@
         <child>
           <object class="GtkGrid" id="form">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="column_spacing">12</property>
             <property name="row_spacing">12</property>
             <property name="margin_top">54</property>
             <child>
               <object class="GtkLabel" id="fullname_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Full Name</property>
@@ -84,7 +78,6 @@
                 <property name="max_length">255</property>
                 <property name="width-chars">25</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
               </object>
@@ -98,12 +91,11 @@
             <child>
               <object class="GtkLabel" id="username_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Username</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">username_combo</property>
+                <property name="mnemonic_widget">comboboxtext-entry</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -136,7 +128,6 @@
             <child>
               <object class="GtkLabel" id="username_explanation">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="margin_bottom">12</property>
                 <property name="label" translatable="yes">Your username cannot be changed after setup.</property>
