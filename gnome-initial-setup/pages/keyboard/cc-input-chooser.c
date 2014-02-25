@@ -305,6 +305,9 @@ no_results_widget_new (void)
 {
         GtkWidget *widget;
 
+        /* Translators: a search for input methods or keyboard layouts
+         * did not yield any results
+         */
         widget = padded_label_new (_("No inputs found"));
         gtk_widget_set_sensitive (widget, FALSE);
 	gtk_widget_show_all (widget);
