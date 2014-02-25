@@ -202,7 +202,6 @@ sync_accounts (GisGoaPage *page)
   GList *accounts, *l;
 
   accounts = goa_client_get_accounts (priv->goa_client);
-  priv->accounts_exist = (accounts != NULL);
 
   for (l = accounts; l != NULL; l = l->next) {
     GoaObject *object = GOA_OBJECT (l->data);
@@ -213,6 +212,9 @@ sync_accounts (GisGoaPage *page)
     provider_widget = g_hash_table_lookup (priv->providers, account_type);
     if (!provider_widget)
       continue;
+
+    priv->accounts_exist = TRUE;
+
     if (provider_widget->displayed_account)
       continue;
 
@@ -224,6 +226,7 @@ sync_accounts (GisGoaPage *page)
 
   sync_visibility (page);
   gis_page_set_skippable (GIS_PAGE (page), !priv->accounts_exist);
+  gis_page_set_complete (GIS_PAGE (page), priv->accounts_exist);
 }
 
 static void
