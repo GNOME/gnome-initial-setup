@@ -2,14 +2,14 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Abhay Kadam <abhaykadam@fedoraproject.org>, 2012.
-# Sandeep Shedmake <sshedmak@redhat.com>, 2012, 2013.
+# Sandeep Shedmake <sshedmak@redhat.com>, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-06-16 07:50+0000\n"
-"PO-Revision-Date: 2013-06-17 10:38+0530\n"
+"POT-Creation-Date: 2014-02-28 08:56+0000\n"
+"PO-Revision-Date: 2014-02-28 14:48+0630\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
 "Language: mr\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "प्रारंभिक सेटअप"
 
-#: ../gnome-initial-setup/gis-assistant.c:389
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "पुढे (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:390
+#: ../gnome-initial-setup/gis-assistant.c:395
 msgid "_Previous"
 msgstr "मागील (_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:391
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Cancel"
 msgstr "रद्द (_C)"
 
@@ -45,37 +45,37 @@ msgstr "बळपूर्वक नवीन वापरकर्ता मो
 msgid "- GNOME initial setup"
 msgstr "- GNOME प्रारंभिक सेटअप"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:326
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:334
 msgid "No password"
 msgstr "पासवर्ड नाही"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:331
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:432
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:339
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:442
 msgid "Passwords do not match"
 msgstr "पासवर्ड जुळत नाहीत"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:381
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
 #, c-format
 msgid "Strength: %s"
 msgstr "सामर्थ्य : %s"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:547
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:579
 msgid "Failed to register account"
 msgstr "खात्याची नोंदणी अपयशी"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:750
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:782
 msgid "No supported way to authenticate with this domain"
 msgstr "ह्या डोमैनसह ओळख पटवण्यासाठी समर्थीत मार्ग नाही"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:789
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:821
 msgid "Failed to join domain"
 msgstr "डोमेनशी जोडणी अपयशी"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:856
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:888
 msgid "Failed to log into domain"
 msgstr "डोमेनमध्ये प्रवेश अपयशी"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1236
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1258
 msgid "Login"
 msgstr "प्रवेश"
 
@@ -304,7 +304,7 @@ msgstr "इंपुट स्रोत आढळले नाही"
 msgid "Other"
 msgstr "इतर"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:173
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:168
 msgid "Input Sources"
 msgstr "इनपुट स्रोत"
 
@@ -325,7 +325,7 @@ msgstr "इंपुट स्रोत समाविष्ट करा"
 msgid "No languages found"
 msgstr "भाषा आढळले नाही"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:218
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:227
 msgid "Welcome"
 msgstr "सुस्वागतम"
 
@@ -375,7 +375,18 @@ msgstr "नेटवर्क"
 msgid "Wireless Networks"
 msgstr "वायरलेस नेटवर्क्स्"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:318
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+#| msgid "Network is not available."
+msgid "No wireless available"
+msgstr "वायरलेस उपलब्ध नाही"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:352
+#, c-format
+#| msgid "_Start using GNOME 3"
+msgid "_Start using %s"
+msgstr "%s चा वापर सुरू करा (_S)"
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:381
 msgid "Thank You"
 msgstr "धन्यवाद"
 
@@ -386,10 +397,6 @@ msgstr "संगणक वापरण्यासाठी सज्ज आह
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
 msgid "You may change these options at any time in Settings."
 msgstr "तुम्ही यापैकी कोणतेही सेटिंग्ज कधीही बदलू शकता."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "GNOME 3चा वापर सुरू करा (_S)"
 
 #~ msgid "_Back"
 #~ msgstr "मागे (_B)"
