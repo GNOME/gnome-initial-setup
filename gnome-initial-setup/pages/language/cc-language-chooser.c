@@ -228,7 +228,7 @@ add_one_language (CcLanguageChooser *chooser,
 		g_free (lang);
 		return;
 	}
-	g_hash_table_add (priv->langs, lang);
+	g_hash_table_add (priv->langs, g_strdup (lang));
 
 	widget = language_widget_new (locale_id, lang, !is_initial);
 	gtk_container_add (GTK_CONTAINER (priv->language_list), widget);
