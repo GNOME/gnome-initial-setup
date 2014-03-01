@@ -74,9 +74,11 @@ gis_password_page_save_data (GisPage *gis_page)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-
   ActUser *act_user;
   const gchar *password;
+
+  if (gis_page->driver == NULL)
+    return;
 
   gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
 
