@@ -351,7 +351,9 @@ update_current_page (GisAssistant *assistant,
   update_titlebar (assistant);
   update_applying_state (assistant);
   update_navigation_buttons (assistant);
-  gis_page_shown (page);
+
+  if (page)
+    gis_page_shown (page);
 }
 
 static void
