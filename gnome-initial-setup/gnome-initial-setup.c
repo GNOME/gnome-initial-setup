@@ -195,6 +195,8 @@ main (int argc, char *argv[])
     { NULL }
   };
 
+  g_unsetenv ("GIO_USE_VFS");
+
   context = g_option_context_new (_("- GNOME initial setup"));
   g_option_context_add_main_entries (context, entries, NULL);
 
