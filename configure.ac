@@ -42,6 +42,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   pango >= $PANGO_REQUIRED_VERSION
                   rest-0.7
                   json-glib-1.0
+		  libsecret-1
+		  gcr-3
                   pwquality)
 
 PKG_CHECK_MODULES(CHEESE,

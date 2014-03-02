@@ -217,6 +217,8 @@ main (int argc, char *argv[])
   }
 #endif
 
+  gis_ensure_keyring ();
+
   driver = gis_driver_new (get_mode ());
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);
   status = g_application_run (G_APPLICATION (driver), argc, argv);

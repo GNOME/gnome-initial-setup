@@ -6,6 +6,8 @@ uidir = $(datadir)/gnome-initial-setup
 
 AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
+	-DSECRET_API_SUBJECT_TO_CHANGE \
+	-DGCR_API_SUBJECT_TO_CHANGE \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\" \
@@ -25,7 +27,9 @@ gnome_initial_setup_SOURCES = \
 	gnome-initial-setup.c gnome-initial-setup.h \
 	gis-assistant.c gis-assistant.h \
 	gis-page.c gis-page.h \
-	gis-driver.c gis-driver.h
+	gis-driver.c gis-driver.h \
+	gis-keyring.c gis-keyring.h \
+	gis-prompt.c gis-prompt.h
 
 gnome_initial_setup_LDADD =	\
 	pages/language/libgislanguage.la \
