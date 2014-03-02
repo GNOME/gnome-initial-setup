@@ -201,11 +201,20 @@ prepopulate_account_page (GisAccountPageLocal *page)
 
   if (picture) {
     GFile *file;
-    GInputStream *stream;
+    GFileInputStream *stream;
+    GError *error = NULL;
     file = g_file_new_for_uri (picture);
-    stream = G_INPUT_STREAM (g_file_read (file, NULL, NULL));
-    pixbuf = gdk_pixbuf_new_from_stream_at_scale (stream, -1, 96, TRUE, NULL, NULL);
-    g_object_unref (stream);
+    stream = g_file_read (file, NULL, &error);
+    if (!stream)
+      {
+        g_warning ("Failed to read picture: %s\n", error->message);
+        g_error_free (error);
+      }
+    else
+      {
+        pixbuf = gdk_pixbuf_new_from_stream_at_scale (G_INPUT_STREAM (stream), -1, 96, TRUE, NULL, NULL);
+        g_object_unref (stream);
+      }
     g_object_unref (file);
   }
 
