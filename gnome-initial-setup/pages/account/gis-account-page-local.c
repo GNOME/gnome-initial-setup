@@ -79,7 +79,7 @@ validation_changed (GisAccountPageLocal *page)
   g_signal_emit (page, signals[VALIDATION_CHANGED], 0);
 }
 
-static void
+static gboolean
 get_profile_sync (const gchar        *access_token,
                   gchar             **out_name,
                   gchar             **out_picture,
@@ -91,9 +91,9 @@ get_profile_sync (const gchar        *access_token,
   RestProxyCall *call;
   JsonParser *parser;
   JsonObject *json_object;
-  gchar *ret;
+  gboolean ret;
 
-  ret = NULL;
+  ret = FALSE;
 
   identity_error = NULL;
   proxy = NULL;
@@ -109,6 +109,7 @@ get_profile_sync (const gchar        *access_token,
 
   if (!rest_proxy_call_sync (call, error))
     goto out;
+
   if (rest_proxy_call_get_status_code (call) != 200)
     {
       g_set_error (error,
@@ -137,6 +138,8 @@ get_profile_sync (const gchar        *access_token,
       goto out;
     }
 
+  ret = TRUE;
+
   json_object = json_node_get_object (json_parser_get_root (parser));
   if (out_name != NULL)
     *out_name = g_strdup (json_object_get_string_member (json_object, "name"));
@@ -150,6 +153,8 @@ get_profile_sync (const gchar        *access_token,
     g_object_unref (call);
   if (proxy != NULL)
     g_object_unref (proxy);
+
+  return ret;
 }
 
 static void
@@ -167,9 +172,18 @@ prepopulate_account_page (GisAccountPageLocal *page)
       GoaOAuth2Based *oa2;
       oa2 = goa_object_get_oauth2_based (GOA_OBJECT (l->data));
       if (oa2) {
-        gchar *token;
-        goa_oauth2_based_call_get_access_token_sync (oa2, &token, NULL, NULL, NULL);
-        get_profile_sync (token, &name, &picture, NULL, NULL);
+        gchar *token = NULL;
+        GError *error = NULL;
+        if (!goa_oauth2_based_call_get_access_token_sync (oa2, &token, NULL, NULL, &error))
+          {
+            g_warning ("Couldn't get oauth2 token: %s\n", error->message);
+            g_error_free (error);
+          }
+        else if (!get_profile_sync (token, &name, &picture, NULL, &error))
+          {
+            g_warning ("Couldn't get profile information: %s\n", error->message);
+            g_error_free (error);
+          }
         /* FIXME: collect information from more than one account
          * and present at least the pictures in the avatar chooser
          */
