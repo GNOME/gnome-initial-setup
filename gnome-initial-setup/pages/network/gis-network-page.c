@@ -549,11 +549,15 @@ gis_network_page_constructed (GObject *object)
     }
   }
 
-  if (priv->nm_device == NULL)
+  if (priv->nm_device == NULL) {
+    g_debug ("No network device found, hiding network page");
     goto out;
+  }
 
-  if (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED)
+  if (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED) {
+    g_debug ("Activated network device found, hiding network page");
     goto out;
+  }
 
   visible = TRUE;
   priv->nm_settings = nm_remote_settings_new (NULL);
