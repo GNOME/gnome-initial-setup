@@ -219,7 +219,7 @@ main (int argc, char *argv[])
   }
 #endif
 
-  gis_ensure_keyring ();
+  gis_ensure_login_keyring ("gis");
 
   driver = gis_driver_new (get_mode ());
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);

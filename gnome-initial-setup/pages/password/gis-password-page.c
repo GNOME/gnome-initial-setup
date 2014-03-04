@@ -28,6 +28,9 @@
 #include "gis-password-page.h"
 #include "gis-account-page-local.h"
 #include "gis-account-page-enterprise.h"
+
+#include "gis-keyring.h"
+
 #include "pw-utils.h"
 
 #include <glib/gi18n.h>
@@ -76,6 +79,7 @@ gis_password_page_save_data (GisPage *gis_page)
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   ActUser *act_user;
   const gchar *password;
+  const gchar *old_password;
 
   if (gis_page->driver == NULL)
     return;
@@ -85,6 +89,11 @@ gis_password_page_save_data (GisPage *gis_page)
   if (act_user == NULL) /* enterprise account */
     return;
 
+  if (password)
+    old_password = password;
+  else
+    old_password = "gis";
+
   password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
 
   if (strlen (password) == 0)
@@ -93,6 +102,8 @@ gis_password_page_save_data (GisPage *gis_page)
     act_user_set_password (act_user, password, "");
 
   gis_driver_set_user_permissions (gis_page->driver, act_user, password);
+
+  gis_update_login_keyring_password (old_password, password);
 }
 
 static gboolean
