@@ -28,8 +28,7 @@ gnome_initial_setup_SOURCES = \
 	gis-assistant.c gis-assistant.h \
 	gis-page.c gis-page.h \
 	gis-driver.c gis-driver.h \
-	gis-keyring.c gis-keyring.h \
-	gis-prompt.c gis-prompt.h
+	gis-keyring.c gis-keyring.h
 
 gnome_initial_setup_LDADD =	\
 	pages/language/libgislanguage.la \

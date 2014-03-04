@@ -21,14 +21,13 @@
 
 #include "config.h"
 
+#include <string.h>
+
 #include <gio/gio.h>
 
 #include "gis-keyring.h"
 
 #include <libsecret/secret.h>
-#include <gcr/gcr.h>
-
-#include "gis-prompt.h"
 
 /* We never want to see a keyring dialog, but we need to make
  * sure a keyring is present.
@@ -38,90 +37,84 @@
  * exist yet.
  */
 
-#define GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME "org.gnome.keyring.SystemPrompter"
-
-static void
-on_bus_acquired (GDBusConnection *connection,
-                 const gchar     *name,
-                 gpointer         user_data)
+void
+gis_ensure_login_keyring (const gchar *pwd)
 {
-  GcrSystemPrompter *prompter;
+	GSubprocess *subprocess = NULL;
+	GSubprocessLauncher *launcher = NULL;
+	GError *error = NULL;
 
-  prompter = gcr_system_prompter_new (GCR_SYSTEM_PROMPTER_SINGLE, GIS_TYPE_PROMPT);
-  gcr_system_prompter_register (prompter, connection);
-}
+	g_debug ("launching gnome-keyring-daemon --login");
+	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE | G_SUBPROCESS_FLAGS_STDOUT_PIPE | G_SUBPROCESS_FLAGS_STDERR_SILENCE);
+	subprocess = g_subprocess_launcher_spawn (launcher, &error, "gnome-keyring-daemon", "--unlock", NULL);
+	if (subprocess == NULL) {
+		g_warning ("Failed to spawn gnome-keyring-daemon --unlock: %s", error->message);
+		g_error_free (error);
+		goto out;
+	}
 
-static void
-created_collection (GObject      *source,
-                    GAsyncResult *result,
-                    gpointer      user_data)
-{
-  SecretCollection *collection;
-  GError *error = NULL;
+	if (!g_subprocess_communicate_utf8 (subprocess, "gis", NULL, NULL, NULL, &error)) {
+		g_warning ("Failed to communicate with gnome-keyring-daemon: %s", error->message);
+		g_error_free (error);
+		goto out;
+	}
 
-  collection = secret_collection_create_finish (result, &error);
-  if (collection)
-    {
-      g_debug ("Created keyring '%s', %s\n",
-               secret_collection_get_label (collection),
-               secret_collection_get_locked (collection) ? "locked" : "unlocked");
-      g_object_unref (collection);
-    }
-  else
-    {
-      g_warning ("Failed to create keyring: %s\n", error->message);
-      g_error_free (error);
-    }
-}
-
-static void
-got_alias (GObject      *source,
-           GAsyncResult *result,
-           gpointer      user_data)
-{
-  SecretCollection *collection;
-
-  collection = secret_collection_for_alias_finish (result, NULL);
-  if (collection)
-    {
-      g_debug ("Found default keyring '%s', %s\n",
-               secret_collection_get_label (collection),
-               secret_collection_get_locked (collection) ? "locked" : "unlocked");
-      g_object_unref (collection);
-    }
-  else
-    {
-      secret_collection_create (NULL, "login", SECRET_COLLECTION_DEFAULT, 0, NULL, created_collection, NULL);
-    }
-}
-
-static void
-on_name_acquired (GDBusConnection *connection,
-                  const gchar     *name,
-                  gpointer         user_data)
-{
-  g_debug ("Got " GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME "\n");
-
-  secret_collection_for_alias (NULL, SECRET_COLLECTION_DEFAULT, SECRET_COLLECTION_NONE, NULL, got_alias, NULL);
-}
-
-static void
-on_name_lost (GDBusConnection *connection,
-              const gchar     *name,
-              gpointer         user_data)
-{
-  g_debug ("Lost " GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME "\n");
+out:
+	if (subprocess)
+		g_object_unref (subprocess);
+	if (launcher)
+		g_object_unref (launcher);
 }
 
 void
-gis_ensure_keyring (void)
+gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
 {
-  g_bus_own_name (G_BUS_TYPE_SESSION,
-                  GCR_DBUS_PROMPTER_SYSTEM_BUS_NAME,
-                  G_BUS_NAME_OWNER_FLAGS_REPLACE,
-                  on_bus_acquired,
-                  on_name_acquired,
-                  on_name_lost,
-                  NULL, NULL);
-}
+	GDBusConnection *bus = NULL;
+	SecretService *service = NULL;
+	SecretValue *old_secret = NULL;
+	SecretValue *new_secret = NULL;
+	gchar *path = NULL;
+	GError *error = NULL;
+	
+	service = secret_service_get_sync (0, NULL, &error);
+	if (service == NULL) {
+		g_warning ("Failed to get secret service: %s", error->message);
+		g_error_free (error);
+		goto out;
+	}
 
+	bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+	if (bus == NULL) {
+		g_warning ("Failed to get session bus: %s", error->message);
+		g_error_free (error);
+		goto out;
+	}
+
+	old_secret = secret_value_new (old_, strlen (old_), "text/plain");
+	new_secret = secret_value_new (new_, strlen (new_), "text/plain");
+
+	g_dbus_connection_call (bus,
+				"org.gnome.keyring",
+				"/org/gnome/keyring",
+			        "org.gnome.keyring.InternalUnsupportedGuiltRiddenInterface",
+				"ChangeWithMasterPassword",
+				g_variant_new ("o@(oayays)@(oayays)",
+					       "/org/freedesktop/secrets/collection/login",
+					       secret_service_encode_dbus_secret (service, old_secret),
+					       secret_service_encode_dbus_secret (service, new_secret)),
+				NULL,
+				0,
+				G_MAXINT,
+				NULL, NULL, NULL);
+
+out:
+
+	if (service)
+		g_object_unref (service);
+	if (bus)
+		g_object_unref (bus);
+	if (old_secret)
+		secret_value_unref (old_secret);
+	if (new_secret)
+		secret_value_unref (new_secret);
+}
