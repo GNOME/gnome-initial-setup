@@ -43,49 +43,23 @@ gis_ensure_login_keyring (const gchar *pwd)
 	GSubprocess *subprocess = NULL;
 	GSubprocessLauncher *launcher = NULL;
 	GError *error = NULL;
-	gchar *output = NULL;
-	gchar **env = NULL;
 
 	g_debug ("launching gnome-keyring-daemon --login");
 	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE | G_SUBPROCESS_FLAGS_STDOUT_PIPE | G_SUBPROCESS_FLAGS_STDERR_SILENCE);
-	subprocess = g_subprocess_launcher_spawn (launcher, &error, "gnome-keyring-daemon", "--login", NULL);
+	subprocess = g_subprocess_launcher_spawn (launcher, &error, "gnome-keyring-daemon", "--unlock", NULL);
 	if (subprocess == NULL) {
-		g_warning ("Failed to spawn gnome-keyring-daemon --login: %s", error->message);
+		g_warning ("Failed to spawn gnome-keyring-daemon --unlock: %s", error->message);
 		g_error_free (error);
 		goto out;
 	}
 
-	if (!g_subprocess_communicate_utf8 (subprocess, "gis", NULL, &output, NULL, &error)) {
+	if (!g_subprocess_communicate_utf8 (subprocess, "gis", NULL, NULL, NULL, &error)) {
 		g_warning ("Failed to communicate with gnome-keyring-daemon: %s", error->message);
 		g_error_free (error);
 		goto out;
 	}
 
-	g_debug ("Read from keyring: %s\n", output);
-
-	env = g_strsplit (output, "\n", 0);	
-
-	g_object_unref (launcher);
-	g_object_unref (subprocess);
-
-	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_INHERIT | G_SUBPROCESS_FLAGS_STDOUT_SILENCE);
-
-	g_subprocess_launcher_set_environ (launcher, env);
-
-	g_debug ("launching gnome-keyring-daemon --start");
-	subprocess = g_subprocess_launcher_spawn (launcher, &error, "gnome-keyring-daemon", "--start", NULL);
-
-	if (subprocess == NULL) {
-		g_warning ("Failed to spawn gnome-keyring-daemon --start: %s", error->message);
-		g_error_free (error);
-		goto out;
-	}
-
 out:
-	if (env)
-		g_strfreev (env);
-	if (output)
-		g_free (output);
 	if (subprocess)
 		g_object_unref (subprocess);
 	if (launcher)
