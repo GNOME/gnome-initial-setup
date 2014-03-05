@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013.
-# Balázs Úr <urbalazs at gmail dot com>, 2013.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 20:13+0000\n"
-"PO-Revision-Date: 2013-08-30 20:03+0200\n"
+"POT-Creation-Date: 2014-03-05 07:48+0000\n"
+"PO-Revision-Date: 2014-03-05 17:52+0100\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -76,7 +76,7 @@ msgstr "Nem sikerült a tartományhoz csatlakozni"
 msgid "Failed to log into domain"
 msgstr "Nem sikerült bejelentkezni a tartományba"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1201
 msgid "Login"
 msgstr "Bejelentkezés"
 
@@ -254,7 +254,6 @@ msgid ""
 msgstr "_Elfogadom ezen végfelhasználói licencszerződés feltételeit."
 
 #: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-#| msgid "Other"
 msgctxt "Online Account"
 msgid "Other"
 msgstr "Egyéb"
@@ -280,27 +279,27 @@ msgstr "Csevegés"
 msgid "Resources"
 msgstr "Erőforrások"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:101
 msgid "Error creating account"
 msgstr "Hiba a fiók létrehozásakor"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:147
 msgid "Error removing account"
 msgstr "Hiba a fiók eltávolításakor"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:173
 msgid "Are you sure you want to remove the account?"
 msgstr "Biztos benne, hogy el kívánja távolítani a fiókot?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:175
 msgid "This will not remove the account on the server."
 msgstr "Ez nem törli a kiszolgálón a fiókot."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:176
 msgid "_Remove"
 msgstr "_Eltávolítás"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:438
 msgid "Online Accounts"
 msgstr "Online fiókok"
 
@@ -333,19 +332,13 @@ msgstr "Bemeneti források nem találhatók"
 msgid "Other"
 msgstr "Egyéb"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "Bemeneti források"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select keyboard layouts"
 msgstr "Billentyűzetkiosztások kiválasztása"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"A belépési beállításokat minden felhasználó használja, amikor bejelentkezik "
-"a rendszerbe"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
@@ -405,6 +398,11 @@ msgstr "Hálózat"
 msgid "Wireless Networks"
 msgstr "Vezeték nélküli hálózatok"
 
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+#| msgid "Network is not available."
+msgid "No wireless available"
+msgstr "Vezeték nélküli nem érhető el"
+
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
 #, c-format
 msgid "_Start using %s"
@@ -425,6 +423,11 @@ msgstr "Ezen beállításokat bármikor megváltoztathatja a Beállításokban."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_A GNOME 3 használatba vétele"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "A belépési beállításokat minden felhasználó használja, amikor "
+#~ "bejelentkezik a rendszerbe"
 
 #~ msgid "Select input sources"
 #~ msgstr "Válasszon bemeneti forrásokat"
