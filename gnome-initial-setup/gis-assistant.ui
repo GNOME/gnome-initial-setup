@@ -24,6 +24,11 @@
       </object>
     </child>
     <child>
+      <object class="GtkLabel" id="placeholder">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkSpinner" id="spinner">
         <property name="visible">True</property>
       </object>
@@ -69,6 +74,14 @@
       <widget name="forward"/>
       <widget name="accept"/>
       <widget name="title"/>
+    </widgets>
+  </object>
+
+  <object class="GtkSizeGroup" id="headerheight">
+    <property name="mode">vertical</property>
+    <widgets>
+      <widget name="title"/>
+      <widget name="placeholder"/>
     </widgets>
   </object>
 
