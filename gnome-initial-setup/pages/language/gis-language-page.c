@@ -39,6 +39,7 @@
 
 struct _GisLanguagePagePrivate
 {
+  GtkWidget *logo;
   GtkWidget *welcome_widget;
   GtkWidget *language_chooser;
 
@@ -171,6 +172,62 @@ localed_proxy_ready (GObject      *source,
   priv->localed = proxy;
 }
 
+static char *
+get_item (const char *buffer, const char *name)
+{
+  char *label, *start, *end, *result;
+  char end_char;
+
+  result = NULL;
+  start = NULL;
+  end = NULL;
+  label = g_strconcat (name, "=", NULL);
+  if ((start = strstr (buffer, label)) != NULL)
+    {
+      start += strlen (label);
+      end_char = '\n';
+      if (*start == '"')
+        {
+          start++;
+          end_char = '"';
+        }
+
+      end = strchr (start, end_char);
+    }
+
+    if (start != NULL && end != NULL)
+      {
+        result = g_strndup (start, end - start);
+      }
+
+  g_free (label);
+
+  return result;
+}
+
+static void
+update_distro_logo (GisLanguagePage *page)
+{
+  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
+  char *buffer;
+  char *id;
+
+  id = NULL;
+
+  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
+    {
+      id = get_item (buffer, "ID");
+      g_free (buffer);
+    }
+
+  if (g_strcmp0 (id, "fedora") == 0)
+    {
+      g_object_set (priv->logo, "icon-name", "fedora-logo-icon", NULL);
+    }
+
+  g_free (id);
+}
+
 static void
 gis_language_page_constructed (GObject *object)
 {
@@ -181,6 +238,8 @@ gis_language_page_constructed (GObject *object)
   g_type_ensure (CC_TYPE_LANGUAGE_CHOOSER);
 
   G_OBJECT_CLASS (gis_language_page_parent_class)->constructed (object);
+
+  update_distro_logo (page);
 
   g_signal_connect (priv->language_chooser, "notify::language",
                     G_CALLBACK (language_changed), page);
@@ -236,6 +295,7 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisLanguagePage, welcome_widget);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisLanguagePage, language_chooser);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisLanguagePage, logo);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_language_page_locale_changed;
