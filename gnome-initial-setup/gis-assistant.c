@@ -382,6 +382,8 @@ gis_assistant_locale_changed (GisAssistant *assistant)
 
   for (l = priv->pages; l != NULL; l = l->next)
     gis_page_locale_changed (l->data);
+
+  update_titlebar (assistant);
 }
 
 void
