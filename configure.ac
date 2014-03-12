@@ -1,6 +1,8 @@
 AC_INIT([gnome-initial-setup],[3.11.91])
 AC_CONFIG_MACRO_DIR([m4])
+
 AM_INIT_AUTOMAKE([dist-xz no-dist-gzip foreign])
+AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
 
 AC_USE_SYSTEM_EXTENSIONS
