@@ -1,15 +1,15 @@
 # Korean translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013, 2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-08 09:32+0000\n"
-"PO-Revision-Date: 2013-09-09 17:55+0900\n"
+"POT-Creation-Date: 2014-03-11 19:51+0000\n"
+"PO-Revision-Date: 2014-03-12 14:08+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -17,216 +17,220 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "초기 설정"
 
-#: ../gnome-initial-setup/gis-assistant.c:418
+#: ../gnome-initial-setup/gis-assistant.c:377
 msgid "_Next"
 msgstr "다음(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:419
+#: ../gnome-initial-setup/gis-assistant.c:378
+msgid "_Accept"
+msgstr "수락(_A)"
+
+#: ../gnome-initial-setup/gis-assistant.c:379
+msgid "_Skip"
+msgstr "건너뛰기(_S)"
+
+#: ../gnome-initial-setup/gis-assistant.c:380
 msgid "_Previous"
 msgstr "이전(_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:420
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:381
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "새 사용자 모드 강제"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+msgid "Force existing user mode"
+msgstr "기존 사용자 모드 강제"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:200
 msgid "- GNOME initial setup"
 msgstr "- 그놈 초기화 설정"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
-msgid "No password"
-msgstr "암호가 없습니다"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
+msgid "About You"
+msgstr "여러분의 정보"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
-msgid "Passwords do not match"
-msgstr "암호가 일치하지 않습니다"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
-#, c-format
-msgid "Strength: %s"
-msgstr "강도: %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "계정을 등록하는데 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "이 도메인에 인증할 지원 방식이 없습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
-msgstr "도메인에 참가하는데 실패했습니다"
+msgstr "도메인에 참여하는데 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
-msgstr "도메인으로 로그하는데 실패했습니다"
+msgstr "도메인에 로그인하는데 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
-msgid "Login"
-msgstr "로그인"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:1
+msgid "Enterprise Login"
+msgstr "기업 로그인"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create a Local Account"
-msgstr "로컬 계정 만들기"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Full Name"
-msgstr "전체 이름(_F)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Username"
-msgstr "사용자 이름(_U)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr "내 폴더의 이름으로 사용하며 바꿀 수 없습니다."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Password"
-msgstr "암호(_P)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Confirm password"
-msgstr "암호 확인(_C)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
 msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device."
 msgstr ""
-"최소한 8개의 제각기 다른 문자를 사용해보십시오. 대 소문자를 섞어 사용하고 숫"
-"자를 사옹하거나 두가지 방법을 혼용하십시오."
+"기업 로그인 기능을 사용하면 이 장치에서 기존의 중앙 관리 사용자 계정을 사용"
+"할 수 있습니다."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "page 1"
-msgstr "페이지 1"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "Create an Enterprise Account"
-msgstr "기업 계정 만들기"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "도메인(_D)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:4
+msgid "_Username"
+msgstr "사용자 이름(_U)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:6
+msgid "_Password"
+msgstr "암호(_P)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "기업 도메인 또는 영역 이름"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
 msgstr "계속(_O)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "도메인 관리자 로그인"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
+"here, and choose a unique computer name for your computer."
 msgstr ""
-"기업 로그인을 사용하려면, 이 컴퓨터를 도메인의 범주에 넣어야 합니다.\n"
-"네트워크 관리자에게 여기에 도메인 암호를 넣어달라고 요청하고,\n"
-"컴퓨터에 유일한 이름을 선택하여 입력하십시오."
+"기업 로그인을 사용하려면, 이 컴퓨터를 도메인의 범주에 넣어야 합니다. 네트워"
+"크 관리자에게 이곳에 도메인 암호 입력을 요청하고, 컴퓨터에 유일한 이름을 골"
+"라 입력하십시오."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
 msgstr "컴퓨터(_C)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:11
 msgid "Administrator _Name"
 msgstr "관리자 이름(_N)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:12
 msgid "Administrator Password"
 msgstr "관리자 암호"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:94
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "너무 짧음"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
+msgid "Are these the right details? You can change them if you want."
+msgstr "올바른 세부정보입니까? 원한다면 바꿀 수 있습니다."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:99
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "충분치 않음"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
+msgid "We need a few details to complete setup."
+msgstr "설정을 완료하려면 몇가지 자세한 내용이 필요합니다."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:108
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "약함"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+msgid "Avatar image"
+msgstr "아바타 이미지"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:111
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "부족"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
+msgid "_Full Name"
+msgstr "전체 이름(_F)"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:114
-msgctxt "Password strength"
-msgid "Good"
-msgstr "좋음"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
+msgid "Your username cannot be changed after setup."
+msgstr "설정이 끝나면 사용자 이름을 바꿀 수 없습니다."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "강함"
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
+msgid "Disable image"
+msgstr "이미지 비활성화"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
+msgid "Take a photo..."
+msgstr "사진 찍기..."
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:351
 msgid "Cannot automatically join this type of domain"
 msgstr "이 도메인 형식에 자동으로 참여할 수 없습니다"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:414
 #, c-format
 msgid "No such domain or realm found"
 msgstr "도메인 또는 영역을 찾을 수 없습니다"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:821
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:835
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
-msgstr "%2$s 도메인에서 %1$s에 로그인할 수 없습니다"
+msgstr "%2$s 도메인에서 %1$s(으)로 로그인할 수 없습니다"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:827
 msgid "Invalid password, please try again"
 msgstr "암호가 잘못되었습니다, 다시 시도하십시오"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:840
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "%s 도메인으로 연결할 수 없습니다: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:148
+#: ../gnome-initial-setup/pages/account/um-utils.c:236
+#: ../gnome-initial-setup/pages/password/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "'%s' 이름을 가진 사용자가 이미 있습니다"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:152
+#: ../gnome-initial-setup/pages/account/um-utils.c:240
+#: ../gnome-initial-setup/pages/password/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "사용자 이름이 너무 깁니다"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:155
+#: ../gnome-initial-setup/pages/account/um-utils.c:243
+#: ../gnome-initial-setup/pages/password/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "사용자 이름을 '-'로 시작할 수 없습니다"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#: ../gnome-initial-setup/pages/account/um-utils.c:246
+#: ../gnome-initial-setup/pages/password/um-utils.c:158
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -238,7 +242,7 @@ msgstr ""
 " ➣ 숫자\n"
 " ➣ '.', '-' 그리고 '_' 중 한가지 문자"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "라이선스 동의서"
@@ -249,193 +253,225 @@ msgid ""
 "agreement."
 msgstr "최종 사용자 라이선스 동의서의 조항에 동의합니다(_A)."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-msgctxt "Online Account"
-msgid "Other"
-msgstr "기타"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "계정 추가"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "메일"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
+msgid "Cancel"
+msgstr "취소"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "연락처"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "대화"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "리소스"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "계정을 만드는 중 오류"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "계정을 제거하는 중 오류"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "정말로 계정을 제거하시겠습니까?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "서버의 계정을 제거하지 않습니다."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "제거(_R)"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "온라인 계정"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "클라우드에 있는 데이터로 연결"
+msgid "Connect Your Online Accounts"
+msgstr "온라인 계정 연결"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"계정을 추가하면 온라인 사진, 연락처, 메일 등에 눈에 띄지 않게 연결할 수 있습"
-"니다."
+"계정에 연결하면 전자메일, 온라인 달력, 연락처, 문서, 사진에 쉽게 접근할 수 있"
+"습니다."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "계정 추가(_A)"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr "설정이 끝나면 온라인 계정 설정(및 기타 내용)을 확인할 수 있습니다."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
+msgid "Preview"
+msgstr "미리보기"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:290
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
 msgid "More…"
 msgstr "자세히…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
-msgid "No input sources found"
-msgstr "입력기를 찾지 못했습니다"
+#. Translators: a search for input methods or keyboard layouts
+#. * did not yield any results
+#.
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
+msgid "No inputs found"
+msgstr "입력기가 없습니다"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
-msgid "Other"
-msgstr "기타"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "입력기"
-
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "키보드 배치 선택하기"
+msgid "Typing"
+msgstr "입력"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr "시스템에 로그인할 때 모든 사용자가 사용할 로그인 설정입니다"
+msgid "Select your keyboard layout or an input method."
+msgstr "키보드 배치 또는 입력기를 선택하십시오."
 
-#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
-msgid "Add an Input Source"
-msgstr "입력기 추가하기"
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
 msgid "No languages found"
 msgstr "발견한 언어가 없습니다"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
 msgid "Welcome"
 msgstr "환영합니다"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "위치 검색"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "위치"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "위치를 선택하십시오"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "위치를 자동으로 결정(_D)"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
-msgid "Time Zone"
-msgstr "시간대"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+msgid "Welcome!"
+msgstr "환영합니다!"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "기타…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "네트워크를 사용할 수 없습니다."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "네트워크 장치가 없습니다."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
 msgid "Checking for available wireless networks"
 msgstr "사용할 수 있는 무선 네트워크 확인중"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
 msgid "Network"
-msgstr "네트워트"
+msgstr "네트워크"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
+msgid "Wi-Fi"
 msgstr "무선 네트워크"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"인터넷에 연결하면 시간 설정, 개인 세부정보 추가, 전자메일, 달력, 연락처 접근 "
+"활성화를 할 수 있습니다. 기업 로그인 계정에 필요합니다."
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
+msgid "No wireless available"
+msgstr "사용할 수 있는 무선 네트워크가 없습니다"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:121
+msgid "No password"
+msgstr "암호가 없습니다"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:180
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:272
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:126
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:212
+msgid "Passwords do not match"
+msgstr "암호가 일치하지 않습니다"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:219
+#, c-format
+msgid "Strength: %s"
+msgstr "강도: %s"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Confirm password"
+msgstr "암호 확인(_C)"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:5
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"최소한 8개의 제각기 다른 문자를 사용해보십시오. 대 소문자를 섞어 사용하고 숫"
+"자를 사옹하거나 두가지 방식을 혼용하십시오."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:269
+msgid "Password"
+msgstr "암호"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+msgid "Set a Password"
+msgstr "암호 지정"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+msgid "Be careful not to lose your password."
+msgstr "암호를 잃지 않도록 주의하십시오."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+msgid "Choose a _password"
+msgstr "암호 지정(_P)"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:93
+msgctxt "Password strength"
+msgid "Too short"
+msgstr "너무 짧음"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:98
+msgctxt "Password strength"
+msgid "Not good enough"
+msgstr "충분치 않음"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:107
+msgctxt "Password strength"
+msgid "Weak"
+msgstr "약함"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:110
+msgctxt "Password strength"
+msgid "Fair"
+msgstr "부족"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:113
+msgctxt "Password strength"
+msgid "Good"
+msgstr "좋음"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:116
+msgctxt "Password strength"
+msgid "Strong"
+msgstr "강함"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+msgid "No regions found"
+msgstr "지역을 찾을 수 없습니다"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
+msgid "Region"
+msgstr "지역"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
+msgid "Choose your country or region."
+msgstr "국가 또는 지역을 선택하십시오."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
 #, c-format
 msgid "_Start using %s"
 msgstr "%s 사용 시작하기(_S)"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "감사합니다"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"%s 배포판을 선택해주셔서 감사합니다.\n"
+"이 배포판을 좋아해주시길 간절히 바랍니다."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+msgid "Ready to Go"
+msgstr "준비 완료"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "컴퓨터를 사용할 준비가 되었습니다."
+msgid "You're all set!"
+msgstr "모든 항목을 설정했습니다!"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "설정에서 이 옵션을 언제든지 바꿀 수 있습니다."
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+msgid "Time Zone"
+msgstr "시간대"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "그놈 3 사용 시작하기(_S)"
-
-#~ msgid "_Back"
-#~ msgstr "뒤로(_B)"
-
-#~ msgid "Keyboard Layout"
-#~ msgstr "키보드 배치"
-
-#~ msgid "Select input sources"
-#~ msgstr "입력기 선택"
-
-#~ msgid "Remove Input Source"
-#~ msgstr "입력기 제거"
-
-#~ msgid "Move Input Source Up"
-#~ msgstr "입력기를 위로 이동"
-
-#~ msgid "Input Source Settings"
-#~ msgstr "입력기 설정"
-
-#~ msgid "Select an input source"
-#~ msgstr "입력기 선택"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "인근 도시를 검색하십시오"
