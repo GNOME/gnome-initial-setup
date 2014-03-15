@@ -1,14 +1,14 @@
 # Serbian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012, 2013.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012, 2013, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup master\n"
+"Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 20:13+0000\n"
-"PO-Revision-Date: 2013-09-04 10:19+0200\n"
+"POT-Creation-Date: 2014-03-14 19:48+0000\n"
+"PO-Revision-Date: 2014-03-15 06:10+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -75,7 +75,7 @@ msgstr "Nisam uspeo da pristupim domenu"
 msgid "Failed to log into domain"
 msgstr "Nisam uspeo da se prijavim na domen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1201
 msgid "Login"
 msgstr "Prijava"
 
@@ -228,11 +228,6 @@ msgid "The username cannot start with a '-'"
 msgstr "Korisničko ime ne može početi sa „-“"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:158
-#| msgid ""
-#| "The username must consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -257,7 +252,6 @@ msgstr ""
 "Slažem se sa _odredbama i uslovima o korišćenju navedenim u ovoj licenci."
 
 #: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-#| msgid "Other"
 msgctxt "Online Account"
 msgid "Other"
 msgstr "Drugo"
@@ -283,27 +277,27 @@ msgstr "Ćaskanje"
 msgid "Resources"
 msgstr "Izvorišta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:101
 msgid "Error creating account"
 msgstr "Greška u stvaranju naloga"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:147
 msgid "Error removing account"
 msgstr "Greška u uklanjanju naloga"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:173
 msgid "Are you sure you want to remove the account?"
 msgstr "Da li ste sigurni da želite da uklonite nalog?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:175
 msgid "This will not remove the account on the server."
 msgstr "Ovo neće ukloniti nalog na serveru."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:176
 msgid "_Remove"
 msgstr "_Ukloni"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:438
 msgid "Online Accounts"
 msgstr "Nalozi na mreži"
 
@@ -336,18 +330,13 @@ msgstr "Nisam pronašao izvore ulaza"
 msgid "Other"
 msgstr "Drugo"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:167
 msgid "Input Sources"
 msgstr "Izvori ulaza"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Select keyboard layouts"
 msgstr "Izaberite rasporede tastature"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"Podešavanja prijavljivanja koriste svi korisnici kada se prijavljuju na sistem"
 
 #: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
 msgid "Add an Input Source"
@@ -408,9 +397,13 @@ msgstr "Mreža"
 msgid "Wireless Networks"
 msgstr "Bežične mreže"
 
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+#| msgid "Network is not available."
+msgid "No wireless available"
+msgstr "Nema dostupnih bežičnih mreža"
+
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
 #, c-format
-#| msgid "_Start using GNOME 3"
 msgid "_Start using %s"
 msgstr "_Počni da koristiš %s"
 
@@ -429,3 +422,7 @@ msgstr "Ove postavke možete da izmenite bilo kada u podešavanjima sistema."
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
 msgid "_Start using GNOME 3"
 msgstr "_Počni da koristiš Gnom 3"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr ""
+#~ "Podešavanja prijavljivanja koriste svi korisnici kada se prijavljuju na sistem"
