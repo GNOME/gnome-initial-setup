@@ -7,6 +7,15 @@ BUILT_SOURCES =
 AM_CPPFLAGS = \
 	-DGNOMECC_DATA_DIR="\"$(datadir)/gnome-control-center\""
 
+geoclue.c: geoclue.h
+geoclue.h: Makefile.am $(GEOCLUE_DBUS_INTERFACE_XML)
+	$(AM_V_GEN) gdbus-codegen				\
+		--interface-prefix org.freedesktop.GeoClue2	\
+		--generate-c-code geoclue			\
+		--c-namespace Geoclue				\
+		$(GEOCLUE_DBUS_INTERFACE_XML)
+BUILT_SOURCES += geoclue.c geoclue.h
+
 timedated.c: timedated.h
 timedated.h: Makefile.am timedated1-interface.xml
 	$(AM_V_GEN) gdbus-codegen \

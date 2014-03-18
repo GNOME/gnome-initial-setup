@@ -35,6 +35,7 @@
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/gweather.h>
 
+#include "geoclue.h"
 #include "timedated.h"
 #include "cc-datetime-resources.h"
 #include "timezone-resources.h"
@@ -43,6 +44,10 @@
 #include "gis-bubble-widget.h"
 
 #define DEFAULT_TZ "Europe/London"
+#define DESKTOP_ID "gnome-datetime-panel"
+
+/* Defines from geoclue private header src/public-api/gclue-enums.h */
+#define GCLUE_ACCURACY_LEVEL_CITY 4
 
 struct _GisTimezonePagePrivate
 {
@@ -53,6 +58,9 @@ struct _GisTimezonePagePrivate
   GtkWidget *search_entry;
   GtkWidget *search_overlay;
 
+  GCancellable *geoclue_cancellable;
+  GeoclueClient *geoclue_client;
+  GeoclueManager *geoclue_manager;
   GWeatherLocation *auto_location;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
@@ -155,99 +163,181 @@ set_auto_location (GisTimezonePage  *page,
       gtk_label_set_markup (GTK_LABEL (priv->auto_result), markup);
       g_free (tzname);
       g_free (markup);
+
+      gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "status");
+      gtk_widget_show (priv->search_button);
    }
   else
     {
       priv->auto_location = NULL;
 
       /* We have no automatic location; transition to search automatically */
+      gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "search");
       gtk_widget_hide (priv->search_button);
-      gtk_widget_hide (priv->auto_result);
     }
-
-  gtk_widget_show (priv->stack);
 }
 
 static void
-get_location_from_geoclue (GisTimezonePage *page)
+on_location_proxy_ready (GObject      *source_object,
+                         GAsyncResult *res,
+                         gpointer      user_data)
 {
-  GDBusProxy *manager = NULL, *client = NULL, *location = NULL;
-  GVariant *value;
-  const char *object_path;
-  double latitude, longitude;
+  GisTimezonePage *page = user_data;
+  GeoclueLocation *location;
+  gdouble latitude, longitude;
+  GError *error = NULL;
   GWeatherLocation *glocation = NULL;
 
-  manager = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                           G_DBUS_PROXY_FLAGS_NONE,
-                                           NULL,
-                                           "org.freedesktop.GeoClue2",
-                                           "/org/freedesktop/GeoClue2/Manager",
-                                           "org.freedesktop.GeoClue2.Manager",
-                                           NULL, NULL);
-  if (!manager)
-    goto out;
+  location = geoclue_location_proxy_new_for_bus_finish (res, &error);
+  if (error != NULL)
+    {
+      g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+      g_error_free (error);
+      return;
+    }
 
-  value = g_dbus_proxy_call_sync (manager, "GetClient", NULL,
-                                  G_DBUS_CALL_FLAGS_NONE, -1,
-                                  NULL, NULL);
-  if (!value)
-    goto out;
-
-  g_variant_get_child (value, 0, "&o", &object_path);
-
-  client = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                          G_DBUS_PROXY_FLAGS_NONE,
-                                          NULL,
-                                          "org.freedesktop.GeoClue2",
-                                          object_path,
-                                          "org.freedesktop.GeoClue2.Client",
-                                          NULL, NULL);
-  g_variant_unref (value);
-
-  if (!client)
-    goto out;
-
-  value = g_dbus_proxy_get_cached_property (client, "Location");
-  object_path = g_variant_get_string (value, NULL);
-
-  location = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                            G_DBUS_PROXY_FLAGS_NONE,
-                                            NULL,
-                                            "org.freedesktop.GeoClue2",
-                                            object_path,
-                                            "org.freedesktop.GeoClue2.Location",
-                                            NULL, NULL);
-  g_variant_unref (value);
-
-  if (!location)
-    goto out;
-
-  value = g_dbus_proxy_get_cached_property (location, "Latitude");
-
-  /* this happens under some circumstances, iunno why. needs zeenix */
-  if (!value)
-    goto out;
-
-  latitude = g_variant_get_double (value);
-  g_variant_unref (value);
-  value = g_dbus_proxy_get_cached_property (location, "Longitude");
-  longitude = g_variant_get_double (value);
-  g_variant_unref (value);
+  latitude = geoclue_location_get_latitude (location);
+  longitude = geoclue_location_get_longitude (location);
 
   glocation = gweather_location_find_nearest_city (NULL, latitude, longitude);
 
- out:
   set_auto_location (page, glocation);
   set_location (page, glocation);
-  if (glocation)
-    gweather_location_unref (glocation);
 
-  if (manager)
-    g_object_unref (manager);
-  if (client)
-    g_object_unref (client);
-  if (location)
-    g_object_unref (location);
+  g_object_unref (location);
+  gweather_location_unref (glocation);
+}
+
+static void
+on_location_updated (GDBusProxy *client,
+                     gchar      *location_path_old,
+                     gchar      *location_path_new,
+                     gpointer    user_data)
+{
+  GisTimezonePage *page = user_data;
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+
+  geoclue_location_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                      G_DBUS_PROXY_FLAGS_NONE,
+                                      "org.freedesktop.GeoClue2",
+                                      location_path_new,
+                                      priv->geoclue_cancellable,
+                                      on_location_proxy_ready,
+                                      page);
+}
+
+static void
+on_start_ready (GObject      *source_object,
+                GAsyncResult *res,
+                gpointer      user_data)
+{
+  GError *error = NULL;
+
+  if (!geoclue_client_call_start_finish (GEOCLUE_CLIENT (source_object),
+                                         res,
+                                         &error))
+    {
+      g_critical ("Failed to start GeoClue2 client: %s", error->message);
+      g_error_free (error);
+      return;
+    }
+}
+
+static void
+on_client_proxy_ready (GObject      *source_object,
+                       GAsyncResult *res,
+                       gpointer      user_data)
+{
+  GisTimezonePage *page = user_data;
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  GError *error = NULL;
+
+  priv->geoclue_client = geoclue_client_proxy_new_for_bus_finish (res, &error);
+  if (error != NULL)
+    {
+      g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+      g_error_free (error);
+      return;
+    }
+
+  geoclue_client_set_desktop_id (priv->geoclue_client, DESKTOP_ID);
+  geoclue_client_set_requested_accuracy_level (priv->geoclue_client,
+                                               GCLUE_ACCURACY_LEVEL_CITY);
+
+  g_signal_connect (priv->geoclue_client, "location-updated",
+                    G_CALLBACK (on_location_updated), page);
+
+  geoclue_client_call_start (priv->geoclue_client,
+                             priv->geoclue_cancellable,
+                             on_start_ready,
+                             page);
+}
+
+static void
+on_get_client_ready (GObject      *source_object,
+                     GAsyncResult *res,
+                     gpointer      user_data)
+{
+  GisTimezonePage *page = user_data;
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  gchar *client_path;
+  GError *error = NULL;
+
+  if (!geoclue_manager_call_get_client_finish (GEOCLUE_MANAGER (source_object),
+                                               &client_path,
+                                               res,
+                                               &error))
+    {
+      g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+      g_error_free (error);
+      return;
+    }
+
+  geoclue_client_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                    G_DBUS_PROXY_FLAGS_NONE,
+                                    "org.freedesktop.GeoClue2",
+                                    client_path,
+                                    priv->geoclue_cancellable,
+                                    on_client_proxy_ready,
+                                    page);
+}
+
+static void
+on_manager_proxy_ready (GObject      *source_object,
+                        GAsyncResult *res,
+                        gpointer      user_data)
+{
+
+  GisTimezonePage *page = user_data;
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  GError *error = NULL;
+
+  priv->geoclue_manager = geoclue_manager_proxy_new_for_bus_finish (res, &error);
+  if (error != NULL)
+    {
+      g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
+      g_error_free (error);
+      return;
+    }
+
+  geoclue_manager_call_get_client (priv->geoclue_manager,
+                                   priv->geoclue_cancellable,
+                                   on_get_client_ready,
+                                   page);
+}
+
+static void
+get_location_from_geoclue_async (GisTimezonePage *page)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+
+  geoclue_manager_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                     G_DBUS_PROXY_FLAGS_NONE,
+                                     "org.freedesktop.GeoClue2",
+                                     "/org/freedesktop/GeoClue2/Manager",
+                                     priv->geoclue_cancellable,
+                                     on_manager_proxy_ready,
+                                     page);
 }
 
 static void
@@ -314,7 +404,9 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
-  get_location_from_geoclue (page);
+  set_auto_location (page, NULL);
+  set_location (page, NULL);
+  get_location_from_geoclue_async (page);
 
   g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
@@ -334,7 +426,15 @@ gis_timezone_page_dispose (GObject *object)
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
+  if (priv->geoclue_cancellable)
+    {
+      g_cancellable_cancel (priv->geoclue_cancellable);
+      g_clear_object (&priv->geoclue_cancellable);
+    }
+
   g_clear_object (&priv->dtm);
+  g_clear_object (&priv->geoclue_client);
+  g_clear_object (&priv->geoclue_manager);
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }
