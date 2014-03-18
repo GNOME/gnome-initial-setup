@@ -47,9 +47,13 @@
 struct _GisTimezonePagePrivate
 {
   GtkWidget *map;
+  GtkWidget *stack;
+  GtkWidget *auto_result;
+  GtkWidget *search_button;
   GtkWidget *search_entry;
   GtkWidget *search_overlay;
 
+  GWeatherLocation *auto_location;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
 };
@@ -119,6 +123,133 @@ set_location (GisTimezonePage  *page,
     }
 }
 
+static char *
+get_location_name (GWeatherLocation *location)
+{
+  GWeatherTimezone *zone = gweather_location_get_timezone (location);
+
+  /* XXX -- do something smarter eventually */
+  return g_strdup_printf ("%s (GMT%+g)",
+                          gweather_location_get_name (location),
+                          gweather_timezone_get_offset (zone) / 60.0);
+}
+
+static void
+set_auto_location (GisTimezonePage  *page,
+                   GWeatherLocation *location)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+
+  if (priv->auto_location)
+    gweather_location_unref (priv->auto_location);
+
+  if (location)
+    {
+      char *tzname, *markup;
+      priv->auto_location = gweather_location_ref (location);
+
+      tzname = get_location_name (location);
+      markup = g_strdup_printf (_("We think that your time zone is <b>%s</b>. Press Next to continue"
+                                  " or search for a city to manually set the time zone."),
+                                tzname);
+      gtk_label_set_markup (GTK_LABEL (priv->auto_result), markup);
+      g_free (tzname);
+      g_free (markup);
+   }
+  else
+    {
+      priv->auto_location = NULL;
+
+      /* We have no automatic location; transition to search automatically */
+      gtk_widget_hide (priv->search_button);
+      gtk_widget_hide (priv->auto_result);
+    }
+
+  gtk_widget_show (priv->stack);
+}
+
+static void
+get_location_from_geoclue (GisTimezonePage *page)
+{
+  GDBusProxy *manager = NULL, *client = NULL, *location = NULL;
+  GVariant *value;
+  const char *object_path;
+  double latitude, longitude;
+  GWeatherLocation *glocation = NULL;
+
+  manager = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                           G_DBUS_PROXY_FLAGS_NONE,
+                                           NULL,
+                                           "org.freedesktop.GeoClue2",
+                                           "/org/freedesktop/GeoClue2/Manager",
+                                           "org.freedesktop.GeoClue2.Manager",
+                                           NULL, NULL);
+  if (!manager)
+    goto out;
+
+  value = g_dbus_proxy_call_sync (manager, "GetClient", NULL,
+                                  G_DBUS_CALL_FLAGS_NONE, -1,
+                                  NULL, NULL);
+  if (!value)
+    goto out;
+
+  g_variant_get_child (value, 0, "&o", &object_path);
+
+  client = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                          G_DBUS_PROXY_FLAGS_NONE,
+                                          NULL,
+                                          "org.freedesktop.GeoClue2",
+                                          object_path,
+                                          "org.freedesktop.GeoClue2.Client",
+                                          NULL, NULL);
+  g_variant_unref (value);
+
+  if (!client)
+    goto out;
+
+  value = g_dbus_proxy_get_cached_property (client, "Location");
+  object_path = g_variant_get_string (value, NULL);
+
+  location = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                            G_DBUS_PROXY_FLAGS_NONE,
+                                            NULL,
+                                            "org.freedesktop.GeoClue2",
+                                            object_path,
+                                            "org.freedesktop.GeoClue2.Location",
+                                            NULL, NULL);
+  g_variant_unref (value);
+
+  if (!location)
+    goto out;
+
+  value = g_dbus_proxy_get_cached_property (location, "Latitude");
+
+  /* this happens under some circumstances, iunno why. needs zeenix */
+  if (!value)
+    goto out;
+
+  latitude = g_variant_get_double (value);
+  g_variant_unref (value);
+  value = g_dbus_proxy_get_cached_property (location, "Longitude");
+  longitude = g_variant_get_double (value);
+  g_variant_unref (value);
+
+  glocation = gweather_location_find_nearest_city (NULL, latitude, longitude);
+
+ out:
+  set_auto_location (page, glocation);
+  set_location (page, glocation);
+  if (glocation)
+    gweather_location_unref (glocation);
+
+  if (manager)
+    g_object_unref (manager);
+  if (client)
+    g_object_unref (client);
+  if (location)
+    g_object_unref (location);
+}
+
 static void
 entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
 {
@@ -137,6 +268,29 @@ entry_mapped (GtkWidget *widget,
               gpointer   user_data)
 {
   gtk_widget_grab_focus (widget);
+}
+
+static void
+visible_child_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
+{
+  /* xxx -- text bubble */
+  /*
+  GtkWidget *child = gtk_stack_get_visible_child (GTK_STACK (WID ("timezone-stack")));
+
+  if (child == WID ("timezone-search")) {
+  }
+  */
+}
+
+static void
+search_button_toggled (GtkToggleButton *button,
+                       GisTimezonePage *page)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  gboolean want_search = gtk_toggle_button_get_active (button);
+
+  gtk_stack_set_visible_child_name (GTK_STACK (priv->stack),
+                                    want_search ? "search" : "status");
 }
 
 static void
@@ -160,12 +314,16 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
-  set_location (page, NULL);
+  get_location_from_geoclue (page);
 
   g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
   g_signal_connect (priv->search_entry, "map",
                     G_CALLBACK (entry_mapped), page);
+  g_signal_connect (priv->stack, "notify::visible-child",
+                    G_CALLBACK (visible_child_changed), page);
+  g_signal_connect (priv->search_button, "toggled",
+                    G_CALLBACK (search_button_toggled), page);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
@@ -196,6 +354,9 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-timezone-page.ui");
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, map);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, stack);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, auto_result);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_button);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_overlay);
 
