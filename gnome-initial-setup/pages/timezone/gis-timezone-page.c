@@ -32,6 +32,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libgnome-desktop/gnome-languages.h>
+
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/gweather.h>
 
@@ -134,12 +137,32 @@ set_location (GisTimezonePage  *page,
 static char *
 get_location_name (GWeatherLocation *location)
 {
-  GWeatherTimezone *zone = gweather_location_get_timezone (location);
+  GDateTime *datetime;
+  GTimeZone *timezone;
+  char *country;
+  char *ret;
+  const char *country_code;
+  const char *timezone_name;
+  const char *timezone_id;
 
-  /* XXX -- do something smarter eventually */
-  return g_strdup_printf ("%s (GMT%+g)",
-                          gweather_location_get_name (location),
-                          gweather_timezone_get_offset (zone) / 60.0);
+  timezone_id = gweather_timezone_get_tzid (gweather_location_get_timezone (location));
+  timezone = g_time_zone_new (timezone_id);
+  datetime = g_date_time_new_now (timezone);
+  timezone_name = g_date_time_get_timezone_abbreviation (datetime);
+
+  country_code = gweather_location_get_country (location);
+  country = gnome_get_country_from_code (country_code, NULL);
+
+  ret = g_strdup_printf ("%s (%s, %s)",
+                         timezone_name,
+                         gweather_location_get_city_name (location),
+                         country);
+
+  g_time_zone_unref (timezone);
+  g_date_time_unref (datetime);
+  g_free (country);
+
+  return ret;
 }
 
 static void
