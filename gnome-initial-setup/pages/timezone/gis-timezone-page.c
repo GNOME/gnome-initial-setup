@@ -407,6 +407,31 @@ search_button_toggled (GtkToggleButton *button,
 }
 
 static void
+stop_geolocation (GisTimezonePage *page)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+
+  if (priv->geoclue_cancellable)
+    {
+      g_cancellable_cancel (priv->geoclue_cancellable);
+      g_clear_object (&priv->geoclue_cancellable);
+    }
+
+  g_clear_object (&priv->geoclue_client);
+  g_clear_object (&priv->geoclue_manager);
+}
+
+static void
+page_mapped (GtkWidget *widget,
+             gpointer   user_data)
+{
+  GisTimezonePage *page = user_data;
+
+  /* Stop timezone geolocation if it hasn't finished by the time we get here */
+  stop_geolocation (page);
+}
+
+static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
@@ -433,6 +458,8 @@ gis_timezone_page_constructed (GObject *object)
 
   g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
+  g_signal_connect (page, "map",
+                    G_CALLBACK (page_mapped), page);
   g_signal_connect (priv->search_entry, "map",
                     G_CALLBACK (entry_mapped), page);
   g_signal_connect (priv->stack, "notify::visible-child",
@@ -449,15 +476,9 @@ gis_timezone_page_dispose (GObject *object)
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
-  if (priv->geoclue_cancellable)
-    {
-      g_cancellable_cancel (priv->geoclue_cancellable);
-      g_clear_object (&priv->geoclue_cancellable);
-    }
+  stop_geolocation (page);
 
   g_clear_object (&priv->dtm);
-  g_clear_object (&priv->geoclue_client);
-  g_clear_object (&priv->geoclue_manager);
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }
