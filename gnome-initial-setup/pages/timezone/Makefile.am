@@ -8,10 +8,11 @@ AM_CPPFLAGS = \
 	-DGNOMECC_DATA_DIR="\"$(datadir)/gnome-control-center\""
 
 timedated.c: timedated.h
-timedated.h: $(srcdir)/timedated1-interface.xml
+timedated.h: Makefile.am timedated1-interface.xml
 	$(AM_V_GEN) gdbus-codegen \
 		--interface-prefix org.freedesktop. \
-		--generate-c-code timedated $<
+		--generate-c-code timedated \
+		$(srcdir)/timedated1-interface.xml
 BUILT_SOURCES += timedated.c timedated.h
 
 resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/datetime.gresource.xml)
