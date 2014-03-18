@@ -73,7 +73,6 @@ gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
 	SecretService *service = NULL;
 	SecretValue *old_secret = NULL;
 	SecretValue *new_secret = NULL;
-	gchar *path = NULL;
 	GError *error = NULL;
 	
 	service = secret_service_get_sync (0, NULL, &error);
