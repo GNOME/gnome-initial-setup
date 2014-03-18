@@ -223,8 +223,8 @@ draw_pin (CcTimezoneMap *map,
   pointx = convert_longitude_to_x (longitude, alloc.width);
   pointy = convert_latitude_to_y (latitude, alloc.height);
 
-  if (pointy > alloc.height)
-    pointy = alloc.height;
+  pointx = CLAMP (floor (pointx), 0, alloc.width);
+  pointy = CLAMP (floor (pointy), 0, alloc.height);
 
   gdk_cairo_set_source_pixbuf (cr, pin, pointx - PIN_HOT_POINT_X, pointy - PIN_HOT_POINT_Y);
   cairo_paint (cr);
