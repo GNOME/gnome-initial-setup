@@ -1,14 +1,14 @@
 # Serbian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012, 2013.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012—2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-29 20:13+0000\n"
-"PO-Revision-Date: 2013-09-04 10:19+0200\n"
+"POT-Creation-Date: 2014-03-21 09:22+0000\n"
+"PO-Revision-Date: 2014-03-21 20:27+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -20,219 +20,223 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Početno podešavanje"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:377
 msgid "_Next"
 msgstr "_Sledeće"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:378
+msgid "_Accept"
+msgstr "_Prihvati"
+
+#: ../gnome-initial-setup/gis-assistant.c:379
+msgid "_Skip"
+msgstr "_Preskoči"
+
+#: ../gnome-initial-setup/gis-assistant.c:380
 msgid "_Previous"
 msgstr "_Prethodno"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:381
 msgid "_Cancel"
 msgstr "_Otkaži"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "Primoraj režim novog korisnika"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#| msgid "Force new user mode"
+msgid "Force existing user mode"
+msgstr "Primoraj režim postojećeg korisnika"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:200
 msgid "- GNOME initial setup"
 msgstr "— Početno podešavanje Gnoma"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
-msgid "No password"
-msgstr "Bez lozinke"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
+msgid "About You"
+msgstr "O vama"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
-msgid "Passwords do not match"
-msgstr "Lozinke se ne podudaraju"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
-#, c-format
-msgid "Strength: %s"
-msgstr "Jačina: %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "Nisam uspeo da upišem nalog"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "Nema podržanog načina za potvrđivanje identiteta sa ovim domenom"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "Nisam uspeo da pristupim domenu"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "Nisam uspeo da se prijavim na domen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
-msgid "Login"
-msgstr "Prijava"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:1
+msgid "Enterprise Login"
+msgstr "Poslovno prijavljivanje"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create a Local Account"
-msgstr "Napravite mesni nalog"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Full Name"
-msgstr "_Ime i prezime"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Username"
-msgstr "_Korisničko ime"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"Biće korišćeno za imenovanje vaše lične fascikle i ne može biti izmenjeno."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Password"
-msgstr "_Lozinka"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Confirm password"
-msgstr "_Potvrdi lozinku"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
 msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device."
 msgstr ""
-"Pokušajte da koristite najmanje 8 različitih znakova. Pomešajte velika i mala "
-"slova i koristite jedan broj ili dva."
+"Poslovno prijavljivanje omogućava postojećem centralno upravljanom nalogu "
+"korisnika da bude korišćen na ovom uređaju."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "page 1"
-msgstr "stranica 1"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "Create an Enterprise Account"
-msgstr "Napravite poslovni nalog"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "_Domen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:4
+msgid "_Username"
+msgstr "_Korisničko ime"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:6
+msgid "_Password"
+msgstr "_Lozinka"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "Poslovni domen ili naziv područja"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
 msgstr "_Nastavi"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "Prijavljivanje administratora domena"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
+#| msgid ""
+#| "In order to use enterprise logins, this computer needs to be\n"
+#| "enrolled in the domain. Please have your network administrator\n"
+#| "type their domain password here, and choose a unique computer\n"
+#| "name for your computer."
 msgid ""
-"In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
+"here, and choose a unique computer name for your computer."
 msgstr ""
-"Da biste koristili poslovna prijavljivanja, ovaj računar treba da bude\n"
-"upisan u domenu. Neka administrator vaše mreže ovde upiše lozinku\n"
-"njihovih domena, i da izabere jedinstveni naziv za vaš računar."
+"Da biste koristili poslovna prijavljivanja, ovaj računar treba da bude upisan "
+"u domenu. Neka administrator vaše mreže ovde upiše lozinku njihovih domena, i "
+"neka izabere jedinstveni naziv za vaš računar."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
 msgstr "_Računar"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:11
 msgid "Administrator _Name"
 msgstr "Ime _administratora"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:12
 msgid "Administrator Password"
 msgstr "Lozinka administratora"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:94
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "Prekratka"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
+msgid "Are these the right details? You can change them if you want."
+msgstr "Da li su ovo pravi podaci? Možete da ih izmenite ako želite."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:99
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "Nije dovoljno dobra"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
+msgid "We need a few details to complete setup."
+msgstr "Potrebno nam je nekoliko podataka da završimo podešavanje."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:108
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "Slaba"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+msgid "Avatar image"
+msgstr "Slika avatara"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:111
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "Solidna"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
+msgid "_Full Name"
+msgstr "_Ime i prezime"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:114
-msgctxt "Password strength"
-msgid "Good"
-msgstr "Dobra"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
+msgid "Your username cannot be changed after setup."
+msgstr "Vaše korisnčko ime ne može biti izmenjeno nakon podešavanja."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "Jaka"
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
+msgid "Disable image"
+msgstr "Isključi sliku"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
+msgid "Take a photo..."
+msgstr "Snimite fotografiju..."
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:351
 msgid "Cannot automatically join this type of domain"
 msgstr "Ne mogu sam da pristupim ovoj vrsti domena"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:414
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Nije pronađen takav domen ili područje"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:821
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:835
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Ne mogu da se prijavim kao „%s“ na domenu %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:827
 msgid "Invalid password, please try again"
 msgstr "Neispravna lozinka, pokušajte ponovo"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:840
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Ne mogu da se povežem na domen „%s“: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:148
+#: ../gnome-initial-setup/pages/account/um-utils.c:236
+#: ../gnome-initial-setup/pages/password/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "Korisnik sa korisničkim imenom „%s“ već postoji"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:152
+#: ../gnome-initial-setup/pages/account/um-utils.c:240
+#: ../gnome-initial-setup/pages/password/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Korisničko ime je predugo"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:155
+#: ../gnome-initial-setup/pages/account/um-utils.c:243
+#: ../gnome-initial-setup/pages/password/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Korisničko ime ne može početi sa „-“"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:158
-#| msgid ""
-#| "The username must consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
+#: ../gnome-initial-setup/pages/account/um-utils.c:246
+#: ../gnome-initial-setup/pages/password/um-utils.c:158
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -244,7 +248,7 @@ msgstr ""
 " ➣ brojeve\n"
 " ➣ bilo koji od znakova: . - _"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Ugovor o korišćenju"
@@ -256,176 +260,259 @@ msgid ""
 msgstr ""
 "Slažem se sa _odredbama i uslovima o korišćenju navedenim u ovoj licenci."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-#| msgid "Other"
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Drugo"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "Dodaj nalog"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "Pošta"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "Otkaži"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Kontakti"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Ćaskanje"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Izvorišta"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "Greška u stvaranju naloga"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "Greška u uklanjanju naloga"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "Da li ste sigurni da želite da uklonite nalog?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "Ovo neće ukloniti nalog na serveru."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "_Ukloni"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "Nalozi na mreži"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Povežite se na vaše postojeće podatke u oblaku"
+#| msgid "Online Accounts"
+msgid "Connect Your Online Accounts"
+msgstr "Povežite vaše naloge na mreži"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#| msgid ""
+#| "Adding accounts will allow you to transparently connect to your online "
+#| "photos, contacts, mail, and more."
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"Dodavanje naloga će vam omogućiti da olako pristupite vašim fotografijama na "
-"mreži, kontaktima, pošti i još mnogo čemu."
+"Povezivanje vaših naloga će vam omogućiti da lako pristupite vašoj el. pošti, "
+"kalendaru na mreži, kontaktima, dokumentima i fotografijama."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "_Dodaj nalog"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"Možete da pregledate vaše naloge na mreži (i da dodate druge) nakon "
+"podešavanja."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
+#| msgid "_Previous"
+msgid "Preview"
+msgstr "Pregled"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:290
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
 msgid "More…"
 msgstr "Još…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
-msgid "No input sources found"
-msgstr "Nisam pronašao izvore ulaza"
+#. Translators: a search for input methods or keyboard layouts
+#. * did not yield any results
+#.
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
+#| msgid "No input sources found"
+msgid "No inputs found"
+msgstr "Nisam našao ulaze"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
-msgid "Other"
-msgstr "Drugo"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "Izvori ulaza"
-
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "Izaberite rasporede tastature"
+msgid "Typing"
+msgstr "Kucanje"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"Podešavanja prijavljivanja koriste svi korisnici kada se prijavljuju na sistem"
+#| msgid "Select keyboard layouts"
+msgid "Select your keyboard layout or an input method."
+msgstr "Izaberite raspored vaše tastature ili način unosa."
 
-#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
-msgid "Add an Input Source"
-msgstr "Dodajte izvor ulaza"
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
 msgid "No languages found"
 msgstr "Nisam pronašao jezik"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
 msgid "Welcome"
 msgstr "Dobrodošli"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Potražite mesto"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Mesto"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Izaberite mesto"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "_Sam odredi moje mesto"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
-msgid "Time Zone"
-msgstr "Vremenska zona"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+#| msgid "Welcome"
+msgid "Welcome!"
+msgstr "Dobro došli!"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Ostalo…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "Mreža nije dostupna."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "Nisam pronašao mrežne uređaje."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
 msgid "Checking for available wireless networks"
 msgstr "Proveravam dostupnost bežičnih mreža"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
 msgid "Network"
 msgstr "Mreža"
 
-# bug: no plural forms
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Bežične mreže"
+msgid "Wi-Fi"
+msgstr "Bežična"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"Povezivanje na Internet će vam omogućiti da podesite vreme, dodate vaše "
+"podatke, da pristupite vašoj el. pošti, kalendaru, i kontaktima. Takođe je "
+"neophodno za naloge poslovnog prijavljivanja."
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
+#| msgid "Network is not available."
+msgid "No wireless available"
+msgstr "Bežična mreža nije dostupna"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:121
+msgid "No password"
+msgstr "Bez lozinke"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:180
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:272
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:126
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:212
+msgid "Passwords do not match"
+msgstr "Lozinke se ne podudaraju"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:219
 #, c-format
-#| msgid "_Start using GNOME 3"
+msgid "Strength: %s"
+msgstr "Jačina: %s"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Confirm password"
+msgstr "_Potvrdi lozinku"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:5
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"Pokušajte da koristite najmanje 8 različitih znakova. Pomešajte velika i mala "
+"slova i koristite jedan broj ili dva."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:269
+#| msgid "_Password"
+msgid "Password"
+msgstr "Lozinka"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+#| msgid "_Password"
+msgid "Set a Password"
+msgstr "Podesite lozinku"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+msgid "Be careful not to lose your password."
+msgstr "Budite pažljivi da ne izgubite vašu lozinku."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+#| msgid "No password"
+msgid "Choose a _password"
+msgstr "Izaberi _lozinku"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:93
+msgctxt "Password strength"
+msgid "Too short"
+msgstr "Prekratka"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:98
+msgctxt "Password strength"
+msgid "Not good enough"
+msgstr "Nije dovoljno dobra"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:107
+msgctxt "Password strength"
+msgid "Weak"
+msgstr "Slaba"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:110
+msgctxt "Password strength"
+msgid "Fair"
+msgstr "Solidna"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:113
+msgctxt "Password strength"
+msgid "Good"
+msgstr "Dobra"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:116
+msgctxt "Password strength"
+msgid "Strong"
+msgstr "Jaka"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+#| msgid "No languages found"
+msgid "No regions found"
+msgstr "Nisam pronašao područja"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
+msgid "Region"
+msgstr "Područje"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
+#| msgid "Choose Your Location"
+msgid "Choose your country or region."
+msgstr "Izaberite vašu državu ili područje."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
+#, c-format
 msgid "_Start using %s"
 msgstr "_Počni da koristiš %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "Hvala vam"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"Hvala vam što ste izabrali „%s“.\n"
+"Nadamo se da će vam se dopasti."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+msgid "Ready to Go"
+msgstr "Spremni za polazak"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Vaš računar je spreman za upotrebu."
+msgid "You're all set!"
+msgstr "Podešeni ste sasvim!"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "Ove postavke možete da izmenite bilo kada u podešavanjima sistema."
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+msgid "Time Zone"
+msgstr "Vremenska zona"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "_Počni da koristiš Gnom 3"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "Potražite najbliži grad"
+
+#~ msgid "Login"
+#~ msgstr "Prijava"
+
+#~ msgid "Create a Local Account"
+#~ msgstr "Napravite mesni nalog"
+
+#~ msgid "This will be used to name your home folder and can't be changed."
+#~ msgstr ""
+#~ "Biće korišćeno za imenovanje vaše lične fascikle i ne može biti izmenjeno."
+
+#~ msgid "page 1"
+#~ msgstr "stranica 1"
+
+#~ msgid "Create an Enterprise Account"
+#~ msgstr "Napravite poslovni nalog"
