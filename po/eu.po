@@ -2,15 +2,15 @@
 # Copyright (C) 2013 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
-# Asier Sarasua Garmendia <asiersar@yahoo.com>, 2013.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2013.
 #
+# Asier Sarasua Garmendia <asiersar@yahoo.com>, 2013.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-16 22:06+0200\n"
-"PO-Revision-Date: 2013-09-16 22:15+0200\n"
+"POT-Creation-Date: 2014-03-22 11:01+0100\n"
+"PO-Revision-Date: 2014-03-22 11:43+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -21,214 +21,218 @@ msgstr ""
 "X-Generator: Lokalize 1.4\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Hasierako konfigurazioa"
 
-#: ../gnome-initial-setup/gis-assistant.c:418
+#: ../gnome-initial-setup/gis-assistant.c:377
 msgid "_Next"
 msgstr "_Hurrengoa"
 
-#: ../gnome-initial-setup/gis-assistant.c:419
+#: ../gnome-initial-setup/gis-assistant.c:378
+msgid "_Accept"
+msgstr "_Onartu"
+
+#: ../gnome-initial-setup/gis-assistant.c:379
+msgid "_Skip"
+msgstr "_Saltatu"
+
+#: ../gnome-initial-setup/gis-assistant.c:380
 msgid "_Previous"
 msgstr "_Aurrekoa"
 
-#: ../gnome-initial-setup/gis-assistant.c:420
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:381
 msgid "_Cancel"
 msgstr "_Utzi"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "Behartu erabiltzaile-modu berria"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+msgid "Force existing user mode"
+msgstr "Behartu dagoen erabiltzaile-modura"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:200
 msgid "- GNOME initial setup"
 msgstr "- GNOMEren hasierako konfigurazioa"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
-msgid "No password"
-msgstr "Pasahitzik ez"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
+msgid "About You"
+msgstr "Zuri buruz"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
-msgid "Passwords do not match"
-msgstr "Pasahitzak ez datoz bat"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
-#, c-format
-msgid "Strength: %s"
-msgstr "Sendotasuna: %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "Huts egin du kontua erregistratzean"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "Ez dago onartutako modurik domeinu honekin autentifikatzeko"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "Huts egin du domeinuarekin elkartzean"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "Huts egin du domeinuan saioa hastean"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
-msgid "Login"
-msgstr "Saio-hasiera"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:1
+msgid "Enterprise Login"
+msgstr "Enpresako saio-hasiera"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create a Local Account"
-msgstr "Sortu lokaleko kontu bat"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Full Name"
-msgstr "_Izen osoa"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Username"
-msgstr "_Erabiltzaile-izena"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr "Zure karpeta nagusia izendatzeko erabiliko da eta ezin da aldatu."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Password"
-msgstr "_Pasahitza"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Confirm password"
-msgstr "_Berretsi pasahitza"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
 msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device."
 msgstr ""
-"Saiatu gutxienez 8 karaktere desberdin erabiltzen. Erabili maiuskulak eta "
-"minuskulak nahasian eta zenbaki bat edo bi."
+"Enpresako pasahitzak erabiltzaileen kontu zentralizatua erabiltzea baimentzen "
+"du "
+"gailu honetan erabil ahal izateko."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "page 1"
-msgstr "1. orrialdea"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "Create an Enterprise Account"
-msgstr "Sortu enpresako kontu bat"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "_Domeinua"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:4
+msgid "_Username"
+msgstr "_Erabiltzaile-izena"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:6
+msgid "_Password"
+msgstr "_Pasahitza"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "Enpresaren domeinuaren izena"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
 msgstr "_Jarraitu"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "Domeinuaren administratzailearen saio-hasiera"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
+"here, and choose a unique computer name for your computer."
 msgstr ""
-"Enpresako saio-hasierak erabili ahal izateko, ordenagailu hau\n"
-"domeinuari elkartu behar zaio. Sareko administratzaileak idatz dezala\n"
-"domeinuaren pasahitza hemen, eta aukeratu ordenagailu bakar baten\n"
+"Enpresako saio-hasierak erabili ahal izateko, ordenagailu hau "
+"domeinuari elkartu behar zaio. Sareko administratzaileak idatz dezala "
+"domeinuaren pasahitza hemen, eta aukeratu ordenagailu bakar baten "
 "izena ordenagailu honentzako."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
 msgstr "_Ordenagailua"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:11
 msgid "Administrator _Name"
 msgstr "Administratzailearen _izena"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:12
 msgid "Administrator Password"
 msgstr "Administratzailearen pasahitza"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:94
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "Laburregia"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
+msgid "Are these the right details? You can change them if you want."
+msgstr "Xehetasun egokiak dira? Nahi duzunean alda ditzakezu."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:99
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "Ez da onegia"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
+msgid "We need a few details to complete setup."
+msgstr "Xehetasun gutxi batzuk behar dira konfigurazioa amaitzeko."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:108
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "Ahula"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+msgid "Avatar image"
+msgstr "Avatar irudia"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:111
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "Erdipurdikoa"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
+msgid "_Full Name"
+msgstr "_Izen osoa"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:114
-msgctxt "Password strength"
-msgid "Good"
-msgstr "Ona"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
+msgid "Your username cannot be changed after setup."
+msgstr "Zure erabiltzaile-izena ezingo da aldatu konfigurazioaren ondoren."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "Indartsua"
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
+msgid "Disable image"
+msgstr "Desgaitu irudia"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
+msgid "Take a photo..."
+msgstr "Atera argazki bat..."
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:351
 msgid "Cannot automatically join this type of domain"
 msgstr "Ezin da automatikoki elkartu honelako domeinuarekin"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:414
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Ez da halako domeinurik aurkitu"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:821
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:835
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Ezin da %s gisa saioa-hasi %s domeinuan"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:827
 msgid "Invalid password, please try again"
 msgstr "Baliogabeko pasahitza, saiatu berriro"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
+#: ../gnome-initial-setup/pages/password/um-realm-manager.c:840
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Ezin izan da %s domeinuarekin konektatu: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:148
+#: ../gnome-initial-setup/pages/account/um-utils.c:236
+#: ../gnome-initial-setup/pages/password/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "'%s' erabiltzaile-izeneko erabiltzaile bat badago lehendik ere"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:152
+#: ../gnome-initial-setup/pages/account/um-utils.c:240
+#: ../gnome-initial-setup/pages/password/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "Erabiltzaile-izena luzeegia da"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:155
+#: ../gnome-initial-setup/pages/account/um-utils.c:243
+#: ../gnome-initial-setup/pages/password/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "Erabiltzaile-izena ezin da '-' karakterearekin hasi"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#: ../gnome-initial-setup/pages/account/um-utils.c:246
+#: ../gnome-initial-setup/pages/password/um-utils.c:158
 msgid ""
 "The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
@@ -240,7 +244,7 @@ msgstr ""
 " ➣ digituak\n"
 " ➣ '.', '-' eta '_' karaktereetako edozer"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "Lizentzia-kontratua"
@@ -253,180 +257,346 @@ msgstr ""
 "Azken erabiltzailearentzako lizentzia-kontratu honen baldintzak _onartzen "
 "ditut."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-msgctxt "Online Account"
-msgid "Other"
-msgstr "Bestelakoa"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "Gehitu kontua"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "Posta elektronikoa"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
+msgid "Cancel"
+msgstr "Utzi"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "Kontaktuak"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "Berriketa"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "Baliabideak"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "Errorea kontua sortzean"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "Errorea kontua kentzean"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "Ziur zaude kontua kendu nahi duzula?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "Honek ez du kontua zerbitzaritik kenduko."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "_Kendu"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "Lineako kontuak"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "Konektatu hodeian dituzun datuekin"
+msgid "Connect Your Online Accounts"
+msgstr "Konektatu zure lineako kontuak"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
 msgstr ""
-"Kontuak gehitzean linean dituzun argazkiekin, kontaktuekin, postarekin, "
-"etab. konektatu ahal izango duzu."
+"Zure kontuak konektatzean dituzun posta elektroniko, lineako egutegia, "
+"kontaktuak, dokumentuak eta argazkiak modu errazean atzi ditzakezu."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "_Gehitu kontua"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"Zure lineako kontuak (eta beste batzuk gehitu) gainbegira "
+"ditzakezu konfigurazioaren ondoren."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
+msgid "Preview"
+msgstr "Aurrebista"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:290
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
 msgid "More…"
 msgstr "Gehiago..."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
-msgid "No input sources found"
-msgstr "Ez da sarrerako iturbururik aurkitu"
+#. Translators: a search for input methods or keyboard layouts
+#. * did not yield any results
+#.
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
+msgid "No inputs found"
+msgstr "Ez da sarrerarik aurkitu"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
-msgid "Other"
-msgstr "Bestelakoa"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-msgid "Input Sources"
-msgstr "Sarrerako iturburuak"
-
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select keyboard layouts"
-msgstr "Hautatu teklatuaren diseinua"
+msgid "Typing"
+msgstr "Idazketa"
 
-#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
-msgid "Add an Input Source"
-msgstr "Gehitu sarrerako iturburu bat"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Select your keyboard layout or an input method."
+msgstr "Hautatu teklatuaren diseinua edo sarrerako metodoa."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
 msgid "No languages found"
 msgstr "Ez da hizkuntzarik aurkitu"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
 msgid "Welcome"
 msgstr "Ongi etorri"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "Bilatu kokaleku bat"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "Kokalekua"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "Aukeratu zure kokalekua"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "_Zehaztu zure kokalekua automatikoki"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
-msgid "Time Zone"
-msgstr "Ordu-zona"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+msgid "Welcome!"
+msgstr "Ongi etorri!"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Bestelakoa…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "Sarea ez dago eskuragarri."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "Ez da sareko interfazerik aurkitu."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
 msgid "Checking for available wireless networks"
 msgstr "Haririk gabeko sarerik erabilgarri dagoen begiratzen"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
 msgid "Network"
 msgstr "Sarea"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "Haririk gabeko sareak"
+msgid "Wi-Fi"
+msgstr "Haririk gabekoa"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"Internetera konektatzeak ordua ezartzea eta zure xehetasunak gehitzea "
+"baimentzen dizu. Gainera, zure posta elektronikoa, egutegia eta kontaktuak "
+"atzitzea gaitzen du. Beharrezkoa da baita ere enpresako saio-hasierako "
+"kontuentzako."
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
+msgid "No wireless available"
+msgstr "Ez dago haririk gabekorik eskuragarri"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
+msgid ""
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
+"here, and choose a unique computer name for your computer."
+msgstr ""
+"Enpresako saio-hasierak erabili ahal izateko, ordenagailu hau "
+"domeinuari elkartu behar zaio. Sareko administratzaileak idatz dezala "
+"domeinuaren pasahitza hemen, eta aukeratu ordenagailu bakar baten "
+"izena ordenagailu honentzako."
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:121
+msgid "No password"
+msgstr "Pasahitzik ez"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:180
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:272
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:126
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:212
+msgid "Passwords do not match"
+msgstr "Pasahitzak ez datoz bat"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:219
+#, c-format
+msgid "Strength: %s"
+msgstr "Sendotasuna: %s"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:7
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Confirm password"
+msgstr "_Berretsi pasahitza"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:8
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:5
+msgid ""
+"Try to use at least 8 different characters. Mix upper and lower case and use "
+"a number or two."
+msgstr ""
+"Saiatu gutxienez 8 karaktere desberdin erabiltzen. Erabili maiuskulak eta "
+"minuskulak nahasian eta zenbaki bat edo bi."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:269
+msgid "Password"
+msgstr "Pasahitza"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+msgid "Set a Password"
+msgstr "Ezarri pasahitza"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+msgid "Be careful not to lose your password."
+msgstr "Kontuz ibili zure pasahitza ez galtzeko."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+msgid "Choose a _password"
+msgstr "Aukeratu _pasahitza"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:93
+msgctxt "Password strength"
+msgid "Too short"
+msgstr "Laburregia"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:98
+msgctxt "Password strength"
+msgid "Not good enough"
+msgstr "Ez da onegia"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:107
+msgctxt "Password strength"
+msgid "Weak"
+msgstr "Ahula"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:110
+msgctxt "Password strength"
+msgid "Fair"
+msgstr "Erdipurdikoa"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:113
+msgctxt "Password strength"
+msgid "Good"
+msgstr "Ona"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:116
+msgctxt "Password strength"
+msgid "Strong"
+msgstr "Indartsua"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+msgid "No regions found"
+msgstr "Ez da eskualderik aurkitu"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
+msgid "Region"
+msgstr "Eskualdea"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
+msgid "Choose your country or region."
+msgstr "Aukeratu zure herrialdea edo eskualdea."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
 #, c-format
 msgid "_Start using %s"
 msgstr "_Hasi %s erabiltzen"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "Eskerrik asko"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"Eskerrik asko '%s' aukeratzeagatik.\n"
+"Gogokoa izatea itxaroten dugu."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+msgid "Ready to Go"
+msgstr "Hasteko prest"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "Ordenagailua erabiltzeko prest dago."
+msgid "You're all set!"
+msgstr "Dena konfiguratu duzu."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "Aukera hauek edozein momentutan alda ditzakezu Ezarpenak atalean."
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#, c-format
+msgid ""
+"We think that your time zone is %s. Press Next to continue or search for a "
+"city to manually set the time zone."
+msgstr ""
+"Ordu-zona '%s' dela dirudi. Sakatu Hurrengoa jarraitzeko edo bilatu "
+"herri bat ordu-zona eskuz ezartzeko."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "_Hasi GNOME 3 erabiltzen"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+msgid "Time Zone"
+msgstr "Ordu-zona"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "Bilatu hurbileko herri bat"
+
+#~ msgid "Login"
+#~ msgstr "Saio-hasiera"
+
+#~ msgid "Create a Local Account"
+#~ msgstr "Sortu lokaleko kontu bat"
+
+#~ msgid "This will be used to name your home folder and can't be changed."
+#~ msgstr "Zure karpeta nagusia izendatzeko erabiliko da eta ezin da aldatu."
+
+#~ msgid "page 1"
+#~ msgstr "1. orrialdea"
+
+#~ msgid "Create an Enterprise Account"
+#~ msgstr "Sortu enpresako kontu bat"
+
+#~ msgctxt "Online Account"
+#~ msgid "Other"
+#~ msgstr "Bestelakoa"
+
+#~ msgid "Mail"
+#~ msgstr "Posta elektronikoa"
+
+#~ msgid "Contacts"
+#~ msgstr "Kontaktuak"
+
+#~ msgid "Chat"
+#~ msgstr "Berriketa"
+
+#~ msgid "Resources"
+#~ msgstr "Baliabideak"
+
+#~ msgid "Error creating account"
+#~ msgstr "Errorea kontua sortzean"
+
+#~ msgid "Error removing account"
+#~ msgstr "Errorea kontua kentzean"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "Ziur zaude kontua kendu nahi duzula?"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "Honek ez du kontua zerbitzaritik kenduko."
+
+#~ msgid "_Remove"
+#~ msgstr "_Kendu"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "Konektatu hodeian dituzun datuekin"
+
+#~ msgid "_Add Account"
+#~ msgstr "_Gehitu kontua"
+
+#~ msgid "Other"
+#~ msgstr "Bestelakoa"
+
+#~ msgid "Input Sources"
+#~ msgstr "Sarrerako iturburuak"
+
+#~ msgid "Add an Input Source"
+#~ msgstr "Gehitu sarrerako iturburu bat"
+
+#~ msgid "Search for a location"
+#~ msgstr "Bilatu kokaleku bat"
+
+#~ msgid "Location"
+#~ msgstr "Kokalekua"
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "_Zehaztu zure kokalekua automatikoki"
+
+#~ msgid "No network devices found."
+#~ msgstr "Ez da sareko interfazerik aurkitu."
+
+#~ msgid "Wireless Networks"
+#~ msgstr "Haririk gabeko sareak"
+
+#~ msgid "Thank You"
+#~ msgstr "Eskerrik asko"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "Ordenagailua erabiltzeko prest dago."
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr "Aukera hauek edozein momentutan alda ditzakezu Ezarpenak atalean."
+
+#~ msgid "_Start using GNOME 3"
+#~ msgstr "_Hasi GNOME 3 erabiltzen"
 
 #~ msgid "Unspecified"
 #~ msgstr "Zehaztu gabea"
 
 #~ msgid "_Back"
 #~ msgstr "_Atzera"
-
-#~ msgid "Use _Enterprise Login"
-#~ msgstr "Erabili _enpresako saio-hasiera"
 
 #~ msgid "_Use Local Login"
 #~ msgstr "Erabili _lokaleko saio-hasiera"
