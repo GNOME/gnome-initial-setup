@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-16 07:47+0000\n"
-"PO-Revision-Date: 2014-03-16 13:23+0100\n"
+"POT-Creation-Date: 2014-04-07 07:11+0000\n"
+"PO-Revision-Date: 2014-04-07 12:40+0200\n"
 "Last-Translator: naybnet <naybnet@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: \n"
@@ -129,14 +129,13 @@ msgid "Domain Administrator Login"
 msgstr "Connexion d'administrateur de domaine"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
 "Afin d'utiliser des connexions d'entreprise, cet ordinateur doit être "
-"enregistré dans le domaine. Demandez à votre administrateur réseau de saisir "
+"enregistré dans un domaine. Demandez à votre administrateur réseau de saisir "
 "ici le mot de passe du domaine et choisissez un nom unique pour votre "
 "ordinateur."
 
@@ -360,6 +359,17 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Aucun réseau sans-fil disponible"
 
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
+msgid ""
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
+"here, and choose a unique computer name for your computer."
+msgstr ""
+"Afin d'utiliser des connexions d'entreprise, cet ordinateur doit être "
+"enregistré dans le domaine. Demandez à votre administrateur réseau de saisir "
+"ici le mot de passe du domaine et choisissez un nom unique pour votre "
+"ordinateur."
+
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:121
 msgid "No password"
@@ -478,7 +488,15 @@ msgstr "Prêt"
 msgid "You're all set!"
 msgstr "Votre profil est maintenant configuré !"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#, c-format
+msgid ""
+"We think that your time zone is %s. Press Next to continue or search for a "
+"city to manually set the time zone."
+msgstr ""
+"Nous pensons que votre fuseau horaire est %s. Appuyez sur Suivant pour continuer ou cherchez une ville pour définir manuellement votre fuseau horaire."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Fuseau horaire"
@@ -487,99 +505,3 @@ msgstr "Fuseau horaire"
 msgid "Please search for a nearby city"
 msgstr "Rechercher une ville voisine"
 
-#~ msgid "Login"
-#~ msgstr "Connexion"
-
-#~ msgid "Create a Local Account"
-#~ msgstr "Créer un compte local"
-
-#~ msgid "This will be used to name your home folder and can't be changed."
-#~ msgstr ""
-#~ "Cela sera utilisé pour nommer votre dossier personnel et ne peut être "
-#~ "changé."
-
-#~ msgid "page 1"
-#~ msgstr "page 1"
-
-#~ msgid "Create an Enterprise Account"
-#~ msgstr "Créer un compte d'entreprise"
-
-#~ msgctxt "Online Account"
-#~ msgid "Other"
-#~ msgstr "Autre"
-
-#~ msgid "Mail"
-#~ msgstr "Courriel"
-
-#~ msgid "Contacts"
-#~ msgstr "Contacts"
-
-#~ msgid "Chat"
-#~ msgstr "Discussion"
-
-#~ msgid "Resources"
-#~ msgstr "Ressources"
-
-#~ msgid "Error creating account"
-#~ msgstr "Erreur à la création du compte"
-
-#~ msgid "Error removing account"
-#~ msgstr "Erreur à la suppression du compte"
-
-#~ msgid "Are you sure you want to remove the account?"
-#~ msgstr "Êtes-vous sûr de vouloir supprimer ce compte ?"
-
-#~ msgid "This will not remove the account on the server."
-#~ msgstr "Cela ne supprimera pas le compte du serveur"
-
-#~ msgid "_Remove"
-#~ msgstr "_Supprimer"
-
-#~ msgid "Connect to your existing data in the cloud"
-#~ msgstr "Connectez vous à vos données existantes dans le nuage"
-
-#~ msgid "_Add Account"
-#~ msgstr "_Ajouter un compte"
-
-#~ msgid "Other"
-#~ msgstr "Autre"
-
-#~ msgid "Input Sources"
-#~ msgstr "Sources de saisie"
-
-#~ msgid "Login settings are used by all users when logging into the system"
-#~ msgstr ""
-#~ "Les réglages de connexion sont utilisés pour tous les utilisateurs lors "
-#~ "de la connexion au système"
-
-#~ msgid "Add an Input Source"
-#~ msgstr "Ajouter une source de saisie"
-
-#~ msgid "Search for a location"
-#~ msgstr "Rechercher un emplacement"
-
-#~ msgid "Location"
-#~ msgstr "Emplacement"
-
-#~ msgid "_Determine your location automatically"
-#~ msgstr "_Déterminer votre position automatiquement"
-
-#~ msgid "No network devices found."
-#~ msgstr "Aucun périphérique réseau trouvé."
-
-#~ msgid "Wireless Networks"
-#~ msgstr "Réseaux sans fils"
-
-#~ msgid "Thank You"
-#~ msgstr "Merci"
-
-#~ msgid "Your computer is ready to use."
-#~ msgstr "Votre ordinateur est prêt à être utilisé."
-
-#~ msgid "You may change these options at any time in Settings."
-#~ msgstr ""
-#~ "Vous pouvez changer ces options quand vous le désirez dans les Paramètres "
-#~ "système"
-
-#~ msgid "_Start using GNOME 3"
-#~ msgstr "_Commencer à utiliser GNOME 3"
