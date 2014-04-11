@@ -39,6 +39,7 @@
 #include <rest/oauth-proxy.h>
 #include <json-glib/json-glib.h>
 
+#define VALIDATION_TIMEOUT 600
 
 struct _GisAccountPageLocalPrivate
 {
@@ -47,7 +48,10 @@ struct _GisAccountPageLocalPrivate
   GtkWidget *subtitle;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
+  GtkWidget *username_explanation;
   UmPhotoDialog *photo_dialog;
+
+  gint timeout_id;
 
   GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
@@ -235,6 +239,48 @@ accounts_changed (GoaClient *client, GoaObject *object, gpointer data)
   prepopulate_account_page (page);
 }
 
+static gboolean
+validate (GisAccountPageLocal *page)
+{
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GtkWidget *entry;
+  const gchar *name, *username;
+  gchar *tip;
+
+  if (priv->timeout_id != 0) {
+    g_source_remove (priv->timeout_id);
+    priv->timeout_id = 0;
+  }
+
+  entry = gtk_bin_get_child (GTK_BIN (priv->username_combo));
+
+  name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
+
+  priv->valid_name = is_valid_name (name);
+  if (priv->valid_name)
+    set_entry_validation_checkmark (GTK_ENTRY (priv->fullname_entry));
+
+  priv->valid_username = is_valid_username (username, &tip);
+  if (priv->valid_username)
+    set_entry_validation_checkmark (GTK_ENTRY (entry));
+
+  gtk_label_set_text (GTK_LABEL (priv->username_explanation), tip);
+  g_free (tip);
+
+  validation_changed (page);
+
+  return FALSE;
+}
+
+static gboolean
+on_focusout (GisAccountPageLocal *page)
+{
+  validate (page);
+
+  return FALSE;
+}
+
 static void
 fullname_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
@@ -252,18 +298,19 @@ fullname_changed (GtkWidget      *w,
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  priv->valid_name = is_valid_name (name);
-
-  if (!priv->valid_name) {
+  if (strlen (name) == 0) {
     gtk_entry_set_text (GTK_ENTRY (entry), "");
-    return;
+  }
+  else {
+    generate_username_choices (name, GTK_LIST_STORE (model));
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->username_combo), 0);
   }
 
-  generate_username_choices (name, GTK_LIST_STORE (model));
+  clear_entry_validation_error (GTK_ENTRY (w));
 
-  gtk_combo_box_set_active (GTK_COMBO_BOX (priv->username_combo), 0);
+  priv->valid_name = FALSE;
 
-  validation_changed (page);
+  /* username_changed() is called consequently due to changes */
 }
 
 static void
@@ -271,25 +318,17 @@ username_changed (GtkComboBoxText     *combo,
                   GisAccountPageLocal *page)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
-  const gchar *username;
-  gchar *tip;
   GtkWidget *entry;
 
-  username = gtk_combo_box_text_get_active_text (combo);
-
-  priv->valid_username = is_valid_username (username, &tip);
-
   entry = gtk_bin_get_child (GTK_BIN (combo));
+  clear_entry_validation_error (GTK_ENTRY (entry));
 
-  if (tip) {
-    set_entry_validation_error (GTK_ENTRY (entry), tip);
-    g_free (tip);
-  }
-  else {
-    clear_entry_validation_error (GTK_ENTRY (entry));
-  }
-
+  priv->valid_username = FALSE;
   validation_changed (page);
+
+  if (priv->timeout_id != 0)
+    g_source_remove (priv->timeout_id);
+  priv->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
 }
 
 static void
@@ -335,8 +374,16 @@ gis_account_page_local_constructed (GObject *object)
 
   g_signal_connect (priv->fullname_entry, "notify::text",
                     G_CALLBACK (fullname_changed), page);
+  g_signal_connect_swapped (priv->fullname_entry, "focus-out-event",
+                            G_CALLBACK (on_focusout), page);
+  g_signal_connect_swapped (priv->fullname_entry, "activate",
+                            G_CALLBACK (validate), page);
   g_signal_connect (priv->username_combo, "changed",
                     G_CALLBACK (username_changed), page);
+  g_signal_connect_swapped (priv->username_combo, "focus-out-event",
+                            G_CALLBACK (on_focusout), page);
+  g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->username_combo)),
+                            "activate", G_CALLBACK (validate), page);
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
@@ -363,6 +410,8 @@ gis_account_page_local_constructed (GObject *object)
   priv->photo_dialog = um_photo_dialog_new (priv->avatar_button,
                                             avatar_callback,
                                             page);
+
+  validate (page);
 }
 
 static void
@@ -375,6 +424,11 @@ gis_account_page_local_dispose (GObject *object)
   g_clear_object (&priv->avatar_pixbuf);
   g_clear_pointer (&priv->avatar_filename, g_free);
   g_clear_pointer (&priv->photo_dialog, um_photo_dialog_free);
+
+  if (priv->timeout_id != 0) {
+    g_source_remove (priv->timeout_id);
+    priv->timeout_id = 0;
+  }
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->dispose (object);
 }
@@ -454,6 +508,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, subtitle);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
 
   object_class->constructed = gis_account_page_local_constructed;
   object_class->dispose = gis_account_page_local_dispose;
