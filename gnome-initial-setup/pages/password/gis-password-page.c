@@ -26,11 +26,10 @@
 #include "config.h"
 #include "password-resources.h"
 #include "gis-password-page.h"
-#include "gis-account-page-local.h"
-#include "gis-account-page-enterprise.h"
 
 #include "gis-keyring.h"
 
+#include "um-utils.h"
 #include "pw-utils.h"
 #include "um-utils.h"
 
