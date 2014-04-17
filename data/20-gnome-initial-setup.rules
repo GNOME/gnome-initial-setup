@@ -11,6 +11,7 @@ polkit.addRule(function(action, subject) {
 
     var actionMatches = (action.id === 'org.freedesktop.udisks2.filesystem-mount-system' ||
                          action.id.indexOf('org.freedesktop.hostname1.') === 0 ||
+                         action.id.indexOf('org.freedesktop.NetworkManager.') === 0 ||
                          action.id.indexOf('org.freedesktop.locale1.') === 0 ||
                          action.id.indexOf('org.freedesktop.packagekit.system-sources-configure') === 0 ||
                          action.id.indexOf('org.freedesktop.accounts.') === 0 ||
