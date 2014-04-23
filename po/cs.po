@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-08 19:50+0000\n"
-"PO-Revision-Date: 2014-03-08 21:45+0100\n"
+"POT-Creation-Date: 2014-04-23 18:42+0000\n"
+"PO-Revision-Date: 2014-04-23 21:55+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -128,15 +128,14 @@ msgid "Domain Administrator Login"
 msgstr "Přihlášení správce domény"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
 "Aby šlo používat firemní přihlášování, musí být počítač zaregistrován do "
-"domény. Požádejte prosím správce sítě o zadání jeho hesla k doméně sem a "
-"zvolte pro svůj počítač jedinečný název."
+"nějaké domény. Požádejte prosím správce sítě o zadání jeho hesla k doméně "
+"sem a zvolte pro svůj počítač jedinečný název."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
 #: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:10
@@ -318,7 +317,7 @@ msgstr "Vyberte své rozložení klávesnice nebo některou vstupní metodu."
 msgid "No languages found"
 msgstr "Žádné jazyky nenalezeny"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:213
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
 msgid "Welcome"
 msgstr "Vítejte"
 
@@ -356,6 +355,16 @@ msgstr ""
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
 msgid "No wireless available"
 msgstr "Žádné bezdrátové připojení není k dispozici"
+
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
+msgid ""
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
+"here, and choose a unique computer name for your computer."
+msgstr ""
+"Aby šlo používat firemní přihlášování, musí být počítač zaregistrován do "
+"domény. Požádejte prosím správce sítě o zadání jeho hesla k doméně sem a "
+"zvolte pro svůj počítač jedinečný název."
 
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:121
@@ -475,7 +484,16 @@ msgstr "Připraveno k používání"
 msgid "You're all set!"
 msgstr "Máte vše nastaveno!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#, c-format
+msgid ""
+"We think that your time zone is %s. Press Next to continue or search for a "
+"city to manually set the time zone."
+msgstr ""
+"Podle odhadu je vaše časové pásmo %s. Buď rovnou pokračujte zmáčknutím "
+"tlačítka Další, nebo nastavte časové pásmo ručně vyhledáním města."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Časové pásmo"
