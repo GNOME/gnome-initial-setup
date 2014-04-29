@@ -36,7 +36,6 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
                   accountsservice
                   gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
-                  gstreamer-1.0
                   fontconfig
                   gweather-3.0
                   goa-1.0
