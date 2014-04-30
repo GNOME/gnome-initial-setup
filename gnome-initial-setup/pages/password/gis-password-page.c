@@ -149,7 +149,6 @@ update_password_entries (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   const gchar *password;
-  const gchar *username;
   gdouble strength;
   gint strength_level;
   const gchar *hint;
