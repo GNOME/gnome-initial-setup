@@ -50,15 +50,6 @@ typedef struct _GisPasswordPagePrivate GisPasswordPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisPasswordPage, gis_password_page, GIS_TYPE_PAGE);
 
-static void
-enterprise_apply_complete (GisPage  *dummy,
-                           gboolean  valid,
-                           gpointer  user_data)
-{
-  GisPasswordPage *page = GIS_PASSWORD_PAGE (user_data);
-  gis_page_apply_complete (GIS_PAGE (page), valid);
-}
-
 static gboolean
 page_validate (GisPasswordPage *page)
 {
