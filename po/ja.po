@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2012.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012, 2013.
+# Ikuya Awashiro <ikuya@fruitsbasket.info>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-20 13:06+0000\n"
-"PO-Revision-Date: 2014-03-23 23:31+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"POT-Creation-Date: 2014-03-30 07:11+0000\n"
+"PO-Revision-Date: 2014-03-30 17:20+0900\n"
+"Last-Translator: Ikuya Awashiro <ikuya@fruitsbasket.info>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +28,7 @@ msgstr "次へ(_N)"
 
 #: ../gnome-initial-setup/gis-assistant.c:378
 msgid "_Accept"
-msgstr ""
+msgstr "適用(_A)"
 
 #: ../gnome-initial-setup/gis-assistant.c:379
 msgid "_Skip"
@@ -53,7 +54,7 @@ msgstr "- GNOME 初期セットアップ"
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
 msgid "About You"
-msgstr ""
+msgstr "ユーザー情報"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
 #: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:180
@@ -83,7 +84,7 @@ msgstr "エンタープライズログイン"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 #: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
 msgid "Enterprise login allows an existing centrally managed user account to be used on this device."
-msgstr ""
+msgstr "エンタープライズログインを使用すると、すでに集中管理されているユーザーアカウントをこのデバイスで使用することができます。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 #: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
@@ -119,7 +120,8 @@ msgid "Domain Administrator Login"
 msgstr "ドメイン管理者のログイン"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-msgid "In order to use enterprise logins, this computer needs to be enrolled in a domain. Please have your network administrator type the domain password here, and choose a unique computer name for your computer."
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
+msgid "In order to use enterprise logins, this computer needs to be enrolled in the domain. Please have your network administrator type their domain password here, and choose a unique computer name for your computer."
 msgstr "エンタープライズログインを使用するには、このコンピューターをドメインに登録する必要があります。ネットワーク管理者に連絡を取って、ドメインのパスワードをここで入力してもらい、お使いのコンピューター用に一意となるコンピューター名を選択してください。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
@@ -139,17 +141,17 @@ msgstr "管理者のパスワード"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
 msgid "Are these the right details? You can change them if you want."
-msgstr ""
+msgstr "これらの詳細は正しいですか？　必要であれば変更できます。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
 msgid "We need a few details to complete setup."
-msgstr ""
+msgstr "ユーザーに関する情報を入力してください。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
 msgid "Avatar image"
-msgstr ""
+msgstr "アバターの画像"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
@@ -159,7 +161,7 @@ msgstr "フルネーム(_F)"
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
 msgid "Your username cannot be changed after setup."
-msgstr "セットアップ後にユーザー名を変更することはできません。"
+msgstr "セットアップ完了後にユーザー名を変更することはできません。"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -252,15 +254,15 @@ msgstr "オンラインアカウント"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
 msgid "Connect Your Online Accounts"
-msgstr "自分のオンラインアカウントに接続"
+msgstr "オンラインアカウントに接続"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid "Connecting your accounts will allow you to easily access your email, online calendar, contacts, documents and photos."
-msgstr "自分のアカウントに接続すると、メールやオンラインカレンダー、連絡先、文書、写真などに簡単にアクセスできるようになります。"
+msgstr "オンラインアカウントに接続すると、メールやオンラインカレンダー、連絡先、文書、写真などに簡単にアクセスできるようになります。"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid "You can review your online accounts (and add others) after setup."
-msgstr "事前設定後に自分のオンラインアカウントの確認 (や他のアカウントの追加) ができます。"
+msgstr "セットアップ後に設定したオンラインアカウントの確認 (や他のアカウントの追加) ができます。"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
 msgid "Preview"
@@ -325,10 +327,6 @@ msgstr "インターネットに接続すると時刻の設定や個人の詳細
 msgid "No wireless available"
 msgstr "無線が利用できません"
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
-msgid "In order to use enterprise logins, this computer needs to be enrolled in the domain. Please have your network administrator type their domain password here, and choose a unique computer name for your computer."
-msgstr "エンタープライズログインを使用するには、このコンピューターをドメインに登録する必要があります。ネットワーク管理者に連絡を取って、ドメインのパスワードをここで入力してもらい、お使いのコンピューター用に一意となるコンピューター名を選択してください。"
-
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:121
 msgid "No password"
@@ -370,7 +368,7 @@ msgstr "パスワードを忘れないように注意してください。"
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
 msgid "Choose a _password"
-msgstr "パスワードを選択する(_P)"
+msgstr "パスワードの入力(_P)"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password strength"
@@ -413,7 +411,7 @@ msgstr "地域"
 
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
 msgid "Choose your country or region."
-msgstr ""
+msgstr "国か地域を選択してください。"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
@@ -443,12 +441,7 @@ msgstr "準備完了"
 msgid "You're all set!"
 msgstr "設定完了しました。"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
-#, c-format
-msgid "We think that your time zone is %s. Press Next to continue or search for a city to manually set the time zone."
-msgstr "タイムゾーンは %s ではありませんか? 「次へ」を押して続けるか、都市を検索してタイムゾーンを手動で設定してください。"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "タイムゾーン"
@@ -456,6 +449,12 @@ msgstr "タイムゾーン"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "近くの都市を探してください"
+
+#~ msgid "In order to use enterprise logins, this computer needs to be enrolled in a domain. Please have your network administrator type the domain password here, and choose a unique computer name for your computer."
+#~ msgstr "エンタープライズログインを使用するには、このコンピューターをドメインに登録する必要があります。ネットワーク管理者に連絡を取って、ドメインのパスワードをここで入力してもらい、お使いのコンピューター用に一意となるコンピューター名を選択してください。"
+
+#~ msgid "We think that your time zone is %s. Press Next to continue or search for a city to manually set the time zone."
+#~ msgstr "タイムゾーンは %s ではありませんか? 「次へ」を押して続けるか、都市を検索してタイムゾーンを手動で設定してください。"
 
 #~ msgid "Login"
 #~ msgstr "ログイン"
