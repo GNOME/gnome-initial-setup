@@ -15,8 +15,8 @@ BUILT_SOURCES += password-resources.c password-resources.h
 libgispassword_la_SOURCES =						\
 	$(BUILT_SOURCES)						\
 	gis-password-page.c gis-password-page.h				\
-	$(srcdir)/../account/um-realm-manager.c $(srcdir)/../account/um-realm-manager.h \
-	$(srcdir)/../account/um-utils.c $(srcdir)/../account/um-utils.h	\
+	$(builddir)/../account/um-realm-manager.c $(builddir)/../account/um-realm-manager.h \
+	$(builddir)/../account/um-utils.c $(builddir)/../account/um-utils.h	\
 	pw-utils.c pw-utils.h						\
 	$(NULL)
 
