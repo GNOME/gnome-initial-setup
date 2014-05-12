@@ -34,6 +34,15 @@
 #include "um-utils.h"
 
 void
+set_entry_validation_checkmark (GtkEntry *entry)
+{
+        g_object_set (entry, "caps-lock-warning", FALSE, NULL);
+        gtk_entry_set_icon_from_icon_name (entry,
+                                           GTK_ENTRY_ICON_SECONDARY,
+                                           "object-select-symbolic");
+}
+
+void
 set_entry_validation_error (GtkEntry    *entry,
                             const gchar *text)
 {

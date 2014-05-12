@@ -29,6 +29,7 @@ G_BEGIN_DECLS
 
 void     set_entry_validation_error       (GtkEntry    *entry,
                                            const gchar *text);
+void     set_entry_validation_checkmark   (GtkEntry    *entry);
 void     clear_entry_validation_error     (GtkEntry    *entry);
 
 void     popup_menu_below_button          (GtkMenu     *menu,
