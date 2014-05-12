@@ -20,7 +20,7 @@ libgispassword_la_SOURCES =						\
 	pw-utils.c pw-utils.h						\
 	$(NULL)
 
-libgispassword_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.." -I "$(srcdir)/../account"
+libgispassword_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.." -I "$(srcdir)/../account" -I "../account"
 libgispassword_la_LIBADD = $(INITIAL_SETUP_LIBS) -lcrypt
 libgispassword_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
