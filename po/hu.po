@@ -4,14 +4,15 @@
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013.
 # Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
+# Balázs Úr <urbalazs@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-05 15:58+0000\n"
-"PO-Revision-Date: 2014-03-05 17:50+0100\n"
-"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
+"POT-Creation-Date: 2014-05-22 06:45+0000\n"
+"PO-Revision-Date: 2014-05-22 19:50+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +46,6 @@ msgid "_Cancel"
 msgstr "Mé_gse"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:194
-#| msgid "Force new user mode"
 msgid "Force existing user mode"
 msgstr "Létező felhasználói mód kényszerítése"
 
@@ -128,11 +128,6 @@ msgstr "Tartományadminisztrátori bejelentkezés"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
 #: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be\n"
-#| "enrolled in the domain. Please have your network administrator\n"
-#| "type their domain password here, and choose a unique computer\n"
-#| "name for your computer."
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in the "
 "domain. Please have your network administrator type their domain password "
@@ -180,6 +175,11 @@ msgstr "_Teljes név"
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
 msgid "Your username cannot be changed after setup."
 msgstr "A felhasználónevét nem lehet megváltoztatni a beállítás után."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+#| msgid "Enterprise Login"
+msgid "Setup _Enterprise Login"
+msgstr "_Vállalati bejelentkezés beállítása"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -265,7 +265,6 @@ msgid "Add Account"
 msgstr "Fiók készítése"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -274,28 +273,25 @@ msgid "Online Accounts"
 msgstr "Online fiókok"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-#| msgid "Online Accounts"
 msgid "Connect Your Online Accounts"
 msgstr "Kapcsolódás az online fiókjaihoz"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-#| msgid ""
-#| "Adding accounts will allow you to transparently connect to your online "
-#| "photos, contacts, mail, and more."
 msgid ""
 "Connecting your accounts will allow you to easily access your email, online "
 "calendar, contacts, documents and photos."
 msgstr ""
 "A fiókokhoz való csatlakozás lehetővé fogja tenni a leveleihez, online "
-"naptárához, névjegyeihez, dokumentumaihoz és fényképeihez történő hozzáférést."
+"naptárához, névjegyeihez, dokumentumaihoz és fényképeihez történő "
+"hozzáférést."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid "You can review your online accounts (and add others) after setup."
 msgstr ""
-"Áttekintheti az online fiókjait (és továbbiakat adhat hozzá) a beállítás után."
+"Áttekintheti az online fiókjait (és továbbiakat adhat hozzá) a beállítás "
+"után."
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
-#| msgid "_Previous"
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -309,7 +305,6 @@ msgstr "Több…"
 #. * did not yield any results
 #.
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
-#| msgid "No input sources found"
 msgid "No inputs found"
 msgstr "Bemeneti források nem találhatók"
 
@@ -319,7 +314,6 @@ msgid "Typing"
 msgstr "Gépelés"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-#| msgid "Select keyboard layouts"
 msgid "Select your keyboard layout or an input method."
 msgstr "Válassza ki a billentyűzetkiosztását vagy egy beviteli módot."
 
@@ -327,12 +321,11 @@ msgstr "Válassza ki a billentyűzetkiosztását vagy egy beviteli módot."
 msgid "No languages found"
 msgstr "Nyelvek nem találhatók"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:213
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
 msgid "Welcome"
 msgstr "Üdvözlet"
 
 #: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
-#| msgid "Welcome"
 msgid "Welcome!"
 msgstr "Üdvözöljük!"
 
@@ -365,7 +358,6 @@ msgstr ""
 "fiókokhoz."
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
-#| msgid "Network is not available."
 msgid "No wireless available"
 msgstr "Vezeték nélküli nem érhető el"
 
@@ -401,12 +393,10 @@ msgstr ""
 "kis- és nagybetűket, illetve egy vagy két számot."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:269
-#| msgid "_Password"
 msgid "Password"
 msgstr "Jelszó"
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
-#| msgid "_Password"
 msgid "Set a Password"
 msgstr "Jelszó beállítása"
 
@@ -415,7 +405,6 @@ msgid "Be careful not to lose your password."
 msgstr "Legyen óvatos, ne veszítse el a jelszavát."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
-#| msgid "No password"
 msgid "Choose a _password"
 msgstr "Válasszon _jelszót"
 
@@ -450,7 +439,6 @@ msgid "Strong"
 msgstr "Erős"
 
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
-#| msgid "No languages found"
 msgid "No regions found"
 msgstr "Területek nem találhatók"
 
@@ -460,7 +448,6 @@ msgid "Region"
 msgstr "Terület"
 
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
-#| msgid "Choose Your Location"
 msgid "Choose your country or region."
 msgstr "Válassza ki az országát vagy területét."
 
