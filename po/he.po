@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-16 05:22+0300\n"
-"PO-Revision-Date: 2014-05-16 05:29+0300\n"
+"POT-Creation-Date: 2014-05-30 09:11+0300\n"
+"PO-Revision-Date: 2014-05-30 09:15+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -130,11 +130,11 @@ msgstr "שם המ_נהל"
 msgid "Administrator Password"
 msgstr "ססמת המנהל"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Are these the right details? You can change them if you want."
 msgstr "האם אלה הפרטים הנכונים? ניתן לשנות אותם אם זהו רצונך."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:394
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "אנחנו צריכים כמה פרטים להשלמת ההתקנה."
@@ -146,10 +146,6 @@ msgstr "בחירת תמונה אישית"
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 msgid "_Full Name"
 msgstr "שם מ_לא"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
-msgid "Your username cannot be changed after setup."
-msgstr "שם המשתמש שלך לא יהיה ניתן לשינוי לאחר ההתקנה."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
 msgid "Set Up _Enterprise Login"
@@ -189,29 +185,29 @@ msgstr "לא ניתן להתחבר למתחם %s:‏ %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists"
-msgstr "משתמש בשם '%s' כבר קיים"
+msgid "A user with the username '%s' already exists."
+msgstr "משתמש בשם '%s' כבר קיים."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-msgid "The username is too long"
-msgstr "שם המשתמש ארוך מדי"
+msgid "The username is too long."
+msgstr "שם המשתמש ארוך מדי."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'"
-msgstr "שם המשתמש לא יכול להתחיל ב־'-'"
+msgid "The username cannot start with a '-'."
+msgstr "שם המשתמש לא יכול להתחיל ב־'-'."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
-"The username must only consist of:\n"
-" ➣ letters from the English alphabet\n"
-" ➣ digits\n"
-" ➣ any of the characters '.', '-' and '_'"
+"The username should only consist of lower and upper case letters from a-z, "
+"digits and any of characters '.', '-' and '_'."
 msgstr ""
-"שם המשתמש חייב להיות מורכב מהבאים בלבד:\n"
-" ⇦ אותיות מהאלפבית האנגלי\n"
-" ⇦ ספרות\n"
-" ⇦ כל אחד מהתווים '.', '-' ו־'_'"
+"שם המשתמש יכול להכיל רק אותיות קטנות ורישיות מהאלפבית האנגלי, ספרות וכל אחד "
+"מהתווים '.', '-' ו־'_'."
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:259
+msgid "This will be used to name your home folder and can't be changed."
+msgstr "מחרוזת זו תשמש בתור שם תיקיית הבית שלך ולא ניתן יהיה לשנות זאת."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
@@ -527,6 +523,9 @@ msgstr "אזור זמן"
 msgid "Please search for a nearby city"
 msgstr "נא לחפש עיר סמוכה"
 
+#~ msgid "Your username cannot be changed after setup."
+#~ msgstr "שם המשתמש שלך לא יהיה ניתן לשינוי לאחר ההתקנה."
+
 #~ msgid ""
 #~ "In order to use enterprise logins, this computer needs to be enrolled in "
 #~ "the domain. Please have your network administrator type their domain "
@@ -573,9 +572,6 @@ msgstr "נא לחפש עיר סמוכה"
 
 #~ msgid "Create a Local Account"
 #~ msgstr "יצירת חשבון מקומי"
-
-#~ msgid "This will be used to name your home folder and can't be changed."
-#~ msgstr "מחרוזת זו תשמש בתור שם תיקיית הבית שלך ולא ניתן יהיה לשנות זאת."
 
 #~ msgid "page 1"
 #~ msgstr "עמוד 1"
