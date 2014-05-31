@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-20 13:06+0000\n"
-"PO-Revision-Date: 2014-03-20 14:14+0100\n"
+"POT-Creation-Date: 2014-05-31 06:45+0000\n"
+"PO-Revision-Date: 2014-05-31 09:16+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italiano <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -125,13 +125,10 @@ msgid "Domain Administrator Login"
 msgstr "Accesso amministratore di dominio"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be enrolled in "
-#| "the domain. Please have your network administrator type their domain "
-#| "password here, and choose a unique computer name for your computer."
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in a "
-"domain. Please have your network administrator type the domain password "
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
 "Per poter usare gli accessi aziendali, questo computer necessita di essere "
@@ -176,6 +173,11 @@ msgstr "_Nome completo"
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
 msgid "Your username cannot be changed after setup."
 msgstr "Non è possibile cambiare il nome utente dopo le impostazioni."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+#| msgid "Enterprise Login"
+msgid "Setup _Enterprise Login"
+msgstr "Impostazioni accesso a_ziendale"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -357,16 +359,6 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Nessuna rete senza fili disponibile"
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
-msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
-"here, and choose a unique computer name for your computer."
-msgstr ""
-"Per poter usare gli accessi aziendali, questo computer necessita di essere "
-"iscritto nel dominio. L'amministratore di rete deve digitare la password di "
-"dominio qui, e scegliere un nome unico per il computer."
-
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:121
 msgid "No password"
@@ -485,16 +477,7 @@ msgstr "Pronto all'uso"
 msgid "You're all set!"
 msgstr "Impostazioni terminate."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
-#, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Il fuso orario dovrebbe essere %s. Premere «Successiva» per continuare "
-"oppure cercare una città per impostare manualmente il fuso orario."
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Fuso orario"
