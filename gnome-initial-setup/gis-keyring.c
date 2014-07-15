@@ -75,7 +75,7 @@ gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
 	SecretValue *new_secret = NULL;
 	GError *error = NULL;
 	
-	service = secret_service_get_sync (0, NULL, &error);
+	service = secret_service_get_sync (SECRET_SERVICE_OPEN_SESSION, NULL, &error);
 	if (service == NULL) {
 		g_warning ("Failed to get secret service: %s", error->message);
 		g_error_free (error);
