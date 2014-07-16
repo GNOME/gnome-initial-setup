@@ -94,7 +94,7 @@ gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
 
 	g_dbus_connection_call_sync (bus,
                                      "org.gnome.keyring",
-                                     "/org/gnome/keyring",
+                                     "/org/freedesktop/secrets",
                                      "org.gnome.keyring.InternalUnsupportedGuiltRiddenInterface",
                                      "ChangeWithMasterPassword",
                                      g_variant_new ("(o@(oayays)@(oayays))",
