@@ -92,19 +92,24 @@ gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
 	old_secret = secret_value_new (old_, strlen (old_), "text/plain");
 	new_secret = secret_value_new (new_, strlen (new_), "text/plain");
 
-	g_dbus_connection_call (bus,
-				"org.gnome.keyring",
-				"/org/gnome/keyring",
-			        "org.gnome.keyring.InternalUnsupportedGuiltRiddenInterface",
-				"ChangeWithMasterPassword",
-				g_variant_new ("(o@(oayays)@(oayays))",
-					       "/org/freedesktop/secrets/collection/login",
-					       secret_service_encode_dbus_secret (service, old_secret),
-					       secret_service_encode_dbus_secret (service, new_secret)),
-				NULL,
-				0,
-				G_MAXINT,
-				NULL, NULL, NULL);
+	g_dbus_connection_call_sync (bus,
+                                     "org.gnome.keyring",
+                                     "/org/gnome/keyring",
+                                     "org.gnome.keyring.InternalUnsupportedGuiltRiddenInterface",
+                                     "ChangeWithMasterPassword",
+                                     g_variant_new ("(o@(oayays)@(oayays))",
+                                                    "/org/freedesktop/secrets/collection/login",
+                                                    secret_service_encode_dbus_secret (service, old_secret),
+                                                    secret_service_encode_dbus_secret (service, new_secret)),
+                                     NULL,
+                                     0,
+                                     G_MAXINT,
+                                     NULL, &error);
+
+        if (error != NULL) {
+          g_warning ("Failed to change keyring password: %s", error->message);
+          g_error_free (error);
+        }
 
 out:
 
