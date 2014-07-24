@@ -238,6 +238,15 @@ gis_password_page_constructed (GObject *object)
 }
 
 static void
+gis_password_page_dispose (GObject *object)
+{
+  g_signal_handlers_disconnect_by_func (GIS_PAGE (object)->driver,
+                                        username_changed, object);
+
+  G_OBJECT_CLASS (gis_password_page_parent_class)->dispose (object);
+}
+
+static void
 gis_password_page_locale_changed (GisPage *page)
 {
   gis_page_set_title (GIS_PAGE (page), _("Password"));
@@ -261,6 +270,7 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   page_class->locale_changed = gis_password_page_locale_changed;
   page_class->save_data = gis_password_page_save_data;
   object_class->constructed = gis_password_page_constructed;
+  object_class->dispose = gis_password_page_dispose;
 }
 
 static void
