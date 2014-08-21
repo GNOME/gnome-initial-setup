@@ -2,23 +2,24 @@
 # Julia Dronova <juliette.tux@gmail.com>, 2013.
 # Yuri Myasoedov <omerta13@yandex.ru>, 2012, 2013.
 # Valery Kirichenko <valera5505@gmail.com>, 2014.
+# Stas Solovey <whats_up@tut.by>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-30 17:06+0000\n"
-"PO-Revision-Date: 2014-05-06 23:39+0400\n"
-"Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
-"Language-Team: русский <>\n"
+"POT-Creation-Date: 2014-08-21 18:53+0000\n"
+"PO-Revision-Date: 2014-08-21 22:10+0300\n"
+"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
+"Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.6.4\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 msgid "Initial Setup"
@@ -126,16 +127,13 @@ msgid "Domain Administrator Login"
 msgstr "Вход для администратора домена"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be enrolled in "
-#| "the domain. Please have your network administrator type their domain "
-#| "password here, and choose a unique computer name for your computer."
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in a "
-"domain. Please have your network administrator type the domain password "
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
-"Для использования корпоративных учётных записей этот компьютер должен быть "
+"Для использования корпоративной учётной записи этот компьютер должен быть "
 "зарегистрирован в домене. Администратор сети должен ввести здесь доменный "
 "пароль и выбрать уникальное имя для вашего компьютера."
 
@@ -177,6 +175,10 @@ msgstr "П_олное имя"
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
 msgid "Your username cannot be changed after setup."
 msgstr "Имя пользователя нельзя поменять после настройки."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+msgid "Setup _Enterprise Login"
+msgstr "Настроить _корпоративную учётную запись"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -355,25 +357,15 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Беспроводные сети не найдены"
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
-msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
-"here, and choose a unique computer name for your computer."
-msgstr ""
-"Для использования корпоративной учётной записи этот компьютер должен быть "
-"зарегистрирован в домене. Администратор сети должен ввести здесь доменный "
-"пароль и выбрать уникальное имя для вашего компьютера."
-
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:113
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:121
 msgid "No password"
 msgstr "Пароль не указан"
 
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:180
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:272
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:118
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:203
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:126
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:212
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
@@ -396,7 +388,7 @@ msgstr ""
 "Постарайтесь ввести минимум 8 различных символов, используя сочетание как "
 "верхнего, так и нижнего регистров, а также одну-две цифры."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:269
 msgid "Password"
 msgstr "Пароль"
 
@@ -483,16 +475,7 @@ msgstr "Готово к работе."
 msgid "You're all set!"
 msgstr "Теперь всё готово!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
-#, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Мы полагаем, что ваш часовой пояс — %s. Нажмите «Далее», чтобы продолжить "
-"или найдите город, чтобы выбрать часовой пояс вручную."
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Часовой пояс"
@@ -500,6 +483,26 @@ msgstr "Часовой пояс"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Найдите ближайший город"
+
+#~| msgid ""
+#~| "In order to use enterprise logins, this computer needs to be enrolled in "
+#~| "the domain. Please have your network administrator type their domain "
+#~| "password here, and choose a unique computer name for your computer."
+#~ msgid ""
+#~ "In order to use enterprise logins, this computer needs to be enrolled in "
+#~ "a domain. Please have your network administrator type the domain password "
+#~ "here, and choose a unique computer name for your computer."
+#~ msgstr ""
+#~ "Для использования корпоративных учётных записей этот компьютер должен "
+#~ "быть зарегистрирован в домене. Администратор сети должен ввести здесь "
+#~ "доменный пароль и выбрать уникальное имя для вашего компьютера."
+
+#~ msgid ""
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "Мы полагаем, что ваш часовой пояс — %s. Нажмите «Далее», чтобы продолжить "
+#~ "или найдите город, чтобы выбрать часовой пояс вручную."
 
 #~ msgid "Login"
 #~ msgstr "Вход в систему"
