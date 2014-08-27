@@ -225,7 +225,7 @@ cc_network_panel_connect_to_hidden_network (GtkWidget        *toplevel,
 {
         g_debug ("connect to hidden wifi");
         show_wireless_dialog (toplevel, client, settings,
-                              nma_wifi_dialog_new_for_other (client, settings));
+                              nma_wifi_dialog_new_for_hidden (client, settings));
 }
 
 void
