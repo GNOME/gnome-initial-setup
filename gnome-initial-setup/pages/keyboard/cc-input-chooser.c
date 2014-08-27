@@ -136,31 +136,29 @@ get_layout (CcInputChooser *chooser,
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 
-	*layout = "";
-	*variant = "";
-
 	if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
 		gnome_xkb_info_get_layout_info (priv->xkb_info,
 						id, NULL, NULL,
 						layout, variant);
+                return TRUE;
+        }
 #ifdef HAVE_IBUS
-	} else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
+	if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
                 IBusEngineDesc *engine_desc = NULL;
 
 		if (priv->ibus_engines)
 			engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
-		else
-			return FALSE;
 
-		if (engine_desc) {
-			*layout = ibus_engine_desc_get_layout (engine_desc);
-			*variant = "";
-		} else {
-			return FALSE;
-		}
+		if (!engine_desc)
+                        return FALSE;
+
+                *layout = ibus_engine_desc_get_layout (engine_desc);
+                *variant = "";
+                return TRUE;
 	}
 #endif
-	return TRUE;
+        g_assert_not_reached ();
+	return FALSE;
 }
 
 static gboolean
