@@ -39,7 +39,6 @@
 
 #include "cc-common-language.h"
 #include "cc-util.h"
-#include "cc-ibus-utils.h"
 
 #include <glib-object.h>
 
@@ -203,9 +202,12 @@ input_widget_new (CcInputChooser *chooser,
 
 	if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
 		gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
-	} else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
+	}
+#ifdef HAVE_IBUS
+        else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
 		name = engine_get_display_name (g_hash_table_lookup (priv->ibus_engines, id));
 	}
+#endif
 	else {
 		name = "ERROR";
 	}
@@ -659,7 +661,6 @@ fetch_ibus_engines_result (GObject       *object,
 
         sync_all_checkmarks (chooser);
 }
-#endif
 
 static void
 fetch_ibus_engines (CcInputChooser *chooser)
@@ -693,6 +694,7 @@ maybe_start_ibus (void)
                                               NULL,
                                               NULL));
 }
+#endif
 
 static void
 cc_input_chooser_constructed (GObject *object)
