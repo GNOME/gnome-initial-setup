@@ -59,7 +59,7 @@ page_validate (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
 
-  return priv->valid_confirm && priv->valid_password;
+  return priv->valid_confirm;
 }
 
 static void
