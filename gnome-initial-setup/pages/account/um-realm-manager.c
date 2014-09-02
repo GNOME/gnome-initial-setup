@@ -439,12 +439,14 @@ um_realm_is_configured (UmRealmObject *realm)
 {
         UmRealmCommon *common;
         const gchar *configured;
-        gboolean is;
+        gboolean is = FALSE;
 
         common = um_realm_object_get_common (realm);
-        configured = um_realm_common_get_configured (common);
-        is = configured != NULL && !g_str_equal (configured, "");
-        g_object_unref (common);
+        if (common) {
+                configured = um_realm_common_get_configured (common);
+                is = configured != NULL && !g_str_equal (configured, "");
+                g_object_unref (common);
+        }
 
         return is;
 }
