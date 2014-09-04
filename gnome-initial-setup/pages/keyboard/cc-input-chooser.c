@@ -385,6 +385,10 @@ get_locale_infos (CcInputChooser *chooser)
 	add_rows_to_list (chooser, list, INPUT_SOURCE_TYPE_XKB, id);
 	g_list_free (list);
 
+	list = gnome_xkb_info_get_all_layouts (priv->xkb_info);
+	add_rows_to_list (chooser, list, INPUT_SOURCE_TYPE_XKB, id);
+	g_list_free (list);
+
         gtk_widget_show_all (priv->input_list);
 
 out:
