@@ -46,6 +46,8 @@ struct _CcRegionChooser
 struct _CcRegionChooserClass
 {
         GtkBoxClass parent_class;
+
+        void (*confirm) (CcRegionChooser *chooser);
 };
 
 GType cc_region_chooser_get_type (void);

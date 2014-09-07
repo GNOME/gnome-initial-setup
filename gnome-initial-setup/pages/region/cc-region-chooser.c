@@ -65,6 +65,13 @@ enum {
 
 static GParamSpec *obj_props[PROP_LAST];
 
+enum {
+        CONFIRM,
+        LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL] = { 0 };
+
 typedef struct {
         GtkWidget *box;
         GtkWidget *checkmark;
@@ -470,6 +477,16 @@ set_locale_id (CcRegionChooser *chooser,
         g_object_notify_by_pspec (G_OBJECT (chooser), obj_props[PROP_LOCALE]);
 }
 
+static gboolean
+confirm_choice (gpointer data)
+{
+        GtkWidget *widget = data;
+
+        g_signal_emit (widget, signals[CONFIRM], 0);
+
+        return G_SOURCE_REMOVE;
+}
+
 static void
 row_activated (GtkListBox        *box,
                GtkListBoxRow     *row,
@@ -489,7 +506,10 @@ row_activated (GtkListBox        *box,
                 widget = get_region_widget (child);
                 if (widget == NULL)
                         return;
-                set_locale_id (chooser, widget->locale_id);
+                if (g_strcmp0 (priv->locale, widget->locale_id) == 0)
+                        g_idle_add (confirm_choice, chooser);
+                else
+                        set_locale_id (chooser, widget->locale_id);
         }
 }
 
@@ -614,6 +634,14 @@ cc_region_chooser_class_init (CcRegionChooserClass *klass)
         object_class->get_property = cc_region_chooser_get_property;
         object_class->set_property = cc_region_chooser_set_property;
         object_class->constructed = cc_region_chooser_constructed;
+
+        signals[CONFIRM] = g_signal_new ("confirm",
+                                         G_TYPE_FROM_CLASS (object_class),
+                                         G_SIGNAL_RUN_FIRST,
+                                         G_STRUCT_OFFSET (CcRegionChooserClass, confirm),
+                                         NULL, NULL,
+                                         g_cclosure_marshal_VOID__VOID,
+                                         G_TYPE_NONE, 0);
 
         obj_props[PROP_LOCALE] =
                 g_param_spec_string ("locale", "", "", "",
