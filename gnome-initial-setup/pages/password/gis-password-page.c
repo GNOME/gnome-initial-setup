@@ -102,6 +102,15 @@ gis_password_page_save_data (GisPage *gis_page)
   gis_update_login_keyring_password (old_password, password);
 }
 
+static void
+gis_password_page_shown (GisPage *gis_page)
+{
+  GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
+  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+
+  gtk_widget_grab_focus (priv->password_entry);
+}
+
 static gboolean
 validate (GisPasswordPage *page)
 {
@@ -206,6 +215,13 @@ username_changed (GObject *obj, GParamSpec *pspec, GisPasswordPage *page)
 }
 
 static void
+confirm (GisPasswordPage *page)
+{
+  if (page_validate (page))
+    gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
+}
+
+static void
 gis_password_page_constructed (GObject *object)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (object);
@@ -218,19 +234,17 @@ gis_password_page_constructed (GObject *object)
   g_signal_connect_swapped (priv->password_entry, "focus-out-event",
                             G_CALLBACK (on_focusout), page);
   g_signal_connect_swapped (priv->password_entry, "activate",
-                            G_CALLBACK (validate), page);
+                            G_CALLBACK (confirm), page);
 
   g_signal_connect (priv->confirm_entry, "notify::text",
                     G_CALLBACK (confirm_changed), page);
   g_signal_connect_swapped (priv->confirm_entry, "focus-out-event",
                             G_CALLBACK (on_focusout), page);
   g_signal_connect_swapped (priv->confirm_entry, "activate",
-                            G_CALLBACK (validate), page);
+                            G_CALLBACK (confirm), page);
 
   g_signal_connect (GIS_PAGE (page)->driver, "notify::username",
                     G_CALLBACK (username_changed), page);
-  g_signal_connect_swapped (priv->confirm_entry, "activate",
-                            G_CALLBACK (validate), page);
 
   validate (page);
 
@@ -269,6 +283,8 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_password_page_locale_changed;
   page_class->save_data = gis_password_page_save_data;
+  page_class->shown = gis_password_page_shown;
+
   object_class->constructed = gis_password_page_constructed;
   object_class->dispose = gis_password_page_dispose;
 }
