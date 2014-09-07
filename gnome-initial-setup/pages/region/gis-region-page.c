@@ -170,6 +170,13 @@ localed_proxy_ready (GObject      *source,
 }
 
 static void
+region_confirmed (CcRegionChooser *chooser,
+                  GisRegionPage   *page)
+{
+  gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
+}
+
+static void
 gis_region_page_constructed (GObject *object)
 {
   GisRegionPage *page = GIS_REGION_PAGE (object);
@@ -182,6 +189,8 @@ gis_region_page_constructed (GObject *object)
 
   g_signal_connect (priv->region_chooser, "notify::locale",
                     G_CALLBACK (region_changed), page);
+  g_signal_connect (priv->region_chooser, "confirm",
+                    G_CALLBACK (region_confirmed), page);
 
   /* If we're in new user mode then we're manipulating system settings */
   if (gis_driver_get_mode (GIS_PAGE (page)->driver) == GIS_DRIVER_MODE_NEW_USER)
