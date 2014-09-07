@@ -229,6 +229,13 @@ update_distro_logo (GisLanguagePage *page)
 }
 
 static void
+language_confirmed (CcLanguageChooser *chooser,
+                    GisLanguagePage   *page)
+{
+  gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
+}
+
+static void
 gis_language_page_constructed (GObject *object)
 {
   GisLanguagePage *page = GIS_LANGUAGE_PAGE (object);
@@ -243,6 +250,8 @@ gis_language_page_constructed (GObject *object)
 
   g_signal_connect (priv->language_chooser, "notify::language",
                     G_CALLBACK (language_changed), page);
+  g_signal_connect (priv->language_chooser, "confirm",
+                    G_CALLBACK (language_confirmed), page);
 
   /* If we're in new user mode then we're manipulating system settings */
   if (gis_driver_get_mode (GIS_PAGE (page)->driver) == GIS_DRIVER_MODE_NEW_USER)

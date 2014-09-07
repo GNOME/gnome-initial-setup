@@ -545,12 +545,12 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
         object_class->constructed = cc_language_chooser_constructed;
 
         signals[CONFIRM] = g_signal_new ("confirm",
-                                           G_TYPE_FROM_CLASS (object_class),
-                                           G_SIGNAL_RUN_FIRST,
-                                           G_STRUCT_OFFSET (CcLanguageChooserClass, confirm),
-                                           NULL, NULL,
-                                           g_cclosure_marshal_VOID__VOID,
-                                           G_TYPE_NONE, 0);
+                                         G_TYPE_FROM_CLASS (object_class),
+                                         G_SIGNAL_RUN_FIRST,
+                                         G_STRUCT_OFFSET (CcLanguageChooserClass, confirm),
+                                         NULL, NULL,
+                                         g_cclosure_marshal_VOID__VOID,
+                                         G_TYPE_NONE, 0);
 
         obj_props[PROP_LANGUAGE] =
                 g_param_spec_string ("language", "", "", "",
