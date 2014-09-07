@@ -46,6 +46,8 @@ struct _CcLanguageChooser
 struct _CcLanguageChooserClass
 {
         GtkBoxClass parent_class;
+
+	void (*confirm) (CcLanguageChooser *chooser);
 };
 
 GType cc_language_chooser_get_type (void);
