@@ -270,6 +270,8 @@ gis_summary_page_shown (GisPage *page)
   gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
                                    &priv->user_account,
                                    &priv->user_password);
+
+  gtk_widget_grab_focus (priv->start_button);
 }
 
 static char *
