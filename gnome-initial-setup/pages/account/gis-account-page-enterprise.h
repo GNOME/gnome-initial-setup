@@ -56,6 +56,7 @@ gboolean gis_account_page_enterprise_apply (GisAccountPageEnterprise *enterprise
                                             GCancellable             *cancellable,
                                             GisPageApplyCallback      callback,
                                             gpointer                  data);
+void     gis_account_page_enterprise_shown (GisAccountPageEnterprise *enterprise);
 
 G_END_DECLS
 

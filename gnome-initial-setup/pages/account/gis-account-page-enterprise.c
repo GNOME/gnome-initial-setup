@@ -811,3 +811,11 @@ gis_account_page_enterprise_init (GisAccountPageEnterprise *page)
 {
   gtk_widget_init_template (GTK_WIDGET (page));
 }
+
+void
+gis_account_page_enterprise_shown (GisAccountPageEnterprise *page)
+{
+  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
+
+  gtk_widget_grab_focus (priv->domain_entry);
+}
