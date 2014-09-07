@@ -72,6 +72,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageLocal, gis_account_page_local, GTK_TYP
 enum {
   VALIDATION_CHANGED,
   USER_CREATED,
+  CONFIRM,
   LAST_SIGNAL,
 };
 
@@ -363,6 +364,13 @@ avatar_callback (GdkPixbuf   *pixbuf,
 }
 
 static void
+confirm (GisAccountPageLocal *page)
+{
+  if (gis_account_page_local_validate (page))
+    g_signal_emit (page, signals[CONFIRM], 0);
+}
+
+static void
 gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
@@ -383,7 +391,9 @@ gis_account_page_local_constructed (GObject *object)
   g_signal_connect_swapped (priv->username_combo, "focus-out-event",
                             G_CALLBACK (on_focusout), page);
   g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->username_combo)),
-                            "activate", G_CALLBACK (validate), page);
+                            "activate", G_CALLBACK (confirm), page);
+  g_signal_connect_swapped (priv->fullname_entry, "activate",
+                            G_CALLBACK (confirm), page);
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
@@ -520,6 +530,10 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   signals[USER_CREATED] = g_signal_new ("user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
                                         G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
                                         G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
+
+  signals[CONFIRM] = g_signal_new ("confirm", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
+                                   G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
+                                   G_TYPE_NONE, 0);
 }
 
 static void
@@ -552,4 +566,11 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
   gis_driver_set_username (GIS_PAGE (page)->driver, username);
 
   return FALSE;
+}
+
+void
+gis_account_page_local_shown (GisAccountPageLocal *local)
+{
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
+  gtk_widget_grab_focus (priv->fullname_entry); 
 }
