@@ -171,6 +171,13 @@ localed_proxy_ready (GObject      *source,
 }
 
 static void
+input_confirmed (CcInputChooser  *chooser,
+                 GisKeyboardPage *self)
+{
+        gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (self)->driver));
+}
+
+static void
 gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
@@ -179,6 +186,9 @@ gis_keyboard_page_constructed (GObject *object)
 	g_type_ensure (CC_TYPE_INPUT_CHOOSER);
 
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
+
+        g_signal_connect (priv->input_chooser, "confirm",
+                          G_CALLBACK (input_confirmed), self);
 
 	priv->input_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
 	g_settings_delay (priv->input_settings);
