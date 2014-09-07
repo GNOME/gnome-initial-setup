@@ -102,8 +102,19 @@ set_mode (GisAccountPage *page,
 
   priv->mode = mode;
 
-  visible_child = (mode == UM_LOCAL) ? priv->page_local : priv->page_enterprise;
-  gtk_stack_set_visible_child (GTK_STACK (priv->stack), visible_child);
+  switch (mode)
+    {
+    case UM_LOCAL:
+      gtk_stack_set_visible_child (priv->stack, priv->page_local);
+      gis_account_page_local_shown (priv->page_local);
+      break;
+    case UM_ENTERPRISE:
+      gtk_stack_set_visible_child (priv->stack, priv->page_enterprise);
+      gis_account_page_enterprise_shown (priv->page_enterprise);
+      break;
+    default:
+      g_assert_not_reached ();
+    }
 
   update_page_validation (page);
 }
@@ -153,6 +164,15 @@ gis_account_page_save_data (GisPage *gis_page)
 }
 
 static void
+gis_account_page_shown (GisPage *gis_page)
+{
+  GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
+  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
+
+  gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
+}
+
+static void
 on_local_user_created (GtkWidget      *page_local,
                        ActUser        *user,
                        char           *password,
@@ -168,6 +188,13 @@ on_local_user_created (GtkWidget      *page_local,
 }
 
 static void
+on_local_page_confirmed (GisAccountPageLocal *local,
+                         GisAccountPage      *page)
+{
+  gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
+}
+
+static void
 gis_account_page_constructed (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
@@ -179,6 +206,8 @@ gis_account_page_constructed (GObject *object)
                     G_CALLBACK (on_validation_changed), page);
   g_signal_connect (priv->page_local, "user-created",
                     G_CALLBACK (on_local_user_created), page);
+  g_signal_connect (priv->page_local, "confirm",
+                    G_CALLBACK (on_local_page_confirmed), page);
 
   g_signal_connect (priv->page_enterprise, "validation-changed",
                     G_CALLBACK (on_validation_changed), page);
@@ -220,6 +249,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   page_class->locale_changed = gis_account_page_locale_changed;
   page_class->apply = gis_account_page_apply;
   page_class->save_data = gis_account_page_save_data;
+  page_class->shown = gis_account_page_shown;
   object_class->constructed = gis_account_page_constructed;
 }
 
