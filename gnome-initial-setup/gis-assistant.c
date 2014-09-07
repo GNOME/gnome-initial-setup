@@ -352,6 +352,8 @@ update_current_page (GisAssistant *assistant,
   update_applying_state (assistant);
   update_navigation_buttons (assistant);
 
+  gtk_widget_grab_focus (priv->forward);
+
   if (page)
     gis_page_shown (page);
 }
