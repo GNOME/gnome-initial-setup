@@ -82,6 +82,7 @@ static GParamSpec *obj_props[PROP_LAST];
 
 enum {
 	CHANGED,
+        CONFIRM,
 	LAST_SIGNAL
 };
 
@@ -494,6 +495,16 @@ set_input (CcInputChooser *chooser,
 	g_signal_emit (chooser, signals[CHANGED], 0);
 }
 
+static gboolean
+confirm_choice (gpointer data)
+{
+        GtkWidget *widget = data;
+
+        g_signal_emit (widget, signals[CONFIRM], 0);
+
+        return G_SOURCE_REMOVE;
+}
+
 static void
 row_activated (GtkListBox        *box,
                GtkListBoxRow     *row,
@@ -513,7 +524,11 @@ row_activated (GtkListBox        *box,
                 widget = get_input_widget (child);
                 if (widget == NULL)
                         return;
-                set_input (chooser, widget->id, widget->type);
+                if (g_strcmp0 (priv->id, widget->id) == 0 &&
+                    g_strcmp0 (priv->type, widget->type) == 0)
+                        confirm_choice (chooser);
+                else
+                        set_input (chooser, widget->id, widget->type);
         }
 }
 
@@ -799,6 +814,15 @@ cc_input_chooser_class_init (CcInputChooserClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
+
+        signals[CONFIRM] =
+                g_signal_new ("confirm",
+                              G_TYPE_FROM_CLASS (object_class),
+                              G_SIGNAL_RUN_FIRST,
+                              0,
+                              NULL, NULL,
+                              g_cclosure_marshal_VOID__VOID,
+                              G_TYPE_NONE, 0);
 
         g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 }
