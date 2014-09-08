@@ -208,6 +208,7 @@
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
+    <property name="title"></property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
@@ -287,8 +288,10 @@
               <object class="GtkLabel" id="label12">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
+                <property name="xalign">0.5</property>
                 <property name="yalign">0</property>
+                <property name="wrap">True</property>
+                <property name="max-width-chars">60</property>
                 <property name="label" translatable="yes">In order to use enterprise logins, this computer needs to be enrolled in a domain. Please have your network administrator type the domain password here, and choose a unique computer name for your computer.</property>
               </object>
               <packing>
