@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-20 13:06+0000\n"
-"PO-Revision-Date: 2014-03-23 15:05+0100\n"
-"Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
+"POT-Creation-Date: 2014-05-25 06:45+0000\n"
+"PO-Revision-Date: 2014-05-25 15:49+0100\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,6 @@ msgstr "_Zrušiť"
 
 # cmd desc
 #: ../gnome-initial-setup/gnome-initial-setup.c:194
-#| msgid "Force exisitng user mode"
 msgid "Force existing user mode"
 msgstr "Vynúti režim existujúceho používateľa"
 
@@ -139,14 +138,10 @@ msgid "Domain Administrator Login"
 msgstr "Prihlásenie správcu domény"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be\n"
-#| "enrolled in the domain. Please have your network administrator\n"
-#| "type their domain password here, and choose a unique computer\n"
-#| "name for your computer."
+#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in a "
-"domain. Please have your network administrator type the domain password "
+"In order to use enterprise logins, this computer needs to be enrolled in the "
+"domain. Please have your network administrator type their domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
 "Aby bolo možné použiť firemné prihlasovacie údaje, musí byť tento počítač "
@@ -192,6 +187,11 @@ msgstr "_Celé meno"
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
 msgid "Your username cannot be changed after setup."
 msgstr "Po dokončení nastavenia sa používateľské meno nedá zmeniť."
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+#| msgid "Enterprise Login"
+msgid "Setup _Enterprise Login"
+msgstr "Nastaviť _firemné prihlásenie"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -307,7 +307,6 @@ msgstr "Môžete prezrieť vaše účty služieb (a pridať ďalšie) po inštal
 
 # gtk button
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
-#| msgid "_Previous"
 msgid "Preview"
 msgstr "Náhľad"
 
@@ -322,7 +321,6 @@ msgstr "Viac…"
 #. * did not yield any results
 #.
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
-#| msgid "No input sources found"
 msgid "No inputs found"
 msgstr "Nenašli sa žiadne zdroje vstupu"
 
@@ -334,7 +332,6 @@ msgstr "Písanie"
 
 # label
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-#| msgid "Add keyboard layouts or other input methods"
 msgid "Select your keyboard layout or an input method."
 msgstr "Vyberte rozloženie klávesnice alebo metódu vstupu."
 
@@ -347,7 +344,6 @@ msgid "Welcome"
 msgstr "Vitajte"
 
 #: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
-#| msgid "Welcome"
 msgid "Welcome!"
 msgstr "Vitajte!"
 
@@ -380,24 +376,8 @@ msgstr ""
 "tiež potrebné na prihlásenie k firemným účtom."
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
-#| msgid "Network is not available."
 msgid "No wireless available"
 msgstr "Bezdrôtová sieť nie je dostupná"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be\n"
-#| "enrolled in the domain. Please have your network administrator\n"
-#| "type their domain password here, and choose a unique computer\n"
-#| "name for your computer."
-msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
-"here, and choose a unique computer name for your computer."
-msgstr ""
-"Aby bolo možné použiť firemné prihlasovacie údaje, musí byť tento počítač "
-"zahrnutý v doméne. Prosím, požiadajte správcu siete, aby sem zadal heslo k "
-"doméne, a potom zvoľte jedinečný názov pre váš počítač."
 
 #: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:121
@@ -434,13 +414,11 @@ msgstr ""
 
 # GtkLabel label
 #: ../gnome-initial-setup/pages/password/gis-password-page.c:269
-#| msgid "_Password"
 msgid "Password"
 msgstr "Heslo"
 
 # GtkLabel label
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
-#| msgid "_Password"
 msgid "Set a Password"
 msgstr "Nastavte heslo"
 
@@ -449,7 +427,6 @@ msgid "Be careful not to lose your password."
 msgstr "Dajte pozor, aby ste heslo nezabudli."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
-#| msgid "No password"
 msgid "Choose a _password"
 msgstr "Zvoľte _heslo"
 
@@ -484,7 +461,6 @@ msgid "Strong"
 msgstr "Silné"
 
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
-#| msgid "No languages found"
 msgid "No regions found"
 msgstr "Žiadne oblasti nenájdené"
 
@@ -495,7 +471,6 @@ msgstr "Oblasť"
 
 # GtkLabel label
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
-#| msgid "Choose Your Location"
 msgid "Choose your country or region."
 msgstr "Zvoľte krajinu alebo oblasť."
 
@@ -529,20 +504,8 @@ msgstr "Pripravený na spustenie"
 msgid "You're all set!"
 msgstr "Všetko je nastavené!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
-#, c-format
-#| msgid ""
-#| "We think that your time zone is <b>%s</b>. Press Next to continue or "
-#| "search for a city to manually set the time zone."
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Počítač zistil, že sa nachádzate v časovom pásme %s. Pokračujte stlačením "
-"tlačidla Ďalej alebo ručne nastavte časové pásmo vyhľadaním mesta."
-
 # GtkLabel label
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Časové pásmo"
@@ -550,6 +513,30 @@ msgstr "Časové pásmo"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Vyhľadajte blízke mesto"
+
+#~| msgid ""
+#~| "In order to use enterprise logins, this computer needs to be\n"
+#~| "enrolled in the domain. Please have your network administrator\n"
+#~| "type their domain password here, and choose a unique computer\n"
+#~| "name for your computer."
+#~ msgid ""
+#~ "In order to use enterprise logins, this computer needs to be enrolled in "
+#~ "a domain. Please have your network administrator type the domain password "
+#~ "here, and choose a unique computer name for your computer."
+#~ msgstr ""
+#~ "Aby bolo možné použiť firemné prihlasovacie údaje, musí byť tento počítač "
+#~ "zahrnutý v doméne. Prosím, požiadajte správcu siete, aby sem zadal heslo "
+#~ "k doméne, a potom zvoľte jedinečný názov pre váš počítač."
+
+#~| msgid ""
+#~| "We think that your time zone is <b>%s</b>. Press Next to continue or "
+#~| "search for a city to manually set the time zone."
+#~ msgid ""
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "Počítač zistil, že sa nachádzate v časovom pásme %s. Pokračujte stlačením "
+#~ "tlačidla Ďalej alebo ručne nastavte časové pásmo vyhľadaním mesta."
 
 # page title
 #~ msgid "Login"
