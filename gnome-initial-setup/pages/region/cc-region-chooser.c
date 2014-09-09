@@ -215,6 +215,7 @@ more_widget_new (void)
         gtk_widget_set_margin_bottom (widget, 10);
         gtk_misc_set_alignment (GTK_MISC (arrow), 0.5, 0.5);
         gtk_box_pack_start (GTK_BOX (widget), arrow, TRUE, TRUE, 0);
+        gtk_widget_show_all (widget);
 
         return widget;
 }
@@ -537,7 +538,6 @@ cc_region_chooser_constructed (GObject *object)
         G_OBJECT_CLASS (cc_region_chooser_parent_class)->constructed (object);
 
         priv->more_item = more_widget_new ();
-        gtk_container_add (GTK_CONTAINER (priv->region_list), priv->more_item);
 
         priv->no_results = no_results_widget_new ();
 
@@ -560,6 +560,8 @@ cc_region_chooser_constructed (GObject *object)
 	}
 
 	add_all_regions (chooser);
+
+	gtk_container_add (GTK_CONTAINER (priv->region_list), priv->more_item);
 
         g_signal_connect (priv->filter_entry, "changed",
                           G_CALLBACK (filter_changed),
@@ -620,9 +622,21 @@ cc_region_chooser_set_property (GObject      *object,
 }
 
 static void
+cc_region_chooser_map (GtkWidget *widget)
+{
+        CcRegionChooser *chooser = CC_REGION_CHOOSER (widget);
+        CcRegionChooserPrivate *priv = cc_region_chooser_get_instance_private (chooser);
+
+        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->region_list));
+
+        GTK_WIDGET_CLASS (cc_region_chooser_parent_class)->map (widget);
+}
+
+static void
 cc_region_chooser_class_init (CcRegionChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/control-center/region-chooser.ui");
 
@@ -642,6 +656,8 @@ cc_region_chooser_class_init (CcRegionChooserClass *klass)
                                          NULL, NULL,
                                          g_cclosure_marshal_VOID__VOID,
                                          G_TYPE_NONE, 0);
+
+        widget_class->map = cc_region_chooser_map;
 
         obj_props[PROP_LOCALE] =
                 g_param_spec_string ("locale", "", "", "",
