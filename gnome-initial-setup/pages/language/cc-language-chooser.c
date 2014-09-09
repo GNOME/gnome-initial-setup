@@ -40,7 +40,6 @@ struct _CcLanguageChooserPrivate
 {
         GtkWidget *filter_entry;
         GtkWidget *language_list;
-	GHashTable *langs;
 
         GtkWidget *scrolled_window;
         GtkWidget *no_results;
@@ -114,16 +113,23 @@ language_widget_free (gpointer data)
 
 static GtkWidget *
 language_widget_new (const char *locale_id,
-		     const char *lang,
                      gboolean    is_extra)
 {
 	GtkWidget *label;
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
+        gchar *language, *language_name;
+        gchar *country, *country_name;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
-        locale_name = gnome_get_language_from_locale (lang, locale_id);
-        locale_current_name = gnome_get_language_from_locale (lang, NULL);
-        locale_untranslated_name = gnome_get_language_from_locale (lang, "C");
+        if (!gnome_parse_locale (locale_id, &language, &country, NULL, NULL))
+                return NULL;
+
+        language_name = gnome_get_language_from_code (language, locale_id);
+        country_name = gnome_get_country_from_code (country, locale_id);
+
+        locale_name = gnome_get_language_from_locale (locale_id, locale_id);
+        locale_current_name = gnome_get_language_from_locale (locale_id, NULL);
+        locale_untranslated_name = gnome_get_language_from_locale (locale_id, "C");
 
         widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
         gtk_widget_set_margin_top (widget->box, 10);
@@ -131,23 +137,38 @@ language_widget_new (const char *locale_id,
         gtk_widget_set_margin_start (widget->box, 10);
         gtk_widget_set_margin_end (widget->box, 10);
         gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
-        label = gtk_label_new (locale_name);
+
+        label = gtk_label_new (language_name);
+        gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
+        gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
         gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-        gtk_label_set_width_chars (GTK_LABEL (label), 40);
         gtk_box_pack_start (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
+
+        widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+        gtk_box_pack_start (GTK_BOX (widget->box), widget->checkmark, FALSE, FALSE, 0);
+        gtk_widget_show (widget->checkmark);
+
+        label = gtk_label_new (country_name);
+        gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
+        gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
+        gtk_style_context_add_class (gtk_widget_get_style_context (label), "dim-label");
+        gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+        gtk_widget_set_halign (label, GTK_ALIGN_END);
+        gtk_box_pack_end (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
+
         widget->locale_id = g_strdup (locale_id);
         widget->locale_name = locale_name;
         widget->locale_current_name = locale_current_name;
         widget->locale_untranslated_name = locale_untranslated_name;
         widget->is_extra = is_extra;
 
-        widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
-        gtk_box_pack_start (GTK_BOX (widget->box), widget->checkmark, TRUE, TRUE, 0);
-	gtk_widget_set_halign (widget->checkmark, GTK_ALIGN_END);
-        gtk_widget_show (widget->checkmark);
-
         g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
                                 language_widget_free);
+
+        g_free (language);
+        g_free (language_name);
+        g_free (country);
+        g_free (country_name);
 
         return widget->box;
 }
@@ -217,7 +238,6 @@ add_one_language (CcLanguageChooser *chooser,
 {
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 	GtkWidget *widget;
-	gchar *lang;
 
 	if (!g_str_has_suffix (locale_id, "utf8")) {
 		return;
@@ -227,19 +247,9 @@ add_one_language (CcLanguageChooser *chooser,
 		return;
 	}
 
-	if (!gnome_parse_locale (locale_id, &lang, NULL, NULL, NULL)) {
-		return;
-	}
-
-	if (g_hash_table_contains (priv->langs, lang)) {
-		g_free (lang);
-		return;
-	}
-	g_hash_table_add (priv->langs, g_strdup (lang));
-
-	widget = language_widget_new (locale_id, lang, !is_initial);
-	gtk_container_add (GTK_CONTAINER (priv->language_list), widget);
-	g_free (lang);
+	widget = language_widget_new (locale_id, !is_initial);
+        if (widget)
+                gtk_container_add (GTK_CONTAINER (priv->language_list), widget);
 }
 
 static void
@@ -262,7 +272,8 @@ add_languages (CcLanguageChooser  *chooser,
                 locale_id = *locale_ids;
                 locale_ids ++;
 
-		add_one_language (chooser, locale_id, FALSE);
+                if (!g_hash_table_lookup (initial, locale_id))
+                        add_one_language (chooser, locale_id, FALSE);
         }
 
         gtk_container_add (GTK_CONTAINER (priv->language_list), priv->more_item);
@@ -453,7 +464,6 @@ cc_language_chooser_constructed (GObject *object)
 
         G_OBJECT_CLASS (cc_language_chooser_parent_class)->constructed (object);
 
-	priv->langs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
         priv->more_item = more_widget_new ();
         priv->no_results = no_results_widget_new ();
 
@@ -486,7 +496,7 @@ cc_language_chooser_finalize (GObject *object)
 	CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 
-	g_hash_table_unref (priv->langs);
+        g_free (priv->language);
 
 	G_OBJECT_CLASS (cc_language_chooser_parent_class)->finalize (object);
 }
