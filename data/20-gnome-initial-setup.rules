@@ -14,6 +14,7 @@ polkit.addRule(function(action, subject) {
                          action.id.indexOf('org.freedesktop.locale1.') === 0 ||
                          action.id.indexOf('org.freedesktop.accounts.') === 0 ||
                          action.id.indexOf('org.freedesktop.timedate1.') === 0 ||
+                         action.id.indexOf('org.freedesktop.realmd.') === 0 ||
                          action.id.indexOf('org.freedesktop.RealtimeKit1.') === 0);
 
     if (actionMatches) {
