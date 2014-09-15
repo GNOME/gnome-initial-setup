@@ -58,5 +58,11 @@ configuration to provide suitable permissions for the gnome-initial-setup
 user. The rules file is removed again together with the
 gnome-initial-setup user account.
 
+gnome-initial-setup also has a session mode which activates gnome-initial-setup when a user first logs in. The gnome-initial-setup-first-login.desktop in the
+xdg autostart directory utilises gnome-session to check if the user has a
+gnome-initial-setup-done file in their XDG_CONFIG_DIR if they don't
+gnome-initial-setup will launch with pages that are suitable for a
+non-privileged user and on exiting will write the done file.
+
 TODO
 ====
