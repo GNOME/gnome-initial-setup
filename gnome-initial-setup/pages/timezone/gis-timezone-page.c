@@ -60,6 +60,7 @@ struct _GisTimezonePagePrivate
   GtkWidget *search_button;
   GtkWidget *search_entry;
   GtkWidget *search_overlay;
+  GtkWidget *image;
 
   GCancellable *geoclue_cancellable;
   GeoclueClient *geoclue_client;
@@ -440,6 +441,11 @@ gis_timezone_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
+  /* FIXME: the map is too big, so we can't have consistency in page layout
+   * and reasonable window size at the same time; for now, consistency loses.
+   */
+  gtk_widget_hide (priv->image);
+
   error = NULL;
   priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                 G_DBUS_PROXY_FLAGS_NONE,
@@ -503,6 +509,7 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_button);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_overlay);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, image);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
