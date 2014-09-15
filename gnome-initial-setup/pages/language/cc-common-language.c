@@ -310,7 +310,14 @@ cc_common_language_get_initial_languages (void)
         ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
         insert_language (ht, "en_US");
+#if 0
+        /* Having 9 languages in the list initially makes the window
+         * too high. With 8 languages, we end up exactly 768 pixels
+         * high. Sadly, that means we can't affort to show English
+         * twice.
+         */
         insert_language (ht, "en_GB");
+#endif
         insert_language (ht, "de_DE");
         insert_language (ht, "fr_FR");
         insert_language (ht, "es_ES");
