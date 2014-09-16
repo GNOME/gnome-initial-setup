@@ -205,7 +205,10 @@ input_widget_new (CcInputChooser *chooser,
 	}
 #ifdef HAVE_IBUS
         else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
-		name = engine_get_display_name (g_hash_table_lookup (priv->ibus_engines, id));
+                if (priv->ibus_engines)
+                        name = engine_get_display_name (g_hash_table_lookup (priv->ibus_engines, id));
+                else
+                        name = id;
 	}
 #endif
 	else {
@@ -367,9 +370,8 @@ get_locale_infos (CcInputChooser *chooser)
 	gchar *lang, *country;
 	GList *list;
 
-	if (gnome_get_input_source_from_locale (priv->locale, &type, &id)) { 
-		if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB))
-			add_row_to_list (chooser, type, id);
+	if (gnome_get_input_source_from_locale (priv->locale, &type, &id)) {
+                add_row_to_list (chooser, type, id);
 		if (!priv->id) {
 			priv->id = g_strdup (id);
 			priv->type = g_strdup (type);
