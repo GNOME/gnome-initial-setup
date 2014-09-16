@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Kris Thomsen <mail@kristhomsen.dk>, 2012.
-# Kenneth Nielsen <k.nielsen81@gmail.com>, 2013
+# Kenneth Nielsen <k.nielsen81@gmail.com>, 2013-2014.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2013-14.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 21:58+0100\n"
-"PO-Revision-Date: 2014-03-16 15:35+0100\n"
-"Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
+"POT-Creation-Date: 2014-09-16 20:01+0200\n"
+"PO-Revision-Date: 2014-09-16 20:00+0200\n"
+"Last-Translator: Kenneth Nielsen <k.nielsen81@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -22,26 +22,27 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Førstegangsopsætning"
 
-#: ../gnome-initial-setup/gis-assistant.c:377
+#: ../gnome-initial-setup/gis-assistant.c:379
 msgid "_Next"
 msgstr "_Næste"
 
-#: ../gnome-initial-setup/gis-assistant.c:378
+#: ../gnome-initial-setup/gis-assistant.c:380
 msgid "_Accept"
 msgstr "_Acceptér"
 
-#: ../gnome-initial-setup/gis-assistant.c:379
+#: ../gnome-initial-setup/gis-assistant.c:381
 msgid "_Skip"
 msgstr "_Spring over"
 
-#: ../gnome-initial-setup/gis-assistant.c:380
+#: ../gnome-initial-setup/gis-assistant.c:382
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: ../gnome-initial-setup/gis-assistant.c:381
+#: ../gnome-initial-setup/gis-assistant.c:383
 msgid "_Cancel"
 msgstr "_Annullér"
 
@@ -53,39 +54,32 @@ msgstr "Tving eksisterende bruger-tilstand"
 msgid "- GNOME initial setup"
 msgstr "- Førstegangsopsætning af GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
 msgid "About You"
 msgstr "Om dig"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "Kunne ikke registrere konto"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "Ingen understøttet måde at godkende med dette domæne"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "Kunne ikke tilslutte domæne"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "Kunne ikke logge ind i domæne"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:1
 msgid "Enterprise Login"
 msgstr "Enterprise-logind"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device."
@@ -94,71 +88,59 @@ msgstr ""
 "brugerkonto, bruges på denne enhed."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "_Domæne"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:4
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:4
 msgid "_Username"
 msgstr "_Brugernavn"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
 msgid "_Password"
 msgstr "_Adgangskode"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "Enterprise-domæne eller realm-navn"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
 msgstr "F_ortsæt"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "Logind for domæneadministrator"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
-"For at kunne bruge enterprise-logind skal computeren tilknyttes domænet. Bed "
-"venligst netværksadministratoren om at skrive sin adgangskode her og vælg et "
-"unikt navn til din computer."
+"For at kunne bruge enterprise-logind skal computeren tilknyttes et domæne. "
+"Bed venligst netværksadministratoren om at skrive sin adgangskode her og "
+"vælg et unikt navn til din computer."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
 msgstr "_Computer"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:11
 msgid "Administrator _Name"
 msgstr "Administrator_navn"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:12
 msgid "Administrator Password"
 msgstr "Adgangskode for administrator"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Are these the right details? You can change them if you want."
 msgstr "Er disse de rette detaljer? Du kan ændre dem hvis du vil."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
 msgid "We need a few details to complete setup."
 msgstr "Vi har brug for et par detaljer for at færdiggøre opsætningen."
 
@@ -167,14 +149,12 @@ msgid "Avatar image"
 msgstr "Profilbillede"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
 msgid "_Full Name"
 msgstr "_Fulde navn"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
-msgid "Your username cannot be changed after setup."
-msgstr "Dit brugernavn kan ikke ændres efter opsætning."
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+msgid "Set Up _Enterprise Login"
+msgstr "Opsætning af _enterprise-logind"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -185,64 +165,55 @@ msgid "Take a photo..."
 msgstr "Tag et billede..."
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:351
 msgid "Cannot automatically join this type of domain"
 msgstr "Kan ikke forbinde til denne type af domæne automatisk"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:414
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Intet sådant domæne eller realm fundet"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:821
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:835
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Kan ikke logge ind som %s på domænet %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:827
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "Ugyldig adgangskode. Prøv venligst igen"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:840
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Kunne ikke forbinde til %s-domænet: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:236
-#: ../gnome-initial-setup/pages/password/um-utils.c:148
+#: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists"
-msgstr "En bruger med brugernavnet \"%s\" findes allerede"
+msgid "A user with the username '%s' already exists."
+msgstr "Der findes allerede en bruger med brugernavnet \"%s\"."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:240
-#: ../gnome-initial-setup/pages/password/um-utils.c:152
+#: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-msgid "The username is too long"
-msgstr "Brugernavnet er for langt"
+msgid "The username is too long."
+msgstr "Brugernavnet er for langt."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:243
-#: ../gnome-initial-setup/pages/password/um-utils.c:155
-msgid "The username cannot start with a '-'"
-msgstr "Brugernavnet må ikke begynde med \"-\""
+#: ../gnome-initial-setup/pages/account/um-utils.c:252
+msgid "The username cannot start with a '-'."
+msgstr "Brugernavnet må ikke begynde med \"-\"."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:246
-#: ../gnome-initial-setup/pages/password/um-utils.c:158
+#: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
-"The username must only consist of:\n"
-" ➣ letters from the English alphabet\n"
-" ➣ digits\n"
-" ➣ any of the characters '.', '-' and '_'"
+"The username should only consist of lower and upper case letters from a-z, "
+"digits and any of characters '.', '-' and '_'."
 msgstr ""
-"Brugernavnet må kun bestå af:\n"
-" ➣ bogstaver fra det engelske alfabet\n"
-" ➣ tal\n"
-" ➣ hvilken som helst af tegnene \".\", \"-\" og \"_\""
+"Brugernavnet må kun bestå af små og store bogstaver fra a-z, tal og tegnene "
+"\".\", \"-\" og \"_\"."
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:259
+msgid "This will be used to name your home folder and can't be changed."
+msgstr ""
+"Dette vil blive brugt til at navngive din hjemmemappe, og kan ikke ændres."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
@@ -285,26 +256,26 @@ msgstr ""
 msgid "You can review your online accounts (and add others) after setup."
 msgstr "Du kan gennemse dine onlinekonti (og tilføje andre) efter opsætningen."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
 # Jeg går ud fra at det er sprog der henvises til og har fejlmeldt:
 # https://bugzilla.gnome.org/show_bug.cgi?id=695992
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:290
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:291
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Flere…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:312
 msgid "No inputs found"
 msgstr "Ingen input fundet"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:219
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Indtastning"
@@ -313,11 +284,11 @@ msgstr "Indtastning"
 msgid "Select your keyboard layout or an input method."
 msgstr "Vælg dit tastaturlayout eller en indtastningsmetode."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
 msgid "No languages found"
 msgstr "Ingen sprog fundet"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:281
 msgid "Welcome"
 msgstr "Velkommen"
 
@@ -356,38 +327,11 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Ingen trådløs tilgængelig"
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:121
-msgid "No password"
-msgstr "Ingen adgangskode"
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:144
+msgid "The passwords do not match."
+msgstr "Adgangskoderne er ikke ens."
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:180
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:272
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:126
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:212
-msgid "Passwords do not match"
-msgstr "Adgangskoder er ikke ens"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:219
-#, c-format
-msgid "Strength: %s"
-msgstr "Styrke: %s"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:7
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Confirm password"
-msgstr "_Bekræft adgangskode"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:8
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:5
-msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
-msgstr ""
-"Prøv at bruge mindst 8 forskellige tegn. Bland store og små bogstaaver, og "
-"brug et tal eller to."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:269
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:266
 msgid "Password"
 msgstr "Adgangskode"
 
@@ -399,45 +343,144 @@ msgstr "Angiv en adgangskode"
 msgid "Be careful not to lose your password."
 msgstr "Vær forsigtig at du ikke mister din adgangskode."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
-msgid "Choose a _password"
-msgstr "Vælg en _adgangskode"
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Verify"
+msgstr "_Bekræft"
 
+#: ../gnome-initial-setup/pages/password/pw-utils.c:81
+msgctxt "Password hint"
+msgid "The new password needs to be different from the old one."
+msgstr "Den nye adgangskode skal være forskellig fra den gamle."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:83
+msgctxt "Password hint"
+msgid "Try changing some letters and numbers."
+msgstr "Prøv at ændre nogle bogstaver og tal."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "For kort"
+msgctxt "Password hint"
+msgid "Try changing the password a bit more."
+msgstr "Prøv at ændre adgangskoden en smule mere."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:98
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "Ikke god nok"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:87
+msgctxt "Password hint"
+msgid "A password without your user name would be stronger."
+msgstr "En adgangskode uden dit brugernavn i ville være stærkere."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:89
+msgctxt "Password hint"
+msgid "Try to avoid using your name in the password."
+msgstr "Prøv at undgå at bruge dit navn i adgangskoden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:91
+msgctxt "Password hint"
+msgid "Try to avoid some of the words included in the password."
+msgstr "Prøv at undgå nogle af de ord som er inkluderet i adgangskoden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:95
+msgctxt "Password hint"
+msgid "Try to avoid common words."
+msgstr "Prøv at undgå almindelige ord."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:97
+msgctxt "Password hint"
+msgid "Try to avoid reordering existing words."
+msgstr "Prøv at undgå at rykke rundt på eksisterede ord."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:99
+msgctxt "Password hint"
+msgid "Try to use more numbers."
+msgstr "Prøv at bruge flere tal."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:101
+msgctxt "Password hint"
+msgid "Try to use more uppercase letters."
+msgstr "Prøv at bruge flere store bogstaver."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:103
+msgctxt "Password hint"
+msgid "Try to use more lowercase letters."
+msgstr "Prøv at bruge flere små bogstaver."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:105
+msgctxt "Password hint"
+msgid "Try to use more special characters, like punctuation."
+msgstr "Prøv at bruge flere specielle tegn som f.eks. tegnsætningstegn."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "Svag"
+msgctxt "Password hint"
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Prøv at bruge en blanding at bogstaver, tal og tegnsætningstegn."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:110
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "Nogenlunde"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:109
+msgctxt "Password hint"
+msgid "Try to avoid repeating the same character."
+msgstr "Prøv at undgå at gentage det samme tegn."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+msgctxt "Password hint"
+msgid ""
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
+msgstr ""
+"Prøv at undgå at gentage den samme type af tegn. Du bør blande bogstaver, "
+"tal og tegnsætningstegn."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-msgctxt "Password strength"
-msgid "Good"
-msgstr "God"
+msgctxt "Password hint"
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Prøv at undgå sekvenser som 1234 og abcd."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:116
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "Stærk"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:115
+msgctxt "Password hint"
+msgid "Try to add more letters, numbers and symbols."
+msgstr "Prøv at tilføje flere bogstaver, tal og symboler."
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+#: ../gnome-initial-setup/pages/password/pw-utils.c:117
+msgctxt "Password hint"
+msgid "Mix uppercase and lowercase and use a number or two."
+msgstr "Bland store og små bogstaver, og brug et tal eller to."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+msgctxt "Password hint"
+msgid ""
+"Good password! Adding more letters, numbers and punctuation will make it "
+"stronger."
+msgstr ""
+"God adgangskode! At tilføje flere bogstaver, tal og tegnsætningstegn vil "
+"gøre den stærkere."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:141
+msgctxt "Password strength"
+msgid "Strength: Weak"
+msgstr "Styrke: Svag"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:145
+msgctxt "Password strength"
+msgid "Strength: Low"
+msgstr "Styrke: Lav"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:148
+msgctxt "Password strength"
+msgid "Strength: Medium"
+msgstr "Styrke: Middel"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:151
+msgctxt "Password strength"
+msgid "Strength: Good"
+msgstr "Styrke: God"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:154
+msgctxt "Password strength"
+msgid "Strength: High"
+msgstr "Styrke: Høj"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
 msgstr "Ingen regioner fundet"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
 msgid "Region"
 msgstr "Region"
@@ -449,7 +492,7 @@ msgstr "Vælg dit land eller region."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
 msgid "_Start using %s"
 msgstr "_Kom i gang med at bruge %s"
@@ -457,7 +500,7 @@ msgstr "_Kom i gang med at bruge %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
 #, c-format
 msgid ""
 "Thank you for choosing %s.\n"
@@ -466,7 +509,7 @@ msgstr ""
 "Tak fordi du valgte %s.\n"
 "Vi håber du vil elske det."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
 msgid "Ready to Go"
 msgstr "Klar"
 
@@ -474,7 +517,16 @@ msgstr "Klar"
 msgid "You're all set!"
 msgstr "Så er alt i orden!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:187
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:184
+#, c-format
+msgid ""
+"We think that your time zone is %s. Press Next to continue or search for a "
+"city to manually set the time zone."
+msgstr ""
+"Vi tror at din tidszone er %s. Tryk Næste for at fortsætte eller søg efter "
+"en by manuelt for at indstille tidszonen."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:495
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Tidszone"
@@ -483,15 +535,47 @@ msgstr "Tidszone"
 msgid "Please search for a nearby city"
 msgstr "Søg venligst efter en nærliggende by"
 
+#~ msgid "Your username cannot be changed after setup."
+#~ msgstr "Dit brugernavn kan ikke ændres efter opsætning."
+
+#~ msgid "No password"
+#~ msgstr "Ingen adgangskode"
+
+#~ msgid "_Confirm password"
+#~ msgstr "_Bekræft adgangskode"
+
+#~ msgid "Choose a _password"
+#~ msgstr "Vælg en _adgangskode"
+
+#~ msgctxt "Password strength"
+#~ msgid "Too short"
+#~ msgstr "For kort"
+
+#~ msgctxt "Password strength"
+#~ msgid "Not good enough"
+#~ msgstr "Ikke god nok"
+
+#~ msgctxt "Password strength"
+#~ msgid "Weak"
+#~ msgstr "Svag"
+
+#~ msgctxt "Password strength"
+#~ msgid "Fair"
+#~ msgstr "Nogenlunde"
+
+#~ msgctxt "Password strength"
+#~ msgid "Good"
+#~ msgstr "God"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strong"
+#~ msgstr "Stærk"
+
 #~ msgid "Login"
 #~ msgstr "Logind"
 
 #~ msgid "Create a Local Account"
 #~ msgstr "Opret en lokal konto"
-
-#~ msgid "This will be used to name your home folder and can't be changed."
-#~ msgstr ""
-#~ "Dette vil blive brugt til at navngive din hjemmemappe, og kan ikke ændres."
 
 #~ msgid "page 1"
 #~ msgstr "side 1"
