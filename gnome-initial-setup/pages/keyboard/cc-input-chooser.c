@@ -593,34 +593,13 @@ get_ibus_locale_infos (CcInputChooser *chooser)
 	GHashTableIter iter;
 	const gchar *engine_id;
 	IBusEngineDesc *engine;
-	gchar *lang, *country;
 
 	if (!priv->ibus_engines)
 		return;
 
-	if (!gnome_parse_locale (priv->locale, &lang, &country, NULL, NULL))
-		goto out;
-
 	g_hash_table_iter_init (&iter, priv->ibus_engines);
-	while (g_hash_table_iter_next (&iter, (gpointer *) &engine_id, (gpointer *) &engine)) {
-		gchar *ibus_lang = NULL;
-		gchar *ibus_country = NULL;
-		const gchar *locale;
-
-		locale = ibus_engine_desc_get_language (engine);
-
-		if (gnome_parse_locale (locale, &ibus_lang, &ibus_country, NULL, NULL)) {
-			if (g_strcmp0 (lang, ibus_lang) == 0 &&
-			    (ibus_country == NULL || g_strcmp0 (country, ibus_country) == 0))
-				add_row_to_list (chooser, INPUT_SOURCE_TYPE_IBUS, engine_id);
-		}
-		g_free (ibus_lang);
-		g_free (ibus_country);
-        }
-
-out:
-	g_free (lang);
-	g_free (country);
+	while (g_hash_table_iter_next (&iter, (gpointer *) &engine_id, (gpointer *) &engine))
+                add_row_to_list (chooser, INPUT_SOURCE_TYPE_IBUS, engine_id);
 }
 
 static void
