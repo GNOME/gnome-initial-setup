@@ -228,6 +228,8 @@ input_widget_new (CcInputChooser *chooser,
 	gtk_widget_set_margin_end (widget->box, 10);
 	widget->label = gtk_label_new (name);
 	gtk_misc_set_alignment (GTK_MISC (widget->label), 0, 0.5);
+        gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);
+        gtk_label_set_max_width_chars (GTK_LABEL (widget->label), 40);
 	gtk_label_set_width_chars (GTK_LABEL (widget->label), 40);
 	gtk_box_pack_start (GTK_BOX (widget->box), widget->label, FALSE, FALSE, 0);
 	widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
