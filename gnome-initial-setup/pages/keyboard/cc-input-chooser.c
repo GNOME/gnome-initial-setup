@@ -751,9 +751,6 @@ cc_input_chooser_constructed (GObject *object)
         g_signal_connect (priv->input_list, "row-activated",
                           G_CALLBACK (row_activated), chooser);
 
-        if (priv->locale == NULL)
-                priv->locale = cc_common_language_get_current_language ();
-
         sync_all_checkmarks (chooser);
 }
 
