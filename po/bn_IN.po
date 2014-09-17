@@ -1,195 +1,252 @@
 # Bengali (India) translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-#
+# 
 # Sayak Sarkar <sayak.bugsmith@gmail.com>, 2012.
+# sray <sray@redhat.com>, 2013. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-11-20 00:08+0000\n"
-"PO-Revision-Date: 2012-10-29 02:53+0530\n"
-"Last-Translator: Sayak Sarkar <sayak.bugsmith@gmail.com>\n"
+"PO-Revision-Date: 2013-10-29 06:43-0400\n"
+"Last-Translator: sray <sray@redhat.com>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
-"Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bn-IN\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Zanata 3.2.1\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "প্রাথমিক সেটআপ"
 
-#: ../gnome-initial-setup/gis-assistant.c:317
+#: ../gnome-initial-setup/gis-assistant.c:394
 msgid "_Next"
 msgstr "পরবর্তী (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:318
-msgid "_Back"
-msgstr "পূর্ববর্তী (_B)"
+# auto translated by TM merge from project: evolution, version: el6, DocId: evolution-2.32
+#: ../gnome-initial-setup/gis-assistant.c:395
+msgid "_Previous"
+msgstr "পূর্ববর্তী (_P)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:307
+# auto translated by TM merge from project: virt-manager, version: 0.9.0, DocId: virt-manager
+#: ../gnome-initial-setup/gis-assistant.c:396
+msgid "_Cancel"
+msgstr "বাতিল (_C)"
+
+#: ../gnome-initial-setup/gnome-initial-setup.c:220
+msgid "Force new user mode"
+msgstr "বলপূর্বক নতুন ব্যবহারকারী মোড"
+
+#: ../gnome-initial-setup/gnome-initial-setup.c:224
+msgid "- GNOME initial setup"
+msgstr "- GNOME প্রাথমিক সেটআপ"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:332
+msgid "No password"
+msgstr "পাসওয়ার্ড নেই"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:337
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:440
 msgid "Passwords do not match"
 msgstr "পাসওয়ার্ডগুলি মিলছে না"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:485
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:387
+#, c-format
+msgid "Strength: %s"
+msgstr "শক্তি: %s"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:577
 msgid "Failed to register account"
 msgstr "অ্যাকাউন্ট রেজিস্টার করতে ব্যর্থ"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:548
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:780
+msgid "No supported way to authenticate with this domain"
+msgstr "এই ডোমেন দিয়ে পরিচয়প্রমাণের কোনো সমর্থিত মাধ্যম নেই"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:819
 msgid "Failed to join domain"
 msgstr "ডোমেন এ যোগদান করতে ব্যর্থ"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:603
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:886
 msgid "Failed to log into domain"
 msgstr "ডোমেনে লগ ইন করতে ব্যর্থ"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:898
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:1257
 msgid "Login"
 msgstr "লগ-ইন"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Choose How to Login"
-msgstr "লগইন পদ্ধতি বেছে নিন"
+msgid "Create a Local Account"
+msgstr "একটি স্থানীয় অ্যাকাউন্ট তৈরি করুন"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Local Account"
-msgstr "স্থানীয় অ্যাকাউন্ট (_L)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Enterprise Login"
-msgstr "এন্টারপ্রাইজ লগইন (_E)"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "_Full Name"
 msgstr "সম্পূর্ণ নাম (_F)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
 msgid "_Username"
 msgstr "ব্যবহারকারীর নাম (_U)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
 msgid "This will be used to name your home folder and can't be changed."
 msgstr ""
+"অাপনার হোম ফোল্ডারের নামকরণ করতে এর ব্যবহার করা হবে এবং পরিবর্তন করা যাবে "
+"না।"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
 msgid "_Password"
 msgstr "পাসওয়ার্ড (_P)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-#, fuzzy
-#| msgid "_Confirm Password"
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
 msgid "_Confirm password"
 msgstr "পাসওয়ার্ড নিশ্চিত করুন (_C)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
 msgid ""
 "Try to use at least 8 different characters. Mix upper and lower case and use "
 "a number or two."
 msgstr ""
+"অন্ততপক্ষে ৮টি পৃথক অক্ষর ব্যবহার করার চেষ্টা করুন। বড় হাতের এবং ছোট হাতের "
+"অক্ষর এবং একটি বা দুইটি সংখ্যা মিলিয়ে মিশিয়ে ব্যবহার কারুন।"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
+msgid "page 1"
+msgstr "পৃষ্ঠা ১"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
+msgid "Create an Enterprise Account"
+msgstr "একটি এন্টারপ্রাইজ অ্যাকাউন্ট তৈরি করুন"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
 msgid "_Domain"
 msgstr "ডোমেন (_D)"
 
+# auto translated by TM merge from project: gnome-online-accounts, version: 3.8.2, DocId: gnome-online-accounts
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
-msgid "_Login Name"
-msgstr "লগইন নাম (_L)"
+msgid "Enterprise domain or realm name"
+msgstr "এন্টারপ্রাইজ ডোমেন অথবা রিল্মের নাম"
 
+# auto translated by TM merge from project: brasero, version: 3.8.0, DocId: brasero
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
-msgid "Tip: Enterprise domain or realm name"
-msgstr "টিপ: এন্টারপ্রাইজ ডোমেন অথবা রিলম নাম"
+msgid "C_ontinue"
+msgstr "এগিয়ে চলুন (_o)"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:94
-#: ../gnome-initial-setup/pages/account/pw-utils.c:118
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+msgid "Domain Administrator Login"
+msgstr "ডোমেইন অ্যাডমিনিস্ট্রেটর লগিন"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+msgid ""
+"In order to use enterprise logins, this computer needs to be\n"
+"enrolled in the domain. Please have your network administrator\n"
+"type their domain password here, and choose a unique computer\n"
+"name for your computer."
+msgstr ""
+"এন্টারপ্রাইজ লগিন ব্যবহার করতে, এই কম্পিউটারটিকে এই ডোমেনে নথিভুক্ত\n"
+"করতে  হবে। অনুগ্রহ করে অাপনার নেটওয়ার্ক প্রশাসককে\n"
+"এখানে ডোমেন পাসওয়ার্ড দিতে বলুন, এবং অাপনার কম্পিউটারের জন্য অনন্য\n"
+"নাম দিতে বলুন।"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+msgid "_Computer"
+msgstr "কম্পিউটার (_C)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+msgid "Administrator _Name"
+msgstr "প্রশাসকের নাম (_N)"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+msgid "Administrator Password"
+msgstr "প্রশাসকের পাসওয়ার্ড"
+
+#: ../gnome-initial-setup/pages/account/pw-utils.c:94
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "খুবই ছোট"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:99
+#: ../gnome-initial-setup/pages/account/pw-utils.c:99
 msgctxt "Password strength"
 msgid "Not good enough"
 msgstr "যথেষ্ট ভালো নয়"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:107
-#: ../gnome-initial-setup/pages/account/pw-utils.c:153
+#: ../gnome-initial-setup/pages/account/pw-utils.c:108
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "দুর্বল"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:109
-#: ../gnome-initial-setup/pages/account/pw-utils.c:155
+#: ../gnome-initial-setup/pages/account/pw-utils.c:111
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "ন্যায্য"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:111
-#: ../gnome-initial-setup/pages/account/pw-utils.c:157
+#: ../gnome-initial-setup/pages/account/pw-utils.c:114
 msgctxt "Password strength"
 msgid "Good"
 msgstr "ভাল"
 
-#: ../gnome-initial-setup/pages/account/pw-utils-pwquality.c:113
-#: ../gnome-initial-setup/pages/account/pw-utils.c:159
+#: ../gnome-initial-setup/pages/account/pw-utils.c:117
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "শক্তিশালী"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:368
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+msgid "Cannot automatically join this type of domain"
+msgstr "এই ধরনের ডোমেনে স্বয়ংক্রিয়ভাবে যোগ দেওয়া যায় না"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
 #, c-format
 msgid "No such domain or realm found"
 msgstr "এমন কোন ডোমেন বা রিলম পাওয়া যায়নি"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:743
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "%s হিসেবে %s ডোমেনে লগইন করা সম্ভব হচ্ছে না"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:748
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
 msgid "Invalid password, please try again"
 msgstr "অবৈধ পাসওয়ার্ড, পুনরায় চেষ্টা করুন"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:752
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "%s ডোমেনে সংযোগ স্থাপন করতে ব্যর্থ: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:268
+#: ../gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "A user with the username '%s' already exists"
 msgstr "%s নামের একটি ব্যবহারকারী ইতিমধ্যেই উপস্থিত রয়েছে"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:272
+#: ../gnome-initial-setup/pages/account/um-utils.c:152
 #, c-format
 msgid "The username is too long"
 msgstr "ব্যবহারকারীর নাম অতিশয় দীর্ঘ"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:275
+#: ../gnome-initial-setup/pages/account/um-utils.c:155
 msgid "The username cannot start with a '-'"
 msgstr "একটি ব্যবহারকারীর নাম '-' দিয়ে শুরু হতে পারে না"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:278
+#: ../gnome-initial-setup/pages/account/um-utils.c:158
 msgid ""
-"The username must consist of:\n"
+"The username must only consist of:\n"
 " ➣ letters from the English alphabet\n"
 " ➣ digits\n"
 " ➣ any of the characters '.', '-' and '_'"
 msgstr ""
-"ব্যবহারকারীর নাম হওয়া উচিত \n"
-" ➣ ইংরেজি বর্ণমালার অক্ষর \n"
-"  ➣ সংখ্যা \n"
-" ➣ '.' , '-' অথবা '_'  মধ্যে থেকে কোনো অক্ষর"
+"ব্যবহারকারী নামে অবশ্যই থাকতে হবে:\n"
+" ➣ ইংরাজি বর্ণমালার অক্ষর\n"
+" ➣ সংখ্যা\n"
+" ➣ '.', '-' এবং '_' এর যেকোনো অক্ষর"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:262
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr "আমি এই শর্তাবলী এবং অন্তিম ব্যবহারকারী লাইসেন্স চুক্তিতে সম্মত হয়েছি। (_a)"
-
-#: ../gnome-initial-setup/pages/eulas/gis-eula-pages.c:287
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "লাইসেন্স চুক্তিসমূহ"
 
@@ -198,122 +255,125 @@ msgstr "লাইসেন্স চুক্তিসমূহ"
 msgid "Add Account"
 msgstr "একাউন্ট যোগ করুন"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:102
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
 msgid "Error creating account"
 msgstr "একাউন্ট তৈরি ত্রুটি"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:134
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
 msgid "Error removing account"
 msgstr "অ্যাকাউন্ট অপসারণের করার সময় ত্রুটি"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:160
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
 msgid "Are you sure you want to remove the account?"
 msgstr "আপনি কি নিশ্চিতরূপে অ্যাকাউন্টটি সরাতে চান?"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:162
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
 msgid "This will not remove the account on the server."
 msgstr "এটি সার্ভারে অ্যাকাউন্ট মুছে ফেলবে না।"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:163
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
 msgid "_Remove"
 msgstr "অপসারণ (_R)"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:209
-msgid "Remove"
-msgstr "অপসারণ"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:328
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
 msgid "Online Accounts"
 msgstr "অনলাইন অ্যাকাউন্টস"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Link other accounts"
-msgstr "অন্যান্য অ্যাকাউন্টগুলির সঙ্গে লিঙ্ক করুন"
+msgid "Connect to your existing data in the cloud"
+msgstr "ক্লাউডে অাপনার বিদ্যমান ডেটার সংগে সংযুক্ত করুন"
 
-#. Add some common languages first
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:201
-msgid "English"
-msgstr "ইংরেজি"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+msgid ""
+"Adding accounts will allow you to transparently connect to your online "
+"photos, contacts, mail, and more."
+msgstr ""
+"অ্যাকাউন্টগুলি যোগ করা হলে তার সাহায্যে অাপনি সরাসারি অাপনার অনলাইন ছবি, "
+"পরিচিতি, মেল এবং অারো অনেক কিছুর সংগে সংযুক্ত হতে পারবেন।"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:203
-msgid "British English"
-msgstr "ব্রিটিশ ইংরেজি"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+msgid "_Add Account"
+msgstr "অ্যাকাউন্ট যোগ করুন (_A)"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:206
-msgid "German"
-msgstr "জার্মান"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+msgid "More…"
+msgstr "অারো…"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:209
-msgid "French"
-msgstr "ফরাসি"
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
+msgid "No input sources found"
+msgstr "কোনো ইনপুট সোর্স পাওয়া যায়নি"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:212
-msgid "Spanish"
-msgstr "স্প্যানিশ"
+# auto translated by TM merge from project: rhsm-web, version: 0.0, DocId: management
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
+msgid "Other"
+msgstr "অন্যান্য"
 
-#: ../gnome-initial-setup/pages/language/cc-common-language.c:214
-msgid "Chinese (simplified)"
-msgstr "চীনা (সরলীকৃত) "
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:168
+msgid "Input Sources"
+msgstr "ইনপুট সোর্স"
 
-#: ../gnome-initial-setup/pages/language/gdm-languages.c:782
-msgid "Unspecified"
-msgstr "অনির্দিষ্ট"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+msgid "Select input sources"
+msgstr "ইনপুট সোর্সগুলি নির্বাচন করুন"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:107
-#, c-format
-msgid "Use %s"
-msgstr "%s ব্যবহার করুন"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Login settings are used by all users when logging into the system"
+msgstr ""
+"সিস্টেমে লগিন করার সময়ে সকল ব্যবহারকারীর দ্বারা লগিন সেটিং ব্যবহার করা হয়"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:264
+#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
+msgid "Add an Input Source"
+msgstr "একটি ইনপুট সোর্স যোগ করুন"
+
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+msgid "No languages found"
+msgstr "কোনো ভাষা পাওয়া যায়নি"
+
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:227
 msgid "Welcome"
 msgstr "স্বাগত"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.ui.h:1
-msgid "Show _all"
-msgstr "সব প্রদর্শন করুন"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
 msgid "Search for a location"
 msgstr "একটি অবস্থান অনুসন্ধান করুন"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
+#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
+#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
 msgid "Location"
 msgstr "অবস্থান"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:1
 msgid "Choose Your Location"
 msgstr "আপনার অবস্থান বেছে নিন"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:2
 msgid "_Determine your location automatically"
 msgstr "আপনার অবস্থান স্বয়ংক্রিয়ভাবে নির্ধারণ করুন (_D)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
+#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:4
 msgid "Time Zone"
 msgstr "টাইম জোন"
 
-#. TRANSLATORS: this is when the access point is not listed
-#. *                           * in the dropdown (or hidden) and the user has to select
-#. *                           * another entry manually
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:263
+# auto translated by TM merge from project: gdm, version: 3.8.4, DocId: gdm
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
 msgctxt "Wireless access point"
-msgid "Other..."
+msgid "Other…"
 msgstr "অন্যান্য..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:342
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
 msgid "Network is not available."
 msgstr "নেটওয়ার্ক উপলভ্য নয়।"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
 msgid "No network devices found."
 msgstr "কোন নেটওয়ার্ক ডিভাইস পাওয়া যায়নি।"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:392
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
 msgid "Checking for available wireless networks"
 msgstr "উপলব্ধ বেতার নেটওয়ার্কের জন্য পরীক্ষা করা হচ্ছে"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:689
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
 msgid "Network"
 msgstr "নেটওয়ার্ক"
 
@@ -321,44 +381,18 @@ msgstr "নেটওয়ার্ক"
 msgid "Wireless Networks"
 msgstr "বেতার নেটওয়ার্ক"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:291
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:323
 msgid "Thank You"
 msgstr "ধন্যবাদ"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Enjoy GNOME!"
-msgstr "GNOME উপভোগ করুন!"
+msgid "Your computer is ready to use."
+msgstr "অাপনার কম্পিউটার ব্যবহারের জন্য প্রস্তুত।"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "Your new account is ready to use."
-msgstr "আপনার নতুন অ্যাকাউন্ট ব্যবহারের জন্য প্রস্তুত।"
+msgid "You may change these options at any time in Settings."
+msgstr "অাপনি এই বিকল্পগুলি সেটিং থেকে যেকোনো সময়ে পরিবর্তন করতে পারবেন।"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "You may change any of these options at any time in the System Settings."
-msgstr ""
-"আপনি যে কোনো সময় সিস্টেম সেটিংস এর মধ্যে অন্তর্ভুক্ত এই সমস্থ অপশনগুলি পরিবর্তন করতে "
-"পারেন।"
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:4
 msgid "_Start using GNOME 3"
 msgstr "GNOME 3 ব্যবহার করা শুরু করুন"
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:5
-msgid "New to GNOME 3 and need help finding your way around?"
-msgstr "GNOME 3 তে নতুন এবং ব্যবহার করতে সাহায্যের দরকার?"
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:6
-msgid "_Take a Tour"
-msgstr " ঘুরে দেখুন (_T)"
-
-#~ msgid "_Require a password to use this account"
-#~ msgstr "এই একাউন্ট ব্যবহার করার জন্য একটি পাসওয়ার্ড প্রয়োজন (_R)"
-
-#~ msgid "_Act as administrator of this computer"
-#~ msgstr "এই কম্পিউটারে প্রশাসক রূপে ভূমিকা পালন করুন (_A)"
-
-#~ msgid "Disable image"
-#~ msgstr "ছবিটি নিষ্ক্রিয় করুন"
-
-#~ msgid "Take a photo..."
-#~ msgstr "একটি ফটো নিন..."
