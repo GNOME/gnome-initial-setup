@@ -160,10 +160,14 @@ get_lang_for_user_object_path (const char *path)
 		g_error_free (error);
 		return NULL;
 	}
-	props = g_dbus_proxy_get_cached_property (user, "Language");
-	lang = g_variant_dup_string (props, NULL);
 
-	g_variant_unref (props);
+	lang = NULL;
+	props = g_dbus_proxy_get_cached_property (user, "Language");
+	if (props != NULL) {
+		lang = g_variant_dup_string (props, NULL);
+		g_variant_unref (props);
+	}
+
 	g_object_unref (user);
 	return lang;
 }
