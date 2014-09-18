@@ -225,6 +225,11 @@ static void
 gis_driver_real_locale_changed (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  GtkTextDirection direction;
+
+  direction = gtk_get_locale_direction ();
+  gtk_widget_set_default_direction (direction);
+
   rebuild_pages (driver);
   gis_assistant_locale_changed (priv->assistant);
 }
