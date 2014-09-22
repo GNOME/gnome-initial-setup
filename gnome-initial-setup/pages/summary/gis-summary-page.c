@@ -185,11 +185,6 @@ log_user_in (GisSummaryPage *page)
     return;
   }
 
-  if (error != NULL) {
-    g_warning ("Could not set PAM_AUTHTOK: %s", error->message);
-    return;
-  }
-
   g_signal_connect (user_verifier, "info",
                     G_CALLBACK (on_info), page);
   g_signal_connect (user_verifier, "problem",
