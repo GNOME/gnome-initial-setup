@@ -189,6 +189,9 @@ update_navigation_buttons (GisAssistant *assistant)
     {
       gtk_widget_hide (priv->back);
       gtk_widget_hide (priv->forward);
+      gtk_widget_hide (priv->skip);
+      gtk_widget_hide (priv->cancel);
+      gtk_widget_hide (priv->accept);
     }
   else
     {
