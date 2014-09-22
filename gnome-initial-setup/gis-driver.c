@@ -266,8 +266,13 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkWindow *window;
   window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
-  /* disable WM functions except move */
-  gdk_window_set_functions (window, GDK_FUNC_MOVE);
+  /* disable all the WM functions */
+  gdk_window_set_functions (window, GDK_FUNC_ALL
+                            | GDK_FUNC_RESIZE
+                            | GDK_FUNC_MOVE
+                            | GDK_FUNC_MINIMIZE
+                            | GDK_FUNC_MAXIMIZE
+                            | GDK_FUNC_CLOSE);
 }
 
 static void
