@@ -192,6 +192,8 @@ update_navigation_buttons (GisAssistant *assistant)
       gtk_widget_hide (priv->skip);
       gtk_widget_hide (priv->cancel);
       gtk_widget_hide (priv->accept);
+      /* FIXME: workaround for a GTK+ issue */
+      gtk_widget_queue_resize (priv->titlebar);
     }
   else
     {
