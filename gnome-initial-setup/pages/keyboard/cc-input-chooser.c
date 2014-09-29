@@ -136,14 +136,14 @@ get_layout (CcInputChooser *chooser,
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 
-	if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
+	if (g_strcmp0 (type, INPUT_SOURCE_TYPE_XKB) == 0) {
 		gnome_xkb_info_get_layout_info (priv->xkb_info,
 						id, NULL, NULL,
 						layout, variant);
                 return TRUE;
         }
 #ifdef HAVE_IBUS
-	if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
+	if (g_strcmp0 (type, INPUT_SOURCE_TYPE_IBUS) == 0) {
                 IBusEngineDesc *engine_desc = NULL;
 
 		if (priv->ibus_engines)
@@ -157,7 +157,6 @@ get_layout (CcInputChooser *chooser,
                 return TRUE;
 	}
 #endif
-        g_assert_not_reached ();
 	return FALSE;
 }
 
@@ -273,7 +272,7 @@ sync_checkmark (GtkWidget *row,
 	if (priv->id == NULL || priv->type == NULL)
 		should_be_visible = FALSE;
 	else
-	        should_be_visible = g_str_equal (widget->id, priv->id) && g_str_equal (widget->type, priv->type);
+	        should_be_visible = g_strcmp0 (widget->id, priv->id) == 0 && g_strcmp0 (widget->type, priv->type) == 0;
         gtk_widget_set_opacity (widget->checkmark, should_be_visible ? 1.0 : 0.0);
 }
 
