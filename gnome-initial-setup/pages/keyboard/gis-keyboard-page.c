@@ -178,6 +178,23 @@ input_confirmed (CcInputChooser  *chooser,
 }
 
 static void
+update_page_complete (GisKeyboardPage *self)
+{
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
+        gboolean complete;
+
+        complete = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL;
+        gis_page_set_complete (GIS_PAGE (self), complete);
+}
+
+static void
+input_changed (CcInputChooser  *chooser,
+               GisKeyboardPage *self)
+{
+        update_page_complete (self);
+}
+
+static void
 gis_keyboard_page_constructed (GObject *object)
 {
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
@@ -189,6 +206,8 @@ gis_keyboard_page_constructed (GObject *object)
 
         g_signal_connect (priv->input_chooser, "confirm",
                           G_CALLBACK (input_confirmed), self);
+        g_signal_connect (priv->input_chooser, "changed",
+                          G_CALLBACK (input_changed), self);
 
 	priv->input_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
 	g_settings_delay (priv->input_settings);
@@ -209,7 +228,8 @@ gis_keyboard_page_constructed (GObject *object)
 	if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER)
 		priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-keyboard", NULL, NULL, NULL);
 
-        gis_page_set_complete (GIS_PAGE (self), TRUE);
+        update_page_complete (self);
+
         gtk_widget_show (GTK_WIDGET (self));
 }
 
