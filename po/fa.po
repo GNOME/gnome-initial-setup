@@ -1,424 +1,666 @@
 # Persian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Arash Mousavi <mousavi.arash@gmail.com>, 2012, 2013.
+# Arash Mousavi <mousavi.arash@gmail.com>, 2012, 2013, 2014.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-13 16:59+0000\n"
-"PO-Revision-Date: 2013-10-08 19:41+0330\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-10-09 13:54+0000\n"
+"PO-Revision-Date: 2014-10-11 00:01+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.9\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "برپاسازی ابتدایی"
 
-#: ../gnome-initial-setup/gis-assistant.c:418
+#: ../gnome-initial-setup/gis-assistant.c:384
 msgid "_Next"
 msgstr "_بعدی"
 
-#: ../gnome-initial-setup/gis-assistant.c:419
+#: ../gnome-initial-setup/gis-assistant.c:385
+msgid "_Accept"
+msgstr "_قبول"
+
+#: ../gnome-initial-setup/gis-assistant.c:386
+msgid "_Skip"
+msgstr "_پرش"
+
+#: ../gnome-initial-setup/gis-assistant.c:387
 msgid "_Previous"
 msgstr "_قبلی"
 
-#: ../gnome-initial-setup/gis-assistant.c:420
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:379
+#: ../gnome-initial-setup/gis-assistant.c:388
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "اجبار به حالت کاربر جدید"
+#: ../gnome-initial-setup/gnome-initial-setup.c:194
+msgid "Force existing user mode"
+msgstr "اجبار به حالت کاربر موجود"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
+#: ../gnome-initial-setup/gnome-initial-setup.c:200
 msgid "- GNOME initial setup"
-msgstr "- برپاسازی اولیه گنوم"
+msgstr "- راه‌اندازی اولیه گنوم"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:328
-#| msgid "_Confirm password"
-msgid "No password"
-msgstr "بدون گذرواژه"
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+msgid "About You"
+msgstr "درباره‌ی شما"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:333
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:436
-msgid "Passwords do not match"
-msgstr "گذرواژه مطابقت ندارد"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:383
-#, c-format
-msgid "Strength: %s"
-msgstr "قدرت: %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:510
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
 msgid "Failed to register account"
 msgstr "ثبت حساب شکست خورد"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:718
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
 msgid "No supported way to authenticate with this domain"
 msgstr "هیچ روش پشتیبانی شده‌ای برای تصدیق‌هویت با این دامنه وجود ندارد"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:758
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
 msgid "Failed to join domain"
 msgstr "پیوستن به دامنه شکست خورد"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:826
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
 msgid "Failed to log into domain"
 msgstr "ورود به دامنه شکست خورد"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1211
-msgid "Login"
-msgstr "ورود به سیستم"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
+msgid "Enterprise Login"
+msgstr "ورود تجاری"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create a Local Account"
-msgstr "ساخت یک حساب محلی"
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+msgid ""
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device."
+msgstr ""
+"ورود تجاری اجازه می‌دهد از یک حساب کاربری مدیریت‌شده‌ی مرکزی موجود برای این "
+"دستگاه استفاده شود."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Full Name"
-msgstr "_نام کامل"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Username"
-msgstr "_نام‌کاربری"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr "این جهت نام‌گذاری پوشه‌ی خانگی شما استفاده خواهد شد و قابل تغییر نخواهد بود."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Password"
-msgstr "_گذرواژه"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Confirm password"
-msgstr "_تایید گذرواژه"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
-msgid "Try to use at least 8 different characters. Mix upper and lower case and use a number or two."
-msgstr "سعی کنید حداقل از ۸ نویسه متفاوت استفاده کنید. تلفیقی از حروف بزرگ و کوچک همراه با یک یا دو عدد."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "page 1"
-msgstr "صفحه یک"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "Create an Enterprise Account"
-msgstr "ساخت یک حساب تجاری"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "_دامنه"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+msgid "_Username"
+msgstr "_نام‌کاربری"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+msgid "_Password"
+msgstr "_گذرواژه"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "نام دامنه یا ناحیه تجاری"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
-msgstr "_ادامه"
+msgstr "ا_دامه"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "ورود مدیر دامنه"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
+"here, and choose a unique computer name for your computer."
 msgstr ""
-"جهت استفاده از ورود‌های تجاری، این رایانه لازم است که\n"
-"در دامنه‌ای ثبت شود. لطفا از مدیر شبکه خود بخواهید که\n"
-"گذرواژه دامنه خود را در اینجا وارد کنند، و یک نام رایانه‌ی اختصاصی\n"
-"برای این سیستم انتخاب کنند."
+"جهت استفاده از ورود‌های تجاری، لازم است این رایانه در دامنه‌ای ثبت شود. لطفاً "
+"از مدیر شبکه‌ی خود بخواهید که گذرواژه‌ی دامنه را این‌جا وارد کرده و یک نام "
+"رایانه‌ی اختصاصی برای این سیستم انتخاب کند."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
 msgstr "_رایانه"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
 msgid "Administrator _Name"
-msgstr "نام _مدیر"
+msgstr "_نام مدیر"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
 msgid "Administrator Password"
 msgstr "گذرواژه مدیر"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:94
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "خیلی کوتاه"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+msgid "Are these the right details? You can change them if you want."
+msgstr "آیا این‌ها جزئیات صحیحی هستند؟ اگر بخواهید می‌توانید آن‌ها را تغییر دهید."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:99
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "به اندازه کافی مناسب نیست"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+msgid "We need a few details to complete setup."
+msgstr "برای کامل کردن راه‌اندازی نیاز به کمی جزئیات داریم."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:108
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "ضعیف"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+msgid "Avatar image"
+msgstr "عکس آواتار"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:111
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "نسبتا خوب"
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+msgid "_Full Name"
+msgstr "_نام کامل"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:114
-msgctxt "Password strength"
-msgid "Good"
-msgstr "خوب"
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+msgid "Set Up _Enterprise Login"
+msgstr "برپاسازی ورود _تجاری"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "قوی"
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
+msgid "Disable image"
+msgstr "غیرفعال‌کردن عکس"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
+msgid "Take a photo..."
+msgstr "یک عکس بگیرید"
+
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "نمی‌توان به‌طور خودکار وارد این نوع از دامنه‌ها شد"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
 #, c-format
 msgid "No such domain or realm found"
 msgstr "چنین دامنه یا ناحیه‌ای پیدا نشد"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "نمی‌توان به‌عنوان %s در دامنه %s وارد شد"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "گذرواژه نامعتبر، لطفا دوباره تلاش کنید"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "نمی‌توان به دامنه %s متصل شد: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:148
+#: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists"
-msgstr "یک کاربر به نام‌کاربری «%s» از قبل وجود دارد"
+msgid "A user with the username '%s' already exists."
+msgstr "یک کاربر به نام‌کاربری «%s» از قبل وجود دارد."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:152
+#: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-msgid "The username is too long"
-msgstr "نام‌کاربری خیلی بزرگ است"
+msgid "The username is too long."
+msgstr "نام‌کاربری خیلی طولانی است."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:155
-msgid "The username cannot start with a '-'"
-msgstr "نام‌کاربری نمی‌توان به یک «-» شروع شود"
+#: ../gnome-initial-setup/pages/account/um-utils.c:252
+msgid "The username cannot start with a '-'."
+msgstr "نام‌کاربری نمی‌توان به یک «-» شروع شود."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:158
-#| msgid ""
-#| "The username must consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
+#: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
-"The username must only consist of:\n"
-" ➣ letters from the English alphabet\n"
-" ➣ digits\n"
-" ➣ any of the characters '.', '-' and '_'"
+"The username should only consist of lower and upper case letters from a-z, "
+"digits and any of characters '.', '-' and '_'."
 msgstr ""
-"نام‌کاربری باید فقط حاوی:\n"
-" - حروفی از الفبای انگلیسی\n"
-" - اعداد\n"
-" - هر کدام از نویسه‌های «.»، «-» و «_»"
+"نام‌کاربری باید فقط حاوی حروف بزرگ و کوچک از بازه‌ی a-z، اعداد و هر کدام از "
+"نویسه‌های «.»، «-» و «_» باشد."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:324
+#: ../gnome-initial-setup/pages/account/um-utils.c:259
+msgid "This will be used to name your home folder and can't be changed."
+msgstr ""
+"این جهت نام‌گذاری پوشه‌ی خانگی شما استفاده خواهد شد و قابل تغییر نخواهد بود."
+
+#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
 msgstr "گواهی توافقنامه"
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
-msgid "I have _agreed to the terms and conditions in this end user license agreement."
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
 msgstr "من با شرایط و ضوابطِ این موافقتنامه‌ی کاربر نهایی _موافقت کرده‌ام."
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:200
-#| msgctxt "Wireless access point"
-#| msgid "Other…"
-msgctxt "Online Account"
-msgid "Other"
-msgstr "موارد دیگر"
-
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:318
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "اضافه کردن حساب"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:357
-msgid "Mail"
-msgstr "پست‌الکترونیکی"
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
+msgid "Cancel"
+msgstr "لغو"
 
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:363
-msgid "Contacts"
-msgstr "آشناها"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:369
-msgid "Chat"
-msgstr "گپ"
-
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:375
-msgid "Resources"
-msgstr "منابع"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:127
-msgid "Error creating account"
-msgstr "خطا در ساخت حساب"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:157
-msgid "Error removing account"
-msgstr "خطا در حذف حساب"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:183
-msgid "Are you sure you want to remove the account?"
-msgstr "آیا مطمئنید که می‌خواهید این حساب را حذف کنید؟"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:185
-msgid "This will not remove the account on the server."
-msgstr "این کار حساب شما را بر روی کارگزار حذف نمی‌کند."
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:186
-msgid "_Remove"
-msgstr "_حذف"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:448
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "حساب‌های برخط"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "به اطلاعات موجود خود در ابرها متصل شوید"
+msgid "Connect Your Online Accounts"
+msgstr "حساب‌های برخط خود را متصل کنید"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-msgid "Adding accounts will allow you to transparently connect to your online photos, contacts, mail, and more."
-msgstr "اضافه کردن حساب‌ها باعث می‌شود که بتوانید به عکس‌ها، آشناها، پست‌های الکترونیکی و... برخط خود متصل شوید."
+msgid ""
+"Connecting your accounts will allow you to easily access your email, online "
+"calendar, contacts, documents and photos."
+msgstr ""
+"اتّصال به حساب‌ها به شما اجازه می‌دهد به آسانی به پست‌های‌الکترونیکی، تقویم برخط، "
+"آشناها، اسناد و عکس‌هایتان دسترسی پیدا کنید."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-#| msgid "Add Account"
-msgid "_Add Account"
-msgstr "اضافه کردن _حساب"
+msgid "You can review your online accounts (and add others) after setup."
+msgstr ""
+"شما می‌توانید پس از راه‌اندازی، حساب‌های برخط خود را مرور کرده و حساب‌های جدیدی "
+"بیفزایید."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
-msgstr "بیشتر..."
+msgstr "بیش‌تر…"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
-#| msgid "Move Input Source Down"
-msgid "No input sources found"
-msgstr "هیچ منبع ورودی پیدا نشد"
+#. Translators: a search for input methods or keyboard layouts
+#. * did not yield any results
+#.
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:316
+msgid "No inputs found"
+msgstr "ورودی‌ای پیدا نشد"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
-#| msgctxt "Wireless access point"
-#| msgid "Other…"
-msgid "Other"
-msgstr "موارد دیگر"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:166
-#| msgid "Add Input Source"
-msgid "Input Sources"
-msgstr "منابع ورودی"
-
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:239
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-#| msgid "Show Keyboard Layout"
-msgid "Select keyboard layouts"
-msgstr "چیدمان‌های صفحه‌کلید را انتخاب کنید"
+msgid "Typing"
+msgstr "تایپ"
 
-#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
-#| msgid "Add Input Source"
-msgid "Add an Input Source"
-msgstr "اضافه کردن یک منبع ورودی"
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+msgid "Select your keyboard layout or an input method."
+msgstr "چیدمان صفحه‌کلید خود یا یک روش ورودی را انتخاب کنید"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
 msgid "No languages found"
 msgstr "هیچ زبانی پیدا نشد"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:233
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
 msgid "Welcome"
 msgstr "خوش‌آمدید"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
-msgid "Search for a location"
-msgstr "جستجو برای یک مکان"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:361
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
-msgid "Location"
-msgstr "مکان"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "مکان خود را انتخاب کنید"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "مکان خود را خودکار _تشخیص دهید"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:4
-msgid "Time Zone"
-msgstr "ناحیه زمانی"
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+msgid "Welcome!"
+msgstr "خوش‌آمدید!"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:305
 msgctxt "Wireless access point"
 msgid "Other…"
-msgstr "دیگر..."
+msgstr "دیگر…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:343
-msgid "Network is not available."
-msgstr "شبکه در دسترس نیست."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:345
-msgid "No network devices found."
-msgstr "هیچ دستگاه شبکه‌ای یافت نشد."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:395
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
 msgid "Checking for available wireless networks"
 msgstr "درحال بررسی برای شبکه‌های بی‌سیم موجود."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:647
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
 msgid "Network"
 msgstr "شبکه"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "شبکه‌های بی‌سیم"
+msgid "Wi-Fi"
+msgstr "شبکه‌ی بی‌سیم"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:349
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"اتّصال به اینترنت شما را قادر می‌سازد که زمان را تنظیم کنید، جزئیاتتان را "
+"بیفزایید، و به پست‌الکترونیکی، تقویم و آشناهای خود دسترسی پیدا کنید. هم‌چنین "
+"این کار برای حساب‌های ورود تجاری ضروری است."
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
+msgid "No wireless available"
+msgstr "شبکه‌ی بی‌سیم در دسترس نیست"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:144
+msgid "The passwords do not match."
+msgstr "گذرواژه‌ها مطابقت ندارند."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:266
+msgid "Password"
+msgstr "گذرواژه"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+msgid "Set a Password"
+msgstr "گذرواژه‌ای تنظیم کنید"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+msgid "Be careful not to lose your password."
+msgstr "مراقب باشید گذرواژه‌ی خود را گم نکنید."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Verify"
+msgstr "_تایید"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:81
+msgctxt "Password hint"
+msgid "The new password needs to be different from the old one."
+msgstr "گذرواژه جدید باید با گذرواژه‌ی قبلی تفاوت داشته باشد."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:83
+msgctxt "Password hint"
+msgid "Try changing some letters and numbers."
+msgstr "سعی کنید تعدادی از اعداد و حروف را تغییر دهید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:85
+#: ../gnome-initial-setup/pages/password/pw-utils.c:93
+msgctxt "Password hint"
+msgid "Try changing the password a bit more."
+msgstr "سعی کنید گذواژه را یک مقدار بیشتر تغییر دهید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:87
+msgctxt "Password hint"
+msgid "A password without your user name would be stronger."
+msgstr "یک گذرواژه بدون نام‌کاربری شما قوی‌تر خواهد بود."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:89
+msgctxt "Password hint"
+msgid "Try to avoid using your name in the password."
+msgstr "سعی کنید از استفاده از نام خود در گذرواژه پرهیز کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:91
+msgctxt "Password hint"
+msgid "Try to avoid some of the words included in the password."
+msgstr ""
+"سعی کنید از استفاده از تعدادی از حروف استفاده شده در گذرواژه اجتناب کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:95
+msgctxt "Password hint"
+msgid "Try to avoid common words."
+msgstr "سعی کنید از استفاده از حروف رایج پرهیز کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:97
+msgctxt "Password hint"
+msgid "Try to avoid reordering existing words."
+msgstr "سعی کنید از تغییر چینش حروف موجود پرهیز کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:99
+msgctxt "Password hint"
+msgid "Try to use more numbers."
+msgstr "سعی کنید از اعداد بیشتری استفاده کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:101
+msgctxt "Password hint"
+msgid "Try to use more uppercase letters."
+msgstr "سعی کنید از حروف بزرگ بیشتری استفاده کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:103
+msgctxt "Password hint"
+msgid "Try to use more lowercase letters."
+msgstr "سعی کنید از حروف کوچک بیشتری استفاده کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:105
+msgctxt "Password hint"
+msgid "Try to use more special characters, like punctuation."
+msgstr "سعی کنید از نویسه‌های خاص بیشتری، مثل نشانه‌ها، استفاده کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:107
+msgctxt "Password hint"
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "سعی کنید از تلفیقی از حروف، اعداد و نشانه‌ها استفاده کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:109
+msgctxt "Password hint"
+msgid "Try to avoid repeating the same character."
+msgstr "سعی کنید از تکرار یک نوع نویسه خودداری کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+msgctxt "Password hint"
+msgid ""
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
+msgstr ""
+"سعی کنید از تکرار یک نوع نویسه خودداری کنید. شما لازم است حروف، اعداد و "
+"نشانه‌ها را با هم تلفیق کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:113
+msgctxt "Password hint"
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "سعی کنید از رشته‌هایی مثل ۱۲۳۴ و abcd اجتناب کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:115
+msgctxt "Password hint"
+msgid "Try to add more letters, numbers and symbols."
+msgstr "سعی کنید حروف، اعداد و نشانه‌های بیشتری بکار ببرید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:117
+msgctxt "Password hint"
+msgid "Mix uppercase and lowercase and use a number or two."
+msgstr "حروف بزرگ و کوچک، همراه با یک یا دو عدد را با هم تلفیق کنید."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+msgctxt "Password hint"
+msgid ""
+"Good password! Adding more letters, numbers and punctuation will make it "
+"stronger."
+msgstr ""
+"گذرواژه‌ی خوبی است! اضافه کردن حروف بیشتر، اعداد و نشانه‌ها آن را قوی‌تر می‌کند."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:141
+msgctxt "Password strength"
+msgid "Strength: Weak"
+msgstr "قدرت: ضعیف"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:145
+msgctxt "Password strength"
+msgid "Strength: Low"
+msgstr "قدرت: کم"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:148
+msgctxt "Password strength"
+msgid "Strength: Medium"
+msgstr "قدرت: معمولی"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:151
+msgctxt "Password strength"
+msgid "Strength: Good"
+msgstr "قدرت: خوب"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:154
+msgctxt "Password strength"
+msgid "Strength: High"
+msgstr "قدرت: بالا"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
+msgid "No regions found"
+msgstr "هیچ ناحیه ای پیدا نشد"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
+msgid "Region"
+msgstr "ناحیه"
+
+#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
+msgid "Choose your country or region."
+msgstr "کشور یا ناحیه‌ی خود را انتخاب کنید."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
-#| msgid "_Start using GNOME 3"
 msgid "_Start using %s"
 msgstr "_شروع به استفاده از %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:375
-msgid "Thank You"
-msgstr "متشکریم"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
+#, c-format
+msgid ""
+"Thank you for choosing %s.\n"
+"We hope that you love it."
+msgstr ""
+"برای انتخاب %s از شما ممنون هستیم\n"
+"امیدواریم دوستش داشته باشید."
+
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
+msgid "Ready to Go"
+msgstr "آماده برای حرکت"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "رایانه شما آماده استفاده است."
+msgid "You're all set!"
+msgstr "تماماً تنظیم‌اید!"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
-msgstr "شما می‌توانید این گزینه‌ها را در هر زمانی در تنظیمات سیستم تغییر دهید."
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:184
+#, c-format
+msgid ""
+"We think that your time zone is %s. Press Next to continue or search for a "
+"city to manually set the time zone."
+msgstr ""
+"ما فکر می‌کنیم منطقه زمانی شما %s باشد. برای ادامه «بعدی» را انتخاب کنید یا "
+"یک شهر جست‌وجو کنید تا منطقه زمانی را به‌طور خودکار تغییر دهید."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:3
-msgid "_Start using GNOME 3"
-msgstr "_شروع به استفاده از گنوم ۳"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:495
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+msgid "Time Zone"
+msgstr "منظقه‌ی زمانی"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid "Please search for a nearby city"
+msgstr "لطفاً یک شهر نزدیک را جست‌وجو کنید"
+
+#~ msgid "Your username cannot be changed after setup."
+#~ msgstr "نام کاربری شما نمی‌تواند پس از راه‌اندازی عوض شود."
+
+#~ msgid "No password"
+#~ msgstr "بدون گذرواژه"
+
+#~ msgid "_Confirm password"
+#~ msgstr "_تأیید گذرواژه"
+
+#~| msgid "No password"
+#~ msgid "Choose a _password"
+#~ msgstr "_گذرواژه‌ای انتخاب کنید"
+
+#~ msgctxt "Password strength"
+#~ msgid "Too short"
+#~ msgstr "خیلی کوتاه"
+
+#~ msgctxt "Password strength"
+#~ msgid "Not good enough"
+#~ msgstr "به اندازه کافی مناسب نیست"
+
+#~ msgctxt "Password strength"
+#~ msgid "Weak"
+#~ msgstr "ضعیف"
+
+#~ msgctxt "Password strength"
+#~ msgid "Fair"
+#~ msgstr "نسبتاً خوب"
+
+#~ msgctxt "Password strength"
+#~ msgid "Good"
+#~ msgstr "خوب"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strong"
+#~ msgstr "قوی"
+
+#~ msgid "Login"
+#~ msgstr "ورود به سیستم"
+
+#~ msgid "Create a Local Account"
+#~ msgstr "ساخت یک حساب محلی"
+
+#~ msgid "page 1"
+#~ msgstr "صفحه ۱"
+
+#~ msgid "Create an Enterprise Account"
+#~ msgstr "ساخت یک حساب تجاری"
+
+#~| msgctxt "Wireless access point"
+#~| msgid "Other…"
+#~ msgctxt "Online Account"
+#~ msgid "Other"
+#~ msgstr "موارد دیگر"
+
+#~ msgid "Mail"
+#~ msgstr "پست‌الکترونیکی"
+
+#~ msgid "Contacts"
+#~ msgstr "آشناها"
+
+#~ msgid "Chat"
+#~ msgstr "گپ"
+
+#~ msgid "Resources"
+#~ msgstr "منابع"
+
+#~ msgid "Error creating account"
+#~ msgstr "خطا در ساخت حساب"
+
+#~ msgid "Error removing account"
+#~ msgstr "خطا در حذف حساب"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "آیا مطمئنید که می‌خواهید این حساب را حذف کنید؟"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "این کار حساب شما را بر روی کارگزار حذف نمی‌کند."
+
+#~ msgid "_Remove"
+#~ msgstr "_حذف"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "به اطلاعات موجود خود در ابرها متصل شوید"
+
+#~| msgid "Add Account"
+#~ msgid "_Add Account"
+#~ msgstr "اضافه کردن _حساب"
+
+#~| msgctxt "Wireless access point"
+#~| msgid "Other…"
+#~ msgid "Other"
+#~ msgstr "موارد دیگر"
+
+#~| msgid "Add Input Source"
+#~ msgid "Input Sources"
+#~ msgstr "منابع ورودی"
+
+#~| msgid "Add Input Source"
+#~ msgid "Add an Input Source"
+#~ msgstr "اضافه کردن یک منبع ورودی"
+
+#~ msgid "Search for a location"
+#~ msgstr "جستجو برای یک مکان"
+
+#~ msgid "Location"
+#~ msgstr "مکان"
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "مکان خود را خودکار _تشخیص دهید"
+
+#~ msgid "No network devices found."
+#~ msgstr "هیچ دستگاه شبکه‌ای یافت نشد."
+
+#~ msgid "Wireless Networks"
+#~ msgstr "شبکه‌های بی‌سیم"
+
+#~ msgid "Thank You"
+#~ msgstr "متشکریم"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "رایانه شما آماده استفاده است."
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr ""
+#~ "شما می‌توانید این گزینه‌ها را در هر زمانی در تنظیمات سیستم تغییر دهید."
+
+#~ msgid "_Start using GNOME 3"
+#~ msgstr "_شروع به استفاده از گنوم ۳"
 
 #~ msgid "_Back"
 #~ msgstr "_قبلی"
@@ -455,12 +697,6 @@ msgstr "_شروع به استفاده از گنوم ۳"
 
 #~ msgid "Choose How to Login"
 #~ msgstr "چگونگی ورود به سیستم را انتخاب کنید"
-
-#~ msgid "Disable image"
-#~ msgstr "غیرفعال‌کردن عکس"
-
-#~ msgid "Take a photo..."
-#~ msgstr "یک عکس بگیرید"
 
 #~ msgid "Remove"
 #~ msgstr "حذف"
