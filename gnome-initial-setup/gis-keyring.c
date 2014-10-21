@@ -29,6 +29,8 @@
 
 #include <libsecret/secret.h>
 
+#define DUMMY_PWD "gis"
+
 /* We never want to see a keyring dialog, but we need to make
  * sure a keyring is present.
  *
@@ -38,7 +40,7 @@
  */
 
 void
-gis_ensure_login_keyring (const gchar *pwd)
+gis_ensure_login_keyring ()
 {
 	GSubprocess *subprocess = NULL;
 	GSubprocessLauncher *launcher = NULL;
@@ -53,7 +55,7 @@ gis_ensure_login_keyring (const gchar *pwd)
 		goto out;
 	}
 
-	if (!g_subprocess_communicate_utf8 (subprocess, "gis", NULL, NULL, NULL, &error)) {
+	if (!g_subprocess_communicate_utf8 (subprocess, DUMMY_PWD, NULL, NULL, NULL, &error)) {
 		g_warning ("Failed to communicate with gnome-keyring-daemon: %s", error->message);
 		g_error_free (error);
 		goto out;
@@ -67,7 +69,7 @@ out:
 }
 
 void
-gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
+gis_update_login_keyring_password (const gchar *new_)
 {
 	GDBusConnection *bus = NULL;
 	SecretService *service = NULL;
@@ -89,7 +91,7 @@ gis_update_login_keyring_password (const gchar *old_, const gchar *new_)
 		goto out;
 	}
 
-	old_secret = secret_value_new (old_, strlen (old_), "text/plain");
+	old_secret = secret_value_new (DUMMY_PWD, strlen (DUMMY_PWD), "text/plain");
 	new_secret = secret_value_new (new_, strlen (new_), "text/plain");
 
 	g_dbus_connection_call_sync (bus,

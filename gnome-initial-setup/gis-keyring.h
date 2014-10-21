@@ -27,9 +27,8 @@
 
 G_BEGIN_DECLS
 
-void	gis_ensure_login_keyring	  (const gchar *pwd);
-void	gis_update_login_keyring_password (const gchar *old_,
-					   const gchar *new_);
+void	gis_ensure_login_keyring	  ();
+void	gis_update_login_keyring_password (const gchar *new_);
 
 G_END_DECLS
 
