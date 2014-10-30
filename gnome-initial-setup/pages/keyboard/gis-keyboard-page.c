@@ -90,6 +90,9 @@ set_localed_input (GisKeyboardPage *self)
 	GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 	const gchar *layout, *variant;
 
+        if (!priv->localed)
+                return;
+
 	cc_input_chooser_get_layout (CC_INPUT_CHOOSER (priv->input_chooser), &layout, &variant);
 
         g_dbus_proxy_call (priv->localed,
@@ -149,6 +152,17 @@ gis_keyboard_page_apply (GisPage      *page,
 }
 
 static void
+update_page_complete (GisKeyboardPage *self)
+{
+        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
+        gboolean complete;
+
+        complete = (priv->localed != NULL &&
+                    cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL);
+        gis_page_set_complete (GIS_PAGE (self), complete);
+}
+
+static void
 localed_proxy_ready (GObject      *source,
 		     GAsyncResult *res,
 		     gpointer      data)
@@ -168,6 +182,8 @@ localed_proxy_ready (GObject      *source,
 	}
 
 	priv->localed = proxy;
+
+        update_page_complete (self);
 }
 
 static void
@@ -175,16 +191,6 @@ input_confirmed (CcInputChooser  *chooser,
                  GisKeyboardPage *self)
 {
         gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (self)->driver));
-}
-
-static void
-update_page_complete (GisKeyboardPage *self)
-{
-        GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        gboolean complete;
-
-        complete = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL;
-        gis_page_set_complete (GIS_PAGE (self), complete);
 }
 
 static void
