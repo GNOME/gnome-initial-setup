@@ -45,6 +45,8 @@ struct _GisKeyboardPagePrivate {
 	GCancellable *cancellable;
 	GPermission *permission;
         GSettings *input_settings;
+
+        GSList *system_sources;
 };
 typedef struct _GisKeyboardPagePrivate GisKeyboardPagePrivate;
 
@@ -64,6 +66,8 @@ gis_keyboard_page_finalize (GObject *object)
 	g_clear_object (&priv->localed);
 	g_clear_object (&priv->input_settings);
 
+        g_slist_free_full (priv->system_sources, g_free);
+
 	G_OBJECT_CLASS (gis_keyboard_page_parent_class)->finalize (object);
 }
 
@@ -71,12 +75,25 @@ static void
 set_input_settings (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
+        const gchar *type;
+        const gchar *id;
         GVariantBuilder builder;
+        GSList *l;
+
+        type = cc_input_chooser_get_input_type (CC_INPUT_CHOOSER (priv->input_chooser));
+        id = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser));
 
         g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
-	g_variant_builder_add (&builder, "(ss)",
-		cc_input_chooser_get_input_type (CC_INPUT_CHOOSER (priv->input_chooser)),
-		cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)));
+	g_variant_builder_add (&builder, "(ss)", type, id);
+
+        for (l = priv->system_sources; l; l = l->next) {
+                const gchar *sid = l->data;
+
+                if (g_str_equal (id, sid) && g_str_equal (type, "xkb"))
+                        continue;
+
+                g_variant_builder_add (&builder, "(ss)", "xkb", sid);
+        }
 
 	g_settings_set_value (priv->input_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
 	g_settings_set_uint (priv->input_settings, KEY_CURRENT_INPUT_SOURCE, 0);
@@ -89,17 +106,49 @@ set_localed_input (GisKeyboardPage *self)
 {
 	GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 	const gchar *layout, *variant;
+        GString *layouts;
+        GString *variants;
+        GSList *l;
 
         if (!priv->localed)
                 return;
 
 	cc_input_chooser_get_layout (CC_INPUT_CHOOSER (priv->input_chooser), &layout, &variant);
+        if (layout == NULL)
+                layout = "";
+        if (variant == NULL)
+                variant = "";
+
+        layouts = g_string_new (layout);
+        variants = g_string_new (variant);
+
+#define LAYOUT(a) (a[0])
+#define VARIANT(a) (a[1] ? a[1] : "")
+        for (l = priv->system_sources; l; l = l->next) {
+                const gchar *sid = l->data;
+                gchar **lv = g_strsplit (sid, "+", -1);
+
+                if (!g_str_equal (LAYOUT (lv), layout) ||
+                    !g_str_equal (VARIANT (lv), variant)) {
+                        if (layouts->str[0]) {
+                                g_string_append_c (layouts, ',');
+                                g_string_append_c (variants, ',');
+                        }
+                        g_string_append (layouts, LAYOUT (lv));
+                        g_string_append (variants, VARIANT (lv));
+                }
+                g_strfreev (lv);
+        }
+#undef LAYOUT
+#undef VARIANT
 
         g_dbus_proxy_call (priv->localed,
                            "SetX11Keyboard",
-                           g_variant_new ("(ssssbb)", layout, "", variant, "", TRUE, TRUE),
+                           g_variant_new ("(ssssbb)", layouts->str, "", variants->str, "", TRUE, TRUE),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1, NULL, NULL, NULL);
+        g_string_free (layouts, TRUE);
+        g_string_free (variants, TRUE);
 }
 
 static void
@@ -152,6 +201,66 @@ gis_keyboard_page_apply (GisPage      *page,
 }
 
 static void
+load_localed_input (GisKeyboardPage *self)
+{
+	GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
+        GVariant *v;
+        const gchar *s;
+        gchar *id;
+        guint i, n;
+        gchar **layouts = NULL;
+        gchar **variants = NULL;
+        GSList *sources = NULL;
+
+        if (!priv->localed)
+                return;
+
+        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Layout");
+        if (v) {
+                s = g_variant_get_string (v, NULL);
+                layouts = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
+
+        v = g_dbus_proxy_get_cached_property (priv->localed, "X11Variant");
+        if (v) {
+                s = g_variant_get_string (v, NULL);
+                if (s && *s)
+                        variants = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
+
+        if (variants && variants[0])
+                n = MIN (g_strv_length (layouts), g_strv_length (variants));
+        else if (layouts && layouts[0])
+                n = g_strv_length (layouts);
+        else
+                n = 0;
+
+        for (i = 0; i < n && layouts[i][0]; i++) {
+                if (variants && variants[i] && variants[i][0])
+                        id = g_strdup_printf ("%s+%s", layouts[i], variants[i]);
+                else
+                        id = g_strdup (layouts[i]);
+                sources = g_slist_prepend (sources, id);
+        }
+
+        g_strfreev (variants);
+        g_strfreev (layouts);
+
+        /* These will be added silently after the user selection when
+         * writing out the settings. */
+        g_slist_free_full (priv->system_sources, g_free);
+        priv->system_sources = g_slist_reverse (sources);
+
+        /* We only pre-select the first system layout. */
+        if (priv->system_sources)
+                cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
+                                            (const gchar *) priv->system_sources->data,
+                                            "xkb");
+}
+
+static void
 update_page_complete (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
@@ -183,6 +292,7 @@ localed_proxy_ready (GObject      *source,
 
 	priv->localed = proxy;
 
+        load_localed_input (self);
         update_page_complete (self);
 }
 
