@@ -45,7 +45,7 @@
 #define INPUT_SOURCE_TYPE_XKB "xkb"
 #define INPUT_SOURCE_TYPE_IBUS "ibus"
 
-#define MIN_ROWS 6
+#define MIN_ROWS 5
 
 struct _CcInputChooserPrivate
 {
@@ -274,6 +274,9 @@ sync_checkmark (GtkWidget *row,
 	else
 	        should_be_visible = g_strcmp0 (widget->id, priv->id) == 0 && g_strcmp0 (widget->type, priv->type) == 0;
         gtk_widget_set_opacity (widget->checkmark, should_be_visible ? 1.0 : 0.0);
+
+        if (widget->is_extra && should_be_visible)
+                widget->is_extra = FALSE;
 }
 
 static void
@@ -283,6 +286,7 @@ sync_all_checkmarks (CcInputChooser *chooser)
 
         gtk_container_foreach (GTK_CONTAINER (priv->input_list),
                                sync_checkmark, chooser);
+        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->input_list));
 }
 
 static GtkWidget *
