@@ -106,11 +106,11 @@ set_mode (GisAccountPage *page,
     {
     case UM_LOCAL:
       gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_local);
-      gis_account_page_local_shown (priv->page_local);
+      gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
       break;
     case UM_ENTERPRISE:
       gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_enterprise);
-      gis_account_page_enterprise_shown (priv->page_enterprise);
+      gis_account_page_enterprise_shown (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise));
       break;
     default:
       g_assert_not_reached ();
