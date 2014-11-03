@@ -98,14 +98,21 @@ prepare_main_window (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkGeometry size_hints;
 
-  size_hints.min_width = 1024;
-  size_hints.min_height = 768;
-  size_hints.win_gravity = GDK_GRAVITY_CENTER;
+  if (gis_driver_is_small_screen (driver))
+    {
+      gtk_window_maximize (priv->main_window);
+    }
+  else
+    {
+      size_hints.min_width = 1024;
+      size_hints.min_height = 768;
+      size_hints.win_gravity = GDK_GRAVITY_CENTER;
 
-  gtk_window_set_geometry_hints (priv->main_window,
-                                 NULL,
-                                 &size_hints,
-                                 GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
+      gtk_window_set_geometry_hints (priv->main_window,
+                                     NULL,
+                                     &size_hints,
+                                     GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
+    }
 
   gtk_window_set_titlebar (priv->main_window,
                            gis_assistant_get_titlebar (priv->assistant));
