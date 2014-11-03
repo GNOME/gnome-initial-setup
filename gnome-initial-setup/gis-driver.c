@@ -203,6 +203,19 @@ gis_driver_get_mode (GisDriver *driver)
   return priv->mode;
 }
 
+gboolean
+gis_driver_is_small_screen (GisDriver *driver)
+{
+  GdkScreen *screen;
+
+  screen = gdk_screen_get_default ();
+
+  if (g_getenv ("GIS_SMALL_SCREEN"))
+    return TRUE;
+
+  return gdk_screen_get_height (screen) < 800;
+}
+
 static void
 gis_driver_get_property (GObject      *object,
                          guint         prop_id,
