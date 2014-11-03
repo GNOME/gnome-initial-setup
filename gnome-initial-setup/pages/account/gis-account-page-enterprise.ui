@@ -2,6 +2,7 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <template class="GisAccountPageEnterprise" parent="GtkBin">
+    <signal name="hierarchy-changed" handler="gis_account_page_enterprise_hierarchy_changed"/>
     <child>
       <object class="GtkBox" id="area">
         <property name="visible">True</property>
@@ -10,7 +11,7 @@
         <property name="halign">center</property>
         <property name="valign">fill</property>
         <child>
-          <object class="GtkImage" id="image1">
+          <object class="GtkImage" id="image">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="pixel_size">96</property>

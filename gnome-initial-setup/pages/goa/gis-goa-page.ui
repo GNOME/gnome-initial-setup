@@ -12,6 +12,7 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkImage" id="image1">
+            <property name="visible" bind-source="GisGoaPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="pixel_size">96</property>

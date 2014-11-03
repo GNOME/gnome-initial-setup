@@ -105,11 +105,11 @@ set_mode (GisAccountPage *page,
   switch (mode)
     {
     case UM_LOCAL:
-      gtk_stack_set_visible_child (priv->stack, priv->page_local);
+      gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_local);
       gis_account_page_local_shown (priv->page_local);
       break;
     case UM_ENTERPRISE:
-      gtk_stack_set_visible_child (priv->stack, priv->page_enterprise);
+      gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_enterprise);
       gis_account_page_enterprise_shown (priv->page_enterprise);
       break;
     default:

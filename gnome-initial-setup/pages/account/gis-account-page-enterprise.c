@@ -45,6 +45,7 @@ static void        on_realm_joined     (GObject *source,
 
 struct _GisAccountPageEnterprisePrivate
 {
+  GtkWidget *image;
   GtkWidget *login;
   GtkWidget *password;
   GtkWidget *domain;
@@ -737,6 +738,19 @@ on_entry_changed (GtkEditable *editable,
 }
 
 static void
+gis_account_page_enterprise_hierarchy_changed (GtkWidget *widget,
+                                               GtkWidget *previous_toplevel)
+{
+  GisAccountPageEnterprise *page = GIS_ACCOUNT_PAGE_ENTERPRISE (widget);
+  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
+  GtkWidget *gis_page;
+
+  gis_page = gtk_widget_get_ancestor (widget, GIS_TYPE_PAGE);
+  if (gis_driver_is_small_screen (GIS_PAGE (gis_page)->driver))
+    gtk_widget_hide (priv->image);
+}
+
+static void
 gis_account_page_enterprise_constructed (GObject *object)
 {
   GisAccountPageEnterprise *page = GIS_ACCOUNT_PAGE_ENTERPRISE (object);
@@ -794,12 +808,15 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, realms_model);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, image);
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_dialog);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_name);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_password);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_domain);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_computer);
+
+  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), gis_account_page_enterprise_hierarchy_changed);
 
   signals[VALIDATION_CHANGED] = g_signal_new ("validation-changed", GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE,
                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
