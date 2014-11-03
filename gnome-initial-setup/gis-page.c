@@ -52,6 +52,7 @@ enum
   PROP_SKIPPABLE,
   PROP_NEEDS_ACCEPT,
   PROP_APPLYING,
+  PROP_SMALL_SCREEN,
   PROP_LAST,
 };
 
@@ -84,6 +85,9 @@ gis_page_get_property (GObject    *object,
       break;
     case PROP_APPLYING:
       g_value_set_boolean (value, gis_page_get_applying (page));
+      break;
+    case PROP_SMALL_SCREEN:
+      g_value_set_boolean (value, gis_driver_is_small_screen (page->driver));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -158,6 +162,7 @@ gis_page_constructed (GObject *object)
   gis_page_locale_changed (page);
 
   G_OBJECT_CLASS (gis_page_parent_class)->constructed (object);
+
 }
 
 static gboolean
@@ -197,6 +202,9 @@ gis_page_class_init (GisPageClass *klass)
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_APPLYING] =
     g_param_spec_boolean ("applying", "", "", FALSE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
+  obj_props[PROP_SMALL_SCREEN] =
+    g_param_spec_boolean ("small-screen", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
