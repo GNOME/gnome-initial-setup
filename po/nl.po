@@ -1,46 +1,50 @@
 # Dutch translation for gnome-initial-setup.
 # This file is distributed under the same license as the gnome-initial-setup package.
+# enterprise login - Hannie: enterprise-aanmelding vervangen door bedrijfsaanmelding
 # brentx <deweerdt.brent@gmail.com>, 2013.
 # Reinout van Schouwen <reinouts@gnome.org>, 2013, 2014.
 # Wouter Bolsterlee <wbolster@gnome.org>, 2013.
 # Erwin Poeze <donnut@outlook.com>, 2013.
+# Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-20 23:34+0200\n"
-"PO-Revision-Date: 2014-04-20 23:37+0200\n"
-"Last-Translator: Reinout van Schouwen <reinouts@gnome.org>\n"
-"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-11-04 07:43+0000\n"
+"PO-Revision-Date: 2014-11-05 18:06+0100\n"
+"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Lokalize 1.5\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Instellingen voor eerste gebruik"
 
-#: ../gnome-initial-setup/gis-assistant.c:377
+#: ../gnome-initial-setup/gis-assistant.c:384
 msgid "_Next"
 msgstr "V_olgende"
 
-#: ../gnome-initial-setup/gis-assistant.c:378
+#: ../gnome-initial-setup/gis-assistant.c:385
 msgid "_Accept"
 msgstr "_Accepteren"
 
-#: ../gnome-initial-setup/gis-assistant.c:379
+#: ../gnome-initial-setup/gis-assistant.c:386
 msgid "_Skip"
 msgstr "_Overslaan"
 
-#: ../gnome-initial-setup/gis-assistant.c:380
+#: ../gnome-initial-setup/gis-assistant.c:387
 msgid "_Previous"
 msgstr "_Vorige"
 
-#: ../gnome-initial-setup/gis-assistant.c:381
+#: ../gnome-initial-setup/gis-assistant.c:388
 msgid "_Cancel"
 msgstr "_Annuleren"
 
@@ -52,76 +56,62 @@ msgstr "Modus voor nieuwe gebruiker forceren"
 msgid "- GNOME initial setup"
 msgstr "– Instellingen voor eerste gebruik van Gnome"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:1
 msgid "About You"
 msgstr "Over u"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:180
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "Registreren van account is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:374
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "Authenticatie met dit domein is niet ondersteund"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:414
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "Lid worden van domein is mislukt"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.c:482
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "Aanmelden bij domein is mislukt"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:1
 msgid "Enterprise Login"
-msgstr "Enterprise-aanmelding"
+msgstr "Bedrijfsaanmelding"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device."
 msgstr ""
-"Met Enterprise-aanmelding kunt u een bestaande, centraal beheerde "
+"Met Bedrijfsaanmelding kunt u een bestaande, centraal beheerde "
 "gebruikersaccount gebruiken op dit apparaat."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
 msgstr "_Domein"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:4
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:4
 msgid "_Username"
 msgstr "_Gebruikersnaam"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:6
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
 msgid "_Password"
 msgstr "_Wachtwoord"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:6
 msgid "Enterprise domain or realm name"
 msgstr "Bedrijfsdomein– of realmnaam"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:7
 msgid "C_ontinue"
 msgstr "_Verder"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:8
 msgid "Domain Administrator Login"
 msgstr "Aanmelden domeinbeheerder"
 
@@ -136,45 +126,38 @@ msgstr ""
 "kies een unieke naam voor uw computer."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
 msgstr "_Computer"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:11
 msgid "Administrator _Name"
 msgstr "_Naam beheerder"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:12
 msgid "Administrator Password"
 msgstr "_Wachtwoord beheerder"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:198
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Are these the right details? You can change them if you want."
-msgstr "Zijn dit de juiste details? U kunt ze desgewenst wijzigen."
+msgstr "Zijn dit de juiste gegevens? U kunt ze desgewenst wijzigen."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:347
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:2
 msgid "We need a few details to complete setup."
-msgstr "We hebben een paar details nodig om het instellen te voltooien."
+msgstr "We hebben wat gegevens nodig om het instellen te voltooien."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
 msgid "Avatar image"
 msgstr "Avatar-afbeelding"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:3
 msgid "_Full Name"
 msgstr "_Volledige naam"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:6
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:5
-msgid "Your username cannot be changed after setup."
-msgstr ""
-"Uw gebruikersnaam kan niet worden gewijzigd nadat de instellingen zijn "
-"voltooid."
+#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+#| msgid "Enterprise Login"
+msgid "Set Up _Enterprise Login"
+msgstr "Instellen Bedrijfsaanmelding"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
@@ -185,64 +168,64 @@ msgid "Take a photo..."
 msgstr "Een foto nemen…"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:351
 msgid "Cannot automatically join this type of domain"
 msgstr "Automatisch aanmelden bij dit type domein is niet mogelijk"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:414
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Dergelijk domein of realm niet gevonden"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:821
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:835
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Aanmelden als %s bij domein %s is mislukt"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:827
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "Onjuist wachtwoord; probeer het nogmaals"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
-#: ../gnome-initial-setup/pages/password/um-realm-manager.c:840
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Verbinding maken met het domein %s is mislukt: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:236
-#: ../gnome-initial-setup/pages/password/um-utils.c:148
+#: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists"
-msgstr "Een gebruiker met de gebruikersnaam ‘%s’ bestaat al"
+#| msgid "A user with the username '%s' already exists"
+msgid "A user with the username '%s' already exists."
+msgstr "Een gebruiker met de gebruikersnaam ‘%s’ bestaat al."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:240
-#: ../gnome-initial-setup/pages/password/um-utils.c:152
+#: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-msgid "The username is too long"
-msgstr "De gebruikersnaam is te lang"
+#| msgid "The username is too long"
+msgid "The username is too long."
+msgstr "De gebruikersnaam is te lang."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:243
-#: ../gnome-initial-setup/pages/password/um-utils.c:155
-msgid "The username cannot start with a '-'"
-msgstr "De gebruikersnaam kan niet beginnen met een ‘-’"
+#: ../gnome-initial-setup/pages/account/um-utils.c:252
+#| msgid "The username cannot start with a '-'"
+msgid "The username cannot start with a '-'."
+msgstr "De gebruikersnaam kan niet beginnen met een ‘-’."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:246
-#: ../gnome-initial-setup/pages/password/um-utils.c:158
+#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#| msgid ""
+#| "The username must only consist of:\n"
+#| " ➣ letters from the English alphabet\n"
+#| " ➣ digits\n"
+#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
-"The username must only consist of:\n"
-" ➣ letters from the English alphabet\n"
-" ➣ digits\n"
-" ➣ any of the characters '.', '-' and '_'"
+"The username should only consist of lower and upper case letters from a-z, "
+"digits and any of characters '.', '-' and '_'."
 msgstr ""
-"De gebruikersnaam mag alleen maar bestaan uit:\n"
-" ➣ letters uit het Latijnse alfabet\n"
-" ➣ cijfers\n"
-" ➣ de tekens ‘.’, ‘-’ en ‘_’"
+"De gebruikersnaam mag alleen maar bestaan uit hoofdletters en kleine letters "
+"van a t/m z, cijfers, en de tekens ‘.’, ‘-’ en ‘_’."
+
+#: ../gnome-initial-setup/pages/account/um-utils.c:259
+msgid "This will be used to name your home folder and can't be changed."
+msgstr ""
+"Dit zal worden gebruikt als naam van uw thuismap en kan niet worden "
+"gewijzigd."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
@@ -255,7 +238,7 @@ msgid ""
 "agreement."
 msgstr ""
 "Ik ga akkoord met de voorwaarden en bepalingen in deze "
-"gebruiksrechtovereenkomst."
+"licentieovereenkomst voor eindgebruikers."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
@@ -286,37 +269,37 @@ msgid "You can review your online accounts (and add others) after setup."
 msgstr ""
 "U kunt uw online-accounts bekijken (en andere toevoegen) na het instellen."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:290
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Meer…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
 msgid "No inputs found"
 msgstr "Geen invoer gevonden"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:355
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Typen"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
 msgid "Select your keyboard layout or an input method."
-msgstr "Selecteer uw toetsenbordindeling of een invoermethode."
+msgstr "Uw toetsenbordindeling of een invoermethode selecteren."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
 msgid "No languages found"
 msgstr "Geen talen gevonden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
 msgid "Welcome"
 msgstr "Welkom"
 
@@ -355,48 +338,12 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Geen draadloos netwerk beschikbaar"
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-enterprise.ui.h:9
-msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in the "
-"domain. Please have your network administrator type their domain password "
-"here, and choose a unique computer name for your computer."
-msgstr ""
-"Om bedrijfsaanmeldingen te gebruiken moet deze computer ingeschreven zijn "
-"bij het domein. Laat uw netwerkbeheerder hier het domeinwachtwoord invoeren "
-"en kies een unieke naam voor uw computer."
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#| msgid "Passwords do not match"
+msgid "The passwords do not match."
+msgstr "Wachtwoorden komen niet overeen."
 
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:175
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:121
-msgid "No password"
-msgstr "Geen wachtwoord"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:180
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:272
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:126
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:212
-msgid "Passwords do not match"
-msgstr "Wachtwoorden komen niet overeen"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.c:219
-#, c-format
-msgid "Strength: %s"
-msgstr "Sterkte: %s"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:7
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Confirm password"
-msgstr "Wachtwoord _bevestigen"
-
-#: ../gnome-initial-setup/pages/password/gis-account-page-local.ui.h:8
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:5
-msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
-msgstr ""
-"Probeer tenminste acht verschillende tekens te gebruiken. Meng hoofd– en "
-"kleine letters en gebruik een paar getallen."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:269
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -408,45 +355,156 @@ msgstr "Wachtwoord instellen"
 msgid "Be careful not to lose your password."
 msgstr "Zorg ervoor dat u uw wachtwoord niet verliest."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
-msgid "Choose a _password"
-msgstr "Kies een _wachtwoord"
+#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+msgid "_Verify"
+msgstr "_Verifiëren"
 
+#: ../gnome-initial-setup/pages/password/pw-utils.c:81
+msgctxt "Password hint"
+msgid "The new password needs to be different from the old one."
+msgstr "Het nieuwe wachtwoord mag niet hetzelfde zijn als het oude."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:83
+msgctxt "Password hint"
+msgid "Try changing some letters and numbers."
+msgstr "Probeer een paar letters en cijfers te wijzigen."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "Te kort"
+msgctxt "Password hint"
+msgid "Try changing the password a bit more."
+msgstr "Probeer het wachtwoord wat meer te wijzigen."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:98
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "Niet goed genoeg"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:87
+msgctxt "Password hint"
+msgid "A password without your user name would be stronger."
+msgstr "Een wachtwoord zonder uw gebruikersnaam zou sterker zijn."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:89
+msgctxt "Password hint"
+msgid "Try to avoid using your name in the password."
+msgstr "Probeer het gebruik van uw naam in het wachtwoord te vermijden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:91
+msgctxt "Password hint"
+msgid "Try to avoid some of the words included in the password."
+msgstr ""
+"Probeer enkele van de woorden die in het wachtwoord voorkomen te vermijden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:95
+msgctxt "Password hint"
+msgid "Try to avoid common words."
+msgstr "Probeer algemene woorden te vermijden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:97
+msgctxt "Password hint"
+msgid "Try to avoid reordering existing words."
+msgstr "Probeer het herschikken van bestaande woorden te vermijden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:99
+msgctxt "Password hint"
+msgid "Try to use more numbers."
+msgstr "Probeer meer cijfers te gebruiken."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:101
+msgctxt "Password hint"
+msgid "Try to use more uppercase letters."
+msgstr "Probeer meer hoofdletters te gebruiken."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:103
+msgctxt "Password hint"
+msgid "Try to use more lowercase letters."
+msgstr "Probeer meer  kleine letters te gebruiken."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:105
+msgctxt "Password hint"
+msgid "Try to use more special characters, like punctuation."
+msgstr "Probeer meer speciale tekens, zoals leestekens, te gebruiken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "Zwak"
+msgctxt "Password hint"
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr ""
+"Probeer een combinatie van letters, cijfers en leestekens te gebruiken."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:110
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "Redelijk"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:109
+msgctxt "Password hint"
+msgid "Try to avoid repeating the same character."
+msgstr "Probeer herhaling van hetzelfde teken te vermijden."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+msgctxt "Password hint"
+msgid ""
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
+msgstr ""
+"Probeer herhaling van hetzelfde soort teken te vermijden: u dient letters, "
+"cijfers "
+"en leestekens met elkaar te combineren."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-msgctxt "Password strength"
-msgid "Good"
-msgstr "Goed"
+msgctxt "Password hint"
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Probeer reeksen zoals 1234 of abcd te vermijden."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:116
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "Sterk"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:115
+msgctxt "Password hint"
+msgid "Try to add more letters, numbers and symbols."
+msgstr "Probeer meer letters, cijfers en speciale tekens toe te voegen."
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+#: ../gnome-initial-setup/pages/password/pw-utils.c:117
+#| msgid ""
+#| "Try to use at least 8 different characters. Mix upper and lower case and "
+#| "use a number or two."
+msgctxt "Password hint"
+msgid "Mix uppercase and lowercase and use a number or two."
+msgstr "Meng hoofdletters en kleine letters en gebruik een paar cijfers."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+msgctxt "Password hint"
+msgid ""
+"Good password! Adding more letters, numbers and punctuation will make it "
+"stronger."
+msgstr ""
+"Goed wachtwoord! Het toevoegen van meer letters, cijfers en leestekens zal "
+"het "
+"nog sterker maken."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:141
+#| msgid "Strength: %s"
+msgctxt "Password strength"
+msgid "Strength: Weak"
+msgstr "Sterkte: Zwak"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:145
+#| msgid "Strength: %s"
+msgctxt "Password strength"
+msgid "Strength: Low"
+msgstr "Sterkte: Laag"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:148
+#| msgid "Strength: %s"
+msgctxt "Password strength"
+msgid "Strength: Medium"
+msgstr "Sterkte: Middelsterk"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:151
+#| msgid "Strength: %s"
+msgctxt "Password strength"
+msgid "Strength: Good"
+msgstr "Sterkte: Goed"
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:154
+#| msgid "Strength: %s"
+msgctxt "Password strength"
+msgid "Strength: High"
+msgstr "Sterkte: Hoog"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
 msgstr "Geen regio's gevonden"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
 msgid "Region"
 msgstr "Regio"
@@ -458,7 +516,7 @@ msgstr "Kies uw land of regio."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
 #, c-format
 msgid "_Start using %s"
 msgstr "_Beginnen met %s"
@@ -466,7 +524,7 @@ msgstr "_Beginnen met %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
 #, c-format
 msgid ""
 "Thank you for choosing %s.\n"
@@ -475,7 +533,7 @@ msgstr ""
 "Bedankt dat u voor %s gekozen heeft.\n"
 "We hopen dat het u bevalt."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
 msgid "Ready to Go"
 msgstr "Klaar om verder te gaan"
 
@@ -501,16 +559,58 @@ msgstr "Tijdzone"
 msgid "Please search for a nearby city"
 msgstr "Zoek de dichtstbijgelegen stad"
 
+#~ msgid "Your username cannot be changed after setup."
+#~ msgstr ""
+#~ "Uw gebruikersnaam kan niet worden gewijzigd nadat de instellingen zijn "
+#~ "voltooid."
+
+#~ msgid ""
+#~ "In order to use enterprise logins, this computer needs to be enrolled in "
+#~ "the domain. Please have your network administrator type their domain "
+#~ "password here, and choose a unique computer name for your computer."
+#~ msgstr ""
+#~ "Om bedrijfsaanmeldingen te gebruiken moet deze computer ingeschreven zijn "
+#~ "bij het domein. Laat uw netwerkbeheerder hier het domeinwachtwoord "
+#~ "invoeren en kies een unieke naam voor uw computer."
+
+#~ msgid "No password"
+#~ msgstr "Geen wachtwoord"
+
+#~ msgid "_Confirm password"
+#~ msgstr "Wachtwoord _bevestigen"
+
+#~ msgid "Choose a _password"
+#~ msgstr "Kies een _wachtwoord"
+
+#~ msgctxt "Password strength"
+#~ msgid "Too short"
+#~ msgstr "Te kort"
+
+#~ msgctxt "Password strength"
+#~ msgid "Not good enough"
+#~ msgstr "Niet goed genoeg"
+
+#~ msgctxt "Password strength"
+#~ msgid "Weak"
+#~ msgstr "Zwak"
+
+#~ msgctxt "Password strength"
+#~ msgid "Fair"
+#~ msgstr "Redelijk"
+
+#~ msgctxt "Password strength"
+#~ msgid "Good"
+#~ msgstr "Goed"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strong"
+#~ msgstr "Sterk"
+
 #~ msgid "Login"
 #~ msgstr "Aanmelden"
 
 #~ msgid "Create a Local Account"
 #~ msgstr "Een lokaal account aanmaken"
-
-#~ msgid "This will be used to name your home folder and can't be changed."
-#~ msgstr ""
-#~ "Dit zal worden gebruikt als naam van uw thuismap en kan niet worden "
-#~ "gewijzigd."
 
 #~ msgid "page 1"
 #~ msgstr "pagina 1"
