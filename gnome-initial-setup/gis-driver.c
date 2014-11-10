@@ -100,6 +100,16 @@ prepare_main_window (GisDriver *driver)
 
   if (gis_driver_is_small_screen (driver))
     {
+      GtkWidget *child, *sw;
+
+      child = g_object_ref (gtk_bin_get_child (GTK_BIN (priv->main_window)));
+      gtk_container_remove (GTK_CONTAINER (priv->main_window), child);
+      sw = gtk_scrolled_window_new (NULL, NULL);
+      gtk_widget_show (sw);
+      gtk_container_add (GTK_CONTAINER (priv->main_window), sw);
+      gtk_container_add (GTK_CONTAINER (sw), child);
+      g_object_unref (child);
+
       gtk_window_maximize (priv->main_window);
     }
   else
