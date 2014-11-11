@@ -195,6 +195,9 @@ main (int argc, char *argv[])
     { NULL }
   };
 
+  /* FIXME: remove this when GOA uses WebKit2 */
+  g_setenv("G_TLS_GNUTLS_PRIORITY", "NORMAL:%COMPAT:!VERS-SSL3.0", FALSE);
+
   g_unsetenv ("GIO_USE_VFS");
 
   context = g_option_context_new (_("- GNOME initial setup"));
