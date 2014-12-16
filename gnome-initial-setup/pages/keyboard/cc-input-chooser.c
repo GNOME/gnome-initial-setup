@@ -397,7 +397,8 @@ static void
 get_locale_infos (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
-	const gchar *type, *id;
+	const gchar *type = NULL;
+	const gchar *id = NULL;
 	gchar *lang, *country;
 	GList *list;
 
