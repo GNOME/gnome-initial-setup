@@ -199,6 +199,14 @@ gis_driver_add_page (GisDriver *driver,
   gis_assistant_add_page (priv->assistant, page);
 }
 
+void
+gis_driver_hide_window (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  gtk_widget_hide (GTK_WIDGET (priv->main_window));
+}
+
 static void
 gis_driver_real_locale_changed (GisDriver *driver)
 {

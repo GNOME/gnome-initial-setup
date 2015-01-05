@@ -85,6 +85,8 @@ gboolean gis_driver_is_small_screen (GisDriver *driver);
 void gis_driver_add_page (GisDriver *driver,
                           GisPage   *page);
 
+void gis_driver_hide_window (GisDriver *driver);
+
 void gis_driver_save_data (GisDriver *driver);
 
 GisDriver *gis_driver_new (GisDriverMode mode);
