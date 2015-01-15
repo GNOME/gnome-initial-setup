@@ -122,6 +122,8 @@ prepare_main_window (GisDriver *driver)
                                      NULL,
                                      &size_hints,
                                      GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
+      gtk_window_set_resizable (priv->main_window, FALSE);
+      gtk_window_set_position (priv->main_window, GTK_WIN_POS_CENTER_ALWAYS);
     }
 
   gtk_window_set_titlebar (priv->main_window,
@@ -303,14 +305,15 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
   GisDriver *driver = GIS_DRIVER (user_data);
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkWindow *window;
+  GdkWMFunction funcs;
+
   window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
-  /* disable all the WM functions */
-  gdk_window_set_functions (window, GDK_FUNC_ALL
-                            | GDK_FUNC_RESIZE
-                            | GDK_FUNC_MOVE
-                            | GDK_FUNC_MINIMIZE
-                            | GDK_FUNC_MAXIMIZE
-                            | GDK_FUNC_CLOSE);
+  funcs = GDK_FUNC_ALL | GDK_FUNC_MINIMIZE | GDK_FUNC_CLOSE;
+
+  if (!gis_driver_is_small_screen (driver))
+    funcs |= GDK_FUNC_RESIZE | GDK_FUNC_MOVE | GDK_FUNC_MAXIMIZE;
+
+  gdk_window_set_functions (window, funcs);
 }
 
 static void
@@ -325,8 +328,6 @@ gis_driver_startup (GApplication *app)
                                     "application", app,
                                     "type", GTK_WINDOW_TOPLEVEL,
                                     "icon-name", "preferences-system",
-                                    "resizable", FALSE,
-                                    "window-position", GTK_WIN_POS_CENTER_ALWAYS,
                                     "deletable", FALSE,
                                     NULL);
 
