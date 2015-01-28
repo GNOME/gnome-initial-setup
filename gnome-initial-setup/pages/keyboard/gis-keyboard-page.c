@@ -79,12 +79,17 @@ set_input_settings (GisKeyboardPage *self)
         const gchar *id;
         GVariantBuilder builder;
         GSList *l;
+        gboolean is_xkb_source = FALSE;
 
         type = cc_input_chooser_get_input_type (CC_INPUT_CHOOSER (priv->input_chooser));
         id = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser));
 
         g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
-	g_variant_builder_add (&builder, "(ss)", type, id);
+
+        if (g_str_equal (type, "xkb")) {
+                g_variant_builder_add (&builder, "(ss)", type, id);
+                is_xkb_source = TRUE;
+        }
 
         for (l = priv->system_sources; l; l = l->next) {
                 const gchar *sid = l->data;
@@ -94,6 +99,9 @@ set_input_settings (GisKeyboardPage *self)
 
                 g_variant_builder_add (&builder, "(ss)", "xkb", sid);
         }
+
+        if (!is_xkb_source)
+                g_variant_builder_add (&builder, "(ss)", type, id);
 
 	g_settings_set_value (priv->input_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
 	g_settings_set_uint (priv->input_settings, KEY_CURRENT_INPUT_SOURCE, 0);
