@@ -46,7 +46,6 @@ struct _GisPasswordPagePrivate
   GtkWidget *password_explanation;
   GtkWidget *confirm_explanation;
   gboolean valid_confirm;
-  gboolean valid_password;
   guint timeout_id;
   const gchar *username;
 };
@@ -127,10 +126,6 @@ validate (GisPasswordPage *page)
   gtk_level_bar_set_value (GTK_LEVEL_BAR (priv->password_strength), strength_level);
   gtk_label_set_label (GTK_LABEL (priv->password_explanation), long_hint);
 
-  priv->valid_password = (strength_level > 0);
-  if (priv->valid_password)
-    set_entry_validation_checkmark (GTK_ENTRY (priv->password_entry));
-
   priv->valid_confirm = (strcmp (password, verify) == 0);
   if (strlen (password) > 0 && strlen (verify) > 0) {
     if (!priv->valid_confirm) {
@@ -166,7 +161,6 @@ password_changed (GtkWidget      *w,
   clear_entry_validation_error (GTK_ENTRY (w));
   clear_entry_validation_error (GTK_ENTRY (priv->confirm_entry));
 
-  priv->valid_password = FALSE;
   update_page_validation (page);
 
   if (priv->timeout_id != 0)
