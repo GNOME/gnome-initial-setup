@@ -35,11 +35,13 @@
 struct _GisPrivacyPagePrivate
 {
   GtkWidget *location_switch;
+  GtkWidget *reporting_row;
   GtkWidget *reporting_switch;
   GtkWidget *reporting_label;
   GtkWidget *privacy_policy_label;
   GSettings *location_settings;
   GSettings *privacy_settings;
+  guint abrt_watch_id;
 };
 typedef struct _GisPrivacyPagePrivate GisPrivacyPagePrivate;
 
@@ -108,17 +110,40 @@ update_os_data (GisPrivacyPage *page)
   gtk_label_set_label (GTK_LABEL (priv->reporting_label), text);
   g_free (text);
 
-  if (privacy_policy)
-    {
-      text = g_strdup_printf ("<a href='%s'>%s</a>", privacy_policy, _("Privacy Policy"));
-      gtk_label_set_label (GTK_LABEL (priv->privacy_policy_label), text);
-      g_free (text);
-    }
-  else
-    gtk_widget_hide (priv->privacy_policy_label);
+  if (!privacy_policy)
+    privacy_policy = g_strdup ("https://location.services.mozilla.com/privacy");
+
+  text = g_strdup_printf ("<a href='%s'>%s</a>", privacy_policy, _("Privacy Policy"));
+  gtk_label_set_markup (GTK_LABEL (priv->privacy_policy_label), text);
+  g_free (text);
 
   g_free (name);
   g_free (privacy_policy);
+}
+
+static void
+abrt_appeared_cb (GDBusConnection *connection,
+                  const gchar     *name,
+                  const gchar     *name_owner,
+                  gpointer         user_data)
+{
+  GisPrivacyPage *page = user_data;
+  GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+
+  gtk_widget_show (priv->reporting_row);
+  gtk_widget_show (priv->reporting_label);
+}
+
+static void
+abrt_vanished_cb (GDBusConnection *connection,
+                  const gchar     *name,
+                  gpointer         user_data)
+{
+  GisPrivacyPage *page = user_data;
+  GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+
+  gtk_widget_hide (priv->reporting_row);
+  gtk_widget_hide (priv->reporting_label);
 }
 
 static void
@@ -129,14 +154,23 @@ gis_privacy_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->constructed (object);
 
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
+
   priv->location_settings = g_settings_new ("org.gnome.system.location");
   priv->privacy_settings = g_settings_new ("org.gnome.desktop.privacy");
 
-  update_os_data (page);
   gtk_switch_set_active (GTK_SWITCH (priv->location_switch), TRUE);
   gtk_switch_set_active (GTK_SWITCH (priv->reporting_switch), TRUE);
 
-  gis_page_set_complete (GIS_PAGE (page), TRUE);
+  update_os_data (page);
+
+  priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
+                                          "org.freedesktop.problems",
+                                          G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                          abrt_appeared_cb,
+                                          abrt_vanished_cb,
+                                          page,
+                                          NULL);
 }
 
 static void
@@ -147,6 +181,12 @@ gis_privacy_page_dispose (GObject *object)
 
   g_clear_object (&priv->location_settings);
   g_clear_object (&priv->privacy_settings);
+
+  if (priv->abrt_watch_id > 0)
+    {
+      g_bus_unwatch_name (priv->abrt_watch_id);
+      priv->abrt_watch_id = 0;
+    }
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->dispose (object);
 }
@@ -185,7 +225,7 @@ notify_progress_cb (GObject *object, GParamSpec *pspec, gpointer user_data)
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), progress);
 }
 
-static void
+static gboolean
 activate_link (GtkLabel       *label,
                const gchar    *uri,
                GisPrivacyPage *page)
@@ -231,6 +271,8 @@ activate_link (GtkLabel       *label,
   gtk_window_present (GTK_WINDOW (dialog));
 
   webkit_web_view_load_uri (WEBKIT_WEB_VIEW (view), uri);
+
+  return TRUE;
 }
 
 static void
@@ -241,6 +283,7 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-privacy-page.ui");
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_switch);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_row);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, privacy_policy_label);
