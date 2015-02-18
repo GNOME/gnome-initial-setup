@@ -48,7 +48,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   rest-0.7
                   json-glib-1.0
 		  libsecret-1
-                  pwquality)
+                  pwquality
+                  webkitgtk-3.0)
 
 GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
 if test "x$GEOCLUE_DBUS_INTERFACE_XML" = "x"; then
@@ -131,6 +132,7 @@ gnome-initial-setup/pages/keyboard/Makefile
 gnome-initial-setup/pages/eulas/Makefile
 gnome-initial-setup/pages/network/Makefile
 gnome-initial-setup/pages/timezone/Makefile
+gnome-initial-setup/pages/privacy/Makefile
 gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/account/Makefile
 gnome-initial-setup/pages/password/Makefile
