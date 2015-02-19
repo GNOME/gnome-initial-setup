@@ -165,7 +165,7 @@ gis_privacy_page_constructed (GObject *object)
   update_os_data (page);
 
   priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
-                                          "org.freedesktop.problems",
+                                          "org.freedesktop.problems.daemon",
                                           G_BUS_NAME_WATCHER_FLAGS_NONE,
                                           abrt_appeared_cb,
                                           abrt_vanished_cb,
