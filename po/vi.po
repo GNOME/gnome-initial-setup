@@ -1,16 +1,17 @@
 # Vietnamese translation for gnome-initial-setup.
-# Copyright © 2014 GNOME i18n Project for Vietnamese.
+# Bản dịch tiếng Việt dành cho gnome-initial-setup.
+# Copyright © 2015 GNOME i18n Project for Vietnamese.
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2012-2013.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2014.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-12-12 19:45+0000\n"
-"PO-Revision-Date: 2014-12-13 15:12+0700\n"
+"POT-Creation-Date: 2015-02-18 19:54+0000\n"
+"PO-Revision-Date: 2015-02-19 11:08+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -44,11 +45,11 @@ msgstr "T_rước"
 msgid "_Cancel"
 msgstr "T_hôi"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "Force existing user mode"
 msgstr "Ép buộc chế độ người dùng cũ"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:203
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "- Cài đặt GNOME lần đầu"
 
@@ -215,14 +216,14 @@ msgstr "Đây sẽ là tên thư mục cá nhân của bạn và không thể th
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
 msgid "License Agreements"
-msgstr "Thoả thuận giấy phép"
+msgstr "Thỏa thuận giấy phép"
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
 msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
 msgstr ""
-"Tôi đồ_ng ý với những điều khoản trong thoả thuận giấy phép người dùng cuối"
+"Tôi đồ_ng ý với những điều khoản trong thỏa thuận giấy phép người dùng cuối"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
@@ -471,6 +472,49 @@ msgctxt "Password strength"
 msgid "Strength: High"
 msgstr "Độ mạnh: Cao"
 
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#, c-format
+msgid ""
+"Sending reports of technical problems helps us to improve %s. Reports are "
+"sent anonymously and are scrubbed of personal data."
+msgstr ""
+"Gửi báo cáo các trục trặc kỹ thuật để giúp chúng tôi nâng cấp %s. Báo cáo "
+"được gửi nặc danh và được xóa các dữ liệu cá nhân."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+msgid "Privacy Policy"
+msgstr "Chính sách riêng tư"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
+msgid "Privacy"
+msgstr "Riêng tư"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
+msgid "Privacy controls can be changed at any time from Settings."
+msgstr ""
+"Điều kiển chính sách riêng tư được thay đổi bất cứ lúc nào từ phần cài đặt."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
+msgid "Location Services"
+msgstr "Dịch vụ vị trí"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+msgid ""
+"Allows applications to determine your geographical location. An indication "
+"is shown when location services are in use."
+msgstr ""
+"Cho phép các ứng dụng dò tìm vị trí địa lý của bạn. Và hiển thị chỉ thị các "
+"dịch vụ vị trí đang được dùng."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid "Automatic Problem Reporting"
+msgstr "Tự động báo cáo trục trặc"
+
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
 msgstr "Không tìm thấy vùng miền nào"
@@ -482,12 +526,12 @@ msgstr "Vùng"
 
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
 msgid "Choose your country or region."
-msgstr "Chọn nước hay vùng địa lý của bạn"
+msgstr "Chọn nước hay vùng địa lý của bạn."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:327
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
 #, c-format
 msgid "_Start using %s"
 msgstr "_Bắt đầu dùng %s"
@@ -495,7 +539,7 @@ msgstr "_Bắt đầu dùng %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
 #, c-format
 msgid ""
 "Thank you for choosing %s.\n"
@@ -504,7 +548,7 @@ msgstr ""
 "Cảm ơn bạn vì đã chọn %s.\n"
 "Chúng tôi hi vọng rằng bạn thích nó."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:360
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
 msgid "Ready to Go"
 msgstr "Đã sẵn sàng lên đường"
 
@@ -573,16 +617,16 @@ msgstr "Vui lòng tìm thành phố gần đây"
 #~ msgstr "Gặp lỗi khi tạo tài khoản"
 
 #~ msgid "Error removing account"
-#~ msgstr "Gặp lỗi khi xoá tài khoản"
+#~ msgstr "Gặp lỗi khi xóa tài khoản"
 
 #~ msgid "Are you sure you want to remove the account?"
-#~ msgstr "Bạn có chắc muốn xoá tài khoản không?"
+#~ msgstr "Bạn có chắc muốn xóa tài khoản không?"
 
 #~ msgid "This will not remove the account on the server."
-#~ msgstr "Hành động này không xoá tài khoản trên máy chủ."
+#~ msgstr "Hành động này không xóa tài khoản trên máy chủ."
 
 #~ msgid "_Remove"
-#~ msgstr "_Xoá"
+#~ msgstr "_Xóa"
 
 #~ msgid "Connect to your existing data in the cloud"
 #~ msgstr "Kết nối đến dữ liệu của bạn trên mây"
@@ -606,7 +650,7 @@ msgstr "Vui lòng tìm thành phố gần đây"
 #~ msgstr "Chuyển nguồn nhập xuống"
 
 #~ msgid "Input Source Settings"
-#~ msgstr "Thiết lập nguồn nhập"
+#~ msgstr "Cài đặt nguồn nhập"
 
 #~ msgid "Show Keyboard Layout"
 #~ msgstr "Hiện bố trí bàn phím"
@@ -619,9 +663,6 @@ msgstr "Vui lòng tìm thành phố gần đây"
 
 #~ msgid "Search for a location"
 #~ msgstr "Tìm vị trí"
-
-#~ msgid "Location"
-#~ msgstr "Vị trí"
 
 #~ msgid "_Determine your location automatically"
 #~ msgstr "_Xác định tự động vị trí của bạn"
@@ -639,7 +680,7 @@ msgstr "Vui lòng tìm thành phố gần đây"
 #~ msgstr "Máy tính đã sẵn sàng để sử dụng."
 
 #~ msgid "You may change these options at any time in Settings."
-#~ msgstr "Bạn có thể thay đổi tuỳ chọn bất kỳ lúc nào thông qua Thiết lập."
+#~ msgstr "Bạn có thể thay đổi tùy chọn bất kỳ lúc nào thông qua phần cài đặt."
 
 #~ msgid "Create Local Account"
 #~ msgstr "Tạo tài khoản cục bộ"
@@ -657,7 +698,7 @@ msgstr "Vui lòng tìm thành phố gần đây"
 #~ msgstr "Chọn cách đăng nhập"
 
 #~ msgid "Remove"
-#~ msgstr "Xoá"
+#~ msgstr "Xóa"
 
 #~ msgid "English"
 #~ msgstr "Tiếng Anh"
