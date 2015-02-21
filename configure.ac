@@ -49,7 +49,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   json-glib-1.0
 		  libsecret-1
                   pwquality
-                  webkitgtk-3.0)
+                  webkit2gtk-4.0)
 
 GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
 if test "x$GEOCLUE_DBUS_INTERFACE_XML" = "x"; then

@@ -27,7 +27,7 @@
 #include "privacy-resources.h"
 #include "gis-privacy-page.h"
 
-#include <webkit/webkit.h>
+#include <webkit2/webkit2.h>
 
 #include <locale.h>
 #include <gtk/gtk.h>
@@ -215,7 +215,7 @@ notify_progress_cb (GObject *object, GParamSpec *pspec, gpointer user_data)
   WebKitWebView *web_view = WEBKIT_WEB_VIEW (object);
   gdouble progress;
 
-  progress = webkit_web_view_get_progress (web_view);
+  progress = webkit_web_view_get_estimated_load_progress (web_view);
 
   if (progress == 1.0)
     gtk_widget_hide (progress_bar);
@@ -232,7 +232,6 @@ activate_link (GtkLabel       *label,
 {
   GtkWidget *dialog;
   GtkWidget *overlay;
-  GtkWidget *scrolled_window;
   GtkWidget *view;
   GtkWidget *progress_bar;
 
@@ -244,16 +243,8 @@ activate_link (GtkLabel       *label,
                                         NULL);
 
   overlay = gtk_overlay_new ();
-  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_set_size_request (scrolled_window, 600, 500);
-  gtk_widget_set_hexpand (scrolled_window, TRUE);
-  gtk_widget_set_vexpand (scrolled_window, TRUE);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), overlay);
-  gtk_container_add (GTK_CONTAINER (overlay), scrolled_window);
+
   progress_bar = gtk_progress_bar_new ();
   gtk_style_context_add_class (gtk_widget_get_style_context (progress_bar), GTK_STYLE_CLASS_OSD);
   gtk_widget_set_halign (progress_bar, GTK_ALIGN_FILL);
@@ -261,11 +252,11 @@ activate_link (GtkLabel       *label,
   gtk_overlay_add_overlay (GTK_OVERLAY (overlay), progress_bar);
 
   view = webkit_web_view_new ();
-
-  g_signal_connect (view, "notify::progress",
+  gtk_widget_set_size_request (view, 600, 500);
+  g_signal_connect (view, "notify::estimated-load-progress",
                     G_CALLBACK (notify_progress_cb), progress_bar);
 
-  gtk_container_add (GTK_CONTAINER (scrolled_window), view);
+  gtk_container_add (GTK_CONTAINER (overlay), view);
   gtk_widget_show_all (overlay);
 
   gtk_window_present (GTK_WINDOW (dialog));
