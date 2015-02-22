@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013.
-# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
-# Balázs Úr <urbalazs@gmail.com>, 2014.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-06-30 06:47+0000\n"
-"PO-Revision-Date: 2014-06-30 21:44+0200\n"
+"POT-Creation-Date: 2015-02-22 07:50+0000\n"
+"PO-Revision-Date: 2015-02-22 20:39+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -22,55 +21,56 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Kiinduló beállítások"
 
-#: ../gnome-initial-setup/gis-assistant.c:377
+#: ../gnome-initial-setup/gis-assistant.c:384
 msgid "_Next"
 msgstr "_Következő"
 
-#: ../gnome-initial-setup/gis-assistant.c:378
+#: ../gnome-initial-setup/gis-assistant.c:385
 msgid "_Accept"
 msgstr "Elfog_adás"
 
-#: ../gnome-initial-setup/gis-assistant.c:379
+#: ../gnome-initial-setup/gis-assistant.c:386
 msgid "_Skip"
 msgstr "_Kihagyás"
 
-#: ../gnome-initial-setup/gis-assistant.c:380
+#: ../gnome-initial-setup/gis-assistant.c:387
 msgid "_Previous"
 msgstr "_Előző"
 
-#: ../gnome-initial-setup/gis-assistant.c:381
+#: ../gnome-initial-setup/gis-assistant.c:388
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "Force existing user mode"
 msgstr "Létező felhasználói mód kényszerítése"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:200
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "- GNOME kiinduló beállítások"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Önről"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "A fiók regisztrálása sikertelen"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "Nincs támogatott módszer a tartományban való hitelesítésre"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "Nem sikerült a tartományhoz csatlakozni"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "Nem sikerült bejelentkezni a tartományba"
 
@@ -134,11 +134,11 @@ msgstr "Rendszergazda _neve"
 msgid "Administrator Password"
 msgstr "Rendszergazdai jelszó"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Are these the right details? You can change them if you want."
 msgstr "Ezek a helyes részletek? Megváltoztathatja azokat, ha szeretné."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:394
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Szükségünk van néhány részletre a beállítás befejezéséhez."
@@ -152,7 +152,6 @@ msgid "_Full Name"
 msgstr "_Teljes név"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-#| msgid "Enterprise Login"
 msgid "Set Up _Enterprise Login"
 msgstr "_Vállalati bejelentkezés beállítása"
 
@@ -173,44 +172,36 @@ msgstr "Ilyen típusú tartományhoz nem lehet automatikusan csatlakozni"
 msgid "No such domain or realm found"
 msgstr "Nem található ilyen tartomány vagy zóna"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Nem lehet bejelentkezni %s néven a(z) %s tartományba"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "Érvénytelen jelszó, próbálja újra"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Nem lehet csatlakozni a(z) %s tartományhoz: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-#| msgid "A user with the username '%s' already exists"
 msgid "A user with the username '%s' already exists."
 msgstr "Már létezik „%s” felhasználónevű felhasználó."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-#| msgid "The username is too long"
 msgid "The username is too long."
 msgstr "A felhasználónév túl hosszú."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'"
 msgid "The username cannot start with a '-'."
 msgstr "A felhasználónév nem kezdődhet „-” karakterrel."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
-#| msgid ""
-#| "The username must only consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
 "digits and any of characters '.', '-' and '_'."
@@ -239,10 +230,6 @@ msgstr "_Elfogadom ezen végfelhasználói licencszerződés feltételeit."
 msgid "Add Account"
 msgstr "Fiók készítése"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
-msgid "Cancel"
-msgstr "Mégse"
-
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "Online fiókok"
@@ -266,24 +253,24 @@ msgstr ""
 "Áttekintheti az online fiókjait (és továbbiakat adhat hozzá) a beállítás "
 "után."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:235
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Előnézet"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:290
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Több…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:311
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
 msgid "No inputs found"
 msgstr "Bemeneti források nem találhatók"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Gépelés"
@@ -292,11 +279,11 @@ msgstr "Gépelés"
 msgid "Select your keyboard layout or an input method."
 msgstr "Válassza ki a billentyűzetkiosztását vagy egy beviteli módot."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
 msgid "No languages found"
 msgstr "Nyelvek nem találhatók"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
 msgid "Welcome"
 msgstr "Üdvözlet"
 
@@ -336,12 +323,11 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Vezeték nélküli nem érhető el"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:135
-#| msgid "Passwords do not match"
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
 msgid "The passwords do not match."
 msgstr "A jelszavak nem egyeznek."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:243
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
 msgid "Password"
 msgstr "Jelszó"
 
@@ -448,9 +434,6 @@ msgid "Try to add more letters, numbers and symbols."
 msgstr "Próbáljon több betűt, számot és szimbólumot hozzáadni."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgid ""
-#| "Try to use at least 8 different characters. Mix upper and lower case and "
-#| "use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and use a number or two."
 msgstr "Használjon vegyesen kis- és nagybetűket, illetve egy-két számot."
@@ -464,40 +447,80 @@ msgstr ""
 "Jó jelszó! További betűk, számok és írásjelek hozzáadása még erősebbé teheti."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:141
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Weak"
 msgstr "Erősség: gyenge"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:145
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Low"
 msgstr "Erősség: alacsony"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:148
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Medium"
 msgstr "Erősség: közepes"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:151
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Good"
 msgstr "Erősség: jó"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:154
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: High"
 msgstr "Erősség: magas"
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#, c-format
+msgid ""
+"Sending reports of technical problems helps us to improve %s. Reports are "
+"sent anonymously and are scrubbed of personal data."
+msgstr ""
+"A technikai problémák jelentéseinek elküldése segít nekünk a(z) %s "
+"továbbfejlesztésében. A jelentések névtelenül és személyes adatoktól mentesen "
+"lesznek elküldve."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+msgid "Privacy Policy"
+msgstr "Adatvédelmi irányelv"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
+msgid "Privacy"
+msgstr "Adatvédelem"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
+msgid "Privacy controls can be changed at any time from Settings."
+msgstr "Az adatvédelem vezérlői bármikor megváltoztathatók a beállításokban."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
+#| msgid "Location"
+msgid "Location Services"
+msgstr "Helymeghatározó szolgáltatások"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+msgid ""
+"Allows applications to determine your geographical location. An indication "
+"is shown when location services are in use."
+msgstr ""
+"Lehetővé teszi az alkalmazások számára a földrajzi helyzetének meghatározását."
+" Egy jelzés jelenik meg, amikor a helymeghatározási szolgáltatások "
+"használatban vannak."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid "Automatic Problem Reporting"
+msgstr "Automatikus hibajelentés"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
 msgstr "Területek nem találhatók"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
 msgid "Region"
 msgstr "Terület"
@@ -509,7 +532,7 @@ msgstr "Válassza ki az országát vagy területét."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
 #, c-format
 msgid "_Start using %s"
 msgstr "_A(z) %s használatba vétele"
@@ -517,7 +540,7 @@ msgstr "_A(z) %s használatba vétele"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
 #, c-format
 msgid ""
 "Thank you for choosing %s.\n"
@@ -526,7 +549,7 @@ msgstr ""
 "Köszönjük, hogy a(z) %s mellett döntött.\n"
 "Reméljük, hogy imádni fogja."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
 msgid "Ready to Go"
 msgstr "Indulásra kész"
 
@@ -551,6 +574,9 @@ msgstr "Időzóna"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Keressen egy közeli várost"
+
+#~ msgid "Cancel"
+#~ msgstr "Mégse"
 
 #~ msgid "Your username cannot be changed after setup."
 #~ msgstr "A felhasználónevét nem lehet megváltoztatni a beállítás után."
@@ -663,9 +689,6 @@ msgstr "Keressen egy közeli várost"
 
 #~ msgid "Search for a location"
 #~ msgstr "Hely keresése"
-
-#~ msgid "Location"
-#~ msgstr "Hely"
 
 #~ msgid "_Determine your location automatically"
 #~ msgstr "_Tartózkodási helyének automatikus meghatározása"
