@@ -59,6 +59,8 @@ struct _GisNetworkPagePrivate {
   NMDevice *nm_device;
   gboolean refreshing;
   GtkSizeGroup *icons;
+
+  guint refresh_timeout_id;
 };
 typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
 
@@ -320,6 +322,10 @@ static gboolean
 refresh_again (gpointer user_data)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  priv->refresh_timeout_id = 0;
+
   refresh_wireless_list (page);
   return FALSE;
 }
@@ -353,7 +359,7 @@ refresh_wireless_list (GisNetworkPage *page)
     gtk_widget_show (priv->no_network_spinner);
     gtk_widget_show (priv->no_network_label);
     gtk_widget_hide (priv->scrolled_window);
-    g_timeout_add_seconds (1, refresh_again, page);
+    priv->refresh_timeout_id = g_timeout_add_seconds (1, refresh_again, page);
 
     goto out;
   } else {
@@ -592,6 +598,12 @@ gis_network_page_dispose (GObject *object)
   g_clear_object (&priv->nm_settings);
   g_clear_object (&priv->nm_device);
   g_clear_object (&priv->icons);
+
+  if (priv->refresh_timeout_id != 0)
+    {
+      g_source_remove (priv->refresh_timeout_id);
+      priv->refresh_timeout_id = 0;
+    }
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->dispose (object);
 }
