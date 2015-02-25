@@ -1,75 +1,75 @@
 # Ukrainian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Daniel Korostil <ted.korostiled@gmail.com>, 2013, 2014.
+# Daniel Korostil <ted.korostiled@gmail.com>, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-08-28 06:54+0000\n"
-"PO-Revision-Date: 2014-08-28 16:46+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-26 01:45+0200\n"
+"PO-Revision-Date: 2015-02-26 01:50+0300\n"
 "Last-Translator: Daniel Korostil <ted.korostiled@gmail.com>\n"
 "Language-Team: linux.org.ua\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Перший запуск"
 
-#: ../gnome-initial-setup/gis-assistant.c:377
+#: ../gnome-initial-setup/gis-assistant.c:384
 msgid "_Next"
 msgstr "_Далі"
 
-#: ../gnome-initial-setup/gis-assistant.c:378
+#: ../gnome-initial-setup/gis-assistant.c:385
 msgid "_Accept"
 msgstr "_Ухвалити"
 
-#: ../gnome-initial-setup/gis-assistant.c:379
+#: ../gnome-initial-setup/gis-assistant.c:386
 msgid "_Skip"
 msgstr "_Пропустити"
 
-#: ../gnome-initial-setup/gis-assistant.c:380
+#: ../gnome-initial-setup/gis-assistant.c:387
 msgid "_Previous"
 msgstr "_Назад"
 
-#: ../gnome-initial-setup/gis-assistant.c:381
+#: ../gnome-initial-setup/gis-assistant.c:388
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "Force existing user mode"
 msgstr "Примусовий режим для наявного користувача"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:200
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "— Перший запуск GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Про себе"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "Не вдалося зареєструвати обліковий запис"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "Непідтримуваний спосіб засвідчення з цим доменом"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "Не вдалось долучитись до домену"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "Не вдалось увійти до домену"
 
@@ -112,10 +112,6 @@ msgid "Domain Administrator Login"
 msgstr "Вхід адміністратора домену"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#| msgid ""
-#| "In order to use enterprise logins, this computer needs to be enrolled in "
-#| "the domain. Please have your network administrator type their domain "
-#| "password here, and choose a unique computer name for your computer."
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -137,11 +133,11 @@ msgstr "_Адміністратор"
 msgid "Administrator Password"
 msgstr "Пароль адміністратора"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Are these the right details? You can change them if you want."
 msgstr "Чи все вказано правильно? Ви можете поміняти за бажанням."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:394
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Нам потрібно кілька дрібничок, щоб завершити."
@@ -155,7 +151,6 @@ msgid "_Full Name"
 msgstr "Повне і_м'я"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-#| msgid "Enterprise Login"
 msgid "Set Up _Enterprise Login"
 msgstr "Налаштувати _комерційний вхід"
 
@@ -176,44 +171,36 @@ msgstr "Неможливо автоматично долучити цей тип
 msgid "No such domain or realm found"
 msgstr "Немає такого домену чи області"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:780
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:794
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Неможливо ввійти як %s на домен %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:786
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "Неправильний пароль, спробуйте ще раз"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:799
+#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Неможливо з'єднатись з доменом %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-#| msgid "A user with the username '%s' already exists"
 msgid "A user with the username '%s' already exists."
 msgstr "Користувач «%s» уже існує."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-#| msgid "The username is too long"
 msgid "The username is too long."
 msgstr "Перейменуйте користувача на меншу кількість символів."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'"
 msgid "The username cannot start with a '-'."
 msgstr "Перейменуйте користувача без використання «-» на початку."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
-#| msgid ""
-#| "The username must only consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
 "digits and any of characters '.', '-' and '_'."
@@ -240,10 +227,6 @@ msgstr "Я по_годжуюсь з умовами в цій ліцензійн�
 msgid "Add Account"
 msgstr "Додати обліковий запис"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
-msgid "Cancel"
-msgstr "Скасувати"
-
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "Мережевий обліковий запис"
@@ -266,24 +249,24 @@ msgstr ""
 "Можете переглянути мережеві облікові записи (і додати інші) після "
 "налаштування."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:233
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Попередній перегляд"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:288
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:184
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:203
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Ще…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:309
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
 msgid "No inputs found"
 msgstr "Не знайдено жодного введення"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:209
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Введення"
@@ -292,11 +275,11 @@ msgstr "Введення"
 msgid "Select your keyboard layout or an input method."
 msgstr "Вибрати розкладку клавіатури або спосіб введення."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:201
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
 msgid "No languages found"
 msgstr "Не знайдено жодної мови"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:272
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
 msgid "Welcome"
 msgstr "Вітаємо"
 
@@ -304,16 +287,16 @@ msgstr "Вітаємо"
 msgid "Welcome!"
 msgstr "Вітаємо!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Інший…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
 msgid "Checking for available wireless networks"
 msgstr "Перевіряння на доступність радіомереж"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
 msgid "Network"
 msgstr "Мережа"
 
@@ -335,12 +318,11 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Радіомережа недоступна."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:135
-#| msgid "Passwords do not match"
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
 msgid "The passwords do not match."
 msgstr "Пароль не збігається."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:252
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
 msgid "Password"
 msgstr "Пароль"
 
@@ -415,7 +397,8 @@ msgstr "Намагайтесь уживати більше малих літер
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
 msgid "Try to use more special characters, like punctuation."
-msgstr "Намагайтесь уживати більше спеціальних символів, як-от розділові знаки."
+msgstr ""
+"Намагайтесь уживати більше спеціальних символів, як-от розділові знаки."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
@@ -447,9 +430,6 @@ msgid "Try to add more letters, numbers and symbols."
 msgstr "Намагайтесь додавати більше літер, цифр і символів."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgid ""
-#| "Try to use at least 8 different characters. Mix upper and lower case and "
-#| "use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and use a number or two."
 msgstr "Змішуйте великі літери з малими і використайте кілька чисел."
@@ -464,40 +444,77 @@ msgstr ""
 "його надійнішим!"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:141
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Weak"
 msgstr "Міцність: слабка"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:145
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Low"
 msgstr "Міцність: низька"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:148
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Medium"
 msgstr "Міцність: середня"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:151
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Good"
 msgstr "Міцність: хороша"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:154
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: High"
 msgstr "Міцність: висока"
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:220
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#, c-format
+msgid ""
+"Sending reports of technical problems helps us to improve %s. Reports are "
+"sent anonymously and are scrubbed of personal data."
+msgstr ""
+"Надсилання звітів щодо технічних проблем допоможе нам покращити %s. Звіти "
+"надсилаються анонімно та відкидають особисті дані."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+msgid "Privacy Policy"
+msgstr "Правила конфіденційності"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
+msgid "Privacy"
+msgstr "Конфіденційність"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
+msgid "Privacy controls can be changed at any time from Settings."
+msgstr "Правила конфіденційності можна змінити в будь-який момент у параметрах."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
+msgid "Location Services"
+msgstr "Служби розташування"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+msgid ""
+"Allows applications to determine your geographical location. An indication "
+"is shown when location services are in use."
+msgstr ""
+"Дозволяє програмам визначити ваше географічне розміщення. Вказівка "
+"показується, коли використовується служба розташування."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid "Automatic Problem Reporting"
+msgstr "Автоматичне звітування про проблеми"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
 msgstr "Не знайдено жодного регіону"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.c:217
+#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
 #: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
 msgid "Region"
 msgstr "Регіон"
@@ -509,7 +526,7 @@ msgstr "Виберіть вашу країну та регіон."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:330
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
 #, c-format
 msgid "_Start using %s"
 msgstr "_Почати користування %s"
@@ -517,7 +534,7 @@ msgstr "_Почати користування %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:337
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
 #, c-format
 msgid ""
 "Thank you for choosing %s.\n"
@@ -526,7 +543,7 @@ msgstr ""
 "Дякуємо вам за вибір %s.\n"
 "Сподіваємось, що вам сподобається."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:363
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
 msgid "Ready to Go"
 msgstr "Зроблено"
 
@@ -551,6 +568,9 @@ msgstr "Часовий пояс"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Пошукайте міста поблизу"
+
+#~ msgid "Cancel"
+#~ msgstr "Скасувати"
 
 #~ msgid "Your username cannot be changed after setup."
 #~ msgstr "Ви не можете змінити користувача після цих налаштувань."
@@ -648,9 +668,6 @@ msgstr "Пошукайте міста поблизу"
 
 #~ msgid "Search for a location"
 #~ msgstr "Пошук за адресою"
-
-#~ msgid "Location"
-#~ msgstr "Адреса"
 
 #~ msgid "_Determine your location automatically"
 #~ msgstr "_Автоматично визначати вашу адресу"
