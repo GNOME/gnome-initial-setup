@@ -1,15 +1,15 @@
 # Korean translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013, 2014
+# Seong-ho Cho <shcho@gnome.org>, 2012-2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-08 13:47+0000\n"
-"PO-Revision-Date: 2014-09-02 22:44+0900\n"
+"POT-Creation-Date: 2015-03-05 07:55+0000\n"
+"PO-Revision-Date: 2015-03-05 22:34+0900\n"
 "Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -17,58 +17,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
+#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "초기 설정"
 
-#: ../gnome-initial-setup/gis-assistant.c:379
+#: ../gnome-initial-setup/gis-assistant.c:384
 msgid "_Next"
 msgstr "다음(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:380
+#: ../gnome-initial-setup/gis-assistant.c:385
 msgid "_Accept"
 msgstr "수락(_A)"
 
-#: ../gnome-initial-setup/gis-assistant.c:381
+#: ../gnome-initial-setup/gis-assistant.c:386
 msgid "_Skip"
 msgstr "건너뛰기(_S)"
 
-#: ../gnome-initial-setup/gis-assistant.c:382
+#: ../gnome-initial-setup/gis-assistant.c:387
 msgid "_Previous"
 msgstr "이전(_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:383
+#: ../gnome-initial-setup/gis-assistant.c:388
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:194
+#: ../gnome-initial-setup/gnome-initial-setup.c:196
 msgid "Force existing user mode"
 msgstr "기존 사용자 모드 강제"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:200
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
 msgid "- GNOME initial setup"
-msgstr "- 그놈 초기화 설정"
+msgstr "- 그놈 초기 설정"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:231
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "여러분의 정보"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:179
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
 msgid "Failed to register account"
 msgstr "계정 등록에 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:373
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
 msgid "No supported way to authenticate with this domain"
 msgstr "이 도메인에 인증할 지원 방식이 없습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:413
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
 msgid "Failed to join domain"
 msgstr "도메인 참여에 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:481
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
 msgid "Failed to log into domain"
 msgstr "도메인 로그인에 실패했습니다"
 
@@ -226,10 +227,6 @@ msgstr "최종 사용자 라이선스 동의서의 조항에 동의합니다(_A)
 msgid "Add Account"
 msgstr "계정 추가"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
-msgid "Cancel"
-msgstr "취소"
-
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "온라인 계정"
@@ -250,12 +247,12 @@ msgstr ""
 msgid "You can review your online accounts (and add others) after setup."
 msgstr "설정이 끝나면 온라인 계정 설정(및 기타 내용)을 검토할 수 있습니다."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:234
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "미리보기"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:289
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:191
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "자세히…"
@@ -263,11 +260,11 @@ msgstr "자세히…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:310
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
 msgid "No inputs found"
 msgstr "입력기가 없습니다"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:219
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "입력"
@@ -276,11 +273,11 @@ msgstr "입력"
 msgid "Select your keyboard layout or an input method."
 msgstr "키보드 배치 또는 입력기를 선택하십시오."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:208
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
 msgid "No languages found"
 msgstr "발견한 언어가 없습니다"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:281
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
 msgid "Welcome"
 msgstr "환영합니다"
 
@@ -288,16 +285,16 @@ msgstr "환영합니다"
 msgid "Welcome!"
 msgstr "환영합니다!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "기타…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
 msgid "Checking for available wireless networks"
-msgstr "사용할 수 있는 무선 네트워크 확인중"
+msgstr "사용할 수 있는 무선 네트워크 확인 중"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
 msgid "Network"
 msgstr "네트워크"
 
@@ -318,11 +315,11 @@ msgstr ""
 msgid "No wireless available"
 msgstr "무선 네트워크 연결이 없습니다"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:144
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
 msgid "The passwords do not match."
 msgstr "암호가 일치하지 않습니다."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:266
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
 msgid "Password"
 msgstr "암호"
 
@@ -456,14 +453,56 @@ msgstr "강도: 적당"
 #: ../gnome-initial-setup/pages/password/pw-utils.c:151
 msgctxt "Password strength"
 msgid "Strength: Good"
-msgstr "강도: 좋음"
+msgstr "강도: 양호"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:154
 msgctxt "Password strength"
 msgid "Strength: High"
 msgstr "강도: 강함"
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:227
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#, c-format
+msgid ""
+"Sending reports of technical problems helps us to improve %s. Reports are "
+"sent anonymously and are scrubbed of personal data."
+msgstr ""
+"기술적 문제 보고를 보내시면 %s을(를) 개선하는데 도움을 줍니다. 보고서는 익명"
+"으로 보내며 개인 데이터는 빠집니다."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
+msgid "Privacy Policy"
+msgstr "개인 정보 정책"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
+msgid "Privacy"
+msgstr "개인 정보"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
+msgid "Privacy controls can be changed at any time from Settings."
+msgstr "설정에서 언제든 개인 정보 처리 방식을 바꿀 수 있습니다."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
+msgid "Location Services"
+msgstr "위치 정보 서비스"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+msgid ""
+"Allows applications to determine your geographical location. An indication "
+"is shown when location services are in use."
+msgstr ""
+"위치 정보를 판단하는 프로그램을 허용합니다. 위치 정보 서비스를 사용할 때 표시"
+"가 나타납니다."
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid "Automatic Problem Reporting"
+msgstr "자동 문제 보고"
+
+#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
 msgstr "지역을 찾을 수 없습니다"
 
@@ -479,7 +518,7 @@ msgstr "국가 또는 지역을 선택하십시오."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:332
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
 #, c-format
 msgid "_Start using %s"
 msgstr "%s 사용 시작하기(_S)"
@@ -487,7 +526,7 @@ msgstr "%s 사용 시작하기(_S)"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:339
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
 #, c-format
 msgid ""
 "Thank you for choosing %s.\n"
@@ -496,13 +535,13 @@ msgstr ""
 "%s 배포판을 선택해주셔서 감사합니다.\n"
 "이 배포판을 애용해주세요."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:365
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
 msgid "Ready to Go"
 msgstr "준비 완료"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
 msgid "You're all set!"
-msgstr "모든 항목을 설정했습니다!"
+msgstr "모두 설정했습니다!"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
 #, c-format
@@ -521,6 +560,9 @@ msgstr "시간대"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "인근 도시를 검색하십시오"
+
+#~ msgid "Cancel"
+#~ msgstr "취소"
 
 #~ msgid "Your username cannot be changed after setup."
 #~ msgstr "설정이 끝나면 사용자 이름을 바꿀 수 없습니다."
