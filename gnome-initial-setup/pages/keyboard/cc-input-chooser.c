@@ -226,7 +226,8 @@ input_widget_new (CcInputChooser *chooser,
 	gtk_widget_set_margin_start (widget->box, 10);
 	gtk_widget_set_margin_end (widget->box, 10);
 	widget->label = gtk_label_new (name);
-	gtk_misc_set_alignment (GTK_MISC (widget->label), 0, 0.5);
+        gtk_label_set_xalign (GTK_LABEL (widget->label), 0);
+        gtk_label_set_yalign (GTK_LABEL (widget->label), 0.5);
         gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);
         gtk_label_set_max_width_chars (GTK_LABEL (widget->label), 40);
 	gtk_label_set_width_chars (GTK_LABEL (widget->label), 40);
@@ -302,7 +303,8 @@ more_widget_new (void)
         gtk_style_context_add_class (gtk_widget_get_style_context (arrow), "dim-label");
         gtk_widget_set_margin_top (widget, 10);
         gtk_widget_set_margin_bottom (widget, 10);
-        gtk_misc_set_alignment (GTK_MISC (arrow), 0.5, 0.5);
+        gtk_widget_set_halign (arrow, GTK_ALIGN_CENTER);
+        gtk_widget_set_valign (arrow, GTK_ALIGN_CENTER);
         gtk_box_pack_start (GTK_BOX (widget), arrow, TRUE, TRUE, 0);
 	gtk_widget_show_all (widget);
 
