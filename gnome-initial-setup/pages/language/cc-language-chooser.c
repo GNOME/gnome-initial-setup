@@ -141,7 +141,7 @@ language_widget_new (const char *locale_id,
         label = gtk_label_new (language_name);
         gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
         gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
-        gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+        gtk_label_set_xalign (GTK_LABEL (label), 0);
         gtk_box_pack_start (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
 
         widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
@@ -152,7 +152,7 @@ language_widget_new (const char *locale_id,
         gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
         gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
         gtk_style_context_add_class (gtk_widget_get_style_context (label), "dim-label");
-        gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+        gtk_label_set_xalign (GTK_LABEL (label), 0);
         gtk_widget_set_halign (label, GTK_ALIGN_END);
         gtk_box_pack_end (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
 
@@ -215,7 +215,6 @@ more_widget_new (void)
         gtk_style_context_add_class (gtk_widget_get_style_context (arrow), "dim-label");
         gtk_widget_set_margin_top (widget, 10);
         gtk_widget_set_margin_bottom (widget, 10);
-        gtk_misc_set_alignment (GTK_MISC (arrow), 0.5, 0.5);
         gtk_box_pack_start (GTK_BOX (widget), arrow, TRUE, TRUE, 0);
 
         return widget;
