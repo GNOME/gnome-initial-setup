@@ -105,7 +105,7 @@ cc_common_language_get_current_language (void)
         language = get_lang_for_user_object_path (path);
         g_free (path);
         if (language != NULL && *language != '\0')
-                return language;
+                return gnome_normalize_locale (language);
 
         locale = (const gchar *) setlocale (LC_MESSAGES, NULL);
         if (locale)
@@ -229,27 +229,18 @@ add_other_users_language (GHashTable *ht)
         g_object_unref (proxy);
 }
 
+/*
+ * Note that @lang needs to be formatted like the locale strings
+ * returned by gnome_get_all_locales().
+ */
 static void
-insert_language_internal (GHashTable *ht,
-                          const char *lang)
+insert_language (GHashTable *ht,
+                 const char *lang)
 {
-        gboolean has_translations;
         char *label_own_lang;
         char *label_current_lang;
         char *label_untranslated;
         char *key;
-
-        has_translations = gnome_language_has_translations (lang);
-        if (!has_translations) {
-                char *lang_code = g_strndup (lang, 2);
-                has_translations = gnome_language_has_translations (lang_code);
-                g_free (lang_code);
-
-                if (!has_translations)
-                        return;
-        }
-
-        g_debug ("We have translations for %s", lang);
 
         key = g_strdup (lang);
 
@@ -274,20 +265,9 @@ insert_language_internal (GHashTable *ht,
 }
 
 static void
-insert_language (GHashTable *ht,
-                 const char *lang)
-{
-        char *utf8_variant = g_strconcat (lang, ".utf8", NULL);
-        insert_language_internal (ht, lang);
-        insert_language_internal (ht, utf8_variant);
-        g_free (utf8_variant);
-}
-
-static void
 insert_user_languages (GHashTable *ht)
 {
         char *name;
-        char *language;
 
         /* Add the languages used by other users on the system */
         add_other_users_language (ht);
@@ -295,8 +275,7 @@ insert_user_languages (GHashTable *ht)
         /* Add current locale */
         name = cc_common_language_get_current_language ();
         if (g_hash_table_lookup (ht, name) == NULL) {
-                language = gnome_get_language_from_locale (name, NULL);
-                g_hash_table_insert (ht, name, language);
+                insert_language (ht, name);
         } else {
                 g_free (name);
         }
@@ -309,15 +288,15 @@ cc_common_language_get_initial_languages (void)
 
         ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-        insert_language (ht, "en_US");
-        insert_language (ht, "en_GB");
-        insert_language (ht, "de_DE");
-        insert_language (ht, "fr_FR");
-        insert_language (ht, "es_ES");
-        insert_language (ht, "zh_CN");
-        insert_language (ht, "ja_JP");
-        insert_language (ht, "ru_RU");
-        insert_language (ht, "ar_EG");
+        insert_language (ht, "en_US.UTF-8");
+        insert_language (ht, "en_GB.UTF-8");
+        insert_language (ht, "de_DE.UTF-8");
+        insert_language (ht, "fr_FR.UTF-8");
+        insert_language (ht, "es_ES.UTF-8");
+        insert_language (ht, "zh_CN.UTF-8");
+        insert_language (ht, "ja_JP.UTF-8");
+        insert_language (ht, "ru_RU.UTF-8");
+        insert_language (ht, "ar_EG.UTF-8");
 
         insert_user_languages (ht);
 

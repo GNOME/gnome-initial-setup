@@ -238,10 +238,6 @@ add_one_language (CcLanguageChooser *chooser,
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
 	GtkWidget *widget;
 
-	if (!g_str_has_suffix (locale_id, "utf8")) {
-		return;
-	}
-
 	if (!cc_common_language_has_font (locale_id)) {
 		return;
 	}
