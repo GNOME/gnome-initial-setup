@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-04 07:56+0000\n"
-"PO-Revision-Date: 2015-03-04 14:36+0100\n"
+"POT-Creation-Date: 2015-05-17 07:13+0000\n"
+"PO-Revision-Date: 2015-05-17 10:10+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -51,7 +51,7 @@ msgstr "_Zrušit"
 msgid "Force existing user mode"
 msgstr "Vynutit režim existujícího uživatele"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
 msgid "- GNOME initial setup"
 msgstr "– Prvotní nastavení"
 
@@ -255,11 +255,11 @@ msgstr ""
 "Po dokončení nastavení si můžete své účty on-line zkontrolovat (a případně "
 "přidat další)"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Náhled"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -268,7 +268,7 @@ msgstr "Více…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "Nenalezena žádná vstupní zařízení"
 
@@ -281,7 +281,7 @@ msgstr "Psaní"
 msgid "Select your keyboard layout or an input method."
 msgstr "Vyberte své rozložení klávesnice nebo některou vstupní metodu."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "Žádné jazyky nenalezeny"
 
@@ -324,7 +324,11 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Žádné bezdrátové připojení není k dispozici"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:130
+msgid "This is a weak password."
+msgstr "Toto heslo je slabé."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
 msgid "The passwords do not match."
 msgstr "Hesla se neshodují."
 
@@ -351,88 +355,108 @@ msgstr "Nové heslo se musí od starého lišit."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Zkuste změnit některá písmena a číslice."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Toto heslo je velmi podobné tomu dřívějšímu. Zkuste změnit některá písmena a "
+"číslice."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Zkuste heslo změnit trochu víc."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr ""
+"Toto heslo je velmi podobné tomu dřívějšímu. Zkuste heslo změnit trochu víc."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Heslo bude silnější, když v něm nebude vaše jméno."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Toto heslo je slabé. Heslo bude silnější, když v něm nebude vaše jméno."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Zkuste v hesle nepoužít své jméno."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "Toto heslo je slabé. Zkuste v hesle nepoužít své jméno."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Zkuste nepoužít slova z původního hesla."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr ""
+"Toto heslo je slabé. Zkuste nepoužít slova z původního hesla."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Zkuste nepoužívat běžná slova."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Toto heslo je slabé. Zkuste nepoužívat běžná slova."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Zkuste něco víc, než jen přehodit pořadí slov."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "Toto heslo je slabé. Zkuste něco víc, než jen přehodit pořadí slov."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Zkuste použít více číslic."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Toto heslo je slabé. Zkuste použít více číslic."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Zkuste použít více velkých písmen."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Toto heslo je slabé. Zkuste použít více velkých písmen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Zkuste použít více malých písmen."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Toto heslo je slabé. Zkuste použít více malých písmen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Zkuste použít více speciálních znaků, třeba interpunkční znaménka."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr ""
+"Toto heslo je slabé. Zkuste použít více speciálních znaků, třeba interpunkční "
+"znaménka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Zkuste použít směs písmen, číslic a speciálních znaků."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"Toto heslo je slabé. Zkuste použít směs písmen, číslic a speciálních znaků."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Zkuste neopakovat po sobě stejné znaky."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "Toto heslo je slabé. Zkuste neopakovat po sobě stejné znaky."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Zkuste nepoužívat opakování stejného typu znaků: potřebujete směs písmen, "
-"číslic a speciálních znaků."
+"Toto heslo je slabé. Zkuste nepoužívat opakování stejného typu znaků: "
+"potřebujete směs písmen, číslic a speciálních znaků."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Zkuste nepoužívat posloupnosti, jako je 1234 nebo abcd."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Toto heslo je slabé. Zkuste nepoužívat posloupnosti, jako je 1234 nebo abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Zkuste přidat další písmena, číslice a symboly."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr "Toto heslo je slabé. Zkuste přidat další písmena, číslice a symboly."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -487,7 +511,7 @@ msgstr ""
 "distribuci %s. Hlášení jsou odesílána anonymně a jsou zbavena osobních údajů."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Zásady soukromí"
 
@@ -573,6 +597,3 @@ msgstr "Časové pásmo"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Vyhledejte prosím nejbližší město"
-
-#~ msgid "Cancel"
-#~ msgstr "Zrušit"
