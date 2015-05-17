@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-18 19:54+0000\n"
-"PO-Revision-Date: 2015-02-19 11:08+0700\n"
+"POT-Creation-Date: 2015-05-16 20:59+0000\n"
+"PO-Revision-Date: 2015-05-17 07:11+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -49,7 +50,7 @@ msgstr "T_hôi"
 msgid "Force existing user mode"
 msgstr "Ép buộc chế độ người dùng cũ"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
 msgid "- GNOME initial setup"
 msgstr "- Cài đặt GNOME lần đầu"
 
@@ -229,10 +230,6 @@ msgstr ""
 msgid "Add Account"
 msgstr "Thêm tài khoản"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:90
-msgid "Cancel"
-msgstr "Thôi"
-
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
 msgid "Online Accounts"
 msgstr "Tài khoản trực tuyến"
@@ -255,11 +252,11 @@ msgstr ""
 "Bạn có thể xem xét lại các tài khoản trực tuyến (và có thể thêm) sau khi cài "
 "đặt."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Xem trước"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -268,11 +265,11 @@ msgstr "Còn nữa…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "Không tìm đầu vào nào"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:355
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Nhập liệu"
@@ -281,7 +278,7 @@ msgstr "Nhập liệu"
 msgid "Select your keyboard layout or an input method."
 msgstr "Chọn bố cục bàn phím hay phương thức nhập liệu."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "Không tìm thấy ngôn ngữ"
 
@@ -293,16 +290,16 @@ msgstr "Chào mừng bạn"
 msgid "Welcome!"
 msgstr "Chào mừng bạn!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Khác…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
 msgid "Checking for available wireless networks"
 msgstr "Đang kiểm xem có mạng không dây nào dùng được không"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
 msgid "Network"
 msgstr "Mạng"
 
@@ -324,7 +321,11 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Không có mạng không dây dùng được"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:130
+msgid "This is a weak password."
+msgstr "Đây là mật khẩu yếu."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
 msgid "The passwords do not match."
 msgstr "Mật khẩu không khớp nhau."
 
@@ -351,87 +352,107 @@ msgstr "Mật khẩu mới cần phải khác với mật khẩu cũ."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Hãy thay đổi một số chữ cái và chữ số."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Mật khẩu vẫn rất giống với cái bạn đã nhập lần trước. Hãy thay đổi một số "
+"chữ cái và chữ số."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Hãy thay đổi mật khẩu một chút nữa."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr ""
+"Mật khẩu vẫn rất giống với cái bạn đã nhập lần trước. Hãy thay đổi mật khẩu "
+"một chút nữa."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Mật khẩu mạnh hơn nếu không chứa tên của bạn."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr "Đây là mật khẩu yếu. Mật khẩu mạnh hơn nếu không chứa tên của bạn."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Không nên dùng tên của bạn làm mật khẩu."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "Đây là mật khẩu yếu. Không nên dùng tên của bạn làm mật khẩu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Tránh sử dụng mật khẩu có chứa một số từ."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "Đây là mật khẩu yếu. Tránh sử dụng mật khẩu có chứa một số từ."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Hãy tránh dùng các từ phổ biến."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Đây là mật khẩu yếu. Hãy tránh dùng các từ phổ biến."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Tránh đảo ngược thứ tự chữ cái của một từ cụ thể"
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "Đây là mật khẩu yếu. Tránh đảo ngược thứ tự chữ cái của một từ cụ thể"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Hãy dùng thêm một số chữ số."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Đây là mật khẩu yếu. Hãy dùng thêm một số chữ số."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Hãy dùng thêm các chữ HOA."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Đây là mật khẩu yếu. Hãy dùng thêm các chữ HOA."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Nên dùng nhiều chữ cái thường hơn."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Đây là mật khẩu yếu. Nên dùng nhiều chữ cái thường hơn."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Hãy dùng nhiều ký tự đặc biệt hơn nữa, như là dấu chấm câu chẳng hạn."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr ""
+"Đây là mật khẩu yếu. Hãy dùng nhiều ký tự đặc biệt hơn nữa, như là dấu chấm "
+"câu chẳng hạn."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Hãy trộn lẫn chữ cái, chữ số và dấu chấm câu."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr "Đây là mật khẩu yếu. Hãy trộn lẫn chữ cái, chữ số và dấu chấm câu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Tránh lặp lại cùng một ký tự."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "Đây là mật khẩu yếu. Tránh lặp lại cùng một ký tự."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Không được lặp cùng một kiểu chữ: bạn cần trộn lẫn chữ cái, số và dấu chấm."
+"Đây là mật khẩu yếu. Không được lặp cùng một kiểu chữ: bạn cần trộn lẫn chữ "
+"cái, số và dấu chấm."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Hãy tránh sử dụng các chuỗi kế tiếp nhau như là 1234 hay abcd."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Đây là mật khẩu yếu. Hãy tránh sử dụng các chuỗi kế tiếp nhau như là 1234 "
+"hay abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Hãy thử thêm các chữ cái, chữ số và ký hiệu."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr "Đây là mật khẩu yếu. Hãy thử thêm các chữ cái, chữ số và ký hiệu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -486,7 +507,7 @@ msgstr ""
 "được gửi nặc danh và được xóa các dữ liệu cá nhân."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Chính sách riêng tư"
 
@@ -573,6 +594,9 @@ msgstr "Múi giờ"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Vui lòng tìm thành phố gần đây"
+
+#~ msgid "Cancel"
+#~ msgstr "Thôi"
 
 #~ msgid "_Back"
 #~ msgstr "_Lùi"
