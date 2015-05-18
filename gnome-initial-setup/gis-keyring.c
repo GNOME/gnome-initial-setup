@@ -29,7 +29,7 @@
 
 #include <libsecret/secret.h>
 
-#define DUMMY_PWD "gis"
+#define DUMMY_PWD ""
 
 /* We never want to see a keyring dialog, but we need to make
  * sure a keyring is present.
