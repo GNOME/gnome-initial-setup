@@ -103,7 +103,7 @@ update_os_data (GisPrivacyPage *page)
     name = g_strdup ("GNOME");
 
   /* Translators: the parameter here is the name of a distribution,
-   * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+   * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
    * detect any distribution.
    */
   text = g_strdup_printf (_("Sending reports of technical problems helps us to improve %s. Reports are sent anonymously and are scrubbed of personal data."), name);
