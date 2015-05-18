@@ -95,7 +95,10 @@ update_os_data (GisPrivacyPage *page)
   if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
     {
       name = get_item (buffer, "NAME");
-      privacy_policy = get_item (buffer, "PRIVACY_POLICY");
+      privacy_policy = get_item (buffer, "PRIVACY_POLICY_URL");
+      /* Fedora had PRIVACY_POLICY=... in os-release for a while, unfortunately */
+      if (!privacy_policy)
+        privacy_policy = get_item (buffer, "PRIVACY_POLICY");
       g_free (buffer);
     }
 
