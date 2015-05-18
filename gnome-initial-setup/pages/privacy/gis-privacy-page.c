@@ -95,7 +95,7 @@ update_os_data (GisPrivacyPage *page)
   if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
     {
       name = get_item (buffer, "NAME");
-      privacy_policy = get_item (buffer, "PRIVACY_POLICY");
+      privacy_policy = get_item (buffer, "PRIVACY_POLICY_URL");
       g_free (buffer);
     }
 
