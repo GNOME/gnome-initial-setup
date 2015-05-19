@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: Tajik Gnome\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-13 19:55+0000\n"
-"PO-Revision-Date: 2015-03-14 10:52+0500\n"
+"POT-Creation-Date: 2015-05-18 19:15+0000\n"
+"PO-Revision-Date: 2015-05-19 10:26+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: \n"
 "Language: tg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -151,7 +151,6 @@ msgid "_Full Name"
 msgstr "_Номи пурра"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-#| msgid "Enterprise Login"
 msgid "Set Up _Enterprise Login"
 msgstr "Танзими _вуруди тиҷорӣ"
 
@@ -189,27 +188,19 @@ msgstr "Ба домени %s пайваст нашуд: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-#| msgid "A user with the username '%s' already exists"
 msgid "A user with the username '%s' already exists."
 msgstr "Корбар бо номи '%s' аллакай мавҷуд аст."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
-#| msgid "The username is too long"
 msgid "The username is too long."
 msgstr "Номи корбар хеле дароз аст."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'"
 msgid "The username cannot start with a '-'."
 msgstr "Номи корбар бояд бо '-' сар нашавад."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
-#| msgid ""
-#| "The username must only consist of:\n"
-#| " ➣ letters from the English alphabet\n"
-#| " ➣ digits\n"
-#| " ➣ any of the characters '.', '-' and '_'"
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
 "digits and any of characters '.', '-' and '_'."
@@ -260,11 +251,11 @@ msgstr ""
 "Шумо метавонед ҳисобҳои онлайни хдро баъд аз танзим бозбинӣ унед (ва "
 "дигаронро илова кунед)."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Пешнамоиш"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -273,7 +264,7 @@ msgstr "Бештар..."
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "Ягон вуруд ёфт нашуд"
 
@@ -286,7 +277,7 @@ msgstr "Ҳуруфчинӣ"
 msgid "Select your keyboard layout or an input method."
 msgstr "Интихоб кардани тарҳбандии клавиатура ё тарзи вуруд."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "Ягон забон ёфт нашуд"
 
@@ -330,8 +321,12 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Шабакаи бесим дастнорас аст."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
-#| msgid "Passwords do not match"
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:130
+#| msgid "Choose a _password"
+msgid "This is a weak password."
+msgstr "Ин пароли беқувват аст."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
 msgid "The passwords do not match."
 msgstr "Паролҳо мувофиқат намекунанд."
 
@@ -349,7 +344,7 @@ msgstr "Боэҳтиёт бошед, ки пароли худро гум нак�
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
 msgid "_Verify"
-msgstr "_Тайид кардан"
+msgstr "_Тасдиқ кардан"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -357,97 +352,126 @@ msgid "The new password needs to be different from the old one."
 msgstr "Пароли нав бояд аз пароли куҳна фарқ кунад."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#| msgctxt "Password hint"
+#| msgid "Try changing some letters and numbers."
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Кӯшиш кунед, ки баъзе ҳарфҳо ва рақамҳоро тағйир диҳед."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Ин парол ба пароли охирини шумо хеле монанд аст. Баъзеи ҳарфҳо ва рақамҳоро "
+"иваз кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Кӯшиш кунед, ки паролро каме иваз кунед."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr ""
+"Ин парол ба пароли охирини шумо хеле монанд аст. Паролеро каме иваз кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Парол бе номи корбари шумо қавитар мешавад."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr "Ин пароли беқувват аст. Парол бе номи корбари шумо қавитар мешавад."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Кӯшиш кунед, ки номи корбари худро дар парол истифода набаред."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки номи корбари худро дар парол "
+"истифода набаред."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Кӯшиш кунед, ки баъзе калимаҳои иловашударо аз парол истисно кунед."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки баъзе калимаҳои иловашударо аз парол "
+"истисно кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Кӯшиш кунед, ки баъзе калимаҳои иддиро истисно кунед."
+msgid "This is a weak password. Try to avoid common words."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки баъзе калимаҳои иддиро истисно кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Кӯшиш кунед, ки калимаҳои мавҷудбударо ба таври дигар мураттаб кунед."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки калимаҳои мавҷудбударо ба таври "
+"дигар мураттаб кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Кӯшиш кунед, ки рақами иловагиро истифода баред."
+msgid "This is a weak password. Try to use more numbers."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки рақами иловагиро истифода баред."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Кӯшиш кунед, ки ҳарфҳои калонро истифода баред."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки ҳарфҳои калонро истифода баред."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Кӯшиш кунед, ки ҳарфҳои хурдро истифода баред."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Ин пароли беқувват аст. Кӯшиш кунед, ки ҳарфҳои хурдро истифода баред."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
 msgstr ""
-"Кӯшиш кунед, ки аломатҳои махсусро, монанди аломати китобат, истифода баред."
+"Ин пароли беқувват аст. Кӯшиш кунед, ки аломатҳои махсусро, монанди аломати "
+"китобат, истифода баред."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
 msgstr ""
-"Кӯшиш кунед, ки омезиши ҳарфҳо, рақамҳо ва аломатҳои китобатиро истифода "
-"баред."
+"Ин пароли беқувват аст. Кӯшиш кунед, ки омезиши ҳарфҳо, рақамҳо ва аломатҳои "
+"китобатиро истифода баред."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Кӯшиш кунед, ки такрории баъзе аломатҳоро истисно кунед."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки такрории баъзе аломатҳоро истисно "
+"кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Кӯшиш кунед, ки такрории баъзе намудҳои аломатҳоро истисно кунед: шумо бояд "
-"ҳарфҳо, рақамҳо ва аломати китобатиро омезиш кунед."
+"Ин пароли беқувват аст. Кӯшиш кунед, ки такрории баъзе намудҳои аломатҳоро "
+"истисно кунед: шумо бояд ҳарфҳо, рақамҳо ва аломати китобатиро омезиш кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Кӯшиш кунед, ки силсиларо монанди 1234 ё abcd истисно кунед."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки силсиларо монанди 1234 ё abcd "
+"истисно кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Кӯшиш кунед, ки ҳарфҳо, рақамҳо ва аломатҳои бештарро илова кунед."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr ""
+"Ин пароли беқувват аст. Кӯшиш кунед, ки ҳарфҳо, рақамҳо ва аломатҳои "
+"бештарро илова кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgid ""
-#| "Try to use at least 8 different characters. Mix upper and lower case and "
-#| "use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and use a number or two."
 msgstr "Ҳарфҳои хурду калон бо рақамҳо аралаш кунед."
@@ -462,31 +486,26 @@ msgstr ""
 "бештарро илова кунед."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:141
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Weak"
 msgstr "Тавоноӣ: Беқувват"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:145
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Low"
 msgstr "Тавоноӣ: Камқувват"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:148
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Medium"
 msgstr "Тавоноӣ: Миёна"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:151
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: Good"
 msgstr "Тавоноӣ: Боқувват"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:154
-#| msgid "Strength: %s"
 msgctxt "Password strength"
 msgid "Strength: High"
 msgstr "Тавоноӣ: Пурқувват"
@@ -521,7 +540,6 @@ msgstr ""
 "карда шаванд."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
-#| msgid "Location"
 msgid "Location Services"
 msgstr "Хидматҳои ҷойгиршавӣ"
 
@@ -617,9 +635,6 @@ msgstr "Лутфан, шаҳри наздикеро интихоб кунед"
 
 #~ msgid "_Confirm password"
 #~ msgstr "_Паролро тасдиқ намоед"
-
-#~ msgid "Choose a _password"
-#~ msgstr "П_аролеро интихоб намоед"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
