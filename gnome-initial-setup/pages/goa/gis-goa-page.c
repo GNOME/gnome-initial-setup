@@ -286,15 +286,17 @@ gis_goa_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->constructed (object);
 
+  gis_page_set_skippable (GIS_PAGE (page), TRUE);
+
+  priv->providers = g_hash_table_new (g_str_hash, g_str_equal);
+
   priv->goa_client = goa_client_new_sync (NULL, &error);
 
   if (priv->goa_client == NULL) {
-    g_error ("Failed to get a GoaClient: %s", error->message);
+    g_warning ("Failed to get a GoaClient: %s", error->message);
     g_error_free (error);
     return;
   }
-
-  priv->providers = g_hash_table_new (g_str_hash, g_str_equal);
 
   g_signal_connect (priv->goa_client, "account-added",
                     G_CALLBACK (accounts_changed), page);
@@ -311,8 +313,6 @@ gis_goa_page_constructed (GObject *object)
 
   populate_provider_list (page);
   sync_accounts (page);
-
-  gis_page_set_skippable (GIS_PAGE (page), TRUE);
 }
 
 static void
