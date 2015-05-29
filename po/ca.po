@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Gil Forcada <gilforcada@guifi.net>, 2012, 2013, 2014.
 # Josep Sànchez <papapep@gmx.com>, 2013.
-#
+# Jordi Mas <jmas@softcatala.org>, 2015.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-17 17:35-0400\n"
+"POT-Creation-Date: 2015-05-29 18:40+0200\n"
 "PO-Revision-Date: 2015-03-17 17:35-0400\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -287,22 +288,26 @@ msgstr "Us donem la benvinguda"
 msgid "Welcome!"
 msgstr "Us donem la benvinguda!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Altres…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:366
+msgid "Wireless networking is disabled"
+msgstr "La xarxa sense fil està inhabilitada"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:373
 msgid "Checking for available wireless networks"
 msgstr "S'està comprovant si hi ha xarxes sense fil disponibles"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
 msgid "Network"
 msgstr "Xarxa"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
 msgid "Wi-Fi"
-msgstr "Xarxa sense fils"
+msgstr "Xarxa sense fil"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
 msgid ""
@@ -316,9 +321,17 @@ msgstr ""
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
 msgid "No wireless available"
-msgstr "No hi ha cap xarxa sense fils disponible"
+msgstr "No hi ha cap xarxa sense fil disponible"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "Activa"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:130
+msgid "This is a weak password."
+msgstr "Aquesta contrasenya és feble."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
 msgid "The passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
@@ -345,89 +358,100 @@ msgstr "La contrasenya nova ha de ser diferent de la vella."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Canvieu algunes lletres i números."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr "Aquesta contrasenya és molt semblant a l'última. Canvieu algunes lletres i números."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Canvieu la contrasenya una mica més."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr "Aquesta contrasenya és molt semblant a l'última. Canvieu la contrasenya una mica més."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Una contrasenya sense el vostre nom d'usuari seria més segura."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr "Aquesta contrasenya és feble. Una contrasenya sense el vostre nom d'usuari seria més segura."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Eviteu l'ús del vostre nom a la contrasenya."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "Aquesta contrasenya és feble. Eviteu l'ús del vostre nom a la contrasenya."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Eviteu algunes de les paraules incloses a la contrasenya."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "Aquesta contrasenya és feble. Eviteu algunes de les paraules incloses a la contrasenya."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Eviteu utilitzar paraules comunes."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Aquesta contrasenya és feble. Eviteu utilitzar paraules comunes."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Eviteu utilitzar paraules desordenades."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "Aquesta contrasenya és feble. Eviteu reordenar paraules existents."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Utilitzeu més nombres."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Aquesta contrasenya és feble. Utilitzeu més nombres."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Utilitzeu més lletres majúscules."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Aquesta contrasenya és feble. Utilitzeu més lletres majúscules."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Utilitzeu més lletres minúscules."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Aquesta contrasenya és feble. Utilitzeu més lletres minúscules."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Utilitzeu més caràcters especials, com ara signes de puntuació."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr "Aquesta contrasenya és feble. Utilitzeu més caràcters especials, com ara signes de puntuació."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
 msgstr ""
-"Intenteu utilitzar una combinació de lletres, nombres i signes de puntuació."
+"Aquesta contrasenya és feble. Intenteu utilitzar una combinació de lletres, nombres i signes de puntuació."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Eviteu repetir el mateix caràcter."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "Aquesta contrasenya és feble. Eviteu repetir el mateix caràcter."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Eviteu repetir el mateix tipus de caràcter: combineu lletres, números i "
+"Aquesta contrasenya és feble. Eviteu repetir el mateix tipus de caràcter: combineu lletres, números i "
 "signes de puntuació."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Eviteu emprar seqüències com ara 1234 o abcd."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "Aquesta contrasenya és feble. Eviteu emprar seqüències com ara 1234 o abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Afegiu-hi més lletres, nombres i símbols."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr "Aquesta contrasenya és feble. Afegiu-hi més lletres, nombres i símbols."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -469,7 +493,7 @@ msgid "Strength: High"
 msgstr "Seguretat: alta"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
@@ -478,7 +502,8 @@ msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
 "sent anonymously and are scrubbed of personal data."
 msgstr ""
-"Enviar informes de problemes tècnics ajuda a millorar %s. Els informes s'envien anònimament i sense dades personals."
+"Enviar informes de problemes tècnics ajuda a millorar %s. Els informes "
+"s'envien anònimament i sense dades personals."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
@@ -491,7 +516,9 @@ msgstr "Privadesa"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
 msgid "Privacy controls can be changed at any time from Settings."
-msgstr "Els controls de privadesa es poden canviar en qualsevol moment des de les preferències."
+msgstr ""
+"Els controls de privadesa es poden canviar en qualsevol moment des de les "
+"preferències."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid "Location Services"
