@@ -3,22 +3,24 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2013.
 # Muhammet Kara <muhammetk@gmail.com>, 2012, 2013, 2014, 2015.
+# Necdet Yücel <necdetyucel@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-20 07:51+0000\n"
-"PO-Revision-Date: 2015-02-20 15:48+0200\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"POT-Creation-Date: 2015-06-01 19:10+0000\n"
+"PO-Revision-Date: 2015-06-02 22:04+0000\n"
+"Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
-"Language: tr_TR\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1433282659.000000\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -49,7 +51,7 @@ msgstr "_Vazgeç"
 msgid "Force existing user mode"
 msgstr "Var olan kullanıcı kipine zorla"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
 msgid "- GNOME initial setup"
 msgstr "- GNOME ilk kurulum"
 
@@ -253,11 +255,11 @@ msgstr ""
 "Çevrimiçi hesaplarınızı kurulumdan sonra gözden geçirebilir (ve diğerlerini "
 "ekleyebilirsiniz.)"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Önizleme"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -266,7 +268,7 @@ msgstr "Daha…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "Hiçbir girdi bulunamadı"
 
@@ -279,7 +281,7 @@ msgstr "Yazım"
 msgid "Select your keyboard layout or an input method."
 msgstr "Klavye düzeninizi ya da bir giriş yöntemi seçin."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "Hiçbir dil bulunamadı"
 
@@ -291,16 +293,20 @@ msgstr "Hoş Geldiniz"
 msgid "Welcome!"
 msgstr "Hoş Geldiniz!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Diğer…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:366
+msgid "Wireless networking is disabled"
+msgstr "Kablosuz ağ kapatıldı"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:373
 msgid "Checking for available wireless networks"
 msgstr "Mevcut kablosuz ağlar denetleniyor"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:639
 msgid "Network"
 msgstr "Ağ"
 
@@ -322,7 +328,15 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Kullanılabilir kablosuz ağ yok"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "Aç"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:130
+msgid "This is a weak password."
+msgstr "Bu zayıf bir paroladır."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
 msgid "The passwords do not match."
 msgstr "Parolalar eşleşmiyor."
 
@@ -348,89 +362,147 @@ msgid "The new password needs to be different from the old one."
 msgstr "Yeni parolanın, eskisinden farklı olması gerekir."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#| msgctxt "Password hint"
+#| msgid "Try changing some letters and numbers."
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Bazı harf ve rakamları değiştirmeyi deneyin."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Parolanız bir öncekine çok benziyor. Bazı harfleri ve rakamları değiştirmeyi "
+"deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Parolayı biraz daha değiştirmeyi deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:87
-msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Kullanıcı adınızı içermeyen bir parola daha güçlü olacaktır."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:89
-msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "İsminizi içermeyen bir parola deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:91
-msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Paroladaki bazı kelimelerden kaçınmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:95
-msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Yaygın kelimelerden kaçınmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:97
-msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Kelimelerin yerini değiştirmekten kaçınmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:99
-msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Daha fazla rakam kullanmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:101
-msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Daha fazla büyük harf kullanmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:103
-msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Daha fazla küçük harf kullanmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:105
-msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Noktalama işaretleri gibi daha fazla özel karakter kullanmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:107
-msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Harf, sayı ve noktalama işareti karışımı kullanmayı deneyin."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:109
-msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Aynı karakterleri tekrar etmekten kaçının."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#| msgctxt "Password hint"
+#| msgid "Try changing the password a bit more."
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
 msgstr ""
-"Aynı cinsteki karakterleri tekrar etmekten kaçının: harfleri, sayıları ve "
-"noktalama işaretlerini karıştırmalısınız."
+"Parolanız bir öncekine çok benziyor. Parolanızı biraz daha değiştirmeyi "
+"deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:87
+#| msgctxt "Password hint"
+#| msgid "A password without your user name would be stronger."
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Bu zayıf bir paroladır. Kullanıcı adınızı içermeyen bir parola daha güçlü "
+"olacaktır."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#| msgctxt "Password hint"
+#| msgid "Try to avoid using your name in the password."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "Bu zayıf bir paroladır. İsminizi içermeyen bir parola deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#| msgctxt "Password hint"
+#| msgid "Try to avoid some of the words included in the password."
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "Bu zayıf bir paroladır. Paroladaki bazı kelimelerden kaçınmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:95
+#| msgctxt "Password hint"
+#| msgid "Try to avoid common words."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Bu zayıf bir paroladır. Yaygın kelimelerden kaçınmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:97
+#| msgctxt "Password hint"
+#| msgid "Try to avoid reordering existing words."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr ""
+"Bu zayıf bir paroladır. Kelimelerin yerini değiştirmekten kaçınmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:99
+#| msgctxt "Password hint"
+#| msgid "Try to use more numbers."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Bu zayıf bir paroladır. Daha fazla rakam kullanmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:101
+#| msgctxt "Password hint"
+#| msgid "Try to use more uppercase letters."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Bu zayıf bir paroladır. Daha fazla büyük harf kullanmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:103
+#| msgctxt "Password hint"
+#| msgid "Try to use more lowercase letters."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Bu zayıf bir paroladır. Daha fazla küçük harf kullanmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:105
+#| msgctxt "Password hint"
+#| msgid "Try to use more special characters, like punctuation."
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr ""
+"Bu zayıf bir paroladır. Noktalama işaretleri gibi daha fazla özel karakter "
+"kullanmayı deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:107
+#| msgctxt "Password hint"
+#| msgid "Try to use a mixture of letters, numbers and punctuation."
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"Bu zayıf bir paroladır. Harf, sayı ve noktalama işareti karışımı kullanmayı "
+"deneyin."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:109
+#| msgctxt "Password hint"
+#| msgid "Try to avoid repeating the same character."
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "Bu zayıf bir paroladır. Aynı karakterleri tekrar etmekten kaçının."
+
+#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#| msgctxt "Password hint"
+#| msgid ""
+#| "Try to avoid repeating the same type of character: you need to mix up "
+#| "letters, numbers and punctuation."
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
+msgstr ""
+"Bu zayıf bir paroladır. Aynı cinsteki karakterleri tekrar etmekten kaçının: "
+"harfleri, sayıları ve noktalama işaretlerini karıştırmalısınız."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
+#| msgctxt "Password hint"
+#| msgid "Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "1234 veya abcd gibi sıralamalardan kaçınmayı deneyin."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Bu zayıf bir paroladır. 1234 veya abcd gibi sıralamalardan kaçınmayı deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
+#| msgctxt "Password hint"
+#| msgid "Try to add more letters, numbers and symbols."
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Daha fazla harf, sayı ve simge eklemeyi deneyin."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr ""
+"Bu zayıf bir paroladır. Daha fazla harf, sayı ve simge eklemeyi deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -472,7 +544,7 @@ msgid "Strength: High"
 msgstr "Güç: Yüksek"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
@@ -486,7 +558,7 @@ msgstr ""
 "arındırılmıştır."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Gizlilik İlkesi"
 
