@@ -248,6 +248,7 @@ gis_password_page_constructed (GObject *object)
 static void
 gis_password_page_dispose (GObject *object)
 {
+  if (GIS_PAGE (object)->driver)
   g_signal_handlers_disconnect_by_func (GIS_PAGE (object)->driver,
                                         username_changed, object);
 
