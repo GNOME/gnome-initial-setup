@@ -2,11 +2,10 @@
 
 cfgdir=${XDG_CONFIG_DIR:-$HOME/.config}
 
-rm -f $cfgdir/run-welcome-tour
-
 # Don't do anything if yelp isn't installed
 yelp_path=$(which yelp 2>/dev/null)
 if test -z "${yelp_path}"; then
+    rm -f $cfgdir/run-welcome-tour
     exit
 fi
 
@@ -19,3 +18,4 @@ EOF
 fi
 
 yelp help:gnome-help/getting-started
+rm -f $cfgdir/run-welcome-tour
