@@ -2,23 +2,23 @@
 # Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2012.
-# Yosef Or Boczko <yoseforb@gnome.org>, 2013, 2014.
+# Yosef Or Boczko <yoseforb@gnome.org>, 2013, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-24 12:13+0200\n"
-"PO-Revision-Date: 2015-02-24 12:23+0200\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"POT-Creation-Date: 2015-07-16 13:44+0300\n"
+"PO-Revision-Date: 2015-07-16 13:52+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural= (n!=1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -49,7 +49,7 @@ msgstr "_ביטול"
 msgid "Force existing user mode"
 msgstr "אילוץ מצב משתמש קיים"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
 msgid "- GNOME initial setup"
 msgstr "- הגדרות ראשוניות של GNOME"
 
@@ -131,11 +131,11 @@ msgstr "שם המ_נהל"
 msgid "Administrator Password"
 msgstr "ססמת המנהל"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Are these the right details? You can change them if you want."
 msgstr "האם אלה הפרטים הנכונים? ניתן לשנות אותם אם זהו רצונך."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "אנחנו צריכים כמה פרטים להשלמת ההתקנה."
@@ -245,11 +245,11 @@ msgstr ""
 msgid "You can review your online accounts (and add others) after setup."
 msgstr "ניתן לסקור את החשבונות המקוונים שלך (ולהוסיף אחרים) לאחר ההתקנה."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -258,7 +258,7 @@ msgstr "עוד…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "לא נמצא קלט"
 
@@ -271,7 +271,7 @@ msgstr "הקלדה"
 msgid "Select your keyboard layout or an input method."
 msgstr "בחירת פריסות המקלדת שלך או שיטת קלט."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "לא נמצאו שפות"
 
@@ -283,16 +283,20 @@ msgstr "ברוך בואך"
 msgid "Welcome!"
 msgstr "ברוך בואך!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "אחר…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
+msgid "Wireless networking is disabled"
+msgstr "הרשת האלחוטית מושבתת"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:377
 msgid "Checking for available wireless networks"
 msgstr "מתבצע חיפוש אחר רשתות אלחוטיות זמינות"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:643
 msgid "Network"
 msgstr "רשת"
 
@@ -313,11 +317,19 @@ msgstr ""
 msgid "No wireless available"
 msgstr "אין אלחוט זמין"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "הפעלה"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:130
+msgid "This is a weak password."
+msgstr "ססמה זו חלשה."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
 msgid "The passwords do not match."
 msgstr "הססמאות אינן תואמות."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:261
 msgid "Password"
 msgstr "ססמה"
 
@@ -340,88 +352,99 @@ msgstr "הססמה החדשה מוכרחה להיות שונה מהקודמת."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "כדאי לשנות כמה תווים או מספרים."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr "ססמה זו דומה מאוד לזו הקודמת. כדאי לנסות כמה תווים ומספרים."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "כדאי לנסות לערוך שינויים נרחבים יותר בססמה"
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr "ססמה זו דומה מאוד לזו הקודמת. כדאי לשנות את הססמה עוד מעט."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "ססמה ללא שם המשתמש שלך תהיה חזקה יותר."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr "זו ססמה חלשה. ססמה ללא השם שלך תהיה חזקה יותר."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "כדאי לנסות להימנע משימוש בשם שלך בססמה."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "זו ססמה חלשה. כדאי לנסות להימנע משימוש בשם שלך בססמה."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "כדאי לנסות להימנע מכמה מהמילים הכלולים בססמה."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "זו ססמה חלשה. כדאי לנסות להימנע מכמה מילים הכלולות בססמה."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "כדאי לנסות להימנע ממילים נפוצות."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "זו ססמה חלשה. כדאי לנסות להימנע ממילים נפוצות."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "כדאי לנסות להימנע מסידור מחדש של מילים קיימות."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "זו ססמה חלשה. כדאי להימנע מסידור מחודש של מילים קיימות."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "כדאי לנסות להשתמש ביותר מספרים."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "זו ססמה חלשה. כדאי לנסות להשתמש ביותר מספרים."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "כדאי לנסות להשתמש ביותר אותיות רישיות."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "זו ססמה חלשה. כדאי להשתמש בעוד אותיות רישיות."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "כדאי לנסות השתמש ביותר אותיות קטנות."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "זו ססמה חלשה. כדאי להשתמש בעוד אותיות קטנות."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "כדאי לנסות להשתמש ביותר תווים מיוחדים, כמו סימני פיסוק."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr "זו ססמה חלשה. כדאי להשתמש בתווים מסוימים יותר, כמו סימני פיסוק."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "כדאי לנסות להשתמש בתערובת של אותיות, מספרים וסימני פיסוק."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr "זו ססמה חלשה. כדאי להשתמש בערבוב של תווים, מספרים וסימני פיסוק."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "כדאי לנסות להימנע מחזרה על אותו התו."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "זו ססמה חלשה. כדאי לנסות להימנע מחזרה על אותו התו."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"כדאי לנסות להימנע מחזרה על אותו סוג של תו: צריך לערבב אותיות, מספרים וסימני "
-"פיסוק."
+"זו ססמה חלשה. כדאי לנסות להימנע מחזרה על אותו סוג של תו: צריך לערבב אותיות, "
+"מספרים וסימני פיסוק."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "כדאי להימנע מרצפים כמו 1234 או abcd או אבגד."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "זו ססמה חלשה. כדאי להימנע מרצפים כמו 1234 או abcd או אבגד."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "כדאי להוסיף תווים, מספרים וסימנים."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr "זו ססמה חלשה. כדאי להוסיף תווים, מספרים וסימנים."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -462,7 +485,7 @@ msgid "Strength: High"
 msgstr "חוזק: גבוהה"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
@@ -470,10 +493,12 @@ msgstr "חוזק: גבוהה"
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
 "sent anonymously and are scrubbed of personal data."
-msgstr "שליחת דיווחים על בעיות טכניות תעזור לנו לשפר את %s. הדיווחים נשלחים בעילום שם וללא מידע אישי."
+msgstr ""
+"שליחת דיווחים על בעיות טכניות תעזור לנו לשפר את %s. הדיווחים נשלחים בעילום "
+"שם וללא מידע אישי."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "מדיניות פרטיות"
 
@@ -493,7 +518,9 @@ msgstr "שירותי איכון"
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
-msgstr "מאפשר ליישומים לקבוע את המיקום הגאוגרפי שלך. סימן מוצג כאשר שירותי האיכון בשימוש."
+msgstr ""
+"מאפשר ליישומים לקבוע את המיקום הגאוגרפי שלך. סימן מוצג כאשר שירותי האיכון "
+"בשימוש."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
 msgid "Automatic Problem Reporting"
@@ -577,9 +604,6 @@ msgstr "נא לחפש עיר סמוכה"
 
 #~ msgid "_Confirm password"
 #~ msgstr "_אימות הססמה"
-
-#~ msgid "Choose a _password"
-#~ msgstr "בחירת _ססמה"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
@@ -671,9 +695,6 @@ msgstr "נא לחפש עיר סמוכה"
 
 #~ msgid "No network devices found."
 #~ msgstr "לא נמצא התקן רשת."
-
-#~ msgid "Wireless Networks"
-#~ msgstr "רשתות אלחוטיות"
 
 #~ msgid "Thank You"
 #~ msgstr "תודה רבה לך"
