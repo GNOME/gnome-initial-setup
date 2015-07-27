@@ -69,7 +69,7 @@ struct _GisDriverPrivate {
   GisAssistant *assistant;
 
   ActUser *user_account;
-  const gchar *user_password;
+  gchar *user_password;
 
   gchar *lang_id;
   gchar *username;
@@ -89,6 +89,9 @@ gis_driver_finalize (GObject *object)
 
   g_free (priv->lang_id);
   g_free (priv->username);
+  g_free (priv->user_password);
+
+  g_clear_object (&priv->user_account);
 
   G_OBJECT_CLASS (gis_driver_parent_class)->finalize (object);
 }
@@ -180,8 +183,8 @@ gis_driver_set_user_permissions (GisDriver   *driver,
                                  const gchar *password)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  priv->user_account = user;
-  priv->user_password = password;
+  g_set_object (&priv->user_account, user);
+  priv->user_password = g_strdup (password);
 }
 
 void
