@@ -79,6 +79,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageEnterprise, gis_account_page_enterpris
 
 enum {
   VALIDATION_CHANGED,
+  USER_CACHED,
   LAST_SIGNAL,
 };
 
@@ -173,6 +174,7 @@ on_permit_user_login (GObject *source,
     g_debug ("Caching remote user: %s", login);
 
     priv->act_user = act_user_manager_cache_user (priv->act_client, login, NULL);
+    g_signal_emit (page, signals[USER_CACHED], 0, priv->act_user, gtk_entry_get_text (GTK_ENTRY (priv->password)));
     apply_complete (page, TRUE);
 
     g_free (login);
@@ -821,6 +823,9 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
   signals[VALIDATION_CHANGED] = g_signal_new ("validation-changed", GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE,
                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
                                               G_TYPE_NONE, 0);
+  signals[USER_CACHED] = g_signal_new ("user-cached", GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE,
+                                        G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
+                                        G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
 }
 
 static void

@@ -190,6 +190,21 @@ on_local_page_confirmed (GisAccountPageLocal *local,
 }
 
 static void
+on_local_user_cached (GtkWidget      *page_local,
+                      ActUser        *user,
+                      char           *password,
+                      GisAccountPage *page)
+{
+  const gchar *language;
+
+  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
+  if (language)
+    act_user_set_language (user, language);
+
+  gis_driver_set_user_permissions (GIS_PAGE (page)->driver, user, password);
+}
+
+static void
 gis_account_page_constructed (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
@@ -206,6 +221,8 @@ gis_account_page_constructed (GObject *object)
 
   g_signal_connect (priv->page_enterprise, "validation-changed",
                     G_CALLBACK (on_validation_changed), page);
+  g_signal_connect (priv->page_enterprise, "user-cached",
+                    G_CALLBACK (on_local_user_cached), page);
 
   update_page_validation (page);
 
