@@ -73,15 +73,18 @@ gis_password_page_save_data (GisPage *gis_page)
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   ActUser *act_user;
+  UmAccountMode account_mode;
   const gchar *password;
 
   if (gis_page->driver == NULL)
     return;
 
-  gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
+  account_mode = gis_driver_get_account_mode (gis_page->driver);
 
-  if (act_user == NULL) /* enterprise account */
+  if (account_mode == UM_ENTERPRISE)
     return;
+
+  gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
 
   password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
 

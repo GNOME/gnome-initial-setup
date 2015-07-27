@@ -75,6 +75,7 @@ struct _GisDriverPrivate {
   gchar *username;
 
   GisDriverMode mode;
+  UmAccountMode account_mode;
 };
 typedef struct _GisDriverPrivate GisDriverPrivate;
 
@@ -191,6 +192,21 @@ gis_driver_get_user_permissions (GisDriver    *driver,
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   *user = priv->user_account;
   *password = priv->user_password;
+}
+
+void
+gis_driver_set_account_mode (GisDriver     *driver,
+                             UmAccountMode  mode)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  priv->account_mode = mode;
+}
+
+UmAccountMode
+gis_driver_get_account_mode (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  return priv->account_mode;
 }
 
 void

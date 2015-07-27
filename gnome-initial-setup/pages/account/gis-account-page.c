@@ -32,12 +32,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-typedef enum {
-  UM_LOCAL,
-  UM_ENTERPRISE,
-  NUM_MODES,
-} UmAccountMode;
-
 struct _GisAccountPagePrivate
 {
   GtkWidget *page_local;
@@ -101,6 +95,7 @@ set_mode (GisAccountPage *page,
     return;
 
   priv->mode = mode;
+  gis_driver_set_account_mode (GIS_PAGE (page)->driver, mode);
 
   switch (mode)
     {

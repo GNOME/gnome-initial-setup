@@ -38,6 +38,12 @@ G_BEGIN_DECLS
 typedef struct _GisDriver        GisDriver;
 typedef struct _GisDriverClass   GisDriverClass;
 
+typedef enum {
+  UM_LOCAL,
+  UM_ENTERPRISE,
+  NUM_MODES,
+} UmAccountMode;
+
 struct _GisDriver
 {
   GtkApplication parent;
@@ -68,6 +74,11 @@ void gis_driver_set_user_permissions (GisDriver   *driver,
 void gis_driver_get_user_permissions (GisDriver    *driver,
                                       ActUser     **user,
                                       const gchar **password);
+
+void gis_driver_set_account_mode (GisDriver     *driver,
+                                  UmAccountMode  mode);
+
+UmAccountMode gis_driver_get_account_mode (GisDriver *driver);
 
 void gis_driver_set_user_language (GisDriver   *driver,
                                    const gchar *lang_id);
