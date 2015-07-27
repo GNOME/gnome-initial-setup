@@ -417,6 +417,8 @@ stop_geolocation (GisTimezonePage *page)
       g_clear_object (&priv->geoclue_cancellable);
     }
 
+  if (priv->geoclue_client)
+    geoclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
   g_clear_object (&priv->geoclue_client);
   g_clear_object (&priv->geoclue_manager);
 }
