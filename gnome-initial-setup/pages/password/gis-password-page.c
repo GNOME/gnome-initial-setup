@@ -91,8 +91,6 @@ gis_password_page_save_data (GisPage *gis_page)
     act_user_set_password (act_user, password, "");
 
   gis_driver_set_user_permissions (gis_page->driver, act_user, password);
-
-  gis_update_login_keyring_password (password);
 }
 
 static void
