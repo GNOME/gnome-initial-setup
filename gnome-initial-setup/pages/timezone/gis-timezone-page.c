@@ -454,6 +454,8 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
+  priv->geoclue_cancellable = g_cancellable_new ();
+
   set_auto_location (page, NULL);
   set_location (page, NULL);
   get_location_from_geoclue_async (page);
