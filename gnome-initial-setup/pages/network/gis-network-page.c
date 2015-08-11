@@ -324,8 +324,6 @@ static gboolean
 refresh_again (gpointer user_data)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
-  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-
   refresh_wireless_list (page);
   return G_SOURCE_REMOVE;
 }
