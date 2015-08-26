@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Daniel Nylander <po@danielnylander.se>, 2012.
 # Sebastian Rasmussen <sebras@gmail.com>, 2015.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-21 20:33+0000\n"
-"PO-Revision-Date: 2015-02-23 23:57+0100\n"
-"Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
+"POT-Creation-Date: 2015-08-09 07:16+0000\n"
+"PO-Revision-Date: 2015-08-09 14:42+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.3\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -48,28 +49,28 @@ msgstr "_Avbryt"
 msgid "Force existing user mode"
 msgstr "Tvinga existerande användarläge"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
+#: ../gnome-initial-setup/gnome-initial-setup.c:202
 msgid "- GNOME initial setup"
 msgstr "- GNOME initial konfiguration"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Om dig"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Misslyckades med att registrera konto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "Inga stödda sätt att autentisera mot denna domän"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "Misslyckades med att ansluta till domän"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "Misslyckades med att logga in i domän"
 
@@ -79,11 +80,11 @@ msgstr "Företagsinloggning"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
-"Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"Enterprise login allows an existing centrally managed user account to be used on "
+"this device."
 msgstr ""
-"Företagsinloggning möjliggör att ett existerande centralt hanterat "
-"användarkonto används med den här enheten."
+"Företagsinloggning möjliggör att ett existerande centralt hanterat användarkonto "
+"används med den här enheten."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -113,13 +114,13 @@ msgstr "Administratörsinloggning för domän"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in a "
-"domain. Please have your network administrator type the domain password "
-"here, and choose a unique computer name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in a domain. "
+"Please have your network administrator type the domain password here, and choose a "
+"unique computer name for your computer."
 msgstr ""
-"För att använda företagsinloggning, måste denna dator anslutas till en "
-"domän. Be din nätverksadministratör ange domänlösenord här, och välj ett "
-"unikt datornamn för din dator."
+"För att använda företagsinloggning, måste denna dator anslutas till en domän. Be "
+"din nätverksadministratör ange domänlösenord här, och välj ett unikt datornamn för "
+"din dator."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
@@ -133,11 +134,11 @@ msgstr "Administratörs_namn"
 msgid "Administrator Password"
 msgstr "Administratörslösenord"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Are these the right details? You can change them if you want."
 msgstr "Är dessa uppgifter korrekta? Du kan ändra dem om du önskar."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Vi behöver några uppgifter för att slutföra konfigurationen."
@@ -202,16 +203,15 @@ msgstr "Användarnamnet får inte börja med ett ”-”."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"The username should only consist of lower and upper case letters from a-z, digits "
+"and any of characters '.', '-' and '_'."
 msgstr ""
-"Användarnamnet får endast bestå av stora och små bokstäver från a-z, siffror "
-"samt tecknen ”.”, ”-” och ”_”."
+"Användarnamnet får endast bestå av stora och små bokstäver från a-z, siffror samt "
+"tecknen ”.”, ”-” och ”_”."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
 msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"Detta kommer att användas för att namnge din hemkatalog och kan inte ändras."
+msgstr "Detta kommer att användas för att namnge din hemkatalog och kan inte ändras."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
@@ -220,8 +220,7 @@ msgstr "Licensavtal"
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
 msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
+"I have _agreed to the terms and conditions in this end user license agreement."
 msgstr "Jag _godkänner villkoren i slutanvändaravtalet."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
@@ -241,20 +240,20 @@ msgid ""
 "Connecting your accounts will allow you to easily access your email, online "
 "calendar, contacts, documents and photos."
 msgstr ""
-"Att ansluta dina konton gör det möjligt att enkelt komma åt e-post, "
-"kalendrar, kontakter, dokument och foton."
+"Att ansluta dina konton gör det möjligt att enkelt komma åt e-post, kalendrar, "
+"kontakter, dokument och foton."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid "You can review your online accounts (and add others) after setup."
 msgstr ""
-"Du kan granska dina nätkonton (och lägga till fler) efter att "
-"konfigurationen är klar."
+"Du kan granska dina nätkonton (och lägga till fler) efter att konfigurationen är "
+"klar."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Förhandsgranska"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -263,7 +262,7 @@ msgstr "Mer…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "Inga inmatningsenheter hittades"
 
@@ -276,7 +275,7 @@ msgstr "Inmatning"
 msgid "Select your keyboard layout or an input method."
 msgstr "Välj din tangentbordslayout eller en inmatningsmetod."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "Inga språk hittades"
 
@@ -288,16 +287,20 @@ msgstr "Välkommen"
 msgid "Welcome!"
 msgstr "Välkommen!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:305
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Andra…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:352
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
+msgid "Wireless networking is disabled"
+msgstr "Trådlöst nätverk är inaktiverat"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:377
 msgid "Checking for available wireless networks"
 msgstr "Letar efter tillgängliga trådlösa nätverk"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:602
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:643
 msgid "Network"
 msgstr "Nätverk"
 
@@ -307,23 +310,31 @@ msgstr "Trådlöst nätverk"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
 msgid ""
-"Connecting to the Internet will enable you to set the time, add your "
-"details, and enable you to access your email, calendar, and contacts. It is "
-"also necessary for enterprise login accounts."
+"Connecting to the Internet will enable you to set the time, add your details, and "
+"enable you to access your email, calendar, and contacts. It is also necessary for "
+"enterprise login accounts."
 msgstr ""
-"Att ansluta till internet gör det möjligt att automatiskt ställa klockan, "
-"lägga till information om dig, samt ger åtkomst till din e-post, kalendrar "
-"och kontakter. Det är även nödvändigt för konton med företagsinloggning."
+"Att ansluta till internet gör det möjligt att automatiskt ställa klockan, lägga "
+"till information om dig, samt ger åtkomst till din e-post, kalendrar och "
+"kontakter. Det är även nödvändigt för konton med företagsinloggning."
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
 msgid "No wireless available"
 msgstr "Inga trådlösa nätverk tillgängliga"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "Slå på"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:131
+msgid "This is a weak password."
+msgstr "Detta är ett svagt lösenord."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:141
 msgid "The passwords do not match."
 msgstr "Lösenorden stämmer inte överens."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:262
 msgid "Password"
 msgstr "Lösenord"
 
@@ -346,89 +357,112 @@ msgstr "Det nya lösenordet måste skilja sig från det gamla."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Försök att ändra några bokstäver och siffror."
+msgid ""
+"This password is very similar to your last one. Try changing some letters and "
+"numbers."
+msgstr ""
+"Detta lösenord är väldigt likt ditt föregående. Försök att ändra några bokstäver "
+"och siffror."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Försök att ändra lösenordet lite till."
+msgid ""
+"This password is very similar to your last one. Try changing the password a bit "
+"more."
+msgstr ""
+"Detta lösenord är väldigt likt ditt föregående. Försök att ändra lösenordet lite "
+"till."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Ett lösenord utan ditt användarnamn skulle vara säkrare."
+msgid "This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Detta är ett svagt lösenord. Ett lösenord utan ditt användarnamn skulle vara "
+"säkrare."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Försök att undvika att använda ditt namn i lösenordet."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr ""
+"Detta är ett svagt lösenord. Försök att undvika att använda ditt namn i lösenordet."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Försök att undvika några av orden som ingår i lösenordet."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the password."
+msgstr ""
+"Detta är ett svagt lösenord. Försök att undvika några av orden som ingår i "
+"lösenordet."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Försök att undvika vanliga ord."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Detta är ett svagt lösenord. Försök att undvika vanliga ord."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Försöka att undvika att kasta om existerande ord."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr ""
+"Detta är ett svagt lösenord. Försöka att undvika att kasta om existerande ord."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Försök att använda fler siffror."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Detta är ett svagt lösenord. Försök att använda fler siffror."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Försök att använda fler stora bokstäver."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Detta är ett svagt lösenord. Försök att använda fler stora bokstäver."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Försök att använda fler små bokstäver."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Detta är ett svagt lösenord. Försök att använda fler små bokstäver."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Försök att använda fler specialtecken, till exempel skiljetecken."
+msgid ""
+"This is a weak password. Try to use more special characters, like punctuation."
+msgstr ""
+"Detta är ett svagt lösenord. Försök att använda fler specialtecken, till exempel "
+"skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and punctuation."
 msgstr ""
-"Försök att använda en blandning av bokstäver, siffror och skiljetecken."
+"Detta är ett svagt lösenord. Försök att använda en blandning av bokstäver, siffror "
+"och skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Försök att undvika att upprepa samma tecken."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "Detta är ett svagt lösenord. Försök att undvika att upprepa samma tecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: you "
+"need to mix up letters, numbers and punctuation."
 msgstr ""
-"Försök att undvika att upprepa samma typ av tecken: du behöver blanda "
-"bokstäver, nummer och skiljetecken."
+"Detta är ett svagt lösenord. Försök att undvika att upprepa samma typ av tecken: "
+"du behöver blanda bokstäver, nummer och skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Försök att undvika sekvenser som 1234 eller abcd."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Detta är ett svagt lösenord. Försök att undvika sekvenser som 1234 eller abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Försök att lägga till fler bokstäver, siffror och symboler."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr ""
+"Detta är ett svagt lösenord. Försök att lägga till fler bokstäver, siffror och "
+"symboler."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -438,11 +472,10 @@ msgstr "Blanda stora och små bokstäver samt använd en siffra eller två."
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Good password! Adding more letters, numbers and punctuation will make it stronger."
 msgstr ""
-"Bra lösenord! Genom att lägga till fler bokstäver, siffror och skiljetecken "
-"blir det starkare."
+"Bra lösenord! Genom att lägga till fler bokstäver, siffror och skiljetecken blir "
+"det starkare."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:141
 msgctxt "Password strength"
@@ -470,20 +503,20 @@ msgid "Strength: High"
 msgstr "Styrka: Hög"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
 #, c-format
 msgid ""
-"Sending reports of technical problems helps us to improve %s. Reports are "
-"sent anonymously and are scrubbed of personal data."
+"Sending reports of technical problems helps us to improve %s. Reports are sent "
+"anonymously and are scrubbed of personal data."
 msgstr ""
-"Att skicka rapporter om tekniska problem hjälper oss att förbättra %s. "
-"Rapporter skickas anonymt och rensas från personlig information."
+"Att skicka rapporter om tekniska problem hjälper oss att förbättra %s. Rapporter "
+"skickas anonymt och rensas från personlig information."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:239
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Sekretesspolicy"
 
@@ -501,8 +534,8 @@ msgstr "Platstjänster"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
 msgid ""
-"Allows applications to determine your geographical location. An indication "
-"is shown when location services are in use."
+"Allows applications to determine your geographical location. An indication is "
+"shown when location services are in use."
 msgstr ""
 "Låter program ta reda på din geografiska position. En indikation visas när "
 "positioneringstjänster används."
@@ -555,13 +588,13 @@ msgstr "Nu är allt klart!"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
 #, c-format
 msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
+"We think that your time zone is %s. Press Next to continue or search for a city to "
+"manually set the time zone."
 msgstr ""
-"Vi tror att din tidszon är %s. Klicka Nästa för att fortsätta eller sök "
-"efter en stad för att manuellt sätta tidszonen."
+"Vi tror att din tidszon är %s. Klicka Nästa för att fortsätta eller sök efter en "
+"stad för att manuellt sätta tidszonen."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Tidszon"
