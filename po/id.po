@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-20 07:50+0000\n"
-"PO-Revision-Date: 2015-03-20 16:48+0700\n"
+"POT-Creation-Date: 2015-09-03 19:17+0000\n"
+"PO-Revision-Date: 2015-09-04 03:49+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -52,24 +52,24 @@ msgstr "Paksakan mode pengguna yang ada"
 msgid "- GNOME initial setup"
 msgstr "- GNOME Penyiapan Awal"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Tentang Anda"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Gagal mendaftar akun"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "Tak ada cara yang didukung untuk mengotentikasi dengan domain ini"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "Gagal bergabung domain"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "Gagal log masuk ke domain"
 
@@ -133,11 +133,11 @@ msgstr "_Nama Administrator"
 msgid "Administrator Password"
 msgstr "Sandi Administrator"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Are these the right details? You can change them if you want."
 msgstr "Apakah ini rincian yang benar? Anda dapat mengubahnya jika Anda mau."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Kami perlu beberapa rincian untuk melengkapi penyiapan."
@@ -287,16 +287,20 @@ msgstr "Selamat Datang"
 msgid "Welcome!"
 msgstr "Selamat Datang!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Lainnya…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+msgid "Wireless networking is disabled"
+msgstr "﻿Jaringan nirkabel dinonaktifkan"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
 msgid "Checking for available wireless networks"
 msgstr "Memeriksa ketersediaan jaringan nirkabel"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
 msgid "Network"
 msgstr "Jaringan"
 
@@ -318,11 +322,19 @@ msgstr ""
 msgid "No wireless available"
 msgstr "Tak ada jaringan nirkabel yang tersedia"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "Nyalakan"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
+msgid "This is a weak password."
+msgstr "Ini sandi yang lemah."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "Sandi tak cocok."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "Sandi"
 
@@ -345,88 +357,113 @@ msgstr "Sandi baru mesti berbeda dengan yang lama."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Cobalah mengubah beberapa huruf dan angka."
+msgid ""
+"This password is very similar to your last one. Try changing some letters and "
+"numbers."
+msgstr ""
+"Sandi ini sangat mirip dengan yang sebelumnya. Cobalah mengubah beberapa huruf dan "
+"angka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
+#| msgctxt "Password hint"
+#| msgid "Try changing the password a bit more."
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Cobalah mengubah sandi sedikit lagi."
+msgid ""
+"This password is very similar to your last one. Try changing the password a bit "
+"more."
+msgstr ""
+"Sandi ini sangat mirip dengan yang sebelumnya. Cobalah mengubah sandi sedikit lagi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Sandi tanpa nama pengguna Anda akan lebih kuat."
+msgid "This is a weak password. A password without your user name would be stronger."
+msgstr "Ini adalah sandi yang lemah. Sandi tanpa nama pengguna Anda akan lebih kuat."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#| msgctxt "Password hint"
+#| msgid "Try to avoid using your name in the password."
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Cobalah menghindari memakai nama Anda dalam sandi."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "This is a weak password. Try to avoid using your name in the password."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#| msgctxt "Password hint"
+#| msgid "Try to avoid some of the words included in the password."
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Cobalah menghindari beberapa kata yang disertakan dalam sandi."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the password."
+msgstr ""
+"Ini adalah sandi yang lemah. Cobalah menghindari beberapa kata yang disertakan "
+"dalam sandi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Cobalah menghindari kata-kata umum."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Ini adalah sandi yang lemah. Cobalah menghindari kata-kata umum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Cobalah menghindari menata ulang kata yang ada."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "Ini adalah sandi yang lemah. Cobalah menghindari menata ulang kata yang ada."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Cobalah memakai lebih banyak angka."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Ini adalah sandi yang lemah. Cobalah memakai lebih banyak angka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Cobalah memakai lebih banyak huruf besar."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Ini adalah sandi yang lemah. Cobalah memakai lebih banyak huruf besar."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Cobalah memakai lebih banyak huruf kecil."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Ini adalah sandi yang lemah. Cobalah memakai lebih banyak huruf kecil."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Cobalah memakai lebih banyak karakter khusus, seperti tanda seru."
+msgid ""
+"This is a weak password. Try to use more special characters, like punctuation."
+msgstr ""
+"Ini adalah sandi yang lemah. Cobalah memakai lebih banyak karakter khusus, seperti "
+"tanda seru."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Cobalah memakai campuran huruf, angka, dan tanda baca."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and punctuation."
+msgstr ""
+"Ini adalah sandi yang lemah. Cobalah memakai campuran huruf, angka, dan tanda baca."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Cobalah menghindari pengulangan karakter yang sama."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr ""
+"Ini adalah sandi yang lemah. Cobalah menghindari pengulangan karakter yang sama."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up letters, "
-"numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: you "
+"need to mix up letters, numbers and punctuation."
 msgstr ""
-"Cobalah menghindari pengulangan tipe karakter yang sama: Anda perlu mencampur "
-"huruf, angka, dan tanda baca."
+"Ini adalah sandi yang lemah. Cobalah menghindari pengulangan tipe karakter yang "
+"sama: Anda perlu mencampur huruf, angka, dan tanda baca."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Cobalah menghindari urutan seperti 1234 atau abcd."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Ini adalah sandi yang lemah. Cobalah menghindari urutan seperti 1234 atau abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Cobalah menambah lebih banyak huruf, angka, dan simbol."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr ""
+"Ini adalah sandi yang lemah. Cobalah menambah lebih banyak huruf, angka, dan "
+"simbol."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -467,7 +504,7 @@ msgid "Strength: High"
 msgstr "Kekuatan: Tinggi"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
@@ -558,7 +595,7 @@ msgstr ""
 "Kami duga zona waktu Anda adalah %s. Tekan Selanjutnya untuk meneruskan atau cari "
 "kota untuk menata zona waktu secara manual."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Zona Waktu"
@@ -566,6 +603,3 @@ msgstr "Zona Waktu"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
 msgid "Please search for a nearby city"
 msgstr "Harap cari kota yang berdekatan"
-
-#~ msgid "Cancel"
-#~ msgstr "Batal"
