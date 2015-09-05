@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-05 07:55+0000\n"
-"PO-Revision-Date: 2015-03-05 22:34+0900\n"
+"POT-Creation-Date: 2015-09-04 07:17+0000\n"
+"PO-Revision-Date: 2015-09-04 22:04+0900\n"
 "Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -52,24 +52,24 @@ msgstr "기존 사용자 모드 강제"
 msgid "- GNOME initial setup"
 msgstr "- 그놈 초기 설정"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "여러분의 정보"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "계정 등록에 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "이 도메인에 인증할 지원 방식이 없습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "도메인 참여에 실패했습니다"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "도메인 로그인에 실패했습니다"
 
@@ -133,11 +133,11 @@ msgstr "관리자 이름(_N)"
 msgid "Administrator Password"
 msgstr "관리자 암호"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Are these the right details? You can change them if you want."
 msgstr "올바른 세부 정보입니까? 원한다면 바꿀 수 있습니다."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "설정을 완료하려면 몇 가지 세부 정보가 필요합니다."
@@ -247,11 +247,11 @@ msgstr ""
 msgid "You can review your online accounts (and add others) after setup."
 msgstr "설정이 끝나면 온라인 계정 설정(및 기타 내용)을 검토할 수 있습니다."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "미리보기"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
@@ -260,7 +260,7 @@ msgstr "자세히…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
 msgid "No inputs found"
 msgstr "입력기가 없습니다"
 
@@ -273,7 +273,7 @@ msgstr "입력"
 msgid "Select your keyboard layout or an input method."
 msgstr "키보드 배치 또는 입력기를 선택하십시오."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
 msgid "No languages found"
 msgstr "발견한 언어가 없습니다"
 
@@ -285,16 +285,20 @@ msgstr "환영합니다"
 msgid "Welcome!"
 msgstr "환영합니다!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "기타…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+msgid "Wireless networking is disabled"
+msgstr "무선 네트워크 기능을 껐습니다"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
 msgid "Checking for available wireless networks"
 msgstr "사용할 수 있는 무선 네트워크 확인 중"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
 msgid "Network"
 msgstr "네트워크"
 
@@ -315,11 +319,19 @@ msgstr ""
 msgid "No wireless available"
 msgstr "무선 네트워크 연결이 없습니다"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "켜기"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
+msgid "This is a weak password."
+msgstr "암호가 약합니다."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "암호가 일치하지 않습니다."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "암호"
 
@@ -342,86 +354,99 @@ msgstr "새 암호는 이전 암호와 달라야 합니다."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "일부 문자와 숫자를 바꿔보십시오."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr "최근 입력한 암호와 매우 비슷합니다. 일부 문자와 숫자를 바꿔보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "암호를 좀 더 바꿔보십시오."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr "최근 입력한 암호와 매우 비슷합니다. 암호를 좀 더 바꿔보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "사용자 이름을 뺀 암호가 더 강력합니다."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr "암호가 약합니다. 사용자 이름을 뺀 암호가 더 강력합니다."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "암호에서 이름을 빼보십시오."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "암호가 약합니다. 암호에서 이름을 빼보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "암호에서 단어를 빼보십시오."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "암호가 약합니다. 암호에서 단어를 빼보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "일반적인 단어를 피해보십시오."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "암호가 약합니다. 일반적인 단어를 피해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "기존의 단어에 대해 순서 맞추기를 피해보십시오."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "암호가 약합니다. 기존의 단어에 대해 순서 맞추기를 피해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "더 많은 숫자를 사용해보십시오."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "암호가 약합니다. 더 많은 숫자를 사용해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "더 많은 대문자를 사용해보십시오."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "암호가 약합니다. 더 많은 대문자를 사용해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "더 많은 소문자를 사용해보십시오."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "암호가 약합니다. 더 많은 소문자를 사용해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "마침표 같은 더 많은 특수문자를 사용해보십시오."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr "암호가 약합니다. 마침표 같은 더 많은 특수문자를 사용해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "문자, 숫자, 마침표를 혼용해보십시오."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr "암호가 약합니다. 문자, 숫자, 마침표를 혼용해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "같은 글자 반복을 피해보십시오."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "암호가 약합니다. 같은 글자 반복을 피해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
-msgstr "같은 글자 반복을 피해보십시오. 문자, 숫자, 마침표를 섞어야 합니다."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
+msgstr ""
+"암호가 약합니다. 같은 글자 반복을 피해보십시오. 문자, 숫자, 마침표를 섞어야 "
+"합니다."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "1234 또는 abcd 같은 순서 입력을 피해보십시오."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "암호가 약합니다. 1234 또는 abcd 같은 순서 입력을 피해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "문자, 숫자, 기호를 더 추가해보십시오."
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr "암호가 약합니다. 문자, 숫자, 기호를 더 추가해보십시오."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -461,7 +486,7 @@ msgid "Strength: High"
 msgstr "강도: 강함"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
@@ -552,7 +577,7 @@ msgstr ""
 "시간대는 %s인 것 같습니다. 다음으로 계속 넘어가든지, 도시를 검색하여 시간대"
 "를 직접 설정하십시오."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "시간대"
@@ -572,9 +597,6 @@ msgstr "인근 도시를 검색하십시오"
 
 #~ msgid "_Confirm password"
 #~ msgstr "암호 확인(_C)"
-
-#~ msgid "Choose a _password"
-#~ msgstr "암호 지정(_P)"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
