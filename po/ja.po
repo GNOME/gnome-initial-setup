@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-20 19:50+0000\n"
-"PO-Revision-Date: 2015-03-20 10:19+0900\n"
+"POT-Creation-Date: 2015-08-31 15:49+0000\n"
+"PO-Revision-Date: 2015-08-30 11:27+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -51,24 +51,24 @@ msgstr "強制的に既存ユーザーモードを使用する"
 msgid "- GNOME initial setup"
 msgstr "- GNOME 初期セットアップ"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "ユーザー情報"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "アカウントの登録に失敗しました"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "このドメインで認証を行う方法はサポートされていません"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "ドメインの参加に失敗しました"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
+#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "ドメインへのログインに失敗しました"
 
@@ -122,11 +122,11 @@ msgstr "管理者名(_N)"
 msgid "Administrator Password"
 msgstr "管理者のパスワード"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Are these the right details? You can change them if you want."
 msgstr "これらの詳細は正しいですか？　必要であれば変更できます。"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "ユーザーに関する情報を入力してください。"
@@ -264,16 +264,20 @@ msgstr "ようこそ"
 msgid "Welcome!"
 msgstr "ようこそ"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "その他…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+msgid "Wireless networking is disabled"
+msgstr "無線ネットワークが無効です"
+
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
 msgid "Checking for available wireless networks"
 msgstr "利用可能な無線ネットワークを確認中"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
 msgid "Network"
 msgstr "ネットワーク"
 
@@ -289,11 +293,19 @@ msgstr "インターネットに接続すると時刻の設定や個人の詳細
 msgid "No wireless available"
 msgstr "無線が利用できません"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
+#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+msgid "Turn On"
+msgstr "オンにする"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
+msgid "This is a weak password."
+msgstr "弱いパスワードです。"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "パスワード"
 
@@ -312,93 +324,93 @@ msgstr "検証する(_V)"
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
 msgid "The new password needs to be different from the old one."
-msgstr "新しいパスワードは古いパスワードからもっと違うものにする必要があります。"
+msgstr "新しいパスワードは古いパスワードと異なるものにする必要があります。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "文字や数字をもっと変えるようにしてください。"
+msgid "This password is very similar to your last one. Try changing some letters and numbers."
+msgstr "このパスワードは直前とパスワードとよく似ています。文字や数字をもう少し変更してみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "パスワードをもっと変えるようにしてください。"
+msgid "This password is very similar to your last one. Try changing the password a bit more."
+msgstr "このパスワードは直前とパスワードとよく似ています。パスワードをもう少し変更してみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "パスワードにユーザー名を含めなければもっと強くなります。"
+msgid "This is a weak password. A password without your user name would be stronger."
+msgstr "弱いパスワードです。パスワードからユーザー名を取り除くともっと強くなるでしょう。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "パスワード中に名前を使うのは避けるようにしてください。"
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "弱いパスワードです。パスワード中に名前を使わないようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "パスワードに含まれる単語は避けるようにしてください。"
+msgid "This is a weak password. Try to avoid some of the words included in the password."
+msgstr "弱いパスワードです。パスワードに含まれる一部の単語を使わないようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "一般的な単語は避けるようにしてください。"
+msgid "This is a weak password. Try to avoid common words."
+msgstr "弱いパスワードです。一般的な単語は避けるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "既存の単語の繰り返しは避けるようにしてください。"
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "弱いパスワードです。既存の単語の文字を並べ替えたものは使わないようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "数字をもっと増やしてみてください。"
+msgid "This is a weak password. Try to use more numbers."
+msgstr "弱いパスワードです。数字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "大文字をもっと増やしてみてください。"
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "弱いパスワードです。大文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "小文字をもっと増やしてみてください。"
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "弱いパスワードです。小文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "記号等の特殊文字をもっと増やしてみてください。"
+msgid "This is a weak password. Try to use more special characters, like punctuation."
+msgstr "弱いパスワードです。記号などの特殊文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "文字や数字、記号を混ぜるようにしてください。"
+msgid "This is a weak password. Try to use a mixture of letters, numbers and punctuation."
+msgstr "弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "同一文字の繰り返しは避けるようにしてください。"
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "弱いパスワードです。同一文字の繰り返しは避けるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same type of character: you need to mix up letters, numbers and punctuation."
-msgstr "同一種の文字の繰り返しは避けるようにしてください: 文字や数字、記号を混在させる必要があります。"
+msgid "This is a weak password. Try to avoid repeating the same type of character: you need to mix up letters, numbers and punctuation."
+msgstr "弱いパスワードです。同じ種類の文字の繰り返しは避けるようにしてください。アルファベット、数字、記号を混ぜてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "1234 や abcd のような連続は避けるようにしてください。"
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "弱いパスワードです。1234 や abcd などの連続する並びは避けるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "文字や数字、記号をもっと増やしてみてください。"
+msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgstr "弱いパスワードです。文字や数字、記号をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and use a number or two."
-msgstr "大文字、小文字を混在させ、さらに数字を 1 つか 2 つは使用してください。"
+msgstr "大文字、小文字を混ぜ、さらに数字を 1 つか 2 つは使用してください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
@@ -431,7 +443,7 @@ msgid "Strength: High"
 msgstr "強度: 高"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
@@ -503,14 +515,14 @@ msgstr "準備完了"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
 msgid "You're all set!"
-msgstr "設定完了しました。"
+msgstr "設定が完了しました。"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
 #, c-format
 msgid "We think that your time zone is %s. Press Next to continue or search for a city to manually set the time zone."
 msgstr "タイムゾーンは %s ではありませんか? 「次へ」を押して続けるか、都市を検索してタイムゾーンを手動で設定してください。"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "タイムゾーン"
