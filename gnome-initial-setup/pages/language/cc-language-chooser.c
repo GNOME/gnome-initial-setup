@@ -75,6 +75,7 @@ typedef struct {
         gchar *locale_name;
         gchar *locale_current_name;
         gchar *locale_untranslated_name;
+        gchar *sort_key;
         gboolean is_extra;
 } LanguageWidget;
 
@@ -108,6 +109,7 @@ language_widget_free (gpointer data)
         g_free (widget->locale_name);
         g_free (widget->locale_current_name);
         g_free (widget->locale_untranslated_name);
+        g_free (widget->sort_key);
         g_free (widget);
 }
 
@@ -119,6 +121,7 @@ language_widget_new (const char *locale_id,
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
         gchar *language, *language_name;
         gchar *country, *country_name;
+        gchar *sort_key;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
         if (!gnome_parse_locale (locale_id, &language, &country, NULL, NULL))
@@ -161,6 +164,10 @@ language_widget_new (const char *locale_id,
         widget->locale_current_name = locale_current_name;
         widget->locale_untranslated_name = locale_untranslated_name;
         widget->is_extra = is_extra;
+
+        sort_key = g_utf8_normalize (locale_name, -1, G_NORMALIZE_DEFAULT);
+        widget->sort_key = g_utf8_casefold (sort_key, -1);
+        g_free (sort_key);
 
         g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
                                 language_widget_free);
@@ -354,7 +361,7 @@ sort_languages (GtkListBoxRow *a,
         if (!la->is_extra && lb->is_extra)
                 return -1;
 
-        return strcmp (la->locale_name, lb->locale_name);
+        return strcmp (la->sort_key, lb->sort_key);
 }
 
 static void
