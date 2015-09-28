@@ -26,6 +26,9 @@
 
 #define PAGE_ID "language"
 
+#define GNOME_SYSTEM_LOCALE_DIR "org.gnome.system.locale"
+#define REGION_KEY "region"
+
 #include "config.h"
 #include "language-resources.h"
 #include "gis-welcome-widget.h"
@@ -113,8 +116,9 @@ language_changed (CcLanguageChooser  *chooser,
                   GisLanguagePage    *page)
 {
   GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
-  ActUser *user;
   GisDriver *driver;
+  GSettings *region_settings;
+  ActUser *user;
 
   priv->new_locale_id = cc_language_chooser_get_language (chooser);
   driver = GIS_PAGE (page)->driver;
@@ -133,6 +137,12 @@ language_changed (CcLanguageChooser  *chooser,
                                       page);
       }
   }
+
+  /* Ensure we won't override the selected language for format strings */
+  region_settings = g_settings_new (GNOME_SYSTEM_LOCALE_DIR);
+  g_settings_reset (region_settings, REGION_KEY);
+  g_object_unref (region_settings);
+
   user = act_user_manager_get_user (act_user_manager_get_default (),
                                     g_get_user_name ());
   if (act_user_is_loaded (user))
