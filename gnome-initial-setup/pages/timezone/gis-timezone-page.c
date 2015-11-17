@@ -424,16 +424,6 @@ stop_geolocation (GisTimezonePage *page)
 }
 
 static void
-page_mapped (GtkWidget *widget,
-             gpointer   user_data)
-{
-  GisTimezonePage *page = user_data;
-
-  /* Stop timezone geolocation if it hasn't finished by the time we get here */
-  stop_geolocation (page);
-}
-
-static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
@@ -462,8 +452,6 @@ gis_timezone_page_constructed (GObject *object)
 
   g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
-  g_signal_connect (page, "map",
-                    G_CALLBACK (page_mapped), page);
   g_signal_connect (priv->search_entry, "map",
                     G_CALLBACK (entry_mapped), page);
   g_signal_connect (priv->stack, "notify::visible-child",
@@ -494,6 +482,15 @@ gis_timezone_page_locale_changed (GisPage *page)
 }
 
 static void
+gis_timezone_page_shown (GisPage *page)
+{
+  GisTimezonePage *tz_page = GIS_TIMEZONE_PAGE (page);
+
+  /* Stop timezone geolocation if it hasn't finished by the time we get here */
+  stop_geolocation (tz_page);
+}
+
+static void
 gis_timezone_page_class_init (GisTimezonePageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -510,6 +507,7 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
+  page_class->shown = gis_timezone_page_shown;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
 }
