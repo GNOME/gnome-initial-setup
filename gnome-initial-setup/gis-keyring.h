@@ -28,6 +28,7 @@
 G_BEGIN_DECLS
 
 void	gis_ensure_login_keyring	  ();
+void	gis_update_login_keyring_password (const gchar *new_);
 
 G_END_DECLS
 
