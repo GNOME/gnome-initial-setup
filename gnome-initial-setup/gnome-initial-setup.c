@@ -190,6 +190,7 @@ main (int argc, char *argv[])
   GisDriver *driver;
   int status;
   GOptionContext *context;
+  GisDriverMode mode;
 
   GOptionEntry entries[] = {
     { "existing-user", 0, 0, G_OPTION_ARG_NONE, &force_existing_user_mode,
@@ -221,9 +222,17 @@ main (int argc, char *argv[])
   }
 #endif
 
-  gis_ensure_login_keyring ();
+  mode = get_mode ();
 
-  driver = gis_driver_new (get_mode ());
+  /* When we are running as the gnome-initial-setup user we
+   * dont have a normal user session and need to initialize
+   * the keyring manually so that we can pass the credentials
+   * along to the new user in the handoff.
+   */
+  if (mode == GIS_DRIVER_MODE_NEW_USER)
+    gis_ensure_login_keyring ();
+
+  driver = gis_driver_new (mode);
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);
   status = g_application_run (G_APPLICATION (driver), argc, argv);
 

@@ -96,7 +96,13 @@ gis_password_page_save_data (GisPage *gis_page)
 
   gis_driver_set_user_permissions (gis_page->driver, act_user, password);
 
-  gis_update_login_keyring_password (password);
+  /* When creating a new user, after having setup the password in the
+   * users account we need to update the password for the gnome-initial-setup
+   * user as well so that the login keyring we intend to handoff to the
+   * new user has a matching authentication token.
+   */
+  if (gis_driver_get_mode (gis_page->driver) == GIS_DRIVER_MODE_NEW_USER)
+    gis_update_login_keyring_password (password);
 }
 
 static void
