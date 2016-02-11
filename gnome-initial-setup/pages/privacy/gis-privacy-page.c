@@ -113,7 +113,7 @@ update_os_data (GisPrivacyPage *page)
   if (!privacy_policy)
     privacy_policy = g_strdup ("https://location.services.mozilla.com/privacy");
 
-  text = g_strdup_printf ("<a href='%s'>%s</a>", privacy_policy, _("Privacy Policy"));
+  text = g_strdup_printf ("%s <a href='%s'>%s</a>", _("Uses Mozilla Location Service:"), privacy_policy, _("Privacy Policy"));
   gtk_label_set_markup (GTK_LABEL (priv->privacy_policy_label), text);
   g_free (text);
 
