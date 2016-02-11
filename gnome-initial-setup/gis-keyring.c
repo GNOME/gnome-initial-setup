@@ -46,7 +46,7 @@ gis_ensure_login_keyring ()
 	GSubprocessLauncher *launcher = NULL;
 	GError *error = NULL;
 
-	g_debug ("launching gnome-keyring-daemon --login");
+	g_debug ("launching gnome-keyring-daemon --unlock");
 	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE | G_SUBPROCESS_FLAGS_STDOUT_PIPE | G_SUBPROCESS_FLAGS_STDERR_SILENCE);
 	subprocess = g_subprocess_launcher_spawn (launcher, &error, "gnome-keyring-daemon", "--unlock", NULL);
 	if (subprocess == NULL) {
