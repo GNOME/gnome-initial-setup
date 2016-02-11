@@ -87,12 +87,21 @@ gis_page_get_property (GObject    *object,
       g_value_set_boolean (value, gis_page_get_applying (page));
       break;
     case PROP_SMALL_SCREEN:
-      g_value_set_boolean (value, gis_driver_is_small_screen (page->driver));
+      if (page->driver)
+        g_object_get_property (G_OBJECT (page->driver), "small-screen", value);
+      else
+        g_value_set_boolean (value, FALSE);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
+}
+
+static void
+small_screen_changed (GObject *driver, GParamSpec *pspec, GisPage *page)
+{
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_SMALL_SCREEN]);
 }
 
 static void
@@ -107,6 +116,8 @@ gis_page_set_property (GObject      *object,
     {
     case PROP_DRIVER:
       page->driver = g_value_dup_object (value);
+      g_signal_connect (page->driver, "notify::small-screen",
+                        G_CALLBACK (small_screen_changed), page);
       break;
     case PROP_TITLE:
       gis_page_set_title (page, (char *) g_value_get_string (value));
@@ -149,6 +160,8 @@ gis_page_dispose (GObject *object)
   if (priv->apply_cancel)
     g_cancellable_cancel (priv->apply_cancel);
 
+  if (page->driver)
+    g_signal_handlers_disconnect_by_func (page->driver, small_screen_changed, page);
   g_clear_object (&page->driver);
 
   G_OBJECT_CLASS (gis_page_parent_class)->dispose (object);

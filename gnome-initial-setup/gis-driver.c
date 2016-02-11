@@ -59,6 +59,7 @@ enum {
   PROP_0,
   PROP_MODE,
   PROP_USERNAME,
+  PROP_SMALL_SCREEN,
   PROP_LAST,
 };
 
@@ -76,6 +77,7 @@ struct _GisDriverPrivate {
 
   GisDriverMode mode;
   UmAccountMode account_mode;
+  gboolean small_screen;
 };
 typedef struct _GisDriverPrivate GisDriverPrivate;
 
@@ -100,35 +102,15 @@ static void
 prepare_main_window (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  GdkGeometry size_hints;
+  GtkWidget *child, *sw;
 
-  if (gis_driver_is_small_screen (driver))
-    {
-      GtkWidget *child, *sw;
-
-      child = g_object_ref (gtk_bin_get_child (GTK_BIN (priv->main_window)));
-      gtk_container_remove (GTK_CONTAINER (priv->main_window), child);
-      sw = gtk_scrolled_window_new (NULL, NULL);
-      gtk_widget_show (sw);
-      gtk_container_add (GTK_CONTAINER (priv->main_window), sw);
-      gtk_container_add (GTK_CONTAINER (sw), child);
-      g_object_unref (child);
-
-      gtk_window_maximize (priv->main_window);
-    }
-  else
-    {
-      size_hints.min_width = 1024;
-      size_hints.min_height = 768;
-      size_hints.win_gravity = GDK_GRAVITY_CENTER;
-
-      gtk_window_set_geometry_hints (priv->main_window,
-                                     NULL,
-                                     &size_hints,
-                                     GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
-      gtk_window_set_resizable (priv->main_window, FALSE);
-      gtk_window_set_position (priv->main_window, GTK_WIN_POS_CENTER_ALWAYS);
-    }
+  child = g_object_ref (gtk_bin_get_child (GTK_BIN (priv->main_window)));
+  gtk_container_remove (GTK_CONTAINER (priv->main_window), child);
+  sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_show (sw);
+  gtk_container_add (GTK_CONTAINER (priv->main_window), sw);
+  gtk_container_add (GTK_CONTAINER (sw), child);
+  g_object_unref (child);
 
   gtk_window_set_titlebar (priv->main_window,
                            gis_assistant_get_titlebar (priv->assistant));
@@ -252,10 +234,13 @@ gis_driver_get_mode (GisDriver *driver)
 gboolean
 gis_driver_is_small_screen (GisDriver *driver)
 {
-  GdkScreen *screen;
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  return priv->small_screen;
+}
 
-  screen = gdk_screen_get_default ();
-
+static gboolean
+screen_is_small (GdkScreen *screen)
+{
   if (g_getenv ("GIS_SMALL_SCREEN"))
     return TRUE;
 
@@ -277,6 +262,9 @@ gis_driver_get_property (GObject      *object,
       break;
     case PROP_USERNAME:
       g_value_set_string (value, priv->username);
+      break;
+    case PROP_SMALL_SCREEN:
+      g_value_set_boolean (value, priv->small_screen);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -318,21 +306,104 @@ gis_driver_activate (GApplication *app)
   gtk_window_present (GTK_WINDOW (priv->main_window));
 }
 
+static gboolean
+maximize (gpointer data)
+{
+  GtkWindow *window = data;
+
+  gtk_window_maximize (window);
+  gtk_window_present (window);
+
+  return G_SOURCE_REMOVE;
+}
+
+static gboolean
+unmaximize (gpointer data)
+{
+  GtkWindow *window = data;
+
+  gtk_window_unmaximize (window);
+  gtk_window_present (window);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+update_screen_size (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  GdkWindow *window;
+  GdkGeometry size_hints;
+  GtkWidget *sw;
+
+  if (!gtk_widget_get_realized (GTK_WIDGET (priv->main_window)))
+    return;
+
+  sw = gtk_bin_get_child (GTK_BIN (priv->main_window));
+  window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
+
+  if (priv->small_screen)
+    {
+      if (window)
+        gdk_window_set_functions (window,
+                                  GDK_FUNC_ALL | GDK_FUNC_MINIMIZE | GDK_FUNC_CLOSE);
+
+      gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
+                                      GTK_POLICY_AUTOMATIC,
+                                      GTK_POLICY_AUTOMATIC);
+
+      gtk_window_set_geometry_hints (priv->main_window, NULL, NULL, 0);
+      gtk_window_set_resizable (priv->main_window, TRUE);
+      gtk_window_set_position (priv->main_window, GTK_WIN_POS_NONE);
+
+      g_idle_add (maximize, priv->main_window);
+    }
+  else
+    {
+      if (window)
+        gdk_window_set_functions (window,
+                                  GDK_FUNC_ALL | GDK_FUNC_MINIMIZE | GDK_FUNC_CLOSE |
+                                  GDK_FUNC_RESIZE | GDK_FUNC_MOVE | GDK_FUNC_MAXIMIZE);
+
+      gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
+                                      GTK_POLICY_NEVER,
+                                      GTK_POLICY_NEVER);
+
+      size_hints.min_width = 1024;
+      size_hints.min_height = 768;
+      size_hints.win_gravity = GDK_GRAVITY_CENTER;
+
+      gtk_window_set_geometry_hints (priv->main_window,
+                                     NULL,
+                                     &size_hints,
+                                     GDK_HINT_MIN_SIZE | GDK_HINT_WIN_GRAVITY);
+      gtk_window_set_resizable (priv->main_window, FALSE);
+      gtk_window_set_position (priv->main_window, GTK_WIN_POS_CENTER_ALWAYS);
+
+      g_idle_add (unmaximize, priv->main_window);
+    }
+}
+
+static void
+screen_size_changed (GdkScreen *screen, GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  gboolean small_screen;
+
+  small_screen = screen_is_small (screen);
+
+  if (priv->small_screen != small_screen)
+    {
+      priv->small_screen = small_screen;
+      update_screen_size (driver);
+      g_object_notify (G_OBJECT (driver), "small-screen");
+    }
+}
+
 static void
 window_realize_cb (GtkWidget *widget, gpointer user_data)
 {
-  GisDriver *driver = GIS_DRIVER (user_data);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  GdkWindow *window;
-  GdkWMFunction funcs;
-
-  window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
-  funcs = GDK_FUNC_ALL | GDK_FUNC_MINIMIZE | GDK_FUNC_CLOSE;
-
-  if (!gis_driver_is_small_screen (driver))
-    funcs |= GDK_FUNC_RESIZE | GDK_FUNC_MOVE | GDK_FUNC_MAXIMIZE;
-
-  gdk_window_set_functions (window, funcs);
+  update_screen_size (GIS_DRIVER (user_data));
 }
 
 static void
@@ -369,6 +440,15 @@ gis_driver_startup (GApplication *app)
 static void
 gis_driver_init (GisDriver *driver)
 {
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  GdkScreen *screen;
+
+  screen = gdk_screen_get_default ();
+
+  priv->small_screen = screen_is_small (screen);
+
+  g_signal_connect (screen, "size-changed",
+                    G_CALLBACK (screen_size_changed), driver);
 }
 
 static void
@@ -410,6 +490,11 @@ gis_driver_class_init (GisDriverClass *klass)
     g_param_spec_string ("username", "", "",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+  obj_props[PROP_SMALL_SCREEN] =
+    g_param_spec_boolean ("small-screen", "", "",
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
 }
