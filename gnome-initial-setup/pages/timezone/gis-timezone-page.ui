@@ -43,66 +43,27 @@
             <property name="margin_top">18</property>
             <property name="valign">center</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">8</property>
+            <property name="spacing">14</property>
             <child>
-              <object class="GtkBox" id="status_box">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="spacing">8</property>
-                <child>
-                  <object class="GtkStack" id="stack">
-                    <property name="visible">True</property>
-                    <property name="transition-type">crossfade</property>
-                    <child>
-                      <object class="GtkLabel" id="auto_result">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="xalign">0</property>
-                        <property name="wrap">True</property>
-                        <property name="max-width-chars">60</property>
-                      </object>
-                      <packing>
-                        <property name="name">status</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GWeatherLocationEntry" id="search_entry">
-                        <property name="visible">True</property>
-                        <property name="hexpand">True</property>
-                      </object>
-                      <packing>
-                        <property name="name">search</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkToggleButton" id="search_button">
-                    <property name="width_request">36</property>
-                    <property name="height_request">36</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="valign">center</property>
-                    <property name="receives_default">True</property>
-                    <child>
-                      <object class="GtkImage" id="image1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="pixel_size">16</property>
-                        <property name="icon_name">edit-find-symbolic</property>
-                        <property name="icon_size">0</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
+                <property name="xalign">0</property>
+                <property name="halign">center</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">The time zone will be set automatically if your location can be found. You can also search for a city to set it yourself.</property>
+              </object>
+            </child>
+            <child>
+              <object class="GWeatherLocationEntry" id="search_entry">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="max-width-chars">55</property>
               </object>
             </child>
             <child>
               <object class="GtkFrame" id="map_frame">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_top">6</property>
                 <property name="margin_bottom">18</property>
                 <property name="hexpand">True</property>
                 <property name="label_xalign">0</property>
