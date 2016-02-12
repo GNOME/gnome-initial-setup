@@ -31,9 +31,12 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <langinfo.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-languages.h>
+#include <libgnome-desktop/gnome-wall-clock.h>
+#include <gdesktop-enums.h>
 
 #define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/gweather.h>
@@ -52,6 +55,9 @@
 /* Defines from geoclue private header src/public-api/gclue-enums.h */
 #define GCLUE_ACCURACY_LEVEL_CITY 4
 
+#define CLOCK_SCHEMA "org.gnome.desktop.interface"
+#define CLOCK_FORMAT_KEY "clock-format"
+
 struct _GisTimezonePagePrivate
 {
   GtkWidget *map;
@@ -67,6 +73,10 @@ struct _GisTimezonePagePrivate
   GWeatherLocation *auto_location;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
+
+  GnomeWallClock *clock;
+  GDesktopClockFormat clock_format;
+  gboolean ampm_available;
 };
 typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
 
@@ -115,8 +125,6 @@ set_location (GisTimezonePage  *page,
 
   g_clear_pointer (&priv->current_location, gweather_location_unref);
 
-  cc_timezone_map_set_location (CC_TIMEZONE_MAP (priv->map), location);
-
   gtk_widget_set_visible (priv->search_overlay, (location == NULL));
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
@@ -129,6 +137,8 @@ set_location (GisTimezonePage  *page,
 
       zone = gweather_location_get_timezone (location);
       tzid = gweather_timezone_get_tzid (zone);
+
+      cc_timezone_map_set_timezone (CC_TIMEZONE_MAP (priv->map), tzid);
 
       queue_set_timezone (page, tzid);
     }
@@ -376,6 +386,124 @@ entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *pag
   set_location (page, location);
 }
 
+#define GETTEXT_PACKAGE_TIMEZONES "gnome-control-center-2.0-timezones"
+
+static char *
+translated_city_name (TzLocation *loc)
+{
+  char *country;
+  char *name;
+  char *zone_translated;
+  char **split_translated;
+  gint length;
+
+  /* Load the translation for it */
+  zone_translated = g_strdup (dgettext (GETTEXT_PACKAGE_TIMEZONES, loc->zone));
+  g_strdelimit (zone_translated, "_", ' ');
+  split_translated = g_regex_split_simple ("[\\x{2044}\\x{2215}\\x{29f8}\\x{ff0f}/]",
+                                           zone_translated,
+                                           0, 0);
+  g_free (zone_translated);
+
+  length = g_strv_length (split_translated);
+
+  country = gnome_get_country_from_code (loc->country, NULL);
+  /* Translators: "city, country" */
+  name = g_strdup_printf (C_("timezone loc", "%s, %s"),
+                          split_translated[length-1],
+                          country);
+  g_free (country);
+  g_strfreev (split_translated);
+
+  return name;
+}
+
+static void
+update_timezone (GisTimezonePage *page, TzLocation *location)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  char *tz_desc;
+  char *bubble_text;
+  char *city_country;
+  char *utc_label;
+  char *time_label;
+  GTimeZone *zone;
+  GDateTime *date;
+  gboolean use_ampm;
+
+  if (priv->clock_format == G_DESKTOP_CLOCK_FORMAT_12H && priv->ampm_available)
+    use_ampm = TRUE;
+  else
+    use_ampm = FALSE;
+
+  zone = g_time_zone_new (location->zone);
+  date = g_date_time_new_now (zone);
+  g_time_zone_unref (zone);
+
+  /* Update the text bubble in the timezone map */
+  city_country = translated_city_name (location);
+
+ /* Translators: UTC here means the Coordinated Universal Time.
+  * %:::z will be replaced by the offset from UTC e.g. UTC+02
+  */
+  utc_label = g_date_time_format (date, _("UTC%:::z"));
+
+  if (use_ampm)
+    /* Translators: This is the time format used in 12-hour mode. */
+    time_label = g_date_time_format (date, _("%l:%M %p"));
+  else
+    /* Translators: This is the time format used in 24-hour mode. */
+    time_label = g_date_time_format (date, _("%R"));
+
+  /* Translators: "timezone (utc shift)" */
+  tz_desc = g_strdup_printf (C_("timezone map", "%s (%s)"),
+                             g_date_time_get_timezone_abbreviation (date),
+                             utc_label);
+  bubble_text = g_strdup_printf ("<b>%s</b>\n"
+                                 "<small>%s</small>\n"
+                                 "<b>%s</b>",
+                                 tz_desc,
+                                 city_country,
+                                 time_label);
+  cc_timezone_map_set_bubble_text (CC_TIMEZONE_MAP (priv->map), bubble_text);
+
+  g_free (tz_desc);
+  g_free (city_country);
+  g_free (utc_label);
+  g_free (time_label);
+  g_free (bubble_text);
+
+  g_date_time_unref (date);
+}
+
+static void
+map_location_changed (CcTimezoneMap   *map,
+                      TzLocation      *location,
+                      GisTimezonePage *page)
+{
+  update_timezone (page, location);
+  queue_set_timezone (page, location->zone);
+}
+
+static void
+on_clock_changed (GnomeWallClock  *clock,
+                  GParamSpec      *pspec,
+                  GisTimezonePage *page)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  TzLocation *location;
+
+  if (!gtk_widget_get_mapped (priv->map))
+    return;
+
+  if (gtk_widget_is_visible (priv->search_overlay))
+    return;
+
+  location = cc_timezone_map_get_location (CC_TIMEZONE_MAP (priv->map));
+  if (location)
+    update_timezone (page, location);
+}
+
 static void
 entry_mapped (GtkWidget *widget,
               gpointer   user_data)
@@ -429,6 +557,8 @@ gis_timezone_page_constructed (GObject *object)
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GError *error;
+  const char *ampm;
+  GSettings *settings;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
@@ -444,6 +574,19 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
+  priv->clock = g_object_new (GNOME_TYPE_WALL_CLOCK, NULL);
+  g_signal_connect (priv->clock, "notify::clock", G_CALLBACK (on_clock_changed), page);
+
+  ampm = nl_langinfo (AM_STR);
+  if (ampm == NULL || ampm[0] == '\0')
+    priv->ampm_available = FALSE;
+  else
+    priv->ampm_available = TRUE;
+
+  settings = g_settings_new (CLOCK_SCHEMA);
+  priv->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
+  g_object_unref (settings);
+
   priv->geoclue_cancellable = g_cancellable_new ();
 
   set_auto_location (page, NULL);
@@ -458,6 +601,8 @@ gis_timezone_page_constructed (GObject *object)
                     G_CALLBACK (visible_child_changed), page);
   g_signal_connect (priv->search_button, "toggled",
                     G_CALLBACK (search_button_toggled), page);
+  g_signal_connect (priv->map, "location-changed",
+                    G_CALLBACK (map_location_changed), page);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
@@ -471,6 +616,7 @@ gis_timezone_page_dispose (GObject *object)
   stop_geolocation (page);
 
   g_clear_object (&priv->dtm);
+  g_clear_object (&priv->clock);
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }

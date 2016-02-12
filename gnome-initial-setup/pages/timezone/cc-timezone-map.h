@@ -23,9 +23,7 @@
 #define _CC_TIMEZONE_MAP_H
 
 #include <gtk/gtk.h>
-
-#define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
-#include <libgweather/gweather.h>
+#include "tz.h"
 
 G_BEGIN_DECLS
 
@@ -71,8 +69,11 @@ GType cc_timezone_map_get_type (void) G_GNUC_CONST;
 
 CcTimezoneMap *cc_timezone_map_new (void);
 
-void cc_timezone_map_set_location (CcTimezoneMap    *map,
-                                   GWeatherLocation *location);
+gboolean cc_timezone_map_set_timezone (CcTimezoneMap *map,
+                                       const gchar   *timezone);
+void cc_timezone_map_set_bubble_text (CcTimezoneMap *map,
+                                      const gchar   *text);
+TzLocation * cc_timezone_map_get_location (CcTimezoneMap *map);
 
 G_END_DECLS
 
