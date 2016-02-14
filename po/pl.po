@@ -4,14 +4,14 @@
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Piotr Drąg <piotrdrag@gmail.com>, 2012-2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2012-2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2012-2016.
+# Aviary.pl <gnomepl@aviary.pl>, 2012-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-24 17:12+0200\n"
-"PO-Revision-Date: 2015-08-24 17:13+0200\n"
+"POT-Creation-Date: 2016-02-14 17:52+0100\n"
+"PO-Revision-Date: 2016-02-14 17:53+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -48,11 +48,11 @@ msgstr "_Wstecz"
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:196
+#: ../gnome-initial-setup/gnome-initial-setup.c:197
 msgid "Force existing user mode"
 msgstr "Wymusza tryb istniejącego użytkownika"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:203
 msgid "- GNOME initial setup"
 msgstr "— początkowe ustawienia środowiska GNOME"
 
@@ -257,7 +257,7 @@ msgid "Preview"
 msgstr "Podgląd"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Więcej…"
@@ -278,11 +278,11 @@ msgstr "Pisanie"
 msgid "Select your keyboard layout or an input method."
 msgstr "Wybór układu klawiatury lub metody wprowadzania."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
 msgid "No languages found"
 msgstr "Nie odnaleziono języków"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
 msgid "Welcome"
 msgstr "Witamy"
 
@@ -329,15 +329,15 @@ msgstr "Brak dostępnych sieci bezprzewodowych"
 msgid "Turn On"
 msgstr "Włącz"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:131
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
 msgid "This is a weak password."
 msgstr "To jest słabe hasło."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:141
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "Hasła się nie zgadzają."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:262
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "Hasło"
 
@@ -594,20 +594,50 @@ msgstr "Gotowe"
 msgid "You're all set!"
 msgstr "Wszystko zostało ustawione."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#. Translators: "city, country"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
 #, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Strefa czasowa komputera to prawdopodobnie %s. Kliknięcie przycisku Dalej "
-"kontynuuje. Można także wyszukać miasto, aby ręcznie ustawić strefę czasową."
+msgctxt "timezone loc"
+msgid "%s, %s"
+msgstr "%s, %s"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#. Translators: This is the time format used in 12-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+msgid "%l:%M %p"
+msgstr "%l∶%M %p"
+
+#. Translators: This is the time format used in 24-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+msgid "%R"
+msgstr "%H∶%M"
+
+#. Translators: "timezone (utc shift)"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#, c-format
+msgctxt "timezone map"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Strefa czasowa"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid ""
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
+msgstr ""
+"Strefa czasowa zostanie ustawiona automatycznie, jeśli można odnaleźć "
+"położenie komputera. Można także ręcznie wyszukać miasto."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Proszę odnaleźć najbliższe miasto"
