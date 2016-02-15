@@ -332,9 +332,6 @@ update_distro_name (GisSummaryPage *page)
   /* Translators: the parameter here is the name of a distribution,
    * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
    * detect any distribution. */
-  text = g_strdup_printf (_("Thank you for choosing %s.\nWe hope that you love it."), name);
-  gtk_label_set_label (GTK_LABEL (priv->tagline), text);
-  g_free (text);
 
   g_free (name);
 }
