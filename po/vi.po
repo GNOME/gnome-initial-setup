@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-12 00:48+0000\n"
-"PO-Revision-Date: 2016-02-12 09:24+0700\n"
+"POT-Creation-Date: 2016-02-16 21:13+0000\n"
+"PO-Revision-Date: 2016-02-17 07:40+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -46,11 +46,11 @@ msgstr "T_rước"
 msgid "_Cancel"
 msgstr "T_hôi"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:196
+#: ../gnome-initial-setup/gnome-initial-setup.c:197
 msgid "Force existing user mode"
 msgstr "Ép buộc chế độ người dùng cũ"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:203
 msgid "- GNOME initial setup"
 msgstr "- Cài đặt GNOME lần đầu"
 
@@ -565,37 +565,16 @@ msgstr "Chọn nước hay vùng địa lý của bạn."
 msgid "_Start using %s"
 msgstr "_Bắt đầu dùng %s"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
-#, c-format
-msgid ""
-"Thank you for choosing %s.\n"
-"We hope that you love it."
-msgstr ""
-"Cảm ơn bạn vì đã chọn %s.\n"
-"Chúng tôi hi vọng rằng bạn thích nó."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
 msgid "Ready to Go"
 msgstr "Đã sẵn sàng lên đường"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're all set!"
-msgstr "Bạn đã đặt xong!"
-
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:193
-#, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Chúng tôi nghĩ rằng múi giờ của bạn là %s. Hãy nhấn “Tiếp” để tiếp tục hay "
-"tìm một thành phố để đặt múi giờ bằng tay."
+msgid "You're ready to go!"
+msgstr "Bạn đã sẵn sàng lên đường!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:412
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -604,35 +583,57 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:449
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:453
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:456
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:459
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:627
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Múi giờ"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid ""
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
+msgstr ""
+"Sẽ đặt múi giờ một cách tự động nếu không thể tìm thấy vị trí của bạn. Bạn "
+"còn có thể tìm thành phố để tự mình đặt nó."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Vui lòng tìm thành phố gần đây"
+
+#~ msgid ""
+#~ "Thank you for choosing %s.\n"
+#~ "We hope that you love it."
+#~ msgstr ""
+#~ "Cảm ơn bạn vì đã chọn %s.\n"
+#~ "Chúng tôi hi vọng rằng bạn thích nó."
+
+#~ msgid ""
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "Chúng tôi nghĩ rằng múi giờ của bạn là %s. Hãy nhấn “Tiếp” để tiếp tục "
+#~ "hay tìm một thành phố để đặt múi giờ bằng tay."
 
 #~ msgid "Cancel"
 #~ msgstr "Thôi"
