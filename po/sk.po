@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-12 21:13+0000\n"
-"PO-Revision-Date: 2016-02-13 09:21+0100\n"
+"POT-Creation-Date: 2016-02-18 14:25+0000\n"
+"PO-Revision-Date: 2016-02-18 16:46+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -147,17 +147,23 @@ msgid "Administrator Password"
 msgstr "Heslo správcu"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
-msgid "Are these the right details? You can change them if you want."
-msgstr "Sú toto správne údaje? Ak budete chcieť, môžete ich zmeniť."
+msgid "Please check the name and username. You can choose a picture too."
+msgstr ""
+"Prosím, skontrolujte meno a používateľské meno. Taktiež môžete zvoliť "
+"obrázok."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Kvôli dokončeniu nastavenia je potrebných niekoľko údajov."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
 msgid "Avatar image"
 msgstr "Obrázok podobizne"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+msgid "Please provide a name and username. You can choose a picture too."
+msgstr ""
+"Prosím, poskytnite meno a používateľské meno. Taktiež môžete zvoliť obrázok."
 
 # GtkLabel label
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
@@ -247,7 +253,7 @@ msgid "Add Account"
 msgstr "Pridanie účtu"
 
 # page title
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
 msgid "Online Accounts"
 msgstr "Účty služieb"
 
@@ -259,15 +265,16 @@ msgstr "Pripojte vaše účty služieb"
 # GtkLabel label
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Connecting your accounts will allow you to easily access your email, online "
-"calendar, contacts, documents and photos."
+"Connect your accounts to easily access your email, online calendar, "
+"contacts, documents and photos."
 msgstr ""
-"Pripojením vašich účtov sa budete môcť cez internet ľahko dostať k vašim "
-"emailom, online kalendáru, kontaktom, dokumentom a fotografiám."
+"Pripojte vaše účty a získajte jednoduchý prístup k vašim emailom, online "
+"kalendáru, kontaktom, dokumentom a fotografiám."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "You can review your online accounts (and add others) after setup."
-msgstr "Môžete prezrieť vaše účty služieb (a pridať ďalšie) po inštalácii."
+msgid ""
+"Accounts can be added and removed at any time from the Settings application."
+msgstr "Účty sa dajú kedykoľvek pridať a odstrániť v aplikácii Nastavenia."
 
 # gtk button
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
@@ -542,6 +549,10 @@ msgstr ""
 "Hlásenia sú odosielané anonymne a neobsahujú osobné údaje."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+msgid "Uses Mozilla Location Service:"
+msgstr "Využívajú sa služby umiestnenia spoločnosti Mozilla:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Zásady súkromia"
@@ -551,14 +562,10 @@ msgid "Privacy"
 msgstr "Súkromie"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
-msgid "Privacy controls can be changed at any time from Settings."
-msgstr "Nastavenia súkromia sa dajú kedykoľvek zmeniť v nastaveniach."
-
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid "Location Services"
 msgstr "Služby umiestnenia"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
@@ -566,9 +573,14 @@ msgstr ""
 "Umožňujú aplikáciám zistiť vašu geografickú polohu. Používanie služieb "
 "umiestnenia je indikované ikonou."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
 msgid "Automatic Problem Reporting"
 msgstr "Automatické hlásenie problémov"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid ""
+"Privacy controls can be changed at any time from the Settings application."
+msgstr "Nastavenia súkromia sa dajú kedykoľvek zmeniť v aplikácii Nastavenia."
 
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
@@ -594,25 +606,13 @@ msgstr "Zvoľte krajinu alebo oblasť."
 msgid "_Start using %s"
 msgstr "_Začať používať systém %s"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
-#, c-format
-msgid ""
-"Thank you for choosing %s.\n"
-"We hope that you love it."
-msgstr ""
-"Ďakujeme, že ste si vybrali systém %s.\n"
-"Veríme, že sa vám bude páčiť."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
 msgid "Ready to Go"
 msgstr "Pripravený na spustenie"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're all set!"
-msgstr "Všetko je nastavené!"
+msgid "You're ready to go!"
+msgstr "Všetko je pripravené na spustenie!"
 
 #. Translators: "city, country"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
@@ -662,6 +662,19 @@ msgstr ""
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Vyhľadajte blízke mesto"
+
+#~ msgid "Are these the right details? You can change them if you want."
+#~ msgstr "Sú toto správne údaje? Ak budete chcieť, môžete ich zmeniť."
+
+#~ msgid "You can review your online accounts (and add others) after setup."
+#~ msgstr "Môžete prezrieť vaše účty služieb (a pridať ďalšie) po inštalácii."
+
+#~ msgid ""
+#~ "Thank you for choosing %s.\n"
+#~ "We hope that you love it."
+#~ msgstr ""
+#~ "Ďakujeme, že ste si vybrali systém %s.\n"
+#~ "Veríme, že sa vám bude páčiť."
 
 #~ msgid ""
 #~ "We think that your time zone is %s. Press Next to continue or search for "
