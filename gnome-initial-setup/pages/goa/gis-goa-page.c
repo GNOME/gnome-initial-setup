@@ -131,6 +131,7 @@ add_provider_to_list (GisGoaPage *page, const char *provider_type)
 
   row = gtk_list_box_row_new ();
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  g_object_set (box, "margin", 4, NULL);
   gtk_widget_set_hexpand (box, TRUE);
 
   icon = goa_provider_get_provider_icon (provider, NULL);
