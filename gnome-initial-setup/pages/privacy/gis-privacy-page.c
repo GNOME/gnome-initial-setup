@@ -269,6 +269,12 @@ activate_link (GtkLabel       *label,
 }
 
 static void
+gis_privacy_page_locale_changed (GisPage *page)
+{
+  gis_page_set_title (GIS_PAGE (page), _("Privacy"));
+}
+
+static void
 gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -283,6 +289,7 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
 
   page_class->page_id = PAGE_ID;
+  page_class->locale_changed = gis_privacy_page_locale_changed;
   page_class->apply = gis_privacy_page_apply;
   object_class->constructed = gis_privacy_page_constructed;
   object_class->dispose = gis_privacy_page_dispose;
