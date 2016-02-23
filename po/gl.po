@@ -4,13 +4,13 @@
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
 # colaborar connosco, podes atopar máis información en http://www.trasno.net
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
-# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015.
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 00:26+0200\n"
-"PO-Revision-Date: 2015-08-26 00:30+0200\n"
+"POT-Creation-Date: 2016-02-23 16:25+0100\n"
+"PO-Revision-Date: 2016-02-23 19:17+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -46,11 +46,11 @@ msgstr "_Anterior"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:196
+#: ../gnome-initial-setup/gnome-initial-setup.c:197
 msgid "Force existing user mode"
 msgstr "Forzar o modo de usuario existente"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:203
 msgid "- GNOME initial setup"
 msgstr "- Configuración inicial de GNOME"
 
@@ -136,17 +136,20 @@ msgid "Administrator Password"
 msgstr "Contrasinal do administrador"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
-msgid "Are these the right details? You can change them if you want."
-msgstr "Esta información é correcta? Pode cambiala se quere."
+msgid "Please check the name and username. You can choose a picture too."
+msgstr "Comprobe o nome e nome de usuario. Tamén pode escoller unha imaxe."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Precisamos algunha información para completar a configuración."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
 msgid "Avatar image"
 msgstr "Imaxe do avatar"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+msgid "Please provide a name and username. You can choose a picture too."
+msgstr "Forneza o nome e nome de usuario. Tamén pode escoller unha imaxe."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 msgid "_Full Name"
@@ -229,7 +232,7 @@ msgstr "_Acepto os termos e condicións deste acordo de licenza de usuario."
 msgid "Add Account"
 msgstr "Engadir conta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
 msgid "Online Accounts"
 msgstr "Contas en liña"
 
@@ -239,24 +242,25 @@ msgstr "Conecte as súas contas en liña"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
 msgid ""
-"Connecting your accounts will allow you to easily access your email, online "
-"calendar, contacts, documents and photos."
+"Connect your accounts to easily access your email, online calendar, "
+"contacts, documents and photos."
 msgstr ""
-"Se conecta unha conta podera acceder dende os seus correos, calendario en "
-"liña, contactos, documentos e fotos."
+"Conecte as súas contas para acceder de forma doada ao seu correo, calendario "
+"en liña, contactos, documentos e fotos."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "You can review your online accounts (and add others) after setup."
+msgid ""
+"Accounts can be added and removed at any time from the Settings application."
 msgstr ""
-"Pode revisar as súas contas en liña (e engadir outras) despois da "
-"configuración."
+"Pode engadir e quitar contas en calquera momento desde o aplicativo "
+"Preferencias."
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Previsualizar"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Máis…"
@@ -277,11 +281,11 @@ msgstr "Escribindo"
 msgid "Select your keyboard layout or an input method."
 msgstr "Seleccione a súa disposición de teclado ou un método de entrada."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
 msgid "No languages found"
 msgstr "Non se atoparon idiomas"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
 msgid "Welcome"
 msgstr "Benvido/a"
 
@@ -328,15 +332,15 @@ msgstr "Rede sen fíos non dispoñíbel."
 msgid "Turn On"
 msgstr "Activar"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:131
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
 msgid "This is a weak password."
 msgstr "Este é un contrasinal débil."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:141
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "Os contrasinais non coinciden."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:262
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "Contrasinal"
 
@@ -520,25 +524,24 @@ msgstr ""
 "envíanse de forma anónima e son limpados de datos persoais."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+msgid "Uses Mozilla Location Service:"
+msgstr "Usar o servizo de localización de Mozilla:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Política de privacidade"
 
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "Privacidade"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
-msgid "Privacy controls can be changed at any time from Settings."
-msgstr ""
-"Os controis de Privacidade poden cambiarse en calquera momento desde as "
-"Preferencias."
-
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid "Location Services"
 msgstr "Servizos de localización"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
@@ -546,9 +549,16 @@ msgstr ""
 "Permítelle aos aplicativos determinar a súa localización xeográfica. "
 "Aparecerá unha indicación cada vez que se use o servizo de localización."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
 msgid "Automatic Problem Reporting"
 msgstr "Informe de problemas automático"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid ""
+"Privacy controls can be changed at any time from the Settings application."
+msgstr ""
+"Os controis de Privacidade poden cambiarse en calquera momento desde o "
+"aplicativo de Preferencias."
 
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
@@ -571,43 +581,83 @@ msgstr "Seleccione o seu país ou rexión."
 msgid "_Start using %s"
 msgstr "_Comezar a usar %s"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
-#, c-format
-msgid ""
-"Thank you for choosing %s.\n"
-"We hope that you love it."
-msgstr ""
-"Grazas por escoller %s.\n"
-"Agardamos que o desfrute."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
 msgid "Ready to Go"
 msgstr "Listos para comezar"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're all set!"
-msgstr "Xa configurou todo!"
+msgid "You're ready to go!"
+msgstr "Todo está listo para comezar"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#. Translators: "city, country"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
 #, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Cremos que o seu fuso horario é %s. Prema seguinte para continuar ou busque "
-"a súa cidade manualmente para estabelecer o fuso horario."
+msgctxt "timezone loc"
+msgid "%s, %s"
+msgstr "%s, %s"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#. Translators: This is the time format used in 12-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+msgid "%l:%M %p"
+msgstr "%l:%M %p"
+
+#. Translators: This is the time format used in 24-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+msgid "%R"
+msgstr "%R"
+
+#. Translators: "timezone (utc shift)"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#, c-format
+msgctxt "timezone map"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Fuso horario"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid ""
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
+msgstr ""
+"O fuso horario configurarase automaticamente se se puido atopar a súa "
+"localización. Tamén pode buscar unha cidade vostede mesmo."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Busque pola cidade máis cercana"
+
+#~ msgid "Are these the right details? You can change them if you want."
+#~ msgstr "Esta información é correcta? Pode cambiala se quere."
+
+#~ msgid "You can review your online accounts (and add others) after setup."
+#~ msgstr ""
+#~ "Pode revisar as súas contas en liña (e engadir outras) despois da "
+#~ "configuración."
+
+#~ msgid ""
+#~ "Thank you for choosing %s.\n"
+#~ "We hope that you love it."
+#~ msgstr ""
+#~ "Grazas por escoller %s.\n"
+#~ "Agardamos que o desfrute."
+
+#~ msgid ""
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "Cremos que o seu fuso horario é %s. Prema seguinte para continuar ou "
+#~ "busque a súa cidade manualmente para estabelecer o fuso horario."
 
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
