@@ -1,15 +1,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Juhani Numminen <juhaninumminen0@gmail.com>, 2014.
-# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2012, 2013, 2014, 2015.
+# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2012, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-05 07:17+0000\n"
-"PO-Revision-Date: 2015-09-05 13:32+0300\n"
+"POT-Creation-Date: 2016-03-02 21:18+0000\n"
+"PO-Revision-Date: 2016-03-02 23:25+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -44,11 +44,11 @@ msgstr "_Edellinen"
 msgid "_Cancel"
 msgstr "_Peru"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:196
+#: ../gnome-initial-setup/gnome-initial-setup.c:197
 msgid "Force existing user mode"
 msgstr "Pakota uusi käyttäjä -tila"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:203
 msgid "- GNOME initial setup"
 msgstr "- Gnomen alkuasetukset"
 
@@ -134,17 +134,20 @@ msgid "Administrator Password"
 msgstr "Ylläpitäjän salasana"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
-msgid "Are these the right details? You can change them if you want."
-msgstr "Ovatko nämä tiedot oikein? Voit muuttaa niitä halutessasi."
+msgid "Please check the name and username. You can choose a picture too."
+msgstr "Tarkista nimi ja käyttäjätunnus. Voit valita myös kuvan."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "Vielä muutama asia, ennen kuin kaikki on valmista."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
 msgid "Avatar image"
 msgstr "Käyttäjäkuva"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+msgid "Please provide a name and username. You can choose a picture too."
+msgstr "Anna nimi ja käyttäjätunnus. Voit valita myös kuvan."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 msgid "_Full Name"
@@ -228,7 +231,7 @@ msgstr "_Hyväksyn loppukäyttäjän lisenssiehdot."
 msgid "Add Account"
 msgstr "Lisää tili"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
 msgid "Online Accounts"
 msgstr "Verkkotilit"
 
@@ -237,24 +240,29 @@ msgid "Connect Your Online Accounts"
 msgstr "Yhdistä verkkotilisi"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#| msgid ""
+#| "Connecting your accounts will allow you to easily access your email, "
+#| "online calendar, contacts, documents and photos."
 msgid ""
-"Connecting your accounts will allow you to easily access your email, online "
-"calendar, contacts, documents and photos."
+"Connect your accounts to easily access your email, online calendar, "
+"contacts, documents and photos."
 msgstr ""
-"Tilien lisääminen mahdollistaa sähköpostin, verkkokalenterin, "
-"yhteystietojen, asiakirjojen ja valokuvien vaivattoman käytön."
+"Lisää verkkotilejä käyttääksesi sähköpostia, verkkokalentereja, "
+"yhteystietoja, asiakirjoja ja valokuvia vaivatta."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "You can review your online accounts (and add others) after setup."
+#| msgid "Privacy controls can be changed at any time from Settings."
+msgid ""
+"Accounts can be added and removed at any time from the Settings application."
 msgstr ""
-"Voit tarkastella verkkotilejäsi ja lisätä uusia tilejä vielä myöhemmin."
+"Tilejä voi voi lisätä ja poistaa milloin tahansa järjestelmän asetuksista."
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "Esikatselu"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Lisää…"
@@ -275,11 +283,11 @@ msgstr "Kirjoittaminen"
 msgid "Select your keyboard layout or an input method."
 msgstr "Valitse näppäimistön asettelu tai muu syötetapa."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
 msgid "No languages found"
 msgstr "Kieliä ei löytynyt"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
 msgid "Welcome"
 msgstr "Tervetuloa"
 
@@ -293,7 +301,6 @@ msgid "Other…"
 msgstr "Muu…"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:368
-#| msgid "Wireless Networks"
 msgid "Wireless networking is disabled"
 msgstr "Langaton verkko on poistettu käytöstä"
 
@@ -326,16 +333,15 @@ msgstr "Langatonta verkkoa ei ole käytettävissä."
 msgid "Turn On"
 msgstr "Ota käyttöön"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
-#| msgid "Choose a _password"
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
 msgid "This is a weak password."
 msgstr "Tämä on heikko salasana."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
 msgid "The passwords do not match."
 msgstr "Salasanat eivät täsmää."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
 msgid "Password"
 msgstr "Salasana"
 
@@ -357,8 +363,6 @@ msgid "The new password needs to be different from the old one."
 msgstr "Uuden salasanan on oltava eri kuin vanha."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
-#| msgctxt "Password hint"
-#| msgid "Try changing some letters and numbers."
 msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing some letters "
@@ -369,8 +373,6 @@ msgstr ""
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-#| msgctxt "Password hint"
-#| msgid "Try changing the password a bit more."
 msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing the password a "
@@ -380,8 +382,6 @@ msgstr ""
 "hieman enemmön,"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
-#| msgctxt "Password hint"
-#| msgid "A password without your user name would be stronger."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. A password without your user name would be stronger."
@@ -390,15 +390,11 @@ msgstr ""
 "käyttäjätunnustasi, on paljon turvallisempi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
-#| msgctxt "Password hint"
-#| msgid "Try to avoid using your name in the password."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid using your name in the password."
 msgstr "Tämä on heikko salasana. Älä käytä nimeäsi salasanassa."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
-#| msgctxt "Password hint"
-#| msgid "Try to avoid some of the words included in the password."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid some of the words included in the "
@@ -407,15 +403,11 @@ msgstr ""
 "Tämä on heikko salasana. Yritä välttää joitakin salasanassa olevia sanoja."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
-#| msgctxt "Password hint"
-#| msgid "Try to avoid common words."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid common words."
 msgstr "Tämä on heikko salasana. Pyri välttämään yleisiä sanoja."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
-#| msgctxt "Password hint"
-#| msgid "Try to avoid reordering existing words."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid reordering existing words."
 msgstr ""
@@ -423,29 +415,21 @@ msgstr ""
 "uudelleenjärjestelyä."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
-#| msgctxt "Password hint"
-#| msgid "Try to use more numbers."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more numbers."
 msgstr "Tämä on heikko salasana. Käytä enemmän numeroita."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
-#| msgctxt "Password hint"
-#| msgid "Try to use more uppercase letters."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more uppercase letters."
 msgstr "Tämä on heikko salasana. Käytä enemmän isoja kirjaimia."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
-#| msgctxt "Password hint"
-#| msgid "Try to use more lowercase letters."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more lowercase letters."
 msgstr "Tämä on heikko salasana. Käytä enemmän pieniä kirjaimia."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
-#| msgctxt "Password hint"
-#| msgid "Try to use more special characters, like punctuation."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use more special characters, like "
@@ -454,8 +438,6 @@ msgstr ""
 "Tämä on heikko salasana. Käytä enemmän erikoismerkkejä, kuten välimerkkejä."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-#| msgctxt "Password hint"
-#| msgid "Try to use a mixture of letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use a mixture of letters, numbers and "
@@ -465,18 +447,12 @@ msgstr ""
 "yhdistelmää."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
-#| msgctxt "Password hint"
-#| msgid "Try to avoid repeating the same character."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid repeating the same character."
 msgstr ""
 "Tämä on heikko salasana. Pyri välttämään saman merkin käyttämistä useasti."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
-#| msgctxt "Password hint"
-#| msgid ""
-#| "Try to avoid repeating the same type of character: you need to mix up "
-#| "letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid repeating the same type of character: "
@@ -486,15 +462,11 @@ msgstr ""
 "kirjaimia, numeroita ja välimerkkejä."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-#| msgctxt "Password hint"
-#| msgid "Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgstr "Tämä on heikko salasana. Älä käytä sarjoja kuten 1234 tai abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
-#| msgctxt "Password hint"
-#| msgid "Try to add more letters, numbers and symbols."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to add more letters, numbers and symbols."
 msgstr ""
@@ -553,25 +525,25 @@ msgstr ""
 "poistetaan henkilökohtaiset tiedot. Ilmoitukset lähetetään anonyymisti."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+#| msgid "Location Services"
+msgid "Uses Mozilla Location Service:"
+msgstr "Käyttää Mozillan sijaintipalvelua:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "Yksityisyyskäytäntö"
 
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "Yksityisyys"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
-msgid "Privacy controls can be changed at any time from Settings."
-msgstr ""
-"Yksityisyysasetuksia voi muuttaa\n"
-"milloin tahansa järjestelmän asetuksista."
-
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid "Location Services"
 msgstr "Sijaintipalvelut"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
@@ -579,9 +551,16 @@ msgstr ""
 "Sallii sovelluksien määrittää sijaintisi. Kun sijaintipalveluja käytetään, "
 "siitä viitataan käyttäjälle."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
 msgid "Automatic Problem Reporting"
 msgstr "Automaattiset vikailmoitukset"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#| msgid "Privacy controls can be changed at any time from Settings."
+msgid ""
+"Privacy controls can be changed at any time from the Settings application."
+msgstr ""
+"Yksityisyysasetuksia voi muuttaa milloin tahansa järjestelmän asetuksista."
 
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
@@ -604,43 +583,83 @@ msgstr "Valitse maa tai alue."
 msgid "_Start using %s"
 msgstr "_Aloita käyttö - %s"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
-#, c-format
-msgid ""
-"Thank you for choosing %s.\n"
-"We hope that you love it."
-msgstr ""
-"Hienoa, että valintasi on %s.\n"
-"Toivottavasti pidät sen käyttämisestä."
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
 msgid "Ready to Go"
 msgstr "Valmis"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're all set!"
-msgstr "Kaikki on valmiina!"
+#| msgid "You're all set!"
+msgid "You're ready to go!"
+msgstr "Kaikki on valmista!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#. Translators: "city, country"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
 #, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Aikavyöhykkeesi on ilmeisesti %s. Napsauta Seuraava jatkaaksesi tai etsi "
-"kaupunkia asettaaksesi muun aikavyöhykkeen."
+msgctxt "timezone loc"
+msgid "%s, %s"
+msgstr "%s, %s"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#. Translators: This is the time format used in 12-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+msgid "%l:%M %p"
+msgstr "%l:%M %p"
+
+#. Translators: This is the time format used in 24-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+msgid "%R"
+msgstr "%R"
+
+#. Translators: "timezone (utc shift)"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#, c-format
+msgctxt "timezone map"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Aikavyöhyke"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid ""
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
+msgstr ""
+"Aikavyöhyke asetetaan automaattisesti, jos sijaintisi paikannetaan. Voit "
+"myös asettaa sijaintisi itse."
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Etsi lähellä olevaa kaupunkia"
+
+#~ msgid "Are these the right details? You can change them if you want."
+#~ msgstr "Ovatko nämä tiedot oikein? Voit muuttaa niitä halutessasi."
+
+#~ msgid "You can review your online accounts (and add others) after setup."
+#~ msgstr ""
+#~ "Voit tarkastella verkkotilejäsi ja lisätä uusia tilejä vielä myöhemmin."
+
+#~ msgid ""
+#~ "Thank you for choosing %s.\n"
+#~ "We hope that you love it."
+#~ msgstr ""
+#~ "Hienoa, että valintasi on %s.\n"
+#~ "Toivottavasti pidät sen käyttämisestä."
+
+#~ msgid ""
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "Aikavyöhykkeesi on ilmeisesti %s. Napsauta Seuraava jatkaaksesi tai etsi "
+#~ "kaupunkia asettaaksesi muun aikavyöhykkeen."
 
 #~ msgid "Cancel"
 #~ msgstr "Peru"
