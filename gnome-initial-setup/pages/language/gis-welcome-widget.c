@@ -116,6 +116,10 @@ welcome (const char *locale_id)
 
   current_locale_id = g_strdup (setlocale (LC_MESSAGES, NULL));
   setlocale (LC_MESSAGES, locale_id);
+  /* Translators: This is meant to be a warm, engaging welcome message,
+   * like greeting somebody at the door. If the exclamation mark is not
+   * suitable for this in your language you may replace it.
+   */
   welcome = _("Welcome!");
   setlocale (LC_MESSAGES, current_locale_id);
   g_free (current_locale_id);
