@@ -99,6 +99,12 @@ gis_driver_finalize (GObject *object)
 }
 
 static void
+assistant_page_changed (GtkScrolledWindow *sw)
+{
+  gtk_adjustment_set_value (gtk_scrolled_window_get_vadjustment (sw), 0);
+}
+
+static void
 prepare_main_window (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
@@ -111,6 +117,11 @@ prepare_main_window (GisDriver *driver)
   gtk_container_add (GTK_CONTAINER (priv->main_window), sw);
   gtk_container_add (GTK_CONTAINER (sw), child);
   g_object_unref (child);
+
+  g_signal_connect_swapped (priv->assistant,
+                            "page-changed",
+                            G_CALLBACK (assistant_page_changed),
+                            sw);
 
   gtk_window_set_titlebar (priv->main_window,
                            gis_assistant_get_titlebar (priv->assistant));

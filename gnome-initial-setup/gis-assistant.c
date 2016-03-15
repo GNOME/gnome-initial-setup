@@ -34,6 +34,12 @@ enum {
   PROP_LAST,
 };
 
+enum {
+  PAGE_CHANGED,
+  LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL];
 static GParamSpec *obj_props[PROP_LAST];
 
 struct _GisAssistantPrivate
@@ -61,6 +67,12 @@ struct _GisAssistantPagePrivate
 {
   GList *link;
 };
+
+static void
+visible_child_changed (GisAssistant *assistant)
+{
+  g_signal_emit (assistant, signals[PAGE_CHANGED], 0);
+}
 
 static void
 widget_destroyed (GtkWidget    *widget,
@@ -463,6 +475,8 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, title);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, stack);
 
+  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), visible_child_changed);
+
   gobject_class->get_property = gis_assistant_get_property;
 
   obj_props[PROP_TITLE] =
@@ -470,6 +484,22 @@ gis_assistant_class_init (GisAssistantClass *klass)
                          "", "",
                          NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+
+  /**
+   * GisAssistant::page-changed:
+   * @assistant: the #GisAssistant
+   *
+   * The ::page-changed signal is emitted when the visible page
+   * changed.
+   */
+  signals[PAGE_CHANGED] =
+    g_signal_new ("page-changed",
+                  G_TYPE_FROM_CLASS (gobject_class),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 0);
 
   g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
 }
