@@ -360,30 +360,6 @@ gis_summary_page_locale_changed (GisPage *page)
 }
 
 static void
-add_style_from_resource (const char *resource)
-{
-  GtkCssProvider *provider;
-  GFile *file;
-  char *uri;
-
-  provider = gtk_css_provider_new ();
-
-  uri = g_strconcat ("resource://", resource, NULL);
-  file = g_file_new_for_uri (uri);
-
-  if (!gtk_css_provider_load_from_file (provider, file, NULL))
-    goto out;
-
-  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (provider),
-                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
- out:
-  g_object_unref (file);
-  g_free (uri);
-}
-
-static void
 gis_summary_page_class_init (GisSummaryPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -399,8 +375,6 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   page_class->locale_changed = gis_summary_page_locale_changed;
   page_class->shown = gis_summary_page_shown;
   object_class->constructed = gis_summary_page_constructed;
-
-  add_style_from_resource ("/org/gnome/initial-setup/gis-summary-page.css");
 }
 
 static void

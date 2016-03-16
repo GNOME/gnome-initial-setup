@@ -12,31 +12,18 @@
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="shadow-type">none</property>
-        <style>
-          <class name="gis-summary-page" />
-        </style>
         <child>
           <object class="GtkBox" id="box">
             <property name="visible">True</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="spacing">20</property>
-            <property name="margin-top">75</property>
             <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkLabel" id="title">
+            <child type="center">
+              <object class="GtkImage" id="image">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">You're ready to go!</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1.8"/>
-                </attributes>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="tagline">
-                <property name="visible">True</property>
-                <property name="justify">center</property>
+                <property name="resource">/org/gnome/initial-setup/ready-to-go.svg</property>
+                <property name="width_request">96</property>
+                <property name="height_request">96</property>
               </object>
             </child>
             <child>
@@ -58,6 +45,31 @@
                   </object>
                 </child>
               </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="tagline">
+                <property name="visible">True</property>
+                <property name="justify">center</property>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">You're ready to go!</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="1.8"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
             </child>
           </object>
         </child>
