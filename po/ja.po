@@ -2,15 +2,16 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2012.
-# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012, 2013, 2014, 2015.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2016.
 # Ikuya Awashiro <ikuya@fruitsbasket.info>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-08-31 15:49+0000\n"
-"PO-Revision-Date: 2015-08-30 11:27+0900\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-15 09:16+0000\n"
+"PO-Revision-Date: 2016-03-15 23:26+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -43,11 +44,11 @@ msgstr "前へ(_P)"
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:196
+#: ../gnome-initial-setup/gnome-initial-setup.c:197
 msgid "Force existing user mode"
 msgstr "強制的に既存ユーザーモードを使用する"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
+#: ../gnome-initial-setup/gnome-initial-setup.c:203
 msgid "- GNOME initial setup"
 msgstr "- GNOME 初期セットアップ"
 
@@ -77,8 +78,12 @@ msgid "Enterprise Login"
 msgstr "エンタープライズログイン"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-msgid "Enterprise login allows an existing centrally managed user account to be used on this device."
-msgstr "エンタープライズログインを使用すると、すでに集中管理されているユーザーアカウントをこのデバイスで使用することができます。"
+msgid ""
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device."
+msgstr ""
+"エンタープライズログインを使用すると、すでに集中管理されているユーザーアカウ"
+"ントをこのデバイスで使用することができます。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -107,8 +112,15 @@ msgid "Domain Administrator Login"
 msgstr "ドメイン管理者のログイン"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-msgid "In order to use enterprise logins, this computer needs to be enrolled in a domain. Please have your network administrator type the domain password here, and choose a unique computer name for your computer."
-msgstr "エンタープライズログインを使用するには、このコンピューターをドメインに登録する必要があります。ネットワーク管理者に連絡を取って、ドメインのパスワードをここで入力してもらい、お使いのコンピューター用に一意となるコンピューター名を選択してください。"
+msgid ""
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
+"here, and choose a unique computer name for your computer."
+msgstr ""
+"エンタープライズログインを使用するには、このコンピューターをドメインに登録す"
+"る必要があります。ネットワーク管理者に連絡を取って、ドメインのパスワードをこ"
+"こで入力してもらい、お使いのコンピューター用に一意となるコンピューター名を選"
+"択してください。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
 msgid "_Computer"
@@ -123,17 +135,20 @@ msgid "Administrator Password"
 msgstr "管理者のパスワード"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
-msgid "Are these the right details? You can change them if you want."
-msgstr "これらの詳細は正しいですか？　必要であれば変更できます。"
+msgid "Please check the name and username. You can choose a picture too."
+msgstr "名前とユーザーを確認してください。画像の選択もできます。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "We need a few details to complete setup."
 msgstr "ユーザーに関する情報を入力してください。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
 msgid "Avatar image"
 msgstr "アバターの画像"
+
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+msgid "Please provide a name and username. You can choose a picture too."
+msgstr "名前とユーザー名を入力してください。画像の選択もできます。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 msgid "_Full Name"
@@ -190,12 +205,17 @@ msgid "The username cannot start with a '-'."
 msgstr "ユーザー名の先頭文字に '-' は使えません。"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
-msgid "The username should only consist of lower and upper case letters from a-z, digits and any of characters '.', '-' and '_'."
-msgstr "ユーザー名は、a-z の大文字小文字、数字、'.', '-', '_' の文字だけで構成してください。"
+msgid ""
+"The username should only consist of lower and upper case letters from a-z, "
+"digits and any of characters '.', '-' and '_'."
+msgstr ""
+"ユーザー名は、a-z の大文字小文字、数字、'.', '-', '_' の文字だけで構成してく"
+"ださい。"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
 msgid "This will be used to name your home folder and can't be changed."
-msgstr "ユーザー名はホームフォルダーの名前に使用されます。これは変更できません。"
+msgstr ""
+"ユーザー名はホームフォルダーの名前に使用されます。これは変更できません。"
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
@@ -203,14 +223,16 @@ msgid "License Agreements"
 msgstr "ライセンス契約"
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
-msgid "I have _agreed to the terms and conditions in this end user license agreement."
+msgid ""
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
 msgstr "本エンドユーザーライセンス契約の条件に同意します。(_A)"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "アカウントの追加"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
 msgid "Online Accounts"
 msgstr "オンラインアカウント"
 
@@ -219,19 +241,24 @@ msgid "Connect Your Online Accounts"
 msgstr "オンラインアカウントへの接続"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-msgid "Connecting your accounts will allow you to easily access your email, online calendar, contacts, documents and photos."
-msgstr "オンラインアカウントに接続すると、メールやオンラインカレンダー、連絡先、文書、写真などに簡単にアクセスできるようになります。"
+msgid ""
+"Connect your accounts to easily access your email, online calendar, "
+"contacts, documents and photos."
+msgstr ""
+"オンラインアカウントに接続すると、メールやオンラインカレンダー、連絡先、文"
+"書、写真などに簡単にアクセスできるようになります。"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "You can review your online accounts (and add others) after setup."
-msgstr "セットアップ後に設定したオンラインアカウントの確認 (や他のアカウントの追加) ができます。"
+msgid ""
+"Accounts can be added and removed at any time from the Settings application."
+msgstr "オンラインアカウントの追加/削除は、設定メニューからいつでもできます。"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
 msgid "Preview"
 msgstr "プレビュー"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "さらに…"
@@ -252,15 +279,19 @@ msgstr "入力"
 msgid "Select your keyboard layout or an input method."
 msgstr "キーボードレイアウトや入力メソッドの選択"
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:228
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
 msgid "No languages found"
 msgstr "言語が見つかりません"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
 msgid "Welcome"
 msgstr "ようこそ"
 
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it.
+#.
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:123
 msgid "Welcome!"
 msgstr "ようこそ"
 
@@ -286,8 +317,14 @@ msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
-msgid "Connecting to the Internet will enable you to set the time, add your details, and enable you to access your email, calendar, and contacts. It is also necessary for enterprise login accounts."
-msgstr "インターネットに接続すると時刻の設定や個人の詳細追記、メールやカレンダー、連絡先へのアクセスができるようになります。エンタープライズログインアカウントでもこの接続は必要となります。"
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
+msgstr ""
+"インターネットに接続すると時刻の設定や個人の詳細追記、メールやカレンダー、連"
+"絡先へのアクセスができるようになります。エンタープライズログインアカウントで"
+"もこの接続は必要となります。"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
 msgid "No wireless available"
@@ -297,15 +334,15 @@ msgstr "無線が利用できません"
 msgid "Turn On"
 msgstr "オンにする"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
 msgid "This is a weak password."
 msgstr "弱いパスワードです。"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
 msgid "The passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
 msgid "Password"
 msgstr "パスワード"
 
@@ -328,19 +365,30 @@ msgstr "新しいパスワードは古いパスワードと異なるものにす
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "This password is very similar to your last one. Try changing some letters and numbers."
-msgstr "このパスワードは直前とパスワードとよく似ています。文字や数字をもう少し変更してみてください。"
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"このパスワードは直前とパスワードとよく似ています。文字や数字をもう少し変更し"
+"てみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "This password is very similar to your last one. Try changing the password a bit more."
-msgstr "このパスワードは直前とパスワードとよく似ています。パスワードをもう少し変更してみてください。"
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr ""
+"このパスワードは直前とパスワードとよく似ています。パスワードをもう少し変更し"
+"てみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "This is a weak password. A password without your user name would be stronger."
-msgstr "弱いパスワードです。パスワードからユーザー名を取り除くともっと強くなるでしょう。"
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"弱いパスワードです。パスワードからユーザー名を取り除くともっと強くなるでしょ"
+"う。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
@@ -349,8 +397,12 @@ msgstr "弱いパスワードです。パスワード中に名前を使わない
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid some of the words included in the password."
-msgstr "弱いパスワードです。パスワードに含まれる一部の単語を使わないようにしてください。"
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr ""
+"弱いパスワードです。パスワードに含まれる一部の単語を使わないようにしてくださ"
+"い。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
@@ -360,7 +412,9 @@ msgstr "弱いパスワードです。一般的な単語は避けるようにし
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "弱いパスワードです。既存の単語の文字を並べ替えたものは使わないようにしてください。"
+msgstr ""
+"弱いパスワードです。既存の単語の文字を並べ替えたものは使わないようにしてくだ"
+"さい。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
@@ -379,13 +433,18 @@ msgstr "弱いパスワードです。小文字をもっと増やしてみてく
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more special characters, like punctuation."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
 msgstr "弱いパスワードです。記号などの特殊文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use a mixture of letters, numbers and punctuation."
-msgstr "弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
@@ -394,13 +453,19 @@ msgstr "弱いパスワードです。同一文字の繰り返しは避けるよ
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same type of character: you need to mix up letters, numbers and punctuation."
-msgstr "弱いパスワードです。同じ種類の文字の繰り返しは避けるようにしてください。アルファベット、数字、記号を混ぜてください。"
+msgid ""
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
+msgstr ""
+"弱いパスワードです。同じ種類の文字の繰り返しは避けるようにしてください。アル"
+"ファベット、数字、記号を混ぜてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "弱いパスワードです。1234 や abcd などの連続する並びは避けるようにしてください。"
+msgstr ""
+"弱いパスワードです。1234 や abcd などの連続する並びは避けるようにしてくださ"
+"い。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
@@ -414,7 +479,9 @@ msgstr "大文字、小文字を混ぜ、さらに数字を 1 つか 2 つは使
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
-msgid "Good password! Adding more letters, numbers and punctuation will make it stronger."
+msgid ""
+"Good password! Adding more letters, numbers and punctuation will make it "
+"stronger."
 msgstr "良いパスワードですね! 文字や数字、記号をもっと増やすと強くなります。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:141
@@ -448,33 +515,48 @@ msgstr "強度: 高"
 #.
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
 #, c-format
-msgid "Sending reports of technical problems helps us to improve %s. Reports are sent anonymously and are scrubbed of personal data."
-msgstr "技術的な問題に遭遇した場合、問題に関するレポートを送信することで %s の改善に役立てることができます。レポートは匿名で送信され、個人データは取り除かれます。"
+msgid ""
+"Sending reports of technical problems helps us to improve %s. Reports are "
+"sent anonymously and are scrubbed of personal data."
+msgstr ""
+"技術的な問題に遭遇した場合、問題に関するレポートを送信することで %s の改善に"
+"役立てることができます。レポートは匿名で送信され、個人データは取り除かれま"
+"す。"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
+msgid "Uses Mozilla Location Service:"
+msgstr "Mozilla Location Service を使用する:"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
 msgid "Privacy Policy"
 msgstr "プライバシーポリシー"
 
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "プライバシー"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
-msgid "Privacy controls can be changed at any time from Settings."
-msgstr "プライバシー設定は、設定メニューからいつでも変更できます。"
-
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
 msgid "Location Services"
 msgstr "位置情報サービス"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
-msgid "Allows applications to determine your geographical location. An indication is shown when location services are in use."
-msgstr "アプリケーションがあなたの地理的位置を特定できるようになります。位置情報サービスが有効になっている場合、インジケーターが表示されます。"
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
+msgid ""
+"Allows applications to determine your geographical location. An indication "
+"is shown when location services are in use."
+msgstr ""
+"アプリケーションがあなたの地理的位置を特定できるようになります。位置情報サー"
+"ビスが有効になっている場合、インジケーターが表示されます。"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
 msgid "Automatic Problem Reporting"
 msgstr "自動問題報告"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+msgid ""
+"Privacy controls can be changed at any time from the Settings application."
+msgstr "プライバシー設定は、設定メニューからいつでも変更できます。"
 
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
 msgid "No regions found"
@@ -497,39 +579,58 @@ msgstr "国か地域を選択してください。"
 msgid "_Start using %s"
 msgstr "%s を使い始める(_S)"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
-#, c-format
-msgid ""
-"Thank you for choosing %s.\n"
-"We hope that you love it."
-msgstr ""
-"%s を選んでくださってありがとうございます。\n"
-"気に入っていただければ幸いです。"
-
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
 msgid "Ready to Go"
 msgstr "準備完了"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're all set!"
-msgstr "設定が完了しました。"
+msgid "You're ready to go!"
+msgstr "使用する準備が完了しました。"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#. Translators: "city, country"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
 #, c-format
-msgid "We think that your time zone is %s. Press Next to continue or search for a city to manually set the time zone."
-msgstr "タイムゾーンは %s ではありませんか? 「次へ」を押して続けるか、都市を検索してタイムゾーンを手動で設定してください。"
+msgctxt "timezone loc"
+msgid "%s, %s"
+msgstr "%s、%s"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:493
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#. Translators: This is the time format used in 12-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+msgid "%l:%M %p"
+msgstr "%p%I:%M"
+
+#. Translators: This is the time format used in 24-hour mode.
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+msgid "%R"
+msgstr "%R"
+
+#. Translators: "timezone (utc shift)"
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#, c-format
+msgctxt "timezone map"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "タイムゾーン"
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+msgid ""
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
+msgstr ""
+"現在地が特定できれば、タイムゾーンは自動で設定されます。"
+"都市を検索して手動でタイムゾーンを設定することもできます。"
+
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "近くの都市を探してください"
-
-#~ msgid "Cancel"
-#~ msgstr "キャンセル"
