@@ -1,4 +1,4 @@
-AC_INIT([gnome-initial-setup],[3.20.0])
+AC_INIT([gnome-initial-setup],[3.20.1])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([dist-xz no-dist-gzip foreign])
