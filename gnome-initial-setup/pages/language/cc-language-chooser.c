@@ -33,6 +33,7 @@
 #include <libgnome-desktop/gnome-languages.h>
 
 #include "cc-common-language.h"
+#include "cc-util.h"
 
 #include <glib-object.h>
 
@@ -123,7 +124,6 @@ language_widget_new (const char *locale_id,
         gchar *language_name;
         gchar *country = NULL;
         gchar *country_name = NULL;
-        gchar *sort_key;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
         if (!gnome_parse_locale (locale_id, &language, &country, NULL, NULL))
@@ -170,10 +170,7 @@ language_widget_new (const char *locale_id,
         widget->locale_current_name = locale_current_name;
         widget->locale_untranslated_name = locale_untranslated_name;
         widget->is_extra = is_extra;
-
-        sort_key = g_utf8_normalize (locale_name, -1, G_NORMALIZE_DEFAULT);
-        widget->sort_key = g_utf8_casefold (sort_key, -1);
-        g_free (sort_key);
+        widget->sort_key = cc_util_normalize_casefold_and_unaccent (locale_name);
 
         g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
                                 language_widget_free);
