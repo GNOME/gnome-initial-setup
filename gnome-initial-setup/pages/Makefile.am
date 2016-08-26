@@ -10,4 +10,5 @@ SUBDIRS = \
 	goa \
 	account \
 	password \
-	summary
+	summary \
+	software

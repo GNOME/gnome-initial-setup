@@ -43,6 +43,7 @@
 #include "pages/network/gis-network-page.h"
 #include "pages/timezone/gis-timezone-page.h"
 #include "pages/privacy/gis-privacy-page.h"
+#include "pages/software/gis-software-page.h"
 #include "pages/goa/gis-goa-page.h"
 #include "pages/account/gis-account-pages.h"
 #include "pages/password/gis-password-page.h"
@@ -68,6 +69,7 @@ static PageData page_table[] = {
   PAGE (network,  FALSE),
   PAGE (privacy,  FALSE),
   PAGE (timezone, TRUE),
+  PAGE (software, FALSE),
   PAGE (goa,      FALSE),
   PAGE (account,  TRUE),
   PAGE (password, TRUE),
