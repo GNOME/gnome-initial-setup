@@ -35,11 +35,75 @@ struct _GisSoftwarePagePrivate
 {
   GtkWidget *more_popover;
   GtkWidget *proprietary_switch;
+  GtkWidget *text_label;
 };
 
 typedef struct _GisSoftwarePagePrivate GisSoftwarePagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisSoftwarePage, gis_software_page, GIS_TYPE_PAGE);
+
+static char *
+get_item (const char *buffer, const char *name)
+{
+  char *label, *start, *end, *result;
+  char end_char;
+
+  result = NULL;
+  start = NULL;
+  end = NULL;
+  label = g_strconcat (name, "=", NULL);
+  if ((start = strstr (buffer, label)) != NULL)
+    {
+      start += strlen (label);
+      end_char = '\n';
+      if (*start == '"')
+        {
+          start++;
+          end_char = '"';
+        }
+
+      end = strchr (start, end_char);
+    }
+
+    if (start != NULL && end != NULL)
+      {
+        result = g_strndup (start, end - start);
+      }
+
+  g_free (label);
+
+  return result;
+}
+
+static void
+update_distro_name (GisSoftwarePage *page)
+{
+  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
+  char *buffer;
+  char *name;
+  char *text;
+
+  name = NULL;
+
+  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
+    {
+      name = get_item (buffer, "NAME");
+      g_free (buffer);
+    }
+
+  if (!name)
+    name = g_strdup ("GNOME");
+
+  /* Translators: the parameter here is the name of a distribution,
+   * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+   * detect any distribution.
+   */
+  text = g_strdup_printf (_("Proprietary software sources provide access to additional software, including web browsers and games. This software typically has restrictions on use and access to source code, and is not provided by %s."), name);
+  gtk_label_set_label (GTK_LABEL (priv->text_label), text);
+  g_free (text);
+
+  g_free (name);
+}
 
 static void
 gis_software_page_constructed (GObject *object)
@@ -48,6 +112,10 @@ gis_software_page_constructed (GObject *object)
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
   G_OBJECT_CLASS (gis_software_page_parent_class)->constructed (object);
+
+  update_distro_name (page);
+
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
@@ -64,7 +132,8 @@ gis_software_page_dispose (GObject *object)
 static void
 gis_software_page_locale_changed (GisPage *page)
 {
-  gis_page_set_title (GIS_PAGE (page), _("Software Sources"));
+  gis_page_set_title (page, _("Software Sources"));
+  update_distro_name (GIS_SOFTWARE_PAGE (page));
 }
 
 static gboolean
@@ -99,6 +168,7 @@ gis_software_page_class_init (GisSoftwarePageClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-software-page.ui");
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, more_popover);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, proprietary_switch);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, text_label);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), state_set);
 
