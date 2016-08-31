@@ -169,6 +169,8 @@ activate_link (const char *label,
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
   gtk_widget_show (priv->more_popover);
+
+  return TRUE;
 }
 
 static gboolean
