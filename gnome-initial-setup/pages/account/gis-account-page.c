@@ -89,7 +89,6 @@ set_mode (GisAccountPage *page,
           UmAccountMode   mode)
 {
   GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-  GtkWidget *visible_child;
 
   if (priv->mode == mode)
     return;

@@ -364,7 +364,6 @@ add_rows_to_list (CcInputChooser  *chooser,
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 	const gchar *id;
 	GtkWidget *widget;
-	gboolean is_extra;
 	gchar *key;
 
 	for (; list; list = list->next) {
