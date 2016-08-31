@@ -36,6 +36,7 @@ struct _GisSoftwarePagePrivate
   GtkWidget *more_popover;
   GtkWidget *proprietary_switch;
   GtkWidget *text_label;
+  GSettings *software_settings;
 };
 
 typedef struct _GisSoftwarePagePrivate GisSoftwarePagePrivate;
@@ -113,6 +114,8 @@ gis_software_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_software_page_parent_class)->constructed (object);
 
+  priv->software_settings = g_settings_new ("org.gnome.software");
+
   update_distro_name (page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
@@ -126,7 +129,28 @@ gis_software_page_dispose (GObject *object)
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (object);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
+  g_clear_object (&priv->software_settings);
+
   G_OBJECT_CLASS (gis_software_page_parent_class)->dispose (object);
+}
+
+static gboolean
+gis_software_page_apply (GisPage *gis_page,
+                         GCancellable *cancellable)
+{
+  GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
+  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
+  gboolean enable;
+
+  enable = gtk_switch_get_active (GTK_SWITCH (priv->proprietary_switch));
+
+  g_print ("%s proprietary software sources\n", enable ? "Enable" : "Disable");
+
+  g_settings_set_boolean (priv->software_settings, "show-nonfree-software", enable);
+  /* don't prompt for the same thing again in gnome-software */
+  g_settings_set_boolean (priv->software_settings, "show-nonfree-prompt", FALSE);
+
+  return FALSE;
 }
 
 static void
@@ -152,8 +176,6 @@ state_set (GtkSwitch *sw,
            gboolean   state,
            gpointer   data)
 {
-  g_print ("%s proprietary software sources\n", state ? "Enable" : "Disable");
-
   gtk_switch_set_state (sw, state);
 
   return TRUE;
@@ -174,6 +196,7 @@ gis_software_page_class_init (GisSoftwarePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_software_page_locale_changed;
+  page_class->apply = gis_software_page_apply;
   object_class->constructed = gis_software_page_constructed;
   object_class->dispose = gis_software_page_dispose;
 }
