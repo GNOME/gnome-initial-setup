@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012 Red Hat
+ * Copyright (C) 2016 Red Hat
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -16,7 +16,8 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  * Written by:
- *     Jasper St. Pierre <jstpierre@mecheye.net>
+ *     Matthias Clasen <mclasen@redhat.com>
+ *     Kalev Lember <klember@redhat.com>
  */
 
 /* SOFTWARE pages {{{1 */
