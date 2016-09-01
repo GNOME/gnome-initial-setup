@@ -1,4 +1,3 @@
-
 noinst_LTLIBRARIES = libgissoftware.la
 
 pkgdatadir = $(datadir)/gnome-initial-setup
@@ -19,8 +18,8 @@ libgissoftware_la_SOURCES =			\
 	gis-software-page.c gis-software-page.h	\
 	$(BUILT_SOURCES)
 
-libgissoftware_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
-libgissoftware_la_LIBADD = $(INITIAL_SETUP_LIBS)
+libgissoftware_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) $(SOFTWARE_SOURCES_CFLAGS) -I "$(srcdir)/../.."
+libgissoftware_la_LIBADD = $(INITIAL_SETUP_LIBS) $(SOFTWARE_SOURCES_LIBS)
 libgissoftware_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST = software.gresource.xml $(resource_files)

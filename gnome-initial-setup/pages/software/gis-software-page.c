@@ -31,8 +31,10 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_SOFTWARE_SOURCES
 #define I_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE
 #include <packagekit-glib2/packagekit.h>
+#endif
 
 struct _GisSoftwarePagePrivate
 {
@@ -42,7 +44,9 @@ struct _GisSoftwarePagePrivate
 
   GSettings *software_settings;
   guint enable_count;
+#ifdef ENABLE_SOFTWARE_SOURCES
   PkTask *task;
+#endif
 };
 
 typedef struct _GisSoftwarePagePrivate GisSoftwarePagePrivate;
@@ -121,7 +125,9 @@ gis_software_page_constructed (GObject *object)
   G_OBJECT_CLASS (gis_software_page_parent_class)->constructed (object);
 
   priv->software_settings = g_settings_new ("org.gnome.software");
+#ifdef ENABLE_SOFTWARE_SOURCES
   priv->task = pk_task_new ();
+#endif
 
   gtk_switch_set_active (GTK_SWITCH (priv->proprietary_switch),
                          g_settings_get_boolean (priv->software_settings, "show-nonfree-software"));
@@ -140,7 +146,9 @@ gis_software_page_dispose (GObject *object)
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
   g_clear_object (&priv->software_settings);
+#ifdef ENABLE_SOFTWARE_SOURCES
   g_clear_object (&priv->task);
+#endif
 
   G_OBJECT_CLASS (gis_software_page_parent_class)->dispose (object);
 }
@@ -150,6 +158,7 @@ repo_enabled_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      data)
 {
+#ifdef ENABLE_SOFTWARE_SOURCES
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (data);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
   g_autoptr(GError) error = NULL;
@@ -174,6 +183,7 @@ repo_enabled_cb (GObject      *source,
       /* all done */
       gis_page_apply_complete (GIS_PAGE (page), TRUE);
     }
+#endif
 }
 
 gboolean
@@ -182,6 +192,7 @@ enable_repos (GisSoftwarePage *page,
               gboolean enable,
               GCancellable *cancellable)
 {
+#ifdef ENABLE_SOFTWARE_SOURCES
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
   guint i;
 
@@ -199,6 +210,7 @@ enable_repos (GisSoftwarePage *page,
                                    repo_enabled_cb,
                                    page);
     }
+#endif
 
   return TRUE;
 }
@@ -288,8 +300,10 @@ gis_software_page_init (GisSoftwarePage *page)
 void
 gis_prepare_software_page (GisDriver *driver)
 {
+#ifdef ENABLE_SOFTWARE_SOURCES
   gis_driver_add_page (driver,
                        g_object_new (GIS_TYPE_SOFTWARE_PAGE,
                                      "driver", driver,
                                      NULL));
+#endif
 }

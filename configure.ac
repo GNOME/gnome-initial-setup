@@ -27,6 +27,7 @@ GNOME_DESKTOP_REQUIRED_VERSION=3.7.5
 POLKIT_REQUIRED_VERSION=0.103
 GDM_REQUIRED_VERSION=3.8.3
 GEOCLUE_REQUIRED_VERSION=2.1.2
+PACKAGEKIT_REQUIRED_VERSION=1.1.4
 
 PKG_CHECK_MODULES(INITIAL_SETUP,
                   NetworkManager >= $NETWORK_MANAGER_REQUIRED_VERSION
@@ -44,13 +45,23 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm >= $GDM_REQUIRED_VERSION
                   geoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
-                  packagekit-glib2
                   pango >= $PANGO_REQUIRED_VERSION
                   rest-0.7
                   json-glib-1.0
 		  libsecret-1
                   pwquality
                   webkit2gtk-4.0)
+
+
+AC_ARG_ENABLE(software-sources,
+              [AS_HELP_STRING([--enable-software-source],
+                              [enable software sources page])],,
+              [enable_software_sources=no])
+
+if test "$enable_software_sources" = "yes"; then
+  PKG_CHECK_MODULES(SOFTWARE_SOURCES, packagekit-glib2 >= $PACKAGEKIT_REQIORED_VERSION)
+  AC_DEFINE(ENABLE_SOFTWARE_SOURCES, [1], [Enable software sources page])
+fi
 
 GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
 if test "x$GEOCLUE_DBUS_INTERFACE_XML" = "x"; then
