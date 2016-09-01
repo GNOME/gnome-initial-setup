@@ -301,9 +301,18 @@ void
 gis_prepare_software_page (GisDriver *driver)
 {
 #ifdef ENABLE_SOFTWARE_SOURCES
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_SOFTWARE_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  GSettingsSchemaSource *source;
+  GSettingsSchema *schema;
+
+  source = g_settings_schema_source_get_default ();
+  schema = g_settings_schema_source_lookup (source, "org.gnome.software", TRUE);
+  if (schema != NULL && g_settings_schema_has_key (schema, "show-nonfree-software"))
+    gis_driver_add_page (driver,
+                         g_object_new (GIS_TYPE_SOFTWARE_PAGE,
+                                       "driver", driver,
+                                       NULL));
+
+  if (schema != NULL)
+    g_settings_schema_unref (schema);
 #endif
 }
