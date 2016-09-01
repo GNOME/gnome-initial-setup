@@ -44,6 +44,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm >= $GDM_REQUIRED_VERSION
                   geoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+                  packagekit-glib2
                   pango >= $PANGO_REQUIRED_VERSION
                   rest-0.7
                   json-glib-1.0

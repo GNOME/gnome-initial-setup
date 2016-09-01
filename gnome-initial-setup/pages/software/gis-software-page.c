@@ -30,13 +30,18 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
+#define I_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE
+#include <packagekit-glib2/packagekit.h>
 
 struct _GisSoftwarePagePrivate
 {
   GtkWidget *more_popover;
   GtkWidget *proprietary_switch;
   GtkWidget *text_label;
+
   GSettings *software_settings;
+  guint enable_count;
+  PkTask *task;
 };
 
 typedef struct _GisSoftwarePagePrivate GisSoftwarePagePrivate;
@@ -115,6 +120,10 @@ gis_software_page_constructed (GObject *object)
   G_OBJECT_CLASS (gis_software_page_parent_class)->constructed (object);
 
   priv->software_settings = g_settings_new ("org.gnome.software");
+  priv->task = pk_task_new ();
+
+  gtk_switch_set_active (GTK_SWITCH (priv->proprietary_switch),
+                         g_settings_get_boolean (priv->software_settings, "show-nonfree-software"));
 
   update_distro_name (page);
 
@@ -130,8 +139,67 @@ gis_software_page_dispose (GObject *object)
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
   g_clear_object (&priv->software_settings);
+  g_clear_object (&priv->task);
 
   G_OBJECT_CLASS (gis_software_page_parent_class)->dispose (object);
+}
+
+static void
+repo_enabled_cb (GObject      *source,
+                 GAsyncResult *res,
+                 gpointer      data)
+{
+  GisSoftwarePage *page = GIS_SOFTWARE_PAGE (data);
+  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
+  g_autoptr(GError) error = NULL;
+  g_autoptr(PkResults) results = NULL;
+
+  results = pk_client_generic_finish (PK_CLIENT (source),
+                                      res,
+                                      &error);
+  if (!results)
+    {
+      if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        return;
+#if PK_CHECK_VERSION(1,1,4)
+      if (!g_error_matches (error, PK_CLIENT_ERROR, 0xff + PK_ERROR_ENUM_REPO_ALREADY_SET))
+#endif
+        g_critical ("Failed to enable repository: %s", error->message);
+    }
+
+  priv->enable_count--;
+  if (priv->enable_count == 0)
+    {
+      /* all done */
+      gis_page_apply_complete (GIS_PAGE (page), TRUE);
+    }
+}
+
+gboolean
+enable_repos (GisSoftwarePage *page,
+              gchar **repo_ids,
+              gboolean enable,
+              GCancellable *cancellable)
+{
+  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
+  guint i;
+
+  /* enable each repo */
+  for (i = 0; repo_ids[i] != NULL; i++)
+    {
+      g_print ("%s proprietary software source: %s\n", enable ? "Enable" : "Disable", repo_ids[i]);
+
+      priv->enable_count++;
+      pk_client_repo_enable_async (PK_CLIENT (priv->task),
+                                   repo_ids[i],
+                                   enable,
+                                   cancellable,
+                                   NULL, NULL,
+                                   repo_enabled_cb,
+                                   page);
+    }
+
+  return TRUE;
 }
 
 static gboolean
@@ -141,6 +209,7 @@ gis_software_page_apply (GisPage *gis_page,
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
   gboolean enable;
+  g_auto(GStrv) repo_ids = NULL;
 
   enable = gtk_switch_get_active (GTK_SWITCH (priv->proprietary_switch));
 
@@ -150,7 +219,11 @@ gis_software_page_apply (GisPage *gis_page,
   /* don't prompt for the same thing again in gnome-software */
   g_settings_set_boolean (priv->software_settings, "show-nonfree-prompt", FALSE);
 
-  return FALSE;
+  repo_ids = g_settings_get_strv (priv->software_settings, "nonfree-sources");
+  if (repo_ids == NULL || g_strv_length (repo_ids) == 0)
+    return FALSE;
+
+  return enable_repos (page, repo_ids, enable, cancellable);
 }
 
 static void
