@@ -59,7 +59,7 @@ AC_ARG_ENABLE(software-sources,
               [enable_software_sources=no])
 
 if test "$enable_software_sources" = "yes"; then
-  PKG_CHECK_MODULES(SOFTWARE_SOURCES, packagekit-glib2 >= $PACKAGEKIT_REQIORED_VERSION)
+  PKG_CHECK_MODULES(SOFTWARE_SOURCES, packagekit-glib2 >= $PACKAGEKIT_REQUIRED_VERSION)
   AC_DEFINE(ENABLE_SOFTWARE_SOURCES, [1], [Enable software sources page])
 fi
 
