@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-02 21:18+0000\n"
-"PO-Revision-Date: 2016-03-02 23:25+0200\n"
+"POT-Creation-Date: 2016-09-01 15:51+0000\n"
+"PO-Revision-Date: 2016-09-03 01:58+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
-"Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
+"Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,35 +24,35 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Alkuasetukset"
 
-#: ../gnome-initial-setup/gis-assistant.c:384
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Next"
 msgstr "_Seuraava"
 
-#: ../gnome-initial-setup/gis-assistant.c:385
+#: ../gnome-initial-setup/gis-assistant.c:397
 msgid "_Accept"
 msgstr "_Hyväksy"
 
-#: ../gnome-initial-setup/gis-assistant.c:386
+#: ../gnome-initial-setup/gis-assistant.c:398
 msgid "_Skip"
 msgstr "_Ohita"
 
-#: ../gnome-initial-setup/gis-assistant.c:387
+#: ../gnome-initial-setup/gis-assistant.c:399
 msgid "_Previous"
 msgstr "_Edellinen"
 
-#: ../gnome-initial-setup/gis-assistant.c:388
+#: ../gnome-initial-setup/gis-assistant.c:400
 msgid "_Cancel"
 msgstr "_Peru"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:197
+#: ../gnome-initial-setup/gnome-initial-setup.c:199
 msgid "Force existing user mode"
 msgstr "Pakota uusi käyttäjä -tila"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:203
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "- Gnomen alkuasetukset"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Tietoja sinusta"
@@ -240,9 +240,6 @@ msgid "Connect Your Online Accounts"
 msgstr "Yhdistä verkkotilisi"
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-#| msgid ""
-#| "Connecting your accounts will allow you to easily access your email, "
-#| "online calendar, contacts, documents and photos."
 msgid ""
 "Connect your accounts to easily access your email, online calendar, "
 "contacts, documents and photos."
@@ -251,7 +248,6 @@ msgstr ""
 "yhteystietoja, asiakirjoja ja valokuvia vaivatta."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-#| msgid "Privacy controls can be changed at any time from Settings."
 msgid ""
 "Accounts can be added and removed at any time from the Settings application."
 msgstr ""
@@ -291,7 +287,11 @@ msgstr "Kieliä ei löytynyt"
 msgid "Welcome"
 msgstr "Tervetuloa"
 
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it.
+#.
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:123
 msgid "Welcome!"
 msgstr "Tervetuloa!"
 
@@ -525,7 +525,6 @@ msgstr ""
 "poistetaan henkilökohtaiset tiedot. Ilmoitukset lähetetään anonyymisti."
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#| msgid "Location Services"
 msgid "Uses Mozilla Location Service:"
 msgstr "Käyttää Mozillan sijaintipalvelua:"
 
@@ -556,7 +555,6 @@ msgid "Automatic Problem Reporting"
 msgstr "Automaattiset vikailmoitukset"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
-#| msgid "Privacy controls can be changed at any time from Settings."
 msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr ""
@@ -588,7 +586,6 @@ msgid "Ready to Go"
 msgstr "Valmis"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "You're all set!"
 msgid "You're ready to go!"
 msgstr "Kaikki on valmista!"
 
@@ -639,6 +636,56 @@ msgstr ""
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Etsi lähellä olevaa kaupunkia"
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
+#, c-format
+msgid ""
+"Proprietary software sources provide access to additional software, "
+"including web browsers and games. This software typically has restrictions "
+"on use and access to source code, and is not provided by %s."
+msgstr ""
+"Suljetut ohjelmistolähteet tarjoavat esimerkiksi verkkoselaimia ja pelejä. "
+"Näillä ohjelmistoilla on tyypillisesti rajoituksia käytön ja pääsyn "
+"lähdekoodiin suhteen. %s ei tarjoa kyseisiä ohjelmistoja."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
+#| msgid "Input Sources"
+msgid "Software Sources"
+msgstr "Ohjelmistolähteet"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
+msgid "Additional Software Sources"
+msgstr "Lisäohjelmistolähteet"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Lue lisää…</a>"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
+msgid "Proprietary Software Sources"
+msgstr "Suljetut ohjelmistolähteet"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+"Suljetuilla ohjelmistoilla on tyypillisesti rajoituksia käytön ja pääsyn "
+"lähdekoodiin suhteen. Näin kukaan muu kuin ohjelman toimittaja ei voi "
+"tutkia, parantaa tai opiskella koodia."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"Sen sijaan avoimia ohjelmistoja (Free Software) voi vapaasti suorittaa, "
+"jakaa, opiskella ja muokata."
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Ovatko nämä tiedot oikein? Voit muuttaa niitä halutessasi."
@@ -767,10 +814,6 @@ msgstr "Etsi lähellä olevaa kaupunkia"
 #~| msgid "Add Account"
 #~ msgid "_Add Account"
 #~ msgstr "_Lisää tili"
-
-#~| msgid "Add Input Source"
-#~ msgid "Input Sources"
-#~ msgstr "Syötelähteet"
 
 #~| msgid "Show Keyboard Layout"
 #~ msgid "Select keyboard layouts"
