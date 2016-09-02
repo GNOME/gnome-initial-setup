@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-03 13:26+0000\n"
-"PO-Revision-Date: 2016-04-27 23:37+0100\n"
+"POT-Creation-Date: 2016-09-01 15:51+0000\n"
+"PO-Revision-Date: 2016-09-02 21:34+0100\n"
 "Last-Translator: Tiago Santos <tiagofsantos81@sapo.pt>\n"
 "Language-Team: Português <gnome_pt@yahoogroups.com>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -49,15 +49,15 @@ msgstr "_Anterior"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:197
+#: ../gnome-initial-setup/gnome-initial-setup.c:199
 msgid "Force existing user mode"
 msgstr "Forçar modo de utilizador já existente"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:203
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "- Configuração inicial do GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Sobre si"
@@ -140,7 +140,8 @@ msgstr "Senha do administrador"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Please check the name and username. You can choose a picture too."
-msgstr "Verifique o nome e o nome de utilizador. Também pode escolher uma imagem."
+msgstr ""
+"Verifique o nome e o nome de utilizador. Também pode escolher uma imagem."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 msgid "We need a few details to complete setup."
@@ -152,7 +153,8 @@ msgstr "Imagem de avatar"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "Please provide a name and username. You can choose a picture too."
-msgstr "Introduza o nome e o nome de utilizador. Também pode escolher uma imagem."
+msgstr ""
+"Introduza o nome e o nome de utilizador. Também pode escolher uma imagem."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 msgid "_Full Name"
@@ -220,7 +222,8 @@ msgstr ""
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
 msgid "This will be used to name your home folder and can't be changed."
-msgstr "Isto será utilizado para designar a sua pasta pessoal e não poderá ser "
+msgstr ""
+"Isto será utilizado para designar a sua pasta pessoal e não poderá ser "
 "alterado."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
@@ -232,8 +235,7 @@ msgstr "Licença de utilização"
 msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
-msgstr ""
-"_Concordo com os termos e condições da licença de utilização."
+msgstr "_Concordo com os termos e condições da licença de utilização."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
@@ -477,7 +479,8 @@ msgstr "Esta é uma senha fraca. Tente evitar sequências, como 1234 ou abcd."
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid "This is a weak password. Try to add more letters, numbers and symbols."
-msgstr "Esta é uma senha fraca. Tente adicionar mais letras, números e símbolos."
+msgstr ""
+"Esta é uma senha fraca. Tente adicionar mais letras, números e símbolos."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -645,6 +648,56 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Procure uma cidade na proximidade"
 
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
+#, c-format
+msgid ""
+"Proprietary software sources provide access to additional software, "
+"including web browsers and games. This software typically has restrictions "
+"on use and access to source code, and is not provided by %s."
+msgstr ""
+"Fontes de software proprietário fornecem acesso a software adicional, "
+"incluindo navegadores da web e jogos. Este software normalmente tem "
+"restrições de utilização e acesso ao código fonte, e não é fornecida por %s."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
+msgid "Software Sources"
+msgstr "Fontes de Software"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
+msgid "Additional Software Sources"
+msgstr "Fontes de Software Adicionais"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Saber mais…</a>"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
+msgid "Proprietary Software Sources"
+msgstr "Fontes de Software Proprietário"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+"Software proprietário normalmente tem restrições sobre como pode ser "
+"utilizado e sobre o acesso ao código-fonte. Isso impede que qualquer pessoa, "
+"excepto o proprietário do software, de inspecionar, melhorar ou aprender a "
+"partir do seu código."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"Em comparação, Software Livre pode ser livremente executado, copiado, "
+"distribuido, estudado e modificado."
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Estes detalhes estão corretos? Pode alterá-los, se desejar."
 
@@ -754,9 +807,6 @@ msgstr "Procure uma cidade na proximidade"
 
 #~ msgid "Other"
 #~ msgstr "Outro"
-
-#~ msgid "Input Sources"
-#~ msgstr "Origens de Introdução"
 
 #~ msgid "Add an Input Source"
 #~ msgstr "Adicionar Origens de Introdução"
