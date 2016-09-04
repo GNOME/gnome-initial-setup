@@ -9,50 +9,51 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-27 20:03+0100\n"
-"PO-Revision-Date: 2016-02-27 20:35-0400\n"
+"POT-Creation-Date: 2016-09-04 23:34+0200\n"
+"PO-Revision-Date: 2016-09-04 23:34+0200\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Configuració inicial"
 
-#: ../gnome-initial-setup/gis-assistant.c:384
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Next"
 msgstr "_Següent"
 
-#: ../gnome-initial-setup/gis-assistant.c:385
+#: ../gnome-initial-setup/gis-assistant.c:397
 msgid "_Accept"
 msgstr "_Accepta"
 
-#: ../gnome-initial-setup/gis-assistant.c:386
+#: ../gnome-initial-setup/gis-assistant.c:398
 msgid "_Skip"
 msgstr "_Omet"
 
-#: ../gnome-initial-setup/gis-assistant.c:387
+#: ../gnome-initial-setup/gis-assistant.c:399
 msgid "_Previous"
 msgstr "A_nterior"
 
-#: ../gnome-initial-setup/gis-assistant.c:388
+#: ../gnome-initial-setup/gis-assistant.c:400
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:197
+#: ../gnome-initial-setup/gnome-initial-setup.c:199
 msgid "Force existing user mode"
 msgstr "Força el mode d'usuari existent"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:203
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "- Configuració inicial del GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Quant a vós"
@@ -135,7 +136,8 @@ msgstr "Contrasenya de l'administrador"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
 msgid "Please check the name and username. You can choose a picture too."
-msgstr "Comproveu el nom i el nom d'usuari. Podeu escollir també una fotografia."
+msgstr ""
+"Comproveu el nom i el nom d'usuari. Podeu escollir també una fotografia."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
 msgid "We need a few details to complete setup."
@@ -244,8 +246,8 @@ msgid ""
 "Connect your accounts to easily access your email, online calendar, "
 "contacts, documents and photos."
 msgstr ""
-"Connecteu els vostres comptes per poder accedir fàcilment al vostre correu, el "
-"calendari en línia, els contactes, els documents i les fotos."
+"Connecteu els vostres comptes per poder accedir fàcilment al correu, "
+"el calendari en línia, els contactes, els documents i les fotos."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid ""
@@ -288,7 +290,11 @@ msgstr "No s'ha trobat cap idioma"
 msgid "Welcome"
 msgstr "Us donem la benvinguda"
 
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it.
+#.
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:123
 msgid "Welcome!"
 msgstr "Us donem la benvinguda!"
 
@@ -331,15 +337,15 @@ msgstr "No hi ha cap xarxa sense fil disponible"
 msgid "Turn On"
 msgstr "Activa"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:132
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
 msgid "This is a weak password."
 msgstr "Aquesta contrasenya és feble."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
 msgid "The passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -525,7 +531,7 @@ msgstr ""
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 msgid "Uses Mozilla Location Service:"
-msgstr "Utilitza el servei d'ubicació de Mozilla:"
+msgstr "S'utilitza el servei d'ubicació de Mozilla:"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
@@ -630,12 +636,55 @@ msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
 msgstr ""
-"El fus horari s'establirà automàticament si es pot determinar la vostra ubicació. "
-"Podeu també cercar una ciutat i configurar-lo vosaltres mateixos."
+"El fus horari s'establirà automàticament si es pot determinar la vostra "
+"ubicació. Podeu també cercar una ciutat i configurar-lo vosaltres mateixos."
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Cerqueu una ciutat propera"
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
+#, c-format
+msgid ""
+"Proprietary software sources provide access to additional software, "
+"including web browsers and games. This software typically has restrictions "
+"on use and access to source code, and is not provided by %s."
+msgstr ""
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
+msgid "Software Sources"
+msgstr "Fonts de programari"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
+msgid "Additional Software Sources"
+msgstr "Fonts de programari addicionals"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Descobriu-ne més...</a>"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
+msgid "Proprietary Software Sources"
+msgstr "Fonts de programari de propietat"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"Per contra, el programari lliure pot ser lliurement usat, copiat, distribuït, "
+"estudiat i modificat."
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Són correctes aquestes dades? Podeu canviar-les si voleu."
