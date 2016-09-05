@@ -139,37 +139,6 @@ set_location (GisTimezonePage  *page,
     }
 }
 
-static char *
-get_location_name (GWeatherLocation *location)
-{
-  GDateTime *datetime;
-  GTimeZone *timezone;
-  char *country;
-  char *ret;
-  const char *country_code;
-  const char *timezone_name;
-  const char *timezone_id;
-
-  timezone_id = gweather_timezone_get_tzid (gweather_location_get_timezone (location));
-  timezone = g_time_zone_new (timezone_id);
-  datetime = g_date_time_new_now (timezone);
-  timezone_name = g_date_time_get_timezone_abbreviation (datetime);
-
-  country_code = gweather_location_get_country (location);
-  country = gnome_get_country_from_code (country_code, NULL);
-
-  ret = g_strdup_printf ("<b>%s (%s, %s)</b>",
-                         timezone_name,
-                         gweather_location_get_city_name (location),
-                         country);
-
-  g_time_zone_unref (timezone);
-  g_date_time_unref (datetime);
-  g_free (country);
-
-  return ret;
-}
-
 static void
 on_location_proxy_ready (GObject      *source_object,
                          GAsyncResult *res,
