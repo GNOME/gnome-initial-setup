@@ -54,7 +54,7 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
 
 
 AC_ARG_ENABLE(software-sources,
-              [AS_HELP_STRING([--enable-software-source],
+              [AS_HELP_STRING([--enable-software-sources],
                               [enable software sources page])],,
               [enable_software_sources=no])
 
