@@ -26,7 +26,7 @@ IBUS_REQUIRED_VERSION=1.4.99
 GNOME_DESKTOP_REQUIRED_VERSION=3.7.5
 POLKIT_REQUIRED_VERSION=0.103
 GDM_REQUIRED_VERSION=3.8.3
-GEOCLUE_REQUIRED_VERSION=2.1.2
+GEOCLUE_REQUIRED_VERSION=2.3.1
 PACKAGEKIT_REQUIRED_VERSION=1.1.4
 
 PKG_CHECK_MODULES(INITIAL_SETUP,
@@ -44,7 +44,8 @@ PKG_CHECK_MODULES(INITIAL_SETUP,
                   gtk+-3.0 >= $GTK_REQUIRED_VERSION
                   gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
                   gdm >= $GDM_REQUIRED_VERSION
-                  geoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+                  geocode-glib-1.0
+                  libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
                   pango >= $PANGO_REQUIRED_VERSION
                   rest-0.7
                   json-glib-1.0
@@ -62,12 +63,6 @@ if test "$enable_software_sources" = "yes"; then
   PKG_CHECK_MODULES(SOFTWARE_SOURCES, packagekit-glib2 >= $PACKAGEKIT_REQUIRED_VERSION)
   AC_DEFINE(ENABLE_SOFTWARE_SOURCES, [1], [Enable software sources page])
 fi
-
-GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
-if test "x$GEOCLUE_DBUS_INTERFACE_XML" = "x"; then
-  AC_MSG_ERROR([Cannot find dbus_interface variable in geoclue-2.0.pc])
-fi
-AC_SUBST(GEOCLUE_DBUS_INTERFACE_XML)
 
 PKG_CHECK_MODULES(CHEESE,
                   cheese
