@@ -71,6 +71,16 @@
           </object>
         </child>
         <child>
+          <object class="GtkLabel" id="privacy_policy_label">
+            <property name="visible">True</property>
+            <property name="margin-top">10</property>
+            <property name="xalign">0</property>
+            <property name="halign">start</property>
+            <property name="use-markup">True</property>
+            <signal name="activate-link" handler="activate_link"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkBox" id="reporting_row">
             <property name="margin-top">20</property>
             <property name="orientation">horizontal</property>
@@ -99,16 +109,6 @@
             <property name="xalign">0</property>
             <property name="max-width-chars">50</property>
             <property name="wrap">True</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="privacy_policy_label">
-            <property name="visible">True</property>
-            <property name="margin-top">10</property>
-            <property name="xalign">0</property>
-            <property name="halign">start</property>
-            <property name="use-markup">True</property>
-            <signal name="activate-link" handler="activate_link"/>
           </object>
         </child>
         <child>
