@@ -199,7 +199,7 @@ enable_repos (GisSoftwarePage *page,
   /* enable each repo */
   for (i = 0; repo_ids[i] != NULL; i++)
     {
-      g_print ("%s proprietary software source: %s\n", enable ? "Enable" : "Disable", repo_ids[i]);
+      g_debug ("%s proprietary software source: %s", enable ? "Enable" : "Disable", repo_ids[i]);
 
       priv->enable_count++;
       pk_client_repo_enable_async (PK_CLIENT (priv->task),
@@ -226,7 +226,7 @@ gis_software_page_apply (GisPage *gis_page,
 
   enable = gtk_switch_get_active (GTK_SWITCH (priv->proprietary_switch));
 
-  g_print ("%s proprietary software sources\n", enable ? "Enable" : "Disable");
+  g_debug ("%s proprietary software sources", enable ? "Enable" : "Disable");
 
   g_settings_set_boolean (priv->software_settings, "show-nonfree-software", enable);
   /* don't prompt for the same thing again in gnome-software */
