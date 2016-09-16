@@ -5,9 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:47+0200\n"
-"PO-Revision-Date: 2016-03-03 16:10+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-09-01 15:51+0000\n"
+"PO-Revision-Date: 2016-09-16 23:11+0300\n"
 "Last-Translator: Daniel Korostil <ted.korostiled@gmail.com>\n"
 "Language-Team: linux.org.ua\n"
 "Language: uk\n"
@@ -24,35 +25,35 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Перший запуск"
 
-#: ../gnome-initial-setup/gis-assistant.c:384
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Next"
 msgstr "_Далі"
 
-#: ../gnome-initial-setup/gis-assistant.c:385
+#: ../gnome-initial-setup/gis-assistant.c:397
 msgid "_Accept"
 msgstr "_Ухвалити"
 
-#: ../gnome-initial-setup/gis-assistant.c:386
+#: ../gnome-initial-setup/gis-assistant.c:398
 msgid "_Skip"
 msgstr "_Пропустити"
 
-#: ../gnome-initial-setup/gis-assistant.c:387
+#: ../gnome-initial-setup/gis-assistant.c:399
 msgid "_Previous"
 msgstr "_Назад"
 
-#: ../gnome-initial-setup/gis-assistant.c:388
+#: ../gnome-initial-setup/gis-assistant.c:400
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:197
+#: ../gnome-initial-setup/gnome-initial-setup.c:199
 msgid "Force existing user mode"
 msgstr "Примусовий режим для наявного користувача"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:203
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "— Перший запуск GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Про себе"
@@ -285,7 +286,11 @@ msgstr "Не знайдено жодної мови"
 msgid "Welcome"
 msgstr "Вітаємо"
 
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it.
+#.
+#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:123
 msgid "Welcome!"
 msgstr "Вітаємо!"
 
@@ -625,6 +630,56 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Пошукайте міста поблизу"
 
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
+#, c-format
+msgid ""
+"Proprietary software sources provide access to additional software, "
+"including web browsers and games. This software typically has restrictions "
+"on use and access to source code, and is not provided by %s."
+msgstr ""
+"Джерела закритих програм надає доступ до додаткових програм, зокрема "
+"переглядачі тенет та ігри. Ця програма типово має обмеження на використання "
+"і доступ до коду, і не забезпечується %s."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
+#| msgid "Input Sources"
+msgid "Software Sources"
+msgstr "Джерела програм"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
+msgid "Additional Software Sources"
+msgstr "Додаткові джерела програм"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Дізнатись більше…</a>"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
+msgid "Proprietary Software Sources"
+msgstr "Джерела закритих програм"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+"Закриті програми типово мають обмеження на використання і доступ до коду. Це "
+"не заважає нікому, крім власників програми від дослідження, покращення та "
+"вивчення власного коду. "
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"На противагу відкритим програмам, які можна безтурботно запускати, копіювати, "
+"поширювати, вивчати і змінювати."
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Чи все вказано правильно? Ви можете поміняти за бажанням."
 
@@ -734,9 +789,6 @@ msgstr "Пошукайте міста поблизу"
 
 #~ msgid "Other"
 #~ msgstr "Інше"
-
-#~ msgid "Input Sources"
-#~ msgstr "Джерела введення"
 
 #~ msgid "Add an Input Source"
 #~ msgstr "Додати джерело введення"
