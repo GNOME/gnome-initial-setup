@@ -8,9 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 18:04+0100\n"
-"PO-Revision-Date: 2016-03-20 18:24+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-in"
+"itial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-09-01 15:51+0000\n"
+"PO-Revision-Date: 2016-09-20 12:45+0100\n"
 "Last-Translator: dooteo <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -25,35 +26,35 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Hasierako konfigurazioa"
 
-#: ../gnome-initial-setup/gis-assistant.c:384
+#: ../gnome-initial-setup/gis-assistant.c:396
 msgid "_Next"
 msgstr "_Hurrengoa"
 
-#: ../gnome-initial-setup/gis-assistant.c:385
+#: ../gnome-initial-setup/gis-assistant.c:397
 msgid "_Accept"
 msgstr "_Onartu"
 
-#: ../gnome-initial-setup/gis-assistant.c:386
+#: ../gnome-initial-setup/gis-assistant.c:398
 msgid "_Skip"
 msgstr "_Saltatu"
 
-#: ../gnome-initial-setup/gis-assistant.c:387
+#: ../gnome-initial-setup/gis-assistant.c:399
 msgid "_Previous"
 msgstr "_Aurrekoa"
 
-#: ../gnome-initial-setup/gis-assistant.c:388
+#: ../gnome-initial-setup/gis-assistant.c:400
 msgid "_Cancel"
 msgstr "_Utzi"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:197
+#: ../gnome-initial-setup/gnome-initial-setup.c:199
 msgid "Force existing user mode"
 msgstr "Behartu dagoen erabiltzaile-modura"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:203
+#: ../gnome-initial-setup/gnome-initial-setup.c:205
 msgid "- GNOME initial setup"
 msgstr "- GNOMEren hasierako konfigurazioa"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:243
+#: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
 msgid "About You"
 msgstr "Zuri buruz"
@@ -248,8 +249,8 @@ msgid ""
 "Connect your accounts to easily access your email, online calendar, "
 "contacts, documents and photos."
 msgstr ""
-"Konektatu zure kontuak posta elektroniko, lineako egutegia, "
-"kontaktuak, dokumentuak eta argazkiak modu errazean atzitzeko."
+"Konektatu zure kontuak posta elektroniko, lineako egutegia, kontaktuak, "
+"dokumentuak eta argazkiak modu errazean atzitzeko."
 
 #: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
 msgid ""
@@ -634,12 +635,64 @@ msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
 msgstr ""
-"Ordu-zona automatikoki konfiguratuko da zure kokalekua aurkitzen bada. "
-"Herri bat ere bila dezakezu zuk zeuk konfiguratzeko."
+"Ordu-zona automatikoki konfiguratuko da zure kokalekua aurkitzen bada. Herri "
+"bat ere bila dezakezu zuk zeuk konfiguratzeko."
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
 msgid "Please search for a nearby city"
 msgstr "Bilatu hurbileko herri bat"
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
+#, c-format
+msgid ""
+"Proprietary software sources provide access to additional software, "
+"including web browsers and games. This software typically has restrictions "
+"on use and access to source code, and is not provided by %s."
+msgstr ""
+"Jabedun softwarearen iturburuak software gehigarria eskuratzea "
+"eskaintzen du, web arakatzaileak eta jokoak barne. Software mota "
+"honek murriztapenak eduki ohi ditu bai bere erabilpenean bai "
+"bere iturburuko kodea atzitzean, eta '%s'(e)k ez du hornitzen."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
+#| msgid "Input Sources"
+msgid "Software Sources"
+msgstr "Softwareen iturburuak"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
+msgid "Additional Software Sources"
+msgstr "Softwareen iturburu gehigarriak"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Bilatu gehiago…</a>"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
+msgid "Proprietary Software Sources"
+msgstr "Jabedun softwareen iturburuak"
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+"Jabedun softwareak murriztapenak eduki ohi ditu bai bere erabilpenean bai "
+"bere iturburuko kodea atzitzean. Honek bere jabea ez den beste edonori "
+"kodea aztertzea, hobetzea edo ikastea debekatzen dio."
+
+#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"Alderantziz, Softwarea Librea libreki exekutatu, kopiatu, banatu, ikertu eta"
+" eralda "
+"daiteke."
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Xehetasun egokiak dira? Nahi duzunean alda ditzakezu."
@@ -760,9 +813,6 @@ msgstr "Bilatu hurbileko herri bat"
 
 #~ msgid "Other"
 #~ msgstr "Bestelakoa"
-
-#~ msgid "Input Sources"
-#~ msgstr "Sarrerako iturburuak"
 
 #~ msgid "Add an Input Source"
 #~ msgstr "Gehitu sarrerako iturburu bat"
