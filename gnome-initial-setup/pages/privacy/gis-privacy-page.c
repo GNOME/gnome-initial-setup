@@ -38,7 +38,8 @@ struct _GisPrivacyPagePrivate
   GtkWidget *reporting_row;
   GtkWidget *reporting_switch;
   GtkWidget *reporting_label;
-  GtkWidget *privacy_policy_label;
+  GtkWidget *mozilla_privacy_policy_label;
+  GtkWidget *distro_privacy_policy_label;
   GSettings *location_settings;
   GSettings *privacy_settings;
   guint abrt_watch_id;
@@ -110,12 +111,22 @@ update_os_data (GisPrivacyPage *page)
   gtk_label_set_label (GTK_LABEL (priv->reporting_label), text);
   g_free (text);
 
-  if (!privacy_policy)
-    privacy_policy = g_strdup ("https://location.services.mozilla.com/privacy");
-
-  text = g_strdup_printf ("%s <a href='%s'>%s</a>", _("Uses Mozilla Location Service:"), privacy_policy, _("Privacy Policy"));
-  gtk_label_set_markup (GTK_LABEL (priv->privacy_policy_label), text);
-  g_free (text);
+  if (privacy_policy)
+    {
+      /* Translators: the parameter here is the name of a distribution,
+       * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+       * detect any distribution.
+       */
+      char *distro_label = g_strdup_printf (_("Problem data will be collected by %s:"), name);
+      text = g_strdup_printf ("%s <a href='%s'>%s</a>", distro_label, privacy_policy, _("Privacy Policy"));
+      gtk_label_set_markup (GTK_LABEL (priv->distro_privacy_policy_label), text);
+      g_free (distro_label);
+      g_free (text);
+    }
+  else
+    {
+      gtk_widget_hide (priv->distro_privacy_policy_label);
+    }
 
   g_free (name);
   g_free (privacy_policy);
@@ -132,6 +143,7 @@ abrt_appeared_cb (GDBusConnection *connection,
 
   gtk_widget_show (priv->reporting_row);
   gtk_widget_show (priv->reporting_label);
+  gtk_widget_show (priv->distro_privacy_policy_label);
 }
 
 static void
@@ -144,6 +156,7 @@ abrt_vanished_cb (GDBusConnection *connection,
 
   gtk_widget_hide (priv->reporting_row);
   gtk_widget_hide (priv->reporting_label);
+  gtk_widget_hide (priv->distro_privacy_policy_label);
 }
 
 static void
@@ -151,6 +164,7 @@ gis_privacy_page_constructed (GObject *object)
 {
   GisPrivacyPage *page = GIS_PRIVACY_PAGE (object);
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+  char *text;
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->constructed (object);
 
@@ -163,6 +177,10 @@ gis_privacy_page_constructed (GObject *object)
   gtk_switch_set_active (GTK_SWITCH (priv->reporting_switch), TRUE);
 
   update_os_data (page);
+
+  text = g_strdup_printf ("%s <a href='%s'>%s</a>", _("Uses Mozilla Location Service:"), "https://location.services.mozilla.com/privacy", _("Privacy Policy"));
+  gtk_label_set_markup (GTK_LABEL (priv->mozilla_privacy_policy_label), text);
+  g_free (text);
 
   priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
                                           "org.freedesktop.problems.daemon",
@@ -285,7 +303,8 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_row);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, privacy_policy_label);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, mozilla_privacy_policy_label);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, distro_privacy_policy_label);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
 
   page_class->page_id = PAGE_ID;
