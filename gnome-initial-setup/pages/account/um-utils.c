@@ -248,7 +248,7 @@ is_valid_username (const gchar *username, gchar **tip)
                         *tip = g_strdup_printf (_("The username is too long."));
                 }
                 else if (username[0] == '-') {
-                        *tip = g_strdup (_("The username cannot start with a ‘-’."));
+                        *tip = g_strdup (_("The username cannot start with a “-”."));
                 }
                 else {
                         *tip = g_strdup (_("The username should only consist of upper and lower case letters from a-z, digits and the following characters: . - _"));
