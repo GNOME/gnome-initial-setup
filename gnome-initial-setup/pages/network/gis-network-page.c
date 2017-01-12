@@ -30,14 +30,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#include <gtk/gtk.h>
-
-#include <nm-client.h>
-#include <nm-device-wifi.h>
-#include <nm-access-point.h>
-#include <nm-utils.h>
-#include <nm-remote-settings.h>
-
 #include "network-dialogs.h"
 
 typedef enum {
@@ -57,7 +49,6 @@ struct _GisNetworkPagePrivate {
   GtkWidget *turn_on_switch;
 
   NMClient *nm_client;
-  NMRemoteSettings *nm_settings;
   NMDevice *nm_device;
   gboolean refreshing;
   GtkSizeGroup *icons;
@@ -71,8 +62,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (GisNetworkPage, gis_network_page, GIS_TYPE_PAGE);
 static GPtrArray *
 get_strongest_unique_aps (const GPtrArray *aps)
 {
-  const GByteArray *ssid;
-  const GByteArray *ssid_tmp;
+  GBytes *ssid;
+  GBytes *ssid_tmp;
   GPtrArray *unique = NULL;
   gboolean add_ap;
   guint i;
@@ -98,7 +89,8 @@ get_strongest_unique_aps (const GPtrArray *aps)
       ssid_tmp = nm_access_point_get_ssid (ap_tmp);
 
       /* is this the same type and data? */
-      if (nm_utils_same_ssid (ssid, ssid_tmp, TRUE)) {
+      if (nm_utils_same_ssid (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid),
+                              g_bytes_get_data (ssid_tmp, NULL), g_bytes_get_size (ssid_tmp), TRUE)) {
         /* the new access point is stronger */
         if (nm_access_point_get_strength (ap) >
             nm_access_point_get_strength (ap_tmp)) {
@@ -187,7 +179,8 @@ static void
 add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  const GByteArray *ssid;
+  GBytes *ssid;
+  GBytes *ssid_active = NULL;
   gchar *ssid_text;
   const gchar *object_path;
   gboolean activated, activating;
@@ -203,10 +196,12 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 
   if (ssid == NULL)
     return;
-  ssid_text = nm_utils_ssid_to_utf8 (ssid);
+  ssid_text = nm_utils_ssid_to_utf8 (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid));
 
-  if (active &&
-      nm_utils_same_ssid (ssid, nm_access_point_get_ssid (active), TRUE)) {
+  if (active)
+    ssid_active = nm_access_point_get_ssid (active);
+  if (ssid_active && nm_utils_same_ssid (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid),
+                                         g_bytes_get_data (ssid_active, NULL), g_bytes_get_size (ssid_active), TRUE)) {
     switch (nm_device_get_state (priv->nm_device))
       {
       case NM_DEVICE_STATE_PREPARE:
@@ -404,27 +399,45 @@ refresh_wireless_list (GisNetworkPage *page)
 }
 
 static void
-connection_activate_cb (NMClient *client,
-                        NMActiveConnection *connection,
-                        GError *error,
+connection_activate_cb (GObject *object,
+                        GAsyncResult *result,
                         gpointer user_data)
 {
+  NMClient *client = NM_CLIENT (object);
   GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+  NMActiveConnection *connection;
+  GError *error = NULL;
 
-  if (connection == NULL) {
+  connection = nm_client_activate_connection_finish (client, result, &error);
+  if (connection) {
+    g_object_unref (connection);
+  } else {
     /* failed to activate */
+    g_warning ("Failed to activate a connection: %s", error->message);
+    g_error_free (error);
     refresh_wireless_list (page);
   }
 }
 
 static void
-connection_add_activate_cb (NMClient *client,
-                            NMActiveConnection *connection,
-                            const char *path,
-                            GError *error,
+connection_add_activate_cb (GObject *object,
+                            GAsyncResult *result,
                             gpointer user_data)
 {
-  connection_activate_cb (client, connection, error, user_data);
+  NMClient *client = NM_CLIENT (object);
+  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+  NMActiveConnection *connection;
+  GError *error = NULL;
+
+  connection = nm_client_add_and_activate_connection_finish (client, result, &error);
+  if (connection) {
+    g_object_unref (connection);
+  } else {
+    /* failed to activate */
+    g_warning ("Failed to add and activate a connection: %s", error->message);
+    g_error_free (error);
+    refresh_wireless_list (page);
+  }
 }
 
 static void
@@ -432,8 +445,7 @@ connect_to_hidden_network (GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   cc_network_panel_connect_to_hidden_network (gtk_widget_get_toplevel (GTK_WIDGET (page)),
-                                              priv->nm_client,
-                                              priv->nm_settings);
+                                              priv->nm_client);
 }
 
 static void
@@ -443,13 +455,15 @@ row_activated (GtkListBox *box,
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
   gchar *object_path;
-  GSList *list, *filtered, *l;
+  const GPtrArray *list;
+  GPtrArray *filtered;
   NMConnection *connection;
   NMConnection *connection_to_activate;
   NMSettingWireless *setting;
-  const GByteArray *ssid_target;
-  const GByteArray *ssid;
+  GBytes *ssid;
+  GBytes *ssid_target;
   GtkWidget *child;
+  int i;
 
   if (priv->refreshing)
     return;
@@ -463,13 +477,13 @@ row_activated (GtkListBox *box,
     goto out;
   }
 
-  list = nm_remote_settings_list_connections (priv->nm_settings);
+  list = nm_client_get_connections (priv->nm_client);
   filtered = nm_device_filter_connections (priv->nm_device, list);
 
   connection_to_activate = NULL;
 
-  for (l = filtered; l; l = l->next) {
-    connection = NM_CONNECTION (l->data);
+  for (i = 0; i < filtered->len; i++) {
+    connection = NM_CONNECTION (filtered->pdata[i]);
     setting = nm_connection_get_setting_wireless (connection);
     if (!NM_IS_SETTING_WIRELESS (setting))
       continue;
@@ -478,26 +492,28 @@ row_activated (GtkListBox *box,
     if (ssid == NULL)
       continue;
 
-    if (nm_utils_same_ssid (ssid, ssid_target, TRUE)) {
+    if (nm_utils_same_ssid (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid),
+                            g_bytes_get_data (ssid_target, NULL), g_bytes_get_size (ssid_target), TRUE)) {
       connection_to_activate = connection;
       break;
     }
   }
-  g_slist_free (list);
-  g_slist_free (filtered);
+  g_ptr_array_unref (filtered);
 
   if (connection_to_activate != NULL) {
-    nm_client_activate_connection (priv->nm_client,
-                                   connection_to_activate,
-                                   priv->nm_device, NULL,
-                                   connection_activate_cb, page);
+    nm_client_activate_connection_async (priv->nm_client,
+                                         connection_to_activate,
+                                         priv->nm_device, NULL,
+                                         NULL,
+                                         connection_activate_cb, page);
     goto out;
   }
 
-  nm_client_add_and_activate_connection (priv->nm_client,
-                                         NULL,
-                                         priv->nm_device, object_path,
-                                         connection_add_activate_cb, page);
+  nm_client_add_and_activate_connection_async (priv->nm_client,
+                                               NULL,
+                                               priv->nm_device, object_path,
+                                               NULL,
+                                               connection_add_activate_cb, page);
 
  out:
   refresh_wireless_list (page);
@@ -555,12 +571,19 @@ gis_network_page_constructed (GObject *object)
   NMDevice *device;
   guint i;
   gboolean visible = FALSE;
+  GError *error = NULL;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
 
   priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
-  priv->nm_client = nm_client_new ();
+  priv->nm_client = nm_client_new (NULL, &error);
+  if (!priv->nm_client) {
+    g_warning ("Can't create NetworkManager client, hiding network page: %s",
+               error->message);
+    g_error_free (error);
+    goto out;
+  }
 
   g_object_bind_property (priv->nm_client, "wireless-enabled",
                           priv->turn_on_switch, "active",
@@ -593,7 +616,6 @@ gis_network_page_constructed (GObject *object)
   }
 
   visible = TRUE;
-  priv->nm_settings = nm_remote_settings_new (NULL);
 
   g_signal_connect (priv->nm_device, "notify::state",
                     G_CALLBACK (device_state_changed), page);
@@ -622,7 +644,6 @@ gis_network_page_dispose (GObject *object)
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
 
   g_clear_object (&priv->nm_client);
-  g_clear_object (&priv->nm_settings);
   g_clear_object (&priv->nm_device);
   g_clear_object (&priv->icons);
 
