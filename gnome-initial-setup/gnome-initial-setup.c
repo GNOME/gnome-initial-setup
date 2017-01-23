@@ -240,6 +240,24 @@ get_mode (void)
     return GIS_DRIVER_MODE_NEW_USER;
 }
 
+static gboolean
+initial_setup_disabled_by_anaconda (void)
+{
+  const gchar *file_name = SYSCONFDIR "/sysconfig/anaconda";
+  g_autoptr(GError) error = NULL;
+  g_autoptr(GKeyFile) key_file = g_key_file_new ();
+
+  if (!g_key_file_load_from_file (key_file, file_name, G_KEY_FILE_NONE, &error)) {
+    if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT) &&
+        !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_NOT_FOUND)) {
+      g_warning ("Could not read %s: %s", file_name, error->message);
+    }
+    return FALSE;
+  }
+
+  return g_key_file_get_boolean (key_file, "General", "post_install_tools_disabled", NULL);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -289,6 +307,16 @@ main (int argc, char *argv[])
     gis_ensure_login_keyring ();
 
   driver = gis_driver_new (mode);
+
+  /* We only do this in existing-user mode, because if gdm launches us
+   * in new-user mode and we just exit, gdm's special g-i-s session
+   * never terminates. */
+  if (initial_setup_disabled_by_anaconda () &&
+      mode == GIS_DRIVER_MODE_EXISTING_USER) {
+    gis_ensure_stamp_files (driver);
+    exit (EXIT_SUCCESS);
+  }
+
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);
   status = g_application_run (G_APPLICATION (driver), argc, argv);
 
