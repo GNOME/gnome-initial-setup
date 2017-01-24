@@ -71,9 +71,7 @@ main (int    argc,
 {
   GFile *src;
   GFile *dest;
-  GError *error = NULL;
   char *initial_setup_homedir;
-  gchar *gis_done_file_path;
 
   initial_setup_homedir = get_gnome_initial_setup_home_dir ();
   if (initial_setup_homedir == NULL)
@@ -90,17 +88,11 @@ main (int    argc,
 #define FILE(path) \
   move_file_from_homedir (src, dest, path);
 
+  FILE (".config/gnome-initial-setup-done");
   FILE (".config/run-welcome-tour");
   FILE (".config/dconf/user");
   FILE (".config/goa-1.0/accounts.conf");
   FILE (".local/share/keyrings/login.keyring");
-
-  gis_done_file_path = g_build_filename (g_get_user_config_dir (),
-                                         "gnome-initial-setup-done",
-                                         NULL);
-
-  if (!g_file_set_contents (gis_done_file_path, "yes", -1, &error))
-    g_warning ("Unable to create %s: %s", gis_done_file_path, error->message);
 
   return EXIT_SUCCESS;
 }
