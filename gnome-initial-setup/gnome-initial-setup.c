@@ -242,3 +242,24 @@ main (int argc, char *argv[])
   g_option_context_free (context);
   return status;
 }
+
+void
+gis_ensure_stamp_files (void)
+{
+  gchar *file;
+  GError *error = NULL;
+
+  file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
+  if (!g_file_set_contents (file, "yes", -1, &error)) {
+      g_warning ("Unable to create %s: %s", file, error->message);
+      g_clear_error (&error);
+  }
+  g_free (file);
+
+  file = g_build_filename (g_get_user_config_dir (), "gnome-initial-setup-done", NULL);
+  if (!g_file_set_contents (file, "yes", -1, &error)) {
+      g_warning ("Unable to create %s: %s", file, error->message);
+      g_clear_error (&error);
+  }
+  g_free (file);
+}

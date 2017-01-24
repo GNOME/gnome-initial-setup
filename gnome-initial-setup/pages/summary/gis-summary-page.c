@@ -214,32 +214,9 @@ log_user_in (GisSummaryPage *page)
 }
 
 static void
-add_setup_done_file (void)
-{
-  gchar *gis_done_path;
-  GError *error = NULL;
-
-  gis_done_path = g_build_filename (g_get_user_config_dir (),
-                                    "gnome-initial-setup-done",
-                                    NULL);
-
-  if (!g_file_set_contents (gis_done_path, "yes", -1, &error)) {
-      g_warning ("Unable to create %s: %s", gis_done_path, error->message);
-      g_clear_error (&error);
-  }
-
-  g_free (gis_done_path);
-}
-
-static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
-  gchar *file;
-
-  /* the tour is triggered by $XDG_CONFIG_HOME/run-welcome-tour */
-  file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
-  g_file_set_contents (file, "yes", -1, NULL);
-  g_free (file);
+  gis_ensure_stamp_files ();
 
   switch (gis_driver_get_mode (GIS_PAGE (page)->driver))
     {
@@ -248,7 +225,6 @@ done_cb (GtkButton *button, GisSummaryPage *page)
       log_user_in (page);
       break;
     case GIS_DRIVER_MODE_EXISTING_USER:
-      add_setup_done_file ();
       g_application_quit (G_APPLICATION (GIS_PAGE (page)->driver));
     default:
       break;

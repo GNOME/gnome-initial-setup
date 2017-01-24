@@ -35,5 +35,7 @@ typedef struct _GisPage      GisPage;
 #include "gis-page.h"
 #include "gis-keyring.h"
 
+void gis_ensure_stamp_files (void);
+
 #endif /* __GNOME_INITIAL_SETUP_H__ */
 
