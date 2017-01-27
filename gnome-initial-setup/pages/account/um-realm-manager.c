@@ -798,7 +798,7 @@ kinit_thread_func (GTask *task,
                 break;
         default:
                 g_task_return_new_error (task, UM_REALM_ERROR, UM_REALM_ERROR_GENERIC,
-                                         _("Couldn't connect to the %s domain: %s"),
+                                         _("Couldn’t connect to the %s domain: %s"),
                                          login->domain, krb5_get_error_message (k5, code));
                 break;
         }

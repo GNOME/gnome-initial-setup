@@ -261,7 +261,7 @@ skip_faces:
         y++;
 
 #ifdef HAVE_CHEESE
-        um->take_photo_menuitem = gtk_menu_item_new_with_label (_("Take a photo..."));
+        um->take_photo_menuitem = gtk_menu_item_new_with_label (_("Take a photo…"));
         gtk_menu_attach (GTK_MENU (menu), GTK_WIDGET (um->take_photo_menuitem),
                          0, ROW_SPAN - 1, y, y + 1);
         g_signal_connect (G_OBJECT (um->take_photo_menuitem), "activate",
