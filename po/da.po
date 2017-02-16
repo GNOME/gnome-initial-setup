@@ -10,8 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-12 02:07+0200\n"
+"Report-Msgid-Bugs-To: "
+"http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-02-08 10:22+0000\n"
 "PO-Revision-Date: 2016-09-08 03:13+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -149,7 +150,8 @@ msgstr "Profilbillede"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
 msgid "Please provide a name and username. You can choose a picture too."
-msgstr "Angiv venligst et navn og et brugernavn. Du kan også vælge et billede."
+msgstr ""
+"Angiv venligst et navn og et brugernavn. Du kan også vælge et billede."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
 msgid "_Full Name"
@@ -164,8 +166,8 @@ msgid "Disable image"
 msgstr "Deaktivér billede"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
-msgstr "Tag et billede..."
+msgid "Take a photo…"
+msgstr "Tag et billede …"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -188,12 +190,12 @@ msgstr "Ugyldig adgangskode. Prøv venligst igen"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
+msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Kunne ikke forbinde til %s-domænet: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists."
+msgid "A user with the username ‘%s’ already exists."
 msgstr "Der findes allerede en bruger med brugernavnet \"%s\"."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
@@ -202,19 +204,19 @@ msgid "The username is too long."
 msgstr "Brugernavnet er for langt."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'."
+msgid "The username cannot start with a ‘-’."
 msgstr "Brugernavnet må ikke begynde med \"-\"."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgstr ""
 "Brugernavnet må kun bestå af små og store bogstaver fra a-z, tal og tegnene "
 "\".\", \"-\" og \"_\"."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
+msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Dette vil blive brugt til at navngive din hjemmemappe, og kan ikke ændres."
 
@@ -265,7 +267,7 @@ msgstr "Forhåndsvisning"
 #: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
-msgstr "Flere…"
+msgstr "Flere …"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
@@ -302,7 +304,7 @@ msgstr "Velkommen!"
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:309
 msgctxt "Wireless access point"
 msgid "Other…"
-msgstr "Andre…"
+msgstr "Andre …"
 
 #: ../gnome-initial-setup/pages/network/gis-network-page.c:368
 msgid "Wireless networking is disabled"
@@ -519,7 +521,7 @@ msgstr "Styrke: Høj"
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -528,16 +530,26 @@ msgstr ""
 "Afsendelse af rapporter om tekniske problemer hjælper os med at forbedre %s. "
 "Rapporter sendes anonymt og renses for personlige data."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-msgid "Uses Mozilla Location Service:"
-msgstr "Bruger Mozillas positionstjeneste:"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr ""
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "Privatlivspolitik"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "Bruger Mozillas positionstjeneste:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "Privatliv"
@@ -579,21 +591,22 @@ msgstr "Vælg dit land eller region."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
-#, c-format
-msgid "_Start using %s"
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#, c-format, fuzzy
+#| msgid "_Start using %s"
+msgid "_Start Using %s"
 msgstr "_Kom i gang med at bruge %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Klar"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're ready to go!"
+msgid "You’re ready to go!"
 msgstr "Så er du klar!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:343
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -602,28 +615,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:380
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:384
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:387
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:390
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:535
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Tidszone"
@@ -665,7 +678,7 @@ msgstr "Yderligere softwarekilder"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
-msgstr "<a href=\"more\">Læs mere…</a>"
+msgstr "<a href=\"more\">Læs mere …</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
 msgid "Proprietary Software Sources"
@@ -688,3 +701,4 @@ msgid ""
 msgstr ""
 "I modsætning kan fri software frit køres, kopieres, distribueres, studeres "
 "og ændres."
+
