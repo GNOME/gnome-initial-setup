@@ -1,16 +1,16 @@
 # Norwegian bokmål translation of gnome-initial-setup.
 # Copyright (C) 1999-2005 Free Software Foundation, Inc.
 #
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2016.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2017.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 # Åka Sikrom <a4NOSPAMPLEASETHANKYOU@hush.com>, 2014,2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup 3.22.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-15 17:16+0200\n"
-"PO-Revision-Date: 2016-10-15 17:19+0200\n"
+"Project-Id-Version: gnome-initial-setup 3.23.x\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-02-16 13:19+0000\n"
+"PO-Revision-Date: 2017-02-18 11:02+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -162,7 +162,7 @@ msgid "Disable image"
 msgstr "Slå av bilde"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
+msgid "Take a photo…"
 msgstr "Ta et bilde …"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
@@ -186,12 +186,12 @@ msgstr "Ugyldig passord. Prøv igjen"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
-msgstr "Klarte ikke å koble til domenet %s: %s"
+msgid "Couldn’t connect to the %s domain: %s"
+msgstr "Klarte ikke å koble til %s-domene: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists."
+msgid "A user with the username ‘%s’ already exists."
 msgstr "Det finnes allerede en bruker med brukernavnet «%s»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
@@ -200,19 +200,17 @@ msgid "The username is too long."
 msgstr "Brukernavnet er for langt."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'."
-msgstr "Brukernavn kan ikke begynne med «-»."
+msgid "The username cannot start with a ‘-’."
+msgstr "Brukernavnet kan ikke begynne med «-»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
-msgstr ""
-"Brukernavn kan bare bestå av store og små bokstaver fra a-z, tall, samt "
-"tegnene «.», «-» og «_»."
+"digits and any of characters ‘.’, ‘-’ and ‘_’."
+msgstr "Brukernavnet kan bare bestå av store og små bokstaver fra a-z, tall, samt tegnene «.», «-» og «_»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
+msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Dette brukes til å navngi hjemmemappen din, og kan ikke endres."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
@@ -588,18 +586,18 @@ msgstr "Velg ditt land eller region."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-msgid "_Start using %s"
+msgid "_Start Using %s"
 msgstr "_Ta i bruk %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Alt er klart"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're ready to go!"
-msgstr "Du er klar!"
+msgid "You’re ready to go!"
+msgstr "Alt er klart!"
 
 #. Translators: "city, country"
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
@@ -659,7 +657,10 @@ msgid ""
 "Proprietary software sources provide access to additional software, "
 "including web browsers and games. This software typically has restrictions "
 "on use and access to source code, and is not provided by %s."
-msgstr "Proprietære programvarekilder gir tilgang til mer programvare inklusive nettlesere og spill. Denne programvaren har typisk begrensninger på bruk og tilgang på kildekode, og er tilbys ikke av %s."
+msgstr ""
+"Proprietære programvarekilder gir tilgang til mer programvare inklusive "
+"nettlesere og spill. Denne programvaren har typisk begrensninger på bruk og "
+"tilgang på kildekode, og er tilbys ikke av %s."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:245
 msgid "Software Sources"
@@ -682,10 +683,15 @@ msgid ""
 "Proprietary software typically has restrictions on how it can be used and on "
 "access to source code. This prevents anyone but the software owner from "
 "inspecting, improving or learning from its code."
-msgstr "Proprietær programvare har typisk begrensninger på hvordan den kan brukes og på tilgang til kildekoden. Dette forhindrer at hvem som helst andre enn eier av programvaren kan inspisere, forbedre eller lære av koden."
+msgstr ""
+"Proprietær programvare har typisk begrensninger på hvordan den kan brukes og "
+"på tilgang til kildekoden. Dette forhindrer at hvem som helst andre enn eier "
+"av programvaren kan inspisere, forbedre eller lære av koden."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
 msgid ""
 "In contrast, Free Software can be freely run, copied, distributed, studied "
 "and modified."
-msgstr "På den andre siden kan Fri programvare frit kjøres, kopieres, distribueres studeres og endres."
+msgstr ""
+"På den andre siden kan Fri programvare frit kjøres, kopieres, distribueres "
+"studeres og endres."
