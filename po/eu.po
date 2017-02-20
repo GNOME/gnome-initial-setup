@@ -4,22 +4,22 @@
 #
 #
 # Asier Sarasua Garmendia <asiersar@yahoo.com>, 2013.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2013, 2014, 2015, 2016.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2013, 2014, 2015, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-in"
-"itial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 15:51+0000\n"
-"PO-Revision-Date: 2016-09-20 12:45+0100\n"
-"Last-Translator: dooteo <dooteo@zundan.com>\n"
-"Language-Team: Basque <librezale@librezale.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"initial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-02-18 10:02+0000\n"
+"PO-Revision-Date: 2017-02-20 17:27+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -166,8 +166,9 @@ msgid "Disable image"
 msgstr "Desgaitu irudia"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
-msgstr "Atera argazki bat..."
+#| msgid "Take a photo..."
+msgid "Take a photo…"
+msgstr "Atera argazki bat…"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -190,13 +191,15 @@ msgstr "Baliogabeko pasahitza, saiatu berriro"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
+#| msgid "Couldn't connect to the %s domain: %s"
+msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Ezin izan da %s domeinuarekin konektatu: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists."
-msgstr "'%s' erabiltzaile-izeneko erabiltzaile bat badago lehendik ere."
+#| msgid "A user with the username '%s' already exists."
+msgid "A user with the username ‘%s’ already exists."
+msgstr "“%s“ erabiltzaile-izeneko erabiltzaile bat badago lehendik ere."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
 #, c-format
@@ -204,19 +207,24 @@ msgid "The username is too long."
 msgstr "Erabiltzaile-izena luzeegia da."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'."
-msgstr "Erabiltzaile-izena ezin da '-' karakterearekin hasi."
+#| msgid "The username cannot start with a '-'."
+msgid "The username cannot start with a ‘-’."
+msgstr "Erabiltzaile-izena ezin da “-“ karakterearekin hasi."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
+#| msgid ""
+#| "The username should only consist of lower and upper case letters from a-"
+#| "z, digits and any of characters '.', '-' and '_'."
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgstr ""
 "Erabiltzaile-izenak soilik honakoak eduki ditzake:  alfabetoko a-z arteko "
-"hizkiak, digituak eta '.', '-' eta '_' karaktereetako edozer."
+"hizkiak, digituak eta “.“, “-“ eta “_“ karaktereetako edozer."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
+#| msgid "This will be used to name your home folder and can't be changed."
+msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Zure karpeta nagusia izendatzeko erabiliko da eta ezin da aldatu."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
@@ -519,7 +527,7 @@ msgstr "Sendotasuna: altua"
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -529,16 +537,26 @@ msgstr ""
 "gaituzu. Txostenak anonimo gisa bidaltzen dira eta datu pertsonaletatik "
 "garbi daude."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-msgid "Uses Mozilla Location Service:"
-msgstr "Mozilla-ren kokalekua zerbitzua erabiltzen du:"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr "datuen arazoa %s(e)k bil ditzake:"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "Pribatutasunaren araua"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "Mozilla-ren kokalekua zerbitzua erabiltzen du:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "Pribatutasuna"
@@ -581,21 +599,23 @@ msgstr "Aukeratu zure herrialdea edo eskualdea."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-msgid "_Start using %s"
+#| msgid "_Start using %s"
+msgid "_Start Using %s"
 msgstr "_Hasi %s erabiltzen"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Hasteko prest"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're ready to go!"
+#| msgid "You're ready to go!"
+msgid "You’re ready to go!"
 msgstr "Dena konfiguratu duzu."
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -604,28 +624,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
 msgid "UTC%:::z"
 msgstr "UTC+02"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Ordu-zona"
@@ -653,13 +673,12 @@ msgid ""
 "including web browsers and games. This software typically has restrictions "
 "on use and access to source code, and is not provided by %s."
 msgstr ""
-"Jabedun softwarearen iturburuak software gehigarria eskuratzea "
-"eskaintzen du, web arakatzaileak eta jokoak barne. Software mota "
-"honek murriztapenak eduki ohi ditu bai bere erabilpenean bai "
-"bere iturburuko kodea atzitzean, eta '%s'(e)k ez du hornitzen."
+"Jabedun softwarearen iturburuak software gehigarria eskuratzea eskaintzen "
+"du, web arakatzaileak eta jokoak barne. Software mota honek murriztapenak "
+"eduki ohi ditu bai bere erabilpenean bai bere iturburuko kodea atzitzean, "
+"eta '%s'(e)k ez du hornitzen."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-#| msgid "Input Sources"
 msgid "Software Sources"
 msgstr "Softwareen iturburuak"
 
@@ -682,17 +701,16 @@ msgid ""
 "inspecting, improving or learning from its code."
 msgstr ""
 "Jabedun softwareak murriztapenak eduki ohi ditu bai bere erabilpenean bai "
-"bere iturburuko kodea atzitzean. Honek bere jabea ez den beste edonori "
-"kodea aztertzea, hobetzea edo ikastea debekatzen dio."
+"bere iturburuko kodea atzitzean. Honek bere jabea ez den beste edonori kodea "
+"aztertzea, hobetzea edo ikastea debekatzen dio."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
 msgid ""
 "In contrast, Free Software can be freely run, copied, distributed, studied "
 "and modified."
 msgstr ""
-"Alderantziz, Softwarea Librea libreki exekutatu, kopiatu, banatu, ikertu eta"
-" eralda "
-"daiteke."
+"Alderantziz, Softwarea Librea libreki exekutatu, kopiatu, banatu, ikertu eta "
+"eralda daiteke."
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Xehetasun egokiak dira? Nahi duzunean alda ditzakezu."
