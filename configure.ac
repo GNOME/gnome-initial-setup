@@ -18,6 +18,17 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [gettext package])
 
 AM_GLIB_GNU_GETTEXT
 
+AC_ARG_WITH(vendor-conf-file,
+            AS_HELP_STRING([--with-vendor-conf-file=<file>],
+                           [vendor conf file]))
+
+if ! test -z "$with_vendor_conf_file"; then
+   VENDOR_CONF_FILE=$with_vendor_conf_file
+else
+   VENDOR_CONF_FILE=${localstatedir}/lib/gnome-initial-setup/vendor.conf
+fi
+AC_SUBST(VENDOR_CONF_FILE)
+
 LIBNM_REQUIRED_VERSION=1.2
 LIBNMA_REQUIRED_VERSION=1.0
 GLIB_REQUIRED_VERSION=2.53.0
