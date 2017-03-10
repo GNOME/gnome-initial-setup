@@ -1,5 +1,4 @@
-GNOME initial setup
-===================
+# GNOME initial setup
 
 After acquiring or installing a new system there are a few essential things
 to set up before use. gnome-initial-setup aims to provide a simple, easy,
@@ -27,5 +26,4 @@ the login screen.
 We also want to offer the user a friendly way to learn more about GNOME,
 by taking a 'tour' after completing these setup tasks.
 
-The design for the initial-setup application can be found here:
-https://live.gnome.org/GnomeOS/Design/Whiteboards/InitialSetup
+The design for the initial-setup application can be found [here](https://live.gnome.org/GnomeOS/Design/Whiteboards/InitialSetup).
