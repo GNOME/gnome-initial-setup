@@ -7,19 +7,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-10-10 16:29+0000\n"
-"PO-Revision-Date: 2016-11-24 01:21+0300\n"
-"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
+"POT-Creation-Date: 2017-02-22 17:09+0000\n"
+"PO-Revision-Date: 2017-03-14 21:30+0400\n"
+"Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -164,7 +164,7 @@ msgid "Disable image"
 msgstr "Отключить изображение"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
+msgid "Take a photo…"
 msgstr "Сделать снимок…"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
@@ -188,12 +188,12 @@ msgstr "Неправильный пароль. Попробуйте ещё ра�
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
+msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Не удалось подключиться к домену %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists."
+msgid "A user with the username ‘%s’ already exists."
 msgstr "Пользователь с именем «%s» уже существует."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
@@ -202,19 +202,19 @@ msgid "The username is too long."
 msgstr "Имя пользователя слишком длинное."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'."
+msgid "The username cannot start with a ‘-’."
 msgstr "Имя пользователя не может начинаться с символа «-»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgstr ""
 "Имя пользователя может состоять только из букв латинского алфавита в верхнем "
 "и нижнем регистре, цифр и символов «.», «-» и «_»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
+msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Будет использовано для именования вашей домашней папки; не может быть "
 "изменено."
@@ -527,13 +527,26 @@ msgstr ""
 "Отправка отчётов о технических неполадках поможет нам улучшить %s. Отчёты "
 "отправляются анонимно и не содержат персональных данных."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:175
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr "Проблемные данные будут собраны %s:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:286
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "Использует службы определения местоположения Mozilla:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "конфиденциальность"
@@ -577,17 +590,17 @@ msgstr "Выберите вашу страну или регион."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-msgid "_Start using %s"
+msgid "_Start Using %s"
 msgstr "_Начать работу с %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Готово к работе."
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're ready to go!"
+msgid "You’re ready to go!"
 msgstr "Теперь всё готово!"
 
 #. Translators: "city, country"
@@ -689,10 +702,6 @@ msgid ""
 msgstr ""
 "В отличие от этого, свободное программное обеспечение можно свободно "
 "запускать, копировать, распространять, изучать и вносить изменения."
-
-#~| msgid "Location Services"
-#~ msgid "Uses Mozilla Location Service:"
-#~ msgstr "Использует службы определения местоположения Mozilla:"
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Всё указано верно? Вы можете изменить данные, если хотите."
