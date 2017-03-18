@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Anita Reitere <nitalynx@gmail.com>, 2012.
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012, 2013, 2014, 2015, 2016.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-in"
-"itial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 15:51+0000\n"
-"PO-Revision-Date: 2016-09-01 22:40+0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-i"
+"nitial-setup&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-02-22 17:09+0000\n"
+"PO-Revision-Date: 2017-03-18 13:50+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -164,8 +164,9 @@ msgid "Disable image"
 msgstr "Deaktivēt attēlu"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
-msgstr "Uzņemt fotogrāfiju..."
+#| msgid "Take a photo..."
+msgid "Take a photo…"
+msgstr "Uzņemt fotogrāfiju…"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -188,12 +189,14 @@ msgstr "Nederīga parole; lūdzu, mēģiniet vēlreiz"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
+#| msgid "Couldn't connect to the %s domain: %s"
+msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Neizdevās savienoties ar domēnu %s — %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 #, c-format
-msgid "A user with the username '%s' already exists."
+#| msgid "A user with the username '%s' already exists."
+msgid "A user with the username ‘%s’ already exists."
 msgstr "Lietotājs ar lietotājvārdu “%s” jau eksistē."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:249
@@ -202,19 +205,24 @@ msgid "The username is too long."
 msgstr "Lietotājvārds ir pārāk garš."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'."
+#| msgid "The username cannot start with a '-'."
+msgid "The username cannot start with a ‘-’."
 msgstr "Lietotājvārds nedrīkst sākties ar “-”."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:255
+#| msgid ""
+#| "The username should only consist of lower and upper case letters from a-"
+#| "z, digits and any of characters '.', '-' and '_'."
 msgid ""
 "The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgstr ""
 "Lietotājvārds drīkst saturēt tikai lielos un mazos burtus no a–z, ciparus un "
 "jebkuru no rakstzīmēm “.”, “-”, “_”."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
+#| msgid "This will be used to name your home folder and can't be changed."
+msgid "This will be used to name your home folder and can’t be changed."
 msgstr "To izmantos, lai nosauktu mājas mapi un to nevar mainīt."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
@@ -512,7 +520,7 @@ msgstr "Stiprums: augsta"
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -521,16 +529,26 @@ msgstr ""
 "Tehnisku problēmu ziņojumu sūtīšana mums palīdz uzlabot %s. Ziņojumi tiek "
 "sūtīti anonīmi, un no tiem tiek iztīrīta visi personīgie dati."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-msgid "Uses Mozilla Location Service:"
-msgstr "Izmanto Mozilla atrašanās vietas pakalpojumu:"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr "Problēmu datus ievāks %s:"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "Privātuma politika"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "Izmanto Mozilla atrašanās vietas pakalpojumu:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "Privātums"
@@ -572,21 +590,23 @@ msgstr "Izvēlieties savu valsti vai reģionu."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-msgid "_Start using %s"
+#| msgid "_Start using %s"
+msgid "_Start Using %s"
 msgstr "_Sākt lietot %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Gatavs darbam"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're ready to go!"
+#| msgid "You're ready to go!"
+msgid "You’re ready to go!"
 msgstr "Viss ir gatavs!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -595,28 +615,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
 msgid "%l:%M %p"
 msgstr "%l.%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Laika josla"
@@ -644,9 +664,9 @@ msgid ""
 "including web browsers and games. This software typically has restrictions "
 "on use and access to source code, and is not provided by %s."
 msgstr ""
-"Īpašnieku programmatūras avoti sniedz pieeju papildu programmatūrai, tai"
-" skaitā tīmekļa pārlūkiem un spēlēm. Šai programmatūrai parasti ir lietošanas"
-" ierobežojumi un limitēta piekļuve pirmkodam, un to nenodrošina %s."
+"Īpašnieku programmatūras avoti sniedz pieeju papildu programmatūrai, tai "
+"skaitā tīmekļa pārlūkiem un spēlēm. Šai programmatūrai parasti ir lietošanas "
+"ierobežojumi un limitēta piekļuve pirmkodam, un to nenodrošina %s."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:245
 msgid "Software Sources"
@@ -670,15 +690,15 @@ msgid ""
 "access to source code. This prevents anyone but the software owner from "
 "inspecting, improving or learning from its code."
 msgstr ""
-"Īpašnieku programmatūrai parasti ir ierobežojumi tās lietošanai un piekļuvei"
-" tās pirmkodam. Tas liedz visiem (izņemot programmatūras īpašniekam) izpētīt,"
-" uzlabot vai mācīties no tā pirmkoda."
+"Īpašnieku programmatūrai parasti ir ierobežojumi tās lietošanai un piekļuvei "
+"tās pirmkodam. Tas liedz visiem (izņemot programmatūras īpašniekam) izpētīt, "
+"uzlabot vai mācīties no tā pirmkoda."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
 msgid ""
 "In contrast, Free Software can be freely run, copied, distributed, studied "
 "and modified."
 msgstr ""
-"Pretstatā, brīvo programmatūru var brīvi darbināt, kopēt, izplatīt, izpētīt"
-" un modificēt."
+"Pretstatā, brīvo programmatūru var brīvi darbināt, kopēt, izplatīt, izpētīt "
+"un modificēt."
 
