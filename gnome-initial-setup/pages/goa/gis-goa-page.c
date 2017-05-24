@@ -89,7 +89,7 @@ add_account_to_provider (ProviderWidget *provider_widget)
                                         GTK_DIALOG_MODAL
                                         | GTK_DIALOG_DESTROY_WITH_PARENT
                                         | GTK_DIALOG_USE_HEADER_BAR,
-                                        NULL);
+                                        NULL, NULL);
 
   goa_provider_add_account (provider_widget->provider,
                             priv->goa_client,
