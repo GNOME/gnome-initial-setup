@@ -119,8 +119,10 @@ language_widget_new (const char *locale_id,
 {
 	GtkWidget *label;
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
-        gchar *language, *language_name;
-        gchar *country, *country_name;
+        gchar *language = NULL;
+        gchar *language_name;
+        gchar *country = NULL;
+        gchar *country_name = NULL;
         gchar *sort_key;
         LanguageWidget *widget = g_new0 (LanguageWidget, 1);
 
@@ -128,7 +130,9 @@ language_widget_new (const char *locale_id,
                 return NULL;
 
         language_name = gnome_get_language_from_code (language, locale_id);
-        country_name = gnome_get_country_from_code (country, locale_id);
+
+        if (country)
+                country_name = gnome_get_country_from_code (country, locale_id);
 
         locale_name = gnome_get_language_from_locale (locale_id, locale_id);
         locale_current_name = gnome_get_language_from_locale (locale_id, NULL);
@@ -151,13 +155,15 @@ language_widget_new (const char *locale_id,
         gtk_box_pack_start (GTK_BOX (widget->box), widget->checkmark, FALSE, FALSE, 0);
         gtk_widget_show (widget->checkmark);
 
-        label = gtk_label_new (country_name);
-        gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
-        gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
-        gtk_style_context_add_class (gtk_widget_get_style_context (label), "dim-label");
-        gtk_label_set_xalign (GTK_LABEL (label), 0);
-        gtk_widget_set_halign (label, GTK_ALIGN_END);
-        gtk_box_pack_end (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
+        if (country_name) {
+                label = gtk_label_new (country_name);
+                gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
+                gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
+                gtk_style_context_add_class (gtk_widget_get_style_context (label), "dim-label");
+                gtk_label_set_xalign (GTK_LABEL (label), 0);
+                gtk_widget_set_halign (label, GTK_ALIGN_END);
+                gtk_box_pack_end (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
+        }
 
         widget->locale_id = g_strdup (locale_id);
         widget->locale_name = locale_name;
