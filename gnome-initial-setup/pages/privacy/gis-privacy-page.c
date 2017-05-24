@@ -258,7 +258,7 @@ activate_link (GtkLabel       *label,
                                         GTK_DIALOG_MODAL
                                         | GTK_DIALOG_DESTROY_WITH_PARENT
                                         | GTK_DIALOG_USE_HEADER_BAR,
-                                        NULL);
+                                        NULL, NULL);
 
   overlay = gtk_overlay_new ();
   gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), overlay);
