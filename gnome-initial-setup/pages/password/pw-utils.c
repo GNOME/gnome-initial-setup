@@ -37,7 +37,7 @@ get_pwq (void)
                 gchar *err = NULL;
                 settings = pwquality_default_settings ();
                 if (pwquality_read_config (settings, NULL, (gpointer)&err) < 0) {
-                        g_error ("failed to read pwquality configuration: %s\n", err);
+                        g_error ("failed to read pwquality configuration: %s", err);
                 }
         }
 
@@ -65,7 +65,7 @@ pw_generate (void)
         rv = pwquality_generate (get_pwq (), 0, &res);
 
         if (rv < 0) {
-                g_error ("Password generation failed: %s\n",
+                g_error ("Password generation failed: %s",
                          pwquality_strerror (NULL, 0, rv, NULL));
                 return NULL;
         }

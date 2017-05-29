@@ -102,7 +102,7 @@ add_account_to_provider (ProviderWidget *provider_widget)
 
   if (error) {
     if (!g_error_matches (error, GOA_ERROR, GOA_ERROR_DIALOG_DISMISSED))
-      g_warning ("fart %s\n", error->message);
+      g_warning ("fart %s", error->message);
     goto out;
   }
 

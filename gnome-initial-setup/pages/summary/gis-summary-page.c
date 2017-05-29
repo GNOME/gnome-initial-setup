@@ -99,7 +99,7 @@ on_info (GdmUserVerifier *user_verifier,
          const char      *info,
          GisSummaryPage  *page)
 {
-  g_debug ("PAM module info: %s\n", info);
+  g_debug ("PAM module info: %s", info);
 }
 
 static void
@@ -108,7 +108,7 @@ on_problem (GdmUserVerifier *user_verifier,
             const char      *problem,
             GisSummaryPage  *page)
 {
-  g_warning ("PAM module error: %s\n", problem);
+  g_warning ("PAM module error: %s", problem);
 }
 
 static void
@@ -129,7 +129,7 @@ on_secret_info_query (GdmUserVerifier *user_verifier,
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
   gboolean should_send_password = priv->user_password != NULL;
 
-  g_debug ("PAM module secret info query: %s\n", question);
+  g_debug ("PAM module secret info query: %s", question);
   if (should_send_password) {
     g_debug ("sending password\n");
     gdm_user_verifier_call_answer_query (user_verifier,

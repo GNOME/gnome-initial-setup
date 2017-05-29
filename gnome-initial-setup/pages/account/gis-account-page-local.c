@@ -181,12 +181,12 @@ prepopulate_account_page (GisAccountPageLocal *page)
         GError *error = NULL;
         if (!goa_oauth2_based_call_get_access_token_sync (oa2, &token, NULL, NULL, &error))
           {
-            g_warning ("Couldn't get oauth2 token: %s\n", error->message);
+            g_warning ("Couldn't get oauth2 token: %s", error->message);
             g_error_free (error);
           }
         else if (!get_profile_sync (token, &name, &picture, NULL, &error))
           {
-            g_warning ("Couldn't get profile information: %s\n", error->message);
+            g_warning ("Couldn't get profile information: %s", error->message);
             g_error_free (error);
           }
         /* FIXME: collect information from more than one account
@@ -211,7 +211,7 @@ prepopulate_account_page (GisAccountPageLocal *page)
     stream = g_file_read (file, NULL, &error);
     if (!stream)
       {
-        g_warning ("Failed to read picture: %s\n", error->message);
+        g_warning ("Failed to read picture: %s", error->message);
         g_error_free (error);
       }
     else

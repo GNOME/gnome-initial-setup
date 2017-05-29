@@ -172,7 +172,7 @@ change_locale_permission_acquired (GObject      *source,
 	allowed = g_permission_acquire_finish (priv->permission, res, &error);
 	if (error) {
 		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-			g_warning ("Failed to acquire permission: %s\n", error->message);
+			g_warning ("Failed to acquire permission: %s", error->message);
 		g_error_free (error);
 		return;
 	}
@@ -293,7 +293,7 @@ localed_proxy_ready (GObject      *source,
 
 	if (!proxy) {
 		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-			g_warning ("Failed to contact localed: %s\n", error->message);
+			g_warning ("Failed to contact localed: %s", error->message);
 		g_error_free (error);
 		return;
 	}
