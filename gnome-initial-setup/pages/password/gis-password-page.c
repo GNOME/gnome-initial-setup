@@ -290,7 +290,16 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
 static void
 gis_password_page_init (GisPasswordPage *page)
 {
+  GtkCssProvider *provider;
+
   g_resources_register (password_get_resource ());
+
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-password-page.css");
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  g_object_unref (provider);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
