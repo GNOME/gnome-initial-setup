@@ -116,7 +116,6 @@ validate (GisPasswordPage *page)
   const gchar *verify;
   gint strength_level;
   const gchar *hint;
-  const gchar *long_hint;
 
   if (priv->timeout_id != 0) {
     g_source_remove (priv->timeout_id);
@@ -126,9 +125,9 @@ validate (GisPasswordPage *page)
   password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
   verify = gtk_entry_get_text (GTK_ENTRY (priv->confirm_entry));
 
-  pw_strength (password, NULL, priv->username, &hint, &long_hint, &strength_level);
+  pw_strength (password, NULL, priv->username, &hint, &strength_level);
   gtk_level_bar_set_value (GTK_LEVEL_BAR (priv->password_strength), strength_level);
-  gtk_label_set_label (GTK_LABEL (priv->password_explanation), long_hint);
+  gtk_label_set_label (GTK_LABEL (priv->password_explanation), hint);
 
   gtk_label_set_label (GTK_LABEL (priv->confirm_explanation), "");
   priv->valid_confirm = FALSE;
