@@ -132,7 +132,7 @@ validate (GisPasswordPage *page)
   gtk_label_set_label (GTK_LABEL (priv->confirm_explanation), "");
   priv->valid_confirm = FALSE;
 
-  priv->valid_password = (strength_level > 0);
+  priv->valid_password = (strength_level > 1);
   if (priv->valid_password)
     set_entry_validation_checkmark (GTK_ENTRY (priv->password_entry));
 
