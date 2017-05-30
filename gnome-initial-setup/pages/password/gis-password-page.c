@@ -130,11 +130,6 @@ validate (GisPasswordPage *page)
   gtk_level_bar_set_value (GTK_LEVEL_BAR (priv->password_strength), strength_level);
   gtk_label_set_label (GTK_LABEL (priv->password_explanation), long_hint);
 
-  if (strlen (password) > 0 && strength_level <= 0)
-    set_entry_validation_error (GTK_ENTRY (priv->password_entry), _("This is a weak password."));
-  else
-    clear_entry_validation_error (GTK_ENTRY (priv->password_entry));
-
   gtk_label_set_label (GTK_LABEL (priv->confirm_explanation), "");
   priv->valid_confirm = FALSE;
 
