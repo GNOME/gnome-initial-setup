@@ -48,6 +48,7 @@ struct _GisAccountPageLocalPrivate
   GtkWidget *subtitle;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
+  gboolean   has_custom_username;
   GtkWidget *username_explanation;
   UmPhotoDialog *photo_dialog;
 
@@ -298,12 +299,13 @@ fullname_changed (GtkWidget      *w,
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  if (strlen (name) == 0) {
+  if ((name == NULL || strlen (name) == 0) && !priv->has_custom_username) {
     gtk_entry_set_text (GTK_ENTRY (entry), "");
   }
-  else {
+  else if (name != NULL && strlen (name) != 0) {
     generate_username_choices (name, GTK_LIST_STORE (model));
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->username_combo), 0);
+    if (!priv->has_custom_username)
+      gtk_combo_box_set_active (GTK_COMBO_BOX (priv->username_combo), 0);
   }
 
   clear_entry_validation_error (GTK_ENTRY (w));
@@ -319,8 +321,16 @@ username_changed (GtkComboBoxText     *combo,
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GtkWidget *entry;
+  const gchar *username;
 
   entry = gtk_bin_get_child (GTK_BIN (combo));
+  username = gtk_entry_get_text (GTK_ENTRY (entry));
+  if (*username == '\0')
+    priv->has_custom_username = FALSE;
+  else if (gtk_widget_has_focus (entry) ||
+           gtk_combo_box_get_active (GTK_COMBO_BOX (priv->username_combo)) > 0)
+    priv->has_custom_username = TRUE;
+
   clear_entry_validation_error (GTK_ENTRY (entry));
 
   priv->valid_username = FALSE;
@@ -403,6 +413,7 @@ gis_account_page_local_constructed (GObject *object)
   gtk_label_set_text (GTK_LABEL (priv->subtitle), _("We need a few details to complete setup."));
   gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), "");
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
+  priv->has_custom_username = FALSE;
 
   gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
   gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
