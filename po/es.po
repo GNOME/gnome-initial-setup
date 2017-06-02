@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-01-30 15:55+0000\n"
-"PO-Revision-Date: 2017-01-31 16:31+0100\n"
+"POT-Creation-Date: 2017-06-02 07:26+0000\n"
+"PO-Revision-Date: 2017-06-02 09:54+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -78,12 +78,17 @@ msgid "Enterprise Login"
 msgstr "Inicio de sesión corporativo"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#| msgid ""
+#| "Enterprise login allows an existing centrally managed user account to be "
+#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "El inicio de sesión corporativo permite que se use una cuenta de usuario "
-"gestionada de manera centralizada en este dispositivo."
+"gestionada de manera centralizada en este dispositivo. También puede usar "
+"esta cuenta para acceder a recursos de la compañía en Internet."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -133,12 +138,12 @@ msgstr "_Nombre del administrador"
 msgid "Administrator Password"
 msgstr "Contraseña del administrador"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Verifique el nombre y el nombre de usuario. También puede elegir una foto."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Hacen falta algunos detalles para completar la configuración."
 
@@ -164,7 +169,6 @@ msgid "Disable image"
 msgstr "Desactivar imagen"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-#| msgid "Take a photo..."
 msgid "Take a photo…"
 msgstr "Hacer una foto…"
 
@@ -189,39 +193,34 @@ msgstr "Contraseña no válida, inténtelo de nuevo"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-#| msgid "Couldn't connect to the %s domain: %s"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "No se pudo conectar al dominio %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-#| msgid "A user with the username '%s' already exists."
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Ya existe un usuario con nombre de usuario «%s»."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "El nombre de usuario no está disponible. Inténtelo con otro."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "El nombre de usuario es demasiado largo."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
 msgid "The username cannot start with a ‘-’."
 msgstr "El nombre de usuario no puede comenzar por «-»."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 #| msgid ""
 #| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters '.', '-' and '_'."
+#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
-"El nombre de usuario debe consistir en mayúsculas y minúsculas, dígitos y "
-"cualquiera de los caracteres «.», «-» y «_»."
+"El nombre de usuario debe constar de letras mayúsculas y minúsculas de la a-"
+"z, dígitos y cualquiera de los caracteres: «.», «-» o «_»."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
-#| msgid "This will be used to name your home folder and can't be changed."
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Esto se usará para nombrar su carpeta personal y no se puede cambiar."
 
@@ -270,7 +269,7 @@ msgid "Preview"
 msgstr "Vista previa"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Más…"
@@ -291,7 +290,7 @@ msgstr "Escritura"
 msgid "Select your keyboard layout or an input method."
 msgstr "Seleccione la distribución de su teclado o un método de entrada."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "No se han encontrado idiomas"
 
@@ -307,20 +306,20 @@ msgstr "Bienvenido"
 msgid "Welcome!"
 msgstr "Bienvenido."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Otro…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "La rede inalámbrica está desactivada"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Comprobando si hay redes inalámbricas disponibles"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Red"
 
@@ -346,15 +345,11 @@ msgstr "La red inalámbrica no está disponible."
 msgid "Turn On"
 msgstr "Activar"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Esta es una contraseña débil."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Las contraseñas no coinciden."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Contraseña"
 
@@ -367,8 +362,9 @@ msgid "Be careful not to lose your password."
 msgstr "Tenga cuidado de no perder su contraseña."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Verificar"
+#| msgid "_Confirm password"
+msgid "_Confirm"
+msgstr "_Confirmar"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -376,153 +372,159 @@ msgid "The new password needs to be different from the old one."
 msgstr "La contraseña nueva debe ser diferente de la antigua."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing some letters "
+#| "and numbers."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Esta contraseña es muy parecida a la última. Pruebe a cambiar algunas letras "
-"y números."
+msgid "Try changing some letters and numbers."
+msgstr "Pruebe a cambiar algunas letras y números."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing the password "
+#| "a bit more."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Esta contraseña es muy parecida a la última. Pruebe a cambiar la contraseña "
-"un poco más."
+msgid "Try changing the password a bit more."
+msgstr "Pruebe a cambiar la contraseña un poco más."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. A password without your user name would be "
+#| "stronger."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Esta es una contraseña débil. Una contraseña sin su nombre de usuario será "
-"más robusta."
+msgid "A password without your user name would be stronger."
+msgstr "Una contraseña sin su nombre de usuario será más robusta."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "Esta es una contraseña débil. Evite usar su nombre en la contraseña."
+msgid "Try to avoid using your name in the password."
+msgstr "Evite usar su nombre en la contraseña."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid some of the words included in the "
+#| "password."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Esta es una contraseña débil. Evite algunas de las palabras incluidas en la "
-"contraseña."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Evite algunas de las palabras incluidas en la contraseña."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Esta es una contraseña débil. Trate de evitar palabras comunes."
+msgid "Try to avoid common words."
+msgstr "Trate de evitar palabras comunes."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "Esta es una contraseña débil. Evite reordenar las palabras existentes."
+msgid "Try to avoid reordering existing words."
+msgstr "Evite reordenar las palabras existentes."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Esta es una contraseña débil. Pruebe a usar más números."
+msgid "Try to use more numbers."
+msgstr "Pruebe a usar más números."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Esta es una contraseña débil. Pruebe a usar más letras en mayúscula."
+msgid "Try to use more uppercase letters."
+msgstr "Pruebe a usar más letras en mayúscula."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Esta es una contraseña débil. Pruebe a usar más letras en minúscula."
+msgid "Try to use more lowercase letters."
+msgstr "Pruebe a usar más letras en minúscula."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use more special characters, like "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Esta es una contraseña débil. Pruebe a usar más caracteres especiales, como "
-"signos de puntuación."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Pruebe a usar más caracteres especiales, como signos de puntuación."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Esta es una contraseña débil. Pruebe a usar una mezcla de letras, números y "
-"signos de puntuación."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Pruebe a usar una mezcla de letras, números y signos de puntuación."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Esta es una contraseña débil. Evite repetir el mismo carácter."
+msgid "Try to avoid repeating the same character."
+msgstr "Evite repetir el mismo carácter."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid repeating the same type of "
+#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Esta es una contraseña débil. Evite repetir el mismo tipo de carácter: debe "
-"mezclar letras, números y signos de puntuación."
+"Evite repetir el mismo tipo de carácter: debe mezclar letras, números y "
+"signos de puntuación."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "Esta es una contraseña débil. Evite secuencias como 1234 o abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Evite secuencias como 1234 o abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
-msgstr ""
-"Esta es una contraseña débil. Pruebe a añadir más letras, números y signos "
-"de puntuación."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
+msgstr "Pruebe a usar una mezcla de letras, números y signos de puntuación."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
+#| msgctxt "Password hint"
+#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
+msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "Mezcle letras mayúsculas y minúsculas y use uno o dos números."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#| msgctxt "Password hint"
+#| msgid ""
+#| "Good password! Adding more letters, numbers and punctuation will make it "
+#| "stronger."
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Buena contraseña. Pruebe a añadir más letras, números y signos de puntuación "
-"para hacerla más robusta."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Fortaleza: débil"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Fortaleza: baja"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Fortaleza: media"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Fortaleza: buena"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Fortaleza: alta"
+"Añadir más letras, números y signos de puntuación hará que la contraseña sea "
+"más robusta."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -600,18 +602,16 @@ msgstr "Elija su país o región."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-#| msgid "_Start using %s"
 msgid "_Start Using %s"
 msgstr "_Empezar a usar %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Listo para empezar"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "You're ready to go!"
 msgid "You’re ready to go!"
 msgstr "Ya está todo listo."
 
@@ -714,6 +714,43 @@ msgstr ""
 "En contraste, el software libre se puede ejecutar, copiar, distribuir, "
 "estudiar y modificar libremente."
 
+#~| msgid "A user with the username '%s' already exists."
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Ya existe un usuario con nombre de usuario «%s»."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Esta es una contraseña débil."
+
+#~ msgid "_Verify"
+#~ msgstr "_Verificar"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Esta es una contraseña débil. Pruebe a añadir más letras, números y "
+#~ "signos de puntuación."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Fortaleza: débil"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Fortaleza: baja"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Fortaleza: media"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Fortaleza: buena"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Fortaleza: alta"
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr ""
 #~ "¿Son correctos estos detalles? Puede cambiarlos más tarde si quiere."
@@ -757,9 +794,6 @@ msgstr ""
 
 #~ msgid "No password"
 #~ msgstr "Sin contraseña"
-
-#~ msgid "_Confirm password"
-#~ msgstr "_Confirmar contraseña"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
