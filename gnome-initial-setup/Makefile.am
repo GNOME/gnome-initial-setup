@@ -8,6 +8,7 @@ AM_CPPFLAGS = \
 	$(INITIAL_SETUP_CFLAGS) \
 	-DSECRET_API_SUBJECT_TO_CHANGE \
 	-DGCR_API_SUBJECT_TO_CHANGE \
+	-DVENDOR_CONF_FILE="\"$(VENDOR_CONF_FILE)\"" \
 	-DUIDIR="\"$(uidir)\"" \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\" \
