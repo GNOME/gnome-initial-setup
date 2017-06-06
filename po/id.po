@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-22 17:09+0000\n"
-"PO-Revision-Date: 2017-03-02 14:32+0700\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"POT-Creation-Date: 2017-06-05 16:49+0000\n"
+"PO-Revision-Date: 2017-06-06 16:48+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -80,10 +80,12 @@ msgstr "Log Masuk Enterprise"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Log masuk enterprise memungkinkan akun pengguna yang telah ada dan dikelola "
-"secara terpusat dipakai pada perangkat ini."
+"secara terpusat dipakai pada perangkat ini. Anda juga dapat menggunakan akun "
+"ini untuk mengakses sumber daya perusahaan di internet."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -133,11 +135,11 @@ msgstr "_Nama Administrator"
 msgid "Administrator Password"
 msgstr "Sandi Administrator"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Harap periksa nama dan nama pengguna. Anda juga dapat memilih gambar."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Kami perlu beberapa rincian untuk melengkapi penyiapan."
 
@@ -190,28 +192,27 @@ msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Tak bisa menyambung ke domain %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Pengguna dengan nama '%s' telah ada."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Maaf, nama pengguna itu tidak tersedia. Silakan coba yang lain."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Nama pengguna terlalu panjang."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
 msgid "The username cannot start with a ‘-’."
 msgstr "Nama pengguna tidak boleh diawali dengan '-'."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
-"Nama pengguna mesti hanya terdiri dari huruf kecil dan besar a-z, dijit, dan "
-"sebarang karakter '.', '-', atau '_'."
+"Nama pengguna mesti hanya terdiri dari huruf besar dan kecil dari a-z, "
+"dijit, dan karakter berikut: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Ini akan dipakai untuk menamai folder rumah Anda dan tak dapat diubah."
 
@@ -258,7 +259,7 @@ msgid "Preview"
 msgstr "Pratinjau"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Lebih banyak…"
@@ -279,7 +280,7 @@ msgstr "Mengetik"
 msgid "Select your keyboard layout or an input method."
 msgstr "Pilih tata letak papan tik Anda atau metoda masukan."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Tak ada bahasa yang ditemukan"
 
@@ -295,20 +296,20 @@ msgstr "Selamat Datang"
 msgid "Welcome!"
 msgstr "Selamat Datang!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Lainnya…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "﻿Jaringan nirkabel dinonaktifkan"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Memeriksa ketersediaan jaringan nirkabel"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Jaringan"
 
@@ -334,15 +335,11 @@ msgstr "Tak ada jaringan nirkabel yang tersedia"
 msgid "Turn On"
 msgstr "Nyalakan"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Ini sandi yang lemah."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Sandi tak cocok."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Sandi"
 
@@ -355,8 +352,8 @@ msgid "Be careful not to lose your password."
 msgstr "Berhati-hatilah jangan sampai kehilangan sandi Anda."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Verifikasi"
+msgid "_Confirm"
+msgstr "_Konfirmasi"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -365,156 +362,105 @@ msgstr "Sandi baru mesti berbeda dengan yang lama."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Sandi ini sangat mirip dengan yang sebelumnya. Cobalah mengubah beberapa "
-"huruf dan angka."
+msgid "Try changing some letters and numbers."
+msgstr "Cobalah mengubah beberapa huruf dan angka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Sandi ini sangat mirip dengan yang sebelumnya. Cobalah mengubah sandi "
-"sedikit lagi."
+msgid "Try changing the password a bit more."
+msgstr "Cobalah mengubah sandi sedikit lagi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Ini adalah sandi yang lemah. Sandi tanpa nama pengguna Anda akan lebih kuat."
+msgid "A password without your user name would be stronger."
+msgstr "Sandi tanpa nama pengguna Anda akan lebih kuat."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "This is a weak password. Try to avoid using your name in the password."
+msgid "Try to avoid using your name in the password."
+msgstr "Try to avoid using your name in the password."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Ini adalah sandi yang lemah. Cobalah menghindari beberapa kata yang "
-"disertakan dalam sandi."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Cobalah menghindari beberapa kata yang disertakan dalam sandi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Ini adalah sandi yang lemah. Cobalah menghindari kata-kata umum."
+msgid "Try to avoid common words."
+msgstr "Cobalah menghindari kata-kata umum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr ""
-"Ini adalah sandi yang lemah. Cobalah menghindari menata ulang kata yang ada."
+msgid "Try to avoid reordering existing words."
+msgstr "Cobalah menghindari menata ulang kata yang ada."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Ini adalah sandi yang lemah. Cobalah memakai lebih banyak angka."
+msgid "Try to use more numbers."
+msgstr "Cobalah memakai lebih banyak angka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Ini adalah sandi yang lemah. Cobalah memakai lebih banyak huruf besar."
+msgid "Try to use more uppercase letters."
+msgstr "Cobalah memakai lebih banyak huruf besar."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Ini adalah sandi yang lemah. Cobalah memakai lebih banyak huruf kecil."
+msgid "Try to use more lowercase letters."
+msgstr "Cobalah memakai lebih banyak huruf kecil."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Ini adalah sandi yang lemah. Cobalah memakai lebih banyak karakter khusus, "
-"seperti tanda seru."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Cobalah memakai lebih banyak karakter khusus, seperti tanda seru."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Ini adalah sandi yang lemah. Cobalah memakai campuran huruf, angka, dan "
-"tanda baca."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Cobalah memakai campuran huruf, angka, dan tanda baca."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr ""
-"Ini adalah sandi yang lemah. Cobalah menghindari pengulangan karakter yang "
-"sama."
+msgid "Try to avoid repeating the same character."
+msgstr "Cobalah menghindari pengulangan karakter yang sama."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Ini adalah sandi yang lemah. Cobalah menghindari pengulangan tipe karakter "
-"yang sama: Anda perlu mencampur huruf, angka, dan tanda baca."
+"Cobalah menghindari pengulangan tipe karakter yang sama: Anda perlu "
+"mencampur huruf, angka, dan tanda baca."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Ini adalah sandi yang lemah. Cobalah menghindari urutan seperti 1234 atau "
-"abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Cobalah menghindari urutan seperti 1234 atau abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Ini adalah sandi yang lemah. Cobalah menambah lebih banyak huruf, angka, dan "
-"simbol."
+"Password harus lebih panjang. Cobalah memakai campuran huruf, angka, dan "
+"tanda baca."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
+msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "Campurkan huruf besar dan kecil dan pakailah satu atau dua angka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Sandi yang bagus! Menambah lebih banyak huruf, angka, dan tanda baca akan "
-"membuatnya lebih kuat."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Kekuatan: Lemah"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Kekuatan: Rendah"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Kekuatan: Sedang"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Kekuatan: Baik"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Kekuatan: Tinggi"
+"Menambah lebih banyak huruf, angka, dan tanda baca akan membuatnya lebih "
+"kuat."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
