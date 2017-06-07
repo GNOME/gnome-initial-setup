@@ -395,7 +395,7 @@ gis_timezone_page_constructed (GObject *object)
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GError *error;
-  GSettings *settings;
+  gboolean chosen_from_locale_page;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
@@ -414,9 +414,14 @@ gis_timezone_page_constructed (GObject *object)
   priv->clock = g_object_new (GNOME_TYPE_WALL_CLOCK, NULL);
   g_signal_connect (priv->clock, "notify::clock", G_CALLBACK (on_clock_changed), page);
 
-  settings = g_settings_new (CLOCK_SCHEMA);
-  priv->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
-  g_object_unref (settings);
+  priv->clock_format = gis_driver_get_default_time_format (GIS_PAGE (page)->driver,
+                                                           &chosen_from_locale_page);
+  if (chosen_from_locale_page)
+    {
+      g_message ("Chosen from locale page, updating settings");
+      g_autoptr(GSettings) settings = g_settings_new (CLOCK_SCHEMA);
+      g_settings_set_enum (settings, CLOCK_FORMAT_KEY, priv->clock_format);
+    }
 
   priv->geoclue_cancellable = g_cancellable_new ();
 

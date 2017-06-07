@@ -25,6 +25,7 @@
 #include "gis-assistant.h"
 #include "gis-page.h"
 #include <act/act-user-manager.h>
+#include <gdesktop-enums.h>
 #include <gdm/gdm-client.h>
 
 G_BEGIN_DECLS
@@ -85,6 +86,9 @@ void gis_driver_set_user_language (GisDriver   *driver,
                                    gboolean     update_locale);
 
 const gchar *gis_driver_get_user_language (GisDriver *driver);
+
+GDesktopClockFormat gis_driver_get_default_time_format (GisDriver *self,
+                                                        gboolean  *chosen_from_locale_page);
 
 void gis_driver_set_username (GisDriver   *driver,
                               const gchar *username);
