@@ -29,6 +29,9 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#include <errno.h>
+#include <langinfo.h>
+#include <locale.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -74,6 +77,49 @@ struct _GisTimezonePagePrivate
 typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
+
+G_DEFINE_AUTO_CLEANUP_FREE_FUNC(locale_t, freelocale, NULL)
+
+static GDesktopClockFormat
+get_default_time_format (void)
+{
+  const char *ampm, *nl_fmt;
+  locale_t undef_locale = uselocale ((locale_t) 0);
+
+  if (undef_locale == (locale_t) 0)
+    {
+      g_warning ("Failed to get current locale: %s", g_strerror (errno));
+      return G_DESKTOP_CLOCK_FORMAT_24H;
+    }
+
+  /* It's necessary to duplicate the locale because undef_locale might be
+   * LC_GLOBAL_LOCALE, and duplocale() will make a concrete locale. Passing
+   * LC_GLOBAL_LOCALE to nl_langinfo_l() is undefined behaviour. */
+  g_auto(locale_t) locale = duplocale (undef_locale);
+  if (locale == (locale_t) 0)
+    {
+      g_warning ("Failed to copy current locale: %s", g_strerror (errno));
+      return G_DESKTOP_CLOCK_FORMAT_24H;
+    }
+
+  /* Default to 24 hour if we can't get the format from the locale */
+  nl_fmt = nl_langinfo_l (T_FMT, locale);
+  if (nl_fmt == NULL || *nl_fmt == '\0')
+    return G_DESKTOP_CLOCK_FORMAT_24H;
+
+  /* Default to 24 hour if AM/PM is not available in the locale */
+  ampm = nl_langinfo_l (AM_STR, locale);
+  if (ampm == NULL || ampm[0] == '\0')
+    return G_DESKTOP_CLOCK_FORMAT_24H;
+
+  /* Parse out any formats that use 12h format. See stftime(3). */
+  if (g_str_has_prefix (nl_fmt, "%I") ||
+      g_str_has_prefix (nl_fmt, "%l") ||
+      g_str_has_prefix (nl_fmt, "%r"))
+    return G_DESKTOP_CLOCK_FORMAT_12H;
+  else
+    return G_DESKTOP_CLOCK_FORMAT_24H;
+}
 
 static void
 set_timezone_cb (GObject      *source,
@@ -388,7 +434,8 @@ gis_timezone_page_constructed (GObject *object)
   g_signal_connect (priv->clock, "notify::clock", G_CALLBACK (on_clock_changed), page);
 
   settings = g_settings_new (CLOCK_SCHEMA);
-  priv->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
+  priv->clock_format = get_default_time_format ();
+  g_settings_set_enum (settings, CLOCK_FORMAT_KEY, priv->clock_format);
   g_object_unref (settings);
 
   priv->geoclue_cancellable = g_cancellable_new ();
