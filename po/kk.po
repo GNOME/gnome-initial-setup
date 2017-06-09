@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-01-30 15:55+0000\n"
-"PO-Revision-Date: 2017-02-03 09:09+0500\n"
+"POT-Creation-Date: 2017-06-02 07:26+0000\n"
+"PO-Revision-Date: 2017-06-09 22:53+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -79,10 +79,13 @@ msgstr "Кәсіпорын тіркелгісі"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
-"Кәсіпорын тіркелгілерін қолдану бар болып тұрған, орталықтан басқарылатын, "
-"пайдаланушы тіркелгісін бұл компьютерде қолдануын мүмкін қылады."
+"Кәсіпорындық кіру бар болып тұрған және орталықтан басқарылатын пайданушы "
+"тіркелгісіне бұл құрылғыда қолданылуды мүмкін етеді. Сонымен қатар, сіз бұл "
+"тіркелгіні кәсіпорынның интернеттегі ресурстарына қатынау үшін қолдана "
+"аласыз."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -132,13 +135,13 @@ msgstr "Әкімші а_ты"
 msgid "Administrator Password"
 msgstr "Әкімші паролі"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Атыңыз және пайдаланушы атын таңдаңыз. Сонымен қатар, сіз суретті де таңдай "
 "аласыз."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Орнатуды аяқтау үшін біраз ақпарат керек."
 
@@ -193,28 +196,27 @@ msgid "Couldn’t connect to the %s domain: %s"
 msgstr "%s доменіне байланысу мүмкін емес: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "\"%s\" деген пайдаланушы бар болып тұр."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Кешіріңіз, бұл пайдаланушы аты қолжетерсіз. Басқасын көріңіз."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Пайдаланушы аты тым ұзын."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
 msgid "The username cannot start with a ‘-’."
 msgstr "Пайдаланушы аты \"-\" таңбасынан басталмауы тиіс."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
-"Пайдаланушы атында тек ағылшын әліппесінің кіші және бас әріптері, сандар, "
-"\".\", \"-\" және \"_\" таңбаларының кез-келгені болуы мүмкін."
+"Пайдаланушы атында тек ағылшын әліппесінің a-z арасындағы бас/кіші әріптері, "
+"сандар, және келесі таңбалар болуы мүмкін: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Бұл сіздің үй бумаңыздың аты ретінде қолданылады, және оны кейін өзгертуге "
@@ -263,10 +265,10 @@ msgid "Preview"
 msgstr "Алдын-ала қарау"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
-msgstr "Көбірек..."
+msgstr "Көбірек…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
@@ -284,7 +286,7 @@ msgstr "Теру"
 msgid "Select your keyboard layout or an input method."
 msgstr "Пернетақта жаймасын не енгізу тәсілін таңдау."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Тілдер табылмады"
 
@@ -300,20 +302,20 @@ msgstr "Қош келдіңіз"
 msgid "Welcome!"
 msgstr "Қош келдіңіз!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Басқа…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Сымсыз желі сөндірілген"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Қолжетерлік сымсыз желілерді іздеу"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Желі"
 
@@ -339,15 +341,11 @@ msgstr "Қолжетерлік сымсыз желілер жоқ"
 msgid "Turn On"
 msgstr "Іске қосу"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Бұл пароль әлсіз."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Парольдер өзара сәйкес келмейді."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Пароль"
 
@@ -360,8 +358,8 @@ msgid "Be careful not to lose your password."
 msgstr "Пароліңізді жоғалтпауға тырысыңыз."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Тексеру"
+msgid "_Confirm"
+msgstr "Ра_стау"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -370,153 +368,106 @@ msgstr "Жаңа пароль ескі парольден басқа болуы 
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Бұл пароль сіздің соңғы пароліңізге өте ұқсайды. Кейбір әріптер мен сандарды "
-"өзгертіп көріңіз."
+msgid "Try changing some letters and numbers."
+msgstr "Кейбір әріптер мен сандарды өзгертіп көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Бұл пароль сіздің соңғы пароліңізге өте ұқсайды. Парольді әрі қарай өзгертіп "
-"қараңыз."
+msgid "Try changing the password a bit more."
+msgstr "Парольді тағы өзгертіп қараңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Бұл пароль әлсіз. Сіздің пайдаланушы атыңызды қолданбайтын пароль күштірек "
-"болады."
+msgid "A password without your user name would be stronger."
+msgstr "Сіздің пайдаланушы атыңызды қолданбайтын пароль күштірек болады."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "Бұл пароль әлсіз. Пайдаланушы атыңызды парольде қолданбауға тырысыңыз."
+msgid "Try to avoid using your name in the password."
+msgstr "Пайдаланушы атыңызды парольде қолданбауға тырысыңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Бұл пароль әлсіз. Пароль ішіндегі сөздердің кейбіреулерін қолданбауға "
-"тырысыңыз."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Пароль ішіндегі сөздердің кейбіреулерін қолданбауға тырысыңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Бұл пароль әлсіз. Қарапайым сөздерді қолданбауға тырысыңыз."
+msgid "Try to avoid common words."
+msgstr "Қарапайым сөздерді қолданбауға тырысыңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr ""
-"Бұл пароль әлсіз. Бар сөздерді тек орындарымен ауыстыруды қолданбауға "
-"тырысыңыз."
+msgid "Try to avoid reordering existing words."
+msgstr "Бар сөздерді тек орындарымен ауыстыруды қолданбауға тырысыңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Бұл пароль әлсіз. Көбірек сандарды қолданып көріңіз."
+msgid "Try to use more numbers."
+msgstr "Көбірек сандарды қолданып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Бұл пароль әлсіз. Көбірек бас әріптерді қолданып көріңіз."
+msgid "Try to use more uppercase letters."
+msgstr "Көбірек бас әріптерді қолданып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Бұл пароль әлсіз. Көбірек кіші әріптерді қолданып көріңіз."
+msgid "Try to use more lowercase letters."
+msgstr "Көбірек кіші әріптерді қолданып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Бұл пароль әлсіз. Көбірек арнайы таңбаларды, тыныс белгілері сияқты, "
-"қолданып көріңіз."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Көбірек арнайы таңбаларды, тыныс белгілері сияқты, қолданып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Бұл пароль әлсіз. Әріптер, сандар мен тыныс белгілерді араластыруды қолданып "
-"көріңіз."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Әріптер, сандар мен тыныс белгілерді араластыруды қолданып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Бұл пароль әлсіз. Бір таңбаны қайталамауды қолданып көріңіз."
+msgid "Try to avoid repeating the same character."
+msgstr "Бір таңбаны қайталамауды қолданып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Бұл пароль әлсіз. Бір таңбаны қайталамауды қолданып көріңіз: сізге әріптер, "
-"сандар мен тыныс белгілерді араластырып, қолдану керек."
+"Таңбалардың бір түрін қайталамауға тырысыңыз: сізге әріптер, сандар және "
+"тыныс белгілерін араластырып қолдану керек."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "Бұл пароль әлсіз. 1234 не abcd сияқты тізбектерді қолданбаңыз."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "1234 не abcd сияқты тізбектерді қолданбаңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Бұл пароль әлсіз. Көбірек әріптер, сандар мен таңбаларды қосып көріңіз."
+"Пароль ұзынырақ болуы тиіс. Көбірек әріптер, сандар және тыныс белгілерін "
+"қосып көріңіз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
-msgstr "Бас/кіші әріптерді араластырып, бір не бірнеше санды да қолданыңыз."
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr ""
+"Бас және кіші әріптерді араластырыңыз және бір-екі санды қолдануға тырысыңыз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Жақсы пароль! Көбірек әріптер, сандар мен тыныс белгілерін қосу оны қатаңдау "
-"қылады."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Деңгейі: Әлсіз"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Деңгейі: Төмен"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Деңгейі: Орташа"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Деңгейі: Жақсы"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Деңгейі: Өте жақсы"
+"Көбірек әріптер, сандар және тыныс белгілерін қосу арқылы парольді күштірек "
+"қылуға болады."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -549,7 +500,7 @@ msgstr "Жекелік саясаты"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
 msgid "Uses Mozilla Location Service:"
-msgstr "Mozilla орналасулар қызметін қолданады"
+msgstr "Mozilla орналасулар қызметін қолданады:"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
@@ -594,12 +545,12 @@ msgstr "Ел не аймағыңызды таңдаңыз."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
 msgid "_Start Using %s"
 msgstr "%s қолдануд_ы бастау"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Жұмысқа дайын"
 
@@ -704,6 +655,41 @@ msgstr ""
 "Ал, еркін БҚ болса, оны еркін түрде орындау, көшіріп алу, тарату, одан оқу "
 "және оны түзетуге болады."
 
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "\"%s\" деген пайдаланушы бар болып тұр."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Бұл пароль әлсіз."
+
+#~ msgid "_Verify"
+#~ msgstr "_Тексеру"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Бұл пароль әлсіз. Көбірек әріптер, сандар мен таңбаларды қосып көріңіз."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Деңгейі: Әлсіз"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Деңгейі: Төмен"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Деңгейі: Орташа"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Деңгейі: Жақсы"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Деңгейі: Өте жақсы"
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Бұл мәлімет дұрыс па? Қаласаңыз, оны өзгерте аласыз."
 
@@ -735,9 +721,6 @@ msgstr ""
 
 #~ msgid "No password"
 #~ msgstr "Пароль жоқ"
-
-#~ msgid "_Confirm password"
-#~ msgstr "Парольді ра_стау"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
