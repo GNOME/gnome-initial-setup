@@ -99,7 +99,7 @@ gis_page_get_property (GObject    *object,
 }
 
 static void
-small_screen_changed (GObject *driver, GParamSpec *pspec, GisPage *page)
+small_screen_changed (GisPage *page)
 {
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_SMALL_SCREEN]);
 }
@@ -116,8 +116,9 @@ gis_page_set_property (GObject      *object,
     {
     case PROP_DRIVER:
       page->driver = g_value_dup_object (value);
-      g_signal_connect (page->driver, "notify::small-screen",
-                        G_CALLBACK (small_screen_changed), page);
+      g_signal_connect_swapped (page->driver, "notify::small-screen",
+                                G_CALLBACK (small_screen_changed), page);
+      small_screen_changed (page);
       break;
     case PROP_TITLE:
       gis_page_set_title (page, (char *) g_value_get_string (value));
