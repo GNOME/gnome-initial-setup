@@ -525,6 +525,10 @@ gis_driver_startup (GApplication *app)
                                     "deletable", FALSE,
                                     NULL);
 
+  gtk_application_inhibit (GTK_APPLICATION (app), priv->main_window,
+                           GTK_APPLICATION_INHIBIT_IDLE,
+                           "Should not be idle on first boot.");
+
   g_signal_connect (priv->main_window,
                     "realize",
                     G_CALLBACK (window_realize_cb),
