@@ -1,4 +1,4 @@
-AC_INIT([gnome-initial-setup],[3.25.3])
+AC_INIT([gnome-initial-setup],[3.25.4])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([dist-xz no-dist-gzip foreign tar-ustar])
