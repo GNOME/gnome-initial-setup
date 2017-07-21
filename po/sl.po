@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-05-05 13:39+0200\n"
-"PO-Revision-Date: 2017-05-05 13:45+0200\n"
+"POT-Creation-Date: 2017-07-21 17:19+0200\n"
+"PO-Revision-Date: 2017-07-21 17:22+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -47,13 +47,13 @@ msgstr "_Predhodni"
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Vsili obstoječi uporabniški način"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "-  začetna nastavitev GNOME"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+msgid "— GNOME initial setup"
+msgstr "– začetne nastavitve GNOME"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -83,9 +83,12 @@ msgstr "Poslovna prijava"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
-"Poslovna prijava omogoča prijavo z obstoječim poslovnim uporabniškim računom."
+"Poslovna prijava omogoča prijavo na to napravo z obstoječim poslovnim "
+"uporabniškim računom. Ta račun je mogoče uporabiti tudi za dostop do "
+"poslovnih virov na internetu."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -135,11 +138,11 @@ msgstr "Ime _skrbnika"
 msgid "Administrator Password"
 msgstr "Skrbniško geslo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Preverite ime in uporabniško ime. Izberete lahko tudi sličico profila."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Za končanje namestitve so zahtevani še nekateri pomembni podatki."
 
@@ -190,31 +193,30 @@ msgstr "Geslo je neveljavno, poskusite znova."
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn’t connect to the %s domain: %s"
-msgstr "Ni mogoče povezati z domeno %s: %s"
+msgstr "Ni se mogoče povezati z domeno %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Uporabnik z uporabniškim imenom »%s« že obstaja."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Uporabniško ime ni na voljo! Izberite drugo ime."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Uporabniško ime je predolgo."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a ‘-’."
-msgstr "Uporabniškega imena ni mogoče začeti z vezajem '-'."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
+msgstr "Uporabniškega imena ni mogoče začeti z vezajem » - «."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "Uporabniško ime je lahko sestavljeno le iz majhnih in velikih črk od a do z, "
-"številk in posebnih znakov '.', '-' ter '_'."
+"številk in znakov » . «, » - « ter » _ «."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "S tem imenom bo poimenovana osebna mapa. Izbire kasneje ni mogoče "
@@ -263,7 +265,7 @@ msgid "Preview"
 msgstr "Predogled"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Več ..."
@@ -284,7 +286,7 @@ msgstr "Tipkanje"
 msgid "Select your keyboard layout or an input method."
 msgstr "Izbor razporeditve tipkovnice ali načina vnosa."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Ni najdenih jezikov"
 
@@ -339,15 +341,11 @@ msgstr "Ni razpoložljivega brezžičnega omrežja"
 msgid "Turn On"
 msgstr "Omogoči"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Vpisano geslo je šibko."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Gesli se ne skladata."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Geslo"
 
@@ -360,8 +358,8 @@ msgid "Be careful not to lose your password."
 msgstr "Pazite, da ne izgubite gesla."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Preveri"
+msgid "_Confirm"
+msgstr "_Potrdi"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -370,148 +368,102 @@ msgstr "Novo geslo mora biti različno od starega."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Vpisano geslo je zelo podobno prejšnjemu geslu. Poskusite dodatki kakšno "
-"številko ali dodatno črko."
+msgid "Try changing some letters and numbers."
+msgstr "Poskusite zamenjati kakšno črko ali številko."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Vpisano geslo je zelo podobno prejšnjemu geslu. Poskusite ga še malo "
-"spremeniti."
+msgid "Try changing the password a bit more."
+msgstr "Priporočljivo je ša malo bolj spremeniti geslo."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Vpisano geslo je šibko. Geslo brez uporabniškega imena bi bilo močnejše."
+msgid "A password without your user name would be stronger."
+msgstr "Geslo brez uporabniškega imena bi bilo močnejše."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "Vpisano geslo je šibko. Ne uporabljajte imen in datumov v geslih."
+msgid "Try to avoid using your name in the password."
+msgstr "Izogibajte se uporabi imena v geslu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr "Vpisano geslo je šibko. Izognite se nekaterim znanim besedam v geslu."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Izogibajte se uporabi besed v geslu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Vpisano geslo je šibko. Izogibajte se splošnim besedam."
+msgid "Try to avoid common words."
+msgstr "Izogibajte se splošnim besedam."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr ""
-"Vpisano geslo je šibko. Izogibajte se zgolj premetavanju obstoječih besed."
+msgid "Try to avoid reordering existing words."
+msgstr "Izogibajte se zgolj preobračanju obstoječih besed."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Vpisano geslo je šibko. Dodajte več številk."
+msgid "Try to use more numbers."
+msgstr "Poskusite dodati več številk."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Vpisano geslo je šibko. Dodajte več velikih črk."
+msgid "Try to use more uppercase letters."
+msgstr "Poskusite dodati več velikih črk."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Vpisano geslo je šibko. Dodajte več malih črk."
+msgid "Try to use more lowercase letters."
+msgstr "Poskusite dodati več malih črk."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Vpisano geslo je šibko. Poskusite dodati več posebnih znakov, kot so na "
-"primer ločila."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Poskusite dodati več posebnih znakov, kot so ločila."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Vpisano geslo je šibko. Uporabite različne črke, številke in druge znake."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Poskusite uporabiti črke, številke in ločila."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Vpisano geslo je šibko. Izogibajte se ponavljanju istega znaka."
+msgid "Try to avoid repeating the same character."
+msgstr "Ni priporočljivo ponavljati enakih  znakov."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Vpisano geslo je šibko. Izogibajte se ponavljanju istih znakov; črke in "
-"številke morajo biti čim bolj premešane."
+"Izogibati se je treba enakim znakom. Priporočljivo je uporabiti črke, "
+"številke in ločila."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Vpisano geslo je šibko. Izogibajte se logičnih zaporedjem, kot sta 1234 ali "
-"abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Izogibajte se zaporedjem, kot sta 1234 ali abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Vpisano geslo je šibko. Poskusite dodati več črk, številke in druge znake."
+"Geslo mora biti daljše. Poskusite dodati črke, številke in druge znake."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
-msgstr "Priporočljivo je uporabiti velike in male črke in kakšno številko."
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr "Priporočljivo je uporabiti velike in male črke ter kakšno številko."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
-msgstr "Dobro geslo! Z dodajanjem črk, številk in ločil bo geslo še močnejše."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Moč gesla: šibka"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Moč gesla: nizka"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Moč gesla: srednja"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Moč gesla: dobra"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Moč gesla: visoka"
+"Adding more letters, numbers and punctuation will make the password stronger."
+msgstr "Dodajanje črk, številk in ločil poveča moč gesla."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -601,7 +553,7 @@ msgid "You’re ready to go!"
 msgstr "Pripravljeni ste za delo!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -610,28 +562,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Časovni pas"
@@ -659,6 +611,10 @@ msgid ""
 "including web browsers and games. This software typically has restrictions "
 "on use and access to source code, and is not provided by %s."
 msgstr ""
+"Lastniška programska oprema lahko ponuja dostop do dodatnih programskih "
+"paketov, tudi brskalnikov in iger. Taka programska oprema ima običajno "
+"posebna pravila uporabe in omejitve dostopa do programske kode. Tovrstni "
+"programi niso v sklopu programov %s."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:245
 msgid "Software Sources"
@@ -693,6 +649,123 @@ msgid ""
 msgstr ""
 "Nasprotno pa je prosta programska oprema (free software) brez tovrstnih "
 "omejitev."
+
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Uporabnik z uporabniškim imenom »%s« že obstaja."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Vpisano geslo je šibko."
+
+#~ msgid "_Verify"
+#~ msgstr "_Preveri"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This password is very similar to your last one. Try changing some letters "
+#~ "and numbers."
+#~ msgstr ""
+#~ "Vpisano geslo je zelo podobno prejšnjemu geslu. Poskusite dodatki kakšno "
+#~ "številko ali dodatno črko."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This password is very similar to your last one. Try changing the password "
+#~ "a bit more."
+#~ msgstr ""
+#~ "Vpisano geslo je zelo podobno prejšnjemu geslu. Poskusite ga še malo "
+#~ "spremeniti."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. A password without your user name would be "
+#~ "stronger."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Geslo brez uporabniškega imena bi bilo močnejše."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to avoid using your name in the password."
+#~ msgstr "Vpisano geslo je šibko. Ne uporabljajte imen in datumov v geslih."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to avoid some of the words included in the "
+#~ "password."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Izognite se nekaterim znanim besedam v geslu."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to avoid common words."
+#~ msgstr "Vpisano geslo je šibko. Izogibajte se splošnim besedam."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to avoid reordering existing words."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Izogibajte se zgolj premetavanju obstoječih besed."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to use more numbers."
+#~ msgstr "Vpisano geslo je šibko. Dodajte več številk."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to use more uppercase letters."
+#~ msgstr "Vpisano geslo je šibko. Dodajte več velikih črk."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to use more lowercase letters."
+#~ msgstr "Vpisano geslo je šibko. Dodajte več malih črk."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to use more special characters, like "
+#~ "punctuation."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Poskusite dodati več posebnih znakov, kot so na "
+#~ "primer ločila."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to avoid repeating the same character."
+#~ msgstr "Vpisano geslo je šibko. Izogibajte se ponavljanju istega znaka."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to avoid repeating the same type of "
+#~ "character: you need to mix up letters, numbers and punctuation."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Izogibajte se ponavljanju istih znakov; črke in "
+#~ "številke morajo biti čim bolj premešane."
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Izogibajte se logičnih zaporedjem, kot sta 1234 "
+#~ "ali abcd."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Vpisano geslo je šibko. Poskusite dodati več črk, številke in druge znake."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Moč gesla: šibka"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Moč gesla: nizka"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Moč gesla: srednja"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Moč gesla: dobra"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Moč gesla: visoka"
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr ""
@@ -730,70 +803,6 @@ msgstr ""
 #~ "izberite mesto po meri."
 
 #~ msgctxt "Password hint"
-#~ msgid "Try changing some letters and numbers."
-#~ msgstr "Poskusite zamenjati kakšno črko ali številko."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try changing the password a bit more."
-#~ msgstr "Priporočljivo je ša malo bolj spremeniti geslo."
-
-#~ msgctxt "Password hint"
-#~ msgid "A password without your user name would be stronger."
-#~ msgstr "Geslo brez uporabniškega imena bi bilo močnejše."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid using your name in the password."
-#~ msgstr "Izogibajte se uporabi imena v geslu."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid some of the words included in the password."
-#~ msgstr "Izogibajte se uporabi besed v geslu."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid common words."
-#~ msgstr "Izogibajte se splošnim besedam."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid reordering existing words."
-#~ msgstr "Izogibajte se zgolj preobračanju obstoječih besed."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to use more numbers."
-#~ msgstr "Poskusite dodati več številk."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to use more uppercase letters."
-#~ msgstr "Poskusite dodati več velikih črk."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to use more lowercase letters."
-#~ msgstr "Poskusite dodati več malih črk."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to use more special characters, like punctuation."
-#~ msgstr "Poskusite dodati več posebnih znakov, kot so ločila."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to use a mixture of letters, numbers and punctuation."
-#~ msgstr "Poskusite uporabiti črke, številke in ločila."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid repeating the same character."
-#~ msgstr "Ni priporočljivo ponavljati enakih  znakov."
-
-#~ msgctxt "Password hint"
-#~ msgid ""
-#~ "Try to avoid repeating the same type of character: you need to mix up "
-#~ "letters, numbers and punctuation."
-#~ msgstr ""
-#~ "Izogibati se je treba enakim znakom. Priporočljivo je uporabiti črke, "
-#~ "številke in ločila."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid sequences like 1234 or abcd."
-#~ msgstr "Izogibajte se zaporedjem, kot sta 1234 ali abcd."
-
-#~ msgctxt "Password hint"
 #~ msgid "Try to add more letters, numbers and symbols."
 #~ msgstr "Poskusite dodati več črk, številk in drugih znakov."
 
@@ -805,9 +814,6 @@ msgstr ""
 
 #~ msgid "No password"
 #~ msgstr "Ni podanega gesla"
-
-#~ msgid "_Confirm password"
-#~ msgstr "_Potrdi geslo"
 
 #~ msgid "Choose a _password"
 #~ msgstr "Izbor _gesla"
