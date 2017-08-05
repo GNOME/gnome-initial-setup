@@ -9,17 +9,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-01-30 15:55+0000\n"
-"PO-Revision-Date: 2017-02-03 00:39+0100\n"
+"POT-Creation-Date: 2017-07-21 15:24+0000\n"
+"PO-Revision-Date: 2017-08-06 00:45+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -46,13 +46,13 @@ msgstr "_Föregående"
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Tvinga existerande användarläge"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "- GNOME initial konfiguration"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+msgid "— GNOME initial setup"
+msgstr "— GNOME initial konfiguration"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -82,10 +82,12 @@ msgstr "Företagsinloggning"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Företagsinloggning möjliggör att ett existerande centralt hanterat "
-"användarkonto används med den här enheten."
+"användarkonto används med den här enheten. Du kan också använda detta konto "
+"för att komma åt företagsresurser på internet."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -135,11 +137,11 @@ msgstr "Administratörs_namn"
 msgid "Administrator Password"
 msgstr "Administratörslösenord"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Kontrollera namnet och användarnamnet. Du kan välja en bild också."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Vi behöver några uppgifter för att slutföra konfigurationen."
 
@@ -192,28 +194,27 @@ msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Kunde inte ansluta till domänen %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "En användare med användarnamnet ”%s” finns redan."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Det där användarnamnet är inte tillgängligt. Försök med ett annat."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Användarnamnet är för långt."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a ‘-’."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
 msgstr "Användarnamnet får inte börja med ett ”-”."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "Användarnamnet får endast bestå av stora och små bokstäver från a-z, siffror "
-"samt tecknen ”.”, ”-” och ”_”."
+"samt följande tecken: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Detta kommer att användas för att namnge din hemkatalog och kan inte ändras."
@@ -261,7 +262,7 @@ msgid "Preview"
 msgstr "Förhandsgranska"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Mer…"
@@ -282,7 +283,7 @@ msgstr "Inmatning"
 msgid "Select your keyboard layout or an input method."
 msgstr "Välj din tangentbordslayout eller en inmatningsmetod."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Inga språk hittades"
 
@@ -298,20 +299,20 @@ msgstr "Välkommen"
 msgid "Welcome!"
 msgstr "Välkommen!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Andra…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Trådlöst nätverk är inaktiverat"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Letar efter tillgängliga trådlösa nätverk"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Nätverk"
 
@@ -337,15 +338,11 @@ msgstr "Inga trådlösa nätverk tillgängliga"
 msgid "Turn On"
 msgstr "Slå på"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Detta är ett svagt lösenord."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Lösenorden stämmer inte överens."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Lösenord"
 
@@ -358,8 +355,8 @@ msgid "Be careful not to lose your password."
 msgstr "Var noga med att inte tappa bort ditt lösenord."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Verifiera"
+msgid "_Confirm"
+msgstr "_Bekräfta"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -368,159 +365,107 @@ msgstr "Det nya lösenordet måste skilja sig från det gamla."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Detta lösenord är väldigt likt ditt föregående. Försök att ändra några "
-"bokstäver och siffror."
+msgid "Try changing some letters and numbers."
+msgstr "Försök att ändra några bokstäver och siffror."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Detta lösenord är väldigt likt ditt föregående. Försök att ändra lösenordet "
-"lite till."
+msgid "Try changing the password a bit more."
+msgstr "Försök att ändra lösenordet lite till."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Detta är ett svagt lösenord. Ett lösenord utan ditt användarnamn skulle vara "
-"säkrare."
+msgid "A password without your user name would be stronger."
+msgstr "Ett lösenord utan ditt användarnamn skulle vara säkrare."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr ""
-"Detta är ett svagt lösenord. Försök att undvika att använda ditt namn i "
-"lösenordet."
+msgid "Try to avoid using your name in the password."
+msgstr "Försök att undvika att använda ditt namn i lösenordet."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Detta är ett svagt lösenord. Försök att undvika några av orden som ingår i "
-"lösenordet."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Försök att undvika några av orden som ingår i lösenordet."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Detta är ett svagt lösenord. Försök att undvika vanliga ord."
+msgid "Try to avoid common words."
+msgstr "Försök att undvika vanliga ord."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr ""
-"Detta är ett svagt lösenord. Försöka att undvika att kasta om existerande "
-"ord."
+msgid "Try to avoid reordering existing words."
+msgstr "Försöka att undvika att kasta om existerande ord."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Detta är ett svagt lösenord. Försök att använda fler siffror."
+msgid "Try to use more numbers."
+msgstr "Försök att använda fler siffror."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Detta är ett svagt lösenord. Försök att använda fler stora bokstäver."
+msgid "Try to use more uppercase letters."
+msgstr "Försök att använda fler stora bokstäver."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Detta är ett svagt lösenord. Försök att använda fler små bokstäver."
+msgid "Try to use more lowercase letters."
+msgstr "Försök att använda fler små bokstäver."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Detta är ett svagt lösenord. Försök att använda fler specialtecken, till "
-"exempel skiljetecken."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Försök att använda fler specialtecken, till exempel skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
+msgid "Try to use a mixture of letters, numbers and punctuation."
 msgstr ""
-"Detta är ett svagt lösenord. Försök att använda en blandning av bokstäver, "
-"siffror och skiljetecken."
+"Försök att använda en blandning av bokstäver, siffror och skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr ""
-"Detta är ett svagt lösenord. Försök att undvika att upprepa samma tecken."
+msgid "Try to avoid repeating the same character."
+msgstr "Försök att undvika att upprepa samma tecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Detta är ett svagt lösenord. Försök att undvika att upprepa samma typ av "
-"tecken: du behöver blanda bokstäver, nummer och skiljetecken."
+"Försök att undvika att upprepa samma typ av tecken: du behöver blanda "
+"bokstäver, nummer och skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Detta är ett svagt lösenord. Försök att undvika sekvenser som 1234 eller "
-"abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Försök att undvika sekvenser som 1234 eller abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Detta är ett svagt lösenord. Försök att lägga till fler bokstäver, siffror "
-"och symboler."
+"Lösenordet behöver vara längre. Försök att lägga till fler bokstäver, "
+"siffror och skiljetecken."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
-msgstr "Blanda stora och små bokstäver samt använd en siffra eller två."
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr ""
+"Blanda stora och små bokstäver samt försök använda en siffra eller två."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Bra lösenord! Genom att lägga till fler bokstäver, siffror och skiljetecken "
-"blir det starkare."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Styrka: Svag"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Styrka: Låg"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Styrka: Medel"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Styrka: Bra"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Styrka: Hög"
+"Att lägga till fler bokstäver, siffror och skiljetecken kommer göra "
+"lösenordet starkare."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -597,12 +542,12 @@ msgstr "Välj ditt land eller region."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Börja använda %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Klar att sätta igång"
 
@@ -611,7 +556,7 @@ msgid "You’re ready to go!"
 msgstr "Du är klar att sätta igång!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -620,28 +565,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Tidszon"
@@ -707,6 +652,42 @@ msgid ""
 msgstr ""
 "I kontrast till detta kan fri programvara fritt köras, kopieras, "
 "distribueras, studeras och ändras."
+
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "En användare med användarnamnet ”%s” finns redan."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Detta är ett svagt lösenord."
+
+#~ msgid "_Verify"
+#~ msgstr "_Verifiera"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Detta är ett svagt lösenord. Försök att lägga till fler bokstäver, "
+#~ "siffror och symboler."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Styrka: Svag"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Styrka: Låg"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Styrka: Medel"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Styrka: Bra"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Styrka: Hög"
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Är dessa uppgifter korrekta? Du kan ändra dem om du önskar."
