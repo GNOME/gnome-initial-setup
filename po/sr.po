@@ -1,16 +1,16 @@
 # Serbian translation for gnome-initial-setup.
-# Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright © 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-18 10:02+0000\n"
-"PO-Revision-Date: 2017-02-21 06:47+0200\n"
+"POT-Creation-Date: 2017-07-21 15:24+0000\n"
+"PO-Revision-Date: 2017-08-15 06:34+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <(nothing)>\n"
+"Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,12 +44,13 @@ msgstr "_Претходно"
 msgid "_Cancel"
 msgstr "_Откажи"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Приморај режим постојећег корисника"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#| msgid "- GNOME initial setup"
+msgid "— GNOME initial setup"
 msgstr "— Почетно подешавање Гнома"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
@@ -78,12 +79,17 @@ msgid "Enterprise Login"
 msgstr "Пословна пријава"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#| msgid ""
+#| "Enterprise login allows an existing centrally managed user account to be "
+#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Пословна пријава омогућава коришћење постојећег, централно управљаног "
-"корисничког налога на овом уређају."
+"корисничког налога на овом уређају. Можете такође користити овај налог да "
+"приступите ресурсима предузећа на интернету."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -133,11 +139,11 @@ msgstr "Име _администратора"
 msgid "Administrator Password"
 msgstr "Лозинка администратора"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Проверите име и корисничко име. Можете такође и слику да изаберете."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr ""
 "Потребно нам је још пар детаља да бисмо завршили са почетним подешавањем."
@@ -163,7 +169,6 @@ msgid "Disable image"
 msgstr "Искључи слику"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-#| msgid "Take a photo..."
 msgid "Take a photo…"
 msgstr "Снимите фотографију…"
 
@@ -188,39 +193,35 @@ msgstr "Неисправна лозинка, покушајте поново"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-#| msgid "Couldn't connect to the %s domain: %s"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Не могу да се повежем на домен „%s“: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-#| msgid "A user with the username '%s' already exists."
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Корисник са корисничким именом „%s“ већ постоји."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Извините, ово корисничко име није доступно. Пробајте неко друго."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Корисничко име је предуго."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'."
-msgid "The username cannot start with a ‘-’."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+#| msgid "The username cannot start with a ‘-’."
+msgid "The username cannot start with a “-”."
 msgstr "Корисничко име не може почињати са „-“."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 #| msgid ""
 #| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters '.', '-' and '_'."
+#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "Корисничко име треба да садржи само слова из енглеског алфабета (a-z), "
-"бројеве и било који од знакова (. - _)."
+"бројеве и следеће знакове (. - _)."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
-#| msgid "This will be used to name your home folder and can't be changed."
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Ово ће бити коришћено за именовање ваше личне фасцикле и не може се мењати "
@@ -268,7 +269,7 @@ msgid "Preview"
 msgstr "Преглед"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Још…"
@@ -289,7 +290,7 @@ msgstr "Куцање"
 msgid "Select your keyboard layout or an input method."
 msgstr "Изаберите распоред тастатуре или начин уноса."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Нисам пронашао језик"
 
@@ -305,21 +306,21 @@ msgstr "Добро дошли"
 msgid "Welcome!"
 msgstr "Добро дошли!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Остало…"
 
 # bug: no plural forms
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Бежично умрежавање је искључено"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Проверавам доступне бежичне мреже"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Мрежа"
 
@@ -345,15 +346,11 @@ msgstr "Нема доступних бежичних мрежа"
 msgid "Turn On"
 msgstr "Укључи"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Ово је слаба лозинка."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Лозинке се не подударају."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Лозинка"
 
@@ -366,7 +363,8 @@ msgid "Be careful not to lose your password."
 msgstr "Пазите да не изгубите лозинку."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
+#| msgid "_Confirm password"
+msgid "_Confirm"
 msgstr "_Потврди"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
@@ -375,151 +373,161 @@ msgid "The new password needs to be different from the old one."
 msgstr "Нова лозинка треба да се разликује од старе."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing some letters "
+#| "and numbers."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Ова лозинка је веома слична претходној. Промените нека слова и бројеве."
+msgid "Try changing some letters and numbers."
+msgstr "Промените нека слова и бројеве."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing the password "
+#| "a bit more."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr "Ова лозинка је веома слична претходној. Промените лозинку још мало."
+msgid "Try changing the password a bit more."
+msgstr "Промените лозинку још мало."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. A password without your user name would be "
+#| "stronger."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Ово је слаба лозинка. Лозинка без вашег корисничког имена би била јача."
+msgid "A password without your user name would be stronger."
+msgstr "Лозинка без вашег корисничког имена би била јача."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr ""
-"Ово је слаба лозинка. Избегавајте коришћење вашег корисничког имена у "
-"лозинци."
+msgid "Try to avoid using your name in the password."
+msgstr "Избегавајте коришћење вашег корисничког имена у лозинци."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid some of the words included in the "
+#| "password."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Ово је слаба лозинка. Избегавајте коришћење неких речи у вашој лозинци."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Избегавајте коришћење неких речи у вашој лозинци."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Ово је слаба лозинка. Избегавајте коришћење често коришћених речи."
+msgid "Try to avoid common words."
+msgstr "Избегавајте коришћење често коришћених речи."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "Ово је слаба лозинка. Немојте мењати распоред већ постојећих речи."
+msgid "Try to avoid reordering existing words."
+msgstr "Немојте мењати распоред већ постојећих речи."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Ово је слаба лозинка. Користите више бројева."
+msgid "Try to use more numbers."
+msgstr "Користите више бројева."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Ово је слаба лозинка. Користите више великих слова."
+msgid "Try to use more uppercase letters."
+msgstr "Користите више великих слова."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Ово је слаба лозинка. Користите више малих слова."
+msgid "Try to use more lowercase letters."
+msgstr "Користите више малих слова."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use more special characters, like "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Ово је слаба лозинка. Користите више нарочитих знакова. Рецимо, више знакова "
-"интерпункције."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Користите више нарочитих знакова, као што су знакови интерпункције."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Ово је слаба лозинка. Користите мешавину слова, бројева и интерпункцијских "
-"знакова."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Користите мешавину слова, бројева и интерпункцијских знакова."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Ово је слаба лозинка. Избегавајте понављање једног те истог знака."
+msgid "Try to avoid repeating the same character."
+msgstr "Избегавајте понављање једног те истог знака."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid repeating the same type of "
+#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Ово је слаба лозинка. Избегавајте понављање знака исте врсте. Мешајте слова, "
-"бројеве и интерпункцијске знаке."
+"Избегавајте понављање знака исте врсте. Мешајте слова, бројеве и "
+"интерпункцијске знаке."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Ово је слаба лозинка. Избегавајте комбинације знакова као што су 1234 или "
-"„abcd“."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Избегавајте комбинације знакова као што су 1234 или „abcd“."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Ово је слаба лозинка. Додајте више слова, бројева и симбола вашој лозинци."
+"Лозинка треба да буде дужа. Покушајте да додате још слова, бројева и "
+"интерпункцијских знакова."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
+#| msgctxt "Password hint"
+#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
+msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "Помешајте велика и мала слова и користите број или два."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#| msgctxt "Password hint"
+#| msgid ""
+#| "Good password! Adding more letters, numbers and punctuation will make it "
+#| "stronger."
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Добра лозинка! Додавање више слова, бројева и интерпункцијских знакова ће је "
-"учинити јачом."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Јачина: слаба"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Јачина: мала"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Јачина: средња"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Јачина: добра"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Јачина: велика"
+"Додавање више слова, бројева и интерпункцијских знакова ће лозинку учинити "
+"јачом."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -599,7 +607,6 @@ msgstr "Изаберите вашу државу или област."
 #. * detect any distribution.
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-#| msgid "_Start using %s"
 msgid "_Start Using %s"
 msgstr "_Почни да користиш „%s“"
 
@@ -608,12 +615,11 @@ msgid "Ready to Go"
 msgstr "Спремни за полазак"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "You're ready to go!"
 msgid "You’re ready to go!"
 msgstr "Спремни сте за полазак!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -622,28 +628,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Временска зона"
@@ -709,6 +715,42 @@ msgstr ""
 "Насупрот томе, слободан софтвер може бити слободно покренут, умножен, "
 "расподељен, проучен и измењен."
 
+#~| msgid "A user with the username '%s' already exists."
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Корисник са корисничким именом „%s“ већ постоји."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Ово је слаба лозинка."
+
+#~ msgid "_Verify"
+#~ msgstr "_Потврди"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Ово је слаба лозинка. Додајте више слова, бројева и симбола вашој лозинци."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Јачина: слаба"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Јачина: мала"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Јачина: средња"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Јачина: добра"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Јачина: велика"
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr ""
 #~ "Да ли су унети детаљи исправни? Можете их променити уколико је то "
@@ -745,9 +787,6 @@ msgstr ""
 
 #~ msgid "Create a Local Account"
 #~ msgstr "Направите месни налог"
-
-#~ msgid "_Confirm password"
-#~ msgstr "_Потврди лозинку"
 
 #~ msgid "page 1"
 #~ msgstr "страница 1"
