@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-02 07:26+0000\n"
-"PO-Revision-Date: 2017-06-17 21:32+0300\n"
+"POT-Creation-Date: 2017-08-23 14:18+0000\n"
+"PO-Revision-Date: 2017-08-23 23:21+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -45,13 +45,14 @@ msgstr "_Ankstesnis"
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Priverstinė naujo naudotojo veiksena"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "- Pradinė GNOME sąranka"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#| msgid "- GNOME initial setup"
+msgid "— GNOME initial setup"
+msgstr "— pradinė GNOME sąranka"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -79,9 +80,6 @@ msgid "Enterprise Login"
 msgstr "Kompanijos prisijungimas"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#| msgid ""
-#| "Enterprise login allows an existing centrally managed user account to be "
-#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -208,13 +206,11 @@ msgid "The username is too long."
 msgstr "Naudotojo vardas yra per ilgas."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:251
-msgid "The username cannot start with a ‘-’."
+#| msgid "The username cannot start with a ‘-’."
+msgid "The username cannot start with a “-”."
 msgstr "Naudotojo vardas negali prasidėti „-“."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:254
-#| msgid ""
-#| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -373,115 +369,72 @@ msgid "The new password needs to be different from the old one."
 msgstr "Naujas slaptažodis turi skirtis nuo ankstesnio."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing some letters "
-#| "and numbers."
 msgctxt "Password hint"
 msgid "Try changing some letters and numbers."
 msgstr "Pabandykite pakeisti kai kurias raides ar skaitmenis."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing the password "
-#| "a bit more."
 msgctxt "Password hint"
 msgid "Try changing the password a bit more."
 msgstr "Pabandykite kiek labiau pakeisti slaptažodį."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. A password without your user name would be "
-#| "stronger."
 msgctxt "Password hint"
 msgid "A password without your user name would be stronger."
 msgstr "Slaptažodis be jūsų naudotojo vardo būtų saugesnis."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
 msgid "Try to avoid using your name in the password."
 msgstr "Venkite slaptažodyje naudoti savo vardą."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid some of the words included in the "
-#| "password."
 msgctxt "Password hint"
 msgid "Try to avoid some of the words included in the password."
 msgstr "Venkite kai kurių žodžių slaptažodyje."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
 msgid "Try to avoid common words."
 msgstr "Venkite dažnai naudojamų žodžių."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
 msgid "Try to avoid reordering existing words."
 msgstr "Venkite keisti esamus žodžius vietomis."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
 msgid "Try to use more numbers."
 msgstr "Bandykite naudoti daugiau skaitmenų."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
 msgid "Try to use more uppercase letters."
 msgstr "Bandykite naudoti daugiau didžiųjų raidžių."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
 msgid "Try to use more lowercase letters."
 msgstr "Bandykite naudoti daugiau mažųjų raidžių."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use more special characters, like "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use more special characters, like punctuation."
 msgstr "Bandykite naudoti daugiau specialiųjų simbolių, pvz. skyrybos ženklų."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use a mixture of letters, numbers and punctuation."
 msgstr "Bandykite naudoti raidžių, skaitmenų ir skyrybos ženklų mišinį."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
 msgid "Try to avoid repeating the same character."
 msgstr "Venkite kartoti tą patį simbolį."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid repeating the same type of "
-#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "Try to avoid repeating the same type of character: you need to mix up "
@@ -491,17 +444,11 @@ msgstr ""
 "skyrybos ženklus."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
 msgid "Try to avoid sequences like 1234 or abcd."
 msgstr "Venkite sekų, tokių kaip 1234 ar abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid ""
 "Password needs to be longer. Try to add more letters, numbers and "
@@ -509,17 +456,11 @@ msgid ""
 msgstr "Bandykite naudoti raidžių, skaitmenų ir skyrybos ženklų mišinį."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgctxt "Password hint"
-#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "Maišykite didžiąsias ir mažąsias raides bei panaudokite skaitmenų."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
-#| msgctxt "Password hint"
-#| msgid ""
-#| "Good password! Adding more letters, numbers and punctuation will make it "
-#| "stronger."
 msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
@@ -614,7 +555,7 @@ msgid "You’re ready to go!"
 msgstr "Viskas nustatyta!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -623,28 +564,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Laiko zona"
