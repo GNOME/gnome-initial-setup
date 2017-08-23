@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-01-30 15:55+0000\n"
-"PO-Revision-Date: 2017-01-31 19:43+0100\n"
+"POT-Creation-Date: 2017-07-21 15:24+0000\n"
+"PO-Revision-Date: 2017-08-23 20:21+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Project-Style: gnome\n"
 
 # desktop entry name
@@ -52,14 +52,14 @@ msgid "_Cancel"
 msgstr "_Zrušiť"
 
 # cmd desc
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Vynúti režim existujúceho používateľa"
 
 # cmd desc
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "- Prvotné nastavenie prostredia GNOME"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+msgid "— GNOME initial setup"
+msgstr "— Prvotné nastavenie prostredia GNOME"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -89,10 +89,12 @@ msgstr "Firemné prihlásenie"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Firemné prihlásenie umožňuje použiť na tomto zariadení centrálnu správu "
-"účtov."
+"účtov. Tento účet môžete tiež použiť na prístup k firemným prostriedkom "
+"prostredníctvom internetu."
 
 # GtkLabel label
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
@@ -146,13 +148,13 @@ msgstr "Me_no správcu"
 msgid "Administrator Password"
 msgstr "Heslo správcu"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Prosím, skontrolujte meno a používateľské meno. Taktiež môžete zvoliť "
 "obrázok."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Kvôli dokončeniu nastavenia je potrebných niekoľko údajov."
 
@@ -207,29 +209,29 @@ msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Nepodarilo sa pripojiť k doméne %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Používateľ s používateľským menom „%s“ už existuje."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr ""
+"Prepáčte, ale toto používateľské meno nie je dostupné. Prosím, skúste iné."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Používateľské meno je príliš dlhé."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a ‘-’."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
 msgstr "Používateľské meno nemôže začínať na „-“."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
-"Používateľské meno musí pozostávať iba z malých a veľkých písmen a-z, čísel "
-"a ktoréhokoľvek zo znakov „.“, „-“ a „_“."
+"Používateľské meno musí pozostávať iba z malých a veľkých písmen a-z, číslic "
+"a z nasledovných znakov: . - _"
 
 # GtkLabel label
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Toto sa použije ako názov vášho domovského priečinka a nebude možné ho "
@@ -283,7 +285,7 @@ msgstr "Náhľad"
 
 # tooltip
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Viac…"
@@ -306,7 +308,7 @@ msgstr "Písanie"
 msgid "Select your keyboard layout or an input method."
 msgstr "Vyberte rozloženie klávesnice alebo metódu vstupu."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Nenašli sa žiadne jazyky"
 
@@ -322,21 +324,21 @@ msgstr "Vitajte"
 msgid "Welcome!"
 msgstr "Vitajte!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Iný…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Bezdrôtové siete sú zakázané"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Kontrolujú sa dostupné bezdrôtové siete"
 
 # page title
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Sieť"
 
@@ -362,16 +364,12 @@ msgstr "Bezdrôtová sieť nie je dostupná"
 msgid "Turn On"
 msgstr "Zapnúť"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Toto heslo je slabé."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Heslá sa nezhodujú."
 
 # GtkLabel label
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Heslo"
 
@@ -384,9 +382,10 @@ msgstr "Nastavte heslo"
 msgid "Be careful not to lose your password."
 msgstr "Dajte pozor, aby ste heslo nezabudli."
 
+# GtkLabel label
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "O_veriť"
+msgid "_Confirm"
+msgstr "_Potvrdiť"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -395,149 +394,104 @@ msgstr "Nové heslo musí byť odlišné od starého hesla."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Toto heslo je veľmi podobné vášmu poslednému. Skúste zmeniť niektoré písmená "
-"a číslice."
+msgid "Try changing some letters and numbers."
+msgstr "Skúste zmeniť niektoré písmená a číslice."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Toto heslo je veľmi podobné vášmu poslednému. Skúste zmeniť heslo trochu "
-"viac."
+msgid "Try changing the password a bit more."
+msgstr "Skúste ešte viac zmeniť heslo."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Toto heslo je slabé. Heslo bez vášho používateľského mena bude silnejšie."
+msgid "A password without your user name would be stronger."
+msgstr "Heslo bez vášho používateľského mena bude silnejšie."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "Toto heslo je slabé. Skúste sa vyhnúť použitiu vášho mena v hesle."
+msgid "Try to avoid using your name in the password."
+msgstr "Skúste sa vyhnúť použitiu vášho mena v hesle."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Toto heslo je slabé. Skúste sa vyhnúť niektorým slovám zahrnutým v hesle."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Skúste sa vyhnúť slovám, ktoré sú obsiahnuté v hesle."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Toto heslo je slabé. Skúste sa vyhnúť bežným slovám."
+msgid "Try to avoid common words."
+msgstr "Skúste sa vyhnúť bežným slovám."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "Toto heslo je slabé. Skúste sa vyhnúť preskupeniu existujúcich slov."
+msgid "Try to avoid reordering existing words."
+msgstr "Skúste sa vyhnúť zmene poradia existujúcich slov."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Toto heslo je slabé. Skúste použiť viac číslic."
+msgid "Try to use more numbers."
+msgstr "Skúste použiť viac číslic."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Toto heslo je slabé. Skúste použiť viac veľkých písmen."
+msgid "Try to use more uppercase letters."
+msgstr "Skúste použiť viac veľkých písmen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Toto heslo je slabé. Skúste použiť viac malých písmen."
+msgid "Try to use more lowercase letters."
+msgstr "Skúste použiť viac malých písmen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Toto heslo je slabé. Skúste použiť viac špeciálnych znakov, ako sú "
-"interpunkcie."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Skúste použiť viac špeciálnych znakov, ako sú interpunkčné znamienka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Toto heslo je slabé. Skúste použiť zmiešanie písmen, číslic a interpunkcií."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Skúste použiť zmiešanie písmen, číslic a interpunkčných znamienok."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Toto heslo je slabé. Skúste sa vyhnúť opakovaniu toho istého znaku."
+msgid "Try to avoid repeating the same character."
+msgstr "Skúste sa vyhnúť opakovaniu toho istého znaku."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Toto heslo je slabé. Skúste sa vyhnúť opakovaniu toho istého znaku: musíte "
-"premiešať písmená, číslice a interpunkcie."
+"Skúste sa vyhnúť opakovaniu toho istého znaku: musíte premiešať písmená, "
+"číslice a interpunkčné znamienka."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Toto heslo je slabé. Skúste sa vyhnúť postupnosti ako sú 1234 alebo abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Skúste sa vyhnúť postupnosti ako sú 1234 alebo abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
-msgstr "Toto heslo je slabé. Skúste pridať viac písmen, číslic a znakov."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
+msgstr "Skúste použiť zmiešanie písmen, číslic a interpunkčných znamienok."
 
 # GtkLabel label
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
+msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "Pomiešajte malé a veľké písmená a použite zopár číslic."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Dobré heslo! Pridaním viacerých písmen, číslic a interpunkcií ho ešte "
+"Pridaním viacerých písmen, číslic a interpunkčných znamienok ho ešte "
 "zosilníte."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Sila: Slabé"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Sila: Nízke"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Sila: Priemerné"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Sila: Dobré"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Sila: Silné"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -616,12 +570,12 @@ msgstr "Zvoľte krajinu alebo oblasť."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Začať používať systém %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Pripravený na spustenie"
 
@@ -630,7 +584,7 @@ msgid "You’re ready to go!"
 msgstr "Všetko je pripravené na spustenie!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -639,29 +593,29 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%-H:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
 # GtkLabel label
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Časové pásmo"
@@ -728,6 +682,40 @@ msgstr ""
 "Naopak slobodný softvér je možné slobodne spúšťať, kopírovať, šíriť, "
 "študovať a upravovať."
 
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Používateľ s používateľským menom „%s“ už existuje."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Toto heslo je slabé."
+
+#~ msgid "_Verify"
+#~ msgstr "O_veriť"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr "Toto heslo je slabé. Skúste pridať viac písmen, číslic a znakov."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Sila: Slabé"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Sila: Nízke"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Sila: Priemerné"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Sila: Dobré"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Sila: Silné"
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Sú toto správne údaje? Ak budete chcieť, môžete ich zmeniť."
 
@@ -770,10 +758,6 @@ msgstr ""
 
 #~ msgid "No password"
 #~ msgstr "Bez hesla"
-
-# GtkLabel label
-#~ msgid "_Confirm password"
-#~ msgstr "Po_tvrdenie hesla"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
