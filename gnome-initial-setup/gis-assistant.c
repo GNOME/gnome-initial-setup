@@ -270,11 +270,18 @@ page_notify (GisPage      *page,
     return;
 
   if (strcmp (pspec->name, "title") == 0)
-    g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
+    {
+      g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
+      update_titlebar (assistant);
+    }
   else if (strcmp (pspec->name, "applying") == 0)
-    update_applying_state (assistant);
+    {
+      update_applying_state (assistant);
+    }
   else
-    update_navigation_buttons (assistant);
+    {
+      update_navigation_buttons (assistant);
+    }
 }
 
 void
