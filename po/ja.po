@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-23 23:13+0000\n"
-"PO-Revision-Date: 2017-07-09 12:12+0900\n"
+"POT-Creation-Date: 2017-09-06 15:25+0000\n"
+"PO-Revision-Date: 2017-09-10 23:44+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -50,10 +50,8 @@ msgid "Force existing user mode"
 msgstr "強制的に既存ユーザーモードを使用する"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:223
-#, fuzzy
-#| msgid "- GNOME initial setup"
 msgid "— GNOME initial setup"
-msgstr "- GNOME 初期セットアップ"
+msgstr "— GNOME 初期セットアップ"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -81,10 +79,6 @@ msgid "Enterprise Login"
 msgstr "エンタープライズログイン"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#, fuzzy
-#| msgid ""
-#| "Enterprise login allows an existing centrally managed user account to be "
-#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -92,6 +86,7 @@ msgid ""
 msgstr ""
 "エンタープライズログインを使用すると、すでに集中管理されているユーザーアカウ"
 "ントをこのデバイスで使用することができます。"
+"また、このアカウントを使用してインターネット上の会社のリソースにアクセスすることができます。"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -171,10 +166,8 @@ msgid "Disable image"
 msgstr "画像を無効にする"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-#, fuzzy
-#| msgid "Take a photo..."
 msgid "Take a photo…"
-msgstr "写真を撮る..."
+msgstr "写真を撮る…"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -196,14 +189,13 @@ msgid "Invalid password, please try again"
 msgstr "無効なパスワードです、やり直してください"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
-#, fuzzy, c-format
-#| msgid "Couldn't connect to the %s domain: %s"
+#, c-format
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "%sドメインに接続できませんでした: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
 msgid "Sorry, that user name isn’t available. Please try another."
-msgstr ""
+msgstr "そのユーザー名は利用できません。他の名前を使用してください。"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
@@ -211,16 +203,10 @@ msgid "The username is too long."
 msgstr "ユーザー名が長すぎます。"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:251
-#, fuzzy
-#| msgid "The username cannot start with a '-'."
 msgid "The username cannot start with a “-”."
-msgstr "ユーザー名の先頭文字に '-' は使えません。"
+msgstr "ユーザー名の先頭文字に“-”は使えません。"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:254
-#, fuzzy
-#| msgid ""
-#| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters '.', '-' and '_'."
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -229,8 +215,6 @@ msgstr ""
 "ださい。"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:258
-#, fuzzy
-#| msgid "This will be used to name your home folder and can't be changed."
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "ユーザー名はホームフォルダーの名前に使用されます。これは変更できません。"
@@ -370,7 +354,7 @@ msgstr "パスワードを忘れないように注意してください。"
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
 msgid "_Confirm"
-msgstr ""
+msgstr "確認(_C)"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -378,189 +362,114 @@ msgid "The new password needs to be different from the old one."
 msgstr "新しいパスワードは古いパスワードと異なるものにする必要があります。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing some letters "
-#| "and numbers."
 msgctxt "Password hint"
 msgid "Try changing some letters and numbers."
 msgstr ""
-"このパスワードは直前とパスワードとよく似ています。文字や数字をもう少し変更し"
+"文字や数字をもう少し変更し"
 "てみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing the password "
-#| "a bit more."
 msgctxt "Password hint"
 msgid "Try changing the password a bit more."
 msgstr ""
-"このパスワードは直前とパスワードとよく似ています。パスワードをもう少し変更し"
-"てみてください。"
+"パスワードをもう少し変更してみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. A password without your user name would be "
-#| "stronger."
 msgctxt "Password hint"
 msgid "A password without your user name would be stronger."
 msgstr ""
-"弱いパスワードです。パスワードからユーザー名を取り除くともっと強くなるでしょ"
-"う。"
+"パスワードからユーザー名を取り除くともっと強くなります。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
 msgid "Try to avoid using your name in the password."
-msgstr "弱いパスワードです。パスワード中に名前を使わないようにしてください。"
+msgstr "パスワード中に名前を使わないようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid some of the words included in the "
-#| "password."
 msgctxt "Password hint"
 msgid "Try to avoid some of the words included in the password."
 msgstr ""
-"弱いパスワードです。パスワードに含まれる一部の単語を使わないようにしてくださ"
+"パスワードに含まれる一部の単語を使わないようにしてくださ"
 "い。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
 msgid "Try to avoid common words."
-msgstr "弱いパスワードです。一般的な単語は避けるようにしてください。"
+msgstr "一般的な単語は避けるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
 msgid "Try to avoid reordering existing words."
 msgstr ""
-"弱いパスワードです。既存の単語の文字を並べ替えたものは使わないようにしてくだ"
+"既存の単語の文字を並べ替えたものは避けるようにしてくだ"
 "さい。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
 msgid "Try to use more numbers."
-msgstr "弱いパスワードです。数字をもっと増やしてみてください。"
+msgstr "数字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
 msgid "Try to use more uppercase letters."
-msgstr "弱いパスワードです。大文字をもっと増やしてみてください。"
+msgstr "大文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
 msgid "Try to use more lowercase letters."
-msgstr "弱いパスワードです。小文字をもっと増やしてみてください。"
+msgstr "小文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use more special characters, like "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use more special characters, like punctuation."
-msgstr "弱いパスワードです。記号などの特殊文字をもっと増やしてみてください。"
+msgstr "記号などの特殊文字をもっと増やしてみてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use a mixture of letters, numbers and punctuation."
 msgstr ""
-"弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
+"アルファベットや数字、記号を混ぜるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
 msgid "Try to avoid repeating the same character."
-msgstr "弱いパスワードです。同一文字の繰り返しは避けるようにしてください。"
+msgstr "同一文字の繰り返しは避けるようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid repeating the same type of "
-#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "Try to avoid repeating the same type of character: you need to mix up "
 "letters, numbers and punctuation."
 msgstr ""
-"弱いパスワードです。同じ種類の文字の繰り返しは避けるようにしてください。アル"
+"同じ種類の文字の繰り返しは避けるようにしてください。アル"
 "ファベット、数字、記号を混ぜてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
 msgid "Try to avoid sequences like 1234 or abcd."
 msgstr ""
-"弱いパスワードです。1234 や abcd などの連続する並びは避けるようにしてくださ"
+"1234 や abcd などの連続する並びは避けるようにしてくださ"
 "い。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid ""
 "Password needs to be longer. Try to add more letters, numbers and "
 "punctuation."
-msgstr ""
-"弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
+msgstr "パスワードが短すぎます。"
+"アルファベット、数字、記号をもっと追加するようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and try to use a number or two."
-msgstr "大文字、小文字を混ぜ、さらに数字を 1 つか 2 つは使用してください。"
+msgstr "大文字、小文字を混ぜ、さらに数字を 1 つか 2 つは使用するようにしてください。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
-#, fuzzy
-#| msgctxt "Password hint"
-#| msgid ""
-#| "Good password! Adding more letters, numbers and punctuation will make it "
-#| "stronger."
 msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
-msgstr "良いパスワードですね! 文字や数字、記号をもっと増やすと強くなります。"
+msgstr "文字や数字、記号をもっと増やすとパスーワードはもっと強くなります。"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -639,7 +548,6 @@ msgstr "国か地域を選択してください。"
 #. * detect any distribution.
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-#| msgid "_Start using %s"
 msgid "_Start Using %s"
 msgstr "%s を使い始める(_S)"
 
@@ -648,7 +556,6 @@ msgid "Ready to Go"
 msgstr "準備完了"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "You're ready to go!"
 msgid "You’re ready to go!"
 msgstr "使用する準備が完了しました。"
 
@@ -711,22 +618,24 @@ msgid ""
 "including web browsers and games. This software typically has restrictions "
 "on use and access to source code, and is not provided by %s."
 msgstr ""
+"プロプライエタリソフトウェアソースを利用すれば、ウェブブラウザーやゲームなどの追加のソフトウェアを利用できるようになります。"
+"この種のソフトウェアは、一般的に使用やソースコードへのアクセスに制限があり、%s では提供されていません。"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:245
 msgid "Software Sources"
-msgstr ""
+msgstr "ソフトウェアソース"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
 msgid "Additional Software Sources"
-msgstr ""
+msgstr "追加のソフトウェアソース"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
-msgstr ""
+msgstr "<a href=\"more\">詳細…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
 msgid "Proprietary Software Sources"
-msgstr ""
+msgstr "プロプライエタリソフトウェアソース"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -734,12 +643,15 @@ msgid ""
 "access to source code. This prevents anyone but the software owner from "
 "inspecting, improving or learning from its code."
 msgstr ""
+"プロプライエタリソフトウェアは、一般的に使用やソースコードへのアクセスに制限があります。"
+"これは、ソフトウェアの所有者以外の人がそのソフトウェアを調査、改良したり、ソースコードから学習することの妨げになります。"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
 msgid ""
 "In contrast, Free Software can be freely run, copied, distributed, studied "
 "and modified."
 msgstr ""
+"これに対して、自由ソフトウェアは、実行、複製、配布、研究、改変を自由に行うことができます。"
 
 #~ msgid "A user with the username '%s' already exists."
 #~ msgstr "'%s' というユーザーはすでに存在します。"
