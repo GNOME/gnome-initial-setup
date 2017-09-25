@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-22 17:09+0000\n"
-"PO-Revision-Date: 2017-03-22 16:13+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
+"POT-Creation-Date: 2017-07-21 15:24+0000\n"
+"PO-Revision-Date: 2017-09-09 12:39+0200\n"
+"Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
 "Language-Team: www.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -46,13 +46,14 @@ msgstr "_Προηγούμενο"
 msgid "_Cancel"
 msgstr "Ακύ_ρωση"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Εξαναγκασμός υπάρχουσας λειτουργίας χρήστη"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "- Αρχική εγκατάσταση GNOME"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#| msgid "- GNOME initial setup"
+msgid "— GNOME initial setup"
+msgstr "— Αρχική εγκατάσταση GNOME"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -80,12 +81,18 @@ msgid "Enterprise Login"
 msgstr "Εταιρική σύνδεση"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#| msgid ""
+#| "Enterprise login allows an existing centrally managed user account to be "
+#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Η εταιρική σύνδεση επιτρέπει σε έναν υπάρχοντα κεντρικά διαχειριζόμενο "
-"λογαριασμό χρήστη να χρησιμοποιηθεί σε αυτήν τη συσκευή."
+"λογαριασμό χρήστη να χρησιμοποιηθεί σε αυτήν τη συσκευή. Μπορείτε επίσης να "
+"χρησιμοποιήσετε αυτόν τον λογαριασμό για να αποκτήσετε πρόσβαση σε "
+"εταιρικούς πόρους στο διαδίκτυο."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -136,13 +143,13 @@ msgstr "Ό_νομα διαχειριστή"
 msgid "Administrator Password"
 msgstr "Κωδικός πρόσβασης διαχειριστή"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Παρακαλούμε, ελέγξτε το όνομα σας και το όνομα χρήστη. Μπορείτε επίσης να "
 "επιλέξετε μια εικόνα."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr ""
 "Χρειαζόμαστε περισσότερες λεπτομέρειες για να ολοκληρώσουμε τη ρύθμιση."
@@ -198,28 +205,31 @@ msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Αδυναμία σύνδεσης στον τομέα %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Υπάρχει ήδη ένας χρήστης με όνομα «%s»"
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Λυπούμαστε, το όνομα χρήστη δεν είναι διαθέσιμο. Δοκιμάστε άλλο."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Το όνομα χρήστη είναι πολύ μεγάλο."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a ‘-’."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+#| msgid "The username cannot start with a ‘-’."
+msgid "The username cannot start with a “-”."
 msgstr "Το όνομα χρήστη δεν μπορεί να αρχίζει με «-»."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
+#| msgid ""
+#| "The username should only consist of lower and upper case letters from a-"
+#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "Το όνομα χρήστη πρέπει να αποτελείται μόνο από πεζά και κεφαλαία γράμματα "
-"από a-z, αριθμούς και οποιονδήποτε από τους χαρακτήρες «.», «-» και «_»."
+"από a-z, αριθμούς και οποιονδήποτε από τους χαρακτήρες: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Αυτό θα χρησιμοποιηθεί σαν όνομα για τον προσωπικό σας φάκελο και δεν μπορεί "
@@ -271,7 +281,7 @@ msgid "Preview"
 msgstr "Προεπισκόπηση"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Περισσότερα…"
@@ -292,7 +302,7 @@ msgstr "Πληκτρολόγηση"
 msgid "Select your keyboard layout or an input method."
 msgstr "Επιλέξτε τη διάταξη του πληκτρολογίου σας ή μια άλλη μέθοδο εισόδου."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "Δε βρέθηκαν γλώσσες"
 
@@ -308,20 +318,20 @@ msgstr "Καλώς ήλθατε"
 msgid "Welcome!"
 msgstr "Καλώς ήλθατε!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Άλλο…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Το ασύρματο δίκτυο είναι ανενεργό"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Γίνετε έλεγχος για διαθέσιμα ασύρματα δίκτυα"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Δίκτυο"
 
@@ -348,15 +358,11 @@ msgstr "Δεν υπάρχει διαθέσιμο ασύρματο δίκτυο."
 msgid "Turn On"
 msgstr "Ενεργοποίηση"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Αυτός είναι ένας ασθενής κωδικός πρόσβασης."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Δεν ταιριάζουν οι κωδικοί πρόσβασης."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Κωδικός πρόσβασης"
 
@@ -369,8 +375,9 @@ msgid "Be careful not to lose your password."
 msgstr "Προσέξτε να μην χάσετε το κωδικό πρόσβασής σας."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Επαλήθευση"
+#| msgid "_Confirm password"
+msgid "_Confirm"
+msgstr "_Επιβεβαίωση"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -378,171 +385,168 @@ msgid "The new password needs to be different from the old one."
 msgstr "Ο νέος κωδικός πρόσβασης πρέπει να είναι διαφορετικός από τον παλιό."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing some letters "
+#| "and numbers."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Αυτός ο κωδικός πρόσβασης μοιάζει πολύ με τον τελευταίο σας. Προσπαθήστε να "
-"αλλάξετε μερικά γράμματα και αριθμούς."
+msgid "Try changing some letters and numbers."
+msgstr "Προσπαθήστε να αλλάξετε μερικά γράμματα και αριθμούς."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing the password "
+#| "a bit more."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Αυτός ο κωδικός πρόσβασης μοιάζει πολύ με τον τελευταίο σας. Προσπαθήστε να "
-"αλλάξετε τον κωδικό πρόσβασης λίγο περισσότερο."
+msgid "Try changing the password a bit more."
+msgstr "Προσπαθήστε να αλλάξετε το συνθηματικό λίγο περισσότερο."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. A password without your user name would be "
+#| "stronger."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Ένας κωδικός πρόσβασης χωρίς το "
-"όνομα χρήστη σας θα ήταν ισχυρότερος."
+msgid "A password without your user name would be stronger."
+msgstr "Ένα συνθηματικό χωρίς το όνομα χρήστη σας θα ήταν ισχυρότερο."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε τη "
-"χρήση του ονόματός σας στον κωδικό πρόσβασης."
+msgid "Try to avoid using your name in the password."
+msgstr "Προσπαθήστε να αποφύγετε τη χρήση του ονόματός σας στο συνθηματικό."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid some of the words included in the "
+#| "password."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
+msgid "Try to avoid some of the words included in the password."
 msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε μερικές "
-"από τις λέξεις που συμπεριλαμβάνονται στον κωδικό πρόσβασης."
+"Προσπαθήστε να αποφύγετε μερικές από τις λέξεις που συμπεριλαμβάνονται στο "
+"συνθηματικό."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε "
-"συνηθισμένες λέξεις."
+msgid "Try to avoid common words."
+msgstr "Προσπαθήστε να αποφύγετε συνηθισμένες λέξεις."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε "
-"αναδιάταξη υφιστάμενων λέξεων."
+msgid "Try to avoid reordering existing words."
+msgstr "Προσπαθήστε να αποφύγετε αναδιάταξη υφιστάμενων λέξεων."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να χρησιμοποιήσετε "
-"περισσότερους αριθμούς."
+msgid "Try to use more numbers."
+msgstr "Προσπαθήστε να χρησιμοποιήσετε περισσότερους αριθμούς."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να χρησιμοποιήσετε "
-"περισσότερα κεφαλαία γράμματα."
+msgid "Try to use more uppercase letters."
+msgstr "Προσπαθήστε να χρησιμοποιήσετε περισσότερα κεφαλαία γράμματα."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να χρησιμοποιήσετε "
-"περισσότερα πεζά γράμματα."
+msgid "Try to use more lowercase letters."
+msgstr "Προσπαθήστε να χρησιμοποιήσετε περισσότερα πεζά γράμματα."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use more special characters, like "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
+msgid "Try to use more special characters, like punctuation."
 msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να χρησιμοποιήσετε "
-"περισσότερους ειδικούς χαρακτήρες, όπως σημεία στίξης."
+"Προσπαθήστε να χρησιμοποιήσετε περισσότερους ειδικούς χαρακτήρες, όπως "
+"σημεία στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
+msgid "Try to use a mixture of letters, numbers and punctuation."
 msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να χρησιμοποιήσετε "
-"έναν συνδυασμό γραμμάτων, αριθμών και σημείων στίξης."
+"Προσπαθήστε να χρησιμοποιήσετε έναν συνδυασμό γραμμάτων, αριθμών και σημείων "
+"στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε την "
-"επανάληψη του ίδιου χαρακτήρα."
+msgid "Try to avoid repeating the same character."
+msgstr "Προσπαθήστε να αποφύγετε την επανάληψη του ίδιου χαρακτήρα."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid repeating the same type of "
+#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε την "
-"επανάληψη του ίδιου τύπου χαρακτήρα: χρειάζεστε ανάμειξη γραμμάτων, αριθμών "
-"και σημείων στίξης."
+"Προσπαθήστε να αποφύγετε την επανάληψη του ίδιου τύπου χαρακτήρα: χρειάζεστε "
+"ανάμειξη γραμμάτων, αριθμών και σημείων στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να αποφύγετε "
-"ακολουθίες όπως 1234 ή abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Προσπαθήστε να αποφύγετε ακολουθίες όπως 1234 ή abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
-msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
-msgstr ""
-"Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να προσθέσετε "
-"περισσότερα γράμματα, αριθμούς και σύμβολα."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:117
-msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
-msgstr ""
-"Αναμείξτε κεφαλαία και πεζά γράμματα και χρησιμοποιήστε έναν αριθμό ή δύο."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Καλός κωδικός πρόσβασης! Η προσθήκη περισσότερων γραμμάτων, αριθμών και "
-"σημείων στίξης θα τον κάνει ισχυρότερο."
+"Τα συνθηματικά πρέπει να είναι μεγαλύτερα. Προσπαθήστε να προσθέσετε "
+"περισσότερα γράμματα, αριθμούς και σημεία στίξης."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Ισχύς: Ασθενής"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:117
+#| msgctxt "Password hint"
+#| msgid "Mix uppercase and lowercase and use a number or two."
+msgctxt "Password hint"
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr ""
+"Αναμείξτε κεφαλαία και πεζά γράμματα και χρησιμοποιήστε έναν ή δύο αριθμούς."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Ισχύς: Χαμηλή"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Ισχύς: Μέτρια"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Ισχύς: Καλή"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Ισχύς: Υψηλή"
+#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#| msgctxt "Password hint"
+#| msgid ""
+#| "Good password! Adding more letters, numbers and punctuation will make it "
+#| "stronger."
+msgctxt "Password hint"
+msgid ""
+"Adding more letters, numbers and punctuation will make the password stronger."
+msgstr ""
+"Η προσθήκη περισσότερων γραμμάτων, αριθμών και σημείων στίξης θα κάνει το "
+"συνθηματικό ισχυρότερο."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -634,7 +638,7 @@ msgid "You’re ready to go!"
 msgstr "Είστε έτοιμοι να ξεκινήσετε!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -643,28 +647,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Ζώνη ώρας"
@@ -731,6 +735,42 @@ msgstr ""
 "Σε αντίθεση,το Ελεύθερο λογισμικό μπορεί ελεύθερα να εκτελεστεί, "
 "αντιγραφτεί, διανεμηθεί, μελετηθεί και τροποποιηθεί."
 
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Υπάρχει ήδη ένας χρήστης με όνομα «%s»"
+
+#~ msgid "This is a weak password."
+#~ msgstr "Αυτός είναι ένας ασθενής κωδικός πρόσβασης."
+
+#~ msgid "_Verify"
+#~ msgstr "_Επαλήθευση"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Αυτός είναι ένας ασθενής κωδικός πρόσβασης. Προσπαθήστε να προσθέσετε "
+#~ "περισσότερα γράμματα, αριθμούς και σύμβολα."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Ισχύς: Ασθενής"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Ισχύς: Χαμηλή"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Ισχύς: Μέτρια"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Ισχύς: Καλή"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Ισχύς: Υψηλή"
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr ""
 #~ "Είναι σωστές αυτές οι λεπτομέρειες; Μπορείτε να τις αλλάξετε αν θέλετε."
@@ -776,9 +816,6 @@ msgstr ""
 
 #~ msgid "No password"
 #~ msgstr "Χωρίς κωδικό πρόσβασης"
-
-#~ msgid "_Confirm password"
-#~ msgstr "_Επιβεβαίωση κωδικού"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
