@@ -1,23 +1,23 @@
 # Persian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Arash Mousavi <mousavi.arash@gmail.com>, 2012, 2013, 2014, 2015. 2016.
+# Arash Mousavi <mousavi.arash@gmail.com>, 2012, 2013, 2014, 2015. 2016, 2017.
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 15:51+0000\n"
-"PO-Revision-Date: 2016-09-13 12:59+0430\n"
+"POT-Creation-Date: 2017-06-23 23:13+0000\n"
+"PO-Revision-Date: 2017-09-29 21:12+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -45,13 +45,13 @@ msgstr "_قبلی"
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "اجبار به حالت کاربر موجود"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "- راه‌اندازی اولیه گنوم"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+msgid "— GNOME initial setup"
+msgstr "— راه‌اندازی اولیه گنوم"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -81,10 +81,12 @@ msgstr "ورود تجاری"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be used "
-"on this device."
+"on this device. You can also use this account to access company resources on "
+"the internet."
 msgstr ""
 "ورود تجاری اجازه می‌دهد از یک حساب کاربری مدیریت‌شده‌ی مرکزی موجود برای این دستگاه "
-"استفاده شود."
+"استفاده شود. شما همچنین از این حساب می‌توانید برای دسترسی به منابع شرکت در "
+"اینترنت استفاده کنید."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -134,11 +136,11 @@ msgstr "_نام مدیر"
 msgid "Administrator Password"
 msgstr "گذرواژه مدیر"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "لطفا نام و نام‌کاربری را بررسی کنید. می‌توانید یک تصویر هم انتخاب کنید."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "برای کامل کردن راه‌اندازی نیاز به کمی جزئیات داریم."
 
@@ -163,8 +165,8 @@ msgid "Disable image"
 msgstr "غیرفعال‌کردن عکس"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
-msgstr "یک عکس بگیرید"
+msgid "Take a photo…"
+msgstr "یک عکس بگیرید…"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -187,35 +189,33 @@ msgstr "گذرواژه نامعتبر، لطفا دوباره تلاش کنید"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
+msgid "Couldn’t connect to the %s domain: %s"
 msgstr "نمی‌توان به دامنه %s متصل شد: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username '%s' already exists."
-msgstr "یک کاربر به نام‌کاربری «%s» از قبل وجود دارد."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "متاسفیم، این نام کاربری موجود نیست. لطفاً یک مورد دیگر را امتحان کنید."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "نام‌کاربری خیلی طولانی است."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a '-'."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
 msgstr "نام‌کاربری نمی‌توان به یک «-» شروع شود."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "نام‌کاربری باید فقط حاوی حروف بزرگ و کوچک از بازه‌ی a-z، اعداد و هر کدام از "
-"نویسه‌های «.»، «-» و «_» باشد."
+"نویسه‌های مقابل باشد: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"این جهت نام‌گذاری پوشه‌ی خانگی شما استفاده خواهد شد و قابل تغییر نخواهد بود."
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
+msgid "This will be used to name your home folder and can’t be changed."
+msgstr "این جهت نام‌گذاری پوشهٔ خانگی شما استفاده خواهد شد و قابل تغییر نخواهد بود."
 
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
 #: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
@@ -257,7 +257,7 @@ msgid "Preview"
 msgstr "پیش‌نمایش"
 
 #: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "بیش‌تر…"
@@ -276,9 +276,9 @@ msgstr "تایپ"
 
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
 msgid "Select your keyboard layout or an input method."
-msgstr "چیدمان صفحه‌کلید خود یا یک روش ورودی را انتخاب کنید"
+msgstr "چیدمان صفحه‌کلید خود یا یک روش ورودی را انتخاب کنید."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "No languages found"
 msgstr "هیچ زبانی پیدا نشد"
 
@@ -294,20 +294,20 @@ msgstr "خوش‌آمدید"
 msgid "Welcome!"
 msgstr "خوش‌آمدید!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "دیگر…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "شبکه‌های بی‌سیم غیرفعال شده‌اند"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
-msgstr "درحال بررسی برای شبکه‌های بی‌سیم موجود."
+msgstr "درحال بررسی برای شبکه‌های بی‌سیم موجود"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "شبکه"
 
@@ -333,15 +333,11 @@ msgstr "شبکه‌ی بی‌سیم در دسترس نیست"
 msgid "Turn On"
 msgstr "روشن کردن"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "این گذرواژه ضعیف است."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "گذرواژه‌ها مطابقت ندارند."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "گذرواژه"
 
@@ -354,8 +350,8 @@ msgid "Be careful not to lose your password."
 msgstr "مراقب باشید گذرواژه‌ی خود را گم نکنید."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_تایید"
+msgid "_Confirm"
+msgstr "_تأیید"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -364,155 +360,106 @@ msgstr "گذرواژه جدید باید با گذرواژه‌ی قبلی تف�
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters and "
-"numbers."
-msgstr ""
-"این گذرواژه خیلی شبیه به مورد قبلی است. سعی کنید تعدادی از حروف و اعداد را "
-"تغییر دهید."
+msgid "Try changing some letters and numbers."
+msgstr "سعی کنید تعدادی از حروف و اعداد را تغییر دهید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a bit "
-"more."
-msgstr ""
-"این گذرواژه خیلی شبیه به مورد قبلی است. سعی کنید گذرواژه را کمی تغییر دهید."
+msgid "Try changing the password a bit more."
+msgstr "سعی کنید گذرواژه را کمی بیشتر تغییر دهید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr "این یک گذرواژه ضعیف است. یک گذرواژه بدون نام‌کاربری شما قوی‌تر خواهد بود."
+msgid "A password without your user name would be stronger."
+msgstr "یک گذرواژه بدون نام‌کاربری شما قوی‌تر خواهد بود."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید از استفاده از نام‌کاربری خود در گذرواژه "
-"بپرهیزید."
+msgid "Try to avoid using your name in the password."
+msgstr "سعی کنید از استفاده از نام خود در گذرواژه بپرهیزید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید از تعدادی از کلمات استفاده شده در گذروازه "
-"پرهیز کنید."
+msgid "Try to avoid some of the words included in the password."
+msgstr "سعی کنید از تعدادی از کلمات استفاده شده در گذرواژه پرهیز کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "این یک گذرواژه ضعیف است. سعی کنید از کلمات معمول استفاده نکنید."
+msgid "Try to avoid common words."
+msgstr "سعی کنید از کلمات معمول استفاده نکنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "این یک گذرواژه ضعیف است. سعی کنید از تغییر چینش حروف موجود پرهیز کنید."
+msgid "Try to avoid reordering existing words."
+msgstr "سعی کنید از تغییر چینش حروف موجود پرهیز کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "این یک گذرواژه ضعیف است. سعی کنید از اعداد بیشتری استفاده کنید."
+msgid "Try to use more numbers."
+msgstr "سعی کنید از اعداد بیشتری استفاده کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "این یک گذرواژه ضعیف است. سعی کنید از حروف بزرگ بیشتری استفاده کنید."
+msgid "Try to use more uppercase letters."
+msgstr "سعی کنید از حروف بزرگ بیشتری استفاده کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "این یک گذرواژه ضعیف است. سعی کنید از حروف کوچک بیشتری استفاده کنید."
+msgid "Try to use more lowercase letters."
+msgstr "سعی کنید از حروف کوچک بیشتری استفاده کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like punctuation."
-msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید از نویسه‌های خاص بیشتری، مثل نشانه‌ها، استفاده "
-"کنید."
+msgid "Try to use more special characters, like punctuation."
+msgstr "سعی کنید از نویسه‌های خاص بیشتری، مثل نشانه‌ها، استفاده کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید از تلفیقی از حروف، اعداد و نشانه‌ها استفاده "
-"کنید."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "سعی کنید از تلفیقی از حروف، اعداد و نشانه‌ها استفاده کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "این یک گذرواژه ضعیف است. سعی کنید از تکرار یک نوع نویسه خودداری کنید."
+msgid "Try to avoid repeating the same character."
+msgstr "سعی کنید از تکرار یک نوع نویسه خودداری کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: you "
-"need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up letters, "
+"numbers and punctuation."
 msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید از تکرار یک نوع نویسه خودداری کنید: شما لازم "
-"است حروف، اعداد و نشانه‌ها را با هم تلفیق کنید."
+"سعی کنید از تکرار یک نوع نویسه خودداری کنید: شما لازم است حروف، اعداد و نشانه‌ها "
+"را با هم تلفیق کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید از رشته‌هایی مثل ۱۲۳۴ و abcd اجتناب کنید."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "سعی کنید از رشته‌هایی مثل ۱۲۳۴ و abcd اجتناب کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
-msgstr ""
-"این یک گذرواژه ضعیف است. سعی کنید حروف، اعداد و نشانه‌های بیشتری بکار ببرید."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and punctuation."
+msgstr "سعی کنید از تلفیقی از حروف، اعداد و نشانه‌ها استفاده کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
+msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "حروف بزرگ و کوچک، همراه با یک یا دو عدد را با هم تلفیق کنید."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
-msgstr ""
-"گذرواژه‌ی خوبی است! اضافه کردن حروف بیشتر، اعداد و نشانه‌ها آن را قوی‌تر می‌کند."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "قدرت: ضعیف"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "قدرت: کم"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "قدرت: معمولی"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "قدرت: خوب"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "قدرت: بالا"
+"Adding more letters, numbers and punctuation will make the password stronger."
+msgstr "اضافه کردن حروف بیشتر، اعداد و نشانه‌ها آن را قوی‌تر می‌کند."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are sent "
@@ -521,16 +468,26 @@ msgstr ""
 "ارسال گزارشات از مشکلات تکنیکی به ما برای گسترش %s کمک می‌کند. گزارش‌ها بصورت "
 "ناشناس ارسال می‌شوند و عاری از اطلاعات شخصی هستند."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-msgid "Uses Mozilla Location Service:"
-msgstr "استفاده از سرویس مکانی موزیلا"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr "اطلاعات مربوط به اشکالات توسط %s جمع‌آوری می‌شود:"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "سیاست حریم‌خصوصی"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:274
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "استفاده از سرویس مکانی موزیلا:"
+
+#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
 msgstr "حریم‌خصوصی"
@@ -571,21 +528,21 @@ msgstr "کشور یا ناحیهٔ خود را انتخاب کنید."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-msgid "_Start using %s"
+msgid "_Start Using %s"
 msgstr "_استفاده از %s را شروع کنید"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:358
+#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "آماده برای حرکت"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "You're ready to go!"
+msgid "You’re ready to go!"
 msgstr "شما آماده‌اید!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:374
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -594,28 +551,28 @@ msgstr "%s، %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:411
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:415
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%Ol:%OM %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:418
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%OH:%OM"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:421
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:566
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "منظقه‌ی زمانی"
@@ -681,6 +638,40 @@ msgstr ""
 "در مقایسه با آن، نرم‌افزارهای آزاد می‌توانند آزادانه اجرا، رونوشت، توزیع، بررسی و "
 "تغییر پیدا کنند."
 
+#~ msgid "A user with the username '%s' already exists."
+#~ msgstr "یک کاربر به نام‌کاربری «%s» از قبل وجود دارد."
+
+#~ msgid "This is a weak password."
+#~ msgstr "این گذرواژه ضعیف است."
+
+#~ msgid "_Verify"
+#~ msgstr "_تایید"
+
+#~ msgctxt "Password hint"
+#~ msgid "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "این یک گذرواژه ضعیف است. سعی کنید حروف، اعداد و نشانه‌های بیشتری بکار ببرید."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "قدرت: ضعیف"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "قدرت: کم"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "قدرت: معمولی"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "قدرت: خوب"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "قدرت: بالا"
+
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "آیا این‌ها جزئیات صحیحی هستند؟ اگر بخواهید می‌توانید آن‌ها را تغییر دهید."
 
@@ -711,9 +702,6 @@ msgstr ""
 
 #~ msgid "No password"
 #~ msgstr "بدون گذرواژه"
-
-#~ msgid "_Confirm password"
-#~ msgstr "_تأیید گذرواژه"
 
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
