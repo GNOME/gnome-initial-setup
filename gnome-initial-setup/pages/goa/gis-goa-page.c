@@ -136,6 +136,7 @@ add_provider_to_list (GisGoaPage *page, const char *provider_type)
 
   icon = goa_provider_get_provider_icon (provider, NULL);
   image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_DIALOG);
+  g_object_unref (icon);
 
   provider_name = goa_provider_get_provider_name (provider, NULL);
   markup = g_strdup_printf ("<b>%s</b>", provider_name);
