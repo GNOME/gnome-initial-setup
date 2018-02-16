@@ -388,5 +388,5 @@ gis_page_skip (GisPage *page)
 {
   if (GIS_PAGE_GET_CLASS (page)->skip)
     return GIS_PAGE_GET_CLASS (page)->skip (page);
-  return FALSE;
+  return TRUE;
 }
