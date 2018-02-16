@@ -50,7 +50,9 @@
 #include "pages/summary/gis-summary-page.h"
 
 #define VENDOR_PAGES_GROUP "pages"
-#define VENDOR_PAGES_SKIP_KEY "skip"
+#define VENDOR_SKIP_KEY "skip"
+#define VENDOR_NEW_USER_ONLY_KEY "new_user_only"
+#define VENDOR_EXISTING_USER_ONLY_KEY "existing_user_only"
 
 static gboolean force_existing_user_mode;
 
@@ -103,21 +105,40 @@ should_skip_page (GisDriver    *driver,
 }
 
 static gchar **
-pages_to_skip_from_file (void)
+strv_append (gchar **a,
+             gchar **b)
+{
+  guint n = g_strv_length (a);
+  guint m = g_strv_length (b);
+
+  a = g_renew (gchar *, a, n + m + 1);
+  for (guint i = 0; i < m; i++)
+    a[n + i] = g_strdup (b[i]);
+  a[n + m] = NULL;
+
+  return a;
+}
+
+static gchar **
+pages_to_skip_from_file (gboolean is_new_user)
 {
   GKeyFile *skip_pages_file;
   gchar **skip_pages = NULL;
+  gchar **additional_skip_pages = NULL;
   GError *error = NULL;
 
   /* VENDOR_CONF_FILE points to a keyfile containing vendor customization
    * options. This code will look for options under the "pages" group, and
    * supports the following keys:
-   *   - skip (optional): list of pages to be skipped.
+   *   - skip (optional): list of pages to be skipped always
+   *   - new_user_only (optional): list of pages to be skipped in existing user mode
+   *   - existing_user_only (optional): list of pages to be skipped in new user mode
    *
-   * This is how this file would look on a vendor image:
+   * This is how this file might look on a vendor image:
    *
    *   [pages]
-   *   skip=language
+   *   skip=timezone
+   *   existing_user_only=language;keyboard
    */
   skip_pages_file = g_key_file_new ();
   if (!g_key_file_load_from_file (skip_pages_file, VENDOR_CONF_FILE,
@@ -129,8 +150,20 @@ pages_to_skip_from_file (void)
     goto out;
   }
 
-  skip_pages = g_key_file_get_string_list (skip_pages_file, VENDOR_PAGES_GROUP,
-                                           VENDOR_PAGES_SKIP_KEY, NULL, NULL);
+  skip_pages = g_key_file_get_string_list (skip_pages_file,
+                                           VENDOR_PAGES_GROUP,
+                                           VENDOR_SKIP_KEY, NULL, NULL);
+  additional_skip_pages = g_key_file_get_string_list (skip_pages_file,
+                                                      VENDOR_PAGES_GROUP,
+                                                      is_new_user ? VENDOR_EXISTING_USER_ONLY_KEY : VENDOR_NEW_USER_ONLY_KEY,
+                                                      NULL, NULL);
+
+  if (!skip_pages && additional_skip_pages) {
+    skip_pages = additional_skip_pages;
+  } else if (skip_pages && additional_skip_pages) {
+    skip_pages = strv_append (skip_pages, additional_skip_pages);
+    g_strfreev (additional_skip_pages);
+  }
 
  out:
   g_key_file_free (skip_pages_file);
@@ -169,9 +202,6 @@ rebuild_pages_cb (GisDriver *driver)
 
   assistant = gis_driver_get_assistant (driver);
   current_page = gis_assistant_get_current_page (assistant);
-
-  skip_pages = pages_to_skip_from_file ();
-
   page_data = page_table;
 
   g_ptr_array_free (skipped_pages, TRUE);
@@ -188,6 +218,8 @@ rebuild_pages_cb (GisDriver *driver)
   }
 
   is_new_user = (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER);
+  skip_pages = pages_to_skip_from_file (is_new_user);
+
   for (; page_data->page_id != NULL; ++page_data) {
     skipped = FALSE;
 

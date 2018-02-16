@@ -267,8 +267,6 @@ gis_language_page_constructed (GObject *object)
 
   update_distro_logo (page);
 
-  gtk_widget_show (priv->language_chooser);
-
   g_signal_connect (priv->language_chooser, "notify::language",
                     G_CALLBACK (language_changed), page);
   g_signal_connect (priv->language_chooser, "confirm",
