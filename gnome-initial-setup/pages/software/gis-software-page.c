@@ -53,69 +53,6 @@ typedef struct _GisSoftwarePagePrivate GisSoftwarePagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisSoftwarePage, gis_software_page, GIS_TYPE_PAGE);
 
-static char *
-get_item (const char *buffer, const char *name)
-{
-  char *label, *start, *end, *result;
-  char end_char;
-
-  result = NULL;
-  start = NULL;
-  end = NULL;
-  label = g_strconcat (name, "=", NULL);
-  if ((start = strstr (buffer, label)) != NULL)
-    {
-      start += strlen (label);
-      end_char = '\n';
-      if (*start == '"')
-        {
-          start++;
-          end_char = '"';
-        }
-
-      end = strchr (start, end_char);
-    }
-
-    if (start != NULL && end != NULL)
-      {
-        result = g_strndup (start, end - start);
-      }
-
-  g_free (label);
-
-  return result;
-}
-
-static void
-update_distro_name (GisSoftwarePage *page)
-{
-  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-  char *buffer;
-  char *name;
-  char *text;
-
-  name = NULL;
-
-  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
-    {
-      name = get_item (buffer, "NAME");
-      g_free (buffer);
-    }
-
-  if (!name)
-    name = g_strdup ("GNOME");
-
-  /* Translators: the parameter here is the name of a distribution,
-   * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-   * detect any distribution.
-   */
-  text = g_strdup_printf (_("Proprietary software sources provide access to additional software, including web browsers and games. This software typically has restrictions on use and access to source code, and is not provided by %s."), name);
-  gtk_label_set_label (GTK_LABEL (priv->text_label), text);
-  g_free (text);
-
-  g_free (name);
-}
-
 static void
 gis_software_page_constructed (GObject *object)
 {
@@ -131,8 +68,6 @@ gis_software_page_constructed (GObject *object)
 
   gtk_switch_set_active (GTK_SWITCH (priv->proprietary_switch),
                          g_settings_get_boolean (priv->software_settings, "show-nonfree-software"));
-
-  update_distro_name (page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
@@ -226,7 +161,7 @@ gis_software_page_apply (GisPage *gis_page,
 
   enable = gtk_switch_get_active (GTK_SWITCH (priv->proprietary_switch));
 
-  g_debug ("%s proprietary software sources", enable ? "Enable" : "Disable");
+  g_debug ("%s proprietary software repositories", enable ? "Enable" : "Disable");
 
   g_settings_set_boolean (priv->software_settings, "show-nonfree-software", enable);
   /* don't prompt for the same thing again in gnome-software */
@@ -240,10 +175,22 @@ gis_software_page_apply (GisPage *gis_page,
 }
 
 static void
-gis_software_page_locale_changed (GisPage *page)
+gis_software_page_locale_changed (GisPage *gis_page)
 {
-  gis_page_set_title (page, _("Software Sources"));
-  update_distro_name (GIS_SOFTWARE_PAGE (page));
+  GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
+  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
+  g_autoptr(GString) str = g_string_new (NULL);
+
+  gis_page_set_title (GIS_PAGE (page), _("Software Repositories"));
+
+  g_string_append (str,
+                   /* TRANSLATORS: this is the third party repositories info bar. */
+                   _("Access additional software from selected third party sources."));
+  g_string_append (str, " ");
+  g_string_append (str,
+                   /* TRANSLATORS: this is the third party repositories info bar. */
+                   _("Some of this software is proprietary and therefore has restrictions on use, sharing, and access to source code."));
+  gtk_label_set_label (GTK_LABEL (priv->text_label), str->str);
 }
 
 static gboolean
