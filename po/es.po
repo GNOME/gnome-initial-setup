@@ -1,15 +1,15 @@
 # Spanish translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-25 18:13+0000\n"
-"PO-Revision-Date: 2017-07-26 09:53+0200\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-02-21 17:28+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -24,23 +24,23 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "Siguie_nte"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Aceptar"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "_Omitir"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -203,7 +203,6 @@ msgid "The username is too long."
 msgstr "El nombre de usuario es demasiado largo."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:251
-#| msgid "The username cannot start with a ‘-’."
 msgid "The username cannot start with a “-”."
 msgstr "El nombre de usuario no puede comenzar por «-»."
 
@@ -236,7 +235,7 @@ msgstr ""
 msgid "Add Account"
 msgstr "Añadir cuenta"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Cuentas en línea"
 
@@ -259,12 +258,12 @@ msgstr ""
 "Se pueden añadir o quitar cuentas en cualquier momento desde la aplicación "
 "de Configuración."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Más…"
@@ -272,7 +271,7 @@ msgstr "Más…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "No se han encontrado fuentes de entrada"
 
@@ -285,7 +284,7 @@ msgstr "Escritura"
 msgid "Select your keyboard layout or an input method."
 msgstr "Seleccione la distribución de su teclado o un método de entrada."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "No se han encontrado idiomas"
 
@@ -602,37 +601,38 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Busque una ciudad cercana"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Las fuentes de software propietario proporcionan acceso a software "
-"adicional, incluyendo navegadores web y juegos. Normalmente, este software "
-"tiene restricciones de uso y de acceso al código fuente, y no lo proporciona "
-"%s."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+#| msgid "Software Sources"
+msgid "Software Repositories"
+msgstr "Repositorios de software"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "Fuentes de software"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr ""
+"Acceso a software adicional de los repositorios de terceros seleccionados."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Parte de este software es propietario y por lo tanto tiene restricciones de "
+"uso, compartición y acceso al código fuente."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Fuentes de software adicional"
+#| msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
+msgstr "Repositorios de software adicional"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Saber más…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Fuentes de software propietario"
+msgid "Third Party Repositories"
+msgstr "Repositorios de terceros"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -652,6 +652,19 @@ msgid ""
 msgstr ""
 "En contraste, el software libre se puede ejecutar, copiar, distribuir, "
 "estudiar y modificar libremente."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Las fuentes de software propietario proporcionan acceso a software "
+#~ "adicional, incluyendo navegadores web y juegos. Normalmente, este "
+#~ "software tiene restricciones de uso y de acceso al código fuente, y no lo "
+#~ "proporciona %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Fuentes de software propietario"
 
 #~| msgid "A user with the username '%s' already exists."
 #~ msgid "A user with the username ‘%s’ already exists."
