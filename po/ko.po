@@ -2,45 +2,46 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Seong-ho Cho <shcho@gnome.org>, 2012-2017.
+# Moses Kim <creatinov.kim@gmail.com>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-21 15:24+0000\n"
-"PO-Revision-Date: 2017-08-26 16:55+0900\n"
-"Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-02-24 16:39+0900\n"
+"Last-Translator: Moses Kim <creatinov.kim@gmail.com>\n"
 "Language-Team: 한국어 <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "초기 설정"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "다음(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "수락(_A)"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "건너뛰기(_S)"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "이전(_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "취소(_C)"
 
@@ -231,7 +232,7 @@ msgstr "최종 사용자 라이선스 동의서의 조항에 동의합니다(_A)
 msgid "Add Account"
 msgstr "계정 추가"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "온라인 계정"
 
@@ -252,12 +253,12 @@ msgid ""
 "Accounts can be added and removed at any time from the Settings application."
 msgstr "설정 프로그램에서 언제든 계정 정보를 추가하고 제거할 수 있습니다."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "미리보기"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "자세히…"
@@ -265,7 +266,7 @@ msgstr "자세히…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "입력기가 없습니다"
 
@@ -278,7 +279,7 @@ msgstr "입력"
 msgid "Select your keyboard layout or an input method."
 msgstr "키보드 배치 또는 입력기를 선택하십시오."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "발견한 언어가 없습니다"
 
@@ -589,36 +590,34 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "인근 도시를 검색하십시오"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"상업용 프로그램 공급원에서는 웹 브라우저 및 게임 같은 추가 프로그램 접근책을 "
-"제공합니다. 이 프로그램은 보통 사용 및 소스 코드 접근을 제한하며, %s에서 제공"
-"하지 않습니다."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "프로그램 저장소"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "프로그램 공급원"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "선택한 서드 파티 소스로부터 추가 프로그램에 접근합니다."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"이 프로그램의 일부는 상업용으로 사용, 공유 및 소스 코드 접근을 제한합니다."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "추가 프로그램 공급원"
+msgid "Additional Software Repositories"
+msgstr "추가 프로그램 저장소"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">더 찾아보기…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "상업용 프로그램 공급원"
+msgid "Third Party Repositories"
+msgstr "서드 파티 저장소"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -626,8 +625,8 @@ msgid ""
 "access to source code. This prevents anyone but the software owner from "
 "inspecting, improving or learning from its code."
 msgstr ""
-"상업용 프로그램은 보통 사용 방식과 소스 코드 접근을 제한합니다. 누군가의 사용"
-"을 막지만, 프로그램 소유자는 코드를 살펴보고, 개선하거나, 학습합니다."
+"상업용 프로그램은 보통 사용 방식과 소스 코드 접근을 제한합니다. 프로그램의 소"
+"유자만 코드를 살펴보거나 개선할 수 있습니다."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
 msgid ""
@@ -635,6 +634,18 @@ msgid ""
 "and modified."
 msgstr ""
 "반면에 자유 프로그램은 자유롭게 실행, 복사, 배포, 연구, 수정할 수 있습니다."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "상업용 프로그램 공급원에서는 웹 브라우저 및 게임 같은 추가 프로그램 접근책"
+#~ "을 제공합니다. 이 프로그램은 보통 사용 및 소스 코드 접근을 제한하며, %s에"
+#~ "서 제공하지 않습니다."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "상업용 프로그램 공급원"
 
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "이미 ‘%s’ 이름을 가진 사용자가 있습니다."
