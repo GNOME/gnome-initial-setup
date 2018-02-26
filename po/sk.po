@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-21 15:24+0000\n"
-"PO-Revision-Date: 2017-08-23 20:21+0200\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-02-26 14:35+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Project-Style: gnome\n"
 
 # desktop entry name
@@ -27,27 +27,27 @@ msgid "Initial Setup"
 msgstr "Prvotné nastavenie"
 
 # GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "Ď_alej"
 
 # GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Prijať"
 
 # GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "Pre_skočiť"
 
 # gtk button
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Späť"
 
 # GTK_BUTTON
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
@@ -255,7 +255,7 @@ msgid "Add Account"
 msgstr "Pridanie účtu"
 
 # page title
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Účty služieb"
 
@@ -279,13 +279,13 @@ msgid ""
 msgstr "Účty sa dajú kedykoľvek pridať a odstrániť v aplikácii Nastavenia."
 
 # gtk button
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Náhľad"
 
 # tooltip
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Viac…"
@@ -293,7 +293,7 @@ msgstr "Viac…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Nenašli sa žiadne zdroje vstupu"
 
@@ -308,7 +308,7 @@ msgstr "Písanie"
 msgid "Select your keyboard layout or an input method."
 msgstr "Vyberte rozloženie klávesnice alebo metódu vstupu."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Nenašli sa žiadne jazyky"
 
@@ -632,37 +632,36 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Vyhľadajte blízke mesto"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Zdroje uzavretého softvéru poskytujú prístup k dodatočnému softvéru, vrátane "
-"prehliadačov a hier. Tento softvér obvykle obsahuje obmedzenia spojené s "
-"používaním a prístupom k zdrojovému kódu a nie je poskytovaný systémom %s."
-
 # GtkButton AtkObjekt
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "Zdroje softvéru"
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "Repozitáre so softvérom"
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Pristupovať k dodatočnému softvéru z vybraných zdrojov tretích strán."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Časť tohto softvéru je uzavretá, a preto má obmedzenia spojené s používaním, "
+"zdieľaním a prístupom k zdrojovému kódu."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Dodatočné zdroje softvéru"
+msgid "Additional Software Repositories"
+msgstr "Dodatočné repozitáre so softvérom"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Zistite viac…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Zdroje uzavretého softvéru"
+msgid "Third Party Repositories"
+msgstr "Repozitáre tretích strán"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -681,6 +680,19 @@ msgid ""
 msgstr ""
 "Naopak slobodný softvér je možné slobodne spúšťať, kopírovať, šíriť, "
 "študovať a upravovať."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Zdroje uzavretého softvéru poskytujú prístup k dodatočnému softvéru, "
+#~ "vrátane prehliadačov a hier. Tento softvér obvykle obsahuje obmedzenia "
+#~ "spojené s používaním a prístupom k zdrojovému kódu a nie je poskytovaný "
+#~ "systémom %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Zdroje uzavretého softvéru"
 
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "Používateľ s používateľským menom „%s“ už existuje."
