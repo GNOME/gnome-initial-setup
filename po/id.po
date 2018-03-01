@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-23 23:13+0000\n"
-"PO-Revision-Date: 2017-07-10 17:03+0700\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-02-22 16:21+0700\n"
 "Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -24,23 +24,23 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Penyiapan Awal"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "Sela_njutnya"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "Terim_a"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "Lewa_ti"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "Se_belumya"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Batal"
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "Add Account"
 msgstr "Tambah Akun"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Akun Daring"
 
@@ -254,12 +254,12 @@ msgid ""
 "Accounts can be added and removed at any time from the Settings application."
 msgstr "Akun dapat ditambahkan dan dihapus kapanpun dari aplikasi Pengaturan."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Pratinjau"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Lebih banyak…"
@@ -267,7 +267,7 @@ msgstr "Lebih banyak…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Tak ditemukan masukan"
 
@@ -280,7 +280,7 @@ msgstr "Mengetik"
 msgid "Select your keyboard layout or an input method."
 msgstr "Pilih tata letak papan tik Anda atau metoda masukan."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Tak ada bahasa yang ditemukan"
 
@@ -597,37 +597,35 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Harap cari kota yang berdekatan"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Sumber perangkat lunak proprietari menyediakan akses ke perangkat lunak "
-"tambahan, termasuk peramban web dan permainan. Perangkat lunak ini biasanya "
-"punya pembatasan pemakaian dan akses ke kode sumber, dan tidak disediakan "
-"oleh %s."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "Repositori Perangkat Lunak"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "Sumber Perangkat Lunak"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Akses perangkat lunak tambahan dari sumber pihak ketiga yang dipilih."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Beberapa perangkat lunak ini bersifat proprietary dan oleh karena itu "
+"memiliki batasan penggunaan, berbagi, dan akses ke kode sumber."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Sumber Perangkat Lunak Tambahan"
+msgid "Additional Software Repositories"
+msgstr "Repositori Perangkat Lunak Tambahan"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Temukan lebih jauh…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Sumber Perangkat Lunak Proprietari"
+msgid "Third Party Repositories"
+msgstr "Repositori Pihak Ketiga"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -647,3 +645,16 @@ msgid ""
 msgstr ""
 "Sebaliknya, Perangkat Lunak Bebas dapat dijalankan, disalin, "
 "didistribusikan, dipelajari, dan diubah secara bebas."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Sumber perangkat lunak proprietari menyediakan akses ke perangkat lunak "
+#~ "tambahan, termasuk peramban web dan permainan. Perangkat lunak ini "
+#~ "biasanya punya pembatasan pemakaian dan akses ke kode sumber, dan tidak "
+#~ "disediakan oleh %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Sumber Perangkat Lunak Proprietari"
