@@ -250,11 +250,16 @@ static void
 update_applying_state (GisAssistant *assistant)
 {
   gboolean applying = FALSE;
+  gboolean is_first_page = FALSE;
+
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   if (priv->current_page)
-    applying = gis_page_get_applying (priv->current_page);
+    {
+      applying = gis_page_get_applying (priv->current_page);
+      is_first_page = priv->current_page->assistant_priv->link->prev == NULL;
+    }
   gtk_widget_set_sensitive (priv->forward, !applying);
-  gtk_widget_set_visible (priv->back, !applying);
+  gtk_widget_set_visible (priv->back, !applying && !is_first_page);
   gtk_widget_set_visible (priv->cancel, applying);
   gtk_widget_set_visible (priv->spinner, applying);
 
