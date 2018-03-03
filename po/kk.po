@@ -8,38 +8,38 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-21 15:24+0000\n"
-"PO-Revision-Date: 2017-07-27 17:19+0500\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-03-03 20:03+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Бастапқы баптау"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "_Келесі"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "Қ_абылдау"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "Атта_п кету"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "А_лдыңғы"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "Ба_с тарту"
 
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Add Account"
 msgstr "Тіркелгіні қосу"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Желідегі тіркелгілер"
 
@@ -260,12 +260,12 @@ msgid ""
 msgstr ""
 "Тіркелгілерді кез-кезген кезде Баптаулар ішінен қосу немесе өшіруге болады."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Алдын-ала қарау"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Көбірек…"
@@ -273,7 +273,7 @@ msgstr "Көбірек…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Кіріс көздері табылмады"
 
@@ -286,7 +286,7 @@ msgstr "Теру"
 msgid "Select your keyboard layout or an input method."
 msgstr "Пернетақта жаймасын не енгізу тәсілін таңдау."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Тілдер табылмады"
 
@@ -606,36 +606,35 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Жақын қаланы іздеңіз"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Проприетарлы БҚ қайнар көздері веб браузерлері және ойындар сияқты қосымша "
-"БҚ орнату мүмкіндігін береді. Бұл БҚ әдетте қолдану және бастапқы кодтарын "
-"алуда шектеулері бар, және оны ұсынушы %s емес."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "БҚ репозиторийлері"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "БҚ қайнар көздері"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Таңдалған үшінші жақты ұсынушыларынан қосымша БҚ-ға қол жеткізу."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Бұл БҚ ішінен кейбірі проприетарлы БҚ, оның қолданылу және бастапқы кодтарға "
+"қатынау бойынша шектеулері бар."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Қосымша БҚ қайнар көздері"
+msgid "Additional Software Repositories"
+msgstr "Қосымша БҚ репозиторийлері"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Көбірек білу…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Проприетарлы БҚ қайнар көздері"
+msgid "Third Party Repositories"
+msgstr "Үшінші жақты БҚ репозиторийлері"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -654,6 +653,18 @@ msgid ""
 msgstr ""
 "Ал, еркін БҚ болса, оны еркін түрде орындау, көшіріп алу, тарату, одан оқу "
 "және оны түзетуге болады."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Проприетарлы БҚ қайнар көздері веб браузерлері және ойындар сияқты "
+#~ "қосымша БҚ орнату мүмкіндігін береді. Бұл БҚ әдетте қолдану және бастапқы "
+#~ "кодтарын алуда шектеулері бар, және оны ұсынушы %s емес."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Проприетарлы БҚ қайнар көздері"
 
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "\"%s\" деген пайдаланушы бар болып тұр."
