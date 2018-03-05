@@ -1,15 +1,15 @@
 # Italian translation of gnome-initial-setup.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Gianvito Cavasoli <gianvito@gmx.it>, 2012, 2013, 2014, 2015, 2016, 2017.
+# Gianvito Cavasoli <gianvito@gmx.it>, 2012, 2013, 2014, 2015, 2016, 2017, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-21 15:24+0000\n"
-"PO-Revision-Date: 2017-09-10 14:03+0200\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-03-05 12:22+0100\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italiano <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -24,23 +24,23 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Impostazioni iniziali"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "_Successiva"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Accetta"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "_Salta"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Precedente"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Annulla"
 
@@ -49,7 +49,6 @@ msgid "Force existing user mode"
 msgstr "Forzare modalità utente esistente"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:223
-#| msgid "- GNOME initial setup"
 msgid "— GNOME initial setup"
 msgstr "— Impostazioni iniziali GNOME"
 
@@ -79,9 +78,6 @@ msgid "Enterprise Login"
 msgstr "Accesso aziendale"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#| msgid ""
-#| "Enterprise login allows an existing centrally managed user account to be "
-#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -206,14 +202,10 @@ msgid "The username is too long."
 msgstr "Il nome utente è troppo lungo."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:251
-#| msgid "The username cannot start with a ‘-’."
 msgid "The username cannot start with a “-”."
 msgstr "Il nome utente non può iniziare con «-»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:254
-#| msgid ""
-#| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -244,7 +236,7 @@ msgstr ""
 msgid "Add Account"
 msgstr "Aggiungi account"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Account online"
 
@@ -267,12 +259,12 @@ msgstr ""
 "Gli account possono essere aggiunti e rimossi in qualsiasi momento "
 "nell'applicazione Impostazioni."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Anteprima"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Altro…"
@@ -280,7 +272,7 @@ msgstr "Altro…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Nessun input trovato"
 
@@ -293,7 +285,7 @@ msgstr "Digitazione"
 msgid "Select your keyboard layout or an input method."
 msgstr "Selezionare la disposizione della tastiera o un metodo di input."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Nessuna lingua trovata"
 
@@ -374,116 +366,73 @@ msgid "The new password needs to be different from the old one."
 msgstr "La nuova password deve essere diversa dalla precedente."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing some letters "
-#| "and numbers."
 msgctxt "Password hint"
 msgid "Try changing some letters and numbers."
 msgstr "Provare a cambiare alcune lettere e numeri."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing the password "
-#| "a bit more."
 msgctxt "Password hint"
 msgid "Try changing the password a bit more."
 msgstr "Provare a cambiare la password un po' di più."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. A password without your user name would be "
-#| "stronger."
 msgctxt "Password hint"
 msgid "A password without your user name would be stronger."
 msgstr "Una password che non contiene il proprio nome utente è più robusta."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
 msgid "Try to avoid using your name in the password."
 msgstr "Provare a evitare l'uso del proprio nome nella password."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid some of the words included in the "
-#| "password."
 msgctxt "Password hint"
 msgid "Try to avoid some of the words included in the password."
 msgstr "Provare a evitare alcune delle parole incluse nella password."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
 msgid "Try to avoid common words."
 msgstr "Provare a evitare parole comuni."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
 msgid "Try to avoid reordering existing words."
 msgstr "Provare a evitare di riordinare parole esistenti."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
 msgid "Try to use more numbers."
 msgstr "Provare a usare più numeri."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
 msgid "Try to use more uppercase letters."
 msgstr "Provare a usare più lettere maiuscole."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
 msgid "Try to use more lowercase letters."
 msgstr "Provare a usare più lettere minuscole."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use more special characters, like "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use more special characters, like punctuation."
 msgstr "Provare a usare più caratteri speciali, come quelli di punteggiatura."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use a mixture of letters, numbers and punctuation."
 msgstr ""
 "Provare a usare una combinazione di lettere, numeri e segni di punteggiatura."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
 msgid "Try to avoid repeating the same character."
 msgstr "Provare a evitare la ripetizione dello stesso carattere."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid repeating the same type of "
-#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "Try to avoid repeating the same type of character: you need to mix up "
@@ -493,17 +442,11 @@ msgstr ""
 "lettere, numeri e segni di punteggiatura."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
 msgid "Try to avoid sequences like 1234 or abcd."
 msgstr "Provare a evitare sequenze come 1234 o abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid ""
 "Password needs to be longer. Try to add more letters, numbers and "
@@ -513,17 +456,11 @@ msgstr ""
 "e segni di punteggiatura."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgctxt "Password hint"
-#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr "Combinare lettere maiuscole e minuscole e usare un numero o due."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
-#| msgctxt "Password hint"
-#| msgid ""
-#| "Good password! Adding more letters, numbers and punctuation will make it "
-#| "stronger."
 msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
@@ -668,36 +605,37 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Cerca una città vicina"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Le sorgenti di software proprietario forniscono l'accesso a software "
-"aggiuntivi, inclusi browser web e giochi. Questo software tipicamente ha "
-"limitazioni all'uso e di accesso al codice sorgente, e non è fornito da %s."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+#| msgid "Software Sources"
+msgid "Software Repositories"
+msgstr "Repository software"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "Sorgenti software"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Accede a software aggiuntivo da selezionate fonti di terze parti."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Alcuni di questi software sono proprietari e pertanto hanno restrizioni "
+"sull'uso, la condivisione e l'accesso al codice sorgente."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Sorgenti software aggiuntive"
+#| msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
+msgstr "Repository software aggiuntivi"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Trova altre…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Sorgenti software proprietarie"
+msgid "Third Party Repositories"
+msgstr "Repository di terze parti"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
