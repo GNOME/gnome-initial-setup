@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Tom Tryfonidis <tomtryf@gmail.com>, 2012.
 # Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2013, 2015.
-# Efstathios Iosifidis <iosifidis@opensuse.org>, 2013.
+# Efstathios Iosifidis <iosifidis@opensuse.org>, 2013, 2018.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-21 15:24+0000\n"
-"PO-Revision-Date: 2017-09-09 12:39+0200\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-02-20 22:36+0200\n"
 "Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
-"Language-Team: www.gnome.gr\n"
+"Language-Team: Ελληνικά <>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Gtranslator 2.91.7\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -26,23 +27,23 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Αρχική εγκατάσταση"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "Επόμε_νο"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Αποδοχή"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "Παράλει_ψη"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Προηγούμενο"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "Ακύ_ρωση"
 
@@ -51,7 +52,6 @@ msgid "Force existing user mode"
 msgstr "Εξαναγκασμός υπάρχουσας λειτουργίας χρήστη"
 
 #: ../gnome-initial-setup/gnome-initial-setup.c:223
-#| msgid "- GNOME initial setup"
 msgid "— GNOME initial setup"
 msgstr "— Αρχική εγκατάσταση GNOME"
 
@@ -81,9 +81,6 @@ msgid "Enterprise Login"
 msgstr "Εταιρική σύνδεση"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#| msgid ""
-#| "Enterprise login allows an existing centrally managed user account to be "
-#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -214,14 +211,10 @@ msgid "The username is too long."
 msgstr "Το όνομα χρήστη είναι πολύ μεγάλο."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:251
-#| msgid "The username cannot start with a ‘-’."
 msgid "The username cannot start with a “-”."
 msgstr "Το όνομα χρήστη δεν μπορεί να αρχίζει με «-»."
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:254
-#| msgid ""
-#| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -252,7 +245,7 @@ msgstr ""
 msgid "Add Account"
 msgstr "Προσθήκη λογαριασμού"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Διαδικτυακοί λογαριασμοί"
 
@@ -276,12 +269,12 @@ msgstr ""
 "Λογαριασμοί μπορούν να προστεθούν και να διαγραφούν οποιαδήποτε στιγμή από "
 "τις Ρυθμίσεις."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Περισσότερα…"
@@ -289,7 +282,7 @@ msgstr "Περισσότερα…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Δε βρέθηκαν είσοδοι"
 
@@ -302,7 +295,7 @@ msgstr "Πληκτρολόγηση"
 msgid "Select your keyboard layout or an input method."
 msgstr "Επιλέξτε τη διάταξη του πληκτρολογίου σας ή μια άλλη μέθοδο εισόδου."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Δε βρέθηκαν γλώσσες"
 
@@ -375,7 +368,6 @@ msgid "Be careful not to lose your password."
 msgstr "Προσέξτε να μην χάσετε το κωδικό πρόσβασής σας."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-#| msgid "_Confirm password"
 msgid "_Confirm"
 msgstr "_Επιβεβαίωση"
 
@@ -385,46 +377,27 @@ msgid "The new password needs to be different from the old one."
 msgstr "Ο νέος κωδικός πρόσβασης πρέπει να είναι διαφορετικός από τον παλιό."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing some letters "
-#| "and numbers."
 msgctxt "Password hint"
 msgid "Try changing some letters and numbers."
 msgstr "Προσπαθήστε να αλλάξετε μερικά γράμματα και αριθμούς."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This password is very similar to your last one. Try changing the password "
-#| "a bit more."
 msgctxt "Password hint"
 msgid "Try changing the password a bit more."
 msgstr "Προσπαθήστε να αλλάξετε το συνθηματικό λίγο περισσότερο."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. A password without your user name would be "
-#| "stronger."
 msgctxt "Password hint"
 msgid "A password without your user name would be stronger."
 msgstr "Ένα συνθηματικό χωρίς το όνομα χρήστη σας θα ήταν ισχυρότερο."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
 msgid "Try to avoid using your name in the password."
 msgstr "Προσπαθήστε να αποφύγετε τη χρήση του ονόματός σας στο συνθηματικό."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid some of the words included in the "
-#| "password."
 msgctxt "Password hint"
 msgid "Try to avoid some of the words included in the password."
 msgstr ""
@@ -432,45 +405,31 @@ msgstr ""
 "συνθηματικό."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
 msgid "Try to avoid common words."
 msgstr "Προσπαθήστε να αποφύγετε συνηθισμένες λέξεις."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
 msgid "Try to avoid reordering existing words."
 msgstr "Προσπαθήστε να αποφύγετε αναδιάταξη υφιστάμενων λέξεων."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
 msgid "Try to use more numbers."
 msgstr "Προσπαθήστε να χρησιμοποιήσετε περισσότερους αριθμούς."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
 msgid "Try to use more uppercase letters."
 msgstr "Προσπαθήστε να χρησιμοποιήσετε περισσότερα κεφαλαία γράμματα."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
 msgid "Try to use more lowercase letters."
 msgstr "Προσπαθήστε να χρησιμοποιήσετε περισσότερα πεζά γράμματα."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use more special characters, like "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use more special characters, like punctuation."
 msgstr ""
@@ -478,10 +437,6 @@ msgstr ""
 "σημεία στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid "Try to use a mixture of letters, numbers and punctuation."
 msgstr ""
@@ -489,17 +444,11 @@ msgstr ""
 "στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
 msgid "Try to avoid repeating the same character."
 msgstr "Προσπαθήστε να αποφύγετε την επανάληψη του ίδιου χαρακτήρα."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to avoid repeating the same type of "
-#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "Try to avoid repeating the same type of character: you need to mix up "
@@ -509,17 +458,11 @@ msgstr ""
 "ανάμειξη γραμμάτων, αριθμών και σημείων στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
-#| msgctxt "Password hint"
-#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
 msgid "Try to avoid sequences like 1234 or abcd."
 msgstr "Προσπαθήστε να αποφύγετε ακολουθίες όπως 1234 ή abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to use a mixture of letters, numbers and "
-#| "punctuation."
 msgctxt "Password hint"
 msgid ""
 "Password needs to be longer. Try to add more letters, numbers and "
@@ -529,18 +472,12 @@ msgstr ""
 "περισσότερα γράμματα, αριθμούς και σημεία στίξης."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgctxt "Password hint"
-#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr ""
 "Αναμείξτε κεφαλαία και πεζά γράμματα και χρησιμοποιήστε έναν ή δύο αριθμούς."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
-#| msgctxt "Password hint"
-#| msgid ""
-#| "Good password! Adding more letters, numbers and punctuation will make it "
-#| "stronger."
 msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
@@ -685,37 +622,37 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Παρακαλούμε, αναζητήστε μια κοντινή πόλη"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Οι ιδιοταγείς πηγές λογισμικού παρέχουν πρόσβαση σε επιπρόσθετο λογισμικό, "
-"όπως περιηγητές Ιστού και παιχνίδια. Συνήθως αυτό το λογισμικό έχει "
-"περιορισμούς ως προς τη χρήση του και την πρόσβαση στον πηγαίο κώδικα, και "
-"δεν παρέχεται από το %s."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+#| msgid "Software Sources"
+msgid "Software Repositories"
+msgstr "Αποθετήρια λογισμικού"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "Πηγές λογισμικού"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Πρόσβαση σε πρόσθετο λογισμικό από επιλεγμένες πηγές τρίτων."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Ορισμένα από αυτά τα λογισμικά είναι ιδιόκτητα και επομένως έχει "
+"περιορισμούς στη χρήση, τον διαμοιρασμό και την πρόσβαση στον πηγαίο κώδικα."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Επιπρόσθετες πηγές λογισμικού"
+#| msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
+msgstr "Επιπρόσθετα αποθετήρια λογισμικού"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Βρείτε περισσότερα…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Ιδιοταγείς πηγές λογισμικού"
+msgid "Third Party Repositories"
+msgstr "Αποθετήρια τρίτων"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -734,6 +671,19 @@ msgid ""
 msgstr ""
 "Σε αντίθεση,το Ελεύθερο λογισμικό μπορεί ελεύθερα να εκτελεστεί, "
 "αντιγραφτεί, διανεμηθεί, μελετηθεί και τροποποιηθεί."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Οι ιδιοταγείς πηγές λογισμικού παρέχουν πρόσβαση σε επιπρόσθετο "
+#~ "λογισμικό, όπως περιηγητές Ιστού και παιχνίδια. Συνήθως αυτό το λογισμικό "
+#~ "έχει περιορισμούς ως προς τη χρήση του και την πρόσβαση στον πηγαίο "
+#~ "κώδικα, και δεν παρέχεται από το %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Ιδιοταγείς πηγές λογισμικού"
 
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "Υπάρχει ήδη ένας χρήστης με όνομα «%s»"
