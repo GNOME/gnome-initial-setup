@@ -2,15 +2,15 @@
 # Copyright (C) 2009 accerciser COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
-# Matej Urbančič <mateju@svn.gnome.org>, 2012–2017.
+# Matej Urbančič <mateju@svn.gnome.org>, 2012–2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-21 17:19+0200\n"
-"PO-Revision-Date: 2017-07-21 17:22+0200\n"
+"POT-Creation-Date: 2018-03-07 04:43+0000\n"
+"PO-Revision-Date: 2018-03-10 20:51+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -20,30 +20,30 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Začetna nastavitev"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "_Naprej"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Sprejmi"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "Pre_skoči"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Predhodni"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -237,7 +237,7 @@ msgstr "_Strinjam se s pogoji in določili dovoljenja uporabe."
 msgid "Add Account"
 msgstr "Dodaj račun"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Spletni računi"
 
@@ -260,12 +260,12 @@ msgstr ""
 "Račune je mogoče dodati oziroma odstraniti kadarkoli med nastavitvami "
 "programa."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Predogled"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Več ..."
@@ -273,7 +273,7 @@ msgstr "Več ..."
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Ni najdenih vhodnih naprav"
 
@@ -286,7 +286,7 @@ msgstr "Tipkanje"
 msgid "Select your keyboard layout or an input method."
 msgstr "Izbor razporeditve tipkovnice ali načina vnosa."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Ni najdenih jezikov"
 
@@ -600,28 +600,26 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Poiščite bližnje mesto"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Lastniška programska oprema lahko ponuja dostop do dodatnih programskih "
-"paketov, tudi brskalnikov in iger. Taka programska oprema ima običajno "
-"posebna pravila uporabe in omejitve dostopa do programske kode. Tovrstni "
-"programi niso v sklopu programov %s."
-
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
 msgstr "Viri programske opreme"
 
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Dostop do dodatne programske opreme prek izbranih virov tretjih oseb."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Nekateri izmed programskih virov so lastniški in imajo zato omejitve na "
+"uporabo, izmenjavo in dostop do izvorne kode."
+
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
 msgstr "Dodatni programski viri"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
@@ -629,8 +627,8 @@ msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Več o tem …</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Lastniški programski viri"
+msgid "Third Party Repositories"
+msgstr "Skladišča tretjih virov"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -649,6 +647,19 @@ msgid ""
 msgstr ""
 "Nasprotno pa je prosta programska oprema (free software) brez tovrstnih "
 "omejitev."
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Lastniška programska oprema lahko ponuja dostop do dodatnih programskih "
+#~ "paketov, tudi brskalnikov in iger. Taka programska oprema ima običajno "
+#~ "posebna pravila uporabe in omejitve dostopa do programske kode. Tovrstni "
+#~ "programi niso v sklopu programov %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Lastniški programski viri"
 
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "Uporabnik z uporabniškim imenom »%s« že obstaja."
