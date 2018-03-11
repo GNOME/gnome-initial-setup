@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Gil Forcada <gilforcada@guifi.net>, 2012, 2013, 2014.
 # Josep Sànchez <papapep@gmx.com>, 2013.
-# Jordi Mas <jmas@softcatala.org>, 2015-2016
+# Jordi Mas <jmas@softcatala.org>, 2015-2016, 2018
 # Jordi Serratosa <jordis@softcatala.cat>, 2017.
 #
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-08-23 14:18+0000\n"
-"PO-Revision-Date: 2017-07-11 19:31+0200\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-03-11 18:16+0100\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -20,30 +20,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Configuració inicial"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "_Següent"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Accepta"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "_Omet"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "A_nterior"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -140,8 +140,7 @@ msgstr "Contrasenya de l'administrador"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
-msgstr ""
-"Comproveu el nom i el nom d'usuari. Podeu triar també una fotografia."
+msgstr "Comproveu el nom i el nom d'usuari. Podeu triar també una fotografia."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
@@ -236,7 +235,7 @@ msgstr "He _acceptat les condicions d'ús de la llicència d'usuari."
 msgid "Add Account"
 msgstr "Afegeix un compte"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Comptes en línia"
 
@@ -259,12 +258,12 @@ msgstr ""
 "Es poden afegir o suprimir comptes en qualsevol moment des de les "
 "preferències."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Previsualitza"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:225
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Més…"
@@ -272,7 +271,7 @@ msgstr "Més…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "No s'ha trobat cap font d'entrada"
 
@@ -285,7 +284,7 @@ msgstr "Escriptura"
 msgid "Select your keyboard layout or an input method."
 msgstr "Seleccioneu la disposició de teclat o un mètode d'entrada."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:241
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "No s'ha trobat cap idioma"
 
@@ -604,28 +603,28 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Cerqueu una ciutat propera"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Les fonts de programari de propietat proveïxen accés a programari "
-"addicional, incloent-hi navegadors web i jocs. Aquest programari té "
-"habitualment restriccions en el seu ús i en l'accés al seu codi font, i no "
-"està proveït per %s."
-
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
 msgstr "Fonts de programari"
 
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr ""
+"Accedeix a programari addicional des de fonts de programari de tercers "
+"seleccionades."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Alguns d'aquests programes són propietaris i, per tant, tenen restriccions "
+"en l'ús, compartició, i accés al seu codi font."
+
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
 msgstr "Fonts de programari addicionals"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
@@ -633,8 +632,8 @@ msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Descobriu-ne més...</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Fonts de programari de propietat"
+msgid "Third Party Repositories"
+msgstr "Dipòsits de tercers parts"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -655,62 +654,3 @@ msgstr ""
 "Per contra, el programari lliure pot ser lliurement usat, copiat, "
 "distribuït, estudiat i modificat."
 
-#~ msgid "A user with the username ‘%s’ already exists."
-#~ msgstr "Ja existeix un usuari amb el nom d'usuari «%s»."
-
-#~ msgid "This is a weak password."
-#~ msgstr "Aquesta contrasenya és feble."
-
-#~ msgid "_Verify"
-#~ msgstr "_Verifica"
-
-#~ msgctxt "Password hint"
-#~ msgid ""
-#~ "This is a weak password. Try to add more letters, numbers and symbols."
-#~ msgstr ""
-#~ "Aquesta contrasenya és feble. Afegiu-hi més lletres, nombres i símbols."
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Weak"
-#~ msgstr "Seguretat: dèbil"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Low"
-#~ msgstr "Seguretat: baixa"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Medium"
-#~ msgstr "Seguretat: mitjana"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Good"
-#~ msgstr "Seguretat: bona"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: High"
-#~ msgstr "Seguretat: alta"
-
-#~ msgid "Are these the right details? You can change them if you want."
-#~ msgstr "Són correctes aquestes dades? Podeu canviar-les si voleu."
-
-#~ msgid "You can review your online accounts (and add others) after setup."
-#~ msgstr ""
-#~ "Podeu revisar els comptes en línia (i afegir-ne de nous) després de la "
-#~ "configuració."
-
-#~ msgid ""
-#~ "Thank you for choosing %s.\n"
-#~ "We hope that you love it."
-#~ msgstr ""
-#~ "Gràcies per triar %s.\n"
-#~ "Esperem que us agradi!"
-
-#~ msgid ""
-#~ "We think that your time zone is %s. Press Next to continue or search for "
-#~ "a city to manually set the time zone."
-#~ msgstr ""
-#~ "La vostra zona horària deu ser %s. Premeu «Següent» per continuar o "
-#~ "cerqueu una ciutat per establir manualment la zona horària."
-
-#~ msgid "Cancel"
-#~ msgstr "Cancel·la"
