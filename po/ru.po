@@ -2,16 +2,16 @@
 # Julia Dronova <juliette.tux@gmail.com>, 2013.
 # Valery Kirichenko <valera5505@gmail.com>, 2014.
 # Yuri Myasoedov <ymyasoedov@yandex.ru>, 2012, 2013, 2015.
-# Stas Solovey <whats_up@tut.by>, 2015, 2016.
+# Stas Solovey <whats_up@tut.by>, 2015, 2016, 2017, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-22 17:09+0000\n"
-"PO-Revision-Date: 2017-03-14 21:30+0400\n"
-"Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
+"POT-Creation-Date: 2018-02-20 13:29+0000\n"
+"PO-Revision-Date: 2018-03-13 22:11+0300\n"
+"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -19,39 +19,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "Первоначальная настройка"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "_Далее"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "_Принять"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "_Пропустить"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Назад"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Принудительно использовать режим существующего пользователя"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+msgid "— GNOME initial setup"
 msgstr "— Первоначальная настройка GNOME"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
@@ -82,10 +82,13 @@ msgstr "Корпоративная учётная запись"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Корпоративная учётная запись позволяет использовать на этом устройстве "
-"существующее централизованное средство управления учётными записями."
+"существующее централизованное средство управления учётными записями. Вы "
+"также можете использовать эту учётную запись для доступа к ресурсам компании "
+"в Интернете."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -135,11 +138,11 @@ msgstr "Имя _администратора"
 msgid "Administrator Password"
 msgstr "Пароль администратора"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Проверьте имя и имя пользователя. Также можно выбрать изображение."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Для завершения осталось указать ещё немного информации."
 
@@ -192,28 +195,27 @@ msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Не удалось подключиться к домену %s: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Пользователь с именем «%s» уже существует."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Данное имя пользователя недоступно. Попробуйте ввести другое."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Имя пользователя слишком длинное."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-msgid "The username cannot start with a ‘-’."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
 msgstr "Имя пользователя не может начинаться с символа «-»."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "Имя пользователя может состоять только из букв латинского алфавита в верхнем "
-"и нижнем регистре, цифр и символов «.», «-» и «_»."
+"и нижнем регистре, цифр и следующих символов: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Будет использовано для именования вашей домашней папки; не может быть "
@@ -234,7 +236,7 @@ msgstr "Я _принимаю соглашения и условия этой л�
 msgid "Add Account"
 msgstr "Добавить учётную запись"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Сетевые учётные записи"
 
@@ -257,12 +259,12 @@ msgstr ""
 "Учётные записи можно добавлять и убирать в любое время в приложении "
 "Параметры."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Предпросмотр"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Ещё…"
@@ -270,7 +272,7 @@ msgstr "Ещё…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Источники ввода не найдены"
 
@@ -283,7 +285,7 @@ msgstr "Набор"
 msgid "Select your keyboard layout or an input method."
 msgstr "Выберите раскладку клавиатуры или способ ввода."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Языки не найдены"
 
@@ -299,20 +301,20 @@ msgstr "Добро пожаловать"
 msgid "Welcome!"
 msgstr "Добро пожаловать!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:309
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Другая…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:368
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Беспроводные сетевые соединения отключены"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:375
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Поиск доступных беспроводных сетей"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:641
+#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Сеть"
 
@@ -338,15 +340,11 @@ msgstr "Беспроводные сети не найдены"
 msgid "Turn On"
 msgstr "Включить"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Это слабый пароль."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Пароли не совпадают."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Пароль"
 
@@ -359,8 +357,8 @@ msgid "Be careful not to lose your password."
 msgstr "Будьте внимательны, не потеряйте пароль."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Проверить"
+msgid "_Confirm"
+msgstr "_Подтвердить"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -369,150 +367,107 @@ msgstr "Новый пароль должен отличаться от стар�
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Этот пароль очень похож на предыдущий. Попробуйте изменить некоторые символы "
-"и цифры."
+msgid "Try changing some letters and numbers."
+msgstr "Попробуйте изменить некоторые буквы и цифры."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Этот пароль очень похож на предыдущий. Попробуйте изменить пароль сильнее."
+msgid "Try changing the password a bit more."
+msgstr "Попробуйте изменить пароль немного больше."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Это слабый пароль. Пароль, который не содержит имя пользователя, будет более "
-"стойким."
+msgid "A password without your user name would be stronger."
+msgstr "Пароль не содержащий имя пользователя будет надёжнее."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr ""
-"Это слабый пароль. Избегайте использования имени пользователя в пароле."
+msgid "Try to avoid using your name in the password."
+msgstr "Старайтесь избегать использования вашего имени в пароле."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr "Это слабый пароль. Избегайте включения слов в пароль."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Старайтесь избегать слов из которых состоит пароль."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Это слабый пароль. Избегайте простых слов."
+msgid "Try to avoid common words."
+msgstr "Старайтесь избегать общих слов."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "Это слабый пароль. Избегайте перестановки существующих слов."
+msgid "Try to avoid reordering existing words."
+msgstr "Старайтесь избегать перестановки существующих слов."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Это слабый пароль. Используйте больше цифр."
+msgid "Try to use more numbers."
+msgstr "Попробуйте использовать больше чисел."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Это слабый пароль. Используйте больше символов в верхнем регистре."
+msgid "Try to use more uppercase letters."
+msgstr "Попробуйте использовать больше заглавных букв."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Это слабый пароль. Используйте больше символов в нижнем регистре."
+msgid "Try to use more lowercase letters."
+msgstr "Попробуйте использовать больше строчных букв."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
+msgid "Try to use more special characters, like punctuation."
 msgstr ""
-"Это слабый пароль. Используйте больше специальных символов, например знаков "
-"пунктуации."
+"Попробуйте использовать больше специальных символов, например знаки "
+"препинания."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Это слабый пароль. Попробуйте чередовать буквы, цифры и знаки пунктуации."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Попробуйте использовать вперемешку буквы, цифры и знаки препинания."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Это слабый пароль. Избегайте повторения одних и тех же символов."
+msgid "Try to avoid repeating the same character."
+msgstr "Старайтесь избегать повторения одного и того же символа."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Это слабый пароль. Избегайте повторения символов одного и того же типа: "
-"попробуйте чередовать буквы, цифры и знаки пунктуации."
+"Старайтесь избегать повторения одного и того же символа: используйте "
+"вперемешку буквы, цифры и знаки препинания."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr ""
-"Это слабый пароль. Избегайте простых последовательностей, например «1234» "
-"или «qwerty»."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Старайтесь избегать последовательностей, например 1234 или abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Это слабый пароль. Попробуйте использовать больше букв, цифр и символов."
+"Пароль должен быть длиннее. Попробуйте добавить больше букв, цифр и знаков "
+"препинания."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
-msgstr "Используйте прописные и строчные буквы, а также одну или две цифры."
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr "Смешайте заглавные и строчные буквы несколько раз."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
-"Хороший пароль! Вы можете улучшить стойкость пароля, добавив буквы, цифры и "
-"знаки пунктуации."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Стойкость: очень слабая"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Стойкость: плохая"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Стойкость: средняя"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Стойкость: хорошая"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Стойкость: очень сильная"
+"Добавление большего количества букв, цифр и знаков препинания сделает пароль "
+"надёжнее."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -549,7 +504,7 @@ msgstr "Использует службы определения местопо�
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
 msgid "Privacy"
-msgstr "конфиденциальность"
+msgstr "Конфиденциальность"
 
 #: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
 msgid "Location Services"
@@ -597,14 +552,14 @@ msgstr "_Начать работу с %s"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
-msgstr "Готово к работе."
+msgstr "Готово к работе"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
 msgid "You’re ready to go!"
 msgstr "Теперь всё готово!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -613,28 +568,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Часовой пояс"
@@ -652,28 +607,29 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Найдите ближайший город"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Проприетарные источники программного обеспечения предоставляют доступ к "
-"дополнительным приложениям, включая веб-браузеры и игры. Это программное "
-"обеспечение, как правило, имеет ограничения на использование и доступ к "
-"исходному коду, и не предоставлено %s."
-
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
 msgstr "Источники программного обеспечения"
 
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr ""
+"Доступ к дополнительному программному обеспечению из выбранных сторонних "
+"источников."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Некоторые из этих программ являются проприетарными и поэтому имеют "
+"ограничения на использование, совместное использование и доступ к исходному "
+"коду."
+
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
 msgstr "Дополнительные источники программного обеспечения"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
@@ -681,8 +637,8 @@ msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Узнать больше…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Проприетарные источники программного обеспечения"
+msgid "Third Party Repositories"
+msgstr "Сторонние репозитории"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -702,6 +658,54 @@ msgid ""
 msgstr ""
 "В отличие от этого, свободное программное обеспечение можно свободно "
 "запускать, копировать, распространять, изучать и вносить изменения."
+
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Пользователь с именем «%s» уже существует."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Это слабый пароль."
+
+#~ msgid "_Verify"
+#~ msgstr "_Проверить"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Это слабый пароль. Попробуйте использовать больше букв, цифр и символов."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Стойкость: очень слабая"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Стойкость: плохая"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Стойкость: средняя"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Стойкость: хорошая"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Стойкость: очень сильная"
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Проприетарные источники программного обеспечения предоставляют доступ к "
+#~ "дополнительным приложениям, включая веб-браузеры и игры. Это программное "
+#~ "обеспечение, как правило, имеет ограничения на использование и доступ к "
+#~ "исходному коду, и не предоставлено %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Проприетарные источники программного обеспечения"
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Всё указано верно? Вы можете изменить данные, если хотите."
