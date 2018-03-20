@@ -50,7 +50,7 @@ struct _GisLanguagePageClass
 
 GType gis_language_page_get_type (void);
 
-void gis_prepare_language_page (GisDriver *driver);
+GisPage *gis_prepare_language_page (GisDriver *driver);
 
 G_END_DECLS
 

@@ -25,7 +25,7 @@
 #include "gis-eula-pages.h"
 #include "gis-eula-page.h"
 
-void
+GisPage *
 gis_prepare_eula_page (GisDriver *driver)
 {
   gchar *eulas_dir_path;
@@ -33,6 +33,7 @@ gis_prepare_eula_page (GisDriver *driver)
   GError *error = NULL;
   GFileEnumerator *enumerator = NULL;
   GFileInfo *info;
+  GisPage *page = NULL;
 
   eulas_dir_path = g_build_filename (PKGDATADIR, "eulas", NULL);
   eulas_dir = g_file_new_for_path (eulas_dir_path);
@@ -52,11 +53,12 @@ gis_prepare_eula_page (GisDriver *driver)
 
   while ((info = g_file_enumerator_next_file (enumerator, NULL, &error)) != NULL) {
     GFile *eula = g_file_enumerator_get_child (enumerator, info);
-    gis_driver_add_page (driver,
-                         g_object_new (GIS_TYPE_EULA_PAGE,
-                                       "driver", driver,
-                                       "eula", eula,
-                                       NULL));
+
+    page = g_object_new (GIS_TYPE_EULA_PAGE,
+                         "driver", driver,
+                         "eula", eula,
+                         NULL);
+
     g_object_unref (eula);
   }
 
@@ -71,4 +73,6 @@ gis_prepare_eula_page (GisDriver *driver)
 
   g_object_unref (eulas_dir);
   g_clear_object (&enumerator);
+
+  return page;
 }

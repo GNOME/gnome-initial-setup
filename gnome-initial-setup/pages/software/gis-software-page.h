@@ -50,7 +50,7 @@ struct _GisSoftwarePageClass
 
 GType gis_software_page_get_type (void);
 
-void gis_prepare_software_page (GisDriver *driver);
+GisPage *gis_prepare_software_page (GisDriver *driver);
 
 G_END_DECLS
 

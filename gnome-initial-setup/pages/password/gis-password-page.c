@@ -304,12 +304,11 @@ gis_password_page_init (GisPasswordPage *page)
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 
-void
+GisPage *
 gis_prepare_password_page (GisDriver *driver)
 {
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_PASSWORD_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  return g_object_new (GIS_TYPE_PASSWORD_PAGE,
+                       "driver", driver,
+                       NULL);
 }
 

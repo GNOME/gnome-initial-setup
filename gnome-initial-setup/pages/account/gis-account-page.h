@@ -50,8 +50,6 @@ struct _GisAccountPageClass
 
 GType gis_account_page_get_type (void);
 
-void gis_prepare_account_page (GisDriver *driver);
-
 G_END_DECLS
 
 #endif /* __GIS_ACCOUNT_PAGE_H__ */

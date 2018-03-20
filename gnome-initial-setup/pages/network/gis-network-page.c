@@ -691,11 +691,10 @@ gis_network_page_init (GisNetworkPage *page)
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 
-void
+GisPage *
 gis_prepare_network_page (GisDriver *driver)
 {
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_NETWORK_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  return g_object_new (GIS_TYPE_NETWORK_PAGE,
+                       "driver", driver,
+                       NULL);
 }

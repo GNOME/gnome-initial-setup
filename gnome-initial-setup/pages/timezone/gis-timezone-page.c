@@ -462,11 +462,10 @@ gis_timezone_page_init (GisTimezonePage *page)
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 
-void
+GisPage *
 gis_prepare_timezone_page (GisDriver *driver)
 {
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_TIMEZONE_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  return g_object_new (GIS_TYPE_TIMEZONE_PAGE,
+                       "driver", driver,
+                       NULL);
 }

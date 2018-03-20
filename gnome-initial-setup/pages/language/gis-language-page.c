@@ -341,11 +341,10 @@ gis_language_page_init (GisLanguagePage *page)
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 
-void
+GisPage *
 gis_prepare_language_page (GisDriver *driver)
 {
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_LANGUAGE_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  return g_object_new (GIS_TYPE_LANGUAGE_PAGE,
+                       "driver", driver,
+                       NULL);
 }

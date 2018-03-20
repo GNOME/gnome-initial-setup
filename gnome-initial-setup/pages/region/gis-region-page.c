@@ -276,11 +276,10 @@ gis_region_page_init (GisRegionPage *page)
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 
-void
+GisPage *
 gis_prepare_region_page (GisDriver *driver)
 {
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_REGION_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  return g_object_new (GIS_TYPE_REGION_PAGE,
+                       "driver", driver,
+                       NULL);
 }

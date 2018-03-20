@@ -302,7 +302,8 @@ gis_assistant_add_page (GisAssistant *assistant,
 
   gtk_container_add (GTK_CONTAINER (priv->stack), GTK_WIDGET (page));
 
-  if (priv->current_page->assistant_priv->link == link->prev)
+  if (priv->current_page &&
+      priv->current_page->assistant_priv->link == link->prev)
     update_navigation_buttons (assistant);
 }
 

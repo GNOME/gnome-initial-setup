@@ -54,7 +54,9 @@
 
 static gboolean force_existing_user_mode;
 
-typedef void (*PreparePage) (GisDriver *driver);
+static GPtrArray *skipped_pages;
+
+typedef GisPage *(*PreparePage) (GisDriver *driver);
 
 typedef struct {
   const gchar *page_id;
@@ -159,10 +161,11 @@ static void
 rebuild_pages_cb (GisDriver *driver)
 {
   PageData *page_data;
+  GisPage *page;
   GisAssistant *assistant;
   GisPage *current_page;
   gchar **skip_pages;
-  gboolean is_new_user;
+  gboolean is_new_user, skipped;
 
   assistant = gis_driver_get_assistant (driver);
   current_page = gis_assistant_get_current_page (assistant);
@@ -170,6 +173,9 @@ rebuild_pages_cb (GisDriver *driver)
   skip_pages = pages_to_skip_from_file ();
 
   page_data = page_table;
+
+  g_ptr_array_free (skipped_pages, TRUE);
+  skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
 
   if (current_page != NULL) {
     destroy_pages_after (assistant, current_page);
@@ -183,13 +189,22 @@ rebuild_pages_cb (GisDriver *driver)
 
   is_new_user = (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER);
   for (; page_data->page_id != NULL; ++page_data) {
-    if (page_data->new_user_only && !is_new_user)
+    skipped = FALSE;
+
+    if ((page_data->new_user_only && !is_new_user) ||
+        (should_skip_page (driver, page_data->page_id, skip_pages)))
+      skipped = TRUE;
+
+    page = page_data->prepare_page_func (driver);
+    if (!page)
       continue;
 
-    if (should_skip_page (driver, page_data->page_id, skip_pages))
-      continue;
-
-    page_data->prepare_page_func (driver);
+    if (skipped) {
+      gis_page_skip (page);
+      g_ptr_array_add (skipped_pages, page);
+    } else {
+      gis_driver_add_page (driver, page);
+    }
   }
 
   g_strfreev (skip_pages);
@@ -242,6 +257,7 @@ main (int argc, char *argv[])
   }
 #endif
 
+  skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
   mode = get_mode ();
 
   /* When we are running as the gnome-initial-setup user we
@@ -255,6 +271,8 @@ main (int argc, char *argv[])
   driver = gis_driver_new (mode);
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);
   status = g_application_run (G_APPLICATION (driver), argc, argv);
+
+  g_ptr_array_free (skipped_pages, TRUE);
 
   g_object_unref (driver);
   g_option_context_free (context);

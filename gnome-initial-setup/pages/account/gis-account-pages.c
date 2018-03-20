@@ -23,11 +23,10 @@
 #include "gis-account-pages.h"
 #include "gis-account-page.h"
 
-void
+GisPage *
 gis_prepare_account_page (GisDriver *driver)
 {
-  gis_driver_add_page (driver,
-                       g_object_new (GIS_TYPE_ACCOUNT_PAGE,
-                                     "driver", driver,
-                                     NULL));
+  return g_object_new (GIS_TYPE_ACCOUNT_PAGE,
+                       "driver", driver,
+                       NULL);
 }

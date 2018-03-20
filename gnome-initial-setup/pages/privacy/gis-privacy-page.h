@@ -50,7 +50,7 @@ struct _GisPrivacyPageClass
 
 GType gis_privacy_page_get_type (void);
 
-void gis_prepare_privacy_page (GisDriver *driver);
+GisPage *gis_prepare_privacy_page (GisDriver *driver);
 
 G_END_DECLS
 

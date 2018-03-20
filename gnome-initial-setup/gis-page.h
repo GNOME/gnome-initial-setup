@@ -60,6 +60,7 @@ struct _GisPageClass
                          GCancellable *cancellable);
   void         (*save_data) (GisPage *page);
   void         (*shown) (GisPage *page);
+  gboolean     (*skip) (GisPage *page);
 };
 
 GType gis_page_get_type (void);
@@ -80,6 +81,7 @@ void         gis_page_apply_complete (GisPage *page, gboolean valid);
 gboolean     gis_page_get_applying (GisPage *page);
 void         gis_page_save_data (GisPage *page);
 void         gis_page_shown (GisPage *page);
+gboolean     gis_page_skip (GisPage *page);
 
 G_END_DECLS
 

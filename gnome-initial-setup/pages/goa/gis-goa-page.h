@@ -48,7 +48,7 @@ struct _GisGoaPageClass
 
 GType gis_goa_page_get_type (void);
 
-void gis_prepare_goa_page (GisDriver *driver);
+GisPage *gis_prepare_goa_page (GisDriver *driver);
 
 G_END_DECLS
 

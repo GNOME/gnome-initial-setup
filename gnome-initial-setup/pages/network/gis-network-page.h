@@ -48,7 +48,7 @@ struct _GisNetworkPageClass
 
 GType gis_network_page_get_type (void);
 
-void gis_prepare_network_page (GisDriver *driver);
+GisPage *gis_prepare_network_page (GisDriver *driver);
 
 G_END_DECLS
 

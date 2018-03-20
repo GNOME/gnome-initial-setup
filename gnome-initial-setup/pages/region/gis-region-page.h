@@ -50,7 +50,7 @@ struct _GisRegionPageClass
 
 GType gis_region_page_get_type (void);
 
-void gis_prepare_region_page (GisDriver *driver);
+GisPage *gis_prepare_region_page (GisDriver *driver);
 
 G_END_DECLS
 

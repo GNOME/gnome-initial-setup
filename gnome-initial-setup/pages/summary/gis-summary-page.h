@@ -48,7 +48,7 @@ struct _GisSummaryPageClass
 
 GType gis_summary_page_get_type (void);
 
-void gis_prepare_summary_page (GisDriver *driver);
+GisPage *gis_prepare_summary_page (GisDriver *driver);
 
 G_END_DECLS
 
