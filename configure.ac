@@ -25,7 +25,7 @@ AC_ARG_WITH(vendor-conf-file,
 if ! test -z "$with_vendor_conf_file"; then
    VENDOR_CONF_FILE=$with_vendor_conf_file
 else
-   VENDOR_CONF_FILE=${localstatedir}/lib/gnome-initial-setup/vendor.conf
+   VENDOR_CONF_FILE=${datadir}/gnome-initial-setup/vendor.conf
 fi
 AC_SUBST(VENDOR_CONF_FILE)
 
