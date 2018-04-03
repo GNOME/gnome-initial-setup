@@ -37,6 +37,8 @@
 #include "keyboard-resources.h"
 #include "cc-input-chooser.h"
 
+#include "cc-common-language.h"
+
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
@@ -278,8 +280,7 @@ add_default_input_sources (GisKeyboardPage *self,
 {
 	const gchar *type;
 	const gchar *id;
-	const gchar * const *locales;
-	const gchar *language;
+	gchar *language;
 	GVariantBuilder builder;
 	GSettings *input_settings;
 
@@ -289,12 +290,12 @@ add_default_input_sources (GisKeyboardPage *self,
 	add_default_keyboard_layout (proxy, &builder);
 
 	/* add other input sources */
-	locales = g_get_language_names ();
-	language = locales[0];
+	language = cc_common_language_get_current_language ();
 	if (gnome_get_input_source_from_locale (language, &type, &id)) {
 		if (!g_str_equal (type, "xkb"))
 			g_variant_builder_add (&builder, "(ss)", type, id);
 	}
+	g_free (language);
 
 	g_settings_delay (input_settings);
 	g_settings_set_value (input_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
@@ -346,8 +347,12 @@ gis_keyboard_page_skip (GisPage *page)
 }
 
 static void
-load_localed_input (GisKeyboardPage *self)
+preselect_input_source (GisKeyboardPage *self)
 {
+        const gchar *type;
+        const gchar *id;
+        gchar *language;
+
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GSList *sources = get_localed_input (priv->localed);
 
@@ -356,11 +361,28 @@ load_localed_input (GisKeyboardPage *self)
         g_slist_free_full (priv->system_sources, g_free);
         priv->system_sources = g_slist_reverse (sources);
 
-        /* We only pre-select the first system layout. */
-        if (priv->system_sources)
+        /* For languages that use an input method, we will add both
+         * system keyboard layout and the ibus input method. For
+         * languages that use keyboard layout only, we will add only
+         * system keyboard layout. Because the keyboard layout
+         * information from gnome-desktop is not as accurate as system
+         * keyboard layout, if gnome-desktop returns keyboard layout,
+         * we ignore it and use system keyboard layout instead. If
+         * gnome-desktop instead returns an ibus input method, we will
+         * add both system keyboard layout and the ibus input method. */
+        language = cc_common_language_get_current_language ();
+
+        if (!priv->system_sources ||
+            (gnome_get_input_source_from_locale (language, &type, &id) && g_strcmp0 (type, "xkb") != 0)) {
+                cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
+                                            id, type);
+        } else {
                 cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
                                             (const gchar *) priv->system_sources->data,
                                             "xkb");
+        }
+
+        g_free (language);
 }
 
 static void
@@ -395,7 +417,7 @@ localed_proxy_ready (GObject      *source,
 
 	priv->localed = proxy;
 
-        load_localed_input (self);
+        preselect_input_source (self);
         update_page_complete (self);
 }
 
