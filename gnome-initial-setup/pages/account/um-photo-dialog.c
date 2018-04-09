@@ -170,6 +170,8 @@ menu_item_for_filename (UmPhotoDialog *um,
 static void
 setup_photo_popup (UmPhotoDialog *um)
 {
+        GFileType type;
+        const gchar *target;
         GtkWidget *menu, *menuitem, *image;
         guint x, y;
         const gchar * const * dirs;
@@ -208,6 +210,14 @@ setup_photo_popup (UmPhotoDialog *um)
                         g_autoptr (GFile) face_file = NULL;
 
                         added_faces = TRUE;
+
+                        type = g_file_info_get_file_type (info);
+                        if (type != G_FILE_TYPE_REGULAR && type != G_FILE_TYPE_SYMBOLIC_LINK)
+                                continue;
+
+                        target = g_file_info_get_symlink_target (info);
+                        if (target != NULL && g_str_has_prefix (target , "legacy/"))
+                                continue;
 
                         face_file = g_file_get_child (dir, g_file_info_get_name (info));
                         menuitem = menu_item_for_filename (um, face_file);
