@@ -172,12 +172,13 @@ menu_item_for_filename (UmPhotoDialog *um,
 static void
 setup_photo_popup (UmPhotoDialog *um)
 {
+        GFile *dir;
+        GFileInfo *info;
+        GFileEnumerator *enumerator;
         GtkWidget *menu, *menuitem, *image;
         guint x, y;
         const gchar * const * dirs;
         guint i;
-        GDir *dir;
-        const char *face;
         gboolean none_item_shown;
         gboolean added_faces;
 
@@ -192,22 +193,29 @@ setup_photo_popup (UmPhotoDialog *um)
                 char *path;
 
                 path = g_build_filename (dirs[i], "pixmaps", "faces", NULL);
-                dir = g_dir_open (path, 0, NULL);
-                if (dir == NULL) {
-                        g_free (path);
+                dir = g_file_new_for_path (path);
+                g_free (path);
+
+                enumerator = g_file_enumerate_children (dir,
+                                                        G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                                        G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+                                                        G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK ","
+                                                        G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET,
+                                                        G_FILE_QUERY_INFO_NONE,
+                                                        NULL, NULL);
+                if (enumerator == NULL) {
+                        g_object_unref (dir);
                         continue;
                 }
 
-                while ((face = g_dir_read_name (dir)) != NULL) {
+                while ((info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL) {
                         char *filename;
 
                         added_faces = TRUE;
 
-                        filename = g_build_filename (path, face, NULL);
+                        filename = g_build_filename (path, g_file_info_get_name (info), NULL);
                         menuitem = menu_item_for_filename (um, filename);
                         g_free (filename);
-                        if (menuitem == NULL)
-                                continue;
 
                         gtk_menu_attach (GTK_MENU (menu), GTK_WIDGET (menuitem),
                                          x, x + 1, y, y + 1);
@@ -218,9 +226,14 @@ setup_photo_popup (UmPhotoDialog *um)
                                 y++;
                                 x = 0;
                         }
+
+
+                        g_object_unref (info);
                 }
-                g_dir_close (dir);
-                g_free (path);
+
+                g_file_enumerator_close (enumerator, NULL, NULL);
+                g_object_unref (enumerator);
+                g_object_unref (dir);
 
                 if (added_faces)
                         break;
