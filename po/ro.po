@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-02-20 13:29+0000\n"
-"PO-Revision-Date: 2018-03-24 23:46+0200\n"
-"Last-Translator: Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
+"POT-Creation-Date: 2018-04-12 03:36+0000\n"
+"PO-Revision-Date: 2018-04-15 22:15+0300\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Gnome Romanian Translation Team\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -26,31 +26,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configurare inițială"
 
-#: ../gnome-initial-setup/gis-assistant.c:403
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Next"
 msgstr "_Următorul"
 
-#: ../gnome-initial-setup/gis-assistant.c:404
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Accept"
 msgstr "_Acceptă"
 
-#: ../gnome-initial-setup/gis-assistant.c:405
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Skip"
 msgstr "_Omite"
 
-#: ../gnome-initial-setup/gis-assistant.c:406
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Previous"
 msgstr "_Precedentul"
 
-#: ../gnome-initial-setup/gis-assistant.c:407
+#: ../gnome-initial-setup/gis-assistant.c:408
 msgid "_Cancel"
 msgstr "_Anulează"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:217
+#: ../gnome-initial-setup/gnome-initial-setup.c:262
 msgid "Force existing user mode"
 msgstr "Forțează modul de utilizator existent"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#: ../gnome-initial-setup/gnome-initial-setup.c:268
 msgid "— GNOME initial setup"
 msgstr "— Configurare inițială GNOME"
 
@@ -278,7 +278,7 @@ msgstr "Mai mult…"
 msgid "No inputs found"
 msgstr "Niciun aranjament găsit"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Tastare"
@@ -291,7 +291,7 @@ msgstr "Selectați aranjamentul tastaturii sau o metodă de intrare."
 msgid "No languages found"
 msgstr "Nu s-au găsit limbi"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "Bine ați venit"
 
@@ -342,11 +342,15 @@ msgstr "Nicio rețea fără fir disponibilă"
 msgid "Turn On"
 msgstr "Pornește"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
+msgid "This is a weak password."
+msgstr "Aceasta este o parolă slabă."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "Parolele nu se potrivesc."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "Parolă"
 
@@ -369,93 +373,123 @@ msgstr "Parola nouă trebuie să fie diferită de cea veche."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Încercați să șchimbați unele litere sau numere."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Această parolă este foarte asemănătoare cu ultima folosită. Încercați să "
+"schimbați unele litere sau numere."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Încercați să mai schimbați puțin parola."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr ""
+"Această parolă este foarte asemănătoare cu ultima folosită. Încercați să mai "
+"schimbați puțin parola."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "O parolă ce nu conține numele de utilizator este mai puternică."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Aceasta este o parolă slabă. O parolă ce nu conține numele de utilizator "
+"este mai puternică."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Încercați să evitați utilizarea numelui de utilizator în parolă."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați să evitați utilizarea numelui de "
+"utilizator în parolă."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Încercați să evitați unele cuvinte incluse în parolă."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați să evitați unele cuvinte incluse în "
+"parolă."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Încercați să evitați cuvinte comune."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Aceasta este o parolă slabă. Încercați să evitați cuvintele comune."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Încercați să evitați rearanjarea cuvintelor existente."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați să evitați rearanjarea cuvintelor "
+"existente."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Încercați folosirea mai multor numere."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Aceasta este o parolă slabă. Încercați folosirea mai multor numere."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Încercați folosirea mai multor litere mari."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați folosirea mai multor litere mari."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Încercați folosirea mai multor litere mici."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați folosirea mai multor litere mici."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
 msgstr ""
-"Încercați folosirea mai multor caractere speciale, cum ar fi punctuația."
+"Aceasta este o parolă slabă. Încercați folosirea mai multor caractere "
+"speciale, cum ar fi punctuația."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Încercați folosirea unui mix de litere, numere și semne de punctuație."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați folosirea unui mix de litere, numere "
+"și semne de punctuație."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Încercați să evitați repetarea aceluiaș caracter."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați să evitați repetarea aceluiași "
+"caracter."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Încercați să evitați repetarea aceluiaș tip de caracter: vă trebuie un mix "
-"de litere numere și semne de punctuație."
+"Aceasta este o parolă slabă. Încercați să evitați repetarea aceluiași tip de "
+"caracter: vă trebuie un mix de litere numere și semne de punctuație."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Încercați să evitați secvențe ca 1234 sau abcd."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Aceasta este o parolă slabă. Încercați să evitați secvențe ca 1234 sau abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid ""
-"Password needs to be longer. Try to add more letters, numbers and "
-"punctuation."
+"This is a weak password. Try to add more letters, numbers and punctuation."
 msgstr ""
-"Parola trebuie să fie mai lungă. Adăugați mai multe litere, numere și semne "
-"de punctuație."
+"Aceasta este o parolă slabă. Încercați să adăugați mai multe litere, numere "
+"și semne de punctuație."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -608,7 +642,6 @@ msgid "Please search for a nearby city"
 msgstr "Căutați un oraș apropiat"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:184
-#| msgid "Software Sources"
 msgid "Software Repositories"
 msgstr "Depozite de programe"
 
@@ -627,7 +660,6 @@ msgstr ""
 "la folosirea, partajarea și accesul la codul sursă."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-#| msgid "Additional Software Sources"
 msgid "Additional Software Repositories"
 msgstr "Depozite de programe adiționale"
 
@@ -678,9 +710,6 @@ msgstr ""
 #~ msgid "You can review your online accounts (and add others) after setup."
 #~ msgstr ""
 #~ "Vă puteți inspecta conturile online (și adăuga altele) după configurare."
-
-#~ msgid "This is a weak password."
-#~ msgstr "Aceasta este o parolă slabă."
 
 #~ msgid "_Verify"
 #~ msgstr "_Verifică"
