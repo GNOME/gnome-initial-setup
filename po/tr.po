@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-02-20 13:29+0000\n"
-"PO-Revision-Date: 2018-02-22 22:17+0300\n"
+"POT-Creation-Date: 2018-04-12 03:36+0000\n"
+"PO-Revision-Date: 2018-05-06 16:22+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-POOTLE-MTIME: 1433282659.000000\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
@@ -27,31 +27,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "İlk Kurulum"
 
-#: ../gnome-initial-setup/gis-assistant.c:403
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Next"
 msgstr "_İleri"
 
-#: ../gnome-initial-setup/gis-assistant.c:404
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Accept"
 msgstr "_Kabul et"
 
-#: ../gnome-initial-setup/gis-assistant.c:405
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Skip"
 msgstr "_Geç"
 
-#: ../gnome-initial-setup/gis-assistant.c:406
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Previous"
 msgstr "_Geri"
 
-#: ../gnome-initial-setup/gis-assistant.c:407
+#: ../gnome-initial-setup/gis-assistant.c:408
 msgid "_Cancel"
 msgstr "_Vazgeç"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:217
+#: ../gnome-initial-setup/gnome-initial-setup.c:262
 msgid "Force existing user mode"
 msgstr "Var olan kullanıcı kipine zorla"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#: ../gnome-initial-setup/gnome-initial-setup.c:268
 msgid "— GNOME initial setup"
 msgstr "— GNOME ilk kurulum"
 
@@ -97,7 +97,7 @@ msgstr "_Etki Alanı"
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
 msgid "_Username"
-msgstr "_Kullanıcı adı"
+msgstr "_Kullanıcı Adı"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
@@ -141,7 +141,8 @@ msgstr "Yönetici Parolası"
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
-"Lütfen adı ve kullanıcı adını denetleyin. Ayrıca bir resim de seçebilirsiniz."
+"Lütfen adı ve kullanıcı adını gözden geçirin. Ayrıca bir resim de "
+"seçebilirsiniz."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
@@ -279,7 +280,7 @@ msgstr "Daha…"
 msgid "No inputs found"
 msgstr "Hiçbir girdi bulunamadı"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Yazım"
@@ -292,7 +293,7 @@ msgstr "Klavye düzeninizi ya da bir giriş yöntemi seçin."
 msgid "No languages found"
 msgstr "Hiçbir dil bulunamadı"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "Hoş Geldiniz"
 
@@ -343,11 +344,15 @@ msgstr "Kullanılabilir kablosuz ağ yok"
 msgid "Turn On"
 msgstr "Aç"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:140
+msgid "This is a weak password."
+msgstr "Bu zayıf bir paroladır."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:146
 msgid "The passwords do not match."
 msgstr "Parolalar eşleşmiyor."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:268
 msgid "Password"
 msgstr "Parola"
 
@@ -366,96 +371,114 @@ msgstr "_Onayla"
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
 msgid "The new password needs to be different from the old one."
-msgstr "Yeni parolanın, eskisinden farklı olması gerekir."
+msgstr "Yeni parolanın, eskisinden başka olması gerekir."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Bazı harfleri ve rakamları değiştirmeyi deneyin."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Bu parola, son parolanıza epey benziyor. Bazı harfleri ve rakamları "
+"değiştirmeyi deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Parolanızı biraz daha değiştirmeyi deneyin."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr "Bu zayıf bir paroladır. Parolanızı biraz daha değiştirmeyi deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Kullanıcı adınızı içermeyen bir parola daha güçlü olacaktır."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Bu zayıf bir paroladır. Kullanıcı adınızı içermeyen bir parola daha güçlü "
+"olacaktır."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Parolada adınızı kullanmaktan kaçınmayı deneyin."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "Bu zayıf bir paroladır. Parolada adınızı kullanmaktan kaçının."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Paroladaki bazı sözcüklerden kaçınmayı deneyin."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "Bu zayıf bir paroladır. Paroladaki bazı sözcüklerden kaçının."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Yaygın sözcüklerden kaçınmayı deneyin."
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Bu zayıf bir paroladır. Yaygın sözcükleri kullanmaktan kaçının."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Sözcüklerin yerini değiştirmekten kaçınmayı deneyin."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "Bu zayıf bir paroladır. Sözcüklerin yerini değiştirmekten kaçının."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Daha çok rakam kullanmayı deneyin."
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Bu zayıf bir paroladır. Daha çok sayı kullanmayı deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Daha çok büyük harf kullanmayı deneyin."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Bu zayıf bir paroladır. Daha çok büyük harf kullanmayı deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Daha çok küçük harf kullanmayı deneyin."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Bu zayıf bir paroladır. Daha çok küçük harf kullanmayı deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Noktalama işaretleri gibi daha çok özel karakter kullanmayı deneyin."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr ""
+"Bu zayıf bir paroladır. Noktalama işaretleri gibi daha çok özel karakter "
+"kullanmayı deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Harf, sayı ve noktalama işareti karışımı kullanmayı deneyin."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"Bu zayıf bir paroladır. Harf, sayı ve noktalama işareti karışımı kullanmayı "
+"deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Aynı karakterleri yinelemekten kaçının."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "Bu zayıf bir paroladır. Aynı karakterleri yinelemekten kaçının."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Aynı türdeki karakterleri yinelemekten kaçının: harfleri, sayıları ve "
-"noktalama işaretlerini karıştırmalısınız."
+"Bu zayıf bir paroladır. Aynı türdeki karakterleri yinelemekten kaçının: "
+"harfleri, sayıları ve noktalama işaretlerini karıştırmalısınız."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "1234 veya abcd gibi sıralamalardan kaçınmayı deneyin."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "Bu zayıf bir paroladır. 1234 veya abcd gibi sıralamalardan kaçının."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid ""
-"Password needs to be longer. Try to add more letters, numbers and "
-"punctuation."
+"This is a weak password. Try to add more letters, numbers and punctuation."
 msgstr ""
-"Parola daha uzun olmalıdır. Harf, sayı ve noktalama işareti karışımı "
-"kullanmayı deneyin."
+"Bu zayıf bir paroladır. Daha çok harf, sayı ve noktalama işareti eklemeyi "
+"deneyin."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -601,7 +624,7 @@ msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
 msgstr ""
-"Eğer konumunuz bulunabilirse, saat dilimi kendiliğinden ayarlanacak. Ayrıca "
+"Eğer konumunuz bulunabilirse saat dilimi kendiliğinden ayarlanacak. Ayrıca "
 "kendiniz ayarlamak için bir şehir araması yapabilirsiniz."
 
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
@@ -609,7 +632,6 @@ msgid "Please search for a nearby city"
 msgstr "Lütfen yakındaki bir şehir için arama yapın"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.c:184
-#| msgid "Software Sources"
 msgid "Software Repositories"
 msgstr "Yazılım Depoları"
 
@@ -628,7 +650,6 @@ msgstr ""
 "kaynak koda erişim üzerinde kısıtlamaları vardır."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-#| msgid "Additional Software Sources"
 msgid "Additional Software Repositories"
 msgstr "Ek Yazılım Depoları"
 
@@ -658,6 +679,22 @@ msgstr ""
 "Buna karşın Özgür Yazılımlar; özgürce çalıştırılabilir, kopyalanabilir, "
 "dağıtılabilir, üzerinde çalışma yapılabilir ve değiştirilebilirdir."
 
+#~ msgctxt "Password hint"
+#~ msgid "Try to avoid common words."
+#~ msgstr "Yaygın sözcüklerden kaçınmayı deneyin."
+
+#~ msgctxt "Password hint"
+#~ msgid "Try to use more numbers."
+#~ msgstr "Daha çok rakam kullanmayı deneyin."
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "Password needs to be longer. Try to add more letters, numbers and "
+#~ "punctuation."
+#~ msgstr ""
+#~ "Parola daha uzun olmalıdır. Harf, sayı ve noktalama işareti karışımı "
+#~ "kullanmayı deneyin."
+
 #~ msgid ""
 #~ "Proprietary software sources provide access to additional software, "
 #~ "including web browsers and games. This software typically has "
@@ -674,17 +711,8 @@ msgstr ""
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "‘%s’ adlı bir kullanıcı zaten var"
 
-#~ msgid "This is a weak password."
-#~ msgstr "Bu zayıf bir paroladır."
-
 #~ msgid "_Verify"
 #~ msgstr "_Doğrula"
-
-#~ msgctxt "Password hint"
-#~ msgid ""
-#~ "This is a weak password. Try to add more letters, numbers and symbols."
-#~ msgstr ""
-#~ "Bu zayıf bir paroladır. Daha çok harf, sayı ve simge eklemeyi deneyin."
 
 #~ msgctxt "Password strength"
 #~ msgid "Strength: Weak"
