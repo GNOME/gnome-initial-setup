@@ -82,12 +82,14 @@ gis_password_page_save_data (GisPage *gis_page)
 
   account_mode = gis_driver_get_account_mode (gis_page->driver);
 
+  password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
+
+  gis_update_login_keyring_password (password);
+
   if (account_mode == UM_ENTERPRISE)
     return;
 
   gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
-
-  password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
 
   if (strlen (password) == 0)
     act_user_set_password_mode (act_user, ACT_USER_PASSWORD_MODE_NONE);
@@ -95,8 +97,6 @@ gis_password_page_save_data (GisPage *gis_page)
     act_user_set_password (act_user, password, "");
 
   gis_driver_set_user_permissions (gis_page->driver, act_user, password);
-
-  gis_update_login_keyring_password (password);
 }
 
 static void
