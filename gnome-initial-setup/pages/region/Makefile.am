@@ -28,3 +28,5 @@ libgisregion_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgisregion_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST = region.gresource.xml $(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)

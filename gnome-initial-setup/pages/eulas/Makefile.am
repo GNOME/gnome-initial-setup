@@ -26,3 +26,5 @@ libgiseulas_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgiseulas_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST = eulas.gresource.xml $(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)

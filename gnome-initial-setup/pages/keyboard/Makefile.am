@@ -27,3 +27,5 @@ libgiskeyboard_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgiskeyboard_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST = keyboard.gresource.xml $(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)

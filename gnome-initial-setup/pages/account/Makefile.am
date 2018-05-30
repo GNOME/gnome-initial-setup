@@ -41,3 +41,5 @@ EXTRA_DIST =	\
 	org.freedesktop.realmd.xml	\
 	account.gresource.xml		\
 	$(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)

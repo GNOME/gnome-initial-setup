@@ -24,3 +24,5 @@ libgissummary_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgissummary_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST = summary.gresource.xml $(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)

@@ -28,3 +28,5 @@ EXTRA_DIST =	\
 	$(srcdir)/../account/org.freedesktop.realmd.xml \
 	password.gresource.xml		\
 	$(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)

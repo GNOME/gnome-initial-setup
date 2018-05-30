@@ -23,3 +23,5 @@ libgissoftware_la_LIBADD = $(INITIAL_SETUP_LIBS) $(SOFTWARE_SOURCES_LIBS)
 libgissoftware_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST = software.gresource.xml $(resource_files)
+
+CLEANFILES = $(BUILT_SOURCES)
