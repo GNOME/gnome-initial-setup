@@ -6,48 +6,48 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-02-20 13:29+0000\n"
-"PO-Revision-Date: 2018-02-20 23:36+0800\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
+"issues\n"
+"POT-Creation-Date: 2018-06-04 17:07+0000\n"
+"PO-Revision-Date: 2018-06-13 22:13+0800\n"
+"Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.8\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
 msgid "Initial Setup"
 msgstr "初始設定"
 
-#: ../gnome-initial-setup/gis-assistant.c:403
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Next"
 msgstr "下一步(_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:404
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Accept"
 msgstr "套用(_A)"
 
-#: ../gnome-initial-setup/gis-assistant.c:405
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Skip"
 msgstr "略過(_S)"
 
-#: ../gnome-initial-setup/gis-assistant.c:406
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Previous"
 msgstr "上一個(_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:407
+#: ../gnome-initial-setup/gis-assistant.c:408
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:217
+#: ../gnome-initial-setup/gnome-initial-setup.c:262
 msgid "Force existing user mode"
 msgstr "強制既有使用者模式"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#: ../gnome-initial-setup/gnome-initial-setup.c:268
 msgid "— GNOME initial setup"
 msgstr "— GNOME 初始設定"
 
@@ -264,7 +264,7 @@ msgstr "更多…"
 msgid "No inputs found"
 msgstr "找不到輸入來源"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "輸入"
@@ -277,7 +277,7 @@ msgstr "選擇您的鍵盤配置或是輸入法。"
 msgid "No languages found"
 msgstr "找不到語言"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "歡迎使用"
 
@@ -327,11 +327,15 @@ msgstr "有線網路無法使用"
 msgid "Turn On"
 msgstr "開啟"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:143
+msgid "This is a weak password."
+msgstr "這個密碼強度不足。"
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:149
 msgid "The passwords do not match."
 msgstr "密碼不相符合。"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:271
 msgid "Password"
 msgstr "密碼"
 
@@ -354,89 +358,100 @@ msgstr "新密碼必須和舊密碼不同。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "試著改動一些英文字母與數字。"
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr "這個密碼與你上一個密碼太過相似。試著改動一些英文字母與數字。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "試著更大幅改動密碼。"
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr "這個密碼與你上一個密碼太過相似。試著更大幅改動密碼。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "若密碼不含使用者名稱的相關資訊會更強。"
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr "這個密碼與你上一個密碼太過相似。若密碼不含使用者名稱的相關資訊會更強。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "試著避免在密碼中使用您的姓名。"
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "這個密碼與你上一個密碼太過相似。試著避免在密碼中使用您的姓名。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "試著避免在密碼中包含一些單字。"
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr "這個密碼與你上一個密碼太過相似。試著避免在密碼中包含一些單字。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "試著避免常見單字。"
+msgid "This is a weak password. Try to avoid common words."
+msgstr "這個密碼強度不足。試著避免常用單字。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "試著避免重新排序已有的單字。"
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "這個密碼強度不足。試著避免重新排序已有的單字。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "試著使用更多數字。"
+msgid "This is a weak password. Try to use more numbers."
+msgstr "這個密碼強度不足。試著使用更多數字。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "試著使用更多大寫英文字母。"
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "這個密碼強度不足。試著使用更多大寫英文字母。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "試著使用更多小寫英文字母。"
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "這個密碼強度不足。試著使用更多小寫英文字母。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "試著使用更多特殊字元，例如半形標點符號。"
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr "這個密碼強度不足。試著使用更多特殊字元，例如半形標點符號。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "試著混合使用英文字母、數字、半形標點符號等。"
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr "這個密碼強度不足。試著混合使用英文字母、數字、半形標點符號等。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "試著避免重複使用相同字元。"
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "這個密碼強度不足。試著避免重複使用相同字元。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"試著避免重複使用相同類型的字元：您需要混用英文字母、數字與半形標點符號。"
+"這個密碼強度不足。試著避免重複使用相同類型的字元：您需要混用英文字母、數字與"
+"半形標點符號。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "試著避免連續字，例如 1234 或 abcd。"
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "這個密碼強度不足。試著避免連續字，例如 1234 或 abcd。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid ""
-"Password needs to be longer. Try to add more letters, numbers and "
-"punctuation."
-msgstr "這個密碼強度不足。試著加入更多英文字母、數字、半形標點符號等。"
+"This is a weak password. Try to add more letters, numbers and punctuation."
+msgstr "這個密碼強度不足。試著加入更多英文字母、數字，以及半形標點符號。"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -622,6 +637,20 @@ msgid ""
 "and modified."
 msgstr "相反的，自由軟體則可以自由使用、複製、散布、研究、和修改。"
 
+#~ msgctxt "Password hint"
+#~ msgid "Try to avoid common words."
+#~ msgstr "試著避免常見單字。"
+
+#~ msgctxt "Password hint"
+#~ msgid "Try to use more numbers."
+#~ msgstr "試著使用更多數字。"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "Password needs to be longer. Try to add more letters, numbers and "
+#~ "punctuation."
+#~ msgstr "這個密碼強度不足。試著加入更多英文字母、數字、半形標點符號等。"
+
 #~ msgid ""
 #~ "Proprietary software sources provide access to additional software, "
 #~ "including web browsers and games. This software typically has "
@@ -636,16 +665,8 @@ msgstr "相反的，自由軟體則可以自由使用、複製、散布、研究
 #~ msgid "A user with the username ‘%s’ already exists."
 #~ msgstr "以「%s」為名的使用者已經存在。"
 
-#~ msgid "This is a weak password."
-#~ msgstr "這個密碼強度不足。"
-
 #~ msgid "_Verify"
 #~ msgstr "驗證(_V)"
-
-#~ msgctxt "Password hint"
-#~ msgid ""
-#~ "This is a weak password. Try to add more letters, numbers and symbols."
-#~ msgstr "這個密碼強度不足。試著加入更多英文字母、數字，以及標點符號。"
 
 #~ msgctxt "Password strength"
 #~ msgid "Strength: Weak"
