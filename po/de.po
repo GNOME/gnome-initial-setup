@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Tobias Endrigkeit <tobiasendrigkeit@googlemail.com>, 2012.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2012, 2016-2017.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2012, 2016-2018.
 # Christian Kirbach <christian.kirbach@gmail.com>, 2013.
 # Benjamin Steinwender <b@stbe.at>, 2013.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2014-2016, 2018.
@@ -10,18 +10,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-02-20 13:29+0000\n"
-"PO-Revision-Date: 2018-02-22 15:20+0100\n"
-"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
+"issues\n"
+"POT-Creation-Date: 2018-06-04 17:07+0000\n"
+"PO-Revision-Date: 2018-06-17 13:37+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.7\n"
 
 #: ../data/gnome-initial-setup.desktop.in.in.h:1
 #: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
@@ -29,32 +29,32 @@ msgid "Initial Setup"
 msgstr "Ersteinrichtung"
 
 # Das ist bei assistentbasierten Dialogen besser als irgendeine Form von »nächstes«
-#: ../gnome-initial-setup/gis-assistant.c:403
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Next"
 msgstr "_Weiter"
 
-#: ../gnome-initial-setup/gis-assistant.c:404
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Accept"
 msgstr "_Akzeptieren"
 
-#: ../gnome-initial-setup/gis-assistant.c:405
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Skip"
 msgstr "_Überspringen"
 
 # Im Assistenten
-#: ../gnome-initial-setup/gis-assistant.c:406
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Previous"
 msgstr "_Zurück"
 
-#: ../gnome-initial-setup/gis-assistant.c:407
+#: ../gnome-initial-setup/gis-assistant.c:408
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:217
+#: ../gnome-initial-setup/gnome-initial-setup.c:262
 msgid "Force existing user mode"
 msgstr "Existierenden Benutzermodus erzwingen"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#: ../gnome-initial-setup/gnome-initial-setup.c:268
 msgid "— GNOME initial setup"
 msgstr "– GNOME-Ersteinrichtung"
 
@@ -291,7 +291,7 @@ msgstr "Weitere …"
 msgid "No inputs found"
 msgstr "Es wurden keine Eingabemethoden gefunden"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
+#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
 #: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
 msgid "Typing"
 msgstr "Texteingabe"
@@ -304,7 +304,7 @@ msgstr "Wählen Sie Ihre Tastaturbelegung oder eine Eingabemethode."
 msgid "No languages found"
 msgstr "Keine Sprachen gefunden"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "Willkommen"
 
@@ -357,11 +357,15 @@ msgstr "Kein Funknetzwerk verfügbar"
 msgid "Turn On"
 msgstr "Einschalten"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:143
+msgid "This is a weak password."
+msgstr "Dies ist ein schwaches Passwort."
+
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:149
 msgid "The passwords do not match."
 msgstr "Passwörter stimmen nicht überein."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:271
 msgid "Password"
 msgstr "Passwort"
 
@@ -384,93 +388,129 @@ msgstr "Das neue Passwort muss sich vom alten Passwort unterscheiden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Ändern Sie einige Buchstaben und Zahlen."
+msgid ""
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
+msgstr ""
+"Dieses Passwort ist Ihrem bisherigen sehr ähnlich. Ändern Sie einige "
+"Buchstaben und Zahlen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Versuchen Sie, das Kennwort ein bisschen mehr zu ändern."
+msgid ""
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
+msgstr ""
+"Dieses Passwort ist Ihrem bisherigen sehr ähnlich. Versuchen Sie, das "
+"Passwort ein bisschen mehr zu ändern."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Ein Passwort ohne Ihren Benutzernamen wäre sicherer."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Dies ist ein schwaches Passwort. Ein Passwort ohne Ihren Benutzernamen wäre "
+"sicherer."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Versuchen Sie Ihren Namen im Passwort zu vermeiden."
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, Ihren Namen im Passwort zu "
+"vermeiden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
 msgstr ""
-"Versuchen Sie einige der Wörter zu vermeiden, die im Passwort vorkommen."
+"Dies ist ein schwaches Passwort. Versuchen Sie einige der Wörter zu "
+"vermeiden, die im Passwort vorkommen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Versuchen Sie geläufige Wörter zu vermeiden."
+msgid "This is a weak password. Try to avoid common words."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, geläufige Wörter zu "
+"vermeiden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Versuchen Sie das Neuanordnen bestehender Wörter zu vermeiden."
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, das Neuanordnen bestehender "
+"Wörter zu vermeiden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Versuchen Sie mehr Ziffern zu verwenden."
+msgid "This is a weak password. Try to use more numbers."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, mehr Ziffern zu verwenden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Versuchen Sie mehr Großbuchstaben zu verwenden."
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, mehr Großbuchstaben zu "
+"verwenden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Versuchen Sie mehr Kleinbuchstaben zu verwenden."
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, mehr Kleinbuchstaben zu "
+"verwenden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Versuchen Sie, andere Zeichen wie Satzzeichen zu verwenden."
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, andere Zeichen zu verwenden, "
+"zum Beispiel Satzzeichen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Versuchen Sie Buchstaben, Ziffern und Satzzeichen zu mischen."
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie Buchstaben, Ziffern und "
+"Satzzeichen zu mischen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Versuchen Sie, Wiederholungen eines Zeichens zu vermeiden."
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, Wiederholungen eines "
+"Zeichens zu vermeiden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Versuchen Sie, Wiederholungen eines Zeichens zu vermeiden: Mischen Sie "
-"Buchstaben, Ziffern und Satzzeichen."
+"Dies ist ein schwaches Passwort. Versuchen Sie, Wiederholungen eines "
+"Zeichens zu vermeiden: Mischen Sie Buchstaben, Ziffern und Satzzeichen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Versuchen Sie, Zeichenfolgen wie »1234« oder »abcd« zu vermeiden."
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Dies ist ein schwaches Passwort. Versuchen Sie, Zeichenfolgen wie »1234« "
+"oder »abcd« zu vermeiden."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid ""
-"Password needs to be longer. Try to add more letters, numbers and "
-"punctuation."
+"This is a weak password. Try to add more letters, numbers and punctuation."
 msgstr ""
-"Das Passwort muss länger sein. Versuchen Sie Buchstaben, Ziffern und "
-"Satzzeichen zu mischen."
+"Dies ist ein schwaches Passwort. Das Passwort muss länger sein. Versuchen "
+"Sie Buchstaben, Ziffern und Satzzeichen zu mischen."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -674,16 +714,3 @@ msgid ""
 msgstr ""
 "Im Gegensatz dazu kann freie Software frei ausgeführt, kopiert, verteilt, "
 "studiert und verändert werden."
-
-#~ msgid ""
-#~ "Proprietary software sources provide access to additional software, "
-#~ "including web browsers and games. This software typically has "
-#~ "restrictions on use and access to source code, and is not provided by %s."
-#~ msgstr ""
-#~ "Proprietäre Software ermöglicht den Zugriff auf zusätzliche Software wie "
-#~ "Internet-Browser oder Spiele. Diese Software unterliegt üblicherweise "
-#~ "Einschränkungen bezüglich Verwendung und Zugriff auf den Quellcode und "
-#~ "wird von %s nicht zur Verfügung gestellt."
-
-#~ msgid "Proprietary Software Sources"
-#~ msgstr "Proprietäre Softwarequellen"
