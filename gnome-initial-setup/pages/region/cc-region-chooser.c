@@ -151,7 +151,7 @@ region_widget_new (const char *locale_id,
         gtk_widget_set_margin_end (widget->box, 10);
         gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
 	label = gtk_label_new (locale_name);
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_label_set_xalign (GTK_LABEL (label), 0);
 	gtk_label_set_width_chars (GTK_LABEL (label), 40);
         gtk_box_pack_start (GTK_BOX (widget->box), label, FALSE, FALSE, 0);
         widget->locale_id = g_strdup (locale_id);
@@ -213,7 +213,6 @@ more_widget_new (void)
         gtk_style_context_add_class (gtk_widget_get_style_context (arrow), "dim-label");
         gtk_widget_set_margin_top (widget, 10);
         gtk_widget_set_margin_bottom (widget, 10);
-        gtk_misc_set_alignment (GTK_MISC (arrow), 0.5, 0.5);
         gtk_box_pack_start (GTK_BOX (widget), arrow, TRUE, TRUE, 0);
         gtk_widget_show_all (widget);
 
