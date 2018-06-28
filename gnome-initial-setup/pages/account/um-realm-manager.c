@@ -256,7 +256,7 @@ um_realm_manager_new_finish (GAsyncResult *result,
 }
 
 typedef struct {
-        GDBusObjectManager *manager;
+        UmRealmManager *manager;
         GCancellable *cancellable;
         GList *realms;
 } DiscoverClosure;
@@ -289,7 +289,7 @@ on_provider_discover (GObject *source,
                                                 &realms, result, &error);
         if (error == NULL) {
                 for (i = 0; realms[i]; i++) {
-                        object = g_dbus_object_manager_get_object (discover->manager, realms[i]);
+                        object = g_dbus_object_manager_get_object (G_DBUS_OBJECT_MANAGER (discover->manager), realms[i]);
                         if (object == NULL) {
                                 g_warning ("Realm is not in object manager: %s", realms[i]);
                         } else {
