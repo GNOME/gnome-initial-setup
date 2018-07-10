@@ -257,10 +257,25 @@ gis_driver_is_small_screen (GisDriver *driver)
 static gboolean
 screen_is_small (GdkScreen *screen)
 {
+  GdkRectangle geometry;
+  GdkDisplay *display;
+  GdkMonitor *monitor;
+
   if (g_getenv ("GIS_SMALL_SCREEN"))
     return TRUE;
 
-  return gdk_screen_get_height (screen) < 800;
+  display = gdk_screen_get_display (screen);
+
+  /* try to get the size of the primary monitor, falling back to the
+   * first monitor in the list otherwise if no primary monitor is being used. */
+  monitor = gdk_display_get_primary_monitor (display);
+
+  if (monitor == NULL)
+    monitor = gdk_display_get_monitor (display, 0);
+
+  gdk_monitor_get_geometry (monitor, &geometry);
+
+  return geometry.height < 600 || geometry.width < 800;
 }
 
 static void
