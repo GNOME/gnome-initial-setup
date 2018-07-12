@@ -87,6 +87,8 @@ struct _GisDriverPrivate {
   gboolean small_screen;
 
   locale_t locale;
+
+  GKeyFile *vendor_conf_file;
 };
 typedef struct _GisDriverPrivate GisDriverPrivate;
 
@@ -116,6 +118,7 @@ gis_driver_finalize (GObject *object)
   g_free (priv->user_password);
 
   g_clear_object (&priv->user_account);
+  g_clear_pointer (&priv->vendor_conf_file, g_key_file_free);
 
   if (priv->locale != (locale_t) 0)
     {
@@ -303,6 +306,97 @@ gis_driver_hide_window (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   gtk_widget_hide (GTK_WIDGET (priv->main_window));
+}
+
+static void
+load_vendor_conf_file (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_autoptr(GError) error = NULL;
+  g_autoptr(GKeyFile) vendor_conf_file = g_key_file_new ();
+
+  if(!g_key_file_load_from_file (vendor_conf_file, VENDOR_CONF_FILE,
+                                 G_KEY_FILE_NONE, &error))
+    {
+      if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+        g_warning ("Could not read file %s: %s", VENDOR_CONF_FILE, error->message);
+      return;
+    }
+
+  priv->vendor_conf_file = g_steal_pointer (&vendor_conf_file);
+}
+
+static void
+report_conf_error_if_needed (const gchar *group,
+                             const gchar *key,
+                             const GError *error)
+{
+  if (!g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND) &&
+      !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_GROUP_NOT_FOUND))
+    g_warning ("Error getting the value for key '%s' of group [%s] in "
+               "%s: %s", group, key, VENDOR_CONF_FILE, error->message);
+}
+
+gboolean
+gis_driver_conf_get_boolean (GisDriver *driver,
+                             const gchar *group,
+                             const gchar *key,
+                             gboolean default_value)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (priv->vendor_conf_file) {
+    g_autoptr(GError) error = NULL;
+    gboolean new_value = g_key_file_get_boolean (priv->vendor_conf_file, group,
+                                                 key, &error);
+    if (error == NULL)
+      return new_value;
+
+    report_conf_error_if_needed (group, key, error);
+  }
+
+  return default_value;
+}
+
+GStrv
+gis_driver_conf_get_string_list (GisDriver *driver,
+                                 const gchar *group,
+                                 const gchar *key,
+                                 gsize *out_length)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (priv->vendor_conf_file) {
+    g_autoptr(GError) error = NULL;
+    GStrv new_value = g_key_file_get_string_list (priv->vendor_conf_file, group,
+                                                  key, out_length, &error);
+    if (error == NULL)
+      return new_value;
+
+    report_conf_error_if_needed (group, key, error);
+  }
+
+  return NULL;
+}
+
+gchar *
+gis_driver_conf_get_string (GisDriver *driver,
+                            const gchar *group,
+                            const gchar *key)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (priv->vendor_conf_file) {
+    g_autoptr(GError) error = NULL;
+    gchar *new_value = g_key_file_get_string (priv->vendor_conf_file, group,
+                                              key, &error);
+    if (error == NULL)
+      return new_value;
+
+    report_conf_error_if_needed (group, key, error);
+  }
+
+  return NULL;
 }
 
 GisDriverMode
@@ -580,6 +674,8 @@ gis_driver_init (GisDriver *driver)
   screen = gdk_screen_get_default ();
 
   set_small_screen_based_on_primary_monitor (driver);
+
+  load_vendor_conf_file (driver);
 
   g_signal_connect (screen, "size-changed",
                     G_CALLBACK (screen_size_changed), driver);
