@@ -95,23 +95,31 @@ switch_to (GisAssistant          *assistant,
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
+  g_return_if_fail (page != NULL);
+
   gtk_stack_set_visible_child (GTK_STACK (priv->stack), GTK_WIDGET (page));
 }
 
 static inline gboolean
-should_show_page (GList *l)
+should_show_page (GisPage *page)
 {
-  return l != NULL && gtk_widget_get_visible (GTK_WIDGET (l->data));
+  return gtk_widget_get_visible (GTK_WIDGET (page));
 }
 
 static GisPage *
 find_next_page (GisPage *page)
 {
   GList *l = page->assistant_priv->link->next;
-  while (!should_show_page (l)) {
-    l = l->next;
-  }
-  return GIS_PAGE (l->data);
+
+  for (; l != NULL; l = l->next)
+    {
+      GisPage *page = GIS_PAGE (l->data);
+
+      if (should_show_page (page))
+        return page;
+    }
+
+  return NULL;
 }
 
 static void
@@ -146,10 +154,16 @@ static GisPage *
 find_prev_page (GisPage *page)
 {
   GList *l = page->assistant_priv->link->prev;
-  while (!should_show_page (l)) {
-    l = l->prev;
-  }
-  return GIS_PAGE (l->data);
+
+  for (; l != NULL; l = l->prev)
+    {
+      GisPage *page = GIS_PAGE (l->data);
+
+      if (should_show_page (page))
+        return page;
+    }
+
+  return NULL;
 }
 
 void
@@ -236,11 +250,16 @@ static void
 update_applying_state (GisAssistant *assistant)
 {
   gboolean applying = FALSE;
+  gboolean is_first_page = FALSE;
+
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   if (priv->current_page)
-    applying = gis_page_get_applying (priv->current_page);
+    {
+      applying = gis_page_get_applying (priv->current_page);
+      is_first_page = priv->current_page->assistant_priv->link->prev == NULL;
+    }
   gtk_widget_set_sensitive (priv->forward, !applying);
-  gtk_widget_set_visible (priv->back, !applying);
+  gtk_widget_set_visible (priv->back, !applying && !is_first_page);
   gtk_widget_set_visible (priv->cancel, applying);
   gtk_widget_set_visible (priv->spinner, applying);
 
