@@ -19,6 +19,13 @@ timezone_resources = gnome.compile_resources(
 )
 sources += timezone_resources
 
+cc_datetime_resources = gnome.compile_resources(
+    'cc-datetime-resources',
+    files('datetime.gresource.xml'),
+    c_name: 'cc_datetime'
+)
+sources += cc_datetime_resources
+
 timezone_sources = [
     'cc-timezone-map.c',
     'cc-timezone-map.h',
