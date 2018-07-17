@@ -23,7 +23,6 @@ sources += [
 ]
 
 dependencies = [
-    config_h,
     dependency ('libnm', version: '>= 1.2'),
     dependency ('libnma', version: '>= 1.0'),
     dependency ('polkit-gobject-1', version: '>= 0.103'),
