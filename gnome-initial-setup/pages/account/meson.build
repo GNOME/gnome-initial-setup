@@ -8,14 +8,13 @@ sources += gnome.gdbus_codegen(
   annotations: ['org.freedesktop.realmd.Realm', 'org.gtk.GDBus.C.Name', 'Common']
 )
 
-account_resources = gnome.compile_resources(
+sources += gnome.compile_resources(
    'account-resources',
    files('account.gresource.xml'),
    c_name: 'account'
 )
-sources += account_resources
 
-account_sources = [
+sources += files(
     'gis-account-page.c',
     'gis-account-page.h',
     'gis-account-pages.c',
@@ -29,10 +28,6 @@ account_sources = [
     'um-utils.c',
     'um-photo-dialog.c',
     'um-photo-dialog.h'
-]
+)
 
-account_sources_dir = join_paths(source_root, 'pages', 'account')
-foreach source_file: account_sources
-    sources += join_paths(account_sources_dir, source_file)
-endforeach
-
+account_sources_dir = meson.current_source_dir()
