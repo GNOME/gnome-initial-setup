@@ -14,7 +14,6 @@ po_dir = join_paths(meson.source_root(), 'po')
 data_dir = join_paths(prefix, get_option('datadir'))
 locale_dir = join_paths(prefix, get_option('localedir'))
 libexec_dir = join_paths(prefix, get_option('libexecdir'))
-config_h_dir = include_directories('.')
 source_root = join_paths(meson.source_root(), 'gnome-initial-setup')
 pkgdata_dir = join_paths(prefix, meson.project_name())
 
@@ -30,14 +29,9 @@ conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 
-config_h = declare_dependency(
-    input: configure_file(
-        output: 'config.h.in',
-        configuration: conf
-    ),
-    output: 'config.h'
-)
-configure_file(output: 'config.h', configuration: conf)
+configure_file(output: 'config.h',
+               configuration: conf)
+config_h_dir = include_directories('.')
 
 subdir('data')
 subdir('gnome-initial-setup')
