@@ -55,3 +55,5 @@ install_data('gnome-initial-setup.session', install_dir: session_dir)
 
 mode_dir = join_paths(data_dir, 'gnome-shell', 'modes')
 install_data('initial-setup.json', install_dir: mode_dir)
+
+install_data('gnome-welcome-tour', install_dir: get_option('libexecdir'))
