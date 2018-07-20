@@ -5,7 +5,7 @@ sources += gnome.gdbus_codegen(
 )
 
 sources += gnome.compile_resources(
-    'datetime-resources',
+    'cc-datetime-resources',
     files('datetime.gresource.xml'),
     c_name: 'datetime'
 )
