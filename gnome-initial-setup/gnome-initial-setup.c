@@ -70,7 +70,9 @@ typedef struct {
 
 static PageData page_table[] = {
   PAGE (language, FALSE),
-  /* PAGE (region,   FALSE), */
+#ifdef ENABLE_REGION_PAGE
+  PAGE (region,   FALSE),
+#endif /* ENABLE_REGION_PAGE */
   PAGE (keyboard, FALSE),
   PAGE (eula,     FALSE),
   PAGE (network,  FALSE),

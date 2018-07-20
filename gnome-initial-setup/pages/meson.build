@@ -1,7 +1,6 @@
 pages = [
    'account',
    'language',
-   'region',
    'keyboard',
    'eulas',
    'network',
@@ -12,6 +11,10 @@ pages = [
    'summary',
    'software'
 ]
+
+if get_option('enable-region-page')
+   pages += ['region']
+endif
 
 foreach page: pages
     subdir (page)
