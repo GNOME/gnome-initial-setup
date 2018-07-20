@@ -30,6 +30,24 @@ conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('ENABLE_REGION_PAGE', get_option('enable-region-page'))
 
+# Needed for the 'account' page
+cheese_dep = dependency ('cheese-gtk',
+                         version: '>= 3.3.5',
+                         required: get_option('enable-cheese'))
+conf.set('HAVE_CHEESE', cheese_dep.found())
+
+# Needed for the 'software' page
+pkgkit_dep = dependency ('packagekit-glib2',
+                         version: '>= 1.1.4',
+                         required: get_option('enable-software-sources'))
+conf.set('ENABLE_SOFTWARE_SOURCES', pkgkit_dep.found())
+
+# Needed for the 'keyboard' page
+ibus_dep = dependency ('ibus-1.0',
+                       version: '>= 1.4.99',
+                       required: get_option('enable-ibus'))
+conf.set('HAVE_IBUS', ibus_dep.found())
+
 configure_file(output: 'config.h',
                configuration: conf)
 config_h_dir = include_directories('.')
