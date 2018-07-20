@@ -52,7 +52,8 @@ executable(
     sources,
     include_directories: config_h_dir,
     dependencies: dependencies,
-    install: true
+    install: true,
+    install_dir: get_option('libexecdir')
 )
 
 executable(
@@ -60,5 +61,6 @@ executable(
     ['gnome-initial-setup-copy-worker.c'],
     include_directories: config_h_dir,
     dependencies: dependencies,
-    install: true
+    install: true,
+    install_dir: get_option('libexecdir')
 )
