@@ -5,7 +5,7 @@ subdir('pages')
 resources = gnome.compile_resources(
     'gis-assistant-resources',
     files('gis-assistant.gresource.xml'),
-    c_name: 'gis_assistant_resources'
+    c_name: 'gis_assistant'
 )
 
 sources += [
