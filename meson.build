@@ -28,6 +28,7 @@ conf.set_quoted('VENDOR_CONF_FILE', vendor_conf_file)
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
+conf.set('ENABLE_REGION_PAGE', get_option('enable-region-page'))
 
 configure_file(output: 'config.h',
                configuration: conf)
