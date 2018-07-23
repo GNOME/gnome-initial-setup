@@ -443,7 +443,6 @@ gis_account_page_local_dispose (GObject *object)
   g_clear_object (&priv->goa_client);
   g_clear_object (&priv->avatar_pixbuf);
   g_clear_pointer (&priv->avatar_filename, g_free);
-  g_clear_pointer (&priv->photo_dialog, um_photo_dialog_free);
 
   if (priv->timeout_id != 0) {
     g_source_remove (priv->timeout_id);
