@@ -31,10 +31,13 @@ conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('ENABLE_REGION_PAGE', get_option('enable-region-page'))
 
 # Needed for the 'account' page
-cheese_dep = dependency ('cheese-gtk',
+cheese_dep = dependency ('cheese',
                          version: '>= 3.3.5',
                          required: get_option('enable-cheese'))
-conf.set('HAVE_CHEESE', cheese_dep.found())
+cheese_gtk_dep = dependency ('cheese-gtk',
+                         version: '>= 3.3.5',
+                         required: get_option('enable-cheese'))
+conf.set('HAVE_CHEESE', cheese_dep.found() and cheese_gtk_dep.found())
 
 # Needed for the 'software' page
 pkgkit_dep = dependency ('packagekit-glib2',
