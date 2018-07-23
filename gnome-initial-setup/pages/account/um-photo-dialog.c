@@ -409,12 +409,16 @@ um_photo_dialog_dispose (GObject *object)
 static void
 um_photo_dialog_init (UmPhotoDialog *um)
 {
+        gtk_widget_init_template (GTK_WIDGET (um));
 }
 
 static void
 um_photo_dialog_class_init (UmPhotoDialogClass *klass)
 {
+        GtkWidgetClass *wclass = GTK_WIDGET_CLASS (klass);
         GObjectClass *oclass = G_OBJECT_CLASS (klass);
+
+        gtk_widget_class_set_template_from_resource (wclass, "/org/gnome/initial-setup/gis-account-avatar-chooser.ui");
 
         oclass->dispose = um_photo_dialog_dispose;
 }
