@@ -28,10 +28,6 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
-#ifdef HAVE_CLUTTER
-#include <clutter-gtk/clutter-gtk.h>
-#endif
-
 #ifdef HAVE_CHEESE
 #include <cheese-gtk.h>
 #endif
@@ -281,13 +277,6 @@ main (int argc, char *argv[])
 #endif
 
   gtk_init (&argc, &argv);
-
-#if HAVE_CLUTTER
-  if (gtk_clutter_init (NULL, NULL) != CLUTTER_INIT_SUCCESS) {
-    g_critical ("Clutter-GTK init failed");
-    exit (1);
-  }
-#endif
 
   skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
   mode = get_mode ();
