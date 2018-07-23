@@ -41,6 +41,8 @@
 #define AVATAR_PIXEL_SIZE 72
 
 struct _UmPhotoDialog {
+        GtkPopover parent;
+
         GtkWidget *photo_popup;
         GtkWidget *popup_button;
 
@@ -53,6 +55,8 @@ struct _UmPhotoDialog {
         SelectAvatarCallback *callback;
         gpointer              data;
 };
+
+G_DEFINE_TYPE (UmPhotoDialog, um_photo_dialog, GTK_TYPE_POPOVER)
 
 static void
 none_icon_selected (GtkMenuItem   *menuitem,
@@ -384,7 +388,9 @@ um_photo_dialog_new (GtkWidget            *button,
 {
         UmPhotoDialog *um;
 
-        um = g_new0 (UmPhotoDialog, 1);
+        um = g_object_new (UM_TYPE_PHOTO_DIALOG,
+                           "relative-to", button,
+                           NULL);
 
         /* Set up the popup */
         um->popup_button = button;
@@ -408,14 +414,26 @@ um_photo_dialog_new (GtkWidget            *button,
 }
 
 void
-um_photo_dialog_free (UmPhotoDialog *um)
+um_photo_dialog_dispose (GObject *object)
 {
-        gtk_widget_destroy (um->photo_popup);
+        UmPhotoDialog *um = UM_PHOTO_DIALOG (object);
 
 #ifdef HAVE_CHEESE
-        if (um->monitor)
-                g_object_unref (um->monitor);
+        g_clear_object (&um->monitor);
 #endif
 
-        g_free (um);
+        G_OBJECT_CLASS (um_photo_dialog_parent_class)->dispose (object);
+}
+
+static void
+um_photo_dialog_init (UmPhotoDialog *um)
+{
+}
+
+static void
+um_photo_dialog_class_init (UmPhotoDialogClass *klass)
+{
+        GObjectClass *oclass = G_OBJECT_CLASS (klass);
+
+        oclass->dispose = um_photo_dialog_dispose;
 }
