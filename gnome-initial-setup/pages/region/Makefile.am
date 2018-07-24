@@ -27,6 +27,10 @@ libgisregion_la_CFLAGS = $(INITIAL_SETUP_CFLAGS)
 libgisregion_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgisregion_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = region.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	meson.build		\
+	region.gresource.xml	\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

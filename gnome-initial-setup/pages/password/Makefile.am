@@ -26,7 +26,9 @@ libgispassword_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
 EXTRA_DIST =	\
 	$(srcdir)/../account/org.freedesktop.realmd.xml \
+	meson.build			\
 	password.gresource.xml		\
-	$(resource_files)
+	$(resource_files)		\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

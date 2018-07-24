@@ -9,7 +9,11 @@ EXTRA_DIST = \
     COPYING \
     AUTHORS \
     NEWS \
-    gnome-initial-setup.doap
+    gnome-initial-setup.doap \
+    meson.build \
+    meson_options.txt \
+    po/meson.build \
+    $(NULL)
 
 MAINTAINERCLEANFILES =		\
     po/*.header		\

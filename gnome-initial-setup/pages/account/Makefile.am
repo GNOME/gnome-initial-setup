@@ -40,6 +40,8 @@ libgisaccount_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 EXTRA_DIST =	\
 	org.freedesktop.realmd.xml	\
 	account.gresource.xml		\
-	$(resource_files)
+	meson.build			\
+	$(resource_files)		\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)
