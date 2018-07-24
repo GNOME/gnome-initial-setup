@@ -9,4 +9,12 @@ EXTRA_DIST = \
     COPYING \
     AUTHORS \
     NEWS \
+    po/Makevars \
     gnome-initial-setup.doap
+
+MAINTAINERCLEANFILES =		\
+    po/*.header		\
+    po/Makevars.template	\
+    po/Rules-quot		\
+    po/*.sed		\
+    po/*.sin
