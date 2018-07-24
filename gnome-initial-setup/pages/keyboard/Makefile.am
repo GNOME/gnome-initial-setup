@@ -26,6 +26,10 @@ libgiskeyboard_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
 libgiskeyboard_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgiskeyboard_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = keyboard.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	keyboard.gresource.xml	\
+	meson.build		\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

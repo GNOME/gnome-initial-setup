@@ -29,6 +29,10 @@ libgislanguage_la_CFLAGS = $(INITIAL_SETUP_CFLAGS)
 libgislanguage_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgislanguage_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = language.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	language.gresource.xml	\
+	meson.build		\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

@@ -25,6 +25,10 @@ libgiseulas_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
 libgiseulas_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgiseulas_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = eulas.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	eulas.gresource.xml	\
+	meson.build		\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

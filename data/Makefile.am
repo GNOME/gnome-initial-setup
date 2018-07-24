@@ -38,6 +38,7 @@ EXTRA_DIST =						\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
 	initial-setup.json				\
+	meson.build					\
 	$(NULL)
 
 CLEANFILES =						\
