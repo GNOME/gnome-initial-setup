@@ -29,9 +29,8 @@
 
 #include "gis-keyring.h"
 
-#include "um-utils.h"
 #include "pw-utils.h"
-#include "um-utils.h"
+#include "../account/um-utils.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>

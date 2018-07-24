@@ -22,6 +22,10 @@ libgissoftware_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) $(SOFTWARE_SOURCES_CFLAGS) -I
 libgissoftware_la_LIBADD = $(INITIAL_SETUP_LIBS) $(SOFTWARE_SOURCES_LIBS)
 libgissoftware_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = software.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	meson.build		\
+	software.gresource.xml	\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

@@ -1,0 +1,28 @@
+option('vendor-conf-file',
+       type: 'string',
+       description: 'points to a keyfile containing vendor customization'
+)
+
+option('region-page',
+       description: 'builds and enables the region page',
+       type: 'boolean',
+       value: false
+)
+
+option('cheese',
+       description: 'enable support for Cheese',
+       type: 'feature',
+       value: 'auto'
+)
+
+option('software-sources',
+       description: 'enable the Software Sources page',
+       type: 'feature',
+       value: 'auto'
+)
+
+option('ibus',
+       description: 'enable support for IBus',
+       type: 'feature',
+       value: 'auto'
+)

@@ -12,3 +12,7 @@ SUBDIRS = \
 	password \
 	summary \
 	software
+
+EXTRA_DIST =		\
+	meson.build	\
+	$(NULL)

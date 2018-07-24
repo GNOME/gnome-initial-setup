@@ -10,13 +10,11 @@ AC_PROG_CC
 
 LT_INIT
 
-IT_PROG_INTLTOOL([0.40])
-
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 GETTEXT_PACKAGE=gnome-initial-setup
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [gettext package])
-
-AM_GLIB_GNU_GETTEXT
 
 AC_ARG_WITH(vendor-conf-file,
             AS_HELP_STRING([--with-vendor-conf-file=<file>],
@@ -123,12 +121,6 @@ AC_SUBST(KRB5_LIBS)
 
 INITIAL_SETUP_CFLAGS="$INITIAL_SETUP_CFLAGS $KRB5_CFLAGS"
 INITIAL_SETUP_LIBS="$INITIAL_SETUP_LIBS $KRB5_LIBS"
-
-# This is a hard-dependency for the region and user-accounts panels
-PKG_CHECK_MODULES(ISOCODES, iso-codes)
-
-AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],["`$PKG_CONFIG --variable=prefix iso-codes`"],[ISO codes prefix])
-ISO_CODES=iso-codes
 
 AC_SUBST(INITIAL_SETUP_CFLAGS)
 AC_SUBST(INITIAL_SETUP_LIBS)

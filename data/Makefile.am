@@ -10,7 +10,8 @@ edit = $(AM_V_GEN) sed \
 %.desktop.in: %.desktop.in.in Makefile
 	$(edit) $< >$@
 
-@INTLTOOL_DESKTOP_RULE@
+%.desktop: %.desktop.in
+	$(AM_V_GEN) msgfmt --desktop -d $(top_srcdir)/po --template $< -o $@
 
 rulesdir = $(datadir)/polkit-1/rules.d
 rules_DATA = 20-gnome-initial-setup.rules
@@ -37,6 +38,7 @@ EXTRA_DIST =						\
 	gnome-initial-setup-copy-worker.desktop.in.in	\
 	gnome-initial-setup.session			\
 	initial-setup.json				\
+	meson.build					\
 	$(NULL)
 
 CLEANFILES =						\

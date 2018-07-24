@@ -19,6 +19,10 @@ libgisnetwork_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.."
 libgisnetwork_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgisnetwork_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = network.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	meson.build		\
+	network.gresource.xml	\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

@@ -18,6 +18,10 @@ libgisgoa_la_CFLAGS = $(INITIAL_SETUP_CFLAGS) -I "$(srcdir)/../.." -I "$(top_src
 libgisgoa_la_LIBADD = $(INITIAL_SETUP_LIBS)
 libgisgoa_la_LDFLAGS = -export_dynamic -avoid-version -module -no-undefined
 
-EXTRA_DIST = goa.gresource.xml $(resource_files)
+EXTRA_DIST =			\
+	goa.gresource.xml	\
+	meson.build		\
+	$(resource_files)	\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)

@@ -45,6 +45,8 @@ EXTRA_DIST =				\
 	$(resource_files)		\
 	$(resource_files_timezone)	\
 	datetime.gresource.xml		\
-	timezone.gresource.xml
+	meson.build			\
+	timezone.gresource.xml		\
+	$(NULL)
 
 CLEANFILES = $(BUILT_SOURCES)
