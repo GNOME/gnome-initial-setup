@@ -10,13 +10,11 @@ AC_PROG_CC
 
 LT_INIT
 
-IT_PROG_INTLTOOL([0.40])
-
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 GETTEXT_PACKAGE=gnome-initial-setup
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [gettext package])
-
-AM_GLIB_GNU_GETTEXT
 
 AC_ARG_WITH(vendor-conf-file,
             AS_HELP_STRING([--with-vendor-conf-file=<file>],
