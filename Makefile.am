@@ -10,3 +10,10 @@ EXTRA_DIST = \
     AUTHORS \
     NEWS \
     gnome-initial-setup.doap
+
+MAINTAINERCLEANFILES =		\
+	po/*.header		\
+	po/Makevars.template	\
+	po/Rules-quot		\
+	po/*.sed		\
+	po/*.sin
