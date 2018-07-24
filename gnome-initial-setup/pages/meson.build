@@ -12,7 +12,7 @@ pages = [
    'software'
 ]
 
-if get_option('enable-region-page')
+if get_option('region-page')
    pages += ['region']
 endif
 
