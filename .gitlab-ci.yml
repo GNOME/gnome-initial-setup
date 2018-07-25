@@ -6,15 +6,27 @@ stages:
 before_script:
   - dnf install -y desktop-file-utils gcc gettext ibus-devel intltool krb5-devel libpwquality-devel libsecret-devel meson ninja-build "pkgconfig(accountsservice)" "pkgconfig(cheese)" "pkgconfig(cheese-gtk)" "pkgconfig(fontconfig)" "pkgconfig(gdm)" "pkgconfig(geocode-glib-1.0)" "pkgconfig(gio-2.0)" "pkgconfig(gio-unix-2.0)" "pkgconfig(glib-2.0)" "pkgconfig(gnome-desktop-3.0)" "pkgconfig(goa-1.0)" "pkgconfig(goa-backend-1.0)" "pkgconfig(gstreamer-1.0)" "pkgconfig(gtk+-3.0)" "pkgconfig(gweather-3.0)" "pkgconfig(libgeoclue-2.0)" "pkgconfig(libnm)" "pkgconfig(libnma)" "pkgconfig(packagekit-glib2)" "pkgconfig(webkit2gtk-4.0)" polkit-devel rest-devel
 
-build-gnome-initial-setup:
+.template: &template
   stage: build
   script:
-    - meson _build .
+    - meson -Dregion-page=${REGION_PAGE} --auto-features ${AUTO_FEATURES} _build .
     - cd _build
     - ninja
     - meson test
   artifacts:
     when: on_failure
-    name: "gnome-initial-setup-${CI_COMMIT_REF_NAME}"
+    name: "gnome-initial-setup-${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
       - "${CI_PROJECT_DIR}/_build/meson-logs"
+
+build-minimal:
+  <<: *template
+  variables:
+    - REGION_PAGE: 'false'
+    - AUTO_FEATURES: 'disabled'
+
+build-maximal:
+  <<: *template
+  variables:
+    - REGION_PAGE: 'false'
+    - AUTO_FEATURES: 'disabled'
