@@ -279,7 +279,15 @@ validate (GisAccountPageLocal *page)
 static gboolean
 on_focusout (GisAccountPageLocal *page)
 {
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  const gchar *name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+
   validate (page);
+
+  priv->generated_avatar = generate_user_picture (name);
+  if (!priv->avatar_is_set)
+    gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image),
+                                priv->generated_avatar);
 
   return FALSE;
 }
@@ -313,11 +321,6 @@ fullname_changed (GtkWidget      *w,
   clear_entry_validation_error (GTK_ENTRY (w));
 
   priv->valid_name = FALSE;
-
-  priv->generated_avatar = generate_user_picture (name);
-  if (!priv->avatar_is_set)
-    gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image),
-                                priv->generated_avatar);
 
   /* username_changed() is called consequently due to changes */
 }
