@@ -384,6 +384,7 @@ gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GtkCssProvider *provider;
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->constructed (object);
 
@@ -432,6 +433,13 @@ gis_account_page_local_constructed (GObject *object)
                                             page);
 
   validate (page);
+
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-account-page-style.css");
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  g_object_unref (provider);
 }
 
 static void
