@@ -56,6 +56,7 @@ struct _GisAccountPageLocalPrivate
 
   GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
+  cairo_surface_t *generated_avatar;
 
   ActUser *act_user;
   ActUserManager *act_client;
@@ -64,6 +65,7 @@ struct _GisAccountPageLocalPrivate
 
   gboolean valid_name;
   gboolean valid_username;
+  gboolean avatar_is_set;
   ActUserAccountType account_type;
 };
 typedef struct _GisAccountPageLocalPrivate GisAccountPageLocalPrivate;
@@ -312,6 +314,11 @@ fullname_changed (GtkWidget      *w,
 
   priv->valid_name = FALSE;
 
+  priv->generated_avatar = generate_user_picture (name);
+  if (!priv->avatar_is_set)
+    gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image),
+                                priv->generated_avatar);
+
   /* username_changed() is called consequently due to changes */
 }
 
@@ -353,6 +360,7 @@ avatar_callback (GdkPixbuf   *pixbuf,
   g_clear_object (&priv->avatar_pixbuf);
   g_free (priv->avatar_filename);
   priv->avatar_filename = NULL;
+  priv->avatar_is_set = pixbuf || filename;
 
   if (pixbuf) {
     priv->avatar_pixbuf = g_object_ref (pixbuf);
@@ -367,8 +375,7 @@ avatar_callback (GdkPixbuf   *pixbuf,
     g_object_unref (tmp);
   }
   else {
-    gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
-    gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
+    gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image), priv->generated_avatar);
   }
 }
 
@@ -415,8 +422,8 @@ gis_account_page_local_constructed (GObject *object)
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
   priv->has_custom_username = FALSE;
 
-  gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
+  priv->generated_avatar = generate_user_picture (gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry)));
+  gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image), priv->generated_avatar);
 
   priv->goa_client = goa_client_new_sync (NULL, NULL);
   if (priv->goa_client) {
@@ -467,17 +474,18 @@ set_user_avatar (GisAccountPageLocal *page)
     return;
   }
 
-  if (priv->avatar_pixbuf == NULL) {
-    return;
-  }
-
   file = g_file_new_tmp ("usericonXXXXXX", &io_stream, &error);
   if (error != NULL)
     goto out;
 
-  stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
-  if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
-    goto out;
+  if (priv->avatar_pixbuf == NULL) {
+    cairo_surface_write_to_png (priv->generated_avatar, g_file_get_path (file));
+  }
+  else {
+    stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
+    if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
+      goto out;
+  }
 
   act_user_set_icon_file (priv->act_user, g_file_get_path (file));
 

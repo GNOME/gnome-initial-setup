@@ -476,3 +476,88 @@ generate_username_choices (const gchar  *name,
         g_string_free (item3, TRUE);
         g_string_free (item4, TRUE);
 }
+
+static glong
+get_hue_from_string (const gchar *string)
+{
+        glong hue = 0;
+        gint i;
+
+        for (i = 0; i < string[i] != '\0'; i++) {
+                hue = string[i] + ((hue << 5) - hue);
+        }
+
+        return hue % 100;
+}
+
+static gchar *
+extract_initials_from_name (const gchar *name)
+{
+        gchar *initials = NULL;
+        gchar *upper_cased_name = g_ascii_strup (name, -1);
+        gint i;
+
+        for (i = 1; i < upper_cased_name[i] != '\0'; i++) {
+                if (upper_cased_name[i] == ' ') {
+                        initials = g_strdup_printf ("%c%c", name[0], name[i + 1]);
+                        break;
+                }
+        }
+
+        if (initials == NULL)
+                initials = g_strdup_printf ("%c", name[0]);
+
+        return initials;
+}
+
+static cairo_surface_t *
+draw_user_picture_surface (GdkRGBA  color,
+                           gchar   *initials)
+{
+        cairo_text_extents_t extents;
+        cairo_surface_t *surface;
+        gdouble x, y;
+        cairo_t *cr;
+
+        surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 96, 96);
+        cr = cairo_create (surface);
+
+        cairo_rectangle (cr, 0, 0, 96, 96);
+        cairo_set_source_rgb (cr, color.red, color.green, color.blue);
+        cairo_fill (cr);
+
+        /* Draw the initials on top */
+        cairo_set_source_rgba (cr, 1, 1.0, 1.0, 1.0);
+        cairo_select_font_face (cr, "Cantarell",
+            CAIRO_FONT_SLANT_NORMAL,
+            CAIRO_FONT_WEIGHT_NORMAL);
+
+        cairo_set_font_size (cr, 48.0);
+        cairo_text_extents (cr, initials, &extents);
+        x = 48.0 - (extents.width/2 + extents.x_bearing);
+        y = 48.0 - (extents.height/2 + extents.y_bearing);
+
+        cairo_move_to (cr, x, y);
+        cairo_show_text (cr, initials);
+
+        return surface;
+}
+
+cairo_surface_t *
+generate_user_picture (const char *name)
+{
+        GdkRGBA real_color = { 0.0, 0.0, 0.0, 1.0 };
+        gchar *initials;
+        gint hue;
+
+        if (name == NULL || strlen (name) == 0)
+                return NULL;
+
+        hue = get_hue_from_string (name);
+        gtk_hsv_to_rgb (hue/100.0, 0.3, 0.8,
+                        &real_color.red, &real_color.green, &real_color.blue);
+
+        initials = extract_initials_from_name (name);
+
+        return draw_user_picture_surface (real_color, initials);
+}
