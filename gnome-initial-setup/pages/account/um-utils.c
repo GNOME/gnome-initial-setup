@@ -615,8 +615,11 @@ generate_user_picture (const char *name)
         gchar *initials;
         gint hue;
 
-        if (name == NULL || strlen (name) == 0)
-                return NULL;
+        if (name == NULL || strlen (name) == 0) {
+            GdkRGBA default_color = { 152, 193, 241, 1.0 };
+
+            return draw_user_picture_surface (default_color, "");
+        }
 
         hue = get_hue_from_string (name);
         gtk_hsv_to_rgb (hue/100.0, 0.3, 0.8,
