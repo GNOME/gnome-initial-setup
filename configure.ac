@@ -148,6 +148,7 @@ gnome-initial-setup/pages/goa/Makefile
 gnome-initial-setup/pages/account/Makefile
 gnome-initial-setup/pages/password/Makefile
 gnome-initial-setup/pages/software/Makefile
+gnome-initial-setup/pages/hostname/Makefile
 gnome-initial-setup/pages/summary/Makefile
 po/Makefile.in
 ])

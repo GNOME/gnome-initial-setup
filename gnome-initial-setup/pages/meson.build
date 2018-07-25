@@ -9,7 +9,8 @@ pages = [
    'goa',
    'password',
    'summary',
-   'software'
+   'software',
+   'hostname'
 ]
 
 if get_option('region-page')

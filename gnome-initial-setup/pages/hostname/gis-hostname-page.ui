@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <template class="GisHostnamePage" parent="GisPage">
+    <child>
+      <object class="GtkBox" id="page">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="valign">fill</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkImage" id="image1">
+            <property name="visible" bind-source="GisHostnamePage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+            <property name="can_focus">False</property>
+            <property name="pixel_size">96</property>
+            <property name="icon_name">computer-symbolic</property>
+            <property name="icon_size">1</property>
+            <property name="margin_top">24</property>
+            <property name="margin_bottom">18</property>
+            <style>
+              <class name="dim-label" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">start</property>
+            <property name="margin_top">18</property>
+            <property name="hexpand">True</property>
+            <property name="label" translatable="yes">Name this Device</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+              <attribute name="scale" value="1.8"/>
+            </attributes>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="subtitle">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">start</property>
+            <property name="margin_top">14</property>
+            <property name="label" translatable="yes">Give this device a name to be identified within a network.</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+            <property name="max-width-chars">50</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="secrets">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="column_spacing">12</property>
+            <property name="row_spacing">6</property>
+            <property name="margin_top">40</property>
+            <child>
+              <object class="GtkLabel" id="hostname_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">_Hostname</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">hostname_entry</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="hostname_entry">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+		<property name="max-length">62</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="hostname_explanation">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="label" translatable="yes"></property>
+                <property name="width-chars">35</property>
+                <property name="max-width-chars">35</property>
+                <property name="height-request">50</property>
+                <property name="wrap">True</property>
+                <property name="hexpand">True</property>
+                <property name="wrap_mode">word-char</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+                <attributes>
+                  <attribute name="scale" value="0.8"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

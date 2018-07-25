@@ -44,6 +44,7 @@ gnome_initial_setup_LDADD =	\
 	pages/password/libgispassword.la \
 	pages/software/libgissoftware.la \
 	pages/summary/libgissummary.la \
+        pages/hostname/libgishostname.la \
 	$(INITIAL_SETUP_LIBS) \
 	-lm
 

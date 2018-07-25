@@ -11,7 +11,8 @@ SUBDIRS = \
 	account \
 	password \
 	summary \
-	software
+	software \
+	hostname
 
 EXTRA_DIST =		\
 	meson.build	\

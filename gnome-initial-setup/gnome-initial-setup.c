@@ -44,6 +44,7 @@
 #include "pages/account/gis-account-pages.h"
 #include "pages/password/gis-password-page.h"
 #include "pages/summary/gis-summary-page.h"
+#include "pages/hostname/gis-hostname-page.h"
 
 #define VENDOR_PAGES_GROUP "pages"
 #define VENDOR_SKIP_KEY "skip"
@@ -74,6 +75,7 @@ static PageData page_table[] = {
   PAGE (network,  FALSE),
   PAGE (privacy,  FALSE),
   PAGE (timezone, TRUE),
+  PAGE (hostname, TRUE),
   PAGE (software, TRUE),
   PAGE (goa,      FALSE),
   PAGE (account,  TRUE),
