@@ -512,6 +512,7 @@ extract_initials_from_name (const gchar *name)
 
 static cairo_surface_t *
 draw_user_picture_surface (GdkRGBA  color,
+                           GdkRGBA *text_color,
                            gchar   *initials)
 {
         cairo_text_extents_t extents;
@@ -527,7 +528,13 @@ draw_user_picture_surface (GdkRGBA  color,
         cairo_fill (cr);
 
         /* Draw the initials on top */
-        cairo_set_source_rgba (cr, 1, 1.0, 1.0, 1.0);
+        if (text_color == NULL) {
+                cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, 1.0);
+        }
+        else {
+                cairo_set_source_rgba (cr, text_color->red, text_color->green, text_color->blue, 1.0);
+        }
+
         cairo_select_font_face (cr, "Cantarell",
             CAIRO_FONT_SLANT_NORMAL,
             CAIRO_FONT_WEIGHT_NORMAL);
@@ -608,7 +615,8 @@ find_closest_matching_color (guint hash)
 }
 
 cairo_surface_t *
-generate_user_picture (const char *name)
+generate_user_picture (const char *name,
+                       GdkRGBA    *text_color)
 {
         GdkRGBA real_color = { 0.0, 0.0, 0.0, 1.0 };
         GdkRGBA final_color;
@@ -618,7 +626,7 @@ generate_user_picture (const char *name)
         if (name == NULL || strlen (name) == 0) {
             GdkRGBA default_color = { 152, 193, 241, 1.0 };
 
-            return draw_user_picture_surface (default_color, "");
+            return draw_user_picture_surface (default_color, text_color, "");
         }
 
         hue = get_hue_from_string (name);
@@ -629,5 +637,5 @@ generate_user_picture (const char *name)
 
         final_color = find_closest_matching_color (gdk_rgba_hash (&real_color));
 
-        return draw_user_picture_surface (final_color, initials);
+        return draw_user_picture_surface (final_color, text_color, initials);
 }

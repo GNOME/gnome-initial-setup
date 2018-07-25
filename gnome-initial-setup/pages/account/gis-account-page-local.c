@@ -281,10 +281,14 @@ on_focusout (GisAccountPageLocal *page)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   const gchar *name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  GdkRGBA text_color;
 
   validate (page);
 
-  priv->generated_avatar = generate_user_picture (name);
+  gtk_style_context_get_color (gtk_widget_get_style_context (GTK_WIDGET (page)),
+                               GTK_STATE_FLAG_NORMAL,
+                               &text_color);
+  priv->generated_avatar = generate_user_picture (name, &text_color);
   if (!priv->avatar_is_set)
     gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image),
                                 priv->generated_avatar);
@@ -425,7 +429,7 @@ gis_account_page_local_constructed (GObject *object)
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
   priv->has_custom_username = FALSE;
 
-  priv->generated_avatar = generate_user_picture (gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry)));
+  priv->generated_avatar = generate_user_picture (gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry)), NULL);
   gtk_image_set_from_surface (GTK_IMAGE (priv->avatar_image), priv->generated_avatar);
 
   priv->goa_client = goa_client_new_sync (NULL, NULL);
