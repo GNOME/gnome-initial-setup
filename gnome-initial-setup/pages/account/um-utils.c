@@ -523,7 +523,7 @@ draw_user_picture_surface (GdkRGBA  color,
         cr = cairo_create (surface);
 
         cairo_rectangle (cr, 0, 0, 96, 96);
-        cairo_set_source_rgb (cr, color.red, color.green, color.blue);
+        cairo_set_source_rgb (cr, color.red/255.0, color.green/255.0, color.blue/255.0);
         cairo_fill (cr);
 
         /* Draw the initials on top */
@@ -543,10 +543,75 @@ draw_user_picture_surface (GdkRGBA  color,
         return surface;
 }
 
+static GdkRGBA
+find_closest_matching_color (guint hash)
+{
+        gint i;
+        static gdouble gnome_color_palette[][3] = {
+                {  98, 160, 234 },
+                {  53, 132, 228 },
+                {  28, 113, 216 },
+                {  26,  95, 180 },
+                { 143, 240, 164 },
+                {  87, 227, 137 },
+                {  51, 209, 122 },
+                {  46, 194, 126 },
+                {  38, 162, 105 },
+                { 249, 240, 107 },
+                { 248, 228,  92 },
+                { 246, 211,  45 },
+                { 245, 194,  17 },
+                { 229, 165,  10 },
+                { 255, 190, 111 },
+                { 255, 163,  72 },
+                { 255, 120,   0 },
+                { 230,  97,   0 },
+                { 198,  70,   0 },
+                { 246,  97,  81 },
+                { 237,  51,  59 },
+                { 224,  27,  36 },
+                { 192,  28,  40 },
+                { 165,  29,  45 },
+                { 220, 138, 221 },
+                { 192,  97, 203 },
+                { 163,  71, 186 },
+                { 129,  61, 156 },
+                {  97,  53, 131 },
+                { 205, 171, 143 },
+                { 181, 131,  90 },
+                { 152, 106,  68 },
+                { 134,  94,  60 },
+                {  99,  69,  44 },
+                 -1
+        };
+        GdkRGBA closest_matching_color = { 152, 193, 241, 1.0 };
+        guint closest_matching_hash = gdk_rgba_hash (&closest_matching_color);
+
+        for (i = 0; gnome_color_palette[i][0] != -1; i++) {
+                GdkRGBA color = { 0.0, 0.0, 0.0, 1.0 };
+                guint color_hash = 0;
+
+                color.red   = gnome_color_palette[i][0];
+                color.green = gnome_color_palette[i][1];
+                color.blue  = gnome_color_palette[i][2];
+                color.alpha = 1.0;
+
+                color_hash = gdk_rgba_hash (&color);
+
+                if ((hash - color_hash) < (hash - closest_matching_hash)) {
+                        closest_matching_hash = color_hash;
+                        closest_matching_color = color;
+                }
+        }
+
+        return closest_matching_color;
+}
+
 cairo_surface_t *
 generate_user_picture (const char *name)
 {
         GdkRGBA real_color = { 0.0, 0.0, 0.0, 1.0 };
+        GdkRGBA final_color;
         gchar *initials;
         gint hue;
 
@@ -559,5 +624,7 @@ generate_user_picture (const char *name)
 
         initials = extract_initials_from_name (name);
 
-        return draw_user_picture_surface (real_color, initials);
+        final_color = find_closest_matching_color (gdk_rgba_hash (&real_color));
+
+        return draw_user_picture_surface (final_color, initials);
 }
