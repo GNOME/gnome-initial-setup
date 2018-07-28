@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-06-04 17:07+0000\n"
-"PO-Revision-Date: 2018-06-24 00:34+0300\n"
+"POT-Creation-Date: 2018-07-24 16:45+0000\n"
+"PO-Revision-Date: 2018-07-28 23:38+0300\n"
 "Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
 "Language-Team: Ελληνικά <>\n"
 "Language: el\n"
@@ -19,68 +19,74 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.7\n"
+"X-Generator: Poedit 2.0.9\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
+#: data/gnome-initial-setup.desktop.in.in:3
+#: data/gnome-initial-setup-first-login.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "Αρχική εγκατάσταση"
 
-#: ../gnome-initial-setup/gis-assistant.c:404
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/gnome-initial-setup.desktop.in.in:5
+#: data/gnome-initial-setup-first-login.desktop.in.in:5
+msgid "preferences-system"
+msgstr "preferences-system"
+
+#: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
 msgstr "Επόμε_νο"
 
-#: ../gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:424
 msgid "_Accept"
 msgstr "_Αποδοχή"
 
-#: ../gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:425
 msgid "_Skip"
 msgstr "Παράλει_ψη"
 
-#: ../gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:426
 msgid "_Previous"
 msgstr "_Προηγούμενο"
 
-#: ../gnome-initial-setup/gis-assistant.c:408
+#: gnome-initial-setup/gis-assistant.c:427
 msgid "_Cancel"
 msgstr "Ακύ_ρωση"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:262
+#: gnome-initial-setup/gnome-initial-setup.c:260
 msgid "Force existing user mode"
 msgstr "Εξαναγκασμός υπάρχουσας λειτουργίας χρήστη"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:268
+#: gnome-initial-setup/gnome-initial-setup.c:266
 msgid "— GNOME initial setup"
 msgstr "— Αρχική εγκατάσταση GNOME"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:242
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Σχετικά με εσάς"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Αποτυχία εγγραφής του λογαριασμού"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "Κανένας υποστηριζόμενος τρόπος πιστοποίησης με αυτόν τον τομέα"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "Αποτυχία ένταξης στον τομέα"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "Αποτυχία σύνδεσης στον τομέα"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:31
 msgid "Enterprise Login"
 msgstr "Εταιρική σύνδεση"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:45
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -91,33 +97,34 @@ msgstr ""
 "χρησιμοποιήσετε αυτόν τον λογαριασμό για να αποκτήσετε πρόσβαση σε "
 "εταιρικούς πόρους στο διαδίκτυο."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:65
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:316
 msgid "_Domain"
 msgstr "_Τομέας"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:82
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:101
 msgid "_Username"
 msgstr "Όν_ομα χρήστη"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:99
+#: gnome-initial-setup/pages/password/gis-password-page.ui:66
 msgid "_Password"
 msgstr "Κωδικός _πρόσβασης"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:175
 msgid "Enterprise domain or realm name"
 msgstr "Εταιρικός τομέας ή όνομα realm"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:240
 msgid "C_ontinue"
 msgstr "_Συνέχεια"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:275
 msgid "Domain Administrator Login"
 msgstr "Σύνδεση διαχειριστή τομέα"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:295
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -128,93 +135,91 @@ msgstr ""
 "να πληκτρολογήσει τον κωδικό πρόσβασης του τομέα και επιλέξτε ένα μοναδικό "
 "όνομα για τον υπολογιστή σας."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:350
 msgid "_Computer"
 msgstr "_Υπολογιστής"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:382
 msgid "Administrator _Name"
 msgstr "Ό_νομα διαχειριστή"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:416
 msgid "Administrator Password"
 msgstr "Κωδικός πρόσβασης διαχειριστή"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Παρακαλούμε, ελέγξτε το όνομα σας και το όνομα χρήστη. Μπορείτε επίσης να "
 "επιλέξετε μια εικόνα."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr ""
 "Χρειαζόμαστε περισσότερες λεπτομέρειες για να ολοκληρώσουμε τη ρύθμιση."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
 msgid "Avatar image"
 msgstr "Προσωπική εικόνα"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Παρακαλούμε, δώστε ένα όνομα και ένα όνομα χρήστη. Μπορείτε επίσης να "
 "επιλέξετε μια εικόνα."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:70
 msgid "_Full Name"
 msgstr "Ονομα_τεπώνυμο"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+#: gnome-initial-setup/pages/account/gis-account-page.ui:37
 msgid "Set Up _Enterprise Login"
 msgstr "Ρύθμιση _εταιρικής σύνδεσης"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
+#: gnome-initial-setup/pages/account/um-photo-dialog.c:246
 msgid "Disable image"
 msgstr "Απενεργοποίηση εικόνας"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
+#: gnome-initial-setup/pages/account/um-photo-dialog.c:264
 msgid "Take a photo…"
 msgstr "Λήψη μιας φωτογραφίας…"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
+#: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Αδυναμία αυτόματης σύνδεσης αυτού του τύπου τομέα"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
-#, c-format
+#: gnome-initial-setup/pages/account/um-realm-manager.c:373
 msgid "No such domain or realm found"
 msgstr "Δε βρέθηκε τέτοιος τομέας ή realm"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
+#: gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Αδυναμία σύνδεσης ως %s στον τομέα %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
+#: gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "Λάθος κωδικός πρόσβασης, παρακαλούμε προσπαθήστε ξανά"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
+#: gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Αδυναμία σύνδεσης στον τομέα %s: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:245
+#: gnome-initial-setup/pages/account/um-utils.c:245
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Λυπούμαστε, το όνομα χρήστη δεν είναι διαθέσιμο. Δοκιμάστε άλλο."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:248
-#, c-format
+#: gnome-initial-setup/pages/account/um-utils.c:248
 msgid "The username is too long."
 msgstr "Το όνομα χρήστη είναι πολύ μεγάλο."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:251
+#: gnome-initial-setup/pages/account/um-utils.c:251
 msgid "The username cannot start with a “-”."
 msgstr "Το όνομα χρήστη δεν μπορεί να αρχίζει με «-»."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:254
+#: gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -222,18 +227,18 @@ msgstr ""
 "Το όνομα χρήστη πρέπει να αποτελείται μόνο από πεζά και κεφαλαία γράμματα "
 "από a-z, αριθμούς και οποιονδήποτε από τους χαρακτήρες: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:258
+#: gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Αυτό θα χρησιμοποιηθεί σαν όνομα για τον προσωπικό σας φάκελο και δεν μπορεί "
 "να αλλαχθεί."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
+#: gnome-initial-setup/pages/eulas/gis-eula-page.c:301
+#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:21
 msgid "License Agreements"
 msgstr "Άδεια χρήσης"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
+#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:50
 msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
@@ -241,19 +246,19 @@ msgstr ""
 "_Συμφώνησα με τους όρους και τις προϋποθέσεις της άδειας χρήσης του τελικού "
 "χρήστη."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "Προσθήκη λογαριασμού"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Διαδικτυακοί λογαριασμοί"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:39
 msgid "Connect Your Online Accounts"
 msgstr "Σύνδεση σε δικτυακούς λογαριασμούς"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:58
 msgid ""
 "Connect your accounts to easily access your email, online calendar, "
 "contacts, documents and photos."
@@ -262,44 +267,44 @@ msgstr ""
 "αλληλογραφία σας, στο διαδικτυακό ημερολόγιο, στις επαφές, στα έγγραφα και "
 "τις φωτογραφίες σας."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:95
 msgid ""
 "Accounts can be added and removed at any time from the Settings application."
 msgstr ""
 "Λογαριασμοί μπορούν να προστεθούν και να διαγραφούν οποιαδήποτε στιγμή από "
 "τις Ρυθμίσεις."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:222
+#: gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Περισσότερα…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Δε βρέθηκαν είσοδοι"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:30
 msgid "Typing"
 msgstr "Πληκτρολόγηση"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:42
 msgid "Select your keyboard layout or an input method."
 msgstr "Επιλέξτε τη διάταξη του πληκτρολογίου σας ή μια άλλη μέθοδο εισόδου."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Δε βρέθηκαν γλώσσες"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "Καλώς ήλθατε"
 
@@ -307,32 +312,32 @@ msgstr "Καλώς ήλθατε"
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
 #.
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:123
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:123
 msgid "Welcome!"
 msgstr "Καλώς ήλθατε!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Άλλο…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:363
 msgid "Wireless networking is disabled"
 msgstr "Το ασύρματο δίκτυο είναι ανενεργό"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Γίνετε έλεγχος για διαθέσιμα ασύρματα δίκτυα"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Δίκτυο"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
+#: gnome-initial-setup/pages/network/gis-network-page.ui:33
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+#: gnome-initial-setup/pages/network/gis-network-page.ui:45
 msgid ""
 "Connecting to the Internet will enable you to set the time, add your "
 "details, and enable you to access your email, calendar, and contacts. It is "
@@ -343,44 +348,44 @@ msgstr ""
 "σας, στο ημερολόγιο και τις επαφές σας. Είναι επίσης απαραίτητο για "
 "εταιρικούς λογαριασμούς σύνδεσης."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
+#: gnome-initial-setup/pages/network/gis-network-page.ui:103
 msgid "No wireless available"
 msgstr "Δεν υπάρχει διαθέσιμο ασύρματο δίκτυο."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:4
+#: gnome-initial-setup/pages/network/gis-network-page.ui:118
 msgid "Turn On"
 msgstr "Ενεργοποίηση"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:143
+#: gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "This is a weak password."
 msgstr "Αυτός είναι ένας ασθενής κωδικός πρόσβασης."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:149
+#: gnome-initial-setup/pages/password/gis-password-page.c:148
 msgid "The passwords do not match."
 msgstr "Δεν ταιριάζουν οι κωδικοί πρόσβασης."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:271
+#: gnome-initial-setup/pages/password/gis-password-page.c:270
 msgid "Password"
 msgstr "Κωδικός πρόσβασης"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+#: gnome-initial-setup/pages/password/gis-password-page.ui:34
 msgid "Set a Password"
 msgstr "Ορισμός κωδικού πρόσβασης"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+#: gnome-initial-setup/pages/password/gis-password-page.ui:47
 msgid "Be careful not to lose your password."
 msgstr "Προσέξτε να μην χάσετε το κωδικό πρόσβασής σας."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
+#: gnome-initial-setup/pages/password/gis-password-page.ui:98
 msgid "_Confirm"
 msgstr "_Επιβεβαίωση"
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:81
+#: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
 msgid "The new password needs to be different from the old one."
 msgstr "Ο νέος κωδικός πρόσβασης πρέπει να είναι διαφορετικός από τον παλιό."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#: gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing some letters "
@@ -389,8 +394,8 @@ msgstr ""
 "Αυτό το συνθηματικό είναι παρόμοιο με το προηγούμενό σας. Προσπαθήστε να "
 "αλλάξετε μερικά γράμματα και αριθμούς."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:85
-#: ../gnome-initial-setup/pages/password/pw-utils.c:93
+#: gnome-initial-setup/pages/password/pw-utils.c:85
+#: gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing the password a "
@@ -399,7 +404,7 @@ msgstr ""
 "Αυτό το συνθηματικό είναι παρόμοιο με το προηγούμενό σας. Προσπαθήστε να "
 "αλλάξετε το συνθηματικό λίγο περισσότερο."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:87
+#: gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. A password without your user name would be stronger."
@@ -407,14 +412,14 @@ msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Ένα συνθηματικό χωρίς το όνομα χρήστη σας "
 "θα ήταν ισχυρότερο."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#: gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid using your name in the password."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να αποφύγετε τη χρήση του "
 "ονόματός σας στο συνθηματικό."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#: gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid some of the words included in the "
@@ -423,42 +428,42 @@ msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να αποφύγετε μερικές από τις "
 "λέξεις που συμπεριλαμβάνονται στο συνθηματικό."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:95
+#: gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid common words."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να αποφύγετε κοινότυπες "
 "λέξεις."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:97
+#: gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid reordering existing words."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να αποφύγετε αναδιάταξη "
 "υφιστάμενων λέξεων."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:99
+#: gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more numbers."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να προσθέσετε περισσότερους "
 "αριθμούς."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:101
+#: gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more uppercase letters."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να χρησιμοποιήσετε "
 "περισσότερα κεφαλαία γράμματα."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:103
+#: gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more lowercase letters."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να χρησιμοποιήσετε "
 "περισσότερα πεζά γράμματα."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:105
+#: gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use more special characters, like "
@@ -467,7 +472,7 @@ msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να χρησιμοποιήσετε "
 "περισσότερους ειδικούς χαρακτήρες, όπως σημεία στίξης."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:107
+#: gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use a mixture of letters, numbers and "
@@ -476,14 +481,14 @@ msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να χρησιμοποιήσετε έναν "
 "συνδυασμό γραμμάτων, αριθμών και σημείων στίξης."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:109
+#: gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid repeating the same character."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να αποφύγετε την επανάληψη "
 "του ίδιου χαρακτήρα."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#: gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid repeating the same type of character: "
@@ -493,14 +498,14 @@ msgstr ""
 "του ίδιου τύπου χαρακτήρα: χρειάζεστε ανάμειξη γραμμάτων, αριθμών και "
 "σημείων στίξης."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:113
+#: gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να αποφύγετε ακολουθίες όπως "
 "1234 ή abcd."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:115
+#: gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to add more letters, numbers and punctuation."
@@ -508,13 +513,13 @@ msgstr ""
 "Αυτό το συνθηματικό είναι ασθενές. Προσπαθήστε να προσθέσετε περισσότερα "
 "γράμματα, αριθμούς και σύμβολα."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:117
+#: gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
 msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr ""
 "Αναμείξτε κεφαλαία και πεζά γράμματα και χρησιμοποιήστε έναν ή δύο αριθμούς."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#: gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
@@ -526,7 +531,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -539,31 +544,31 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
 #, c-format
 msgid "Problem data will be collected by %s:"
 msgstr "Τα δεδομένα του προβλήματος θα συλλεχθούν από το %s:"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "Πολιτική ιδιωτικότητας"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
 msgid "Uses Mozilla Location Service:"
 msgstr "Χρήση υπηρεσίας τοποθεσίας του Mozilla:"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:32
 msgid "Privacy"
 msgstr "Ιδιωτικότητα"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:49
 msgid "Location Services"
 msgstr "Υπηρεσίες τοποθεσίας"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:70
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
@@ -571,48 +576,48 @@ msgstr ""
 "Επιτρέπει τις εφαρμογές να καθορίσουν την τοποθεσία σας. Εμφανίζεται μια "
 "ένδειξη όταν χρησιμοποιούνται οι υπηρεσίες τοποθεσίας."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
 msgid "Automatic Problem Reporting"
 msgstr "Αυτόματη αναφορά προβλήματος"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:128
 msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr ""
 "Οι ρυθμίσεις ιδιωτικότητας μπορούν να αλλαχθούν οποιαδήποτε στιγμή από τις "
 "Ρυθμίσεις."
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
+#: gnome-initial-setup/pages/region/cc-region-chooser.c:227
 msgid "No regions found"
 msgstr "Δε βρέθηκαν περιοχές"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
-#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
+#: gnome-initial-setup/pages/region/gis-region-page.c:226
+#: gnome-initial-setup/pages/region/gis-region-page.ui:31
 msgid "Region"
 msgstr "Περιοχή"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
+#: gnome-initial-setup/pages/region/gis-region-page.ui:44
 msgid "Choose your country or region."
 msgstr "Επιλέξτε την χώρα σας ή περιοχή."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
 msgid "_Start Using %s"
 msgstr "Ξε_κινήστε τη χρήση του %s"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:334
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Έτοιμοι να ξεκινήσετε"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
 msgid "You’re ready to go!"
 msgstr "Είστε έτοιμοι να ξεκινήσετε!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -621,33 +626,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Ζώνη ώρας"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:53
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
@@ -655,21 +660,21 @@ msgstr ""
 "Η ζώνη ώρας θα οριστεί αυτόματα αν μπορεί να βρεθεί η τοποθεσία σας. "
 "Μπορείτε επίσης να αναζητήσετε για μια πόλη και να την ορίσετε εσείς."
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:3
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
 msgid "Please search for a nearby city"
 msgstr "Παρακαλούμε, αναζητήστε μια κοντινή πόλη"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+#: gnome-initial-setup/pages/software/gis-software-page.c:184
 msgid "Software Repositories"
 msgstr "Αποθετήρια λογισμικού"
 
 #. TRANSLATORS: this is the third party repositories info bar.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+#: gnome-initial-setup/pages/software/gis-software-page.c:188
 msgid "Access additional software from selected third party sources."
 msgstr "Πρόσβαση σε πρόσθετο λογισμικό από επιλεγμένες πηγές τρίτων."
 
 #. TRANSLATORS: this is the third party repositories info bar.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+#: gnome-initial-setup/pages/software/gis-software-page.c:192
 msgid ""
 "Some of this software is proprietary and therefore has restrictions on use, "
 "sharing, and access to source code."
@@ -677,19 +682,19 @@ msgstr ""
 "Ορισμένα από αυτά τα λογισμικά είναι ιδιόκτητα και επομένως έχει "
 "περιορισμούς στη χρήση, τον διαμοιρασμό και την πρόσβαση στον πηγαίο κώδικα."
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
 msgid "Additional Software Repositories"
 msgstr "Επιπρόσθετα αποθετήρια λογισμικού"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
+#: gnome-initial-setup/pages/software/gis-software-page.ui:55
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Βρείτε περισσότερα…</a>"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
+#: gnome-initial-setup/pages/software/gis-software-page.ui:69
 msgid "Third Party Repositories"
 msgstr "Αποθετήρια τρίτων"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
+#: gnome-initial-setup/pages/software/gis-software-page.ui:165
 msgid ""
 "Proprietary software typically has restrictions on how it can be used and on "
 "access to source code. This prevents anyone but the software owner from "
@@ -699,7 +704,7 @@ msgstr ""
 "την πρόσβαση στον πηγαίο κώδικα. Αυτό εμποδίζει οποιονδήποτε εκτός του "
 "ιδιοκτήτη του λογισμικού να ελέγξει, αναπτύξει ή να μάθει από τον κώδικα."
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
+#: gnome-initial-setup/pages/software/gis-software-page.ui:177
 msgid ""
 "In contrast, Free Software can be freely run, copied, distributed, studied "
 "and modified."
