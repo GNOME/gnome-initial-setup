@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-07-24 16:45+0000\n"
-"PO-Revision-Date: 2018-07-27 13:15+0200\n"
+"POT-Creation-Date: 2018-07-30 14:03+0000\n"
+"PO-Revision-Date: 2018-07-31 11:51+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -57,6 +57,11 @@ msgstr "Forzar el modo del nuevo existente"
 #: gnome-initial-setup/gnome-initial-setup.c:266
 msgid "— GNOME initial setup"
 msgstr "— Configuración inicial de GNOME"
+
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#| msgid "Take a photo…"
+msgid "Take a Picture…"
+msgstr "Hacer una foto…"
 
 #: gnome-initial-setup/pages/account/gis-account-page.c:242
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
@@ -167,14 +172,6 @@ msgstr "_Nombre completo"
 #: gnome-initial-setup/pages/account/gis-account-page.ui:37
 msgid "Set Up _Enterprise Login"
 msgstr "Configurar el _inicio de sesión corporativo"
-
-#: gnome-initial-setup/pages/account/um-photo-dialog.c:246
-msgid "Disable image"
-msgstr "Desactivar imagen"
-
-#: gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo…"
-msgstr "Hacer una foto…"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -570,6 +567,56 @@ msgstr "Región"
 msgid "Choose your country or region."
 msgstr "Elija su país o región."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "Repositorios de software"
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr ""
+"Acceso a software adicional de los repositorios de terceros seleccionados."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Parte de este software es propietario y por lo tanto tiene restricciones de "
+"uso, compartición y acceso al código fuente."
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Additional Software Repositories"
+msgstr "Repositorios de software adicional"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:55
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Saber más…</a>"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:69
+msgid "Third Party Repositories"
+msgstr "Repositorios de terceros"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:165
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+"Normalmente, el software propietario tiene restricciones sobre cómo se puede "
+"usar y sobre el acceso al código fuente. Esto evita que cualquiera que no "
+"sea el propietario del software pueda inspeccionarlo, mejorar o aprender de "
+"él."
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:177
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"En contraste, el software libre se puede ejecutar, copiar, distribuir, "
+"estudiar y modificar libremente."
+
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
@@ -634,55 +681,8 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Busque una ciudad cercana"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:184
-msgid "Software Repositories"
-msgstr "Repositorios de software"
-
-#. TRANSLATORS: this is the third party repositories info bar.
-#: gnome-initial-setup/pages/software/gis-software-page.c:188
-msgid "Access additional software from selected third party sources."
-msgstr ""
-"Acceso a software adicional de los repositorios de terceros seleccionados."
-
-#. TRANSLATORS: this is the third party repositories info bar.
-#: gnome-initial-setup/pages/software/gis-software-page.c:192
-msgid ""
-"Some of this software is proprietary and therefore has restrictions on use, "
-"sharing, and access to source code."
-msgstr ""
-"Parte de este software es propietario y por lo tanto tiene restricciones de "
-"uso, compartición y acceso al código fuente."
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:31
-msgid "Additional Software Repositories"
-msgstr "Repositorios de software adicional"
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:55
-msgid "<a href=\"more\">Find out more…</a>"
-msgstr "<a href=\"more\">Saber más…</a>"
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:69
-msgid "Third Party Repositories"
-msgstr "Repositorios de terceros"
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:165
-msgid ""
-"Proprietary software typically has restrictions on how it can be used and on "
-"access to source code. This prevents anyone but the software owner from "
-"inspecting, improving or learning from its code."
-msgstr ""
-"Normalmente, el software propietario tiene restricciones sobre cómo se puede "
-"usar y sobre el acceso al código fuente. Esto evita que cualquiera que no "
-"sea el propietario del software pueda inspeccionarlo, mejorar o aprender de "
-"él."
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:177
-msgid ""
-"In contrast, Free Software can be freely run, copied, distributed, studied "
-"and modified."
-msgstr ""
-"En contraste, el software libre se puede ejecutar, copiar, distribuir, "
-"estudiar y modificar libremente."
+#~ msgid "Disable image"
+#~ msgstr "Desactivar imagen"
 
 #~ msgctxt "Password hint"
 #~ msgid "Try to avoid common words."
