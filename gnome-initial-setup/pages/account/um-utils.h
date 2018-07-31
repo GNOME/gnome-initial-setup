@@ -54,6 +54,8 @@ void     generate_username_choices        (const gchar     *name,
 
 cairo_surface_t *generate_user_picture    (const gchar     *name);
 
+GdkPixbuf *frame_pixbuf                   (GdkPixbuf       *source);
+
 
 G_END_DECLS
 

@@ -524,6 +524,9 @@ draw_user_picture_surface (GdkRGBA  color,
         cr = cairo_create (surface);
 
         cairo_rectangle (cr, 0, 0, 96, 96);
+        cairo_new_sub_path (cr);
+        cairo_arc (cr, 48, 48, 48, 0, 2 * G_PI);
+        cairo_close_path (cr);
         cairo_set_source_rgb (cr, color.red/255.0, color.green/255.0, color.blue/255.0);
         cairo_fill (cr);
 
@@ -639,4 +642,38 @@ generate_user_picture (const char *name)
         final_color = find_closest_matching_color (gdk_rgba_hash (&real_color));
 
         return draw_user_picture_surface (final_color, &text_color, initials);
+}
+
+GdkPixbuf *
+frame_pixbuf (GdkPixbuf *source)
+{
+        GdkPixbuf       *dest;
+        cairo_t         *cr;
+        cairo_surface_t *surface;
+        guint            width;
+        guint            height;
+
+        width = gdk_pixbuf_get_width (source) - 4;
+        height = gdk_pixbuf_get_height (source) - 4;
+
+        surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                              width, height);
+        cr = cairo_create (surface);
+        cairo_surface_destroy (surface);
+
+        gdk_cairo_set_source_pixbuf (cr, source, 0, 0);
+        cairo_new_sub_path (cr);
+        cairo_arc (cr,
+                   width / 2,
+                   height / 2,
+                   MIN (width, height) / 2,
+                   0,
+                   2 * G_PI);
+        cairo_close_path (cr);
+        cairo_fill (cr);
+
+        dest = gdk_pixbuf_get_from_surface (surface, 0, 0, width, height);
+
+        cairo_destroy (cr);
+        return dest;
 }

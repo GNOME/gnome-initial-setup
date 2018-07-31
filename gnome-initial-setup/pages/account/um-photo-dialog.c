@@ -82,10 +82,12 @@ webcam_response_cb (GtkDialog     *dialog,
 
                 g_object_get (G_OBJECT (dialog), "pixbuf", &pb, NULL);
                 pb2 = gdk_pixbuf_scale_simple (pb, 96, 96, GDK_INTERP_BILINEAR);
-
-                um->callback (pb2, NULL, um->data);
-
+                g_object_unref (pb);
+                pb = frame_pixbuf (pb2);
                 g_object_unref (pb2);
+
+                um->callback (pb, NULL, um->data);
+
                 g_object_unref (pb);
         }
         if (response != GTK_RESPONSE_DELETE_EVENT &&
@@ -155,18 +157,23 @@ static GtkWidget *
 create_face_widget (gpointer item,
                     gpointer user_data)
 {
+        GdkPixbuf *pixbuf;
         GtkWidget *image;
+        gchar *filename;
         GIcon *icon;
 
-        icon = g_file_icon_new (G_FILE (item));
-        image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_DIALOG);
+        filename = g_file_get_path (G_FILE (item));
+        pixbuf = gdk_pixbuf_new_from_file_at_size (filename,
+                                                   AVATAR_PIXEL_SIZE,
+                                                   AVATAR_PIXEL_SIZE,
+                                                   NULL);
+        image = gtk_image_new_from_pixbuf (frame_pixbuf (pixbuf));
         gtk_image_set_pixel_size (GTK_IMAGE (image), AVATAR_PIXEL_SIZE);
-        g_object_unref (icon);
 
         gtk_widget_show (image);
 
         g_object_set_data_full (G_OBJECT (image),
-                                "filename", g_file_get_path (G_FILE (item)),
+                                "filename", filename,
                                 (GDestroyNotify) g_free);
 
         return image;

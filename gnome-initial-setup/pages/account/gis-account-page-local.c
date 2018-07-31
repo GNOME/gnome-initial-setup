@@ -224,8 +224,12 @@ prepopulate_account_page (GisAccountPageLocal *page)
   }
 
   if (pixbuf) {
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), pixbuf);
+    g_autoptr (GdkPixbuf) framed = NULL;
+
+    framed = frame_pixbuf (pixbuf);
     priv->avatar_pixbuf = pixbuf;
+
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), framed);
   }
 
   g_free (name);
@@ -354,14 +358,15 @@ avatar_callback (GdkPixbuf   *pixbuf,
 {
   GisAccountPageLocal *page = user_data;
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
-  GdkPixbuf *tmp;
+  g_autoptr(GdkPixbuf) tmp = NULL;
+  g_autoptr(GdkPixbuf) framed = NULL;
 
   g_clear_object (&priv->avatar_pixbuf);
   g_free (priv->avatar_filename);
   priv->avatar_filename = NULL;
 
   if (pixbuf) {
-    priv->avatar_pixbuf = g_object_ref (pixbuf);
+    priv->avatar_pixbuf = frame_pixbuf (pixbuf);
     tmp = gdk_pixbuf_scale_simple (pixbuf, 96, 96, GDK_INTERP_BILINEAR);
     gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
     g_object_unref (tmp);
@@ -369,8 +374,9 @@ avatar_callback (GdkPixbuf   *pixbuf,
   else if (filename) {
     priv->avatar_filename = g_strdup (filename);
     tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
-    g_object_unref (tmp);
+    framed = frame_pixbuf (tmp);
+
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), framed);
   }
   else {
     gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
@@ -390,6 +396,7 @@ gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GtkCssProvider *provider;
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->constructed (object);
 
@@ -438,6 +445,14 @@ gis_account_page_local_constructed (GObject *object)
                                             page);
 
   validate (page);
+
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-account-page-style.css");
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  g_object_unref (provider);
+
 }
 
 static void
