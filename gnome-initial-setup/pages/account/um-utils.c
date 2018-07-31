@@ -476,3 +476,167 @@ generate_username_choices (const gchar  *name,
         g_string_free (item3, TRUE);
         g_string_free (item4, TRUE);
 }
+
+static glong
+get_hue_from_string (const gchar *string)
+{
+        glong hue = 0;
+        gint i;
+
+        for (i = 0; i < string[i] != '\0'; i++) {
+                hue = string[i] + ((hue << 5) - hue);
+        }
+
+        return hue % 100;
+}
+
+static gchar *
+extract_initials_from_name (const gchar *name)
+{
+        gchar *initials = NULL;
+        gchar *upper_cased_name = g_ascii_strup (name, -1);
+        gint i;
+
+        for (i = 1; i < upper_cased_name[i] != '\0'; i++) {
+                if (upper_cased_name[i] == ' ') {
+                        initials = g_strdup_printf ("%c%c", name[0], name[i + 1]);
+                        break;
+                }
+        }
+
+        if (initials == NULL)
+                initials = g_strdup_printf ("%c", name[0]);
+
+        return initials;
+}
+
+static cairo_surface_t *
+draw_user_picture_surface (GdkRGBA  color,
+                           GdkRGBA *text_color,
+                           gchar   *initials)
+{
+        cairo_text_extents_t extents;
+        cairo_surface_t *surface;
+        gdouble x, y;
+        cairo_t *cr;
+
+        surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 96, 96);
+        cr = cairo_create (surface);
+
+        cairo_rectangle (cr, 0, 0, 96, 96);
+        cairo_set_source_rgb (cr, color.red/255.0, color.green/255.0, color.blue/255.0);
+        cairo_fill (cr);
+
+        /* Draw the initials on top */
+        if (text_color == NULL) {
+                cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, 1.0);
+        }
+        else {
+                cairo_set_source_rgba (cr, text_color->red, text_color->green, text_color->blue, 1.0);
+        }
+
+        cairo_select_font_face (cr, "Cantarell",
+            CAIRO_FONT_SLANT_NORMAL,
+            CAIRO_FONT_WEIGHT_NORMAL);
+
+        cairo_set_font_size (cr, 48.0);
+        cairo_text_extents (cr, initials, &extents);
+        x = 48.0 - (extents.width/2 + extents.x_bearing);
+        y = 48.0 - (extents.height/2 + extents.y_bearing);
+
+        cairo_move_to (cr, x, y);
+        cairo_show_text (cr, initials);
+
+        return surface;
+}
+
+static GdkRGBA
+find_closest_matching_color (guint hash)
+{
+        gint i;
+        static gdouble gnome_color_palette[][3] = {
+                { 152, 193, 241 },
+                {  98, 160, 234 },
+                {  53, 132, 228 },
+                {  28, 113, 216 },
+                {  26,  95, 180 },
+                { 143, 240, 164 },
+                {  87, 227, 137 },
+                {  51, 209, 122 },
+                {  46, 194, 126 },
+                {  38, 162, 105 },
+                { 249, 240, 107 },
+                { 248, 228,  92 },
+                { 246, 211,  45 },
+                { 245, 194,  17 },
+                { 229, 165,  10 },
+                { 255, 190, 111 },
+                { 255, 163,  72 },
+                { 255, 120,   0 },
+                { 230,  97,   0 },
+                { 198,  70,   0 },
+                { 246,  97,  81 },
+                { 237,  51,  59 },
+                { 224,  27,  36 },
+                { 192,  28,  40 },
+                { 165,  29,  45 },
+                { 220, 138, 221 },
+                { 192,  97, 203 },
+                { 163,  71, 186 },
+                { 129,  61, 156 },
+                {  97,  53, 131 },
+                { 205, 171, 143 },
+                { 181, 131,  90 },
+                { 152, 106,  68 },
+                { 134,  94,  60 },
+                {  99,  69,  44 },
+                 -1
+        };
+        GdkRGBA closest_matching_color = { 152, 193, 241, 1.0 };
+        guint closest_matching_hash = gdk_rgba_hash (&closest_matching_color);
+
+        for (i = 0; gnome_color_palette[i][0] != -1; i++) {
+                GdkRGBA color = { 0.0, 0.0, 0.0, 1.0 };
+                guint color_hash = 0;
+
+                color.red   = gnome_color_palette[i][0];
+                color.green = gnome_color_palette[i][1];
+                color.blue  = gnome_color_palette[i][2];
+                color.alpha = 1.0;
+
+                color_hash = gdk_rgba_hash (&color);
+
+                if ((hash - color_hash) < (hash - closest_matching_hash)) {
+                        closest_matching_hash = color_hash;
+                        closest_matching_color = color;
+                }
+        }
+
+        return closest_matching_color;
+}
+
+cairo_surface_t *
+generate_user_picture (const char *name)
+{
+        GdkRGBA real_color = { 0.0, 0.0, 0.0, 1.0 };
+        GdkRGBA text_color = { 36, 31, 49, 1.0 };
+        GdkRGBA final_color;
+        gchar *initials;
+        gint hue;
+
+        if (name == NULL || strlen (name) == 0) {
+            GdkRGBA default_color = { 154, 153, 150, 1.0 };
+
+            return draw_user_picture_surface (default_color, &text_color, "");
+        }
+
+        hue = get_hue_from_string (name);
+        gtk_hsv_to_rgb (hue/100.0, 0.3, 0.8,
+                        &real_color.red, &real_color.green, &real_color.blue);
+
+        initials = extract_initials_from_name (name);
+
+        final_color = find_closest_matching_color (gdk_rgba_hash (&real_color));
+
+        return draw_user_picture_surface (final_color, &text_color, initials);
+}
