@@ -17,9 +17,8 @@ libexec_dir = join_paths(prefix, get_option('libexecdir'))
 source_root = join_paths(meson.source_root(), 'gnome-initial-setup')
 pkgdata_dir = join_paths(prefix, meson.project_name())
 
-if get_option('vendor-conf-file') == ''
-    vendor_conf_file = get_option('vendor-conf-file')
-else
+vendor_conf_file = get_option('vendor-conf-file')
+if vendor_conf_file == ''
     vendor_conf_file = join_paths(data_dir, 'gnome-initial-setup', 'vendor.conf')
 endif
 
