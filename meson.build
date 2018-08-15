@@ -28,6 +28,7 @@ conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('ENABLE_REGION_PAGE', get_option('region-page'))
+conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 
 # Needed for the 'account' page
 cheese_dep = dependency ('cheese',
