@@ -83,13 +83,17 @@ get_strongest_unique_aps (const GPtrArray *aps)
     ssid = nm_access_point_get_ssid (ap);
     add_ap = TRUE;
 
+    if (!ssid)
+      continue;
+
     /* get already added list */
     for (j = 0; j < unique->len; j++) {
       ap_tmp = NM_ACCESS_POINT (g_ptr_array_index (unique, j));
       ssid_tmp = nm_access_point_get_ssid (ap_tmp);
 
       /* is this the same type and data? */
-      if (nm_utils_same_ssid (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid),
+      if (ssid_tmp &&
+          nm_utils_same_ssid (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid),
                               g_bytes_get_data (ssid_tmp, NULL), g_bytes_get_size (ssid_tmp), TRUE)) {
         /* the new access point is stronger */
         if (nm_access_point_get_strength (ap) >
