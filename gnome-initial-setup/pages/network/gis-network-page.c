@@ -323,7 +323,7 @@ add_access_point_other (GisNetworkPage *page)
   gtk_container_add (GTK_CONTAINER (priv->network_list), row);
 }
 
-static void refresh_wireless_list (GisNetworkPage *page);
+static gboolean refresh_wireless_list (GisNetworkPage *page);
 
 static void
 cancel_periodic_refresh (GisNetworkPage *page)
@@ -333,7 +333,7 @@ cancel_periodic_refresh (GisNetworkPage *page)
   if (priv->refresh_timeout_id == 0)
     return;
 
-  g_debug ("Stopping periodic Wi-Fi list refresh");
+  g_debug ("Stopping periodic/scheduled Wi-Fi list refresh");
 
   g_clear_handle_id (&priv->refresh_timeout_id, g_source_remove);
 }
@@ -360,7 +360,7 @@ start_periodic_refresh (GisNetworkPage *page)
                                                     refresh_again, page);
 }
 
-static void
+static gboolean
 refresh_wireless_list (GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
@@ -435,6 +435,26 @@ refresh_wireless_list (GisNetworkPage *page)
     start_periodic_refresh (page);
 
   priv->refreshing = FALSE;
+
+  return G_SOURCE_REMOVE;
+}
+
+/* Avoid repeated calls to refreshing the wireless list by making it refresh at
+ * most once per second */
+static void
+schedule_refresh_wireless_list (GisNetworkPage *page)
+{
+  static const guint refresh_wireless_list_timeout_sec = 1;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  cancel_periodic_refresh (page);
+
+  g_debug ("Delaying Wi-Fi list refresh (for %u sec)",
+           refresh_wireless_list_timeout_sec);
+
+  priv->refresh_timeout_id = g_timeout_add_seconds (refresh_wireless_list_timeout_sec,
+                                                    (GSourceFunc) refresh_wireless_list,
+                                                    page);
 }
 
 static void
@@ -551,13 +571,13 @@ row_activated (GtkListBox *box,
                                                connection_add_activate_cb, page);
 
  out:
-  refresh_wireless_list (page);
+  schedule_refresh_wireless_list (page);
 }
 
 static void
 connection_state_changed (NMActiveConnection *c, GParamSpec *pspec, GisNetworkPage *page)
 {
-  refresh_wireless_list (page);
+  schedule_refresh_wireless_list (page);
 }
 
 static void
@@ -587,7 +607,7 @@ sync_complete (GisNetworkPage *page)
 
   activated = (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED);
   gis_page_set_complete (GIS_PAGE (page), activated);
-  refresh_wireless_list (page);
+  schedule_refresh_wireless_list (page);
 }
 
 static void
