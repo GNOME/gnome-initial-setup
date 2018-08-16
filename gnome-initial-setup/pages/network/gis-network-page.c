@@ -443,7 +443,6 @@ connection_activate_cb (GObject *object,
                         gpointer user_data)
 {
   NMClient *client = NM_CLIENT (object);
-  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
   NMActiveConnection *connection;
   GError *error = NULL;
 
@@ -454,7 +453,6 @@ connection_activate_cb (GObject *object,
     /* failed to activate */
     g_warning ("Failed to activate a connection: %s", error->message);
     g_error_free (error);
-    refresh_wireless_list (page);
   }
 }
 
@@ -464,7 +462,6 @@ connection_add_activate_cb (GObject *object,
                             gpointer user_data)
 {
   NMClient *client = NM_CLIENT (object);
-  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
   NMActiveConnection *connection;
   GError *error = NULL;
 
@@ -475,7 +472,6 @@ connection_add_activate_cb (GObject *object,
     /* failed to activate */
     g_warning ("Failed to add and activate a connection: %s", error->message);
     g_error_free (error);
-    refresh_wireless_list (page);
   }
 }
 
@@ -545,7 +541,7 @@ row_activated (GtkListBox *box,
                                          priv->nm_device, NULL,
                                          NULL,
                                          connection_activate_cb, page);
-    goto out;
+    return;
   }
 
   nm_client_add_and_activate_connection_async (priv->nm_client,
@@ -581,8 +577,6 @@ active_connections_changed (NMClient *client, GParamSpec *pspec, GisNetworkPage 
       g_object_set_data (G_OBJECT (connection), "has-state-changed-handler", GINT_TO_POINTER (1));
     }
   }
-
-  refresh_wireless_list (page);
 }
 
 static void
@@ -593,6 +587,7 @@ sync_complete (GisNetworkPage *page)
 
   activated = (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED);
   gis_page_set_complete (GIS_PAGE (page), activated);
+  refresh_wireless_list (page);
 }
 
 static void
@@ -670,7 +665,6 @@ gis_network_page_constructed (GObject *object)
   g_signal_connect (priv->network_list, "row-activated",
                     G_CALLBACK (row_activated), page);
 
-  refresh_wireless_list (page);
   sync_complete (page);
 
   gis_page_set_skippable (GIS_PAGE (page), TRUE);
