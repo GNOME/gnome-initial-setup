@@ -614,7 +614,10 @@ gis_network_page_constructed (GObject *object)
     goto out;
   }
 
-  if (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED) {
+  /* Allow to always show the network, even if there's an active connection, for
+   * debugging purposes */
+  if (g_getenv ("GIS_ALWAYS_SHOW_NETWORK_PAGE") == NULL &&
+      nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED) {
     g_debug ("Activated network device found, hiding network page");
     goto out;
   }
