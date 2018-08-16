@@ -307,6 +307,9 @@ map_location_changed (CcTimezoneMap   *map,
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
+  gtk_widget_set_visible (priv->search_overlay, (location == NULL));
+  gis_page_set_complete (GIS_PAGE (page), (location != NULL));
+
   if (!priv->in_search)
     gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
 
