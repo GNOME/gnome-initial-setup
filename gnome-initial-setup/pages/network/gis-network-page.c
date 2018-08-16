@@ -59,6 +59,8 @@ typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisNetworkPage, gis_network_page, GIS_TYPE_PAGE);
 
+static void cancel_schedule_refresh_wireless_list (GisNetworkPage *page);
+
 static GPtrArray *
 get_strongest_unique_aps (const GPtrArray *aps)
 {
@@ -379,6 +381,7 @@ refresh_wireless_list (GisNetworkPage *page)
 
   g_assert (NM_IS_DEVICE_WIFI (priv->nm_device));
 
+  cancel_schedule_refresh_wireless_list (page);
   cancel_periodic_refresh (page);
 
   active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
@@ -436,6 +439,46 @@ refresh_wireless_list (GisNetworkPage *page)
     start_periodic_refresh (page);
 
   priv->refreshing = FALSE;
+}
+
+static gboolean
+refresh_wireless_list_on_timeout (gpointer data)
+{
+  GisNetworkPage *page = data;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  g_source_remove (priv->refresh_timeout_id);
+  priv->refresh_timeout_id = 0;
+
+  refresh_wireless_list (page);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+cancel_schedule_refresh_wireless_list (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  if (priv->refresh_timeout_id != 0) {
+    g_source_remove (priv->refresh_timeout_id);
+    priv->refresh_timeout_id = 0;
+  }
+}
+
+/* Avoid repeated calls to refreshing the wireless list by making it refresh at
+ * most once per second */
+static void
+schedule_refresh_wireless_list (GisNetworkPage *page)
+{
+  static const guint refresh_wireless_list_timeout_sec = 1;
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  cancel_schedule_refresh_wireless_list (page);
+
+  priv->refresh_timeout_id = g_timeout_add_seconds (refresh_wireless_list_timeout_sec,
+                                                    refresh_wireless_list_on_timeout,
+                                                    page);
 }
 
 static void
@@ -552,13 +595,13 @@ row_activated (GtkListBox *box,
                                                connection_add_activate_cb, page);
 
  out:
-  refresh_wireless_list (page);
+  schedule_refresh_wireless_list (page);
 }
 
 static void
 connection_state_changed (NMActiveConnection *c, GParamSpec *pspec, GisNetworkPage *page)
 {
-  refresh_wireless_list (page);
+  schedule_refresh_wireless_list (page);
 }
 
 static void
@@ -588,7 +631,7 @@ sync_complete (GisNetworkPage *page)
 
   activated = (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED);
   gis_page_set_complete (GIS_PAGE (page), activated);
-  refresh_wireless_list (page);
+  schedule_refresh_wireless_list (page);
 }
 
 static void
@@ -684,6 +727,7 @@ gis_network_page_dispose (GObject *object)
   g_clear_object (&priv->nm_device);
   g_clear_object (&priv->icons);
 
+  cancel_schedule_refresh_wireless_list (page);
   cancel_periodic_refresh (page);
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->dispose (object);
