@@ -288,6 +288,11 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 
   gtk_widget_show_all (row);
 
+  /* if this connection is the active one or is being activated, then make sure
+   * it's sorted before all others */
+  if (activating || activated)
+    strength = G_MAXUINT;
+
   g_object_set_data (G_OBJECT (row), "object-path", (gpointer) object_path);
   g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
