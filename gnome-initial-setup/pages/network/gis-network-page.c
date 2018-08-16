@@ -194,7 +194,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   GtkWidget *row;
   GtkWidget *widget;
   GtkWidget *box;
-  GtkWidget *state_widget;
+  GtkWidget *state_widget = NULL;
 
   ssid = nm_access_point_get_ssid (ap);
   object_path = nm_object_get_path (NM_OBJECT (ap));
