@@ -325,12 +325,39 @@ add_access_point_other (GisNetworkPage *page)
 
 static void refresh_wireless_list (GisNetworkPage *page);
 
+static void
+cancel_periodic_refresh (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  if (priv->refresh_timeout_id == 0)
+    return;
+
+  g_debug ("Stopping periodic Wi-Fi list refresh");
+
+  g_clear_handle_id (&priv->refresh_timeout_id, g_source_remove);
+}
+
 static gboolean
 refresh_again (gpointer user_data)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
   refresh_wireless_list (page);
   return G_SOURCE_REMOVE;
+}
+
+static void
+start_periodic_refresh (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+  static const guint periodic_wifi_refresh_timeout_sec = 10;
+
+  cancel_periodic_refresh (page);
+
+  g_debug ("Starting periodic Wi-Fi list refresh (every %u secs)",
+           periodic_wifi_refresh_timeout_sec);
+  priv->refresh_timeout_id = g_timeout_add_seconds (periodic_wifi_refresh_timeout_sec,
+                                                    refresh_again, page);
 }
 
 static void
@@ -343,16 +370,15 @@ refresh_wireless_list (GisNetworkPage *page)
   GPtrArray *unique_aps;
   guint i;
   GList *children, *l;
+  gboolean enabled;
+
+  g_debug ("Refreshing Wi-Fi networks list");
 
   priv->refreshing = TRUE;
 
   g_assert (NM_IS_DEVICE_WIFI (priv->nm_device));
 
-  if (priv->refresh_timeout_id != 0)
-    {
-      g_source_remove (priv->refresh_timeout_id);
-      priv->refresh_timeout_id = 0;
-    }
+  cancel_periodic_refresh (page);
 
   active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
 
@@ -362,11 +388,11 @@ refresh_wireless_list (GisNetworkPage *page)
   g_list_free (children);
 
   aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (priv->nm_device));
+  enabled = nm_client_wireless_get_enabled (priv->nm_client);
 
   if (aps == NULL || aps->len == 0) {
-    gboolean enabled, hw_enabled;
+    gboolean hw_enabled;
 
-    enabled = nm_client_wireless_get_enabled (priv->nm_client);
     hw_enabled = nm_client_wireless_hardware_get_enabled (priv->nm_client);
 
     if (!enabled || !hw_enabled) {
@@ -385,7 +411,6 @@ refresh_wireless_list (GisNetworkPage *page)
     }
 
     gtk_widget_hide (priv->scrolled_window);
-    priv->refresh_timeout_id = g_timeout_add_seconds (1, refresh_again, page);
     goto out;
 
   } else {
@@ -405,6 +430,10 @@ refresh_wireless_list (GisNetworkPage *page)
   add_access_point_other (page);
 
  out:
+
+  if (enabled)
+    start_periodic_refresh (page);
+
   priv->refreshing = FALSE;
 }
 
@@ -660,11 +689,7 @@ gis_network_page_dispose (GObject *object)
   g_clear_object (&priv->nm_device);
   g_clear_object (&priv->icons);
 
-  if (priv->refresh_timeout_id != 0)
-    {
-      g_source_remove (priv->refresh_timeout_id);
-      priv->refresh_timeout_id = 0;
-    }
+  cancel_periodic_refresh (page);
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->dispose (object);
 }
