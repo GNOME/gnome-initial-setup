@@ -295,7 +295,10 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
 
-  gtk_container_add (GTK_CONTAINER (priv->network_list), row);
+  widget = gtk_list_box_row_new ();
+  gtk_container_add (GTK_CONTAINER (widget), row);
+  gtk_widget_show (widget);
+  gtk_container_add (GTK_CONTAINER (priv->network_list), widget);
 }
 
 static void
