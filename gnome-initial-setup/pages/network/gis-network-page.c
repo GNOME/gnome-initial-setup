@@ -194,6 +194,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   GtkWidget *row;
   GtkWidget *widget;
   GtkWidget *box;
+  GtkWidget *state_widget = NULL;
 
   ssid = nm_access_point_get_ssid (ap);
   object_path = nm_object_get_path (NM_OBJECT (ap));
@@ -242,21 +243,18 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
 
   if (activated) {
-    widget = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
-    gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign (widget, GTK_ALIGN_CENTER);
-    gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
+    state_widget = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+  } else if (activating) {
+    state_widget = gtk_spinner_new ();
+    gtk_widget_show (state_widget);
+    gtk_spinner_start (GTK_SPINNER (state_widget));
   }
 
-  widget = gtk_spinner_new ();
-  gtk_widget_set_no_show_all (widget, TRUE);
-  if (activating) {
-    gtk_widget_show (widget);
-    gtk_spinner_start (GTK_SPINNER (widget));
+  if (state_widget) {
+    gtk_widget_set_halign (state_widget, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign (state_widget, GTK_ALIGN_CENTER);
+    gtk_box_pack_start (GTK_BOX (row), state_widget, FALSE, FALSE, 0);
   }
-  gtk_widget_set_halign (widget, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (widget, GTK_ALIGN_CENTER);
-  gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
 
   gtk_box_pack_start (GTK_BOX (row), gtk_label_new (""), TRUE, FALSE, 0);
 
