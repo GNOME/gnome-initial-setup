@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017.
+# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-05-10 15:42+0000\n"
-"PO-Revision-Date: 2017-08-23 14:16+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
+"issues\n"
+"POT-Creation-Date: 2018-06-24 23:10+0000\n"
+"PO-Revision-Date: 2018-08-17 13:06+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -23,33 +23,34 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Upphafsstillingar"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: ../gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
 msgstr "_Næsta"
 
-#: ../gnome-initial-setup/gis-assistant.c:397
+#: ../gnome-initial-setup/gis-assistant.c:404
 msgid "_Accept"
 msgstr "S_amþykkja"
 
-#: ../gnome-initial-setup/gis-assistant.c:398
+#: ../gnome-initial-setup/gis-assistant.c:405
 msgid "_Skip"
 msgstr "_Sleppa"
 
-#: ../gnome-initial-setup/gis-assistant.c:399
+#: ../gnome-initial-setup/gis-assistant.c:406
 msgid "_Previous"
 msgstr "_Fyrra"
 
-#: ../gnome-initial-setup/gis-assistant.c:400
+#: ../gnome-initial-setup/gis-assistant.c:407
 msgid "_Cancel"
 msgstr "_Hætta við"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:199
+#: ../gnome-initial-setup/gnome-initial-setup.c:217
 msgid "Force existing user mode"
 msgstr "Þvinga núverandi notandaham"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:205
-msgid "- GNOME initial setup"
-msgstr "- GNOME upphafsstillingar"
+#: ../gnome-initial-setup/gnome-initial-setup.c:223
+#| msgid "- GNOME initial setup"
+msgid "— GNOME initial setup"
+msgstr "— GNOME upphafsstillingar"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page.c:242
 #: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
@@ -77,12 +78,17 @@ msgid "Enterprise Login"
 msgstr "Innskráning í fyrirtæki"
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
+#| msgid ""
+#| "Enterprise login allows an existing centrally managed user account to be "
+#| "used on this device."
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
 "Innskráning í fyrirtæki þýðir að hægt er að nota miðlægt skráðan "
-"notandaaðgang á þessu tæki."
+"notandaaðgang á þessu tæki. Þú getur líka notað þennan notandaaðgang til að "
+"tengjast netlægum tilföngum viðkomandi fyrirtækis."
 
 #: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
 msgid "_Domain"
@@ -132,11 +138,11 @@ msgstr "_Nafn kerfisstjóra"
 msgid "Administrator Password"
 msgstr "Lykilorð kerfisstjóra"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:202
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Athugaðu notandanafnið og lykilorðið. Þú getur einnig valið mynd."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:403
+#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Okkur vantar nokkur atriði áður en hægt er að ljúka uppsetningu."
 
@@ -161,7 +167,6 @@ msgid "Disable image"
 msgstr "Gera mynd óvirka"
 
 #: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-#| msgid "Take a photo..."
 msgid "Take a photo…"
 msgstr "Taktu mynd…"
 
@@ -186,39 +191,36 @@ msgstr "Rangt lykilorð, reyndu aftur"
 
 #: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-#| msgid "Couldn't connect to the %s domain: %s"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Gat ekki tengst %s léninu: %s"
 
 #: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-#| msgid "A user with the username '%s' already exists."
-msgid "A user with the username ‘%s’ already exists."
-msgstr "Notandi með notandanafnið '%s' er þegar til."
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr ""
+"Því miður, þetta notandanafn er ekki tiltækt. Veldu eitthvað annað nafn."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
+#: ../gnome-initial-setup/pages/account/um-utils.c:248
 #, c-format
 msgid "The username is too long."
 msgstr "Notandanafnið er of langt."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'."
-msgid "The username cannot start with a ‘-’."
+#: ../gnome-initial-setup/pages/account/um-utils.c:251
+#| msgid "The username cannot start with a ‘-’."
+msgid "The username cannot start with a “-”."
 msgstr "Notandanafn má ekki byrja með '-'."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: ../gnome-initial-setup/pages/account/um-utils.c:254
 #| msgid ""
 #| "The username should only consist of lower and upper case letters from a-"
-#| "z, digits and any of characters '.', '-' and '_'."
+#| "z, digits and any of characters ‘.’, ‘-’ and ‘_’."
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters ‘.’, ‘-’ and ‘_’."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
 "Notandanafn ætti einungis að innihalda lág/hástafi frá a-z, tölustafi eða "
-"einhvern af stöfunum '.', '-' og '_'."
+"einhvern af eftirfarandi stöfum: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
-#| msgid "This will be used to name your home folder and can't be changed."
+#: ../gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Þetta verður notað til að nefna heimamöppuna þína og er ekki hægt að breyta "
@@ -239,7 +241,7 @@ msgstr "Ég hef s_amþykkt skilmálana í þessum samningi um notkunarleyfi."
 msgid "Add Account"
 msgstr "Bæta við notandaaðgangi"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:336
+#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Aðgangar á neti"
 
@@ -262,12 +264,12 @@ msgstr ""
 "Hægt er að bæta við og fjarlægja aðganga hvenær sem er með því að fara í "
 "stillingaforritið."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:241
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Forskoðun"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:300
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:219
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:222
 #: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Meira…"
@@ -275,7 +277,7 @@ msgstr "Meira…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
+#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Engin inntök fundust"
 
@@ -288,11 +290,11 @@ msgstr "Innsláttur"
 msgid "Select your keyboard layout or an input method."
 msgstr "Veldu lyklaborðsuppsetningu eða inntaksaðferð."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:235
+#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Engin tungumál fundust"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:292
+#: ../gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "Velkomin"
 
@@ -343,15 +345,11 @@ msgstr "Engin þráðlaus net tiltæk"
 msgid "Turn On"
 msgstr "Kveikja á"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:134
-msgid "This is a weak password."
-msgstr "Þetta er veikt lykilorð."
-
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:148
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:142
 msgid "The passwords do not match."
 msgstr "Lykilorðin stemma ekki."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:270
+#: ../gnome-initial-setup/pages/password/gis-password-page.c:264
 msgid "Password"
 msgstr "Lykilorð"
 
@@ -364,8 +362,8 @@ msgid "Be careful not to lose your password."
 msgstr "Passaðu upp á að týna ekki lykilorðinu þínu."
 
 #: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
-msgstr "_Sannreyna"
+msgid "_Confirm"
+msgstr "Stað_festa"
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -373,153 +371,162 @@ msgid "The new password needs to be different from the old one."
 msgstr "Nýja lykilorðið verður að vera ólíkt því gamla."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:83
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing some letters "
+#| "and numbers."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing some letters "
-"and numbers."
-msgstr ""
-"Þetta lykilorð er mjög líkt því sem þú notaðir síðast. Reyndu að breyta "
-"einhverjum stöfum og tölum."
+msgid "Try changing some letters and numbers."
+msgstr "Reyndu að breyta einhverjum stöfum og tölum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:85
 #: ../gnome-initial-setup/pages/password/pw-utils.c:93
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This password is very similar to your last one. Try changing the password "
+#| "a bit more."
 msgctxt "Password hint"
-msgid ""
-"This password is very similar to your last one. Try changing the password a "
-"bit more."
-msgstr ""
-"Þetta lykilorð er mjög líkt því sem þú notaðir síðast. Reyndu að breyta "
-"lykilorðinu örlítið meira."
+msgid "Try changing the password a bit more."
+msgstr "Reyndu að breyta lykilorðinu örlítið meira."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:87
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. A password without your user name would be "
+#| "stronger."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. A password without your user name would be stronger."
-msgstr ""
-"Þetta er veikt lykilorð. Lykilorð sem ekki inniheldur notandanafnið þitt "
-"væri sterkara."
+msgid "A password without your user name would be stronger."
+msgstr "Lykilorð sem ekki inniheldur notandanafnið þitt væri sterkara."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:89
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid using your name in the password."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "Þetta er veikt lykilorð. Forðastu að nota nafnið þitt í lykilorðinu."
+msgid "Try to avoid using your name in the password."
+msgstr "Forðastu að nota nafnið þitt í lykilorðinu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:91
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid some of the words included in the "
+#| "password."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to avoid some of the words included in the "
-"password."
-msgstr ""
-"Þetta er veikt lykilorð. Forðastu að nota einhver orðanna sem eru í "
-"lykilorðinu."
+msgid "Try to avoid some of the words included in the password."
+msgstr "Forðastu að nota einhver orðanna sem eru í lykilorðinu."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:95
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid common words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid common words."
-msgstr "Þetta er veikt lykilorð. Forðastu að nota algeng orð."
+msgid "Try to avoid common words."
+msgstr "Forðastu að nota algeng orð."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:97
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid reordering existing words."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "Þetta er veikt lykilorð. Forðastu að endurraða algengum orðum."
+msgid "Try to avoid reordering existing words."
+msgstr "Forðastu að endurraða algengum orðum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:99
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more numbers."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more numbers."
-msgstr "Þetta er veikt lykilorð. Reyndu að nota fleiri tölustafi."
+msgid "Try to use more numbers."
+msgstr "Reyndu að nota fleiri tölustafi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:101
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more uppercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Þetta er veikt lykilorð. Reyndu að nota fleiri hástafi."
+msgid "Try to use more uppercase letters."
+msgstr "Reyndu að nota fleiri hástafi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:103
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to use more lowercase letters."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Þetta er veikt lykilorð. Reyndu að nota fleiri lágstafi."
+msgid "Try to use more lowercase letters."
+msgstr "Reyndu að nota fleiri lágstafi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:105
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use more special characters, like "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use more special characters, like "
-"punctuation."
-msgstr ""
-"Þetta er veikt lykilorð. Reyndu að nota fleiri sértákn, eins og greinamerki."
+msgid "Try to use more special characters, like punctuation."
+msgstr "Reyndu að nota fleiri sértákn, eins og greinamerki."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:107
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and "
-"punctuation."
-msgstr ""
-"Þetta er veikt lykilorð. Reyndu að blanda saman bókstöfum, tölustöfum og "
-"greinamerkjum."
+msgid "Try to use a mixture of letters, numbers and punctuation."
+msgstr "Reyndu að blanda saman bókstöfum, tölustöfum og greinamerkjum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:109
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid repeating the same character."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Þetta er veikt lykilorð. Forðastu að endurtaka sama stafinn oft."
+msgid "Try to avoid repeating the same character."
+msgstr "Forðastu að endurtaka sama stafinn oft."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to avoid repeating the same type of "
+#| "character: you need to mix up letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: "
-"you need to mix up letters, numbers and punctuation."
+"Try to avoid repeating the same type of character: you need to mix up "
+"letters, numbers and punctuation."
 msgstr ""
-"Þetta er veikt lykilorð. Forðastu að endurtaka sömu tegund stafa: best er að "
-"blanda saman bókstöfum, tölustöfum og greinamerkjum."
+"Forðastu að endurtaka sömu tegund stafa: best er að blanda saman bókstöfum, "
+"tölustöfum og greinamerkjum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:113
+#| msgctxt "Password hint"
+#| msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "Þetta er veikt lykilorð. Forðastu að nota runur eins og 1234 eða abcd."
+msgid "Try to avoid sequences like 1234 or abcd."
+msgstr "Forðastu að nota runur eins og 1234 eða abcd."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:115
+#| msgctxt "Password hint"
+#| msgid ""
+#| "This is a weak password. Try to use a mixture of letters, numbers and "
+#| "punctuation."
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and symbols."
+msgid ""
+"Password needs to be longer. Try to add more letters, numbers and "
+"punctuation."
 msgstr ""
-"Þetta er veikt lykilorð. Reyndu að bæta við fleiri bókstöfum, tölustöfum og "
-"táknum."
+"Lykilorðið þarf að vera lengra. Reyndu að blanda saman bókstöfum, tölustöfum "
+"og greinamerkjum."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:117
+#| msgctxt "Password hint"
+#| msgid "Mix uppercase and lowercase and use a number or two."
 msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
+msgid "Mix uppercase and lowercase and try to use a number or two."
 msgstr ""
 "Blandaðu saman hástöfum, lágstöfum og notaðu einn eða fleiri tölustafi."
 
 #: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#| msgctxt "Password hint"
+#| msgid ""
+#| "Good password! Adding more letters, numbers and punctuation will make it "
+#| "stronger."
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr ""
 "Gott lykilorð! Ef þú bætir við fleiri bókstöfum, tölustöfum og greinamerkjum "
 "verður það ennþá sterkara."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Styrkur: Veikt"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Styrkur: Lítill"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Styrkur: Miðlungs"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Styrkur: Góður"
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Styrkur: Mikill"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -600,7 +607,6 @@ msgstr "Veldu þér land eða hérað."
 #. * detect any distribution.
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.c:304
 #, c-format
-#| msgid "_Start using %s"
 msgid "_Start Using %s"
 msgstr "_Byrjaðu að nota %s"
 
@@ -609,12 +615,11 @@ msgid "Ready to Go"
 msgstr "Klár í slaginn"
 
 #: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#| msgid "You're ready to go!"
 msgid "You’re ready to go!"
 msgstr "Þú ert klár í slaginn!"
 
 #. Translators: "city, country"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:238
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -623,28 +628,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:275
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:279
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:285
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:432
+#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
 #: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
 msgid "Time Zone"
 msgstr "Tímabelti"
@@ -661,36 +666,37 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Leitaðu að næstu borg"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:112
-#, c-format
-msgid ""
-"Proprietary software sources provide access to additional software, "
-"including web browsers and games. This software typically has restrictions "
-"on use and access to source code, and is not provided by %s."
-msgstr ""
-"Veitur með séreignarhugbúnaði gefa aðgang að viðbótarhugbúnaði, eins og "
-"vöfrum og leikjum. Slíkur hugbúnaður er með takmarkanir varðandi notkun og "
-"aðgang að grunnkóða og er því ekki innifalinn í %s."
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:184
+#| msgid "Software Sources"
+msgid "Software Repositories"
+msgstr "Hugbúnaðarsöfn"
 
-#: ../gnome-initial-setup/pages/software/gis-software-page.c:245
-msgid "Software Sources"
-msgstr "Hugbúnaðarupptök"
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Settu upp hugbúnað frá utanaðkomandi aðilum/upptökum."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: ../gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
+msgstr ""
+"Sumt af þessu hugbúnaði er séreignarhugbúnaður og er þar af leiðandi með "
+"hömlur á notkun, deilingu og aðgangi að grunnkóða."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:1
-msgid "Additional Software Sources"
-msgstr "Aukahugbúnaðarupptök"
+#| msgid "Additional Software Sources"
+msgid "Additional Software Repositories"
+msgstr "Aukahugbúnaðarsöfn"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:2
 msgid "<a href=\"more\">Find out more…</a>"
 msgstr "<a href=\"more\">Frekari upplýsingar…</a>"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:3
-msgid "Proprietary Software Sources"
-msgstr "Upptök séreignarhugbúnaðar"
+msgid "Third Party Repositories"
+msgstr "Hugbúnaðarsöfn annarra aðila"
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:4
 msgid ""
@@ -698,17 +704,66 @@ msgid ""
 "access to source code. This prevents anyone but the software owner from "
 "inspecting, improving or learning from its code."
 msgstr ""
-"Séreignarhugbúnaður er venjulega með takmarkanir varðandi notkun og aðgang að "
-"grunnkóða. Þetta kemur í veg fyrir að nokkur annar en eigandi hugbúnaðarins "
-"geti rannsakað hann, bætt hann eða lært af kóðanum."
+"Séreignarhugbúnaður er venjulega með takmarkanir varðandi notkun og aðgang "
+"að grunnkóða. Þetta kemur í veg fyrir að nokkur annar en eigandi "
+"hugbúnaðarins geti rannsakað hann, bætt hann eða lært af kóðanum."
 
 #: ../gnome-initial-setup/pages/software/gis-software-page.ui.h:5
 msgid ""
 "In contrast, Free Software can be freely run, copied, distributed, studied "
 "and modified."
 msgstr ""
-"Aftur á móti má hver sem er keyra frjálsan hugbúnað, lært af honum eða breytt "
-"eftir sínu höfði."
+"Aftur á móti má hver sem er keyra frjálsan hugbúnað, lært af honum eða "
+"breytt eftir sínu höfði."
+
+#~| msgid "A user with the username '%s' already exists."
+#~ msgid "A user with the username ‘%s’ already exists."
+#~ msgstr "Notandi með notandanafnið '%s' er þegar til."
+
+#~ msgid "This is a weak password."
+#~ msgstr "Þetta er veikt lykilorð."
+
+#~ msgid "_Verify"
+#~ msgstr "_Sannreyna"
+
+#~ msgctxt "Password hint"
+#~ msgid ""
+#~ "This is a weak password. Try to add more letters, numbers and symbols."
+#~ msgstr ""
+#~ "Þetta er veikt lykilorð. Reyndu að bæta við fleiri bókstöfum, tölustöfum "
+#~ "og táknum."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Styrkur: Veikt"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Styrkur: Lítill"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Styrkur: Miðlungs"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Styrkur: Góður"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Styrkur: Mikill"
+
+#~ msgid ""
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
+#~ msgstr ""
+#~ "Veitur með séreignarhugbúnaði gefa aðgang að viðbótarhugbúnaði, eins og "
+#~ "vöfrum og leikjum. Slíkur hugbúnaður er með takmarkanir varðandi notkun "
+#~ "og aðgang að grunnkóða og er því ekki innifalinn í %s."
+
+#~ msgid "Proprietary Software Sources"
+#~ msgstr "Upptök séreignarhugbúnaðar"
 
 #~ msgid "Are these the right details? You can change them if you want."
 #~ msgstr "Eru þessi atriði rétt? Þú getur breytt þeim ef þú vilt."
