@@ -193,7 +193,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   const gchar *icon_name;
   GtkWidget *row;
   GtkWidget *widget;
-  GtkWidget *box;
+  GtkWidget *grid;
   GtkWidget *state_widget = NULL;
 
   ssid = nm_access_point_get_ssid (ap);
@@ -256,20 +256,18 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
     gtk_box_pack_start (GTK_BOX (row), state_widget, FALSE, FALSE, 0);
   }
 
-  gtk_box_pack_start (GTK_BOX (row), gtk_label_new (""), TRUE, FALSE, 0);
-
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_box_set_homogeneous (GTK_BOX (box), TRUE);
-  gtk_size_group_add_widget (priv->icons, box);
-  gtk_box_pack_start (GTK_BOX (row), box, FALSE, FALSE, 0);
+  grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_column_homogeneous (GTK_GRID (grid), TRUE);
+  gtk_widget_set_valign (grid, GTK_ALIGN_CENTER);
+  gtk_size_group_add_widget (priv->icons, grid);
+  gtk_box_pack_end (GTK_BOX (row), grid, FALSE, FALSE, 0);
 
   if (security != NM_AP_SEC_UNKNOWN &&
       security != NM_AP_SEC_NONE) {
     widget = gtk_image_new_from_icon_name ("network-wireless-encrypted-symbolic", GTK_ICON_SIZE_MENU);
-  } else {
-    widget = gtk_label_new ("");
+    gtk_grid_attach (GTK_GRID (grid), widget, 0, 0, 1, 1);
   }
-  gtk_box_pack_start (GTK_BOX (box), widget, FALSE, FALSE, 0);
 
   if (strength < 20)
     icon_name = "network-wireless-signal-none-symbolic";
@@ -282,7 +280,8 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   else
     icon_name = "network-wireless-signal-excellent-symbolic";
   widget = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
-  gtk_box_pack_start (GTK_BOX (box), widget, FALSE, FALSE, 0);
+  gtk_widget_set_halign (widget, GTK_ALIGN_END);
+  gtk_grid_attach (GTK_GRID (grid), widget, 1, 0, 1, 1);
 
   gtk_widget_show_all (row);
 
