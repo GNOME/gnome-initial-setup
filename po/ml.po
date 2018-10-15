@@ -8,398 +8,720 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-04-26 16:47+0000\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-02-28 03:14-0500\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
+"POT-Creation-Date: 2018-10-09 11:08+0000\n"
+"PO-Revision-Date: 2018-10-15 21:46+0800\n"
 "Last-Translator: apeter <apeter@redhat.com>\n"
 "Language-Team: Swatantra Malayalam Computing\n"
 "Language: ml\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.2.3\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Project-Style: gnome\n"
+"X-Language: ml\n"
+"X-Source-Language: C\n"
 
-#: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
+#: data/gnome-initial-setup.desktop.in.in:3 data/gnome-initial-setup-first-login.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "ആദ്യ ക്രമീകരണം"
 
-#: ../gnome-initial-setup/gis-assistant.c:394
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/gnome-initial-setup.desktop.in.in:5 data/gnome-initial-setup-first-login.desktop.in.in:5
+msgid "preferences-system"
+msgstr "preferences-system"
+
+#: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
-msgstr "_അടുത്തത്"
+msgstr "അടുത്തത് (_N)"
 
-#: ../gnome-initial-setup/gis-assistant.c:395
+#: gnome-initial-setup/gis-assistant.c:424
+msgid "_Accept"
+msgstr "സ്വീകരിക്കൂക (_A)"
+
+#: gnome-initial-setup/gis-assistant.c:425
+msgid "_Skip"
+msgstr "ഒഴിവാക്കുക (_S)"
+
+#: gnome-initial-setup/gis-assistant.c:426
 msgid "_Previous"
-msgstr "_മുമ്പുള്ളതു്"
+msgstr "മുമ്പുള്ള (_P)"
 
-#: ../gnome-initial-setup/gis-assistant.c:396
+#: gnome-initial-setup/gis-assistant.c:427
 msgid "_Cancel"
-msgstr "_റദ്ദാക്കുക"
+msgstr "റദ്ദാക്കു (_C)"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:220
-msgid "Force new user mode"
-msgstr "പുതിയ യൂസര്‍ രീതി നിര്‍ബന്ധമാക്കുക"
+#: gnome-initial-setup/gnome-initial-setup.c:260
+msgid "Force existing user mode"
+msgstr "നിലവിലുള്ള  യൂസര്‍ രീതി നിര്‍ബന്ധമാക്കുക"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:224
-msgid "- GNOME initial setup"
-msgstr "- ഗ്നോം പ്രാരംഭ സജ്ജീകരണം"
+#: gnome-initial-setup/gnome-initial-setup.c:266
+msgid "— GNOME initial setup"
+msgstr "— ഗ്നോം പ്രാരംഭ സജ്ജീകരണം"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:334
-msgid "No password"
-msgstr "പാസ്‌വേര്‍ഡ് ഇല്ല"
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+msgid "Take a Picture…"
+msgstr "ഒരു ചിത്രമെടുക്കൂ..."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:339
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:442
-msgid "Passwords do not match"
-msgstr "രഹസ്യവാക്കുകള്‍ ചേരുന്നില്ല"
+#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
+msgid "About You"
+msgstr "നിങ്ങളെക്കുറിച്ച് "
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:389
-#, c-format
-msgid "Strength: %s"
-msgstr "ശക്തി : %s"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:579
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "അക്കൌണ്ട് ചേര്‍ക്കാന്‍ സാധിച്ചില്ല"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:782
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "ഈ ഡൊമെയിനിലേക്കു് ആധികാരികത ഉറപ്പാക്കുവാന്‍ പിന്തുണയ്ക്കുന്നില്ല"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:821
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
 msgstr "ഡൊമെയിനില്‍ ചേരാന്‍ സാധിച്ചില്ല "
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:888
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
 msgstr "ഡൊമെയിനില്‍ പ്രവേശിക്കാന്‍ സാധിച്ചില്ല"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:1258
-msgid "Login"
-msgstr "അകത്ത് പ്രവേശിക്കുക"
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:31
+msgid "Enterprise Login"
+msgstr "എന്റർപ്രൈസ്  പ്രവേശനം "
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
-msgid "Create a Local Account"
-msgstr "ലോക്കല്‍ അക്കൌണ്ട്‌ ഉണ്ടാക്കുക"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:2
-msgid "_Full Name"
-msgstr "_മുഴുവന്‍ പേര്"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:3
-msgid "_Username"
-msgstr "_ഉപയോക്തൃനാമം"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:4
-msgid "This will be used to name your home folder and can't be changed."
-msgstr ""
-"ഇതു നിങ്ങളുടെ ആസ്ഥാന അറയുടെ പേരായി ഉപയോഗിക്കപെടും, പിന്നെ അതു മാറ്റാന്‍ "
-"കഴിയുന്നതല്ല."
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:5
-msgid "_Password"
-msgstr "_രഹസ്യവാക്ക്"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:6
-msgid "_Confirm password"
-msgstr "രഹസ്യവാക്ക് സ്ഥിരീകരിക്കുക"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:7
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:45
 msgid ""
-"Try to use at least 8 different characters. Mix upper and lower case and use "
-"a number or two."
+"Enterprise login allows an existing centrally managed user account to be used on this device. You can "
+"also use this account to access company resources on the internet."
 msgstr ""
-"എട്ട് വിവിധ അക്ഷരങ്ങളെങ്കിലും ഉപയോഗിക്കാന്‍ ശ്രമിക്കുക. ചെറിയ അക്ഷരങ്ങളും "
-"വലിയ അക്ഷരങ്ങളും ഒന്നോ രണ്ടോ അക്കങ്ങളും കുടെ കലര്‍ത്തുക. "
+"നിലവിലുള്ള കേന്ദ്രീകൃതമായി നിയന്ത്രിക്കപ്പെടുന്നു ഒരു ഉപയോക്തൃ അക്കൗണ്ട് ഈ ഉപകരണത്തിൽ ഉപയോഗിക്കാൻ എന്റർപ്രൈസ് പ്രവേശനം  "
+"അനുവദിക്കുന്നു  .ഇൻറർനെറ്റിൽ കമ്പനിയ്ക്ക് ആവശ്യമായ വിഭവങ്ങൾ ആക്സസ് ചെയ്യാനും  നിങ്ങൾക്ക് ഈ അക്കൗണ്ട് ഉപയോഗിക്കാം."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:8
-msgid "page 1"
-msgstr "താള്‍ 1"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:9
-msgid "Create an Enterprise Account"
-msgstr "എന്റര്‍പ്രൈസസ്‌ അക്കൌണ്ട് ഉണ്ടാക്കുക"
-
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:10
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:65
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:316
 msgid "_Domain"
-msgstr "_ഡൊമെയിന്‍"
+msgstr "ഡൊമെയിന്‍ (_D)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:11
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:82
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:101
+msgid "_Username"
+msgstr "ഉപയോക്തൃനാമം (_U)"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:99
+#: gnome-initial-setup/pages/password/gis-password-page.ui:66
+msgid "_Password"
+msgstr "രഹസ്യവാക്ക് (_P)"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:175
 msgid "Enterprise domain or realm name"
 msgstr "എന്റര്‍പ്രൈസ് ഡോമെയിന്‍ അഥവ സാമ്രാജ്യത്തിന്റെ പേര്"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:12
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:240
 msgid "C_ontinue"
-msgstr "_തുടരുക"
+msgstr "തുടരു (_C)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:13
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:275
 msgid "Domain Administrator Login"
 msgstr "ഡൊമെയിന്‍ അഡ്മിനിസ്ട്രേറ്ററിനുള്ള പ്രവേശനം"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:14
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:295
 msgid ""
-"In order to use enterprise logins, this computer needs to be\n"
-"enrolled in the domain. Please have your network administrator\n"
-"type their domain password here, and choose a unique computer\n"
-"name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in a domain. Please have your "
+"network administrator type the domain password here, and choose a unique computer name for your computer."
 msgstr ""
-"എന്റര്‍പ്രൈസ് പ്രവേശനങ്ങള്‍ ഉപയോഗിയ്ക്കുന്നതിനു്, ഈ കമ്പ്യൂട്ടര്‍ ഒരു "
-"ഡൊമെയിനില്‍ \n"
-"എന്‍റോള്‍ ചെയ്യേണ്ടതുണ്ടു്. ഇവിടെ ഡൊമെയിനുള്ള രഹസ്യവാക്ക് ടൈപ്പ് "
+"എന്റര്‍പ്രൈസ് പ്രവേശനങ്ങള്‍ ഉപയോഗിയ്ക്കുന്നതിനു്, ഈ കമ്പ്യൂട്ടര്‍ ഒരു ഡൊമെയിനില്‍ എന്‍റോള്‍ ചെയ്യേണ്ടതുണ്ടു്. ഇവിടെ ഡൊമെയിനുള്ള രഹസ്യവാക്ക് ടൈപ്പ് "
 "ചെയ്യുന്നതിനായി\n"
-"നിങ്ങളുടെ നെറ്റ്‌വര്‍ക്ക് അഡ്മിസിട്രേറ്ററോടു് ആവശ്യപ്പെടുക. കൂടാതെ നിങ്ങളുടെ "
-"കമ്പ്യൂട്ടറിനു് ഒരു\n"
-"നാമം നല്‍കുക."
+"നിങ്ങളുടെ നെറ്റ്‌വര്‍ക്ക് അഡ്മിസിട്രേറ്ററോടു് ആവശ്യപ്പെടുക. കൂടാതെ നിങ്ങളുടെ കമ്പ്യൂട്ടറിനു് ഒരു നാമം നല്‍കുക."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:18
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:350
 msgid "_Computer"
-msgstr "കമ്പ്യൂ_ട്ടര്‍"
+msgstr "കമ്പ്യൂട്ടര്‍ (_C)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:19
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:382
 msgid "Administrator _Name"
-msgstr "അഡ്മിനിസ്ട്രേറ്ററിന്റെ _പേരു്"
+msgstr "അഡ്മിനിസ്ട്രേറ്ററിന്റെ പേരു് (_N)"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:20
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:416
 msgid "Administrator Password"
 msgstr "അഡ്മിനിസ്ട്രേറ്ററിനുള്ള രഹസ്യവാക്ക്"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:94
-msgctxt "Password strength"
-msgid "Too short"
-msgstr "വളരെ ചെറുത്‌"
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:203
+msgid "Please check the name and username. You can choose a picture too."
+msgstr "ദയവായി നിങ്ങളുടെ പേരും ഉപയോക്തൃനാമവും പരിശോധിക്കുക.നിങ്ങൾക്കൊരു ചിത്രവും തിരഞ്ഞെടുക്കാവുന്നതാണ്."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:99
-msgctxt "Password strength"
-msgid "Not good enough"
-msgstr "പോരാ"
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+msgid "We need a few details to complete setup."
+msgstr "ഞങ്ങൾക്ക് ക്രമീകരണം പൂർത്തിയാക്കാൻ കുറച്ചു വിവരങ്ങൾ ആവശ്യമുണ്ട്."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:108
-msgctxt "Password strength"
-msgid "Weak"
-msgstr "ശക്തമല്ല"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+msgid "Avatar image"
+msgstr "പ്രതിനിധാന ചിത്രം"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:111
-msgctxt "Password strength"
-msgid "Fair"
-msgstr "തരക്കേടില്ല"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
+msgid "Please provide a name and username. You can choose a picture too."
+msgstr "ഒരു പേരും ഉപയോക്തൃനാമവും നൽകുക. നിങ്ങൾക്കൊരു ചിത്രവും തിരഞ്ഞെടുക്കാവുന്നതാണ്."
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:114
-msgctxt "Password strength"
-msgid "Good"
-msgstr "നല്ലത്"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:70
+msgid "_Full Name"
+msgstr "മുഴുവന്‍ പേര് (_F)"
 
-#: ../gnome-initial-setup/pages/account/pw-utils.c:117
-msgctxt "Password strength"
-msgid "Strong"
-msgstr "ശക്തം"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:37
+msgid "Set Up _Enterprise Login"
+msgstr "എന്റര്‍പ്രൈസസ്‌ പ്രവേശനം സജ്ജീകരിക്കുക (_E)"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:352
+#: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "ഈ തരത്തിലുള്ള ഡൊമൈന്‍ തനിയെ ചേര്‍ക്കാന്‍ പറ്റില്ല"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:415
-#, c-format
+#: gnome-initial-setup/pages/account/um-realm-manager.c:373
 msgid "No such domain or realm found"
 msgstr "അങ്ങനെ ഒരു ഡോമെയിനോ സാമ്രാജ്യമോ ഇല്ല "
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:822
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:836
+#: gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "%s ആയി %s ഡൊമെയിനില്‍ പ്രവേശിക്കാന്‍ സാധിക്കില്ല"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:828
+#: gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
-msgstr "അസാധുവായ അടയാളവാക്ക്, വീണ്ടും ശ്രമിക്കുക"
+msgstr "അസാധുവായ  രഹസ്യവാക്ക്, വീണ്ടും ശ്രമിക്കുക"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:841
+#: gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
-msgstr "%s ഡൊമെയിനുമായി ബന്ധപെടാന്‍ സാധിക്കുന്നില്ല : %s"
+msgid "Couldn’t connect to the %s domain: %s"
+msgstr "%s ഡൊമെയിനുമായി ബന്ധപെടാന്‍ സാധിക്കുന്നില്ല: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:148
-#, c-format
-msgid "A user with the username '%s' already exists"
-msgstr "'%s' എന്ന ഉപയോക്തൃനാമം ഉള്ള ഒരു ഉപയോക്താവ് നിലവില്‍ ഉണ്ട് "
+#: gnome-initial-setup/pages/account/um-utils.c:245
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "ക്ഷമിക്കണം, ആ ഉപയോക്തൃനാമം ലഭ്യമല്ല. ദയവായി മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:152
-#, c-format
-msgid "The username is too long"
-msgstr "ഉപയോക്തൃനാമം വളരെ വലുതായിപ്പോയി"
+#: gnome-initial-setup/pages/account/um-utils.c:248
+msgid "The username is too long."
+msgstr "ഉപയോക്തൃനാമം വളരെ വലുതായിപ്പോയി."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:155
-msgid "The username cannot start with a '-'"
-msgstr "ഉപയോക്തൃനാമം ഒരു '-' കൊണ്ട് തുടങ്ങാന്‍ പാടുള്ളതല്ല"
+#: gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
+msgstr "ഉപയോക്തൃനാമം ഒരു \"-\" കൊണ്ട് തുടങ്ങാന്‍ പാടില്ല."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:158
+#: gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username must only consist of:\n"
-" ➣ letters from the English alphabet\n"
-" ➣ digits\n"
-" ➣ any of the characters '.', '-' and '_'"
-msgstr ""
-"ഉപയോക്തൃനാമത്തില്‍ ഇവ മാത്രമേ പാടുള്ളൂ:\n"
-" ➣ ഇംഗ്ലീഷ് അക്ഷരങ്ങള്‍\n"
-" ➣ അക്കങ്ങള്‍\n"
-" ➣ '.', '-', '_' - ഇവയിലൊന്നു്"
+"The username should only consist of upper and lower case letters from a-z, digits and the following "
+"characters: . - _"
+msgstr "ഉപയോക്തൃനാമത്തില്‍ ഇംഗ്ലീഷ് അക്ഷരങ്ങള്‍, അക്കങ്ങള്‍, '.', '-', '_' എന്നിവ മാത്രമേ പാടുള്ളൂ"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:323
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
+#: gnome-initial-setup/pages/account/um-utils.c:258
+msgid "This will be used to name your home folder and can’t be changed."
+msgstr "ഇതു നിങ്ങളുടെ ആസ്ഥാന അറയുടെ പേരായി ഉപയോഗിക്കപെടും, പിന്നെ അതു മാറ്റാന്‍ പറ്റില്ല."
+
+#: gnome-initial-setup/pages/eulas/gis-eula-page.c:301 gnome-initial-setup/pages/eulas/gis-eula-page.ui:21
 msgid "License Agreements"
-msgstr "ലൈസന്‍സ് കരാര്‍പത്രം"
+msgstr "ലൈസന്‍സ് സമ്മതപത്രം"
 
-#. translators: This is the title of the "Add Account" dialog.
-#: ../gnome-initial-setup/pages/goa/cc-online-accounts-add-account-dialog.c:253
+#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:50
+msgid "I have _agreed to the terms and conditions in this end user license agreement."
+msgstr "അന്ത്യ ഉപഭോക്ത്ര സമ്മതപത്രത്തിലെ എല്ലാ നിബന്ധനകളും വ്യവസ്ഥകളും ഞാൻ അംഗീകരിക്കുന്നു (_a)."
+
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "അക്കൌണ്ട്‌ ചേര്‍ക്കുക"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:106
-msgid "Error creating account"
-msgstr "അക്കൌണ്ട്‌ ഉണ്ടാക്കുന്നതില്‍ പിശക് "
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:138
-msgid "Error removing account"
-msgstr "അക്കൌണ്ട്‌ നീക്കം ചെയ്യുന്നതില്‍ പിശക്"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:164
-msgid "Are you sure you want to remove the account?"
-msgstr "അക്കൗണ്ട്‌ നീക്കം ചെയ്യണമെന്ന് ഉറപ്പാണോ?"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:166
-msgid "This will not remove the account on the server."
-msgstr "ഇത് സര്‍വറിലെ അക്കൌണ്ട്‌ നീക്കം ചെയ്യില്ല"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:167
-msgid "_Remove"
-msgstr "_നീക്കം ചെയ്യുക"
-
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:429
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "ഓണ്‍ലൈന്‍ അക്കൌണ്ടുകള്‍"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-msgid "Connect to your existing data in the cloud"
-msgstr "ക്ലൌഡില്‍ നിലവിലുള്ള ഡേറ്റയുമായി ബന്ധം സ്ഥാപിക്കുക"
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:39
+msgid "Connect Your Online Accounts"
+msgstr "ഓണ്‍ലൈന്‍ അക്കൌണ്ടുകള്‍ ബന്ധിപ്പിക്കുക"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
-msgid ""
-"Adding accounts will allow you to transparently connect to your online "
-"photos, contacts, mail, and more."
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:58
+msgid "Connect your accounts to easily access your email, online calendar, contacts, documents and photos."
 msgstr ""
-"അക്കൗണ്ട് ചേര്‍ക്കുന്നതു താങ്കളുടെ ചിത്രങ്ങള്‍, മെയിലുകള്‍, കോണ്‍ടാക്ടുകള്‍ "
-"തുടങ്ങിയവയുമായി സുതാര്യമായ ബന്ധം സ്ഥാപിക്കാന്‍ അനുവദിക്കുന്നു."
+"നിങ്ങളുടെ ഇമെയിൽ, ഓൺലൈൻ കലണ്ടർ, വിലാസങ്ങൾ , പ്രമാണങ്ങൾ, ചിത്രങ്ങൾ  എന്നിവ എളുപ്പത്തിൽ ആക്സസ് ചെയ്യാൻ നിങ്ങളുടെ അക്കൗണ്ടുകൾ "
+"ബന്ധിപ്പിക്കുക."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "_Add Account"
-msgstr "_അക്കൌണ്ട്‌ ചേര്‍ക്കുക"
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:95
+msgid "Accounts can be added and removed at any time from the Settings application."
+msgstr "ക്രമീകരണ അപ്ലിക്കേഷനിൽ  എപ്പോൾ വേണമെങ്കിലും അക്കൗണ്ടുകൾ ചേർക്കാനും നീക്കംചെയ്യാനുമാകും."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:172
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:181
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+msgid "Preview"
+msgstr "തിരനോട്ടം "
+
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:222
+#: gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "കൂടുതല്‍..."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:186
-msgid "No input sources found"
-msgstr "ഇന്‍പുട്ട് ഉറവിടങ്ങളൊന്നും കണ്ടില്ല"
+#. Translators: a search for input methods or keyboard layouts
+#. * did not yield any results
+#.
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
+msgid "No inputs found"
+msgstr "ഇന്‍പുട്ടൊന്നും കണ്ടില്ല"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:1075
-msgid "Other"
-msgstr "മറ്റുളളവ"
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:30
+msgid "Typing"
+msgstr "ടൈപ്പ്‌ചെയ്യുന്നു "
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:168
-msgid "Input Sources"
-msgstr "ഇന്‍പുട്ട് ഉറവിടങ്ങള്‍"
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:42
+msgid "Select your keyboard layout or an input method."
+msgstr "നിങ്ങളുടെ കീബോർഡ് ലേഔട്ട് അല്ലെങ്കിൽ ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കുക."
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
-msgid "Select input sources"
-msgstr "ഇന്‍പുട്ട് ശ്രോതസ്സുകള്‍ തിരഞ്ഞെടുക്കുക"
-
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
-msgid "Login settings are used by all users when logging into the system"
-msgstr ""
-"സിസ്റ്റത്തിലേക്ക് പ്രവേശിക്കുമ്പോള്‍ എല്ലാ ഉപയോക്താകളും പ്രവേശന "
-"കൃമീകരണങ്ങള്‍ ഉപയോഗിക്കും"
-
-#: ../gnome-initial-setup/pages/keyboard/input-chooser.ui.h:1
-msgid "Add an Input Source"
-msgstr "ഒരു ഇന്‍പുട്ട് ശ്രോതസ്സ് ചേര്‍ക്കുക "
-
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:198
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "ഒരു ഭാഷയും കണ്ടെത്തിയില്ല "
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:227
+#: gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "സ്വാഗതം"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:301
-msgid "Search for a location"
-msgstr "ഒരു സ്ഥാനം തിരയുക "
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it.
+#.
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:123
+msgid "Welcome!"
+msgstr "സ്വാഗതം!"
 
-#: ../gnome-initial-setup/pages/location/gis-location-page.c:357
-#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:3
-msgid "Location"
-msgstr "സ്ഥാനം"
-
-#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:1
-msgid "Choose Your Location"
-msgstr "നിങ്ങളുടെ സ്ഥലം തിരഞ്ഞെടുക്കുക"
-
-#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:2
-msgid "_Determine your location automatically"
-msgstr "സ്ഥാനം സ്വയമേ _കണ്ടുപിടിക്കുക"
-
-#: ../gnome-initial-setup/pages/location/gis-location-page.ui.h:4
-msgid "Time Zone"
-msgstr "സമയമേഘല"
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:306
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "മറ്റുള്ളവ..."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:344
-msgid "Network is not available."
-msgstr "നെറ്റ്‌വര്‍ക്ക് ലഭ്യമല്ല"
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
+msgid "Wireless networking is disabled"
+msgstr "വയര്‍ലെസ്സ്‌ നെറ്റ്‌വര്‍ക്ക് അപ്രാപ്തമാക്കി"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:346
-msgid "No network devices found."
-msgstr "നെറ്റ്‌വര്‍ക്ക് ഉപകരണങ്ങള്‍ ഒന്നും കണ്ടില്ല."
-
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:396
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "വയര്‍ലെസ്സ്‌ നെറ്റ്‌വര്‍ക്ക് ലഭ്യമാണോ എന്ന് പരിശോധിക്കുന്നു"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:649
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "നെറ്റ്‌വര്‍ക്ക്"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
-msgid "Wireless Networks"
-msgstr "വയര്‍ലെസ്സ്‌ നെറ്റ്‌വര്‍ക്ക്"
+#: gnome-initial-setup/pages/network/gis-network-page.ui:33
+msgid "Wi-Fi"
+msgstr "വൈ-ഫൈ "
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+#: gnome-initial-setup/pages/network/gis-network-page.ui:45
+msgid ""
+"Connecting to the Internet will enable you to set the time, add your details, and enable you to access "
+"your email, calendar, and contacts. It is also necessary for enterprise login accounts."
+msgstr ""
+"ഇന്റർനെറ്റുമായി കണക്ട് ചെയ്യുന്നത്  സമയം സജ്ജമാക്കാൻ നിങ്ങളെ പ്രാപ്തമാക്കുന്നതിനും നിങ്ങളുടെ വിശദാംശങ്ങൾ ചേർക്കുന്നതിനും ഇമെയിൽ, "
+"കലണ്ടർ, സമ്പർക്കങ്ങൾ എന്നിവ ആക്സസ് ചെയ്യുന്നതിനും നിങ്ങളെ പ്രാപ്തരാക്കും.എന്റർപ്രൈസ് ലോഗിൻ അക്കൌണ്ടുകൾക്കും ഇത് ആവശ്യമാണ്"
+
+#: gnome-initial-setup/pages/network/gis-network-page.ui:103
 msgid "No wireless available"
 msgstr "വയര്‍ലസ്സ് ലഭ്യമല്ല"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:352
-#, c-format
-msgid "_Start using %s"
-msgstr "%s ഉപയോഗിച്ചു് തു_ടങ്ങുക"
+#: gnome-initial-setup/pages/network/gis-network-page.ui:118
+msgid "Turn On"
+msgstr "ഓൺ ചെയ്യുക"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:381
-msgid "Thank You"
-msgstr "നന്ദി"
+#: gnome-initial-setup/pages/password/gis-password-page.c:142
+msgid "This is a weak password."
+msgstr "ഈ രഹസ്യവാക്ക് വളരെ ദുർബലമാണ്."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-msgid "Your computer is ready to use."
-msgstr "നിങ്ങളുടെ കമ്പ്യൂട്ടര്‍ ഉപയോഗിക്കാന്‍ തയ്യാറായിരിക്കുന്നു."
+#: gnome-initial-setup/pages/password/gis-password-page.c:148
+msgid "The passwords do not match."
+msgstr "രഹസ്യവാക്കുകള്‍ ചേരുന്നില്ല."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:2
-msgid "You may change these options at any time in Settings."
+#: gnome-initial-setup/pages/password/gis-password-page.c:270
+msgid "Password"
+msgstr "രഹസ്യവാക്ക്"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:34
+msgid "Set a Password"
+msgstr "ഒരു രഹസ്യവാക്ക് സജ്ജമാക്കുക"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:47
+msgid "Be careful not to lose your password."
+msgstr "നിങ്ങളുടെ രഹസ്യവാക്ക് നഷ്ടമാകാതിരിക്കാൻ ശ്രദ്ധിക്കുക."
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:98
+msgid "_Confirm"
+msgstr "രഹസ്യവാക്ക് സ്ഥിരീകരിക്കുക (_C)"
+
+#: gnome-initial-setup/pages/password/pw-utils.c:81
+msgctxt "Password hint"
+msgid "The new password needs to be different from the old one."
+msgstr "പുതിയ രഹസ്യവാക്ക് പഴയതിൽ നിന്നും വ്യത്യസ്തമായിരിക്കണം."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:83
+msgctxt "Password hint"
+msgid "This password is very similar to your last one. Try changing some letters and numbers."
+msgstr "മുൻപത്തെ രഹസ്യവാക്കുമായി സമാനമാണ് ഈ രഹസ്യവാക്ക് . ചില അക്ഷരങ്ങളും നമ്പറുകളും മാറ്റാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:85 gnome-initial-setup/pages/password/pw-utils.c:93
+msgctxt "Password hint"
+msgid "This password is very similar to your last one. Try changing the password a bit more."
+msgstr "മുൻപത്തെ രഹസ്യവാക്കുമായി സമാനമാണ് ഈ രഹസ്യവാക്ക് . രഹസ്യവാക്കിൽ കുറച്ചുകൂടി മാറ്റങ്ങൾ വരുത്താൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:87
+msgctxt "Password hint"
+msgid "This is a weak password. A password without your user name would be stronger."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.നിങ്ങളുടെ ഉപയോക്തൃ നാമം ഇല്ലാത്ത ഒരു  രഹസ്യവാക്ക് കൂടുതൽ ശക്തമായിരിക്കും."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:89
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.നിങ്ങളുടെ  പേര്  ഇല്ലാത്ത ഒരു  രഹസ്യവാക്ക് കൂടുതൽ ശക്തമായിരിക്കും."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:91
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid some of the words included in the password."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.രഹസ്യവാക്കിൽ ഉൾപ്പെടുത്തിയിട്ടുള്ള ചില പദങ്ങൾ ഒഴിവാക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:95
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid common words."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.സാധാരണ വാക്കുകൾ ഒഴിവാക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:97
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.നിലവിലുള്ള വാക്കുകൾ പുനർക്രമീകരിച്ച്‌ രഹസ്യവാക്കുണ്ടാക്കുന്നത് ഒഴിവാക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:99
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more numbers."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.കൂടുതൽ സംഖ്യകൾ ഉപയോഗിക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:101
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.കൂടുതൽ വലിയ അക്ഷരങ്ങൾ ഉപയോഗിക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:103
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.കൂടുതൽ ചെറിയക്ഷരങ്ങൾ  ഉപയോഗിക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:105
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more special characters, like punctuation."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്. വിരാമചിഹ്നം പോലെ കൂടുതൽ പ്രത്യേക പ്രതീകങ്ങൾ ഉപയോഗിക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:107
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use a mixture of letters, numbers and punctuation."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.അക്ഷരങ്ങളുടെയും നമ്പറുകളുടെയും ചിഹ്നങ്ങളുടെയും ഒരു മിശ്രിതം ഉപയോഗിക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:109
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.ഒരേ അക്ഷരം ആവർത്തിക്കുന്നത് ഒഴിവാക്കാൻ ശ്രമിക്കുക"
+
+#: gnome-initial-setup/pages/password/pw-utils.c:111
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to avoid repeating the same type of character: you need to mix up letters, "
+"numbers and punctuation."
 msgstr ""
-"ഈ ഐച്ചികങ്ങള്‍ എപ്പോള്‍ വേണമെങ്കിലും സിസ്റ്റം സജ്ജീകരണങ്ങളില്‍ "
-"മാറ്റാവുന്നതാണ്."
+"ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.ഒരേ തരത്തിലുള്ള അക്ഷരം ആവർത്തിക്കുന്നത് ഒഴിവാക്കാൻ ശ്രമിക്കുക:അക്ഷരങ്ങൾ, അക്കങ്ങൾ, ചിഹ്നനം എന്നിവ "
+"കൂട്ടിച്ചേർത്തു ഒരു വാക്ക് ഉണ്ടാക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:113
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്.1234 അല്ലെങ്കിൽ abcd പോലുള്ള ശ്രേണികൾ ഒഴിവാക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:115
+msgctxt "Password hint"
+msgid "This is a weak password. Try to add more letters, numbers and punctuation."
+msgstr "ഇതൊരു ദുർബലമായ രഹസ്യവാക്കാണ്. കൂടുതൽ അക്ഷരങ്ങൾ, അക്കങ്ങൾ, ചിഹ്നനം എന്നിവ ചേർക്കാൻ ശ്രമിക്കുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:117
+msgctxt "Password hint"
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr "ചെറിയ അക്ഷരങ്ങളും വലിയ അക്ഷരങ്ങളും ഒന്നോ രണ്ടോ അക്കങ്ങളും കുടെ കലര്‍ത്തുക."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:119
+msgctxt "Password hint"
+msgid "Adding more letters, numbers and punctuation will make the password stronger."
+msgstr "കൂടുതൽ അക്ഷരങ്ങൾ, അക്കങ്ങൾ, ചിഹ്നനം എന്നിവ ചേർത്താൽ രഹസ്യവാക്ക് കൂടുതൽ ശക്തമാകും."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
+#, c-format
+msgid ""
+"Sending reports of technical problems helps us to improve %s. Reports are sent anonymously and are "
+"scrubbed of personal data."
+msgstr ""
+"സാങ്കേതിക പ്രശ്നങ്ങൾ സംബന്ധിച്ച റിപ്പോർട്ട് അയയ്ക്കുന്നത്  %s മെച്ചപ്പെടുത്താൻ നമ്മെ സഹായിക്കുന്നു.റിപ്പോർട്ടുകൾ വ്യക്തിഗത വിവരങള്‍ "
+"കളഞ്ഞ് അജ്ഞാതമായാണ് അയക്കുന്നത്."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr "പ്രശ്ന വിവരം %s ശേഖരിക്കും:"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
+msgid "Privacy Policy"
+msgstr "സ്വകാര്യതാ നയങ്ങൾ "
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "മോസില്ലയുടെ ലൊക്കേഷൻ സേവനങ്ങൾ ഉപയോഗിക്കുന്നു:"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:32
+msgid "Privacy"
+msgstr "സ്വകാര്യത"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:49
+msgid "Location Services"
+msgstr "സ്ഥാന സേവനങ്ങൾ"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:70
+msgid ""
+"Allows applications to determine your geographical location. An indication is shown when location "
+"services are in use."
+msgstr ""
+"നിങ്ങളുടെ ഭൂമിശാസ്ത്രപരമായ സ്ഥാനം നിർണ്ണയിക്കാൻ അപ്ലിക്കേഷനുകളെ അനുവദിക്കുന്നു.ലൊക്കേഷൻ സേവനങ്ങൾ ഉപയോഗിക്കുമ്പോൾ ഒരു സൂചന "
+"പ്രദർശിപ്പിക്കുന്നു."
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Automatic Problem Reporting"
+msgstr "തനിയെ പ്രവർത്തിക്കുന്ന പ്രശ്നം റിപ്പോർട്ടുചെയ്യൽ"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:128
+msgid "Privacy controls can be changed at any time from the Settings application."
+msgstr "ക്രമീകരണ അപ്ലിക്കേഷനിൽ നിന്ന് എപ്പോൾ വേണമെങ്കിലും സ്വകാര്യത നിയന്ത്രണങ്ങൾ മാറ്റാനാകും."
+
+#: gnome-initial-setup/pages/region/cc-region-chooser.c:227
+msgid "No regions found"
+msgstr "ഒരു സ്ഥലവും കണ്ടെത്തിയില്ല"
+
+#: gnome-initial-setup/pages/region/gis-region-page.c:226
+#: gnome-initial-setup/pages/region/gis-region-page.ui:31
+msgid "Region"
+msgstr "പ്രദേശം"
+
+#: gnome-initial-setup/pages/region/gis-region-page.ui:44
+msgid "Choose your country or region."
+msgstr "നിങ്ങളുടെ രാജ്യമോ സ്ഥലമോ തിരഞ്ഞെടുക്കുക"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "സോഫ്റ്റ്‌വെയർ ശേഖരം "
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "തിരഞ്ഞെടുത്ത മൂന്നാം കക്ഷി സ്രോതസ്സുകളിൽ നിന്ന് അധിക സോഫ്റ്റ്‌വെയർ  ആക്സസ് ചെയ്യുക."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: gnome-initial-setup/pages/software/gis-software-page.c:192
+msgid ""
+"Some of this software is proprietary and therefore has restrictions on use, sharing, and access to source "
+"code."
+msgstr "ഇതിൽ കുറച്ചു കുത്തക സോഫ്റ്റ്‌വെയറുകൾ ഉണ്ട്, അതിനാൽ സോഴ്സ് കോഡ് ഉപയോഗിയ്ക്കാനും പങ്കിടാനും ലഭ്യമാക്കാനുമുള്ള നിയന്ത്രണങ്ങൾ ഉണ്ട്."
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Additional Software Repositories"
+msgstr "അധിക സോഫ്റ്റ്‌വെയർ ശേഖരം "
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:55
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\"> കൂടുതൽ കണ്ടെത്തുക ... </a>"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:69
+msgid "Third Party Repositories"
+msgstr "മൂന്നാം കക്ഷി ശേഖരം "
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:165
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on access to source code. This "
+"prevents anyone but the software owner from inspecting, improving or learning from its code."
+msgstr ""
+"സാധാരണയായി കുത്തക സോഫ്ട്‍വെയറുകൾക്ക് ഉപയോഗത്തിലും  അതിന്റെ സോഴ്സ് കോഡിലേക്കുള്ള പ്രവേശനത്തിലും നിയന്ത്രണങ്ങൾ ഉണ്ട്  .ഇത് ഉടമസ്ഥൻ "
+"ഒഴിച്ച് മറ്റാരെയും  ഇതിന്റെ കോഡിനെ പരിശോധിക്കാനോ ,മെച്ചപ്പെടുത്താനോ,പഠിക്കാനോ അനുവദിക്കുന്നില്ല ."
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:177
+msgid "In contrast, Free Software can be freely run, copied, distributed, studied and modified."
+msgstr ""
+"എന്നാൽ സ്വതന്ത്ര സോഫ്റ്റ്വെയർ സ്വതന്ത്രമായി പ്രവർത്തിപ്പിക്കാനും പകർത്താനും വിതരണം ചെയ്യാനും പഠിക്കാനും പരിഷ്ക്കരിക്കാനും കഴിയും."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#, c-format
+msgid "_Start Using %s"
+msgstr "%s ഉപയോഗിച്ചു് തുടങ്ങുക (_S)"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
+msgid "Ready to Go"
+msgstr "തയ്യാറാണ്"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
+msgid "You’re ready to go!"
+msgstr "നിങ്ങൾ തയ്യാറായിക്കഴിഞ്ഞു!"
+
+#. Translators: "city, country"
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
+#, c-format
+msgctxt "timezone loc"
+msgid "%s, %s"
+msgstr "%s, %s"
+
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#.
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#. Translators: This is the time format used in 12-hour mode.
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
+msgid "%l:%M %p"
+msgstr "%l:%M %p"
+
+#. Translators: This is the time format used in 24-hour mode.
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
+msgid "%R"
+msgstr "%R"
+
+#. Translators: "timezone (utc shift)"
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
+#, c-format
+msgctxt "timezone map"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
+msgid "Time Zone"
+msgstr "സമയമേഘല"
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:53
+msgid ""
+"The time zone will be set automatically if your location can be found. You can also search for a city to "
+"set it yourself."
+msgstr ""
+"നിങ്ങളുടെ സ്ഥലം  കണ്ടെത്താൻ കഴിയുമുണ്ടെങ്കിൽ സമയമേഖല യാന്ത്രികമായി സജ്ജമാക്കും. നിങ്ങൾക്ക് സ്വയം സജ്ജമാക്കാൻ ഒരു നഗരം തിരയാനും "
+"കഴിയും."
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
+msgid "Please search for a nearby city"
+msgstr "അടുത്തുള്ള നഗരത്തിനായി തിരയുക"
+
+#~ msgid "No password"
+#~ msgstr "പാസ്‌വേര്‍ഡ് ഇല്ല"
+
+#~ msgid "Strength: %s"
+#~ msgstr "ശക്തി : %s"
+
+#~ msgid "Login"
+#~ msgstr "അകത്ത് പ്രവേശിക്കുക"
+
+#~ msgid "Create a Local Account"
+#~ msgstr "ലോക്കല്‍ അക്കൌണ്ട്‌ ഉണ്ടാക്കുക"
+
+#~ msgid "page 1"
+#~ msgstr "താള്‍ 1"
+
+#~ msgctxt "Password strength"
+#~ msgid "Too short"
+#~ msgstr "വളരെ ചെറുത്‌"
+
+#~ msgctxt "Password strength"
+#~ msgid "Not good enough"
+#~ msgstr "പോരാ"
+
+#~ msgctxt "Password strength"
+#~ msgid "Weak"
+#~ msgstr "ശക്തമല്ല"
+
+#~ msgctxt "Password strength"
+#~ msgid "Fair"
+#~ msgstr "തരക്കേടില്ല"
+
+#~ msgctxt "Password strength"
+#~ msgid "Good"
+#~ msgstr "നല്ലത്"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strong"
+#~ msgstr "ശക്തം"
+
+#~ msgid "A user with the username '%s' already exists"
+#~ msgstr "'%s' എന്ന ഉപയോക്തൃനാമം ഉള്ള ഒരു ഉപയോക്താവ് നിലവില്‍ ഉണ്ട് "
+
+#~ msgid "Error creating account"
+#~ msgstr "അക്കൌണ്ട്‌ ഉണ്ടാക്കുന്നതില്‍ പിശക് "
+
+#~ msgid "Error removing account"
+#~ msgstr "അക്കൌണ്ട്‌ നീക്കം ചെയ്യുന്നതില്‍ പിശക്"
+
+#~ msgid "Are you sure you want to remove the account?"
+#~ msgstr "അക്കൗണ്ട്‌ നീക്കം ചെയ്യണമെന്ന് ഉറപ്പാണോ?"
+
+#~ msgid "This will not remove the account on the server."
+#~ msgstr "ഇത് സര്‍വറിലെ അക്കൌണ്ട്‌ നീക്കം ചെയ്യില്ല"
+
+#~ msgid "_Remove"
+#~ msgstr "_നീക്കം ചെയ്യുക"
+
+#~ msgid "Connect to your existing data in the cloud"
+#~ msgstr "ക്ലൌഡില്‍ നിലവിലുള്ള ഡേറ്റയുമായി ബന്ധം സ്ഥാപിക്കുക"
+
+#~ msgid ""
+#~ "Adding accounts will allow you to transparently connect to your online photos, contacts, mail, and "
+#~ "more."
+#~ msgstr ""
+#~ "അക്കൗണ്ട് ചേര്‍ക്കുന്നതു താങ്കളുടെ ചിത്രങ്ങള്‍, മെയിലുകള്‍, കോണ്‍ടാക്ടുകള്‍ തുടങ്ങിയവയുമായി സുതാര്യമായ ബന്ധം സ്ഥാപിക്കാന്‍ അനുവദിക്കുന്നു."
+
+#~ msgid "_Add Account"
+#~ msgstr "_അക്കൌണ്ട്‌ ചേര്‍ക്കുക"
+
+#~ msgid "Other"
+#~ msgstr "മറ്റുളളവ"
+
+#~ msgid "Input Sources"
+#~ msgstr "ഇന്‍പുട്ട് ഉറവിടങ്ങള്‍"
+
+#~ msgid "Select input sources"
+#~ msgstr "ഇന്‍പുട്ട് ശ്രോതസ്സുകള്‍ തിരഞ്ഞെടുക്കുക"
+
+#~ msgid "Login settings are used by all users when logging into the system"
+#~ msgstr "സിസ്റ്റത്തിലേക്ക് പ്രവേശിക്കുമ്പോള്‍ എല്ലാ ഉപയോക്താകളും പ്രവേശന കൃമീകരണങ്ങള്‍ ഉപയോഗിക്കും"
+
+#~ msgid "Add an Input Source"
+#~ msgstr "ഒരു ഇന്‍പുട്ട് ശ്രോതസ്സ് ചേര്‍ക്കുക "
+
+#~ msgid "Search for a location"
+#~ msgstr "ഒരു സ്ഥാനം തിരയുക "
+
+#~ msgid "_Determine your location automatically"
+#~ msgstr "സ്ഥാനം സ്വയമേ _കണ്ടുപിടിക്കുക"
+
+#~ msgid "Network is not available."
+#~ msgstr "നെറ്റ്‌വര്‍ക്ക് ലഭ്യമല്ല"
+
+#~ msgid "No network devices found."
+#~ msgstr "നെറ്റ്‌വര്‍ക്ക് ഉപകരണങ്ങള്‍ ഒന്നും കണ്ടില്ല."
+
+#~ msgid "Thank You"
+#~ msgstr "നന്ദി"
+
+#~ msgid "Your computer is ready to use."
+#~ msgstr "നിങ്ങളുടെ കമ്പ്യൂട്ടര്‍ ഉപയോഗിക്കാന്‍ തയ്യാറായിരിക്കുന്നു."
+
+#~ msgid "You may change these options at any time in Settings."
+#~ msgstr "ഈ ഐച്ചികങ്ങള്‍ എപ്പോള്‍ വേണമെങ്കിലും സിസ്റ്റം സജ്ജീകരണങ്ങളില്‍ മാറ്റാവുന്നതാണ്."
