@@ -535,9 +535,16 @@ get_color_for_name (const gchar *name)
         };
 
         GdkRGBA color = { 255, 255, 255, 1.0 };
-        guint hash = g_str_hash (name);
-        gint number_of_colors = G_N_ELEMENTS (gnome_color_palette);
-        gint idx = hash % number_of_colors;
+        guint hash;
+        gint number_of_colors;
+        gint idx;
+
+        if (name == NULL || strlen (name) == 0)
+                return color;
+
+        hash = g_str_hash (name);
+        number_of_colors = G_N_ELEMENTS (gnome_color_palette);
+        idx = hash % number_of_colors;
 
         color.red   = gnome_color_palette[idx][0];
         color.green = gnome_color_palette[idx][1];
