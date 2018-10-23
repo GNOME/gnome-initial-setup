@@ -269,6 +269,8 @@ validate (GisAccountPageLocal *page)
   gtk_label_set_text (GTK_LABEL (priv->username_explanation), tip);
   g_free (tip);
 
+  um_photo_dialog_generate_avatar (priv->photo_dialog, name);
+
   validation_changed (page);
 
   return FALSE;
