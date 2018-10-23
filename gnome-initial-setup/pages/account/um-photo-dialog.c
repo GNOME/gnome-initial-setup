@@ -46,13 +46,16 @@ struct _UmPhotoDialog {
         GtkWidget *popup_button;
         GtkWidget *take_picture_button;
         GtkWidget *flowbox;
+        GtkWidget *recent_pictures;
 
 #ifdef HAVE_CHEESE
         CheeseCameraDeviceMonitor *monitor;
         guint num_cameras;
 #endif /* HAVE_CHEESE */
 
+        GListStore *recent_faces;
         GListStore *faces;
+        GFile *generated_avatar;
 
         SelectAvatarCallback *callback;
         gpointer              data;
@@ -187,6 +190,15 @@ setup_photo_popup (UmPhotoDialog *um)
         g_signal_connect (um->flowbox, "child-activated",
                           G_CALLBACK (face_widget_activated), um);
 
+        um->recent_faces = g_list_store_new (G_TYPE_FILE);
+        gtk_flow_box_bind_model (GTK_FLOW_BOX (um->recent_pictures),
+                                 G_LIST_MODEL (um->recent_faces),
+                                 create_face_widget,
+                                 um,
+                                 NULL);
+        g_signal_connect (um->recent_pictures, "child-activated",
+                          G_CALLBACK (face_widget_activated), um);
+
         dirs = g_get_system_data_dirs ();
         for (i = 0; dirs[i] != NULL; i++) {
                 g_autoptr(GFileEnumerator) enumerator = NULL;
@@ -267,6 +279,30 @@ on_popup_button_button_pressed (GtkToggleButton *button,
         return FALSE;
 }
 
+void
+um_photo_dialog_generate_avatar (UmPhotoDialog *um,
+                                 const gchar   *name)
+{
+        cairo_surface_t *surface;
+        gchar *filename;
+
+        surface = generate_user_picture (name);
+
+        /* Save into a tmp file that later gets copied by AccountsService */
+        filename = g_build_filename (g_get_user_runtime_dir (), "avatar.png", NULL);
+        um->generated_avatar = g_file_new_for_path (filename);
+        cairo_surface_write_to_png (surface, g_file_get_path (um->generated_avatar));
+        g_free (filename);
+
+        /* Overwrite the first item */
+        if (g_list_model_get_item (G_LIST_MODEL (um->recent_faces), 0) != NULL)
+                g_list_store_remove (um->recent_faces, 0);
+
+        g_list_store_insert (um->recent_faces, 0,
+                             um->generated_avatar);
+        gtk_widget_show_all (um->recent_pictures);
+}
+
 UmPhotoDialog *
 um_photo_dialog_new (GtkWidget            *button,
                      SelectAvatarCallback  callback,
@@ -319,6 +355,7 @@ um_photo_dialog_class_init (UmPhotoDialogClass *klass)
         gtk_widget_class_set_template_from_resource (wclass, "/org/gnome/initial-setup/gis-account-avatar-chooser.ui");
 
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, flowbox);
+        gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, recent_pictures);
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, take_picture_button);
 #ifdef HAVE_CHEESE
         gtk_widget_class_bind_template_callback (wclass, webcam_icon_selected);
