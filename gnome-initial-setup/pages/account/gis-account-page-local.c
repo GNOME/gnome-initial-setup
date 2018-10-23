@@ -433,6 +433,7 @@ gis_account_page_local_constructed (GObject *object)
   priv->photo_dialog = um_photo_dialog_new (priv->avatar_button,
                                             avatar_callback,
                                             page);
+  um_photo_dialog_generate_avatar (priv->photo_dialog, "");
 
   validate (page);
 
