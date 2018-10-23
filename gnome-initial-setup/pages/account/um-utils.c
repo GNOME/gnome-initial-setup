@@ -546,6 +546,9 @@ get_color_for_name (const gchar *name)
         gint number_of_colors = sizeof (gnome_color_palette)/sizeof (gnome_color_palette[0]);
         gint idx = hash % number_of_colors;
 
+        if (name == NULL || strlen (name) == 0)
+                return color;
+
         color.red   = gnome_color_palette[idx][0];
         color.green = gnome_color_palette[idx][1];
         color.blue  = gnome_color_palette[idx][2];
