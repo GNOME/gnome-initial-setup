@@ -277,7 +277,13 @@ validate (GisAccountPageLocal *page)
 static gboolean
 on_focusout (GisAccountPageLocal *page)
 {
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  const gchar *name;
+
   validate (page);
+
+  name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  um_photo_dialog_generate_avatar (priv->photo_dialog, name);
 
   return FALSE;
 }
