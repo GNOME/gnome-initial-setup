@@ -56,6 +56,7 @@ struct _UmPhotoDialog {
         GListStore *recent_faces;
         GListStore *faces;
         GFile *generated_avatar;
+        gboolean custom_avatar_was_chosen;
 
         SelectAvatarCallback *callback;
         gpointer              data;
@@ -83,6 +84,7 @@ webcam_response_cb (GtkDialog     *dialog,
                 pb2 = gdk_pixbuf_scale_simple (pb, 96, 96, GDK_INTERP_BILINEAR);
 
                 um->callback (pb2, NULL, um->data);
+                um->custom_avatar_was_chosen = TRUE;
 
                 g_object_unref (pb2);
                 g_object_unref (pb);
@@ -146,8 +148,18 @@ face_widget_activated (GtkFlowBox      *flowbox,
         filename = g_object_get_data (G_OBJECT (image), "filename");
 
         um->callback (NULL, filename, um->data);
+        um->custom_avatar_was_chosen = TRUE;
 
         gtk_popover_popdown (GTK_POPOVER (um));
+}
+
+static void
+generated_avatar_activated (GtkFlowBox      *flowbox,
+                            GtkFlowBoxChild *child,
+                            UmPhotoDialog   *um)
+{
+        face_widget_activated (flowbox, child, um);
+        um->custom_avatar_was_chosen = FALSE;
 }
 
 static GtkWidget *
@@ -197,7 +209,8 @@ setup_photo_popup (UmPhotoDialog *um)
                                  um,
                                  NULL);
         g_signal_connect (um->recent_pictures, "child-activated",
-                          G_CALLBACK (face_widget_activated), um);
+                          G_CALLBACK (generated_avatar_activated), um);
+        um->custom_avatar_was_chosen = FALSE;
 
         dirs = g_get_system_data_dirs ();
         for (i = 0; dirs[i] != NULL; i++) {
@@ -301,6 +314,10 @@ um_photo_dialog_generate_avatar (UmPhotoDialog *um,
         g_list_store_insert (um->recent_faces, 0,
                              um->generated_avatar);
         gtk_widget_show_all (um->recent_pictures);
+
+        if (!um->custom_avatar_was_chosen) {
+                um->callback (NULL, g_file_get_path (um->generated_avatar), um->data);
+        }
 }
 
 UmPhotoDialog *
