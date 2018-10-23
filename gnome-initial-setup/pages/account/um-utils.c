@@ -476,3 +476,112 @@ generate_username_choices (const gchar  *name,
         g_string_free (item3, TRUE);
         g_string_free (item4, TRUE);
 }
+
+#define IMAGE_SIZE 512
+
+static gchar *
+extract_initials_from_name (const gchar *name)
+{
+        gchar *p = g_utf8_strup (name, -1);
+        gchar *initials;
+
+        p = g_strchomp (p);
+
+        initials = g_strdup_printf ("%c", *p);
+        p = g_utf8_strrchr (p, -1, ' ');
+        if (p == NULL)
+                return initials;
+
+        p = g_utf8_next_char (p);
+        initials = g_strdup_printf ("%c%c", *initials, *p);
+
+        return initials;
+}
+
+GdkRGBA
+get_color_for_name (const gchar *name)
+{
+        // https://gitlab.gnome.org/Community/Design/HIG-app-icons/blob/master/GNOME%20HIG.gpl
+        static gdouble gnome_color_palette[][3] = {
+                {  98, 160, 234 },
+                {  53, 132, 228 },
+                {  28, 113, 216 },
+                {  26,  95, 180 },
+                {  87, 227, 137 },
+                {  51, 209, 122 },
+                {  46, 194, 126 },
+                {  38, 162, 105 },
+                { 248, 228,  92 },
+                { 246, 211,  45 },
+                { 245, 194,  17 },
+                { 229, 165,  10 },
+                { 255, 163,  72 },
+                { 255, 120,   0 },
+                { 230,  97,   0 },
+                { 198,  70,   0 },
+                { 237,  51,  59 },
+                { 224,  27,  36 },
+                { 192,  28,  40 },
+                { 165,  29,  45 },
+                { 192,  97, 203 },
+                { 163,  71, 186 },
+                { 129,  61, 156 },
+                {  97,  53, 131 },
+                { 181, 131,  90 },
+                { 152, 106,  68 },
+                { 134,  94,  60 },
+                {  99,  69,  44 }
+        };
+
+        GdkRGBA color = { 255, 255, 255, 1.0 };
+        guint hash = g_str_hash (name);
+        gint number_of_colors = G_N_ELEMENTS (gnome_color_palette);
+        gint idx = hash % number_of_colors;
+
+        color.red   = gnome_color_palette[idx][0];
+        color.green = gnome_color_palette[idx][1];
+        color.blue  = gnome_color_palette[idx][2];
+
+        return color;
+}
+
+cairo_surface_t *
+generate_user_picture (const gchar *name) {
+        g_autofree gchar *initials = extract_initials_from_name (name);
+        GdkRGBA color = get_color_for_name (name);
+        cairo_text_extents_t extents;
+        cairo_surface_t *surface;
+        gdouble x, y;
+        gdouble border_width = 15.0;
+        cairo_t *cr;
+
+        surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                              IMAGE_SIZE + border_width * 2,
+                                              IMAGE_SIZE + border_width * 2);
+        cr = cairo_create (surface);
+
+        cairo_arc (cr, IMAGE_SIZE/2, IMAGE_SIZE/2, IMAGE_SIZE/2 - border_width, 0, 2 * G_PI);
+        /* Draw border */
+        cairo_set_source_rgb (cr, 192.0/255.0, 191.0/255.0, 188.0/255.0);
+        cairo_set_line_width (cr, 20.0);
+        cairo_stroke_preserve (cr);
+
+        cairo_set_source_rgb (cr, color.red/255.0, color.green/255.0, color.blue/255.0);
+        cairo_fill (cr);
+
+        /* Draw the initials on top */
+        cairo_set_source_rgb (cr, 1.0, 1.0, 1.0);
+        cairo_select_font_face (cr, "Cantarell Light",
+                                CAIRO_FONT_SLANT_NORMAL,
+                                CAIRO_FONT_WEIGHT_NORMAL);
+        cairo_set_font_size (cr, IMAGE_SIZE/2.5);
+        cairo_text_extents (cr, initials, &extents);
+        x = IMAGE_SIZE/2 - (extents.width/2 + extents.x_bearing);
+        y = IMAGE_SIZE/2 - (extents.height/2 + extents.y_bearing);
+
+        cairo_move_to (cr, x, y);
+        cairo_show_text (cr, initials);
+        cairo_destroy (cr);
+
+        return surface;
+}
