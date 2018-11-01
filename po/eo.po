@@ -3,578 +3,736 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Daniel PUENTES <blatberk@openmailbox.org>, 2015.
 # Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2012, 2015.
+# Carmen Bianca BAKKER <carmen@carmenbianca.eu>, 2018.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"initial-setup&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-04 22:15+0000\n"
-"PO-Revision-Date: 2015-03-05 01:44+0200\n"
-"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
-"Language-Team: Esperanto <gnome-l10n-eo@lists.launchpad.net>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
+"issues\n"
+"POT-Creation-Date: 2018-07-30 14:03+0000\n"
+"PO-Revision-Date: 2018-11-01 17:36+0100\n"
+"Last-Translator: Carmen Bianca Bakker <carmen@carmenbianca.eu>\n"
+"Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.2\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-initial-setup.desktop.in.in.h:1
-#: ../data/gnome-initial-setup-first-login.desktop.in.in.h:1
+#: data/gnome-initial-setup.desktop.in.in:3
+#: data/gnome-initial-setup-first-login.desktop.in.in:3
 msgid "Initial Setup"
-msgstr "Unua agordo"
+msgstr "Komenca agordo"
 
-#: ../gnome-initial-setup/gis-assistant.c:384
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/gnome-initial-setup.desktop.in.in:5
+#: data/gnome-initial-setup-first-login.desktop.in.in:5
+msgid "preferences-system"
+msgstr "preferences-system"
+
+#: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
-msgstr "_Sekven"
+msgstr "_Sekva"
 
-#: ../gnome-initial-setup/gis-assistant.c:385
+#: gnome-initial-setup/gis-assistant.c:424
 msgid "_Accept"
 msgstr "_Akcepti"
 
-#: ../gnome-initial-setup/gis-assistant.c:386
+#: gnome-initial-setup/gis-assistant.c:425
 msgid "_Skip"
-msgstr "Preterpa_si"
+msgstr "_Preterpasi"
 
-#: ../gnome-initial-setup/gis-assistant.c:387
+#: gnome-initial-setup/gis-assistant.c:426
 msgid "_Previous"
 msgstr "_Antaŭa"
 
-#: ../gnome-initial-setup/gis-assistant.c:388
+#: gnome-initial-setup/gis-assistant.c:427
 msgid "_Cancel"
-msgstr "_Rezigni"
+msgstr "_Nuligi"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:196
+#: gnome-initial-setup/gnome-initial-setup.c:260
 msgid "Force existing user mode"
-msgstr "Devigi jaman uzanto-reĝimon"
+msgstr "Devigi ekzistan uzanto-reĝimon"
 
-#: ../gnome-initial-setup/gnome-initial-setup.c:202
-msgid "- GNOME initial setup"
-msgstr "- Unua agordo de GNOME"
+#: gnome-initial-setup/gnome-initial-setup.c:266
+msgid "— GNOME initial setup"
+msgstr "— GNOME komenca agordo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.c:231
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:2
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+msgid "Take a Picture…"
+msgstr "Fari foton…"
+
+#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Pri vi"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:180
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Registri konton malsukcesis"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:374
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
 msgstr "Ne valida maniero por aŭtentigi per tiu ĉi domajno"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:414
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
-msgstr "Aniĝi al domajno malsukcesis"
+msgstr "Aliĝi al domajno malsukcesis"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.c:482
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
 msgid "Failed to log into domain"
-msgstr "Malsukcesis ensaluti en domajnon"
+msgstr "Malsukcesis saluti en domajnon"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:1
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:31
 msgid "Enterprise Login"
-msgstr "Entreprena ensaluto"
+msgstr "Entreprena saluto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:2
-#, fuzzy
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:45
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
-"used on this device."
-msgstr "Entreprena ensaluto."
+"used on this device. You can also use this account to access company "
+"resources on the internet."
+msgstr ""
+"Entreprena saluto permesas uzadon de ekzistanta, centre mastrumata "
+"uzantokonto sur ĉi tiu aparato. Vi povas ankaŭ uzi tiun konto por aliri "
+"firmaajn risurcojn sur la interreto."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:3
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:65
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:316
 msgid "_Domain"
 msgstr "_Domajno"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:4
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:5
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:82
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:101
 msgid "_Username"
 msgstr "_Uzantonomo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:5
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:3
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:99
+#: gnome-initial-setup/pages/password/gis-password-page.ui:66
 msgid "_Password"
 msgstr "_Pasvorto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:6
-#, fuzzy
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:175
 msgid "Enterprise domain or realm name"
 msgstr "Entreprena domajno aŭ regna nomo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:7
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:240
 msgid "C_ontinue"
-msgstr "D_aŭri"
+msgstr "D_aŭrigi"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:8
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:275
 msgid "Domain Administrator Login"
-msgstr "Ensaluto de domajna administranto"
+msgstr "Saluto de domajna administranto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:9
-#, fuzzy
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:295
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
 "here, and choose a unique computer name for your computer."
 msgstr ""
-"Por uzi entreprenan ensaluton, oni devas enigi tiun ĉi komputilon al "
-"domajno. Bonvolu entajpi la domajnan pasvorton, kaj nomi vian komputilon, "
-"uzante unikan nomon."
+"Por uzi entreprenan saluton, oni devas enigi tiun ĉi komputilon al domajno. "
+"Bonvolu entajpi la domajnan pasvorton, kaj unike nomi vian komputilon."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:10
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:350
 msgid "_Computer"
 msgstr "_Komputilo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:11
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:382
 msgid "Administrator _Name"
 msgstr "_Nomo de administranto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-enterprise.ui.h:12
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:416
 msgid "Administrator Password"
 msgstr "Pasvorto de administranto"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:203
-msgid "Are these the right details? You can change them if you want."
-msgstr "Ĉu tiuj estas la korektaj detaloj? Vi povas ŝanĝi ilin se vi volas."
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:203
+msgid "Please check the name and username. You can choose a picture too."
+msgstr ""
+"Bonvolu kontroli la nomon kaj uzantonomon. Vi povas ankaŭ elekti foton."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.c:404
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:3
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
 msgid "We need a few details to complete setup."
 msgstr "Ni bezonas kelkajn detalojn, por fini la agordon."
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:1
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
 msgid "Avatar image"
 msgstr "Avatara bildo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page-local.ui.h:4
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
+msgid "Please provide a name and username. You can choose a picture too."
+msgstr "Bonvolu provizi nomon kaj uzantonomon. Vi povas ankaŭ elekti foton."
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:70
 msgid "_Full Name"
 msgstr "_Tuta nomo"
 
-#: ../gnome-initial-setup/pages/account/gis-account-page.ui.h:1
+#: gnome-initial-setup/pages/account/gis-account-page.ui:37
 msgid "Set Up _Enterprise Login"
-msgstr "Agordi _Entreprenan ensaluton"
+msgstr "Agordi _Entreprenan saluton"
 
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:246
-msgid "Disable image"
-msgstr "Elŝalti bildon"
-
-#: ../gnome-initial-setup/pages/account/um-photo-dialog.c:264
-msgid "Take a photo..."
-msgstr "Fari foton..."
-
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:310
+#: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Povas ne aŭtomate aliĝi al ĉi tiun tipon de domajno"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:373
-#, c-format
+#: gnome-initial-setup/pages/account/um-realm-manager.c:373
 msgid "No such domain or realm found"
-msgstr ""
+msgstr "Ne trovis tian domajnon aŭ regnon"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:782
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:796
+#: gnome-initial-setup/pages/account/um-realm-manager.c:782
+#: gnome-initial-setup/pages/account/um-realm-manager.c:796
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
-msgstr "Ne eblas ensaluti kiel %s en la domajno %s"
+msgstr "Ne eblas saluti kiel %s en la domajno %s"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:788
+#: gnome-initial-setup/pages/account/um-realm-manager.c:788
 msgid "Invalid password, please try again"
 msgstr "Malĝusta pasvorto, bonvolu reprovi"
 
-#: ../gnome-initial-setup/pages/account/um-realm-manager.c:801
+#: gnome-initial-setup/pages/account/um-realm-manager.c:801
 #, c-format
-msgid "Couldn't connect to the %s domain: %s"
-msgstr "Ne eblis konekti al la domajno %s: %s"
+msgid "Couldn’t connect to the %s domain: %s"
+msgstr "Ne eblis koneti al la %s domajno: %s"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:245
-#, c-format
-#| msgid "A user with the username '%s' already exists"
-msgid "A user with the username '%s' already exists."
-msgstr "Uzanto kun la uzantonomo '%s' jam ekzistas."
+#: gnome-initial-setup/pages/account/um-utils.c:245
+msgid "Sorry, that user name isn’t available. Please try another."
+msgstr "Pardonon, tiu uzantonomo ne estas disponebla. Bonvolu klopodi alian."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:249
-#, c-format
-#| msgid "The username is too long"
+#: gnome-initial-setup/pages/account/um-utils.c:248
 msgid "The username is too long."
 msgstr "La uzantonomo estas tro longa."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:252
-#| msgid "The username cannot start with a '-'"
-msgid "The username cannot start with a '-'."
-msgstr "La uzantonomo ne povas komenci per '-'."
+#: gnome-initial-setup/pages/account/um-utils.c:251
+msgid "The username cannot start with a “-”."
+msgstr "La uzantonomo ne povas komenci per “-”."
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:255
+#: gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of lower and upper case letters from a-z, "
-"digits and any of characters '.', '-' and '_'."
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr ""
+"La uzantonomo rajtas nur konsisti el majusklaj kaj minusklaj literoj de a-z, "
+"ciferoj kaj la jenaj signoj: . - _"
 
-#: ../gnome-initial-setup/pages/account/um-utils.c:259
-msgid "This will be used to name your home folder and can't be changed."
-msgstr "Tio estos uzota por via hejmadosiero kaj ne eblos ŝanĝi ĝin."
+#: gnome-initial-setup/pages/account/um-utils.c:258
+msgid "This will be used to name your home folder and can’t be changed."
+msgstr "Tiu ĉi nomos vian hejmdosierujon kaj oni ne povas ŝanĝi ĝin."
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.c:301
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:1
+#: gnome-initial-setup/pages/eulas/gis-eula-page.c:301
+#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:21
 msgid "License Agreements"
 msgstr "Interkonsento pri uzado"
 
-#: ../gnome-initial-setup/pages/eulas/gis-eula-page.ui.h:2
-#, fuzzy
+#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:50
 msgid ""
 "I have _agreed to the terms and conditions in this end user license "
 "agreement."
 msgstr ""
 "Mi _akceptas la terminojn kaj kondiĉojn de tiun ĉi interkonsento pri uzado."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:87
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:87
 msgid "Add Account"
 msgstr "Aldoni konton"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.c:335
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:339
 msgid "Online Accounts"
 msgstr "Retaj kontoj"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:1
-#| msgid "Online Accounts"
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:39
 msgid "Connect Your Online Accounts"
 msgstr "Konekti viajn retajn kontojn"
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:2
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:58
 msgid ""
-"Connecting your accounts will allow you to easily access your email, online "
-"calendar, contacts, documents and photos."
+"Connect your accounts to easily access your email, online calendar, "
+"contacts, documents and photos."
 msgstr ""
+"Konekti viajn kontojn por facile aliri vian retpoŝton, retan kalendaron, "
+"kontakojn, dokumentojn kaj fotojn."
 
-#: ../gnome-initial-setup/pages/goa/gis-goa-page.ui.h:3
-msgid "You can review your online accounts (and add others) after setup."
-msgstr ""
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:95
+msgid ""
+"Accounts can be added and removed at any time from the Settings application."
+msgstr "Kontojn oni povas aldoni kaj forigi iam ajn en la Agordoj aplikaĵo."
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
 msgid "Preview"
 msgstr "Antaŭvido"
 
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:212
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:210
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:222
+#: gnome-initial-setup/pages/region/cc-region-chooser.c:210
 msgid "More…"
 msgstr "Pli…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: ../gnome-initial-setup/pages/keyboard/cc-input-chooser.c:320
-#| msgid "No network devices found."
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "Ne trovis enigaĵojn"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:363
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:1
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:30
 msgid "Typing"
 msgstr "Tajpante"
 
-#: ../gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui.h:2
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:42
 msgid "Select your keyboard layout or an input method."
-msgstr ""
+msgstr "Elektu vian klavararanĝon aŭ enigan metodon."
 
-#: ../gnome-initial-setup/pages/language/cc-language-chooser.c:229
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:238
 msgid "No languages found"
 msgstr "Neniu lingvo trovita"
 
-#: ../gnome-initial-setup/pages/language/gis-language-page.c:282
+#: gnome-initial-setup/pages/language/gis-language-page.c:300
 msgid "Welcome"
 msgstr "Bonvenon"
 
-#: ../gnome-initial-setup/pages/language/gis-welcome-widget.c:119
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it.
+#.
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:123
 msgid "Welcome!"
 msgstr "Bonvenon!"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:307
-#| msgctxt "Wireless access point"
-#| msgid "Other..."
+#: gnome-initial-setup/pages/network/gis-network-page.c:304
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Alia…"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:358
+#: gnome-initial-setup/pages/network/gis-network-page.c:363
+msgid "Wireless networking is disabled"
+msgstr "Sendrata retkonektado estas malŝaltita"
+
+#: gnome-initial-setup/pages/network/gis-network-page.c:370
 msgid "Checking for available wireless networks"
 msgstr "Serĉado de disponeblaj sendrataj retoj"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.c:614
+#: gnome-initial-setup/pages/network/gis-network-page.c:662
 msgid "Network"
 msgstr "Reto"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:1
+#: gnome-initial-setup/pages/network/gis-network-page.ui:33
 msgid "Wi-Fi"
 msgstr "Vifio"
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:2
+#: gnome-initial-setup/pages/network/gis-network-page.ui:45
 msgid ""
 "Connecting to the Internet will enable you to set the time, add your "
 "details, and enable you to access your email, calendar, and contacts. It is "
 "also necessary for enterprise login accounts."
 msgstr ""
+"Konektado al la interreto permesos al vi agordi tempon, aldoni viajn "
+"detalojn, kaj permesos al vi aliri vian retpoŝton, kalendaron, kaj "
+"kontaktojn. Ĝi ankaŭ necesas por entreprenaj kontoj."
 
-#: ../gnome-initial-setup/pages/network/gis-network-page.ui.h:3
-#| msgid "Network is not available."
+#: gnome-initial-setup/pages/network/gis-network-page.ui:103
 msgid "No wireless available"
 msgstr "Sendrata reto ne estas disponebla"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:138
-#| msgid "Passwords do not match"
+#: gnome-initial-setup/pages/network/gis-network-page.ui:118
+msgid "Turn On"
+msgstr "Ŝalti"
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:142
+msgid "This is a weak password."
+msgstr "Ĉi tiu estas malforta pasvorto."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:148
 msgid "The passwords do not match."
 msgstr "La pasvortoj ne kongruas."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.c:260
+#: gnome-initial-setup/pages/password/gis-password-page.c:270
 msgid "Password"
 msgstr "Pasvorto"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:1
+#: gnome-initial-setup/pages/password/gis-password-page.ui:34
 msgid "Set a Password"
 msgstr "Agordi pasvorton"
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:2
+#: gnome-initial-setup/pages/password/gis-password-page.ui:47
 msgid "Be careful not to lose your password."
 msgstr "Esti zorgema ne perdi vian pasvorton."
 
-#: ../gnome-initial-setup/pages/password/gis-password-page.ui.h:4
-msgid "_Verify"
+#: gnome-initial-setup/pages/password/gis-password-page.ui:98
+msgid "_Confirm"
 msgstr "_Konfirmi"
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:81
+#: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
 msgid "The new password needs to be different from the old one."
 msgstr "La nova pasvorta estu malsama al la malnova."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:83
-msgctxt "Password hint"
-msgid "Try changing some letters and numbers."
-msgstr "Provi ŝanĝi kelkajn literojn kaj nombrojn."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:85
-#: ../gnome-initial-setup/pages/password/pw-utils.c:93
-msgctxt "Password hint"
-msgid "Try changing the password a bit more."
-msgstr "Provi ŝanĝi la pasvorton iom pli."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:87
-msgctxt "Password hint"
-msgid "A password without your user name would be stronger."
-msgstr "Pasvorto sen via uzanta nomo estus pli forta."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:89
-msgctxt "Password hint"
-msgid "Try to avoid using your name in the password."
-msgstr "Provu eviti uzi vian nomon en la pasvorto."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:91
-msgctxt "Password hint"
-msgid "Try to avoid some of the words included in the password."
-msgstr "Provu eviti kelkaj de la vortoj inkluzivita en la pasvorto."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:95
-msgctxt "Password hint"
-msgid "Try to avoid common words."
-msgstr "Klopodu eviti kutimajn vorojn."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:97
-msgctxt "Password hint"
-msgid "Try to avoid reordering existing words."
-msgstr "Klopodu eviti reordon de jamaj vortoj."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:99
-msgctxt "Password hint"
-msgid "Try to use more numbers."
-msgstr "Klopodu uzi pli da nombroj."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:101
-msgctxt "Password hint"
-msgid "Try to use more uppercase letters."
-msgstr "Klopodu uzi pli da majuskloj."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:103
-msgctxt "Password hint"
-msgid "Try to use more lowercase letters."
-msgstr "Klopodu uzi pli da minuskloj."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:105
-msgctxt "Password hint"
-msgid "Try to use more special characters, like punctuation."
-msgstr "Klopodu uzi pli da specialajn karakterojn, kiel interpunkcio."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:107
-msgctxt "Password hint"
-msgid "Try to use a mixture of letters, numbers and punctuation."
-msgstr "Klopodu miksi leterojn, nombrojn kaj interpunkcion."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:109
-msgctxt "Password hint"
-msgid "Try to avoid repeating the same character."
-msgstr "Klopodu eviti ripeto de la sama karaktero."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:111
+#: gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
 msgid ""
-"Try to avoid repeating the same type of character: you need to mix up "
-"letters, numbers and punctuation."
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
 msgstr ""
-"Klopodu eviti ripeto de la sama karaktero: vi kunmetu leteroj, nombrojn kaj "
-"interpunkcion."
+"Ĉi tiu pasvorto tre similas vian lastan. Klopodu ŝanĝi kelkajn literojn kaj "
+"ciferojn."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:113
-msgctxt "Password hint"
-msgid "Try to avoid sequences like 1234 or abcd."
-msgstr "Klopodu eviti sekvencojn kiel 1234 aŭ abcd."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:115
-msgctxt "Password hint"
-msgid "Try to add more letters, numbers and symbols."
-msgstr "Klopodu aldoni pli da leteroj, nombroj kaj simboloj."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:117
-#| msgid ""
-#| "Try to use at least 8 different characters. Mix upper and lower case and "
-#| "use a number or two."
-msgctxt "Password hint"
-msgid "Mix uppercase and lowercase and use a number or two."
-msgstr "Miksu grandajn kaj malgrandajn literojn kaj uzu unu aŭ du numero(j)n."
-
-#: ../gnome-initial-setup/pages/password/pw-utils.c:119
+#: gnome-initial-setup/pages/password/pw-utils.c:85
+#: gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
 msgid ""
-"Good password! Adding more letters, numbers and punctuation will make it "
-"stronger."
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
 msgstr ""
-"Bona pasvorto! Aldonante pli da leteroj, nombroj kaj interpunkcio, ĝi "
-"fortiĝos eĉ pli."
+"Ĉi tiu pasvorto tre similas vian lastan. Klopodu ŝanĝi la pasvorton iom pli."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:141
-msgctxt "Password strength"
-msgid "Strength: Weak"
-msgstr "Forteco: Malforta"
+#: gnome-initial-setup/pages/password/pw-utils.c:87
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Pasvorto sen via uzantonomo estus pli forta."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:145
-msgctxt "Password strength"
-msgid "Strength: Low"
-msgstr "Forteco: Malalta"
+#: gnome-initial-setup/pages/password/pw-utils.c:89
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid using your name in the password."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu eviti uzadon de via nomo en la "
+"pasvorto."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:148
-msgctxt "Password strength"
-msgid "Strength: Medium"
-msgstr "Forteco: Meza"
+#: gnome-initial-setup/pages/password/pw-utils.c:91
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Provu eviti kelkajn de la vortoj inkluzivita "
+"en la pasvorto."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:151
-msgctxt "Password strength"
-msgid "Strength: Good"
-msgstr "Forteco: Bona"
+#: gnome-initial-setup/pages/password/pw-utils.c:95
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid common words."
+msgstr "Ĉi tiu estas malforta pasvorto. Klopodu eviti komunajn vortojn."
 
-#: ../gnome-initial-setup/pages/password/pw-utils.c:154
-msgctxt "Password strength"
-msgid "Strength: High"
-msgstr "Forteco: Alta"
+#: gnome-initial-setup/pages/password/pw-utils.c:97
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid reordering existing words."
+msgstr "Ĉi tiu estas malforta pasvorto. Klopodu eviti reordon de jamaj vortoj."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:99
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more numbers."
+msgstr "Ĉi tiu estas malforta pasvorto. Klopodu uzi pli da ciferoj."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:101
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more uppercase letters."
+msgstr "Ĉi tiu estas malforta pasvorto. Klopodu uzi pli da majuskloj."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:103
+msgctxt "Password hint"
+msgid "This is a weak password. Try to use more lowercase letters."
+msgstr "Ĉi tiu estas malforta pasvorto. Klopodu uzi pli da minuskloj."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:105
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu uzi pli da specialaj signoj, kiel "
+"interpunkcio."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:107
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu uzi kunmeton de literoj, ciferoj kaj "
+"interpunkcio."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:109
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid repeating the same character."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu eviti ripeton de la sama signo."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:111
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu eviti ripeton de la sama signo: vi "
+"kunmetu literojn, ciferojn kaj interpunkcion."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:113
+msgctxt "Password hint"
+msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu eviti sekvencojn kiel 1234 aŭ abcd."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:115
+msgctxt "Password hint"
+msgid ""
+"This is a weak password. Try to add more letters, numbers and punctuation."
+msgstr ""
+"Ĉi tiu estas malforta pasvorto. Klopodu aldoni pli da literoj, ciferoj kaj "
+"interpunkcioj."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:117
+msgctxt "Password hint"
+msgid "Mix uppercase and lowercase and try to use a number or two."
+msgstr "Kunmetu majusklojn kaj minusklojn, kaj uzu almenaŭ unu ciferon."
+
+#: gnome-initial-setup/pages/password/pw-utils.c:119
+msgctxt "Password hint"
+msgid ""
+"Adding more letters, numbers and punctuation will make the password stronger."
+msgstr ""
+"Aldonado de pli da literoj, ciferoj kaj interpunkcio plifortigos la "
+"pasvorton."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:109
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
 "sent anonymously and are scrubbed of personal data."
 msgstr ""
+"Sendado de raportoj de teĥnikaj problemoj helpas al ni plibonigi %s. "
+"Raportoj sendiĝas sennome kaj personaj datumoj estas viŝitaj."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:116
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.c:238
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+#. * detect any distribution.
+#.
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#, c-format
+msgid "Problem data will be collected by %s:"
+msgstr "Problemdatumojn kolektos %s:"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
 msgid "Privacy Policy"
 msgstr "Privateca politiko"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:1
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+msgid "Uses Mozilla Location Service:"
+msgstr "Uzas Mozilla Lokado-Servon:"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:32
 msgid "Privacy"
 msgstr "Privateco"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:2
-msgid "Privacy controls can be changed at any time from Settings."
-msgstr ""
-
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:3
-#| msgid "Location"
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:49
 msgid "Location Services"
-msgstr "Lokado-servo"
+msgstr "Lokado-servoj"
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:4
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:70
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
 msgstr ""
+"Permesas al aplikaĵoj eltrovi vian geagrafian lokon. Indikilo montriĝas kiam "
+"lokado-servoj estas uzataj."
 
-#: ../gnome-initial-setup/pages/privacy/gis-privacy-page.ui.h:5
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
 msgid "Automatic Problem Reporting"
 msgstr "Aŭtomata problem-raportado"
 
-#: ../gnome-initial-setup/pages/region/cc-region-chooser.c:228
-#| msgid "No network devices found."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:128
+msgid ""
+"Privacy controls can be changed at any time from the Settings application."
+msgstr "Privatecajn agordojn oni povas ŝanĝi iam ajn en la Agordoj aplikaĵo."
+
+#: gnome-initial-setup/pages/region/cc-region-chooser.c:227
 msgid "No regions found"
 msgstr "Ne trovis regionon"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.c:226
-#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:1
+#: gnome-initial-setup/pages/region/gis-region-page.c:226
+#: gnome-initial-setup/pages/region/gis-region-page.ui:31
 msgid "Region"
 msgstr "Regiono"
 
-#: ../gnome-initial-setup/pages/region/gis-region-page.ui.h:2
-#| msgid "Choose Your Location"
+#: gnome-initial-setup/pages/region/gis-region-page.ui:44
 msgid "Choose your country or region."
 msgstr "Elektu vian landon aŭ regionon."
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:328
-#, c-format
-#| msgid "_Start using GNOME 3"
-msgid "_Start using %s"
-msgstr "_Komenci uzon na %s"
+#: gnome-initial-setup/pages/software/gis-software-page.c:184
+msgid "Software Repositories"
+msgstr "Programaraj deponejoj"
 
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
-#. * detect any distribution.
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:335
-#, c-format
+#. TRANSLATORS: this is the third party repositories info bar.
+#: gnome-initial-setup/pages/software/gis-software-page.c:188
+msgid "Access additional software from selected third party sources."
+msgstr "Atingi ceteran programaron de elektitaj eksteraj liverantaj fontoj."
+
+#. TRANSLATORS: this is the third party repositories info bar.
+#: gnome-initial-setup/pages/software/gis-software-page.c:192
 msgid ""
-"Thank you for choosing %s.\n"
-"We hope that you love it."
+"Some of this software is proprietary and therefore has restrictions on use, "
+"sharing, and access to source code."
 msgstr ""
-"Dankon pro elekti na %s.\n"
-"Ni esperas, ke vi amos ĝin."
+"Ĉi tiu programaro estas mallibera kaj tial havas limigojn por ĝia uzado, "
+"kunhavigado, kaj atingo al fontkodo."
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.c:361
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Additional Software Repositories"
+msgstr "Ceteraj programaraj deponejoj"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:55
+msgid "<a href=\"more\">Find out more…</a>"
+msgstr "<a href=\"more\">Lerni pli…</a>"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:69
+msgid "Third Party Repositories"
+msgstr "Deponejoj de eksteraj liverantoj"
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:165
+msgid ""
+"Proprietary software typically has restrictions on how it can be used and on "
+"access to source code. This prevents anyone but the software owner from "
+"inspecting, improving or learning from its code."
+msgstr ""
+"Mallibera programaro kutime havas limigojn de ĝia uzado kaj aliro al "
+"fontkodo. Ĉi tiu malpermesas iun ajn krom la posedanto ekzameni, plibonigi "
+"aŭ studi ĝian kodon."
+
+#: gnome-initial-setup/pages/software/gis-software-page.ui:177
+msgid ""
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
+msgstr ""
+"Kontraste, liberan programaron oni povas libere ruli, kopii, distribui, "
+"studi kaj modifi."
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#, c-format
+msgid "_Start Using %s"
+msgstr "_Komenci uzi %s"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
 msgid "Ready to Go"
 msgstr "Preta por eki"
 
-#: ../gnome-initial-setup/pages/summary/gis-summary-page.ui.h:1
-#, fuzzy
-msgid "You're all set!"
-msgstr "Vi agordis ĉion!"
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
+msgid "You’re ready to go!"
+msgstr "Vi estas tute preta!"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:183
+#. Translators: "city, country"
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
 #, c-format
-msgid ""
-"We think that your time zone is %s. Press Next to continue or search for a "
-"city to manually set the time zone."
-msgstr ""
-"Ni pensas ke via horzono estas %s. Premu \"Sekva\" por daŭrigi aŭ serĉi urbon "
-"por permane agordi la horzonon."
+msgctxt "timezone loc"
+msgid "%s, %s"
+msgstr "%s, %s"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.c:489
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:1
+#. Translators: UTC here means the Coordinated Universal Time.
+#. * %:::z will be replaced by the offset from UTC e.g. UTC+02
+#.
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+msgid "UTC%:::z"
+msgstr "UTC%:::z"
+
+#. Translators: This is the time format used in 12-hour mode.
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
+msgid "%l:%M %p"
+msgstr "%l:%M %p"
+
+#. Translators: This is the time format used in 24-hour mode.
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
+msgid "%R"
+msgstr "%R"
+
+#. Translators: "timezone (utc shift)"
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
+#, c-format
+msgctxt "timezone map"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Horzono"
 
-#: ../gnome-initial-setup/pages/timezone/gis-timezone-page.ui.h:2
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:53
+msgid ""
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
+msgstr ""
+"La horzonon oni aŭtomate agordas se via loko troveblas. Vi ankaŭ povas serĉi "
+"urbon por agordi ĝin meme."
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
 msgid "Please search for a nearby city"
 msgstr "Bonvolu serĉi proksiman urbon"
+
+#~ msgid "Are these the right details? You can change them if you want."
+#~ msgstr "Ĉu tiuj estas la korektaj detaloj? Vi povas ŝanĝi ilin se vi volas."
+
+#~ msgid "Disable image"
+#~ msgstr "Elŝalti bildon"
+
+#~ msgid "Take a photo..."
+#~ msgstr "Fari foton..."
+
+#~| msgid "A user with the username '%s' already exists"
+#~ msgid "A user with the username '%s' already exists."
+#~ msgstr "Uzanto kun la uzantonomo '%s' jam ekzistas."
+
+#~ msgid "_Verify"
+#~ msgstr "_Konfirmi"
+
+#~ msgctxt "Password hint"
+#~ msgid "Try to add more letters, numbers and symbols."
+#~ msgstr "Klopodu aldoni pli da leteroj, nombroj kaj simboloj."
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Weak"
+#~ msgstr "Forteco: Malforta"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Low"
+#~ msgstr "Forteco: Malalta"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Medium"
+#~ msgstr "Forteco: Meza"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: Good"
+#~ msgstr "Forteco: Bona"
+
+#~ msgctxt "Password strength"
+#~ msgid "Strength: High"
+#~ msgstr "Forteco: Alta"
+
+#~ msgid ""
+#~ "Thank you for choosing %s.\n"
+#~ "We hope that you love it."
+#~ msgstr ""
+#~ "Dankon pro elekti na %s.\n"
+#~ "Ni esperas, ke vi amos ĝin."
+
+#, fuzzy
+#~ msgid "You're all set!"
+#~ msgstr "Vi agordis ĉion!"
+
+#~ msgid ""
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "Ni pensas ke via horzono estas %s. Premu \"Sekva\" por daŭrigi aŭ serĉi "
+#~ "urbon por permane agordi la horzonon."
 
 #~ msgid "Cancel"
 #~ msgstr "Rezigni"
@@ -590,9 +748,6 @@ msgstr "Bonvolu serĉi proksiman urbon"
 
 #~ msgid "_Local Account"
 #~ msgstr "_Loka konto"
-
-#~ msgid "_Confirm password"
-#~ msgstr "_Konfirmi pasvorton"
 
 #~ msgid "_Login Name"
 #~ msgstr "E_nsalutnomo"
@@ -672,9 +827,6 @@ msgstr "Bonvolu serĉi proksiman urbon"
 #~ msgid "Search for a location"
 #~ msgstr "Serĉi lokon"
 
-#~ msgid "Wireless Networks"
-#~ msgstr "Sendrataj retoj"
-
 #~ msgid "Thank You"
 #~ msgstr "Dankon"
 
@@ -690,6 +842,3 @@ msgstr "Bonvolu serĉi proksiman urbon"
 
 #~ msgid "New to GNOME 3 and need help finding your way around?"
 #~ msgstr "Ĉu vi novas al GNOME 3 kaj bezonas helpon por eltrovi trakti ĝin?"
-
-#~ msgid "_Take a Tour"
-#~ msgstr "_Spekti prezenton "
