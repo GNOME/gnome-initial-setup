@@ -23,6 +23,8 @@ sources += files(
     'gis-account-page-local.h',
     'gis-account-page-enterprise.c',
     'gis-account-page-enterprise.h',
+    'gis-account-page-offline.c',
+    'gis-account-page-offline.h',
     'um-realm-manager.c',
     'um-realm-manager.h',
     'um-utils.c',

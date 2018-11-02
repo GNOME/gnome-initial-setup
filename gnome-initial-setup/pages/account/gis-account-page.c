@@ -28,6 +28,7 @@
 #include "gis-account-page.h"
 #include "gis-account-page-local.h"
 #include "gis-account-page-enterprise.h"
+#include "gis-account-page-offline.h"
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -36,6 +37,7 @@ struct _GisAccountPagePrivate
 {
   GtkWidget *page_local;
   GtkWidget *page_enterprise;
+  GtkWidget *page_offline;
 
   GtkWidget *page_toggle;
   GtkWidget *stack;
@@ -103,9 +105,24 @@ set_mode (GisAccountPage *page,
       gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
       break;
     case UM_ENTERPRISE:
-      gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_enterprise);
-      gis_account_page_enterprise_shown (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise));
-      break;
+      {
+        GNetworkMonitor *monitor;
+        gboolean available;
+
+        monitor = g_network_monitor_get_default ();
+        available = g_network_monitor_get_network_available (monitor);
+        if (available)
+          {
+            gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_enterprise);
+            gis_account_page_enterprise_shown (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise));
+          }
+        else
+          {
+            gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_offline);
+            gis_account_page_offline_shown (GIS_ACCOUNT_PAGE_OFFLINE (priv->page_offline));
+          }
+        break;
+      }
     default:
       g_assert_not_reached ();
     }
@@ -252,6 +269,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_local);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_enterprise);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_offline);
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_toggle);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, stack);
@@ -270,6 +288,7 @@ gis_account_page_init (GisAccountPage *page)
   g_resources_register (account_get_resource ());
   g_type_ensure (GIS_TYPE_ACCOUNT_PAGE_LOCAL);
   g_type_ensure (GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE);
+  g_type_ensure (GIS_TYPE_ACCOUNT_PAGE_OFFLINE);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
