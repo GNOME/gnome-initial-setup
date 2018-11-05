@@ -25,7 +25,7 @@ endforeach
 
 i18n.merge_file(
     'desktop',
-    input: files('setup-shell.desktop'),
+    input: 'setup-shell.desktop',
     output: 'setup-shell.desktop',
     install_dir: join_paths(data_dir, 'gdm', 'greeter', 'applications'),
     po_dir: po_dir,
