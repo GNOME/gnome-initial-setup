@@ -247,11 +247,12 @@ gis_software_page_init (GisSoftwarePage *page)
 GisPage *
 gis_prepare_software_page (GisDriver *driver)
 {
-  GSettingsSchemaSource *source;
-  GSettingsSchema *schema;
   GisPage *page = NULL;
 
 #ifdef ENABLE_SOFTWARE_SOURCES
+  GSettingsSchemaSource *source;
+  GSettingsSchema *schema;
+
   source = g_settings_schema_source_get_default ();
   schema = g_settings_schema_source_lookup (source, "org.gnome.software", TRUE);
   if (schema != NULL && g_settings_schema_has_key (schema, "show-nonfree-software"))
