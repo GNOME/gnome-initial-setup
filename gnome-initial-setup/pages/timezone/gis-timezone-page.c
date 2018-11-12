@@ -58,6 +58,8 @@
 #define CLOCK_SCHEMA "org.gnome.desktop.interface"
 #define CLOCK_FORMAT_KEY "clock-format"
 
+static void stop_geolocation (GisTimezonePage *page);
+
 struct _GisTimezonePagePrivate
 {
   GtkWidget *map;
@@ -67,12 +69,15 @@ struct _GisTimezonePagePrivate
   GCancellable *geoclue_cancellable;
   GClueClient *geoclue_client;
   GClueSimple *geoclue_simple;
+  gboolean in_geoclue_callback;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
 
   GnomeWallClock *clock;
   GDesktopClockFormat clock_format;
   gboolean in_search;
+
+  gulong search_entry_text_changed_id;
 };
 typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
 
@@ -178,6 +183,10 @@ set_location (GisTimezonePage  *page,
       tzid = gweather_timezone_get_tzid (zone);
 
       cc_timezone_map_set_timezone (CC_TIMEZONE_MAP (priv->map), tzid);
+
+      /* If this location is manually set, stop waiting for geolocation. */
+      if (!priv->in_geoclue_callback)
+        stop_geolocation (page);
     }
 }
 
@@ -187,6 +196,7 @@ on_location_notify (GClueSimple *simple,
                     gpointer     user_data)
 {
   GisTimezonePage *page = user_data;
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GClueLocation *location;
   gdouble latitude, longitude;
   GWeatherLocation *glocation = NULL;
@@ -197,7 +207,9 @@ on_location_notify (GClueSimple *simple,
   longitude = gclue_location_get_longitude (location);
 
   glocation = gweather_location_find_nearest_city (NULL, latitude, longitude);
+  priv->in_geoclue_callback = TRUE;
   set_location (page, glocation);
+  priv->in_geoclue_callback = FALSE;
   gweather_location_unref (glocation);
 }
 
@@ -238,6 +250,19 @@ get_location_from_geoclue_async (GisTimezonePage *page)
                     priv->geoclue_cancellable,
                     on_geoclue_simple_ready,
                     page);
+}
+
+static void
+entry_text_changed (GtkEditable *editable,
+                    gpointer     user_data)
+{
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+
+  stop_geolocation (GIS_TIMEZONE_PAGE (user_data));
+  g_signal_handler_disconnect (priv->search_entry,
+                               priv->search_entry_text_changed_id);
+  priv->search_entry_text_changed_id = 0;
 }
 
 static void
@@ -443,6 +468,9 @@ gis_timezone_page_constructed (GObject *object)
   set_location (page, NULL);
   get_location_from_geoclue_async (page);
 
+  priv->search_entry_text_changed_id =
+      g_signal_connect (priv->search_entry, "changed",
+                        G_CALLBACK (entry_text_changed), page);
   g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
   g_signal_connect (priv->search_entry, "map",
@@ -473,13 +501,16 @@ gis_timezone_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Time Zone"));
 }
 
-static void
-gis_timezone_page_shown (GisPage *page)
+static gboolean
+gis_timezone_page_apply (GisPage      *page,
+                         GCancellable *cancellable)
 {
-  GisTimezonePage *tz_page = GIS_TIMEZONE_PAGE (page);
+  /* Once the user accepts the location, it would be unkind to change it if
+   * GeoClue suddenly tells us we're somewhere else.
+   */
+  stop_geolocation (GIS_TIMEZONE_PAGE (page));
 
-  /* Stop timezone geolocation if it hasn't finished by the time we get here */
-  stop_geolocation (tz_page);
+  return FALSE;
 }
 
 static void
@@ -496,7 +527,7 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
-  page_class->shown = gis_timezone_page_shown;
+  page_class->apply = gis_timezone_page_apply;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
 }
