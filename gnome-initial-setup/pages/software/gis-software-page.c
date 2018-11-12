@@ -88,12 +88,12 @@ gis_software_page_dispose (GObject *object)
   G_OBJECT_CLASS (gis_software_page_parent_class)->dispose (object);
 }
 
+#ifdef ENABLE_SOFTWARE_SOURCES
 static void
 repo_enabled_cb (GObject      *source,
                  GAsyncResult *res,
                  gpointer      data)
 {
-#ifdef ENABLE_SOFTWARE_SOURCES
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (data);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
   g_autoptr(GError) error = NULL;
@@ -118,8 +118,8 @@ repo_enabled_cb (GObject      *source,
       /* all done */
       gis_page_apply_complete (GIS_PAGE (page), TRUE);
     }
-#endif
 }
+#endif
 
 gboolean
 enable_repos (GisSoftwarePage *page,
@@ -247,11 +247,12 @@ gis_software_page_init (GisSoftwarePage *page)
 GisPage *
 gis_prepare_software_page (GisDriver *driver)
 {
-  GSettingsSchemaSource *source;
-  GSettingsSchema *schema;
   GisPage *page = NULL;
 
 #ifdef ENABLE_SOFTWARE_SOURCES
+  GSettingsSchemaSource *source;
+  GSettingsSchema *schema;
+
   source = g_settings_schema_source_get_default ();
   schema = g_settings_schema_source_lookup (source, "org.gnome.software", TRUE);
   if (schema != NULL && g_settings_schema_has_key (schema, "show-nonfree-software"))
