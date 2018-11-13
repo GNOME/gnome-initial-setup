@@ -179,10 +179,6 @@ set_suggested_action_sensitive (GtkWidget *widget,
                                 gboolean   sensitive)
 {
   gtk_widget_set_sensitive (widget, sensitive);
-  if (sensitive)
-    gtk_style_context_add_class (gtk_widget_get_style_context (widget), "suggested-action");
-  else
-    gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "suggested-action");
 }
 
 static void
