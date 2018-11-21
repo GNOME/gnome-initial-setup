@@ -15,10 +15,14 @@ sources += gnome.compile_resources(
 )
 
 sources += files(
+    'cc-crop-area.c',
+    'cc-crop-area.h',
     'gis-account-page.c',
     'gis-account-page.h',
     'gis-account-pages.c',
     'gis-account-pages.h',
+    'gis-account-camera-dialog.c',
+    'gis-account-camera-dialog.h',
     'gis-account-page-local.c',
     'gis-account-page-local.h',
     'gis-account-page-enterprise.c',
