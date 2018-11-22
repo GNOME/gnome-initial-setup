@@ -85,8 +85,7 @@ static PageData page_table[] = {
 #undef PAGE
 
 static gboolean
-should_skip_page (GisDriver    *driver,
-                  const gchar  *page_id,
+should_skip_page (const gchar  *page_id,
                   gchar       **skip_pages)
 {
   guint i = 0;
@@ -222,7 +221,7 @@ rebuild_pages_cb (GisDriver *driver)
     skipped = FALSE;
 
     if ((page_data->new_user_only && !is_new_user) ||
-        (should_skip_page (driver, page_data->page_id, skip_pages)))
+        (should_skip_page (page_data->page_id, skip_pages)))
       skipped = TRUE;
 
     page = page_data->prepare_page_func (driver);
