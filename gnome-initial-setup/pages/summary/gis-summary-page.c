@@ -58,7 +58,7 @@ static void
 connect_to_gdm (GdmGreeter      **greeter,
                 GdmUserVerifier **user_verifier)
 {
-  GdmClient *client;
+  g_autoptr(GdmClient) client = NULL;
   GError *error = NULL;
 
   client = gdm_client_new ();
@@ -170,7 +170,7 @@ static void
 log_user_in (GisSummaryPage *page)
 {
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   if (!priv->greeter || !priv->user_verifier) {
     g_warning ("No GDM connection; not initiating login");
