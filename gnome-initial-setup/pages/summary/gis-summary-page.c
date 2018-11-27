@@ -176,10 +176,8 @@ log_user_in (GisSummaryPage *page)
                                                            act_user_get_user_name (priv->user_account),
                                                            NULL, &error);
 
-  if (error != NULL) {
+  if (error != NULL)
     g_warning ("Could not begin verification: %s", error->message);
-    return;
-  }
 }
 
 static void
