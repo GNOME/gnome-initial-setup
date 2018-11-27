@@ -59,7 +59,7 @@ connect_to_gdm (GdmGreeter      **greeter,
                 GdmUserVerifier **user_verifier)
 {
   g_autoptr(GdmClient) client = NULL;
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   client = gdm_client_new ();
 
@@ -67,10 +67,8 @@ connect_to_gdm (GdmGreeter      **greeter,
   if (error == NULL)
     *user_verifier = gdm_client_get_user_verifier_sync (client, NULL, &error);
 
-  if (error != NULL) {
+  if (error != NULL)
     g_warning ("Failed to open connection to GDM: %s", error->message);
-    g_error_free (error);
-  }
 
   return;
 }
@@ -150,17 +148,15 @@ add_uid_file (uid_t uid)
 {
   gchar *gis_uid_path;
   gchar *uid_str;
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   gis_uid_path = g_build_filename (g_get_home_dir (),
                                    "gnome-initial-setup-uid",
                                    NULL);
   uid_str = g_strdup_printf ("%u", uid);
 
-  if (!g_file_set_contents (gis_uid_path, uid_str, -1, &error)) {
+  if (!g_file_set_contents (gis_uid_path, uid_str, -1, &error))
       g_warning ("Unable to create %s: %s", gis_uid_path, error->message);
-      g_clear_error (&error);
-  }
 
   g_free (uid_str);
   g_free (gis_uid_path);
