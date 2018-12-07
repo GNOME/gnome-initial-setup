@@ -243,6 +243,14 @@ update_distro_logo (GisLanguagePage *page)
     {
       g_object_set (priv->logo, "icon-name", "ubuntu-logo-icon", NULL);
     }
+  else if ((g_strcmp0 (id, "openSUSE Tumbleweed") == 0) || (g_strcmp0 (id, "openSUSE Leap") == 0))
+    {
+      g_object_set (priv->logo, "icon-name", "opensuse-logo-icon", NULL);
+    }
+  else if ((g_strcmp0 (id, "SLED") == 0) || (g_strcmp0 (id, "SLES") == 0))
+    {
+      g_object_set (priv->logo, "icon-name", "suse-logo-icon", NULL);
+    }
 
   g_free (id);
 }
