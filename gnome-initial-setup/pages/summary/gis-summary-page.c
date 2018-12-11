@@ -51,36 +51,6 @@ typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
 
-static gboolean
-connect_to_gdm (GdmGreeter      **greeter,
-                GdmUserVerifier **user_verifier)
-{
-  GdmClient *client;
-
-  GError *error = NULL;
-  gboolean res = FALSE;
-
-  client = gdm_client_new ();
-
-  *greeter = gdm_client_get_greeter_sync (client, NULL, &error);
-  if (error != NULL)
-    goto out;
-
-  *user_verifier = gdm_client_get_user_verifier_sync (client, NULL, &error);
-  if (error != NULL)
-    goto out;
-
-  res = TRUE;
-
- out:
-  if (error != NULL) {
-    g_warning ("Failed to open connection to GDM: %s", error->message);
-    g_error_free (error);
-  }
-
-  return res;
-}
-
 static void
 request_info_query (GisSummaryPage  *page,
                     GdmUserVerifier *user_verifier,
@@ -180,7 +150,8 @@ log_user_in (GisSummaryPage *page)
   GdmGreeter *greeter;
   GdmUserVerifier *user_verifier;
 
-  if (!connect_to_gdm (&greeter, &user_verifier)) {
+  if (!gis_driver_get_gdm_objects (GIS_PAGE (page)->driver,
+                                   &greeter, &user_verifier)) {
     g_warning ("No GDM connection; not initiating login");
     return;
   }

@@ -25,6 +25,7 @@
 
 #include <stdlib.h>
 #include <locale.h>
+#include <gdm/gdm-client.h>
 
 #include "gis-assistant.h"
 
@@ -69,6 +70,10 @@ struct _GisDriverPrivate {
   GtkWindow *main_window;
   GisAssistant *assistant;
 
+  GdmClient *client;
+  GdmGreeter *greeter;
+  GdmUserVerifier *user_verifier;
+
   ActUser *user_account;
   gchar *user_password;
 
@@ -82,6 +87,19 @@ struct _GisDriverPrivate {
 typedef struct _GisDriverPrivate GisDriverPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE(GisDriver, gis_driver, GTK_TYPE_APPLICATION)
+
+static void
+gis_driver_dispose (GObject *object)
+{
+  GisDriver *driver = GIS_DRIVER (object);
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  g_clear_object (&priv->user_verifier);
+  g_clear_object (&priv->greeter);
+  g_clear_object (&priv->client);
+
+  G_OBJECT_CLASS (gis_driver_parent_class)->dispose (object);
+}
 
 static void
 gis_driver_finalize (GObject *object)
@@ -203,6 +221,22 @@ gis_driver_get_account_mode (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->account_mode;
+}
+
+gboolean
+gis_driver_get_gdm_objects (GisDriver        *driver,
+                            GdmGreeter      **greeter,
+                            GdmUserVerifier **user_verifier)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (priv->greeter == NULL || priv->user_verifier == NULL)
+    return FALSE;
+
+  *greeter = priv->greeter;
+  *user_verifier = priv->user_verifier;
+
+  return TRUE;
 }
 
 void
@@ -423,12 +457,35 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
 }
 
 static void
+connect_to_gdm (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_autoptr(GError) error = NULL;
+
+  priv->client = gdm_client_new ();
+
+  priv->greeter = gdm_client_get_greeter_sync (priv->client, NULL, &error);
+  if (error == NULL)
+    priv->user_verifier = gdm_client_get_user_verifier_sync (priv->client, NULL, &error);
+
+  if (error != NULL) {
+    g_warning ("Failed to open connection to GDM: %s", error->message);
+    g_clear_object (&priv->user_verifier);
+    g_clear_object (&priv->greeter);
+    g_clear_object (&priv->client);
+  }
+}
+
+static void
 gis_driver_startup (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
+
+  if (priv->mode == GIS_DRIVER_MODE_NEW_USER)
+    connect_to_gdm (driver);
 
   priv->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
                                     "application", app,
@@ -475,6 +532,7 @@ gis_driver_class_init (GisDriverClass *klass)
 
   gobject_class->get_property = gis_driver_get_property;
   gobject_class->set_property = gis_driver_set_property;
+  gobject_class->dispose = gis_driver_dispose;
   gobject_class->finalize = gis_driver_finalize;
   application_class->startup = gis_driver_startup;
   application_class->activate = gis_driver_activate;

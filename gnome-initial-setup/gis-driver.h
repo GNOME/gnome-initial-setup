@@ -25,6 +25,7 @@
 #include "gis-assistant.h"
 #include "gis-page.h"
 #include <act/act-user-manager.h>
+#include <gdm/gdm-client.h>
 
 G_BEGIN_DECLS
 
@@ -88,6 +89,10 @@ const gchar *gis_driver_get_user_language (GisDriver   *driver);
 void gis_driver_set_username (GisDriver   *driver,
                               const gchar *username);
 const gchar *gis_driver_get_username (GisDriver *driver);
+
+gboolean gis_driver_get_gdm_objects (GisDriver        *driver,
+                                     GdmGreeter      **greeter,
+                                     GdmUserVerifier **user_verifier);
 
 GisDriverMode gis_driver_get_mode (GisDriver *driver);
 
