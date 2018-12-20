@@ -52,12 +52,6 @@ cheese_gtk_dep = dependency ('cheese-gtk',
                          required: get_option('cheese'))
 conf.set('HAVE_CHEESE', cheese_dep.found() and cheese_gtk_dep.found())
 
-# Needed for the 'software' page
-pkgkit_dep = dependency ('packagekit-glib2',
-                         version: '>= 1.1.4',
-                         required: get_option('software-sources'))
-conf.set('ENABLE_SOFTWARE_SOURCES', pkgkit_dep.found())
-
 # Needed for the 'keyboard' page
 ibus_dep = dependency ('ibus-1.0',
                        version: '>= 1.4.99',

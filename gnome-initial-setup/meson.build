@@ -50,7 +50,6 @@ dependencies = [
     dependency ('webkit2gtk-4.0'),
     cheese_dep,
     cheese_gtk_dep,
-    pkgkit_dep,
     ibus_dep,
 ]
 
