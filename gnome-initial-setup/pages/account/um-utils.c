@@ -128,16 +128,19 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
         valid = TRUE;
 
         if (!in_use && !empty && !too_long) {
-                /* First char must be a letter, and it must only composed
-                 * of ASCII letters, digits, and a '.', '-', '_'
+                /* First char must be a lower case letter, and it must only be
+                 * composed of lower case letters, digits, '-', and '_'.
                  */
                 for (c = username; *c; c++) {
-                        if (! ((*c >= 'a' && *c <= 'z') ||
-                               (*c >= 'A' && *c <= 'Z') ||
-                               (*c >= '0' && *c <= '9') ||
-                               (*c == '_') || (*c == '.') ||
-                               (*c == '-' && c != username)))
-                           valid = FALSE;
+                        if (c == username) {
+                            if (! (*c >= 'a' && *c <= 'z'))
+                               valid = FALSE;
+                        } else {
+                            if (! ((*c >= 'a' && *c <= 'z') ||
+                                   (*c >= '0' && *c <= '9') ||
+                                   (*c == '_') || (*c == '-')))
+                               valid = FALSE;
+                        }
                 }
         }
 
@@ -152,14 +155,14 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
                 else if (too_long) {
                         *tip = g_strdup_printf (_("The username is too long."));
                 }
-                else if (username[0] == '-') {
-                        *tip = g_strdup (_("The username cannot start with a “-”."));
+                else if (!(username[0] >= 'a' && username[0] <= 'z')) {
+                        *tip = g_strdup (_("The username must start with a lower case letter from a-z."));
                 }
                 else if (parental_controls_conflict) {
                         *tip = g_strdup (_("That username isn’t available. Please try another."));
                 }
                 else {
-                        *tip = g_strdup (_("The username should only consist of upper and lower case letters from a-z, digits and the following characters: . - _"));
+                        *tip = g_strdup (_("The username should only consist of lower case letters from a-z, digits, and the following characters: - _"));
                 }
         }
         else {
