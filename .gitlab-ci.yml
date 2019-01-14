@@ -12,6 +12,8 @@ before_script:
     - meson -Dregion-page=${REGION_PAGE} --auto-features ${AUTO_FEATURES} _build .
     - cd _build
     - ninja
+    # Check that strings can be extracted
+    - ninja gnome-initial-setup-pot
     - meson test
   artifacts:
     when: on_failure
