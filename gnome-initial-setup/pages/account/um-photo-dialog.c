@@ -166,13 +166,19 @@ static GtkWidget *
 create_face_widget (gpointer item,
                     gpointer user_data)
 {
+        GdkPixbuf *pixbuf = NULL;
         GtkWidget *image;
-        GIcon *icon;
 
-        icon = g_file_icon_new (G_FILE (item));
-        image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_DIALOG);
+        pixbuf = gdk_pixbuf_new_from_file_at_size (g_file_get_path (G_FILE (item)),
+                                                   AVATAR_PIXEL_SIZE,
+                                                   AVATAR_PIXEL_SIZE,
+                                                   NULL);
+        if (pixbuf == NULL)
+                return NULL;
+
+        image = gtk_image_new_from_pixbuf (round_image (pixbuf));
+        g_object_unref (pixbuf);
         gtk_image_set_pixel_size (GTK_IMAGE (image), AVATAR_PIXEL_SIZE);
-        g_object_unref (icon);
 
         gtk_widget_show (image);
 
