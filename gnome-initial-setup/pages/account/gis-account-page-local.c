@@ -224,7 +224,7 @@ prepopulate_account_page (GisAccountPageLocal *page)
   }
 
   if (pixbuf) {
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), pixbuf);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), round_image (pixbuf));
     priv->avatar_pixbuf = pixbuf;
   }
 
@@ -359,13 +359,13 @@ avatar_callback (GdkPixbuf   *pixbuf,
   if (pixbuf) {
     priv->avatar_pixbuf = g_object_ref (pixbuf);
     tmp = gdk_pixbuf_scale_simple (pixbuf, 96, 96, GDK_INTERP_BILINEAR);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), round_image (tmp));
     g_object_unref (tmp);
   }
   else if (filename) {
     priv->avatar_filename = g_strdup (filename);
     tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), round_image (tmp));
     g_object_unref (tmp);
   }
   else {
