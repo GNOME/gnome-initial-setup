@@ -1,24 +1,24 @@
 # Hungarian translation for gnome-initial-setup.
-# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018 Free Software Foundation, Inc.
+# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013, 2016, 2017.
-# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015, 2018.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015, 2018, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-08-18 06:15+0000\n"
-"PO-Revision-Date: 2018-08-31 11:44+0200\n"
-"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
-"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
+"POT-Creation-Date: 2018-12-01 18:32+0000\n"
+"PO-Revision-Date: 2019-02-03 15:44+0100\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -51,11 +51,11 @@ msgstr "_Előző"
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Létező felhasználói mód kényszerítése"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "– GNOME kiinduló beállítások"
 
@@ -176,6 +176,7 @@ msgid "Cannot automatically join this type of domain"
 msgstr "Ilyen típusú tartományhoz nem lehet automatikusan csatlakozni"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Nem található ilyen tartomány vagy zóna"
 
@@ -199,6 +200,7 @@ msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Elnézést, ez a felhasználónév nem érhető el. Próbáljon egy másikat."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "A felhasználónév túl hosszú."
 
@@ -299,20 +301,20 @@ msgstr "Üdvözlet"
 msgid "Welcome!"
 msgstr "Üdvözöljük!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Egyéb…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Vezeték nélküli hálózatok letiltva"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Elérhető vezeték nélküli hálózatok keresése"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Hálózat"
 
@@ -654,7 +656,7 @@ msgstr "UTC%:::z"
 #. Translators: This is the time format used in 12-hour mode.
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
 msgid "%l:%M %p"
-msgstr "%l:%M %p"
+msgstr "%H:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
@@ -668,7 +670,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Időzóna"
@@ -685,5 +687,3 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Keressen egy közeli várost"
 
-#~ msgid "Disable image"
-#~ msgstr "Kép tiltása"
