@@ -224,7 +224,10 @@ prepopulate_account_page (GisAccountPageLocal *page)
   }
 
   if (pixbuf) {
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), pixbuf);
+    GdkPixbuf *rounded = round_image (pixbuf);
+
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), rounded);
+    g_object_unref (rounded);
     priv->avatar_pixbuf = pixbuf;
   }
 
@@ -268,6 +271,8 @@ validate (GisAccountPageLocal *page)
 
   gtk_label_set_text (GTK_LABEL (priv->username_explanation), tip);
   g_free (tip);
+
+  um_photo_dialog_generate_avatar (priv->photo_dialog, name);
 
   validation_changed (page);
 
@@ -348,7 +353,7 @@ avatar_callback (GdkPixbuf   *pixbuf,
 {
   GisAccountPageLocal *page = user_data;
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
-  GdkPixbuf *tmp;
+  GdkPixbuf *tmp, *rounded;
 
   g_clear_object (&priv->avatar_pixbuf);
   g_free (priv->avatar_filename);
@@ -356,15 +361,18 @@ avatar_callback (GdkPixbuf   *pixbuf,
 
   if (pixbuf) {
     priv->avatar_pixbuf = g_object_ref (pixbuf);
-    tmp = gdk_pixbuf_scale_simple (pixbuf, 96, 96, GDK_INTERP_BILINEAR);
+    tmp = round_image (pixbuf);
     gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
     g_object_unref (tmp);
   }
   else if (filename) {
     priv->avatar_filename = g_strdup (filename);
     tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
+    rounded = round_image (tmp);
     g_object_unref (tmp);
+
+    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), rounded);
+    g_object_unref (rounded);
   }
   else {
     gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
@@ -384,6 +392,7 @@ gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GtkCssProvider *provider;
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->constructed (object);
 
@@ -430,8 +439,16 @@ gis_account_page_local_constructed (GObject *object)
   priv->photo_dialog = um_photo_dialog_new (priv->avatar_button,
                                             avatar_callback,
                                             page);
+  um_photo_dialog_generate_avatar (priv->photo_dialog, "");
 
   validate (page);
+
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-account-page-style.css");
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  g_object_unref (provider);
 }
 
 static void

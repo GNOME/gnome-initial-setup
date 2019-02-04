@@ -41,6 +41,9 @@ UmPhotoDialog *um_photo_dialog_new      (GtkWidget            *button,
                                          gpointer              data);
 void           um_photo_dialog_free     (UmPhotoDialog *dialog);
 
+void           um_photo_dialog_generate_avatar (UmPhotoDialog *dialog,
+                                                const gchar   *name);
+
 G_END_DECLS
 
 #endif
