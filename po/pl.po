@@ -1,16 +1,16 @@
 # Polish translation for gnome-initial-setup.
-# Copyright © 2012-2018 the gnome-initial-setup authors.
+# Copyright © 2012-2019 the gnome-initial-setup authors.
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2012-2018.
-# Aviary.pl <community-poland@mozilla.org>, 2012-2018.
+# Piotr Drąg <piotrdrag@gmail.com>, 2012-2019.
+# Aviary.pl <community-poland@mozilla.org>, 2012-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-07-30 14:03+0000\n"
-"PO-Revision-Date: 2018-08-12 00:30+0200\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-07 13:10+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -51,19 +51,19 @@ msgstr "_Wstecz"
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Wymusza tryb istniejącego użytkownika"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "— początkowa konfiguracja środowiska GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Zrób zdjęcie…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Informacje o użytkowniku"
@@ -153,11 +153,11 @@ msgstr ""
 "Proszę sprawdzić poprawność imienia i nazwiska. Można także wybrać obraz dla "
 "konta."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "Wymagane jest podanie kilku informacji, aby ukończyć konfigurację."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Obraz awatara"
 
@@ -169,15 +169,20 @@ msgstr "Proszę podać imię i nazwisko. Można także wybrać obraz dla konta.
 msgid "_Full Name"
 msgstr "_Imię i nazwisko"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "_Ustaw logowanie firmowe"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+msgid "_Enterprise Login"
+msgstr "_Logowanie firmowe"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+msgid "Go online to set up Enterprise Login."
+msgstr "Należy przejść do trybu online, aby ustawić logowanie firmowe."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Nie można automatycznie dołączyć do tego typu domeny"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Nie odnaleziono takiej domeny lub obszaru"
 
@@ -201,6 +206,7 @@ msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Ta nazwa użytkownika jest niedostępna. Proszę użyć innej."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "Nazwa użytkownika jest za długa."
 
@@ -287,7 +293,7 @@ msgstr "Wybór układu klawiatury lub metody wprowadzania."
 msgid "No languages found"
 msgstr "Nie odnaleziono języków"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Witamy"
 
@@ -299,20 +305,20 @@ msgstr "Witamy"
 msgid "Welcome!"
 msgstr "Witamy!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Inna…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Sieć bezprzewodowa jest wyłączona"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Wyszukiwanie dostępnych sieci bezprzewodowych"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Sieć"
 
@@ -654,7 +660,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Strefa czasowa"
