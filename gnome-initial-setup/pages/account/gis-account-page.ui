@@ -31,13 +31,31 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToggleButton" id="page_toggle">
+          <object class="GtkStack" id="offline_stack">
             <property name="visible">True</property>
-            <property name="use_underline">True</property>
-            <property name="label" translatable="yes">Set Up _Enterprise Login</property>
             <property name="halign">center</property>
             <property name="valign">end</property>
             <property name="margin_bottom">18</property>
+            <child>
+              <object class="GtkToggleButton" id="page_toggle">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="label" translatable="yes">_Enterprise Login</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="offline_label">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="label" translatable="yes">Go online to set up Enterprise Login.</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
       </object>
