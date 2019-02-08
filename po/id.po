@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup gnome-3-30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-11-27 11:05+0000\n"
-"PO-Revision-Date: 2019-01-08 00:27+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-08 22:57+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=2; plural= n!=1;\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -58,11 +58,11 @@ msgstr "Paksakan mode pengguna yang ada"
 msgid "— GNOME initial setup"
 msgstr "— GNOME penyiapan awal"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Ambil Foto…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Tentang Anda"
@@ -151,11 +151,11 @@ msgstr "Kata Sandi Administrator"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Harap periksa nama dan nama pengguna. Anda juga dapat memilih gambar."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "Kami perlu beberapa rincian untuk melengkapi penyiapan."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Citra avatar"
 
@@ -167,15 +167,20 @@ msgstr "Harap isi nama dan nama pengguna. Anda juga dapat memilih gambar."
 msgid "_Full Name"
 msgstr "Nama _Lengkap"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "Menyiapkan Log Masuk _Enterprise"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+msgid "_Enterprise Login"
+msgstr "Log Masuk _Enterprise"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+msgid "Go online to set up Enterprise Login."
+msgstr "Pergi daring untuk mengatur Log Masuk Enterprise."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Tak bisa otomatis bergabung dengan domain tipe ini"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Domain atau realm tak ditemukan"
 
@@ -199,6 +204,7 @@ msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Maaf, nama pengguna itu tidak tersedia. Silakan coba yang lain."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "Nama pengguna terlalu panjang."
 
@@ -286,7 +292,7 @@ msgstr "Pilih tata letak papan tik Anda atau metoda masukan."
 msgid "No languages found"
 msgstr "Tak ada bahasa yang ditemukan"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Selamat Datang"
 
