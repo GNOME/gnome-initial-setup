@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2012, 2013, 2014, 2015, 2016.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2013, 2017, 2018.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2013-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-07-30 14:03+0000\n"
-"PO-Revision-Date: 2018-08-05 01:15+0300\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-09 16:24+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Gtranslator 3.30.1\n"
 "X-POOTLE-MTIME: 1433282659.000000\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
@@ -53,20 +53,19 @@ msgstr "_Geri"
 msgid "_Cancel"
 msgstr "_Vazgeç"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Var olan kullanıcı kipine zorla"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "— GNOME ilk kurulum"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
-#| msgid "Take a photo…"
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Fotoğraf Çek…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Hakkınızda"
@@ -156,11 +155,11 @@ msgstr ""
 "Lütfen adı ve kullanıcı adını gözden geçirin. Ayrıca fotoğraf da "
 "seçebilirsiniz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "Kurulumu tamamlamak için birkaç ayrıntıya gereksiniyoruz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Görüntü resmi"
 
@@ -172,15 +171,22 @@ msgstr "Lütfen ad ve kullanıcı adı girin. Ayrıca fotoğraf da seçebilirsin
 msgid "_Full Name"
 msgstr "_Tam Ad"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "_Kurumsal Hesap Kur"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+#| msgid "Enterprise Login"
+msgid "_Enterprise Login"
+msgstr "_Kurumsal Giriş"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+#| msgid "Set Up _Enterprise Login"
+msgid "Go online to set up Enterprise Login."
+msgstr "Kurumsal Giriş için çevrim içi olun."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Bu etki alanı türüne kendiliğinden katılamaz"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Böyle bir etki alanı ya da bölge bulunamadı"
 
@@ -201,9 +207,10 @@ msgstr "%s etki alanına bağlanılamadı: %s"
 
 #: gnome-initial-setup/pages/account/um-utils.c:245
 msgid "Sorry, that user name isn’t available. Please try another."
-msgstr "Üzgünüz, o kullanıcı adı kullanılabilir değil. Lütfen başka deneyin."
+msgstr "Üzgünüz, o kullanıcı adı kullanılamaz. Lütfen başka deneyin."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "Kullanıcı adı çok uzun."
 
@@ -294,7 +301,7 @@ msgstr "Klavye düzeninizi ya da bir giriş yöntemi seçin."
 msgid "No languages found"
 msgstr "Hiçbir dil bulunamadı"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Hoş Geldiniz"
 
@@ -306,20 +313,20 @@ msgstr "Hoş Geldiniz"
 msgid "Welcome!"
 msgstr "Hoş Geldiniz!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Diğer…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Kablosuz ağ kapatıldı"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Kullanılabilir kablosuz ağlar denetleniyor"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Ağ"
 
@@ -663,7 +670,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Saat Dilimi"
@@ -674,11 +681,11 @@ msgid ""
 "can also search for a city to set it yourself."
 msgstr ""
 "Eğer konumunuz bulunabilirse saat dilimi kendiliğinden ayarlanacak. Ayrıca "
-"kendiniz ayarlamak için bir şehir araması yapabilirsiniz."
+"kendiniz ayarlamak için şehir araması yapabilirsiniz."
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
 msgid "Please search for a nearby city"
-msgstr "Lütfen yakındaki bir şehir için arama yapın"
+msgstr "Lütfen yakındaki şehir için arama yapın"
 
 #~ msgid "Disable image"
 #~ msgstr "Resmi etkisizleştir"
