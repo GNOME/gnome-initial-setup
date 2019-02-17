@@ -1,21 +1,23 @@
 # Chinese (Taiwan) translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# pan93412 <pan93412@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2018-07-30 14:03+0000\n"
-"PO-Revision-Date: 2018-08-12 16:26+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
+"s\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-17 23:16+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
+"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Lokalize 18.12.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -48,19 +50,19 @@ msgstr "上一個(_P)"
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "強制既有使用者模式"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "— GNOME 初始設定"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "照張相…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "關於您"
@@ -87,12 +89,12 @@ msgstr "企業登入"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:45
 msgid ""
-"Enterprise login allows an existing centrally managed user account to be used on "
-"this device. You can also use this account to access company resources on the "
-"internet."
+"Enterprise login allows an existing centrally managed user account to be "
+"used on this device. You can also use this account to access company "
+"resources on the internet."
 msgstr ""
-"企業登入讓您可以在此裝置上使用既有的中央管理使用者帳號。您也可以使用此帳號存取網際"
-"網路上的公司資源。"
+"企業登入讓您可以在此裝置上使用既有的中央管理使用者帳號。您也可以使用此帳號存"
+"取網際網路上的公司資源。"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:65
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:316
@@ -123,12 +125,12 @@ msgstr "網域管理員登入"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:295
 msgid ""
-"In order to use enterprise logins, this computer needs to be enrolled in a domain. "
-"Please have your network administrator type the domain password here, and choose a "
-"unique computer name for your computer."
+"In order to use enterprise logins, this computer needs to be enrolled in a "
+"domain. Please have your network administrator type the domain password "
+"here, and choose a unique computer name for your computer."
 msgstr ""
-"為了使用企業登入，這臺電腦需要註冊到網域中。請讓您的網路管理員在此輸入網域密碼，及"
-"用於您電腦的獨特電腦名稱。"
+"為了使用企業登入，這臺電腦需要註冊到網域中。請讓您的網路管理員在此輸入網域密"
+"碼，及用於您電腦的獨特電腦名稱。"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:350
 msgid "_Computer"
@@ -146,11 +148,11 @@ msgstr "管理員密碼"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "請檢查名稱和使用者名稱。您也可以選擇一張照片。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "我們需要一些資料來完成設定。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "大頭貼影像"
 
@@ -162,15 +164,22 @@ msgstr "請提供名稱和使用者名稱。您也可以選擇一張照片。"
 msgid "_Full Name"
 msgstr "全名(_F)"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "設置企業登入(_E)"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+#| msgid "Enterprise Login"
+msgid "_Enterprise Login"
+msgstr "企業登入(_E)"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+#| msgid "Set Up _Enterprise Login"
+msgid "Go online to set up Enterprise Login."
+msgstr "請連線網路以設定「企業登入」。"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "不能自動加入這個類型的網域"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "找不到這個網域或領域名稱"
 
@@ -194,6 +203,7 @@ msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "抱歉，該使用者名稱無法使用。請嘗試別的。"
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "使用者名稱太長。"
 
@@ -203,8 +213,8 @@ msgstr "使用者名稱不能以「-」字元開頭。"
 
 #: gnome-initial-setup/pages/account/um-utils.c:254
 msgid ""
-"The username should only consist of upper and lower case letters from a-z, digits "
-"and the following characters: . - _"
+"The username should only consist of upper and lower case letters from a-z, "
+"digits and the following characters: . - _"
 msgstr "使用者名稱之構成只能採用大小寫字母英文字母 a 到 z、數字、與其他字元如：. - _"
 
 #: gnome-initial-setup/pages/account/um-utils.c:258
@@ -218,7 +228,8 @@ msgstr "授權同意"
 
 #: gnome-initial-setup/pages/eulas/gis-eula-page.ui:50
 msgid ""
-"I have _agreed to the terms and conditions in this end user license agreement."
+"I have _agreed to the terms and conditions in this end user license "
+"agreement."
 msgstr "我已同意這個條款與條件(_A)"
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.c:87
@@ -235,12 +246,13 @@ msgstr "連接您的線上帳號"
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:58
 msgid ""
-"Connect your accounts to easily access your email, online calendar, contacts, "
-"documents and photos."
+"Connect your accounts to easily access your email, online calendar, "
+"contacts, documents and photos."
 msgstr "連接您的帳號可讓您輕鬆存取您的電子郵件、線上行事曆、聯絡人資訊、文件和相片。"
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:95
-msgid "Accounts can be added and removed at any time from the Settings application."
+msgid ""
+"Accounts can be added and removed at any time from the Settings application."
 msgstr "帳號可以在任何時刻從設定值加入或移除。"
 
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:240
@@ -273,7 +285,7 @@ msgstr "選擇您的鍵盤配置或是輸入法。"
 msgid "No languages found"
 msgstr "找不到語言"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "歡迎使用"
 
@@ -285,20 +297,20 @@ msgstr "歡迎使用"
 msgid "Welcome!"
 msgstr "歡迎使用！"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "其他…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "無線網路已停用"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "檢查有沒有無線網路可用"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "網路"
 
@@ -308,12 +320,12 @@ msgstr "Wi-Fi"
 
 #: gnome-initial-setup/pages/network/gis-network-page.ui:45
 msgid ""
-"Connecting to the Internet will enable you to set the time, add your details, and "
-"enable you to access your email, calendar, and contacts. It is also necessary for "
-"enterprise login accounts."
+"Connecting to the Internet will enable you to set the time, add your "
+"details, and enable you to access your email, calendar, and contacts. It is "
+"also necessary for enterprise login accounts."
 msgstr ""
-"連接到網際網路可以讓您設定時間、加入您的其他資訊、讓您存取您的電子郵件、行事曆、聯"
-"絡人資訊等。連接網路也是企業登入帳號所必須的。"
+"連接到網際網路可以讓您設定時間、加入您的其他資訊、讓您存取您的電子郵件、行事"
+"曆、聯絡人資訊等。連接網路也是企業登入帳號所必須的。"
 
 #: gnome-initial-setup/pages/network/gis-network-page.ui:103
 msgid "No wireless available"
@@ -355,21 +367,22 @@ msgstr "新密碼必須和舊密碼不同。"
 #: gnome-initial-setup/pages/password/pw-utils.c:83
 msgctxt "Password hint"
 msgid ""
-"This password is very similar to your last one. Try changing some letters and "
-"numbers."
+"This password is very similar to your last one. Try changing some letters "
+"and numbers."
 msgstr "這個密碼與你上一個密碼太過相似。試著改動一些英文字母與數字。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:85
 #: gnome-initial-setup/pages/password/pw-utils.c:93
 msgctxt "Password hint"
 msgid ""
-"This password is very similar to your last one. Try changing the password a bit "
-"more."
+"This password is very similar to your last one. Try changing the password a "
+"bit more."
 msgstr "這個密碼與你上一個密碼太過相似。試著更大幅改動密碼。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
-msgid "This is a weak password. A password without your user name would be stronger."
+msgid ""
+"This is a weak password. A password without your user name would be stronger."
 msgstr "這個密碼與你上一個密碼太過相似。若密碼不含使用者名稱的相關資訊會更強。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:89
@@ -380,7 +393,8 @@ msgstr "這個密碼與你上一個密碼太過相似。試著避免在密碼中
 #: gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid some of the words included in the password."
+"This is a weak password. Try to avoid some of the words included in the "
+"password."
 msgstr "這個密碼與你上一個密碼太過相似。試著避免在密碼中包含一些單字。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:95
@@ -411,13 +425,15 @@ msgstr "這個密碼強度不足。試著使用更多小寫英文字母。"
 #: gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to use more special characters, like punctuation."
+"This is a weak password. Try to use more special characters, like "
+"punctuation."
 msgstr "這個密碼強度不足。試著使用更多特殊字元，例如半形標點符號。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to use a mixture of letters, numbers and punctuation."
+"This is a weak password. Try to use a mixture of letters, numbers and "
+"punctuation."
 msgstr "這個密碼強度不足。試著混合使用英文字母、數字、半形標點符號等。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:109
@@ -428,11 +444,11 @@ msgstr "這個密碼強度不足。試著避免重複使用相同字元。"
 #: gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. Try to avoid repeating the same type of character: you "
-"need to mix up letters, numbers and punctuation."
+"This is a weak password. Try to avoid repeating the same type of character: "
+"you need to mix up letters, numbers and punctuation."
 msgstr ""
-"這個密碼強度不足。試著避免重複使用相同類型的字元：您需要混用英文字母、數字與半形標"
-"點符號。"
+"這個密碼強度不足。試著避免重複使用相同類型的字元：您需要混用英文字母、數字與"
+"半形標點符號。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
@@ -441,7 +457,8 @@ msgstr "這個密碼強度不足。試著避免連續字，例如 1234 或 abcd�
 
 #: gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
-msgid "This is a weak password. Try to add more letters, numbers and punctuation."
+msgid ""
+"This is a weak password. Try to add more letters, numbers and punctuation."
 msgstr "這個密碼強度不足。試著加入更多英文字母、數字，以及半形標點符號。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:117
@@ -451,7 +468,8 @@ msgstr "試著混用英文大小寫，並使用一、二個數字。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
-msgid "Adding more letters, numbers and punctuation will make the password stronger."
+msgid ""
+"Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "若能加入更多字母、數字、半形標點符號會讓密碼更強。"
 
 #. Translators: the parameter here is the name of a distribution,
@@ -461,8 +479,8 @@ msgstr "若能加入更多字母、數字、半形標點符號會讓密碼更強
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
 #, c-format
 msgid ""
-"Sending reports of technical problems helps us to improve %s. Reports are sent "
-"anonymously and are scrubbed of personal data."
+"Sending reports of technical problems helps us to improve %s. Reports are "
+"sent anonymously and are scrubbed of personal data."
 msgstr "傳送協助我們改進 %s 的技術問題報告。報告會以匿名方式送出並清除個人資料。"
 
 #. Translators: the parameter here is the name of a distribution,
@@ -495,8 +513,8 @@ msgstr "位置服務"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:70
 msgid ""
-"Allows applications to determine your geographical location. An indication is "
-"shown when location services are in use."
+"Allows applications to determine your geographical location. An indication "
+"is shown when location services are in use."
 msgstr "允許應用程式確定您的地理位置。當位置服務在使用時會顯示相關指示。"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
@@ -504,7 +522,8 @@ msgid "Automatic Problem Reporting"
 msgstr "自動錯誤回報"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:128
-msgid "Privacy controls can be changed at any time from the Settings application."
+msgid ""
+"Privacy controls can be changed at any time from the Settings application."
 msgstr "隱私權控制可以在任何時刻從設定值改變。"
 
 #: gnome-initial-setup/pages/region/cc-region-chooser.c:227
@@ -554,13 +573,13 @@ msgid ""
 "access to source code. This prevents anyone but the software owner from "
 "inspecting, improving or learning from its code."
 msgstr ""
-"專有軟體一般都有使用用途、和源始碼存取上的限制。這使得只有軟體擁有者才能檢閱、改"
-"善、或從其程式碼中學習，而其他人都不可以。"
+"專有軟體一般都有使用用途、和源始碼存取上的限制。這使得只有軟體擁有者才能檢"
+"閱、改善、或從其程式碼中學習，而其他人都不可以。"
 
 #: gnome-initial-setup/pages/software/gis-software-page.ui:177
 msgid ""
-"In contrast, Free Software can be freely run, copied, distributed, studied and "
-"modified."
+"In contrast, Free Software can be freely run, copied, distributed, studied "
+"and modified."
 msgstr "相反的，自由軟體則可以自由使用、複製、散布、研究、和修改。"
 
 #. Translators: the parameter here is the name of a distribution,
@@ -610,15 +629,15 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "時區"
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:53
 msgid ""
-"The time zone will be set automatically if your location can be found. You can "
-"also search for a city to set it yourself."
+"The time zone will be set automatically if your location can be found. You "
+"can also search for a city to set it yourself."
 msgstr "如果可以找到您所在的位置，將自動設定時區。您也可以自己搜尋城市。"
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
@@ -638,16 +657,17 @@ msgstr "請搜尋鄰近的城市"
 
 #~ msgctxt "Password hint"
 #~ msgid ""
-#~ "Password needs to be longer. Try to add more letters, numbers and punctuation."
+#~ "Password needs to be longer. Try to add more letters, numbers and "
+#~ "punctuation."
 #~ msgstr "這個密碼強度不足。試著加入更多英文字母、數字、半形標點符號等。"
 
 #~ msgid ""
-#~ "Proprietary software sources provide access to additional software, including "
-#~ "web browsers and games. This software typically has restrictions on use and "
-#~ "access to source code, and is not provided by %s."
+#~ "Proprietary software sources provide access to additional software, "
+#~ "including web browsers and games. This software typically has "
+#~ "restrictions on use and access to source code, and is not provided by %s."
 #~ msgstr ""
-#~ "專有軟體來源可提供額外軟體，包括一些網頁瀏覽器和遊戲。這類軟體一般對於使用用途和"
-#~ "源始碼存取都有所限制，而且並非由 %s 所提供。"
+#~ "專有軟體來源可提供額外軟體，包括一些網頁瀏覽器和遊戲。這類軟體一般對於使用"
+#~ "用途和源始碼存取都有所限制，而且並非由 %s 所提供。"
 
 #~ msgid "Proprietary Software Sources"
 #~ msgstr "專有軟體來源"
@@ -692,9 +712,10 @@ msgstr "請搜尋鄰近的城市"
 #~ "我們衷心希望您會喜歡。"
 
 #~ msgid ""
-#~ "We think that your time zone is %s. Press Next to continue or search for a city "
-#~ "to manually set the time zone."
-#~ msgstr "我們認為您的時區為 %s。請按下「下一步」繼續，或是手動搜尋城市以設定時區。"
+#~ "We think that your time zone is %s. Press Next to continue or search for "
+#~ "a city to manually set the time zone."
+#~ msgstr ""
+#~ "我們認為您的時區為 %s。請按下「下一步」繼續，或是手動搜尋城市以設定時區。"
 
 #~ msgid "Cancel"
 #~ msgstr "取消"
