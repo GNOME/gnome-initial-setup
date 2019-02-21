@@ -78,6 +78,8 @@ struct _GisDriverPrivate {
   GisDriverMode mode;
   UmAccountMode account_mode;
   gboolean small_screen;
+
+  locale_t locale;
 };
 typedef struct _GisDriverPrivate GisDriverPrivate;
 
@@ -94,6 +96,12 @@ gis_driver_finalize (GObject *object)
   g_free (priv->user_password);
 
   g_clear_object (&priv->user_account);
+
+  if (priv->locale != (locale_t) 0)
+    {
+      uselocale (LC_GLOBAL_LOCALE);
+      freelocale (priv->locale);
+    }
 
   G_OBJECT_CLASS (gis_driver_parent_class)->finalize (object);
 }
@@ -153,6 +161,41 @@ gis_driver_get_user_language (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->lang_id;
+}
+
+static void
+gis_driver_real_locale_changed (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  GtkTextDirection direction;
+
+  direction = gtk_get_locale_direction ();
+  gtk_widget_set_default_direction (direction);
+
+  rebuild_pages (driver);
+  gis_assistant_locale_changed (priv->assistant);
+}
+
+static void
+gis_driver_locale_changed (GisDriver *driver)
+{
+  g_signal_emit (G_OBJECT (driver), signals[LOCALE_CHANGED], 0);
+}
+
+void
+gis_driver_set_locale (GisDriver *driver, const gchar *lang_id)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  locale_t locale;
+
+  locale = newlocale (LC_MESSAGES_MASK, lang_id, (locale_t) 0);
+  uselocale (locale);
+
+  if (priv->locale != (locale_t) 0 && priv->locale != LC_GLOBAL_LOCALE)
+    freelocale (priv->locale);
+  priv->locale = locale;
+
+  gis_driver_locale_changed (driver);
 }
 
 void
@@ -219,25 +262,6 @@ gis_driver_hide_window (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   gtk_widget_hide (GTK_WIDGET (priv->main_window));
-}
-
-static void
-gis_driver_real_locale_changed (GisDriver *driver)
-{
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  GtkTextDirection direction;
-
-  direction = gtk_get_locale_direction ();
-  gtk_widget_set_default_direction (direction);
-
-  rebuild_pages (driver);
-  gis_assistant_locale_changed (priv->assistant);
-}
-
-void
-gis_driver_locale_changed (GisDriver *driver)
-{
-  g_signal_emit (G_OBJECT (driver), signals[LOCALE_CHANGED], 0);
 }
 
 GisDriverMode
