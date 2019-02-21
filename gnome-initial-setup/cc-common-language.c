@@ -36,6 +36,8 @@
 
 static char *get_lang_for_user_object_path (const char *path);
 
+static char *current_language;
+
 gboolean
 cc_common_language_has_font (const gchar *locale)
 {
@@ -97,23 +99,15 @@ cc_common_language_has_font (const gchar *locale)
 gchar *
 cc_common_language_get_current_language (void)
 {
-        gchar *language;
-        char *path;
-        const gchar *locale;
+        g_assert (current_language != NULL);
+        return g_strdup (current_language);
+}
 
-	path = g_strdup_printf ("/org/freedesktop/Accounts/User%d", getuid ());
-        language = get_lang_for_user_object_path (path);
-        g_free (path);
-        if (language != NULL && *language != '\0')
-                return gnome_normalize_locale (language);
-
-        locale = (const gchar *) setlocale (LC_MESSAGES, NULL);
-        if (locale)
-                language = gnome_normalize_locale (locale);
-        else
-                language = NULL;
-
-        return language;
+void
+cc_common_language_set_current_language (const char *locale)
+{
+        g_clear_pointer (&current_language, g_free);
+        current_language = gnome_normalize_locale (locale);
 }
 
 static gboolean
@@ -249,7 +243,7 @@ insert_language (GHashTable *ht,
         key = g_strdup (lang);
 
         label_own_lang = gnome_get_language_from_locale (key, key);
-        label_current_lang = gnome_get_language_from_locale (key, NULL);
+        label_current_lang = gnome_get_language_from_locale (key, current_language);
         label_untranslated = gnome_get_language_from_locale (key, "C");
 
         /* We don't have a translation for the label in
