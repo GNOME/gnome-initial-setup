@@ -120,8 +120,7 @@ region_changed (CcRegionChooser  *chooser,
   priv->new_locale_id = cc_region_chooser_get_locale (chooser);
   driver = GIS_PAGE (page)->driver;
 
-  setlocale (LC_MESSAGES, priv->new_locale_id);
-  gis_driver_locale_changed (driver);
+  gis_driver_set_locale (driver, priv->new_locale_id);
 
   if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
       if (g_permission_get_allowed (priv->permission)) {
