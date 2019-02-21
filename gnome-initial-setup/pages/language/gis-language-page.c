@@ -123,7 +123,7 @@ language_changed (CcLanguageChooser  *chooser,
   priv->new_locale_id = cc_language_chooser_get_language (chooser);
   driver = GIS_PAGE (page)->driver;
 
-  setlocale (LC_MESSAGES, priv->new_locale_id);
+  gis_driver_set_user_language (driver, priv->new_locale_id, TRUE);
   gtk_widget_set_default_direction (gtk_get_locale_direction ());
 
   if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
@@ -153,12 +153,8 @@ language_changed (CcLanguageChooser  *chooser,
                       G_CALLBACK (user_loaded),
                       g_strdup (priv->new_locale_id));
 
-  gis_driver_set_user_language (driver, priv->new_locale_id);
-
   gis_welcome_widget_show_locale (GIS_WELCOME_WIDGET (priv->welcome_widget),
                                   priv->new_locale_id);
-
-  gis_driver_locale_changed (driver);
 }
 
 static void
