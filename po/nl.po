@@ -5,24 +5,24 @@
 # Reinout van Schouwen <reinouts@gnome.org>, 2013, 2014.
 # Wouter Bolsterlee <wbolster@gnome.org>, 2013.
 # Erwin Poeze <donnut@outlook.com>, 2013.
-# Nathan Follens <nthn@unseen.is>, 2015-2018.
+# Nathan Follens <nthn@unseen.is>, 2015-2019.
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2014, 2015, 2018.
 # Justin van Steijn <jvs@fsfe.org>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
-"s\n"
-"POT-Creation-Date: 2018-07-30 14:03+0000\n"
-"PO-Revision-Date: 2018-08-28 09:40+0100\n"
-"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
+"issues\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-24 16:49+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
@@ -56,20 +56,19 @@ msgstr "_Vorige"
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Bestaande gebruikersmodus forceren"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "— Instellingen voor eerste gebruik van Gnome"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
-#| msgid "Take a photo…"
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Een foto maken…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Over u"
@@ -157,11 +156,11 @@ msgstr "_Wachtwoord beheerder"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Controleer de naam en gebruikersnaam. U kan ook een afbeelding kiezen."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "We hebben wat gegevens nodig om het instellen te voltooien."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Gebruikersafbeelding"
 
@@ -173,15 +172,20 @@ msgstr "Voer een naam en gebruikersnaam in. U kan ook een afbeelding kiezen."
 msgid "_Full Name"
 msgstr "_Volledige naam"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "Bedrijfsaanmelding instellen"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+msgid "_Enterprise Login"
+msgstr "B_edrijfsaanmelding"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+msgid "Go online to set up Enterprise Login."
+msgstr "Ga online om bedrijfsaanmelding in te stellen."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Automatisch aanmelden bij dit type domein is niet mogelijk"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Dergelijk domein of realm niet gevonden"
 
@@ -205,6 +209,7 @@ msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Sorry, die gebruikersnaam is niet beschikbaar. Probeer een andere."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "De gebruikersnaam is te lang."
 
@@ -295,7 +300,7 @@ msgstr "Selecteer uw toetsenbordindeling of een invoermethode."
 msgid "No languages found"
 msgstr "Geen talen gevonden"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Welkom"
 
@@ -307,7 +312,7 @@ msgstr "Welkom"
 msgid "Welcome!"
 msgstr "Welkom!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Overige…"
@@ -318,15 +323,15 @@ msgstr "Overige…"
 # dat het om het werkwoord
 # 'netwerken' gaat, en niet het
 # zelfstandige naamwoord - Nathan
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Draadloze netwerken zijn uitgeschakeld"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Zoeken naar beschikbare draadloze netwerken"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Netwerk"
 
@@ -382,160 +387,122 @@ msgid "The new password needs to be different from the old one."
 msgstr "Het nieuwe wachtwoord mag niet hetzelfde zijn als het oude."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:83
-#| msgctxt "Password hint"
-#| msgid "Try changing some letters and numbers."
 msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing some letters "
 "and numbers."
 msgstr ""
-"Dit wachtwoord lijkt erg op uw laatste wachtwoord. Probeer een paar letters"
-" en cijfers te wijzigen."
+"Dit wachtwoord lijkt erg op uw laatste wachtwoord. Probeer een paar letters "
+"en cijfers te wijzigen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:85
 #: gnome-initial-setup/pages/password/pw-utils.c:93
-#| msgctxt "Password hint"
-#| msgid "Try changing the password a bit more."
 msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing the password a "
 "bit more."
 msgstr ""
-"Dit wachtwoord lijkt erg op uw laatste wachtwoord. Probeer het wachtwoord"
-" iets meer te wijzigen."
+"Dit wachtwoord lijkt erg op uw laatste wachtwoord. Probeer het wachtwoord "
+"iets meer te wijzigen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:87
-#| msgctxt "Password hint"
-#| msgid "A password without your user name would be stronger."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. A password without your user name would be stronger."
 msgstr ""
-"Dit is een zwak wachtwoord. Een wachtwoord zonder uw gebruikersnaam zou"
-" sterker zijn."
+"Dit is een zwak wachtwoord. Een wachtwoord zonder uw gebruikersnaam zou "
+"sterker zijn."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:89
-#| msgctxt "Password hint"
-#| msgid "Try to avoid using your name in the password."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid using your name in the password."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer het gebruik van uw naam in het wachtwoord"
-" te vermijden."
+"Dit is een zwak wachtwoord. Probeer het gebruik van uw naam in het "
+"wachtwoord te vermijden."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:91
-#| msgctxt "Password hint"
-#| msgid "Try to avoid some of the words included in the password."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid some of the words included in the "
 "password."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer enkele van de woorden die in het"
-" wachtwoord voorkomen te vermijden."
+"Dit is een zwak wachtwoord. Probeer enkele van de woorden die in het "
+"wachtwoord voorkomen te vermijden."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:95
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to add more letters, numbers and symbols."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid common words."
 msgstr "Dit is een zwak wachtwoord. Probeer algemene woorden te vermijden."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:97
-#| msgctxt "Password hint"
-#| msgid "Try to avoid reordering existing words."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid reordering existing words."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer het herschikken van bestaande woorden te"
-" vermijden."
+"Dit is een zwak wachtwoord. Probeer het herschikken van bestaande woorden te "
+"vermijden."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:99
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to add more letters, numbers and symbols."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more numbers."
 msgstr "Dit is een zwak wachtwoord. Probeer meer cijfers te gebruiken."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:101
-#| msgctxt "Password hint"
-#| msgid "Try to use more uppercase letters."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more uppercase letters."
 msgstr "Dit is een zwak wachtwoord. Probeer meer hoofdletters te gebruiken."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:103
-#| msgctxt "Password hint"
-#| msgid "Try to use more lowercase letters."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more lowercase letters."
 msgstr "Dit is een zwak wachtwoord. Probeer meer kleine letters te gebruiken."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:105
-#| msgctxt "Password hint"
-#| msgid "Try to use more special characters, like punctuation."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use more special characters, like "
 "punctuation."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer meer speciale tekens, zoals leestekens,"
-" te gebruiken."
+"Dit is een zwak wachtwoord. Probeer meer speciale tekens, zoals leestekens, "
+"te gebruiken."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:107
-#| msgctxt "Password hint"
-#| msgid "Try to use a mixture of letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use a mixture of letters, numbers and "
 "punctuation."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer een combinatie van letters, cijfers en"
-" leestekens te gebruiken."
+"Dit is een zwak wachtwoord. Probeer een combinatie van letters, cijfers en "
+"leestekens te gebruiken."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:109
-#| msgctxt "Password hint"
-#| msgid "Try to avoid repeating the same character."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid repeating the same character."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer herhaling van hetzelfde teken te"
-" vermijden."
+"Dit is een zwak wachtwoord. Probeer herhaling van hetzelfde teken te "
+"vermijden."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:111
-#| msgctxt "Password hint"
-#| msgid ""
-#| "Try to avoid repeating the same type of character: you need to mix up "
-#| "letters, numbers and punctuation."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid repeating the same type of character: "
 "you need to mix up letters, numbers and punctuation."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer herhaling van hetzelfde soort teken te"
-" vermijden: u dient letters, "
-"cijfers en leestekens met elkaar te combineren."
+"Dit is een zwak wachtwoord. Probeer herhaling van hetzelfde soort teken te "
+"vermijden: u dient letters, cijfers en leestekens met elkaar te combineren."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:113
-#| msgctxt "Password hint"
-#| msgid "Try to avoid sequences like 1234 or abcd."
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
 msgstr ""
 "Dit is een zwak wachtwoord. Probeer reeksen zoals 1234 of abcd te vermijden."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:115
-#| msgctxt "Password hint"
-#| msgid ""
-#| "This is a weak password. Try to add more letters, numbers and symbols."
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to add more letters, numbers and punctuation."
 msgstr ""
-"Dit is een zwak wachtwoord. Probeer meer letters, cijfers en leestekens toe"
-" te voegen."
+"Dit is een zwak wachtwoord. Probeer meer letters, cijfers en leestekens toe "
+"te voegen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -717,7 +684,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Tijdzone"
