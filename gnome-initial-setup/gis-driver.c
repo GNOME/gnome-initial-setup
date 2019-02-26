@@ -189,7 +189,7 @@ gis_driver_set_locale (GisDriver *driver, const gchar *lang_id)
   locale_t locale;
 
   locale = newlocale (LC_MESSAGES_MASK, lang_id, (locale_t) 0);
-  uselocale(locale);
+  uselocale (locale);
 
   if (priv->locale != (locale_t) 0)
     freelocale (priv->locale);
