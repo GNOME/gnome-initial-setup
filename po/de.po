@@ -6,22 +6,23 @@
 # Christian Kirbach <christian.kirbach@gmail.com>, 2013.
 # Benjamin Steinwender <b@stbe.at>, 2013.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2014-2016, 2018.
+# Bernd Homuth <dev@hmt>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-08-18 06:15+0000\n"
-"PO-Revision-Date: 2018-09-27 22:41+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-23 13:04+0100\n"
+"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -56,19 +57,19 @@ msgstr "_Zurück"
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Existierenden Benutzermodus erzwingen"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "– GNOME-Ersteinrichtung"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Ein Foto aufnehmen …"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Über Sie"
@@ -103,7 +104,7 @@ msgid ""
 msgstr ""
 "Unternehmensanmeldung erlaubt es einen existierenden, zentral verwalteten "
 "Benutzer auf diesem Gerät zu verwenden. Sie können dieses Konto auch dazu "
-"verwenden, auf Ressourcen eines Unternehmens im Internet zuzugreifen."
+"verwenden, um auf Ressourcen eines Unternehmens im Internet zuzugreifen."
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:65
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:316
@@ -161,11 +162,11 @@ msgstr ""
 "Bitte überprüfen Sie den Namen und den Benutzernamen. Sie können auch ein "
 "Bild wählen."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "Wir benötigen ein paar Details um das Einrichten abzuschließen."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Benutzerbild"
 
@@ -179,15 +180,20 @@ msgstr ""
 msgid "_Full Name"
 msgstr "_Vollständiger Name"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "_Unternehmenszugang einrichten"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+msgid "_Enterprise Login"
+msgstr "_Unternehmenszugang"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+msgid "Go online to set up Enterprise Login."
+msgstr "Online gehen, um den Unternehmenszugang einzurichten"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Diesem Typ von Domäne kann nicht automatisch beigetreten werden"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Domäne oder Bereich nicht gefunden"
 
@@ -212,6 +218,7 @@ msgstr ""
 "Dieser Benutzername ist nicht verfügbar. Bitte versuchen Sie einen anderen."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "Der Benutzername ist zu lang."
 
@@ -225,8 +232,8 @@ msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
 msgstr ""
-"Der Benutzername sollte nur aus Groß- und Kleinbuchstaben des englischen "
-"Alphabets, Ziffern und den Zeichen ».«, »-« und »_« bestehen."
+"Der Benutzername sollte nur aus Groß- und Kleinbuchstaben ohne Umlaute, "
+"Ziffern und den Zeichen ».«, »-« und »_« bestehen."
 
 #: gnome-initial-setup/pages/account/um-utils.c:258
 msgid "This will be used to name your home folder and can’t be changed."
@@ -305,7 +312,7 @@ msgstr "Wählen Sie Ihre Tastaturbelegung oder eine Eingabemethode."
 msgid "No languages found"
 msgstr "Keine Sprachen gefunden"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Willkommen"
 
@@ -317,21 +324,21 @@ msgstr "Willkommen"
 msgid "Welcome!"
 msgstr "Willkommen!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Andere …"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Funknetzwerke sind deaktiviert"
 
 # Funknetzwerk heißt es im Netzwerkmanager.
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Auf verfügbare Funknetzwerke prüfen"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Netzwerk"
 
@@ -701,7 +708,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Zeitzone"
