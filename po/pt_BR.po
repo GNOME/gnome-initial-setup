@@ -1,27 +1,28 @@
 # Brazilian Portuguese translation for gnome-initial-setup.
-# Copyright (C) 2018 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright (C) 2019 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Felipe Borges <felipeborges@src.gnome.org>, 2012.
 # Georges Basile Stavracas Neto <georges.stavracas@gmail.com>, 2013.
 # Fábio Nogueira <fnogueira@gnome.org>, 2016.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2013, 2014, 2016, 2017.
 # Enrico Nicoletto <liverig@gmail.com>, 2013, 2014, 2015, 2018.
 # Bruno Lopes da Silva <brunolopesbldsb@gmail.com>, 2018.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2019.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-07-30 14:03+0000\n"
-"PO-Revision-Date: 2018-08-01 07:31-0300\n"
-"Last-Translator: Bruno Lopes da Silva <brunolopesbldsb@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"POT-Creation-Date: 2019-02-07 08:37+0000\n"
+"PO-Revision-Date: 2019-02-26 23:18-0300\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Language-Team: Portuguese - Brazil <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 3.31.90\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup.desktop.in.in:3
@@ -55,20 +56,19 @@ msgstr "_Anterior"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Forçar modo de usuário existente"
 
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "— definições iniciais do GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
-#| msgid "Take a photo…"
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Capturar foto…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Sobre você"
@@ -158,11 +158,11 @@ msgstr ""
 "Por favor, verifique o nome e o nome de usuário. Você pode escolher uma "
 "fotografia também."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "São necessários alguns poucos detalhes para concluir a definição."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Imagem de avatar"
 
@@ -176,15 +176,22 @@ msgstr ""
 msgid "_Full Name"
 msgstr "Nome _completo"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "Definir sessão cor_porativa"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+#| msgid "Enterprise Login"
+msgid "_Enterprise Login"
+msgstr "S_essão corporativa"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+#| msgid "Set Up _Enterprise Login"
+msgid "Go online to set up Enterprise Login."
+msgstr "Fique on-line para definir sessão corporativa."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Não foi possível ingressar neste tipo de domínio"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Não foi encontrado nenhum domínio ou realm"
 
@@ -209,6 +216,7 @@ msgstr ""
 "Desculpe, esse nome de usuário não está disponível. Por favor, tente outro."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "O nome de usuário é muito longo."
 
@@ -297,7 +305,7 @@ msgstr "Selecione o layout de seu teclado ou um método de entrada."
 msgid "No languages found"
 msgstr "Nenhum idioma encontrado"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Bem-vindo"
 
@@ -309,20 +317,20 @@ msgstr "Bem-vindo"
 msgid "Welcome!"
 msgstr "Bem-vindo!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Outro…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Rede sem fio desabilitada"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Verificando por redes sem fio disponíveis"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Rede"
 
@@ -667,7 +675,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Fuso horário"
