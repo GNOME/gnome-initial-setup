@@ -111,18 +111,21 @@ gis_welcome_widget_unmap (GtkWidget *widget)
 static char *
 welcome (const char *locale_id)
 {
-  char *current_locale_id;
+  locale_t locale;
+  locale_t old_locale;
   char *welcome;
 
-  current_locale_id = g_strdup (setlocale (LC_MESSAGES, NULL));
-  setlocale (LC_MESSAGES, locale_id);
+  locale = newlocale (LC_MESSAGES_MASK, locale_id, (locale_t) 0);
+  old_locale = uselocale (locale);
+
   /* Translators: This is meant to be a warm, engaging welcome message,
    * like greeting somebody at the door. If the exclamation mark is not
    * suitable for this in your language you may replace it.
    */
   welcome = _("Welcome!");
-  setlocale (LC_MESSAGES, current_locale_id);
-  g_free (current_locale_id);
+
+  uselocale (old_locale);
+  freelocale (locale);
 
   return welcome;
 }
