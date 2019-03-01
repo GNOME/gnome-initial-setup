@@ -51,36 +51,6 @@ typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
 
-static gboolean
-connect_to_gdm (GdmGreeter      **greeter,
-                GdmUserVerifier **user_verifier)
-{
-  GdmClient *client;
-
-  GError *error = NULL;
-  gboolean res = FALSE;
-
-  client = gdm_client_new ();
-
-  *greeter = gdm_client_get_greeter_sync (client, NULL, &error);
-  if (error != NULL)
-    goto out;
-
-  *user_verifier = gdm_client_get_user_verifier_sync (client, NULL, &error);
-  if (error != NULL)
-    goto out;
-
-  res = TRUE;
-
- out:
-  if (error != NULL) {
-    g_warning ("Failed to open connection to GDM: %s", error->message);
-    g_error_free (error);
-  }
-
-  return res;
-}
-
 static void
 request_info_query (GisSummaryPage  *page,
                     GdmUserVerifier *user_verifier,
@@ -156,17 +126,15 @@ add_uid_file (uid_t uid)
 {
   gchar *gis_uid_path;
   gchar *uid_str;
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   gis_uid_path = g_build_filename (g_get_home_dir (),
                                    "gnome-initial-setup-uid",
                                    NULL);
   uid_str = g_strdup_printf ("%u", uid);
 
-  if (!g_file_set_contents (gis_uid_path, uid_str, -1, &error)) {
+  if (!g_file_set_contents (gis_uid_path, uid_str, -1, &error))
       g_warning ("Unable to create %s: %s", gis_uid_path, error->message);
-      g_clear_error (&error);
-  }
 
   g_free (uid_str);
   g_free (gis_uid_path);
@@ -176,11 +144,12 @@ static void
 log_user_in (GisSummaryPage *page)
 {
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
-  GError *error = NULL;
-  GdmGreeter *greeter;
-  GdmUserVerifier *user_verifier;
+  g_autoptr(GError) error = NULL;
+  GdmGreeter *greeter = NULL;
+  GdmUserVerifier *user_verifier = NULL;
 
-  if (!connect_to_gdm (&greeter, &user_verifier)) {
+  if (!gis_driver_get_gdm_objects (GIS_PAGE (page)->driver,
+                                   &greeter, &user_verifier)) {
     g_warning ("No GDM connection; not initiating login");
     return;
   }
@@ -207,10 +176,8 @@ log_user_in (GisSummaryPage *page)
                                                            act_user_get_user_name (priv->user_account),
                                                            NULL, &error);
 
-  if (error != NULL) {
+  if (error != NULL)
     g_warning ("Could not begin verification: %s", error->message);
-    return;
-  }
 }
 
 static void
