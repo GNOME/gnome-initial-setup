@@ -244,7 +244,7 @@ gis_account_page_constructed (GObject *object)
 
   g_signal_connect (priv->page_toggle, "toggled", G_CALLBACK (toggle_mode), page);
   g_object_bind_property (page, "applying", priv->page_toggle, "sensitive", G_BINDING_INVERT_BOOLEAN);
-  g_object_bind_property (priv->page_enterprise, "visible", priv->page_toggle, "visible", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+  g_object_bind_property (priv->page_enterprise, "visible", priv->offline_stack, "visible", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
   /* force a refresh by setting to an invalid value */
   priv->mode = NUM_MODES;
