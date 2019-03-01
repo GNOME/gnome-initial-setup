@@ -5,8 +5,6 @@ sources += gnome.compile_resources(
 )
 
 sources += files(
-    'cc-common-language.c',
-    'cc-common-language.h',
     'cc-language-chooser.c',
     'cc-language-chooser.h',
     'cc-util.c',

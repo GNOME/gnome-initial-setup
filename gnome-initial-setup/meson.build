@@ -10,6 +10,7 @@ resources = gnome.compile_resources(
 
 sources += [
     resources,
+    'cc-common-language.c',
     'gnome-initial-setup.c',
     'gis-assistant.c',
     'gis-page.c',
