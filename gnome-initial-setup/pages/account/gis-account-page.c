@@ -253,7 +253,7 @@ gis_account_page_constructed (GObject *object)
   monitor = g_network_monitor_get_default ();
   available = g_network_monitor_get_network_available (monitor);
   on_network_changed (monitor, available, page);
-  g_signal_connect (monitor, "network-changed", G_CALLBACK (on_network_changed), page);
+  g_signal_connect_object (monitor, "network-changed", G_CALLBACK (on_network_changed), page, 0);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
