@@ -66,6 +66,7 @@ typedef enum {
 GType gis_driver_get_type (void);
 
 GisAssistant *gis_driver_get_assistant (GisDriver *driver);
+void gis_driver_locale_changed (GisDriver *driver);
 
 void gis_driver_set_user_permissions (GisDriver   *driver,
                                       ActUser     *user,
@@ -84,9 +85,6 @@ void gis_driver_set_user_language (GisDriver   *driver,
                                    const gchar *lang_id);
 
 const gchar *gis_driver_get_user_language (GisDriver   *driver);
-
-void gis_driver_set_locale (GisDriver   *driver,
-                            const gchar *lang_id);
 
 void gis_driver_set_username (GisDriver   *driver,
                               const gchar *username);
