@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2018-07-30 14:03+0000\n"
-"PO-Revision-Date: 2018-10-24 23:05+0200\n"
+"POT-Creation-Date: 2019-03-26 16:59+0000\n"
+"PO-Revision-Date: 2019-04-01 17:03+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Project-Style: gnome\n"
 
 # desktop entry name
@@ -25,12 +25,6 @@ msgstr ""
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "Prvotné nastavenie"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-initial-setup.desktop.in.in:5
-#: data/gnome-initial-setup-first-login.desktop.in.in:5
-msgid "preferences-system"
-msgstr "preferences-system"
 
 # GTK_BUTTON
 #: gnome-initial-setup/gis-assistant.c:423
@@ -58,20 +52,20 @@ msgid "_Cancel"
 msgstr "_Zrušiť"
 
 # cmd desc
-#: gnome-initial-setup/gnome-initial-setup.c:260
+#: gnome-initial-setup/gnome-initial-setup.c:259
 msgid "Force existing user mode"
 msgstr "Vynúti režim existujúceho používateľa"
 
 # cmd desc
-#: gnome-initial-setup/gnome-initial-setup.c:266
+#: gnome-initial-setup/gnome-initial-setup.c:265
 msgid "— GNOME initial setup"
 msgstr "— Prvotné nastavenie prostredia GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "Zosnímať fotografiu…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "Osobné údaje"
@@ -165,11 +159,11 @@ msgstr ""
 "Prosím, skontrolujte meno a používateľské meno. Taktiež môžete zvoliť "
 "obrázok."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "Kvôli dokončeniu nastavenia je potrebných niekoľko údajov."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Obrázok podobizne"
 
@@ -183,15 +177,20 @@ msgstr ""
 msgid "_Full Name"
 msgstr "_Celé meno"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
-msgstr "Nastaviť _firemné prihlásenie"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+msgid "_Enterprise Login"
+msgstr "_Firemné prihlásenie"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+msgid "Go online to set up Enterprise Login."
+msgstr "Na nastavenie firemného prihlásenia prejdite do režimu online."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
 msgstr "Nedá sa automaticky pripojiť k tomuto typu domény"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#, c-format
 msgid "No such domain or realm found"
 msgstr "Nenašla sa žiadna taká doména ani pôsobisko"
 
@@ -216,6 +215,7 @@ msgstr ""
 "Prepáčte, ale toto používateľské meno nie je dostupné. Prosím, skúste iné."
 
 #: gnome-initial-setup/pages/account/um-utils.c:248
+#, c-format
 msgid "The username is too long."
 msgstr "Používateľské meno je príliš dlhé."
 
@@ -313,7 +313,7 @@ msgstr "Vyberte rozloženie klávesnice alebo metódu vstupu."
 msgid "No languages found"
 msgstr "Nenašli sa žiadne jazyky"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:300
+#: gnome-initial-setup/pages/language/gis-language-page.c:308
 msgid "Welcome"
 msgstr "Vitajte"
 
@@ -325,21 +325,21 @@ msgstr "Vitajte"
 msgid "Welcome!"
 msgstr "Vitajte!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:304
+#: gnome-initial-setup/pages/network/gis-network-page.c:313
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Iný…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:363
+#: gnome-initial-setup/pages/network/gis-network-page.c:398
 msgid "Wireless networking is disabled"
 msgstr "Bezdrôtové siete sú zakázané"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:370
+#: gnome-initial-setup/pages/network/gis-network-page.c:405
 msgid "Checking for available wireless networks"
 msgstr "Kontrolujú sa dostupné bezdrôtové siete"
 
 # page title
-#: gnome-initial-setup/pages/network/gis-network-page.c:662
+#: gnome-initial-setup/pages/network/gis-network-page.c:713
 msgid "Network"
 msgstr "Sieť"
 
@@ -647,12 +647,12 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:271
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Začať používať systém %s"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:301
 msgid "Ready to Go"
 msgstr "Pripravený na spustenie"
 
@@ -692,7 +692,7 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 # GtkLabel label
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:423
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
 msgid "Time Zone"
 msgstr "Časové pásmo"
@@ -708,6 +708,9 @@ msgstr ""
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
 msgid "Please search for a nearby city"
 msgstr "Vyhľadajte blízke mesto"
+
+#~ msgid "preferences-system"
+#~ msgstr "preferences-system"
 
 #~ msgid "Disable image"
 #~ msgstr "Zakázať obrázok"
