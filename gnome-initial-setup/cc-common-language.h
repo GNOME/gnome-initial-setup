@@ -27,7 +27,8 @@
 
 G_BEGIN_DECLS
 
-gboolean cc_common_language_has_font                (const gchar  *locale);
+gboolean cc_common_language_has_font                (const gchar *locale);
+void     cc_common_language_set_current_language    (const gchar *locale);
 gchar   *cc_common_language_get_current_language    (void);
 GHashTable *cc_common_language_get_initial_languages   (void);
 

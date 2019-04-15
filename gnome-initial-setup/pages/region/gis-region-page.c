@@ -118,10 +118,9 @@ region_changed (CcRegionChooser  *chooser,
     return;
 
   priv->new_locale_id = cc_region_chooser_get_locale (chooser);
-  driver = GIS_PAGE (page)->driver;
 
-  setlocale (LC_MESSAGES, priv->new_locale_id);
-  gis_driver_locale_changed (driver);
+  driver = GIS_PAGE (page)->driver;
+  gis_driver_set_user_language (driver, priv->new_locale_id, TRUE);
 
   if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
       if (g_permission_get_allowed (priv->permission)) {
@@ -143,8 +142,6 @@ region_changed (CcRegionChooser  *chooser,
                       "notify::is-loaded",
                       G_CALLBACK (user_loaded),
                       g_strdup (priv->new_locale_id));
-
-  gis_driver_set_user_language (driver, priv->new_locale_id);
 }
 
 static void
@@ -221,16 +218,15 @@ static void
 gis_region_page_locale_changed (GisPage *page)
 {
   GisRegionPagePrivate *priv = gis_region_page_get_instance_private (GIS_REGION_PAGE (page));
-  char *locale;
+  const char *locale;
 
   gis_page_set_title (page, _("Region"));
 
-  locale = g_strdup (setlocale (LC_MESSAGES, NULL));
+  locale = gis_driver_get_user_language (page->driver);
 
   priv->updating = TRUE;
   cc_region_chooser_set_locale (CC_REGION_CHOOSER (priv->region_chooser), locale);
   priv->updating = FALSE;
-  g_free (locale);
 
   if (cc_region_chooser_get_n_regions (CC_REGION_CHOOSER (priv->region_chooser)) > 1)
     gtk_widget_show (GTK_WIDGET (page));
