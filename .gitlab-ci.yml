@@ -16,9 +16,9 @@ before_script:
       -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
       _build .
     - cd _build
-    - ninja
+    - ninja -v
     # Check that strings can be extracted
-    - ninja gnome-initial-setup-pot
+    - ninja -v gnome-initial-setup-pot
     - meson test
   artifacts:
     when: on_failure
