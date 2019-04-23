@@ -5,7 +5,12 @@ autostart_files = [
 ]
 
 desktop_conf = configuration_data()
-desktop_conf.set('LIBEXECDIR', join_paths(prefix, get_option('libexecdir')))
+desktop_conf.set('LIBEXECDIR', libexec_dir)
+if enable_systemd
+  desktop_conf.set('systemd_hidden', 'X-GNOME-Autostart-systemd=true')
+else
+  desktop_conf.set('systemd_hidden', )
+endif
 
 foreach desktop_file: autostart_files
     i18n.merge_file(
@@ -36,6 +41,28 @@ i18n.merge_file(
     install: true,
     type: 'desktop'
 )
+
+if enable_systemd
+    unitconf = configuration_data()
+    unitconf.set('libexecdir', libexec_dir)
+
+    unit_files = [
+        'gnome-initial-setup.service',
+        'gnome-initial-setup-first-login.service',
+        'gnome-initial-setup-copy-worker.service',
+        'gnome-welcome-tour.service'
+    ]
+
+    foreach unit: unit_files
+        configure_file(
+            input: unit + '.in',
+            output: unit,
+            configuration: unitconf,
+            install_dir: systemd_userunitdir
+        )
+    endforeach
+endif
+
 
 rules_dir = join_paths(data_dir, 'polkit-1', 'rules.d')
 install_data('20-gnome-initial-setup.rules', install_dir: rules_dir)
