@@ -1,0 +1,16 @@
+[Unit]
+Description=GNOME Initial Setup
+RefuseManualStart=true
+RefuseManualStop=true
+
+BindsTo=gnome-session.target
+After=gnome-session.target
+
+[Service]
+Type=simple
+ExecStart=@libexecdir@/gnome-initial-setup
+ExecStopPost=-@libexecdir@/gnome-session-ctl --shutdown
+Restart=no
+
+[Install]
+WantedBy=gnome-session@gnome-initial-setup.target

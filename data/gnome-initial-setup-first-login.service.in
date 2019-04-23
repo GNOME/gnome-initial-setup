@@ -1,0 +1,16 @@
+[Unit]
+Description=GNOME Initial Setup
+
+BindsTo=gnome-session.target
+After=gnome-session.target
+
+Conflicts=gnome-session@gnome-initial-setup.target
+ConditionPathExists=!%E/gnome-initial-setup-done
+
+[Service]
+Type=simple
+ExecStart=@libexecdir@/gnome-initial-setup --existing-user
+Restart=no
+
+[Install]
+WantedBy=gnome-session.target
