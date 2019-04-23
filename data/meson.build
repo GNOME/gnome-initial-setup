@@ -25,16 +25,6 @@ endforeach
 
 i18n.merge_file(
     'desktop',
-    input: 'setup-shell.desktop',
-    output: 'setup-shell.desktop',
-    install_dir: join_paths(data_dir, 'gdm', 'greeter', 'applications'),
-    po_dir: po_dir,
-    install: true,
-    type: 'desktop'
-)
-
-i18n.merge_file(
-    'desktop',
     input: configure_file(
         input: files('gnome-initial-setup.desktop.in.in'),
         output: 'gnome-initial-setup.desktop.in',
