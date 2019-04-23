@@ -1,0 +1,15 @@
+[Unit]
+Description=GNOME Initial Setup Copy Worker
+
+# Make sure we run really early
+Before=gnome-session-pre.target graphical-session-pre.target
+
+ConditionPathExists=!%E/gnome-initial-setup-done
+
+[Service]
+Type=simple
+ExecStart=@libexecdir@/gnome-initial-setup-copy-worker
+Restart=no
+
+[Install]
+WantedBy=gnome-session.target
