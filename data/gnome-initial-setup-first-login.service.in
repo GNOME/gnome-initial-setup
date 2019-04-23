@@ -1,0 +1,19 @@
+[Unit]
+Description=GNOME Initial Setup
+
+BindsTo=gnome-session.target
+After=gnome-session.target
+
+# Together with Type=oneshot, make sure the welcome tour starts after setup
+Before=gnome-welcome-tour.service
+
+Conflicts=gnome-session@gnome-initial-setup.target
+ConditionPathExists=!%E/gnome-initial-setup-done
+
+[Service]
+Type=oneshot
+ExecStart=@libexecdir@/gnome-initial-setup --existing-user
+Restart=no
+
+[Install]
+WantedBy=gnome-session.target
