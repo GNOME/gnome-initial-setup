@@ -2,14 +2,14 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Andika Triwidada <andika@gmail.com>, 2012, 2013, 2014, 2015.
-#
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2018, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup gnome-3-30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2019-02-07 08:37+0000\n"
-"PO-Revision-Date: 2019-02-08 22:57+0700\n"
+"POT-Creation-Date: 2019-04-16 16:32+0000\n"
+"PO-Revision-Date: 2019-05-22 14:10+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -19,16 +19,10 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
 
-#: data/gnome-initial-setup.desktop.in.in:3
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
+#: data/gnome-initial-setup.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "Penyiapan Awal"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-initial-setup.desktop.in.in:5
-#: data/gnome-initial-setup-first-login.desktop.in.in:5
-msgid "preferences-system"
-msgstr "preferences-system"
 
 #: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
@@ -62,18 +56,13 @@ msgstr "— GNOME penyiapan awal"
 msgid "Take a Picture…"
 msgstr "Ambil Foto…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:264
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
-msgid "About You"
-msgstr "Tentang Anda"
-
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Gagal mendaftar akun"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
 msgid "No supported way to authenticate with this domain"
-msgstr "Tak ada cara yang didukung untuk mengotentikasi dengan domain ini"
+msgstr "Tak ada cara yang didukung untuk mengautentikasi dengan domain ini"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
 msgid "Failed to join domain"
@@ -158,6 +147,11 @@ msgstr "Kami perlu beberapa rincian untuk melengkapi penyiapan."
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Citra avatar"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
+msgid "About You"
+msgstr "Tentang Anda"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
 msgid "Please provide a name and username. You can choose a picture too."
@@ -292,7 +286,7 @@ msgstr "Pilih tata letak papan tik Anda atau metoda masukan."
 msgid "No languages found"
 msgstr "Tak ada bahasa yang ditemukan"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:308
+#: gnome-initial-setup/pages/language/gis-language-page.c:304
 msgid "Welcome"
 msgstr "Selamat Datang"
 
@@ -300,7 +294,7 @@ msgstr "Selamat Datang"
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
 #.
-#: gnome-initial-setup/pages/language/gis-welcome-widget.c:123
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:125
 msgid "Welcome!"
 msgstr "Selamat Datang!"
 
@@ -568,7 +562,7 @@ msgstr "Kendali privasi dapat diubah setiap saat dari aplikasi Pengaturan."
 msgid "No regions found"
 msgstr "Tak ada wilayah yang ditemukan"
 
-#: gnome-initial-setup/pages/region/gis-region-page.c:226
+#: gnome-initial-setup/pages/region/gis-region-page.c:223
 #: gnome-initial-setup/pages/region/gis-region-page.ui:31
 msgid "Region"
 msgstr "Wilayah"
@@ -629,12 +623,12 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:271
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Mulai memakai %s"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:301
 msgid "Ready to Go"
 msgstr "Siap Pergi"
 
@@ -689,3 +683,6 @@ msgstr ""
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
 msgid "Please search for a nearby city"
 msgstr "Harap cari kota yang berdekatan"
+
+#~ msgid "preferences-system"
+#~ msgstr "preferences-system"
