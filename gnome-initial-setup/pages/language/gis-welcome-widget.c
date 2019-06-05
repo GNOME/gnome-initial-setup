@@ -125,7 +125,8 @@ welcome (const char *locale_id)
   welcome = _("Welcome!");
 
   uselocale (old_locale);
-  freelocale (locale);
+  if (locale != NULL)
+    freelocale (locale);
 
   return welcome;
 }
