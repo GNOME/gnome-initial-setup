@@ -23,8 +23,9 @@
 
 #include "gnome-initial-setup.h"
 
-#include <stdlib.h>
+#include <errno.h>
 #include <locale.h>
+#include <stdlib.h>
 #include <gdm/gdm-client.h>
 
 #include "cc-common-language.h"
@@ -199,6 +200,12 @@ gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id, gboolean 
   if (update_locale)
     {
       locale_t locale = newlocale (LC_MESSAGES_MASK, lang_id, (locale_t) 0);
+      if (locale == (locale_t) 0)
+        {
+          g_warning ("Failed to create locale %s: %s", lang_id, g_strerror (errno));
+          return;
+        }
+
       uselocale (locale);
 
       if (priv->locale != (locale_t) 0 && priv->locale != LC_GLOBAL_LOCALE)

@@ -22,6 +22,7 @@
 #include "config.h"
 #include "gis-welcome-widget.h"
 
+#include <errno.h>
 #include <locale.h>
 #include <glib/gi18n.h>
 
@@ -116,6 +117,12 @@ welcome (const char *locale_id)
   char *welcome;
 
   locale = newlocale (LC_MESSAGES_MASK, locale_id, (locale_t) 0);
+  if (locale == (locale_t) 0)
+    {
+      g_warning ("Failed to create locale %s: %s", locale_id, g_strerror (errno));
+      return "Welcome!";
+    }
+
   old_locale = uselocale (locale);
 
   /* Translators: This is meant to be a warm, engaging welcome message,
