@@ -106,7 +106,7 @@ on_secret_info_query (GdmUserVerifier *user_verifier,
                                          service_name,
                                          priv->user_password,
                                          NULL, NULL, NULL);
-    g_clear_pointer (&priv->user_password, (GDestroyNotify) g_free);
+    priv->user_password = NULL;
   } else {
     request_info_query (page, user_verifier, question, TRUE);
   }

@@ -9,11 +9,16 @@ before_script:
 .job_template: &job_definition
   stage: build
   script:
-    - meson -Dregion-page=${REGION_PAGE} --auto-features ${AUTO_FEATURES} _build .
+    # In general, we would like warnings to be fatal. However, code copied from
+    # gnome-control-center uses many deprecated functions. Until we have a good
+    # answer to sharing that code (#68), make those warnings non-fatal.
+    - meson -Dregion-page=${REGION_PAGE} --auto-features ${AUTO_FEATURES}
+      -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
+      _build .
     - cd _build
-    - ninja
+    - ninja -v
     # Check that strings can be extracted
-    - ninja gnome-initial-setup-pot
+    - ninja -v gnome-initial-setup-pot
     - meson test
   artifacts:
     when: on_failure
