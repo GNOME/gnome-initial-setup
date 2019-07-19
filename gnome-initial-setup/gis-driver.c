@@ -320,12 +320,15 @@ gis_driver_is_small_screen (GisDriver *driver)
 }
 
 static gboolean
-screen_is_small (GdkScreen *screen)
+monitor_is_small (GdkMonitor *monitor)
 {
+  GdkRectangle geom;
+
   if (g_getenv ("GIS_SMALL_SCREEN"))
     return TRUE;
 
-  return gdk_screen_get_height (screen) < 800;
+  gdk_monitor_get_geometry (monitor, &geom);
+  return geom.height < 800;
 }
 
 static void
@@ -410,12 +413,50 @@ unmaximize (gpointer data)
 }
 
 static void
+set_small_screen_based_on_primary_monitor (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  GdkDisplay *default_display = gdk_display_get_default ();
+  GdkMonitor *primary_monitor = gdk_display_get_primary_monitor (default_display);
+
+  priv->small_screen = monitor_is_small (primary_monitor);
+}
+
+/* Recompute priv->small_screen based on the monitor where the window is
+ * located, if the window is actually realized. If not, recompute it based on
+ * the primary monitor of the default display. */
+static void
+recompute_small_screen (GisDriver *driver) {
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  GdkWindow *window;
+  GdkDisplay *default_display = gdk_display_get_default ();
+  GdkMonitor *active_monitor;
+  gboolean old_value = priv->small_screen;
+
+  if (!gtk_widget_get_realized (GTK_WIDGET (priv->main_window)))
+    {
+      set_small_screen_based_on_primary_monitor (driver);
+    }
+  else
+    {
+      window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
+      active_monitor = gdk_display_get_monitor_at_window (default_display, window);
+      priv->small_screen = monitor_is_small (active_monitor);
+    }
+
+  if (priv->small_screen != old_value)
+    g_object_notify (G_OBJECT (driver), "small-screen");
+}
+
+static void
 update_screen_size (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkWindow *window;
   GdkGeometry size_hints;
   GtkWidget *sw;
+
+  recompute_small_screen (driver);
 
   if (!gtk_widget_get_realized (GTK_WIDGET (priv->main_window)))
     return;
@@ -468,17 +509,7 @@ update_screen_size (GisDriver *driver)
 static void
 screen_size_changed (GdkScreen *screen, GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  gboolean small_screen;
-
-  small_screen = screen_is_small (screen);
-
-  if (priv->small_screen != small_screen)
-    {
-      priv->small_screen = small_screen;
-      update_screen_size (driver);
-      g_object_notify (G_OBJECT (driver), "small-screen");
-    }
+  update_screen_size (driver);
 }
 
 static void
@@ -544,12 +575,11 @@ gis_driver_startup (GApplication *app)
 static void
 gis_driver_init (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkScreen *screen;
 
   screen = gdk_screen_get_default ();
 
-  priv->small_screen = screen_is_small (screen);
+  set_small_screen_based_on_primary_monitor (driver);
 
   g_signal_connect (screen, "size-changed",
                     G_CALLBACK (screen_size_changed), driver);
