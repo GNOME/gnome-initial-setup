@@ -14,11 +14,13 @@ sources += [
     'gnome-initial-setup.c',
     'gis-assistant.c',
     'gis-page.c',
+    'gis-page-header.c',
     'gis-driver.c',
     'gis-keyring.c',
     'gnome-initial-setup.h',
     'gis-assistant.h',
     'gis-page.h',
+    'gis-page-header.h',
     'gis-driver.h',
     'gis-keyring.h'
 ]
