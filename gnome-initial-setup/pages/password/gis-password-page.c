@@ -35,6 +35,8 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#include "gis-page-header.h"
+
 #define VALIDATION_TIMEOUT 600
 
 struct _GisPasswordPagePrivate
@@ -299,6 +301,7 @@ gis_password_page_init (GisPasswordPage *page)
   GtkCssProvider *provider;
 
   g_resources_register (password_get_resource ());
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   provider = gtk_css_provider_new ();
   gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-password-page.css");

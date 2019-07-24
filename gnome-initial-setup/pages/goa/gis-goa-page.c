@@ -35,6 +35,8 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#include "gis-page-header.h"
+
 struct _GisGoaPagePrivate {
   GtkWidget *accounts_list;
 
@@ -359,6 +361,7 @@ static void
 gis_goa_page_init (GisGoaPage *page)
 {
   g_resources_register (goa_get_resource ());
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }

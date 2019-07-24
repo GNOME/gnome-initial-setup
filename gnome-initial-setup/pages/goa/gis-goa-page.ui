@@ -11,61 +11,14 @@
         <property name="valign">fill</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkImage" id="image1">
-            <property name="visible" bind-source="GisGoaPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+          <object class="GisPageHeader" id="header">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixel_size">96</property>
-            <property name="icon_name">goa-panel-symbolic</property>
-            <property name="icon_size">1</property>
             <property name="margin_top">24</property>
-            <style>
-              <class name="dim-label" />
-            </style>
+            <property name="title" translatable="yes">Connect Your Online Accounts</property>
+            <property name="subtitle" translatable="yes">Connect your accounts to easily access your email, online calendar, contacts, documents and photos.</property>
+            <property name="icon_name">goa-panel-symbolic</property>
+            <property name="show_icon" bind-source="GisGoaPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="title">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="margin_top">18</property>
-            <property name="label" translatable="yes">Connect Your Online Accounts</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.6000000000000001"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="margin_top">6</property>
-            <property name="label" translatable="yes">Connect your accounts to easily access your email, online calendar, contacts, documents and photos.</property>
-            <property name="justify">left</property>
-            <property name="wrap">True</property>
-            <property name="max-width-chars">50</property>
-            <property name="xalign">0</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
         </child>
         <child>
           <object class="GtkFrame" id="frame">

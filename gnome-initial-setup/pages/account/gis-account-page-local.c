@@ -33,6 +33,8 @@
 #include "um-utils.h"
 #include "um-photo-dialog.h"
 
+#include "gis-page-header.h"
+
 #define GOA_API_IS_SUBJECT_TO_CHANGE
 #include <goa/goa.h>
 
@@ -45,7 +47,7 @@ struct _GisAccountPageLocalPrivate
 {
   GtkWidget *avatar_button;
   GtkWidget *avatar_image;
-  GtkWidget *subtitle;
+  GtkWidget *header;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
   gboolean   has_custom_username;
@@ -200,7 +202,7 @@ prepopulate_account_page (GisAccountPageLocal *page)
   }
 
   if (name) {
-    gtk_label_set_text (GTK_LABEL (priv->subtitle), _("Please check the name and username. You can choose a picture too."));
+    g_object_set (priv->header, "subtitle", _("Please check the name and username. You can choose a picture too."), NULL);
     gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), name);
   }
 
@@ -419,7 +421,7 @@ gis_account_page_local_constructed (GObject *object)
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
   priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
 
-  gtk_label_set_text (GTK_LABEL (priv->subtitle), _("We need a few details to complete setup."));
+  g_object_set (priv->header, "subtitle", _("We need a few details to complete setup."), NULL);
   gtk_entry_set_text (GTK_ENTRY (priv->fullname_entry), "");
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
   priv->has_custom_username = FALSE;
@@ -541,7 +543,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_button);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, subtitle);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, header);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
@@ -565,6 +567,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
 static void
 gis_account_page_local_init (GisAccountPageLocal *page)
 {
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 

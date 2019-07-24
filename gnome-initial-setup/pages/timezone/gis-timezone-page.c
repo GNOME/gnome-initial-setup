@@ -49,6 +49,8 @@
 #include "cc-timezone-map.h"
 #include "gis-bubble-widget.h"
 
+#include "gis-page-header.h"
+
 #define DEFAULT_TZ "Europe/London"
 #define DESKTOP_ID "gnome-datetime-panel"
 
@@ -461,6 +463,7 @@ gis_timezone_page_init (GisTimezonePage *page)
   g_resources_register (datetime_get_resource ());
   g_type_ensure (CC_TYPE_TIMEZONE_MAP);
   g_type_ensure (GIS_TYPE_BUBBLE_WIDGET);
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
