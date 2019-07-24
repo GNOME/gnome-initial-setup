@@ -32,6 +32,8 @@
 #include <locale.h>
 #include <gtk/gtk.h>
 
+#include "gis-page-header.h"
+
 struct _GisPrivacyPagePrivate
 {
   GtkWidget *location_switch;
@@ -318,6 +320,7 @@ static void
 gis_privacy_page_init (GisPrivacyPage *page)
 {
   g_resources_register (privacy_get_resource ());
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 

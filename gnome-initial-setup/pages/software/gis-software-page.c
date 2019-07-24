@@ -36,11 +36,13 @@
 #include <packagekit-glib2/packagekit.h>
 #endif
 
+#include "gis-page-header.h"
+
 struct _GisSoftwarePagePrivate
 {
   GtkWidget *more_popover;
   GtkWidget *proprietary_switch;
-  GtkWidget *text_label;
+  GtkWidget *header;
 
   GSettings *software_settings;
   guint enable_count;
@@ -66,8 +68,8 @@ gis_software_page_constructed (GObject *object)
   priv->task = pk_task_new ();
 #endif
 
-  gtk_switch_set_active (GTK_SWITCH (priv->proprietary_switch),
-                         g_settings_get_boolean (priv->software_settings, "show-nonfree-software"));
+  /* gtk_switch_set_active (GTK_SWITCH (priv->proprietary_switch), */
+  /*                        g_settings_get_boolean (priv->software_settings, "show-nonfree-software")); */
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
@@ -190,7 +192,7 @@ gis_software_page_locale_changed (GisPage *gis_page)
   g_string_append (str,
                    /* TRANSLATORS: this is the third party repositories info bar. */
                    _("Some of this software is proprietary and therefore has restrictions on use, sharing, and access to source code."));
-  gtk_label_set_label (GTK_LABEL (priv->text_label), str->str);
+  g_object_set (priv->header, "subtitle", str->str, NULL);
 }
 
 static gboolean
@@ -225,7 +227,7 @@ gis_software_page_class_init (GisSoftwarePageClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-software-page.ui");
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, more_popover);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, proprietary_switch);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, text_label);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, header);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), state_set);
 
@@ -240,6 +242,7 @@ static void
 gis_software_page_init (GisSoftwarePage *page)
 {
   g_resources_register (software_get_resource ());
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
@@ -255,7 +258,7 @@ gis_prepare_software_page (GisDriver *driver)
 
   source = g_settings_schema_source_get_default ();
   schema = g_settings_schema_source_lookup (source, "org.gnome.software", TRUE);
-  if (schema != NULL && g_settings_schema_has_key (schema, "show-nonfree-software"))
+  /* if (schema != NULL && g_settings_schema_has_key (schema, "show-nonfree-software")) */
     page = g_object_new (GIS_TYPE_SOFTWARE_PAGE,
                          "driver", driver,
                          NULL);

@@ -36,6 +36,8 @@
 #include <locale.h>
 #include <gtk/gtk.h>
 
+#include "gis-page-header.h"
+
 struct _GisRegionPagePrivate
 {
   GtkWidget *region_chooser;
@@ -267,6 +269,7 @@ static void
 gis_region_page_init (GisRegionPage *page)
 {
   g_resources_register (region_get_resource ());
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
   g_type_ensure (CC_TYPE_REGION_CHOOSER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
