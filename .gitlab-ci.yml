@@ -12,7 +12,8 @@ before_script:
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
-    - meson -Dregion-page=${REGION_PAGE} --auto-features ${AUTO_FEATURES}
+    - meson -Dregion-page=${EXPLICIT_FEATURES} -Dsystemd=${EXPLICIT_FEATURES}
+      --auto-features ${AUTO_FEATURES}
       -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
       _build .
     - cd _build
@@ -29,11 +30,11 @@ before_script:
 build-minimal:
   <<: *job_definition
   variables:
-    REGION_PAGE: 'false'
+    EXPLICIT_FEATURES: 'false'
     AUTO_FEATURES: 'disabled'
 
 build-maximal:
   <<: *job_definition
   variables:
-    REGION_PAGE: 'true'
+    EXPLICIT_FEATURES: 'true'
     AUTO_FEATURES: 'enabled'
