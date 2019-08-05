@@ -520,8 +520,10 @@ update_header_func (GtkListBoxRow *child,
 {
         GtkWidget *header;
 
-        if (before == NULL)
+        if (before == NULL) {
+                gtk_list_box_row_set_header (child, NULL);
                 return;
+        }
 
         header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
         gtk_list_box_row_set_header (child, header);
