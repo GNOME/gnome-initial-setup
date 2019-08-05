@@ -10,45 +10,16 @@
         <property name="halign">center</property>
         <property name="valign">fill</property>
         <child>
-          <object class="GtkImage" id="image">
+          <object class="GisPageHeader" id="header">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixel_size">96</property>
-            <property name="icon_name">dialog-password-symbolic</property>
-            <property name="icon_size">1</property>
+            <property name="margin_bottom">26</property>
             <property name="margin_top">24</property>
-            <property name="margin_bottom">26</property>
-            <style>
-              <class name="dim-label" />
-            </style>
+            <property name="title" translatable="yes">Enterprise Login</property>
+            <property name="subtitle" translatable="yes">Enterprise login allows an existing centrally managed user account to be used on this device. You can also use this account to access company resources on the internet.</property>
+            <property name="icon_name">dialog-password-symbolic</property>
+            <property name="show_icon">True</property>
           </object>
         </child>
-        <child>
-          <object class="GtkLabel" id="title">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="label" translatable="yes">Enterprise Login</property>
-            <property name="margin_bottom">14</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.8"/>
-            </attributes>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="subtitle">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="valign">start</property>
-            <property name="margin_bottom">26</property>
-            <property name="label" translatable="yes">Enterprise login allows an existing centrally managed user account to be used on this device. You can also use this account to access company resources on the internet.</property>
-            <property name="justify">center</property>
-            <property name="wrap">True</property>
-            <property name="max-width-chars">45</property>
-          </object>
-        </child>
-
         <child>
           <object class="GtkGrid" id="form">
             <property name="visible">True</property>
