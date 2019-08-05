@@ -32,6 +32,8 @@
 
 #include "network-dialogs.h"
 
+#include "gis-page-header.h"
+
 typedef enum {
   NM_AP_SEC_UNKNOWN,
   NM_AP_SEC_NONE,
@@ -738,6 +740,7 @@ static void
 gis_network_page_init (GisNetworkPage *page)
 {
   g_resources_register (network_get_resource ());
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }

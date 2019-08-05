@@ -32,6 +32,8 @@
 #include "um-realm-manager.h"
 #include "um-utils.h"
 
+#include "gis-page-header.h"
+
 static void        join_show_prompt    (GisAccountPageEnterprise *page,
                                         GError *error);
 
@@ -45,7 +47,7 @@ static void        on_realm_joined     (GObject *source,
 
 struct _GisAccountPageEnterprisePrivate
 {
-  GtkWidget *image;
+  GtkWidget *header;
   GtkWidget *login;
   GtkWidget *password;
   GtkWidget *domain;
@@ -748,7 +750,7 @@ gis_account_page_enterprise_realize (GtkWidget *widget)
 
   gis_page = gtk_widget_get_ancestor (widget, GIS_TYPE_PAGE);
   g_object_bind_property (gis_page, "small-screen",
-                          priv->image, "visible",
+                          priv->header, "show-icon",
                           G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
 
   GTK_WIDGET_CLASS (gis_account_page_enterprise_parent_class)->realize (widget);
@@ -815,7 +817,7 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, realms_model);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, image);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, header);
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_dialog);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_name);
@@ -834,6 +836,7 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
 static void
 gis_account_page_enterprise_init (GisAccountPageEnterprise *page)
 {
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 

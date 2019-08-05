@@ -39,6 +39,8 @@
 
 #include "cc-common-language.h"
 
+#include "gis-page-header.h"
+
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
@@ -502,6 +504,7 @@ static void
 gis_keyboard_page_init (GisKeyboardPage *self)
 {
         g_resources_register (keyboard_get_resource ());
+        g_type_ensure (GIS_TYPE_PAGE_HEADER);
 	g_type_ensure (CC_TYPE_INPUT_CHOOSER);
 
         gtk_widget_init_template (GTK_WIDGET (self));

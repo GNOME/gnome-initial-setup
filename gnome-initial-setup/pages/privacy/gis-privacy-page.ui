@@ -9,31 +9,13 @@
         <property name="halign">center</property>
         <property name="valign">fill</property>
         <property name="orientation">vertical</property>
-	<child>
-          <object class="GtkImage" id="image1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixel_size">96</property>
-            <property name="icon_name">preferences-system-privacy-symbolic</property>
-            <property name="icon_size">1</property>
-            <property name="margin_top">24</property>
-            <style>
-              <class name="dim-label" />
-            </style>
-          </object>
-        </child>
         <child>
-          <object class="GtkLabel" id="title">
+          <object class="GisPageHeader" id="header">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="margin_top">18</property>
-            <property name="label" translatable="yes">Privacy</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.8"/>
-            </attributes>
+            <property name="margin_top">24</property>
+            <property name="title" translatable="yes">Privacy</property>
+            <property name="icon_name">preferences-system-privacy-symbolic</property>
+            <property name="show_icon" bind-source="GisPrivacyPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
           </object>
         </child>
         <child>
