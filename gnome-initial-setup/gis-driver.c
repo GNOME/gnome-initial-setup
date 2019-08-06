@@ -332,6 +332,15 @@ monitor_is_small (GdkMonitor *monitor)
 }
 
 static void
+gis_driver_constructed (GObject *object)
+{
+  G_OBJECT_CLASS (gis_driver_parent_class)->constructed (object);
+
+  GApplication *app = G_APPLICATION (object);
+  g_application_set_resource_base_path (app, "/org/gnome/initial-setup");
+}
+
+static void
 gis_driver_get_property (GObject      *object,
                          guint         prop_id,
                          GValue       *value,
@@ -591,6 +600,7 @@ gis_driver_class_init (GisDriverClass *klass)
   GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
+  gobject_class->constructed = gis_driver_constructed;
   gobject_class->get_property = gis_driver_get_property;
   gobject_class->set_property = gis_driver_set_property;
   gobject_class->dispose = gis_driver_dispose;
