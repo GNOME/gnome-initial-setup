@@ -487,13 +487,18 @@ extract_initials_from_name (const gchar *name)
         gchar *normalized;
         gunichar unichar;
 
+        if (name == NULL || name[0] == '\0') {
+            g_string_free (initials, TRUE);
+            return g_strdup ("\U0001F464");  /* U+1F464 "bust in silhouette" */
+        }
+
         p = g_utf8_strup (name, -1);
         normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
         g_clear_pointer (&p, g_free);
         if (normalized == NULL) {
                 g_free (normalized);
-
-                return NULL;
+                g_string_free (initials, TRUE);
+                return g_strdup ("\U0001F464");  /* U+1F464 "bust in silhouette" */
         }
 
         unichar = g_utf8_get_char (normalized);
@@ -547,12 +552,12 @@ get_color_for_name (const gchar *name)
                 {  99,  69,  44 }
         };
 
-        GdkRGBA color = { 255, 255, 255, 1.0 };
+        GdkRGBA color = { 230, 97, 0, 1.0 };  /* Orange 4 */
         guint hash;
         gint number_of_colors;
         gint idx;
 
-        if (name == NULL || strlen (name) == 0)
+        if (name == NULL || name[0] == '\0')
                 return color;
 
         hash = g_str_hash (name);
