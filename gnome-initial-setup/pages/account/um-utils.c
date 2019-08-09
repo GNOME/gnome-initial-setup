@@ -484,6 +484,7 @@ generate_username_choices (const gchar  *name,
 }
 
 #define IMAGE_SIZE 512
+#define IMAGE_BORDER_WIDTH 7.2  /* At least 1px when avatar rendered at 72px */
 
 /* U+1F464 "bust in silhouette"
  * U+FE0E Variant Selector 15 to force text style (monochrome) emoji
@@ -583,6 +584,13 @@ get_color_for_name (const gchar *name)
         return color;
 }
 
+static void
+darken_color (GdkRGBA *color, gdouble fraction) {
+        color->red = CLAMP (color->red + color->red * fraction, 0, 255);
+        color->green = CLAMP (color->green + color->green * fraction, 0, 255);
+        color->blue = CLAMP (color->blue + color->blue * fraction, 0, 255);
+}
+
 cairo_surface_t *
 generate_user_picture (const gchar *name) {
         PangoFontDescription *font_desc;
@@ -602,6 +610,13 @@ generate_user_picture (const gchar *name) {
         cairo_arc (cr, IMAGE_SIZE/2, IMAGE_SIZE/2, IMAGE_SIZE/2, 0, 2 * G_PI);
         cairo_set_source_rgb (cr, color.red/255.0, color.green/255.0, color.blue/255.0);
         cairo_fill (cr);
+
+        cairo_arc (cr, IMAGE_SIZE / 2, IMAGE_SIZE / 2, IMAGE_SIZE / 2 - IMAGE_BORDER_WIDTH / 2,
+                   0, 2 * G_PI);
+        darken_color (&color, -0.3);
+        cairo_set_source_rgb (cr, color.red / 255.0, color.green / 255.0, color.blue / 255.0);
+        cairo_set_line_width (cr, IMAGE_BORDER_WIDTH);
+        cairo_stroke (cr);
 
         /* Draw the initials on top */
         cairo_set_source_rgb (cr, 1.0, 1.0, 1.0);
