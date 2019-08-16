@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2019-01-14 10:40+0000\n"
-"PO-Revision-Date: 2019-01-30 22:06+0900\n"
+"POT-Creation-Date: 2019-05-21 03:54+0000\n"
+"PO-Revision-Date: 2019-08-17 00:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -24,12 +24,6 @@ msgstr ""
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "初期セットアップ"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-initial-setup.desktop.in.in:5
-#: data/gnome-initial-setup-first-login.desktop.in.in:5
-msgid "preferences-system"
-msgstr ""
 
 #: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
@@ -59,11 +53,11 @@ msgstr "強制的に既存ユーザーモードを使用する"
 msgid "— GNOME initial setup"
 msgstr "— GNOME 初期セットアップ"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:27
+#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:36
 msgid "Take a Picture…"
 msgstr "写真を撮る…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:242
+#: gnome-initial-setup/pages/account/gis-account-page.c:264
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
 msgid "About You"
 msgstr "ユーザー情報"
@@ -152,11 +146,11 @@ msgstr "管理者のパスワード"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "名前とユーザーを確認してください。画像の選択もできます。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:413
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
 msgid "We need a few details to complete setup."
 msgstr "ユーザーに関する情報を入力してください。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:18
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "アバターの画像"
 
@@ -168,8 +162,16 @@ msgstr "名前とユーザー名を入力してください。画像の選択も
 msgid "_Full Name"
 msgstr "フルネーム(_F)"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:37
-msgid "Set Up _Enterprise Login"
+#: gnome-initial-setup/pages/account/gis-account-page.ui:43
+#, fuzzy
+#| msgid "Enterprise Login"
+msgid "_Enterprise Login"
+msgstr "エンタープライズログイン"
+
+#: gnome-initial-setup/pages/account/gis-account-page.ui:53
+#, fuzzy
+#| msgid "Set Up _Enterprise Login"
+msgid "Go online to set up Enterprise Login."
 msgstr "エンタープライズログインの準備(_E)"
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
@@ -373,7 +375,9 @@ msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing some letters "
 "and numbers."
-msgstr "このパスワードは前のパスワードとよく似ています。文字や数字をもう少し変更してみてください。"
+msgstr ""
+"このパスワードは前のパスワードとよく似ています。文字や数字をもう少し変更して"
+"みてください。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:85
 #: gnome-initial-setup/pages/password/pw-utils.c:93
@@ -381,13 +385,16 @@ msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing the password a "
 "bit more."
-msgstr "このパスワードは前のパスワードとよく似ています。パスワードをもう少し変更してみてください。"
+msgstr ""
+"このパスワードは前のパスワードとよく似ています。パスワードをもう少し変更して"
+"みてください。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. A password without your user name would be stronger."
-msgstr "弱いパスワードです。パスワードからユーザー名を取り除くともっと強くなります。"
+msgstr ""
+"弱いパスワードです。パスワードからユーザー名を取り除くともっと強くなります。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
@@ -399,7 +406,9 @@ msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid some of the words included in the "
 "password."
-msgstr "弱いパスワードです。パスワードに含まれる一部の単語を使わないようにしてください。"
+msgstr ""
+"弱いパスワードです。パスワードに含まれる一部の単語を使わないようにしてくださ"
+"い。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
@@ -409,7 +418,9 @@ msgstr "弱いパスワードです。一般的な単語を使わないように
 #: gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "弱いパスワードです。既存の単語の文字を並べ替えたものは避けるようにしてください。"
+msgstr ""
+"弱いパスワードです。既存の単語の文字を並べ替えたものは避けるようにしてくださ"
+"い。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
@@ -438,7 +449,8 @@ msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use a mixture of letters, numbers and "
 "punctuation."
-msgstr "弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
+msgstr ""
+"弱いパスワードです。アルファベットや数字、記号を混ぜるようにしてください。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
@@ -451,13 +463,15 @@ msgid ""
 "This is a weak password. Try to avoid repeating the same type of character: "
 "you need to mix up letters, numbers and punctuation."
 msgstr ""
-"弱いパスワードです。同じ種類の文字の繰り返しは避けるようにしてください。"
-"アルファベット、数字、記号を混ぜてください。"
+"弱いパスワードです。同じ種類の文字の繰り返しは避けるようにしてください。アル"
+"ファベット、数字、記号を混ぜてください。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "弱いパスワードです。1234 や abcd などの連続する並びは避けるようにしてください。"
+msgstr ""
+"弱いパスワードです。1234 や abcd などの連続する並びは避けるようにしてくださ"
+"い。"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
@@ -508,7 +522,7 @@ msgstr "プライバシーポリシー"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
 msgid "Uses Mozilla Location Service:"
-msgstr "Mozilla Location Service を使用する:"
+msgstr "Mozilla Location Service を使用します:"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:32
@@ -598,12 +612,12 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:271
 #, c-format
 msgid "_Start Using %s"
 msgstr "%s を使い始める(_S)"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:301
 msgid "Ready to Go"
 msgstr "準備完了"
 
