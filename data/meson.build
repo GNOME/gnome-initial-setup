@@ -42,20 +42,24 @@ if enable_systemd
     unitconf = configuration_data()
     unitconf.set('libexecdir', libexec_dir)
 
-    unit_files = [
-        'gnome-initial-setup.service',
-        'gnome-initial-setup-first-login.service',
-        'gnome-initial-setup-copy-worker.service',
-        'gnome-welcome-tour.service'
-    ]
+    unit_files = {
+        'gnome-initial-setup.service' : [ 'gnome-session@gnome-initial-setup.target.wants/' ],
+        'gnome-initial-setup-first-login.service' : [ 'gnome-session.target.wants/' ],
+        'gnome-initial-setup-copy-worker.service' : [ 'gnome-session.target.wants/' ],
+        'gnome-welcome-tour.service' : [ 'gnome-session.target.wants/' ],
+    }
 
-    foreach unit: unit_files
+    foreach unit, wants: unit_files
         configure_file(
             input: unit + '.in',
             output: unit,
             configuration: unitconf,
             install_dir: systemd_userunitdir
         )
+
+        foreach target: wants
+            meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target, unit)
+        endforeach
     endforeach
 endif
 
