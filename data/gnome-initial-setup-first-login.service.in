@@ -7,6 +7,9 @@ After=gnome-session.target
 # Together with Type=oneshot, make sure the welcome tour starts after setup
 Before=gnome-welcome-tour.service
 
+# Never run in GDM
+Conflicts=gnome-session@gnome-login.target
+
 Conflicts=gnome-session@gnome-initial-setup.target
 ConditionPathExists=!%E/gnome-initial-setup-done
 
