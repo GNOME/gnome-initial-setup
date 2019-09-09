@@ -4,6 +4,9 @@ Description=GNOME Initial Setup Copy Worker
 # Make sure we run really early
 Before=gnome-session-pre.target graphical-session-pre.target
 
+# Never run in GDM
+Conflicts=gnome-session@gnome-login.target
+
 ConditionPathExists=!%E/gnome-initial-setup-done
 
 [Service]
