@@ -189,13 +189,48 @@ create_face_widget (gpointer item,
         return image;
 }
 
+static GSList *
+get_facesdirs (void)
+{
+        GSList *facesdirs = NULL;
+        const gchar * const * data_dirs;
+        int i;
+
+        GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
+        g_autoptr(GSettingsSchema) schema = NULL;
+        g_autoptr(GSettings) settings = NULL;
+        g_autofree char *facesdir = NULL;
+
+        if (source) {
+                schema = g_settings_schema_source_lookup (source,
+                                                          "org.gnome.desktop.interface",
+                                                          FALSE);
+        }
+
+        if (schema) {
+                settings = g_settings_new_with_path ("org.gnome.desktop.interface",
+                                                     "/org/gnome/desktop/interface/");
+
+                facesdir = g_settings_get_string (settings, "facesdir");
+                if (facesdir != NULL && g_strcmp0 (facesdir, "") != 0)
+                        facesdirs = g_slist_prepend (facesdirs, g_strdup (facesdir));
+        }
+
+        data_dirs = g_get_system_data_dirs ();
+        for (i = 0; data_dirs[i] != NULL; i++) {
+                char *path = g_build_filename (data_dirs[i], "pixmaps", "faces", NULL);
+                facesdirs = g_slist_prepend (facesdirs, path);
+        }
+
+        return g_slist_reverse (facesdirs);
+}
+
 static void
 setup_photo_popup (UmPhotoDialog *um)
 {
         GFileType type;
         const gchar *target;
-        const gchar * const * dirs;
-        guint i;
+        GSList *facesdirs, *facesdir_it;
         gboolean added_faces;
 
         um->faces = g_list_store_new (G_TYPE_FILE);
@@ -218,14 +253,14 @@ setup_photo_popup (UmPhotoDialog *um)
                           G_CALLBACK (generated_avatar_activated), um);
         um->custom_avatar_was_chosen = FALSE;
 
-        dirs = g_get_system_data_dirs ();
         for (i = 0; dirs[i] != NULL; i++) {
+        facesdirs = get_facesdirs ();
+        for (facesdir_it = facesdirs; facesdir_it; facesdir_it = facesdir_it->next) {
+                const char *path = facesdir_it->data;
                 g_autoptr(GFileEnumerator) enumerator = NULL;
                 g_autoptr(GFile) dir = NULL;
-                g_autofree gchar *path = NULL;
                 gpointer infoptr;
 
-                path = g_build_filename (dirs[i], "pixmaps", "faces", NULL);
                 dir = g_file_new_for_path (path);
 
                 enumerator = g_file_enumerate_children (dir,
@@ -259,6 +294,8 @@ setup_photo_popup (UmPhotoDialog *um)
                 if (added_faces)
                         break;
         }
+
+        g_slist_free_full (facesdirs, g_free);
 
 #ifdef HAVE_CHEESE
         gtk_widget_set_visible (um->take_picture_button, TRUE);
