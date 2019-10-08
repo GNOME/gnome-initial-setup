@@ -349,6 +349,7 @@ sort_languages (GtkListBoxRow *a,
                 gpointer       data)
 {
         LanguageWidget *la, *lb;
+        int ret;
 
         la = get_language_widget (gtk_bin_get_child (GTK_BIN (a)));
         lb = get_language_widget (gtk_bin_get_child (GTK_BIN (b)));
@@ -365,7 +366,11 @@ sort_languages (GtkListBoxRow *a,
         if (!la->is_extra && lb->is_extra)
                 return -1;
 
-        return strcmp (la->sort_key, lb->sort_key);
+        ret = g_strcmp0 (la->sort_key, lb->sort_key);
+        if (ret != 0)
+                return ret;
+
+        return g_strcmp0 (la->locale_id, lb->locale_id);
 }
 
 static void
