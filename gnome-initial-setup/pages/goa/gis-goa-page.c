@@ -37,6 +37,9 @@
 
 #include "gis-page-header.h"
 
+#define VENDOR_GOA_GROUP "goa"
+#define VENDOR_PROVIDERS_KEY "providers"
+
 struct _GisGoaPagePrivate {
   GtkWidget *accounts_list;
 
@@ -180,10 +183,43 @@ add_provider_to_list (GisGoaPage *page, const char *provider_type)
 static void
 populate_provider_list (GisGoaPage *page)
 {
-  add_provider_to_list (page, "google");
-  add_provider_to_list (page, "owncloud");
-  add_provider_to_list (page, "windows_live");
-  add_provider_to_list (page, "facebook");
+  GKeyFile *conf_file;
+  gchar *default_providers[] = { "google", "owncloud", "windows_live", "facebook", NULL };
+  gchar **conf_providers = NULL;
+  gchar **providers = NULL;
+  guint i;
+  GError *error = NULL;
+
+  /* VENDOR_CONF_FILE points to a keyfile containing vendor customization
+   * options. This code will look for options under the "goa" group, and
+   * supports the following keys:
+   *   - providers (optional): list of online account providers to offer
+   *
+   * This is how this file might look on a vendor image:
+   *
+   *   [goa]
+   *   providers=owncloud;imap_smtp
+   */
+  conf_file = g_key_file_new ();
+  if (!g_key_file_load_from_file (conf_file, VENDOR_CONF_FILE,
+                                  G_KEY_FILE_NONE, &error)) {
+    if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+      g_warning ("Could not read file %s: %s", VENDOR_CONF_FILE, error->message);
+
+    g_error_free (error);
+    goto out;
+  }
+
+  conf_providers = g_key_file_get_string_list (conf_file, VENDOR_GOA_GROUP,
+                                          VENDOR_PROVIDERS_KEY, NULL, NULL);
+
+ out:
+  providers = conf_providers ? conf_providers : default_providers;
+  for (i = 0; providers[i]; i++)
+    add_provider_to_list (page, providers[i]);
+
+  g_strfreev (conf_providers);
+  g_key_file_free (conf_file);
 }
 
 static void
