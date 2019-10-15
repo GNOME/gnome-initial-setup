@@ -37,6 +37,9 @@
 
 #include "gis-page-header.h"
 
+#define VENDOR_GOA_GROUP "goa"
+#define VENDOR_PROVIDERS_KEY "providers"
+
 struct _GisGoaPagePrivate {
   GtkWidget *accounts_list;
 
@@ -180,10 +183,23 @@ add_provider_to_list (GisGoaPage *page, const char *provider_type)
 static void
 populate_provider_list (GisGoaPage *page)
 {
-  add_provider_to_list (page, "google");
-  add_provider_to_list (page, "owncloud");
-  add_provider_to_list (page, "windows_live");
-  add_provider_to_list (page, "facebook");
+  g_auto(GStrv) conf_providers =
+    gis_driver_conf_get_string_list (GIS_PAGE (page)->driver, VENDOR_GOA_GROUP, VENDOR_PROVIDERS_KEY, NULL);
+  GStrv providers = conf_providers ? conf_providers :
+    (gchar *[]) { "google", "owncloud", "windows_live", "facebook", NULL };
+
+  /* This code will read the keyfile containing vendor customization options and
+   * look for options under the "goa" group, and supports the following keys:
+   *   - providers (optional): list of online account providers to offer
+   *
+   * This is how this file might look on a vendor image:
+   *
+   *   [goa]
+   *   providers=owncloud;imap_smtp
+   */
+
+  for (guint i = 0; providers[i]; i++)
+    add_provider_to_list (page, providers[i]);
 }
 
 static void
