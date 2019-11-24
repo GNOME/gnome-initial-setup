@@ -119,7 +119,11 @@ welcome (const char *locale_id)
   locale = newlocale (LC_MESSAGES_MASK, locale_id, (locale_t) 0);
   if (locale == (locale_t) 0)
     {
-      g_warning ("Failed to create locale %s: %s", locale_id, g_strerror (errno));
+      if (errno == ENOENT)
+        g_debug ("Failed to create locale %s: %s", locale_id, g_strerror (errno));
+      else
+        g_warning ("Failed to create locale %s: %s", locale_id, g_strerror (errno));
+
       return "Welcome!";
     }
 
