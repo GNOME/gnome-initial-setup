@@ -214,7 +214,7 @@ prepopulate_account_page (GisAccountPageLocal *page)
     stream = g_file_read (file, NULL, &error);
     if (!stream)
       {
-        g_warning ("Failed to read picture: %s", error->message);
+        g_warning ("Failed to read picture %s: %s", picture, error->message);
         g_error_free (error);
       }
     else

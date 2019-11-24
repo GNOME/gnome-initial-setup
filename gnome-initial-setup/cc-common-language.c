@@ -235,10 +235,19 @@ static void
 insert_language (GHashTable *ht,
                  const char *lang)
 {
+        locale_t locale;
         char *label_own_lang;
         char *label_current_lang;
         char *label_untranslated;
         char *key;
+
+        locale = newlocale (LC_MESSAGES_MASK, lang, (locale_t) 0);
+        if (locale == (locale_t) 0) {
+                g_debug ("%s: Failed to create locale %s", G_STRFUNC, lang);
+                return;
+        }
+        freelocale (locale);
+
 
         key = g_strdup (lang);
 
@@ -248,7 +257,7 @@ insert_language (GHashTable *ht,
 
         /* We don't have a translation for the label in
          * its own language? */
-        if (g_strcmp0 (label_own_lang, label_untranslated) == 0) {
+        if (label_own_lang == NULL || g_strcmp0 (label_own_lang, label_untranslated) == 0) {
                 if (g_strcmp0 (label_current_lang, label_untranslated) == 0)
                         g_hash_table_insert (ht, key, g_strdup (label_untranslated));
                 else
