@@ -130,9 +130,14 @@ language_widget_new (const char *locale_id,
                 return NULL;
 
         language_name = gnome_get_language_from_code (language, locale_id);
+        if (language_name == NULL)
+                language_name = gnome_get_language_from_code (language, NULL);
 
-        if (country)
+        if (country) {
                 country_name = gnome_get_country_from_code (country, locale_id);
+                if (country_name == NULL)
+                        country_name = gnome_get_country_from_code (country, NULL);
+        }
 
         locale_name = gnome_get_language_from_locale (locale_id, locale_id);
         locale_current_name = gnome_get_language_from_locale (locale_id, NULL);
