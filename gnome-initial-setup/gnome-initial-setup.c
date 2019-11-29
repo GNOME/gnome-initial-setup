@@ -277,6 +277,8 @@ main (int argc, char *argv[])
 
   gtk_init (&argc, &argv);
 
+  g_message ("Starting gnome-initial-setup");
+
   skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
   mode = get_mode ();
 
