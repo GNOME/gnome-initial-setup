@@ -130,9 +130,14 @@ language_widget_new (const char *locale_id,
                 return NULL;
 
         language_name = gnome_get_language_from_code (language, locale_id);
+        if (language_name == NULL)
+                language_name = gnome_get_language_from_code (language, NULL);
 
-        if (country)
+        if (country) {
                 country_name = gnome_get_country_from_code (country, locale_id);
+                if (country_name == NULL)
+                        country_name = gnome_get_country_from_code (country, NULL);
+        }
 
         locale_name = gnome_get_language_from_locale (locale_id, locale_id);
         locale_current_name = gnome_get_language_from_locale (locale_id, NULL);
@@ -349,6 +354,7 @@ sort_languages (GtkListBoxRow *a,
                 gpointer       data)
 {
         LanguageWidget *la, *lb;
+        int ret;
 
         la = get_language_widget (gtk_bin_get_child (GTK_BIN (a)));
         lb = get_language_widget (gtk_bin_get_child (GTK_BIN (b)));
@@ -365,7 +371,11 @@ sort_languages (GtkListBoxRow *a,
         if (!la->is_extra && lb->is_extra)
                 return -1;
 
-        return strcmp (la->sort_key, lb->sort_key);
+        ret = g_strcmp0 (la->sort_key, lb->sort_key);
+        if (ret != 0)
+                return ret;
+
+        return g_strcmp0 (la->locale_id, lb->locale_id);
 }
 
 static void
