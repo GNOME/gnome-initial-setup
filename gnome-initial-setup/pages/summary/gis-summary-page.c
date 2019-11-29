@@ -35,8 +35,6 @@
 
 #include <act/act-user-manager.h>
 
-#include <gdm/gdm-client.h>
-
 #define SERVICE_NAME "gdm-password"
 
 struct _GisSummaryPagePrivate {

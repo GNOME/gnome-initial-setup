@@ -26,7 +26,6 @@
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
-#include <gdm/gdm-client.h>
 
 #include "cc-common-language.h"
 #include "gis-assistant.h"
