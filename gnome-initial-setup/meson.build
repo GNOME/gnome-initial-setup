@@ -37,7 +37,7 @@ dependencies = [
     dependency ('goa-backend-1.0'),
     dependency ('gtk+-3.0', version: '>= 3.11.3'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
-    dependency ('gdm', version: '>= 3.8.3'),
+    gdm_dep,
     dependency ('geocode-glib-1.0'),
     dependency ('libgeoclue-2.0', version: '>= 2.3.1'),
     cc.find_library('m', required: false),

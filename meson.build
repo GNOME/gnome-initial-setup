@@ -65,6 +65,10 @@ ibus_dep = dependency ('ibus-1.0',
                        required: get_option('ibus'))
 conf.set('HAVE_IBUS', ibus_dep.found())
 
+# Needed to log in as the newly-created user
+gdm_dep = dependency ('gdm', version: '>= 3.8.3', required: not get_option('development'))
+conf.set('HAVE_GDM', gdm_dep.found())
+
 configure_file(output: 'config.h',
                configuration: conf)
 config_h_dir = include_directories('.')

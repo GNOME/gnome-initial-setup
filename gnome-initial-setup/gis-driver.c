@@ -520,6 +520,7 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
 static void
 connect_to_gdm (GisDriver *driver)
 {
+#if HAVE_GDM
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_autoptr(GError) error = NULL;
 
@@ -535,6 +536,7 @@ connect_to_gdm (GisDriver *driver)
     g_clear_object (&priv->greeter);
     g_clear_object (&priv->client);
   }
+#endif
 }
 
 static void

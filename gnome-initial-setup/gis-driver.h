@@ -25,7 +25,13 @@
 #include "gis-assistant.h"
 #include "gis-page.h"
 #include <act/act-user-manager.h>
-#include <gdm/gdm-client.h>
+#if HAVE_GDM
+# include <gdm/gdm-client.h>
+#else
+typedef GObject GdmClient;
+typedef GObject GdmGreeter;
+typedef GObject GdmUserVerifier;
+#endif
 
 G_BEGIN_DECLS
 
