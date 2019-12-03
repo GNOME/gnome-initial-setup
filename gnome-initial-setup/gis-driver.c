@@ -560,6 +560,10 @@ gis_driver_startup (GApplication *app)
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
 
+#ifdef DEVELOPMENT
+  gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (priv->main_window)), "devel");
+#endif
+
   priv->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
   gtk_container_add (GTK_CONTAINER (priv->main_window), GTK_WIDGET (priv->assistant));
 

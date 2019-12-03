@@ -30,6 +30,7 @@ conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('ENABLE_REGION_PAGE', get_option('region-page'))
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
+conf.set('DEVELOPMENT', get_option('development'))
 
 enable_systemd = get_option('systemd')
 if enable_systemd
