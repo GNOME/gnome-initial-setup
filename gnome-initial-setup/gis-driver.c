@@ -550,6 +550,12 @@ gis_driver_startup (GApplication *app)
   if (priv->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
 
+#ifdef DEVELOPMENT
+  g_object_set (gtk_settings_get_default (),
+                "gtk-application-prefer-dark-theme", TRUE,
+                NULL);
+#endif
+
   priv->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
                                     "application", app,
                                     "type", GTK_WINDOW_TOPLEVEL,
