@@ -282,6 +282,7 @@ main (int argc, char *argv[])
   skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
   mode = get_mode ();
 
+#ifndef DEVELOPMENT
   /* When we are running as the gnome-initial-setup user we
    * dont have a normal user session and need to initialize
    * the keyring manually so that we can pass the credentials
@@ -289,6 +290,7 @@ main (int argc, char *argv[])
    */
   if (mode == GIS_DRIVER_MODE_NEW_USER)
     gis_ensure_login_keyring ();
+#endif
 
   driver = gis_driver_new (mode);
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);
