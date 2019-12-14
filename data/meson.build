@@ -43,7 +43,6 @@ if enable_systemd
     unitconf.set('libexecdir', libexec_dir)
 
     unit_files = {
-        'gnome-initial-setup.service' : [ 'gnome-session@gnome-initial-setup.target.wants/' ],
         'gnome-initial-setup-first-login.service' : [ 'gnome-session.target.wants/' ],
         'gnome-initial-setup-copy-worker.service' : [ 'gnome-session.target.wants/' ],
         'gnome-welcome-tour.service' : [ 'gnome-session.target.wants/' ],
@@ -61,6 +60,12 @@ if enable_systemd
             meson.add_install_script('meson-add-wants.sh', systemd_userunitdir, target, unit)
         endforeach
     endforeach
+
+    install_data(
+        'gnome-initial-setup.session.conf',
+        rename: join_paths('gnome-session@gnome-initial-setup.target.d', 'session.conf'),
+        install_dir: systemd_userunitdir
+  )
 endif
 
 
