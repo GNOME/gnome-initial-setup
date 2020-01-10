@@ -4,7 +4,7 @@ stages:
   - build
 
 before_script:
-  - dnf install -y desktop-file-utils gcc gettext ibus-devel intltool krb5-devel libpwquality-devel libsecret-devel meson ninja-build "pkgconfig(accountsservice)" "pkgconfig(cheese)" "pkgconfig(cheese-gtk)" "pkgconfig(fontconfig)" "pkgconfig(gdm)" "pkgconfig(geocode-glib-1.0)" "pkgconfig(gio-2.0)" "pkgconfig(gio-unix-2.0)" "pkgconfig(glib-2.0)" "pkgconfig(gnome-desktop-3.0)" "pkgconfig(goa-1.0)" "pkgconfig(goa-backend-1.0)" "pkgconfig(gstreamer-1.0)" "pkgconfig(gtk+-3.0)" "pkgconfig(gweather-3.0)" "pkgconfig(libgeoclue-2.0)" "pkgconfig(libnm)" "pkgconfig(libnma)" "pkgconfig(packagekit-glib2)" "pkgconfig(webkit2gtk-4.0)" polkit-devel rest-devel
+  - dnf install -y desktop-file-utils gcc gettext ibus-devel intltool krb5-devel libpwquality-devel libsecret-devel meson ninja-build "pkgconfig(accountsservice)" "pkgconfig(cheese)" "pkgconfig(cheese-gtk)" "pkgconfig(fontconfig)" "pkgconfig(gdm)" "pkgconfig(geocode-glib-1.0)" "pkgconfig(gio-2.0)" "pkgconfig(gio-unix-2.0)" "pkgconfig(glib-2.0)" "pkgconfig(gnome-desktop-3.0)" "pkgconfig(goa-1.0)" "pkgconfig(goa-backend-1.0)" "pkgconfig(gstreamer-1.0)" "pkgconfig(gtk+-3.0)" "pkgconfig(gweather-3.0)" "pkgconfig(libgeoclue-2.0)" "pkgconfig(libnm)" "pkgconfig(libnma)" "pkgconfig(webkit2gtk-4.0)" polkit-devel rest-devel
 
 .job_template: &job_definition
   stage: build
