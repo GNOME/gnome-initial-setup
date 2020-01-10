@@ -13,7 +13,6 @@ polkit.addRule(function(action, subject) {
                          action.id.indexOf('org.freedesktop.hostname1.') === 0 ||
                          action.id.indexOf('org.freedesktop.NetworkManager.') === 0 ||
                          action.id.indexOf('org.freedesktop.locale1.') === 0 ||
-                         action.id.indexOf('org.freedesktop.packagekit.system-sources-configure') === 0 ||
                          action.id.indexOf('org.freedesktop.accounts.') === 0 ||
                          action.id.indexOf('org.freedesktop.timedate1.') === 0 ||
                          action.id.indexOf('org.freedesktop.realmd.') === 0 ||
