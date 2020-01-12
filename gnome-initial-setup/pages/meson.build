@@ -11,10 +11,6 @@ pages = [
    'summary',
 ]
 
-if get_option('region-page')
-   pages += ['region']
-endif
-
 foreach page: pages
     subdir (page)
 endforeach
