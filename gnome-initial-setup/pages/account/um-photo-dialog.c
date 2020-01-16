@@ -35,6 +35,7 @@
 #endif /* HAVE_CHEESE */
 
 #include "um-photo-dialog.h"
+#include "gis-account-camera-dialog.h"
 #include "um-utils.h"
 
 #define ROW_SPAN 5
@@ -45,6 +46,7 @@ struct _UmPhotoDialog {
 
         GtkWidget *popup_button;
         GtkWidget *take_picture_button;
+        GtkWidget *camera_dialog;
         GtkWidget *flowbox;
         GtkWidget *recent_pictures;
 
@@ -97,15 +99,15 @@ webcam_response_cb (GtkDialog     *dialog,
 static void
 webcam_icon_selected (UmPhotoDialog *um)
 {
-        GtkWidget *window;
+        if (um->camera_dialog == NULL) {
+                um->camera_dialog = gis_account_camera_dialog_new (um->callback, um->data);
+                gtk_window_set_transient_for (GTK_WINDOW (um->camera_dialog),
+                                              GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (um))));
+                g_signal_connect (G_OBJECT (um->camera_dialog), "response",
+                                  G_CALLBACK (webcam_response_cb), um);
+        }
 
-        window = cheese_avatar_chooser_new ();
-        gtk_window_set_transient_for (GTK_WINDOW (window),
-                                      GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (um))));
-        gtk_window_set_modal (GTK_WINDOW (window), TRUE);
-        g_signal_connect (G_OBJECT (window), "response",
-                          G_CALLBACK (webcam_response_cb), um);
-        gtk_widget_show (window);
+        gtk_dialog_run (GTK_DIALOG (um->camera_dialog));
 
         gtk_popover_popdown (GTK_POPOVER (um));
 }
