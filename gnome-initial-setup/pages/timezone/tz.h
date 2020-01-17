@@ -21,11 +21,11 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#ifndef _E_TZ_H
-#define _E_TZ_H
+#pragma once
 
 #include <glib.h>
+
+G_BEGIN_DECLS
 
 #ifndef __sun
 #  define TZ_DATA_FILE "/usr/share/zoneinfo/zone.tab"
@@ -85,4 +85,8 @@ gint       tz_location_set_locally    (TzLocation *loc);
 TzInfo    *tz_info_from_location      (TzLocation *loc);
 void       tz_info_free               (TzInfo *tz_info);
 
-#endif
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (TzDB, tz_db_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (TzInfo, tz_info_free)
+
+G_END_DECLS
