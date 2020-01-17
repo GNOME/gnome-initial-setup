@@ -32,11 +32,14 @@ conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
 
 enable_systemd = get_option('systemd')
 if enable_systemd
-    systemd_dep = dependency('systemd', version: '>= 242', required: false)
+    systemd_dep = dependency('systemd', required: false)
     assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
 
-    systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
-                                                             define_variable: ['prefix', prefix])
+    # XXX: Once https://github.com/systemd/systemd/issues/9595 is fixed and we can
+    # depend on this version, replace with something like:
+    #  systemduserunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir')
+    # and uncomment systemd_dep below
+    systemd_userunitdir = join_paths(prefix, 'lib', 'systemd', 'user')
 endif
 
 # Needed for the 'account' page
