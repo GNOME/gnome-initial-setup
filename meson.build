@@ -44,7 +44,7 @@ endif
 
 # Needed for the 'account' page
 cheese_dep = dependency ('cheese',
-                         version: '>= 3.3.5',
+                         version: '>= 3.28',
                          required: get_option('cheese'))
 cheese_gtk_dep = dependency ('cheese-gtk',
                          version: '>= 3.3.5',
