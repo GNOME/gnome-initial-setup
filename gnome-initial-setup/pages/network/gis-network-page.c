@@ -618,19 +618,62 @@ device_state_changed (GObject *object, GParamSpec *param, GisNetworkPage *page)
 }
 
 static void
+find_best_device (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+  const GPtrArray *devices;
+  guint i;
+
+  /* FIXME: deal with multiple devices and devices being removed */
+  if (priv->nm_device != NULL) {
+    g_debug ("Already displaying %s", nm_device_get_description (priv->nm_device));
+    return;
+  }
+
+  devices = nm_client_get_devices (priv->nm_client);
+  g_return_if_fail (devices != NULL);
+  for (i = 0; i < devices->len; i++) {
+    NMDevice *device = g_ptr_array_index (devices, i);
+
+    if (!nm_device_get_managed (device))
+      continue;
+
+    if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
+      /* FIXME deal with multiple, dynamic devices */
+      priv->nm_device = g_object_ref (device);
+      g_debug ("Displaying %s", nm_device_get_description (priv->nm_device));
+
+      g_signal_connect (priv->nm_device, "notify::state",
+                        G_CALLBACK (device_state_changed), page);
+      g_signal_connect (priv->nm_client, "notify::active-connections",
+                        G_CALLBACK (active_connections_changed), page);
+
+      sync_complete (page);
+
+      break;
+    }
+  }
+}
+
+static void
 gis_network_page_constructed (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  const GPtrArray *devices;
-  NMDevice *device;
-  guint i;
   gboolean visible = FALSE;
   GError *error = NULL;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
 
+  gis_page_set_skippable (GIS_PAGE (page), TRUE);
+
   priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->network_list), GTK_SELECTION_NONE);
+  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->network_list), update_header_func, NULL, NULL);
+  gtk_list_box_set_sort_func (GTK_LIST_BOX (priv->network_list), ap_sort, NULL, NULL);
+  g_signal_connect (priv->network_list, "row-activated",
+                    G_CALLBACK (row_activated), page);
 
   priv->nm_client = nm_client_new (NULL, &error);
   if (!priv->nm_client) {
@@ -644,53 +687,20 @@ gis_network_page_constructed (GObject *object)
                           priv->turn_on_switch, "active",
                           G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-  devices = nm_client_get_devices (priv->nm_client);
-  if (devices) {
-    for (i = 0; i < devices->len; i++) {
-      device = g_ptr_array_index (devices, i);
+  find_best_device (page);
 
-      if (!nm_device_get_managed (device))
-        continue;
-
-      if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
-        /* FIXME deal with multiple, dynamic devices */
-        priv->nm_device = g_object_ref (device);
-        break;
-      }
-    }
-  }
-
-  if (priv->nm_device == NULL) {
+  if (g_getenv ("GIS_ALWAYS_SHOW_NETWORK_PAGE") != NULL) {
+    /* Allow to always show the network page, for debugging purposes */
+    visible = TRUE;
+  } else if (priv->nm_device == NULL) {
     g_debug ("No network device found, hiding network page");
-    goto out;
-  }
-
-  /* Allow to always show the network, even if there's an active connection, for
-   * debugging purposes */
-  if (g_getenv ("GIS_ALWAYS_SHOW_NETWORK_PAGE") == NULL &&
-      nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED) {
+  } else if (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED) {
     g_debug ("Activated network device found, hiding network page");
-    goto out;
+  } else {
+    visible = TRUE;
   }
 
-  visible = TRUE;
-
-  g_signal_connect (priv->nm_device, "notify::state",
-                    G_CALLBACK (device_state_changed), page);
-  g_signal_connect (priv->nm_client, "notify::active-connections",
-                    G_CALLBACK (active_connections_changed), page);
-
-  gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->network_list), GTK_SELECTION_NONE);
-  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->network_list), update_header_func, NULL, NULL);
-  gtk_list_box_set_sort_func (GTK_LIST_BOX (priv->network_list), ap_sort, NULL, NULL);
-  g_signal_connect (priv->network_list, "row-activated",
-                    G_CALLBACK (row_activated), page);
-
-  sync_complete (page);
-
-  gis_page_set_skippable (GIS_PAGE (page), TRUE);
-
- out:
+out:
   gtk_widget_set_visible (GTK_WIDGET (page), visible);
 }
 
