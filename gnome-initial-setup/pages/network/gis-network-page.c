@@ -470,16 +470,13 @@ connection_activate_cb (GObject *object,
                         gpointer user_data)
 {
   NMClient *client = NM_CLIENT (object);
-  NMActiveConnection *connection;
-  GError *error = NULL;
+  g_autoptr(NMActiveConnection) connection = NULL;
+  g_autoptr(GError) error = NULL;
 
   connection = nm_client_activate_connection_finish (client, result, &error);
-  if (connection) {
-    g_object_unref (connection);
-  } else {
+  if (connection == NULL) {
     /* failed to activate */
     g_warning ("Failed to activate a connection: %s", error->message);
-    g_error_free (error);
   }
 }
 
@@ -489,16 +486,13 @@ connection_add_activate_cb (GObject *object,
                             gpointer user_data)
 {
   NMClient *client = NM_CLIENT (object);
-  NMActiveConnection *connection;
-  GError *error = NULL;
+  g_autoptr(NMActiveConnection) connection = NULL;
+  g_autoptr(GError) error = NULL;
 
   connection = nm_client_add_and_activate_connection_finish (client, result, &error);
-  if (connection) {
-    g_object_unref (connection);
-  } else {
+  if (connection == NULL) {
     /* failed to activate */
     g_warning ("Failed to add and activate a connection: %s", error->message);
-    g_error_free (error);
   }
 }
 
@@ -758,7 +752,7 @@ gis_network_page_constructed (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
 
@@ -777,7 +771,6 @@ gis_network_page_constructed (GObject *object)
   if (!priv->nm_client) {
     g_warning ("Can't create NetworkManager client, hiding network page: %s",
                error->message);
-    g_error_free (error);
     sync_complete (page);
     return;
   }
