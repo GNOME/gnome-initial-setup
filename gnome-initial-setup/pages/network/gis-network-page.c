@@ -56,6 +56,9 @@ struct _GisNetworkPagePrivate {
   GtkSizeGroup *icons;
 
   guint refresh_timeout_id;
+
+  /* TRUE if the page has ever been shown to the user. */
+  gboolean ever_shown;
 };
 typedef struct _GisNetworkPagePrivate GisNetworkPagePrivate;
 
@@ -464,16 +467,15 @@ connection_activate_cb (GObject *object,
                         gpointer user_data)
 {
   NMClient *client = NM_CLIENT (object);
-  NMActiveConnection *connection;
-  GError *error = NULL;
+  NMActiveConnection *connection = NULL;
+  g_autoptr(GError) error = NULL;
 
   connection = nm_client_activate_connection_finish (client, result, &error);
-  if (connection) {
-    g_object_unref (connection);
+  if (connection != NULL) {
+    g_clear_object (&connection);
   } else {
     /* failed to activate */
     g_warning ("Failed to activate a connection: %s", error->message);
-    g_error_free (error);
   }
 }
 
@@ -483,16 +485,15 @@ connection_add_activate_cb (GObject *object,
                             gpointer user_data)
 {
   NMClient *client = NM_CLIENT (object);
-  NMActiveConnection *connection;
-  GError *error = NULL;
+  NMActiveConnection *connection = NULL;
+  g_autoptr(GError) error = NULL;
 
   connection = nm_client_add_and_activate_connection_finish (client, result, &error);
-  if (connection) {
-    g_object_unref (connection);
+  if (connection != NULL) {
+    g_clear_object (&connection);
   } else {
     /* failed to activate */
     g_warning ("Failed to add and activate a connection: %s", error->message);
-    g_error_free (error);
   }
 }
 
@@ -604,11 +605,31 @@ static void
 sync_complete (GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+  gboolean has_device;
   gboolean activated;
+  gboolean visible;
 
-  activated = (nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED);
+  has_device = priv->nm_device != NULL;
+  activated = priv->nm_device != NULL
+    && nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED;
+
+  if (priv->ever_shown) {
+    visible = TRUE;
+  } else if (!has_device) {
+    g_debug ("No network device found, hiding network page");
+    visible = FALSE;
+  } else if (activated) {
+    g_debug ("Activated network device found, hiding network page");
+    visible = FALSE;
+  } else {
+    visible = TRUE;
+  }
+
   gis_page_set_complete (GIS_PAGE (page), activated);
-  schedule_refresh_wireless_list (page);
+  gtk_widget_set_visible (GTK_WIDGET (page), visible);
+
+  if (has_device)
+    schedule_refresh_wireless_list (page);
 }
 
 static void
@@ -618,67 +639,130 @@ device_state_changed (GObject *object, GParamSpec *param, GisNetworkPage *page)
 }
 
 static void
+find_best_device (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+  const GPtrArray *devices;
+  guint i;
+
+  /* FIXME: deal with multiple devices and devices being removed */
+  if (priv->nm_device != NULL) {
+    g_debug ("Already showing network device %s",
+             nm_device_get_description (priv->nm_device));
+    return;
+  }
+
+  devices = nm_client_get_devices (priv->nm_client);
+  g_return_if_fail (devices != NULL);
+  for (i = 0; i < devices->len; i++) {
+    NMDevice *device = g_ptr_array_index (devices, i);
+
+    if (!nm_device_get_managed (device))
+      continue;
+
+    if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
+      /* FIXME deal with multiple, dynamic devices */
+      priv->nm_device = g_object_ref (device);
+      g_debug ("Showing network device %s",
+               nm_device_get_description (priv->nm_device));
+
+      g_signal_connect (priv->nm_device, "notify::state",
+                        G_CALLBACK (device_state_changed), page);
+      g_signal_connect (priv->nm_client, "notify::active-connections",
+                        G_CALLBACK (active_connections_changed), page);
+
+      break;
+    }
+  }
+
+  sync_complete (page);
+}
+static void
+device_notify_managed (NMDevice   *device,
+                       GParamSpec *param,
+                       void       *user_data)
+{
+  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+
+  find_best_device (page);
+}
+
+static void
+client_device_added (NMClient *client,
+                     NMDevice *device,
+                     void     *user_data)
+{
+  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+
+  g_signal_connect_object (device,
+                           "notify::managed",
+                           G_CALLBACK (device_notify_managed),
+                           G_OBJECT (page),
+                           0);
+
+  find_best_device (page);
+}
+
+static void
+client_device_removed (NMClient *client,
+                       NMDevice *device,
+                       void     *user_data)
+{
+  GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+
+  /* TODO: reset page if priv->nm_device == device */
+  g_signal_handlers_disconnect_by_func (device, device_notify_managed, page);
+
+  find_best_device (page);
+}
+
+static void
+monitor_network_devices (GisNetworkPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+  const GPtrArray *devices;
+  guint i;
+
+  g_assert (priv->nm_client != NULL);
+  devices = nm_client_get_devices (priv->nm_client);
+  g_return_if_fail (devices != NULL);
+  for (i = 0; devices != NULL && i < devices->len; i++) {
+    NMDevice *device = g_ptr_array_index (devices, i);
+
+    g_signal_connect_object (device,
+                             "notify::managed",
+                             G_CALLBACK (device_notify_managed),
+                             G_OBJECT (page),
+                             0);
+  }
+
+  g_signal_connect_object (priv->nm_client,
+                           "device-added",
+                           G_CALLBACK (client_device_added),
+                           G_OBJECT (page),
+                           0);
+  g_signal_connect_object (priv->nm_client,
+                           "device-removed",
+                           G_CALLBACK (client_device_removed),
+                           G_OBJECT (page),
+                           0);
+
+  find_best_device (page);
+}
+
+static void
 gis_network_page_constructed (GObject *object)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (object);
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  const GPtrArray *devices;
-  NMDevice *device;
-  guint i;
-  gboolean visible = FALSE;
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   G_OBJECT_CLASS (gis_network_page_parent_class)->constructed (object);
 
+  gis_page_set_skippable (GIS_PAGE (page), TRUE);
+
+  priv->ever_shown = g_getenv ("GIS_ALWAYS_SHOW_NETWORK_PAGE") != NULL;
   priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
-
-  priv->nm_client = nm_client_new (NULL, &error);
-  if (!priv->nm_client) {
-    g_warning ("Can't create NetworkManager client, hiding network page: %s",
-               error->message);
-    g_error_free (error);
-    goto out;
-  }
-
-  g_object_bind_property (priv->nm_client, "wireless-enabled",
-                          priv->turn_on_switch, "active",
-                          G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
-
-  devices = nm_client_get_devices (priv->nm_client);
-  if (devices) {
-    for (i = 0; i < devices->len; i++) {
-      device = g_ptr_array_index (devices, i);
-
-      if (!nm_device_get_managed (device))
-        continue;
-
-      if (nm_device_get_device_type (device) == NM_DEVICE_TYPE_WIFI) {
-        /* FIXME deal with multiple, dynamic devices */
-        priv->nm_device = g_object_ref (device);
-        break;
-      }
-    }
-  }
-
-  if (priv->nm_device == NULL) {
-    g_debug ("No network device found, hiding network page");
-    goto out;
-  }
-
-  /* Allow to always show the network, even if there's an active connection, for
-   * debugging purposes */
-  if (g_getenv ("GIS_ALWAYS_SHOW_NETWORK_PAGE") == NULL &&
-      nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED) {
-    g_debug ("Activated network device found, hiding network page");
-    goto out;
-  }
-
-  visible = TRUE;
-
-  g_signal_connect (priv->nm_device, "notify::state",
-                    G_CALLBACK (device_state_changed), page);
-  g_signal_connect (priv->nm_client, "notify::active-connections",
-                    G_CALLBACK (active_connections_changed), page);
 
   gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->network_list), GTK_SELECTION_NONE);
   gtk_list_box_set_header_func (GTK_LIST_BOX (priv->network_list), update_header_func, NULL, NULL);
@@ -686,12 +770,18 @@ gis_network_page_constructed (GObject *object)
   g_signal_connect (priv->network_list, "row-activated",
                     G_CALLBACK (row_activated), page);
 
-  sync_complete (page);
+  priv->nm_client = nm_client_new (NULL, &error);
+  if (!priv->nm_client) {
+    g_warning ("Can't create NetworkManager client, hiding network page: %s",
+               error->message);
+    sync_complete (page);
+    return;
+  }
 
-  gis_page_set_skippable (GIS_PAGE (page), TRUE);
-
- out:
-  gtk_widget_set_visible (GTK_WIDGET (page), visible);
+  g_object_bind_property (priv->nm_client, "wireless-enabled",
+                          priv->turn_on_switch, "active",
+                          G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+  monitor_network_devices (page);
 }
 
 static void
@@ -716,6 +806,14 @@ gis_network_page_locale_changed (GisPage *page)
 }
 
 static void
+gis_network_page_shown (GisPage *page)
+{
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (GIS_NETWORK_PAGE (page));
+
+  priv->ever_shown = TRUE;
+}
+
+static void
 gis_network_page_class_init (GisNetworkPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -732,6 +830,7 @@ gis_network_page_class_init (GisNetworkPageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_network_page_locale_changed;
+  page_class->shown = gis_network_page_shown;
   object_class->constructed = gis_network_page_constructed;
   object_class->dispose = gis_network_page_dispose;
 }
