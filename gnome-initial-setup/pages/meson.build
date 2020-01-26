@@ -2,7 +2,6 @@ pages = [
    'account',
    'language',
    'keyboard',
-   'eulas',
    'network',
    'timezone',
    'privacy',
