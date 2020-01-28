@@ -14,13 +14,17 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">16</property>
             <child type="center">
               <object class="GtkImage" id="image">
                 <property name="visible">True</property>
                 <property name="resource">/org/gnome/initial-setup/ready-to-go.svg</property>
-                <property name="width_request">96</property>
-                <property name="height_request">96</property>
+                <property name="width_request">128</property>
+                <property name="height_request">128</property>
               </object>
+              <packing>
+                <property name="pack_type">start</property>
+              </packing>
             </child>
             <child>
               <object class="GtkButton" id="start_button">
@@ -28,6 +32,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
+                <property name="halign">center</property>
                 <style>
                   <class name="suggested-action"/>
                 </style>
@@ -37,8 +42,8 @@
                     <property name="can_focus">False</property>
                     <property name="justify">center</property>
                     <property name="wrap">True</property>
-                    <property name="xpad">4</property>
-                    <property name="ypad">4</property>
+                    <property name="xpad">8</property>
+                    <property name="ypad">8</property>
                     <property name="use_underline">True</property>
                   </object>
                 </child>
@@ -52,6 +57,7 @@
                 <property name="visible">True</property>
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
+                <property name="max-width-chars">60</property>
               </object>
               <packing>
                 <property name="pack_type">end</property>
@@ -61,12 +67,11 @@
               <object class="GtkLabel" id="title">
                 <property name="visible">True</property>
                 <property name="justify">center</property>
-                <property name="label" translatable="yes">You’re ready to go!</property>
+                <property name="label" translatable="yes">All done!</property>
                 <property name="wrap">True</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1.8"/>
-                </attributes>
+                <style>
+                  <class name="large-title"/>
+                </style>
               </object>
               <packing>
                 <property name="pack_type">end</property>
