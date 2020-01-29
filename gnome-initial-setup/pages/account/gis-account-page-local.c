@@ -50,6 +50,7 @@ struct _GisAccountPageLocalPrivate
   GtkWidget *header;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
+  GtkWidget *enable_parental_controls_check_button;
   gboolean   has_custom_username;
   GtkWidget *username_explanation;
   UmPhotoDialog *photo_dialog;
@@ -547,6 +548,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_check_button);
 
   object_class->constructed = gis_account_page_local_constructed;
   object_class->dispose = gis_account_page_local_dispose;

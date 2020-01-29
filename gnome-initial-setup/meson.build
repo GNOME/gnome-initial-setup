@@ -36,6 +36,7 @@ dependencies = [
     dependency ('goa-1.0'),
     dependency ('goa-backend-1.0'),
     dependency ('gtk+-3.0', version: '>= 3.11.3'),
+    dependency ('glib-2.0', version: '>= 2.53.0'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
     dependency ('geocode-glib-1.0'),
@@ -51,6 +52,7 @@ dependencies = [
     cheese_dep,
     cheese_gtk_dep,
     ibus_dep,
+    libmalcontent_ui_dep,
 ]
 
 executable(

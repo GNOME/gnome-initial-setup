@@ -29,6 +29,8 @@ conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
+conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_44')
+conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_62')
 
 enable_systemd = get_option('systemd')
 if enable_systemd
@@ -56,6 +58,12 @@ ibus_dep = dependency ('ibus-1.0',
                        version: '>= 1.4.99',
                        required: get_option('ibus'))
 conf.set('HAVE_IBUS', ibus_dep.found())
+
+# Needed for the parental controls pages
+libmalcontent_ui_dep = dependency ('libmalcontent-ui',
+                                   version: '>= 0.5.0',
+                                   required: get_option('parental_controls'))
+conf.set('HAVE_PARENTAL_CONTROLS', libmalcontent_ui_dep.found())
 
 configure_file(output: 'config.h',
                configuration: conf)
