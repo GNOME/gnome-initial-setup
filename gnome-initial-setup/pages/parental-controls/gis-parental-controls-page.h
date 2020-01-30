@@ -33,4 +33,6 @@ G_DECLARE_FINAL_TYPE (GisParentalControlsPage, gis_parental_controls_page, GIS, 
 
 GType gis_parental_controls_page_get_type (void);
 
+GisPage *gis_prepare_parental_controls_page (GisDriver *driver);
+
 G_END_DECLS

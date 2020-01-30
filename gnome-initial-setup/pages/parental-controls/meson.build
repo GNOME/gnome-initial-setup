@@ -1,7 +1,7 @@
 sources += gnome.compile_resources(
   'parental-controls-resources',
   files('parental-controls.gresource.xml'),
-  c_name: 'parental-controls',
+  c_name: 'parental_controls',
 )
 
 sources += files(
