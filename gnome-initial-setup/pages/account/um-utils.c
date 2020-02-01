@@ -479,6 +479,11 @@ generate_username_choices (const gchar  *name,
 
 #define IMAGE_SIZE 512
 
+/* U+1F464 "bust in silhouette"
+ * U+FE0E Variant Selector 15 to force text style (monochrome) emoji
+ */
+#define PLACEHOLDER "\U0001F464\U0000FE0E"
+
 static gchar *
 extract_initials_from_name (const gchar *name)
 {
@@ -487,13 +492,18 @@ extract_initials_from_name (const gchar *name)
         gchar *normalized;
         gunichar unichar;
 
+        if (name == NULL || name[0] == '\0') {
+            g_string_free (initials, TRUE);
+            return g_strdup (PLACEHOLDER);
+        }
+
         p = g_utf8_strup (name, -1);
         normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
         g_clear_pointer (&p, g_free);
         if (normalized == NULL) {
                 g_free (normalized);
-
-                return NULL;
+                g_string_free (initials, TRUE);
+                return g_strdup (PLACEHOLDER);
         }
 
         unichar = g_utf8_get_char (normalized);
@@ -552,12 +562,13 @@ get_color_for_name (const gchar *name)
         gint number_of_colors;
         gint idx;
 
-        if (name == NULL || strlen (name) == 0)
-                return color;
-
-        hash = g_str_hash (name);
-        number_of_colors = G_N_ELEMENTS (gnome_color_palette);
-        idx = hash % number_of_colors;
+        if (name == NULL || name[0] == '\0') {
+                idx = 5;
+        } else {
+                hash = g_str_hash (name);
+                number_of_colors = G_N_ELEMENTS (gnome_color_palette);
+                idx = hash % number_of_colors;
+        }
 
         color.red   = gnome_color_palette[idx][0];
         color.green = gnome_color_palette[idx][1];
