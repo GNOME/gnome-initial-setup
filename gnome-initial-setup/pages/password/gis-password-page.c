@@ -66,18 +66,12 @@ typedef enum
 static GParamSpec *obj_props[PROP_PARENT_MODE + 1];
 
 static void
-set_parent_mode (GisPasswordPage *page,
-                 gboolean         parent_mode)
+update_header (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   const gchar *title, *subtitle;
 
-  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
-
-  if (priv->parent_mode == parent_mode)
-    return;
-
-  if (!parent_mode)
+  if (!priv->parent_mode)
     {
       title = _("Set a User Password");
       subtitle = _("Be careful not to lose your password.");
@@ -92,9 +86,23 @@ set_parent_mode (GisPasswordPage *page,
                 "title", title,
                 "subtitle", subtitle,
                 NULL);
+}
+
+static void
+set_parent_mode (GisPasswordPage *page,
+                 gboolean         parent_mode)
+{
+  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+
+  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
+
+  if (priv->parent_mode == parent_mode)
+    return;
 
   priv->parent_mode = parent_mode;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_PARENT_MODE]);
+
+  update_header (page);
 }
 
 static gboolean
@@ -324,6 +332,7 @@ gis_password_page_constructed (GObject *object)
                     G_CALLBACK (username_changed), page);
 
   validate (page);
+  update_header (page);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
@@ -389,25 +398,6 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  /**
-   * GisPasswordPage:parent-mode:
-   *
-   * If %FALSE (the default), this page will collect a password for the main
-   * user account. If %TRUE, it will collect a password for controlling access
-   * to parental controls — this will affect where the password is stored, and
-   * the appearance of the page.
-   *
-   * Since: 3.36
-   */
-  obj_props[PROP_PARENT_MODE] =
-    g_param_spec_boolean ("parent-mode", "Parent Mode",
-                          "Whether to collect a password for the main user account or a parent account.",
-                          FALSE,
-                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE |
-                          G_PARAM_CONSTRUCT | G_PARAM_CONSTRUCT_ONLY);
-
-  g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
-
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-password-page.ui");
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_entry);
@@ -427,6 +417,24 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   object_class->get_property = gis_password_page_get_property;
   object_class->set_property = gis_password_page_set_property;
   object_class->dispose = gis_password_page_dispose;
+
+  /**
+   * GisPasswordPage:parent-mode:
+   *
+   * If %FALSE (the default), this page will collect a password for the main
+   * user account. If %TRUE, it will collect a password for controlling access
+   * to parental controls — this will affect where the password is stored, and
+   * the appearance of the page.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_PARENT_MODE] =
+    g_param_spec_boolean ("parent-mode", "Parent Mode",
+                          "Whether to collect a password for the main user account or a parent account.",
+                          FALSE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
 static void

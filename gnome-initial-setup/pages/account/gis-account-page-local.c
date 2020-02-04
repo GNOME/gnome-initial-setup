@@ -60,7 +60,6 @@ struct _GisAccountPageLocalPrivate
   GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
 
-  ActUser *act_user;
   ActUserManager *act_client;
 
   GoaClient *goa_client;
@@ -487,7 +486,8 @@ gis_account_page_local_dispose (GObject *object)
 }
 
 static void
-set_user_avatar (GisAccountPageLocal *page)
+set_user_avatar (GisAccountPageLocal *page,
+                 ActUser             *user)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GFile *file = NULL;
@@ -496,7 +496,7 @@ set_user_avatar (GisAccountPageLocal *page)
   GError *error = NULL;
 
   if (priv->avatar_filename != NULL) {
-    act_user_set_icon_file (priv->act_user, priv->avatar_filename);
+    act_user_set_icon_file (user, priv->avatar_filename);
     return;
   }
 
@@ -512,7 +512,7 @@ set_user_avatar (GisAccountPageLocal *page)
   if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
     goto out;
 
-  act_user_set_icon_file (priv->act_user, g_file_get_path (file));
+  act_user_set_icon_file (user, g_file_get_path (file));
 
  out:
   if (error != NULL) {
@@ -529,24 +529,42 @@ local_create_user (GisAccountPageLocal *page)
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   const gchar *username;
   const gchar *fullname;
-  GError *error = NULL;
+  g_autoptr(GError) local_error = NULL;
+  gboolean parental_controls_enabled;
+  g_autoptr(ActUser) main_user = NULL;
+  g_autoptr(ActUser) parent_user = NULL;
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
   fullname = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  parental_controls_enabled = gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver);
 
-  priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
-  if (error != NULL) {
-    g_warning ("Failed to create user: %s", error->message);
-    g_error_free (error);
+  /* Always create the admin user first, in case of failure part-way through
+   * this function, which would leave us with no admin user at all. */
+  if (parental_controls_enabled) {
+    parent_user = act_user_manager_create_user (priv->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, &local_error);
+    if (local_error != NULL) {
+      g_warning ("Failed to create parent user: %s", local_error->message);
+      return;
+    }
+
+    /* TODO We just passed these to the constructor! */
+    act_user_set_user_name (parent_user, parent_username);
+    act_user_set_account_type (parent_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+  }
+
+  /* Now create the main user. */
+  main_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &local_error);
+  if (local_error != NULL) {
+    g_warning ("Failed to create user: %s", local_error->message);
     return;
   }
 
-  act_user_set_user_name (priv->act_user, username);
-  act_user_set_account_type (priv->act_user, priv->account_type);
+  act_user_set_user_name (main_user, username);
+  act_user_set_account_type (main_user, priv->account_type);
 
-  set_user_avatar (page);
+  set_user_avatar (page, main_user);
 
-  g_signal_emit (page, signals[USER_CREATED], 0, priv->act_user, "");
+  g_signal_emit (page, signals[USER_CREATED], 0, main_user, "");
 }
 
 static void
@@ -606,9 +624,13 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
   const gchar *username;
+  gboolean parental_controls_enabled;
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
   gis_driver_set_username (GIS_PAGE (page)->driver, username);
+
+  parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
+  gis_driver_set_parental_controls_enabled (GIS_PAGE (page)->driver, parental_controls_enabled);
 
   return FALSE;
 }

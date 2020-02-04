@@ -9,45 +9,21 @@
         <property name="valign">fill</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkStack" id="stack">
+          <object class="GisPageHeader" id="header">
             <property name="visible">True</property>
-            <property name="valign">start</property>
-            <property name="vexpand">True</property>
-
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <child>
-                  <object class="MctUserControls" id="user_controls">
-                    <property name="visible">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="name">user-controls</property>
-              </packing>
-            </child>
-
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <child>
-                  <object class="MctUserControls" id="user_controls">
-                    <property name="visible">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="name">parent-password</property>
-              </packing>
-            </child>
-
+            <property name="margin-top">24</property>
+            <!-- TODO title and subtitle are set in code, so are not set here -->
+            <property name="title">Parental Controls for Kimberley</property>
+            <property name="subtitle">TODO blasd farsd hngh wuf</property>
+            <!-- TODO: Would be good to use the user avatar instead of an icon -->
+            <property name="icon-name">dialog-password-symbolic</property>
+            <property name="show-icon" bind-source="GisParentalControlsPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
+        </child>
+        <child>
+          <object class="MctUserControls" id="user_controls">
+            <property name="visible">True</property>
+          </object>
         </child>
       </object>
     </child>

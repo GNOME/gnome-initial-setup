@@ -181,6 +181,8 @@ on_local_user_created (GtkWidget      *page_local,
     act_user_set_language (user, language);
 
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver, user, password);
+
+  /* TODO may need to set the parental controls here */
 }
 
 static void
@@ -203,6 +205,8 @@ on_local_user_cached (GtkWidget      *page_local,
     act_user_set_language (user, language);
 
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver, user, password);
+
+  /* TODO may need to set the parental controls here, or disable parental controls in conjunction with ENTERPRISE */
 }
 
 static void

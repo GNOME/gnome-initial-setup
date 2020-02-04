@@ -563,8 +563,16 @@ static void
 set_small_screen_based_on_primary_monitor (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  GdkDisplay *default_display = gdk_display_get_default ();
-  GdkMonitor *primary_monitor = gdk_display_get_primary_monitor (default_display);
+  GdkDisplay *default_display;
+  GdkMonitor *primary_monitor;
+
+  default_display = gdk_display_get_default ();
+  if (default_display == NULL)
+    return;
+
+  primary_monitor = gdk_display_get_primary_monitor (default_display);
+  if (primary_monitor == NULL)
+    return;
 
   priv->small_screen = monitor_is_small (primary_monitor);
 }
@@ -678,7 +686,7 @@ connect_to_gdm (GisDriver *driver)
     priv->user_verifier = gdm_client_get_user_verifier_sync (priv->client, NULL, &error);
 
   if (error != NULL) {
-    g_warning ("Failed to open connection to GDM: %s", error->message);
+    //g_warning ("Failed to open connection to GDM: %s", error->message);
     g_clear_object (&priv->user_verifier);
     g_clear_object (&priv->greeter);
     g_clear_object (&priv->client);
@@ -787,7 +795,7 @@ void
 gis_driver_save_data (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  gis_assistant_save_data (priv->assistant);
+  //gis_assistant_save_data (priv->assistant);
 }
 
 GisDriver *

@@ -33,6 +33,7 @@
 #include <libmalcontent-ui/malcontent-ui.h>
 
 #include "parental-controls-resources.h"
+#include "gis-page-header.h"
 #include "gis-parental-controls-page.h"
 
 struct _GisParentalControlsPage
@@ -81,6 +82,19 @@ gis_parental_controls_page_shown (GisPage *gis_page)
   /* TODO */
 }
 
+/* TODO: I don’t think this does what I think it does */
+static gboolean
+gis_parental_controls_page_skip (GisPage *gis_page)
+{
+  GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
+
+  /* Skip showing the parental controls if they’re not enabled. */
+  if (!gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver))
+    return TRUE;
+
+  return FALSE;
+}
+
 static void
 gis_parental_controls_page_constructed (GObject *object)
 {
@@ -93,6 +107,9 @@ gis_parental_controls_page_constructed (GObject *object)
                     G_CALLBACK (on_validation_changed), page); */
 
   update_page_validation (page);
+
+  mct_user_controls_set_user (page->user_controls, selected_user);
+  mct_user_controls_set_permission (self->user_controls, self->permission);
 
   /* TODO is this necessary? */
   gtk_widget_show (GTK_WIDGET (page));
@@ -118,8 +135,9 @@ gis_parental_controls_page_class_init (GisParentalControlsPageClass *klass)
   page_class->apply = gis_parental_controls_page_apply;
   page_class->save_data = gis_parental_controls_page_save_data;
   page_class->shown = gis_parental_controls_page_shown;
+  page_class->skip = gis_parental_controls_page_skip;
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-parental_controls-page.ui");
+  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-parental-controls-page.ui");
 
   gtk_widget_class_bind_template_child (widget_class, GisParentalControlsPage, user_controls);
 }
@@ -129,6 +147,8 @@ gis_parental_controls_page_init (GisParentalControlsPage *page)
 {
   g_resources_register (parental_controls_get_resource ());
 
+  /* Ensure types exist for widgets in the UI file. */
+  g_type_ensure (GIS_TYPE_PAGE_HEADER);
   g_type_ensure (MCT_TYPE_USER_CONTROLS);
 
   gtk_widget_init_template (GTK_WIDGET (page));
