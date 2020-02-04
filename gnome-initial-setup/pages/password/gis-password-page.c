@@ -46,14 +46,56 @@ struct _GisPasswordPagePrivate
   GtkWidget *password_strength;
   GtkWidget *password_explanation;
   GtkWidget *confirm_explanation;
+  GtkWidget *header;
+
   gboolean valid_confirm;
   gboolean valid_password;
   guint timeout_id;
   const gchar *username;
+  gboolean parent_mode;
 };
 typedef struct _GisPasswordPagePrivate GisPasswordPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisPasswordPage, gis_password_page, GIS_TYPE_PAGE);
+
+typedef enum
+{
+  PROP_PARENT_MODE = 1,
+} GisPasswordPageProperty;
+
+static GParamSpec *obj_props[PROP_PARENT_MODE + 1];
+
+static void
+set_parent_mode (GisPasswordPage *page,
+                 gboolean         parent_mode)
+{
+  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+  const gchar *title, *subtitle;
+
+  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
+
+  if (priv->parent_mode == parent_mode)
+    return;
+
+  if (!parent_mode)
+    {
+      title = _("Set a User Password");
+      subtitle = _("Be careful not to lose your password.");
+    }
+  else
+    {
+      title = _("Set a Parent Password");
+      subtitle = _("This password will control access to the parental controls for the child’s user account.");
+    }
+
+  g_object_set (G_OBJECT (priv->header),
+                "title", title,
+                "subtitle", subtitle,
+                NULL);
+
+  priv->parent_mode = parent_mode;
+  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_PARENT_MODE]);
+}
 
 static gboolean
 page_validate (GisPasswordPage *page)
@@ -83,9 +125,14 @@ gis_password_page_save_data (GisPage *gis_page)
 
   account_mode = gis_driver_get_account_mode (gis_page->driver);
 
-  gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
+  if (!priv->parent_mode)
+    gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
+  else
+    gis_driver_get_parent_permissions (gis_page->driver, &act_user, &password);
 
   if (account_mode == UM_ENTERPRISE) {
+    g_assert (!priv->parent_mode);
+
     if (password != NULL)
       gis_update_login_keyring_password (password);
     return;
@@ -98,9 +145,13 @@ gis_password_page_save_data (GisPage *gis_page)
   else
     act_user_set_password (act_user, password, "");
 
-  gis_driver_set_user_permissions (gis_page->driver, act_user, password);
+  if (!priv->parent_mode)
+    gis_driver_set_user_permissions (gis_page->driver, act_user, password);
+  else
+    gis_driver_set_parent_permissions (gis_page->driver, act_user, password);
 
-  gis_update_login_keyring_password (password);
+  if (!priv->parent_mode)
+    gis_update_login_keyring_password (password);
 }
 
 static void
@@ -110,6 +161,20 @@ gis_password_page_shown (GisPage *gis_page)
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
 
   gtk_widget_grab_focus (priv->password_entry);
+}
+
+static gboolean
+gis_password_page_skip (GisPage *gis_page)
+{
+  GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
+  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+
+  /* Skip prompting for the parent password (`priv->parent_mode`) if parental
+   * controls aren’t enabled (`gis_driver_get_parental_controls_enabled()`). */
+  if (priv->parent_mode && !gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver))
+    return TRUE;
+
+  return FALSE;
 }
 
 static gboolean
@@ -153,6 +218,13 @@ validate (GisPasswordPage *page)
       set_entry_validation_checkmark (GTK_ENTRY (priv->confirm_entry));
     }
   }
+
+  /*
+   * We deliberately don’t validate that the parent password and main user
+   * password are different. It’s more feasible that someone would usefully
+   * want to set their system up that way, than it is that the parent and child
+   * would accidentally choose the same password.
+   */
 
   update_page_validation (page);
 
@@ -257,6 +329,45 @@ gis_password_page_constructed (GObject *object)
 }
 
 static void
+gis_password_page_get_property (GObject    *object,
+                                guint       prop_id,
+                                GValue     *value,
+                                GParamSpec *pspec)
+{
+  GisPasswordPage *page = GIS_PASSWORD_PAGE (object);
+  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+
+  switch ((GisPasswordPageProperty) prop_id)
+    {
+    case PROP_PARENT_MODE:
+      g_value_set_boolean (value, priv->parent_mode);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
+gis_password_page_set_property (GObject      *object,
+                                guint         prop_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  GisPasswordPage *page = GIS_PASSWORD_PAGE (object);
+
+  switch ((GisPasswordPageProperty) prop_id)
+    {
+    case PROP_PARENT_MODE:
+      set_parent_mode (page, g_value_get_boolean (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
+static void
 gis_password_page_dispose (GObject *object)
 {
   if (GIS_PAGE (object)->driver)
@@ -278,6 +389,25 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  /**
+   * GisPasswordPage:parent-mode:
+   *
+   * If %FALSE (the default), this page will collect a password for the main
+   * user account. If %TRUE, it will collect a password for controlling access
+   * to parental controls — this will affect where the password is stored, and
+   * the appearance of the page.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_PARENT_MODE] =
+    g_param_spec_boolean ("parent-mode", "Parent Mode",
+                          "Whether to collect a password for the main user account or a parent account.",
+                          FALSE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE |
+                          G_PARAM_CONSTRUCT | G_PARAM_CONSTRUCT_ONLY);
+
+  g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
+
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-password-page.ui");
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_entry);
@@ -285,13 +415,17 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_strength);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_explanation);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_explanation);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, header);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_password_page_locale_changed;
   page_class->save_data = gis_password_page_save_data;
   page_class->shown = gis_password_page_shown;
+  page_class->skip = gis_password_page_skip;
 
   object_class->constructed = gis_password_page_constructed;
+  object_class->get_property = gis_password_page_get_property;
+  object_class->set_property = gis_password_page_set_property;
   object_class->dispose = gis_password_page_dispose;
 }
 
@@ -321,3 +455,11 @@ gis_prepare_password_page (GisDriver *driver)
                        NULL);
 }
 
+GisPage *
+gis_prepare_parent_password_page (GisDriver *driver)
+{
+  return g_object_new (GIS_TYPE_PASSWORD_PAGE,
+                       "driver", driver,
+                       "parent-mode", TRUE,
+                       NULL);
+}

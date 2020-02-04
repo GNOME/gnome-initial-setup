@@ -13,6 +13,7 @@
             <property name="visible">True</property>
             <property name="valign">start</property>
             <property name="vexpand">True</property>
+
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
@@ -22,7 +23,25 @@
                   </object>
                 </child>
               </object>
+              <packing>
+                <property name="name">user-controls</property>
+              </packing>
             </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <child>
+                  <object class="MctUserControls" id="user_controls">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">parent-password</property>
+              </packing>
+            </child>
+
           </object>
           <packing>
             <property name="expand">False</property>

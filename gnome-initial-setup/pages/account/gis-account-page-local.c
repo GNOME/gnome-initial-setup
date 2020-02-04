@@ -391,6 +391,18 @@ confirm (GisAccountPageLocal *page)
 }
 
 static void
+enable_parental_controls_check_button_toggled_cb (GtkToggleButton *toggle_button,
+                                                  gpointer         user_data)
+{
+  GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (user_data);
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  gboolean parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
+
+  /* TODO: need to ensure administrator account is created first */
+  priv->account_type = parental_controls_enabled ? ACT_USER_ACCOUNT_TYPE_STANDARD : ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+}
+
+static void
 gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
@@ -415,6 +427,8 @@ gis_account_page_local_constructed (GObject *object)
                             "activate", G_CALLBACK (confirm), page);
   g_signal_connect_swapped (priv->fullname_entry, "activate",
                             G_CALLBACK (confirm), page);
+  g_signal_connect (priv->enable_parental_controls_check_button, "toggled",
+                    G_CALLBACK (enable_parental_controls_check_button_toggled_cb), page);
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;

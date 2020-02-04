@@ -71,7 +71,8 @@ static PageData page_table[] = {
   PAGE (goa,      FALSE),
   PAGE (account,  TRUE),
   PAGE (password, TRUE),
-  PAGE (parental_controls, TRUE), /* TODO: new_user_only? */
+  PAGE (parental_controls, TRUE),
+  PAGE (parent_password, TRUE),
   PAGE (summary,  FALSE),
   { NULL },
 };
@@ -266,8 +267,10 @@ main (int argc, char *argv[])
    * the keyring manually so that we can pass the credentials
    * along to the new user in the handoff.
    */
+  /*
   if (mode == GIS_DRIVER_MODE_NEW_USER)
     gis_ensure_login_keyring ();
+   * */
 
   driver = gis_driver_new (mode);
   g_signal_connect (driver, "rebuild-pages", G_CALLBACK (rebuild_pages_cb), NULL);

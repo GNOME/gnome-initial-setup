@@ -78,6 +78,11 @@ struct _GisDriverPrivate {
   ActUser *user_account;
   gchar *user_password;
 
+  ActUser *parent_account;  /* (owned) (nullable) */
+  gchar *parent_password;  /* (owned) (nullable) */
+
+  gboolean parental_controls_enabled;
+
   gchar *lang_id;
   gchar *username;
 
@@ -118,6 +123,9 @@ gis_driver_finalize (GObject *object)
 
   g_clear_object (&priv->user_account);
   g_clear_pointer (&priv->vendor_conf_file, g_key_file_free);
+
+  g_clear_object (&priv->parent_account);
+  g_free (priv->parent_password);
 
   if (priv->locale != (locale_t) 0)
     {
@@ -260,6 +268,33 @@ gis_driver_get_user_permissions (GisDriver    *driver,
   *password = priv->user_password;
 }
 
+/* TODO docs */
+void
+gis_driver_set_parent_permissions (GisDriver   *driver,
+                                   ActUser     *parent,
+                                   const gchar *password)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  g_set_object (&priv->parent_account, parent);
+  g_assert (priv->parent_password == NULL);
+  priv->parent_password = g_strdup (password);
+}
+
+/* TODO docs */
+void
+gis_driver_get_parent_permissions (GisDriver    *driver,
+                                   ActUser     **parent,
+                                   const gchar **password)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (parent != NULL)
+    *parent = priv->parent_account;
+  if (password != NULL)
+    *password = priv->parent_password;
+}
+
 void
 gis_driver_set_account_mode (GisDriver     *driver,
                              UmAccountMode  mode)
@@ -273,6 +308,25 @@ gis_driver_get_account_mode (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->account_mode;
+}
+
+/* TODO docs */
+void
+gis_driver_set_parental_controls_enabled (GisDriver *driver,
+                                          gboolean   parental_controls_enabled)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  priv->parental_controls_enabled = parental_controls_enabled;
+}
+
+/* TODO docs */
+gboolean
+gis_driver_get_parental_controls_enabled (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  return priv->parental_controls_enabled;
 }
 
 gboolean
