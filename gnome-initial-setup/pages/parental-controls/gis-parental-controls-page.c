@@ -82,23 +82,11 @@ gis_parental_controls_page_shown (GisPage *gis_page)
   /* TODO */
 }
 
-/* TODO: I don’t think this does what I think it does */
-static gboolean
-gis_parental_controls_page_skip (GisPage *gis_page)
-{
-  GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
-
-  /* Skip showing the parental controls if they’re not enabled. */
-  if (!gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver))
-    return TRUE;
-
-  return FALSE;
-}
-
 static void
 gis_parental_controls_page_constructed (GObject *object)
 {
   GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (object);
+  g_autoptr(GPermission) permission = NULL;
 
   G_OBJECT_CLASS (gis_parental_controls_page_parent_class)->constructed (object);
 
@@ -108,8 +96,12 @@ gis_parental_controls_page_constructed (GObject *object)
 
   update_page_validation (page);
 
-  mct_user_controls_set_user (page->user_controls, selected_user);
-  mct_user_controls_set_permission (self->user_controls, self->permission);
+  //mct_user_controls_set_user (MCT_USER_CONTROLS (page->user_controls), selected_user);
+
+  /* The gnome-initial-setup user should always be allowed to set parental
+   * controls. */
+  permission = g_simple_permission_new (TRUE);
+  // TODO makes controls disappear mct_user_controls_set_permission (MCT_USER_CONTROLS (page->user_controls), permission);
 
   /* TODO is this necessary? */
   gtk_widget_show (GTK_WIDGET (page));
@@ -135,7 +127,6 @@ gis_parental_controls_page_class_init (GisParentalControlsPageClass *klass)
   page_class->apply = gis_parental_controls_page_apply;
   page_class->save_data = gis_parental_controls_page_save_data;
   page_class->shown = gis_parental_controls_page_shown;
-  page_class->skip = gis_parental_controls_page_skip;
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-parental-controls-page.ui");
 
@@ -157,6 +148,10 @@ gis_parental_controls_page_init (GisParentalControlsPage *page)
 GisPage *
 gis_prepare_parental_controls_page (GisDriver *driver)
 {
+  /* Skip parental controls if they’re not enabled. */
+  if (!gis_driver_get_parental_controls_enabled (driver))
+    return NULL;
+
   return g_object_new (GIS_TYPE_PARENTAL_CONTROLS_PAGE,
                        "driver", driver,
                        NULL);

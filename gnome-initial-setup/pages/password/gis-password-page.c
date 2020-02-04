@@ -172,20 +172,6 @@ gis_password_page_shown (GisPage *gis_page)
 }
 
 static gboolean
-gis_password_page_skip (GisPage *gis_page)
-{
-  GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-
-  /* Skip prompting for the parent password (`priv->parent_mode`) if parental
-   * controls aren’t enabled (`gis_driver_get_parental_controls_enabled()`). */
-  if (priv->parent_mode && !gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver))
-    return TRUE;
-
-  return FALSE;
-}
-
-static gboolean
 validate (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
@@ -411,7 +397,6 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   page_class->locale_changed = gis_password_page_locale_changed;
   page_class->save_data = gis_password_page_save_data;
   page_class->shown = gis_password_page_shown;
-  page_class->skip = gis_password_page_skip;
 
   object_class->constructed = gis_password_page_constructed;
   object_class->get_property = gis_password_page_get_property;
@@ -466,6 +451,10 @@ gis_prepare_password_page (GisDriver *driver)
 GisPage *
 gis_prepare_parent_password_page (GisDriver *driver)
 {
+  /* Skip prompting for the parent password if parental controls aren’t enabled. */
+  if (!gis_driver_get_parental_controls_enabled (driver))
+    return NULL;
+
   return g_object_new (GIS_TYPE_PASSWORD_PAGE,
                        "driver", driver,
                        "parent-mode", TRUE,

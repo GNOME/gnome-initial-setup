@@ -317,7 +317,11 @@ gis_driver_set_parental_controls_enabled (GisDriver *driver,
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
+  if (priv->parental_controls_enabled == parental_controls_enabled)
+    return;
+
   priv->parental_controls_enabled = parental_controls_enabled;
+  rebuild_pages (driver);
 }
 
 /* TODO docs */

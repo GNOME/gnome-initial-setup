@@ -541,6 +541,9 @@ local_create_user (GisAccountPageLocal *page)
   /* Always create the admin user first, in case of failure part-way through
    * this function, which would leave us with no admin user at all. */
   if (parental_controls_enabled) {
+    const gchar *parent_username = "administrator";
+    const gchar *parent_fullname = _("Administrator");
+
     parent_user = act_user_manager_create_user (priv->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, &local_error);
     if (local_error != NULL) {
       g_warning ("Failed to create parent user: %s", local_error->message);
