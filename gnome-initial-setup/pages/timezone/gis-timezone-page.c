@@ -71,6 +71,7 @@ struct _GisTimezonePagePrivate
   gboolean in_geoclue_callback;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
+  GCancellable *dtm_cancellable;
 
   GnomeWallClock *clock;
   GDesktopClockFormat clock_format;
@@ -112,7 +113,7 @@ queue_set_timezone (GisTimezonePage *page,
   timedate1_call_set_timezone (priv->dtm,
                                tzid,
                                TRUE,
-                               NULL,
+                               priv->dtm_cancellable,
                                set_timezone_cb,
                                page);
 }
@@ -399,12 +400,14 @@ gis_timezone_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
+  priv->dtm_cancellable = g_cancellable_new ();
+
   error = NULL;
   priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                 G_DBUS_PROXY_FLAGS_NONE,
                                                 "org.freedesktop.timedate1",
                                                 "/org/freedesktop/timedate1",
-                                                NULL,
+                                                priv->dtm_cancellable,
                                                 &error);
   if (priv->dtm == NULL) {
     g_error ("Failed to create proxy for timedated: %s", error->message);
@@ -443,6 +446,12 @@ gis_timezone_page_dispose (GObject *object)
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   stop_geolocation (page);
+
+  if (priv->dtm_cancellable != NULL)
+    {
+      g_cancellable_cancel (priv->dtm_cancellable);
+      g_clear_object (&priv->dtm_cancellable);
+    }
 
   g_clear_object (&priv->dtm);
   g_clear_object (&priv->clock);
