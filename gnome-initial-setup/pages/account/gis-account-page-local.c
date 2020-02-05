@@ -74,7 +74,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageLocal, gis_account_page_local, GTK_TYP
 
 enum {
   VALIDATION_CHANGED,
-  USER_CREATED,
+  MAIN_USER_CREATED,
+  PARENT_USER_CREATED,
   CONFIRM,
   LAST_SIGNAL,
 };
@@ -553,6 +554,8 @@ local_create_user (GisAccountPageLocal *page)
     /* TODO We just passed these to the constructor! */
     act_user_set_user_name (parent_user, parent_username);
     act_user_set_account_type (parent_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+
+    g_signal_emit (page, signals[PARENT_USER_CREATED], 0, parent_user, "");
   }
 
   /* Now create the main user. */
@@ -567,7 +570,7 @@ local_create_user (GisAccountPageLocal *page)
 
   set_user_avatar (page, main_user);
 
-  g_signal_emit (page, signals[USER_CREATED], 0, main_user, "");
+  g_signal_emit (page, signals[MAIN_USER_CREATED], 0, main_user, "");
 }
 
 static void
@@ -592,9 +595,13 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
                                               G_TYPE_NONE, 0);
 
-  signals[USER_CREATED] = g_signal_new ("user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
-                                        G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
-                                        G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
+  signals[MAIN_USER_CREATED] = g_signal_new ("main-user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
+                                             G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
+                                             G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
+
+  signals[PARENT_USER_CREATED] = g_signal_new ("parent-user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
+                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
+                                               G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
 
   signals[CONFIRM] = g_signal_new ("confirm", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
                                    G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
@@ -626,11 +633,14 @@ gboolean
 gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
-  const gchar *username;
+  const gchar *username, *full_name;
   gboolean parental_controls_enabled;
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
   gis_driver_set_username (GIS_PAGE (page)->driver, username);
+
+  full_name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  gis_driver_set_full_name (GIS_PAGE (page)->driver, full_name);
 
   parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
   gis_driver_set_parental_controls_enabled (GIS_PAGE (page)->driver, parental_controls_enabled);

@@ -69,17 +69,20 @@ static void
 update_header (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-  const gchar *title, *subtitle;
+  g_autofree gchar *title = NULL;
+  const gchar *subtitle;
 
   if (!priv->parent_mode)
     {
-      title = _("Set a User Password");
+      /* Translators: The placeholder is for the user’s full name. */
+      title = g_strdup_printf (_("Set a Password for %s"),
+                               gis_driver_get_full_name (GIS_PAGE (page)->driver));
       subtitle = _("Be careful not to lose your password.");
     }
   else
     {
-      title = _("Set a Parent Password");
-      subtitle = _("This password will control access to the parental controls for the child’s user account.");
+      title = g_strdup (_("Set a Parent Password"));
+      subtitle = _("This password will control access to the parental controls for the system.");
     }
 
   g_object_set (G_OBJECT (priv->header),

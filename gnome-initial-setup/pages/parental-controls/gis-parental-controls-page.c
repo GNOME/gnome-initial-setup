@@ -40,38 +40,52 @@ struct _GisParentalControlsPage
 {
   GisPage parent_instance;
 
+  GtkWidget *header;
   GtkWidget *user_controls;
 };
 
 G_DEFINE_TYPE (GisParentalControlsPage, gis_parental_controls_page, GIS_TYPE_PAGE)
 
-static gboolean
-page_validate (GisParentalControlsPage *page)
-{
-  /* TODO */
-}
-
-static void
-update_page_validation (GisParentalControlsPage *page)
-{
-  gis_page_set_complete (GIS_PAGE (page), page_validate (page));
-}
-
-static gboolean
-gis_parental_controls_page_apply (GisPage      *gis_page,
-                                  GCancellable *cancellable)
-{
-  GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
-
-  /* TODO */
-}
-
 static void
 gis_parental_controls_page_save_data (GisPage *gis_page)
 {
   GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
+  g_autoptr(GDBusConnection) system_bus = NULL;
+  g_autoptr(MctManager) manager = NULL;
+  g_auto(MctAppFilterBuilder) builder = MCT_APP_FILTER_BUILDER_INIT ();
+  g_autoptr(MctAppFilter) app_filter = NULL;
+  g_autoptr(GError) local_error = NULL;
+  ActUser *main_user;
 
-  /* TODO: create the user and set the parental controls */
+  /* The parent and child users are created by the #GisAccountPage earlier in
+   * the save_data() process. We now need to set the parental controls on the
+   * child user. */
+  gis_driver_get_user_permissions (gis_page->driver, &main_user, NULL);
+
+  mct_user_controls_build_app_filter (MCT_USER_CONTROLS (page->user_controls), &builder);
+  app_filter = mct_app_filter_builder_end (&builder);
+
+  /* FIXME: should become asynchronous */
+  system_bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &local_error);
+  if (system_bus == NULL)
+    {
+      g_warning ("Error getting system bus while setting up parental controls: %s", local_error->message);
+      return;
+    }
+
+  manager = mct_manager_new (system_bus);
+  mct_manager_set_app_filter (manager,
+                              act_user_get_uid (main_user),
+                              app_filter,
+                              MCT_MANAGER_SET_VALUE_FLAGS_NONE,
+                              NULL,
+                              &local_error);
+
+  if (local_error != NULL)
+    {
+      g_warning ("Error setting parental controls: %s", local_error->message);
+      return;
+    }
 }
 
 static void
@@ -79,7 +93,24 @@ gis_parental_controls_page_shown (GisPage *gis_page)
 {
   GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
 
-  /* TODO */
+  gtk_widget_grab_focus (page->user_controls);
+}
+
+static void
+update_header (GisParentalControlsPage *page)
+{
+  g_autofree gchar *title = NULL;
+  const gchar *subtitle;
+
+  /* Translators: The placeholder is the user’s full name. */
+  title = g_strdup_printf (_("Parental Controls for %s"),
+                           gis_driver_get_full_name (GIS_PAGE (page)->driver));
+  subtitle = _("TODO blasd farsd hngh wuf");
+
+  g_object_set (G_OBJECT (page->header),
+                "title", title,
+                "subtitle", subtitle,
+                NULL);
 }
 
 static void
@@ -87,6 +118,8 @@ gis_parental_controls_page_constructed (GObject *object)
 {
   GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (object);
   g_autoptr(GPermission) permission = NULL;
+  g_auto(MctAppFilterBuilder) builder = MCT_APP_FILTER_BUILDER_INIT ();
+  g_autoptr(MctAppFilter) app_filter = NULL;
 
   G_OBJECT_CLASS (gis_parental_controls_page_parent_class)->constructed (object);
 
@@ -94,23 +127,41 @@ gis_parental_controls_page_constructed (GObject *object)
   g_signal_connect (priv->page_local, "validation-changed",
                     G_CALLBACK (on_validation_changed), page); */
 
-  update_page_validation (page);
+  /* No validation needed. */
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
 
-  //mct_user_controls_set_user (MCT_USER_CONTROLS (page->user_controls), selected_user);
+  /* Set up the user controls. We can’t set #MctUserControls:user because
+   * there’s no way to represent a not-yet-created user using an #ActUser. */
+  mct_user_controls_set_user_account_type (MCT_USER_CONTROLS (page->user_controls),
+                                           ACT_USER_ACCOUNT_TYPE_STANDARD);
+  mct_user_controls_set_user_locale (MCT_USER_CONTROLS (page->user_controls),
+                                     gis_driver_get_user_language (GIS_PAGE (page)->driver));
+  mct_user_controls_set_user_display_name (MCT_USER_CONTROLS (page->user_controls),
+                                           gis_driver_get_full_name (GIS_PAGE (page)->driver));
+
+  app_filter = mct_app_filter_builder_end (&builder);
+  mct_user_controls_set_app_filter (MCT_USER_CONTROLS (page->user_controls), app_filter);
 
   /* The gnome-initial-setup user should always be allowed to set parental
    * controls. */
   permission = g_simple_permission_new (TRUE);
-  // TODO makes controls disappear mct_user_controls_set_permission (MCT_USER_CONTROLS (page->user_controls), permission);
+  mct_user_controls_set_permission (MCT_USER_CONTROLS (page->user_controls), permission);
+
+  update_header (page);
 
   /* TODO is this necessary? */
   gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void
-gis_parental_controls_page_locale_changed (GisPage *page)
+gis_parental_controls_page_locale_changed (GisPage *gis_page)
 {
-  gis_page_set_title (GIS_PAGE (page), _("Parental Controls"));
+  GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
+
+  gis_page_set_title (gis_page, _("Parental Controls"));
+
+  /* TODO */
+  update_header (page);
 }
 
 static void
@@ -124,12 +175,12 @@ gis_parental_controls_page_class_init (GisParentalControlsPageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_parental_controls_page_locale_changed;
-  page_class->apply = gis_parental_controls_page_apply;
   page_class->save_data = gis_parental_controls_page_save_data;
   page_class->shown = gis_parental_controls_page_shown;
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-parental-controls-page.ui");
 
+  gtk_widget_class_bind_template_child (widget_class, GisParentalControlsPage, header);
   gtk_widget_class_bind_template_child (widget_class, GisParentalControlsPage, user_controls);
 }
 

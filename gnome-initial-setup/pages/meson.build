@@ -10,7 +10,7 @@ pages = [
    'summary',
 ]
 
-if libmalcontent_ui_dep.found()
+if libmalcontent_dep.found() and libmalcontent_ui_dep.found()
   pages += 'parental-controls'
 endif
 

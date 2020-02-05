@@ -62,6 +62,7 @@ enum {
   PROP_MODE,
   PROP_USERNAME,
   PROP_SMALL_SCREEN,
+  PROP_FULL_NAME,
   PROP_LAST,
 };
 
@@ -85,6 +86,7 @@ struct _GisDriverPrivate {
 
   gchar *lang_id;
   gchar *username;
+  gchar *full_name;  /* (owned) (nullable) */
 
   GisDriverMode mode;
   UmAccountMode account_mode;
@@ -119,6 +121,7 @@ gis_driver_finalize (GObject *object)
 
   g_free (priv->lang_id);
   g_free (priv->username);
+  g_free (priv->full_name);
   g_free (priv->user_password);
 
   g_clear_object (&priv->user_account);
@@ -248,6 +251,36 @@ gis_driver_get_username (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->username;
 }
+
+/* TODO docs */
+void
+gis_driver_set_full_name (GisDriver   *driver,
+                          const gchar *full_name)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_if_fail (GIS_IS_DRIVER (driver));
+  g_return_if_fail (full_name == NULL ||
+                        g_utf8_validate (full_name, -1, NULL));
+
+  if (g_strcmp0 (priv->full_name, full_name) == 0)
+    return;
+
+  g_free (priv->full_name);
+  priv->full_name = g_strdup (full_name);
+
+  g_object_notify (G_OBJECT (driver), "full-name");
+}
+
+/* TODO docs */
+const gchar *
+gis_driver_get_full_name (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
+
+  return priv->full_name;
+}
+
 void
 gis_driver_set_user_permissions (GisDriver   *driver,
                                  ActUser     *user,
@@ -501,6 +534,9 @@ gis_driver_get_property (GObject      *object,
     case PROP_SMALL_SCREEN:
       g_value_set_boolean (value, priv->small_screen);
       break;
+    case PROP_FULL_NAME:
+      g_value_set_string (value, priv->full_name);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -523,6 +559,9 @@ gis_driver_set_property (GObject      *object,
     case PROP_USERNAME:
       g_free (priv->username);
       priv->username = g_value_dup_string (value);
+      break;
+    case PROP_FULL_NAME:
+      gis_driver_set_full_name (driver, g_value_get_string (value));
       break;
    default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -791,6 +830,12 @@ gis_driver_class_init (GisDriverClass *klass)
     g_param_spec_boolean ("small-screen", "", "",
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /* TODO docs */
+  obj_props[PROP_FULL_NAME] =
+    g_param_spec_string ("full-name", "", "",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
 }

@@ -60,10 +60,13 @@ ibus_dep = dependency ('ibus-1.0',
 conf.set('HAVE_IBUS', ibus_dep.found())
 
 # Needed for the parental controls pages
+libmalcontent_dep = dependency ('malcontent-0',
+                                version: '>= 0.5.0',
+                                required: get_option('parental_controls'))
 libmalcontent_ui_dep = dependency ('malcontent-ui-0',
                                    version: '>= 0.5.0',
                                    required: get_option('parental_controls'))
-conf.set('HAVE_PARENTAL_CONTROLS', libmalcontent_ui_dep.found())
+conf.set('HAVE_PARENTAL_CONTROLS', libmalcontent_dep.found() and libmalcontent_ui_dep.found())
 
 configure_file(output: 'config.h',
                configuration: conf)

@@ -169,10 +169,10 @@ gis_account_page_shown (GisPage *gis_page)
 }
 
 static void
-on_local_user_created (GtkWidget      *page_local,
-                       ActUser        *user,
-                       char           *password,
-                       GisAccountPage *page)
+on_local_main_user_created (GtkWidget      *page_local,
+                            ActUser        *user,
+                            const gchar    *password,
+                            GisAccountPage *page)
 {
   const gchar *language;
 
@@ -181,8 +181,21 @@ on_local_user_created (GtkWidget      *page_local,
     act_user_set_language (user, language);
 
   gis_driver_set_user_permissions (GIS_PAGE (page)->driver, user, password);
+}
 
-  /* TODO may need to set the parental controls here */
+static void
+on_local_parent_user_created (GtkWidget      *page_local,
+                              ActUser        *user,
+                              const gchar    *password,
+                              GisAccountPage *page)
+{
+  const gchar *language;
+
+  language = gis_driver_get_user_language (GIS_PAGE (page)->driver);
+  if (language)
+    act_user_set_language (user, language);
+
+  gis_driver_set_parent_permissions (GIS_PAGE (page)->driver, user, password);
 }
 
 static void
@@ -234,8 +247,10 @@ gis_account_page_constructed (GObject *object)
 
   g_signal_connect (priv->page_local, "validation-changed",
                     G_CALLBACK (on_validation_changed), page);
-  g_signal_connect (priv->page_local, "user-created",
-                    G_CALLBACK (on_local_user_created), page);
+  g_signal_connect (priv->page_local, "main-user-created",
+                    G_CALLBACK (on_local_main_user_created), page);
+  g_signal_connect (priv->page_local, "parent-user-created",
+                    G_CALLBACK (on_local_parent_user_created), page);
   g_signal_connect (priv->page_local, "confirm",
                     G_CALLBACK (on_local_page_confirmed), page);
 
