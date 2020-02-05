@@ -526,9 +526,6 @@ local_create_user (GisAccountPageLocal *page)
     return;
   }
 
-  act_user_set_user_name (priv->act_user, username);
-  act_user_set_account_type (priv->act_user, priv->account_type);
-
   set_user_avatar (page);
 
   g_signal_emit (page, signals[USER_CREATED], 0, priv->act_user, "");
