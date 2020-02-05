@@ -57,15 +57,13 @@ enum {
 
 static guint signals[LAST_SIGNAL];
 
-enum {
-  PROP_0,
-  PROP_MODE,
+typedef enum {
+  PROP_MODE = 1,
   PROP_USERNAME,
   PROP_SMALL_SCREEN,
-  PROP_LAST,
-};
+} GisDriverProperty;
 
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_SMALL_SCREEN + 1];
 
 struct _GisDriverPrivate {
   GtkWindow *main_window;
@@ -432,7 +430,7 @@ gis_driver_get_property (GObject      *object,
 {
   GisDriver *driver = GIS_DRIVER (object);
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  switch (prop_id)
+  switch ((GisDriverProperty) prop_id)
     {
     case PROP_MODE:
       g_value_set_enum (value, priv->mode);
@@ -457,7 +455,7 @@ gis_driver_set_property (GObject      *object,
 {
   GisDriver *driver = GIS_DRIVER (object);
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  switch (prop_id)
+  switch ((GisDriverProperty) prop_id)
     {
     case PROP_MODE:
       priv->mode = g_value_get_enum (value);
@@ -726,7 +724,7 @@ gis_driver_class_init (GisDriverClass *klass)
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
-  g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
+  g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
 void
