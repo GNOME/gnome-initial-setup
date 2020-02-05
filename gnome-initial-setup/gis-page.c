@@ -390,3 +390,4 @@ gis_page_skip (GisPage *page)
     return GIS_PAGE_GET_CLASS (page)->skip (page);
   return TRUE;
 }
+

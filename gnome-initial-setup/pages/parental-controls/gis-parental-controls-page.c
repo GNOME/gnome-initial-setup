@@ -100,17 +100,24 @@ static void
 update_header (GisParentalControlsPage *page)
 {
   g_autofree gchar *title = NULL;
-  const gchar *subtitle;
+  const gchar *subtitle, *icon_name;
+  GdkPixbuf *pixbuf;
 
   /* Translators: The placeholder is the user’s full name. */
   title = g_strdup_printf (_("Parental Controls for %s"),
                            gis_driver_get_full_name (GIS_PAGE (page)->driver));
   subtitle = _("TODO blasd farsd hngh wuf");
+  pixbuf = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+  icon_name = (pixbuf != NULL) ? NULL : "dialog-password-symbolic";
 
   g_object_set (G_OBJECT (page->header),
                 "title", title,
                 "subtitle", subtitle,
                 NULL);
+  if (pixbuf != NULL)
+    g_object_set (G_OBJECT (priv->header), "pixbuf", pixbuf, NULL);
+  else if (icon_name != NULL)
+    g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
 }
 
 static void

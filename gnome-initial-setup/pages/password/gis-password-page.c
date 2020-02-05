@@ -70,7 +70,8 @@ update_header (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   g_autofree gchar *title = NULL;
-  const gchar *subtitle;
+  const gchar *subtitle, *icon_name;
+  GdkPixbuf *pixbuf;
 
   if (!priv->parent_mode)
     {
@@ -78,17 +79,29 @@ update_header (GisPasswordPage *page)
       title = g_strdup_printf (_("Set a Password for %s"),
                                gis_driver_get_full_name (GIS_PAGE (page)->driver));
       subtitle = _("Be careful not to lose your password.");
+      pixbuf = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+      icon_name = (pixbuf != NULL) ? NULL : "dialog-password-symbolic";
     }
   else
     {
       title = g_strdup (_("Set a Parent Password"));
       subtitle = _("This password will control access to the parental controls for the system.");
+      /* TODO: Can we get a different icon for the parent password? */
+      icon_name = "dialog-password-symbolic";
+      pixbuf = NULL;
     }
+
+  /* Doesn’t make sense to set both. */
+  g_assert (icon_name == NULL || pixbuf == NULL);
 
   g_object_set (G_OBJECT (priv->header),
                 "title", title,
                 "subtitle", subtitle,
                 NULL);
+  if (pixbuf != NULL)
+    g_object_set (G_OBJECT (priv->header), "pixbuf", pixbuf, NULL);
+  else if (icon_name != NULL)
+    g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
 }
 
 static void
