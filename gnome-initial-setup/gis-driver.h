@@ -75,6 +75,14 @@ void gis_driver_get_user_permissions (GisDriver    *driver,
                                       ActUser     **user,
                                       const gchar **password);
 
+void gis_driver_set_parent_permissions (GisDriver   *driver,
+                                        ActUser     *parent,
+                                        const gchar *password);
+
+void gis_driver_get_parent_permissions (GisDriver    *driver,
+                                        ActUser     **parent,
+                                        const gchar **password);
+
 void gis_driver_set_account_mode (GisDriver     *driver,
                                   UmAccountMode  mode);
 
