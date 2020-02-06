@@ -52,6 +52,8 @@ dependencies = [
     cheese_dep,
     cheese_gtk_dep,
     ibus_dep,
+    libmalcontent_dep,
+    libmalcontent_ui_dep,
 ]
 
 executable(

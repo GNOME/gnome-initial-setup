@@ -39,6 +39,7 @@
 #include "pages/privacy/gis-privacy-page.h"
 #include "pages/goa/gis-goa-page.h"
 #include "pages/account/gis-account-pages.h"
+#include "pages/parental-controls/gis-parental-controls-page.h"
 #include "pages/password/gis-password-page.h"
 #include "pages/summary/gis-summary-page.h"
 
@@ -71,6 +72,7 @@ static PageData page_table[] = {
   PAGE (account,  TRUE),
   PAGE (password, TRUE),
 #ifdef HAVE_PARENTAL_CONTROLS
+  PAGE (parental_controls, TRUE),
   PAGE (parent_password, TRUE),
 #endif
   PAGE (summary,  FALSE),

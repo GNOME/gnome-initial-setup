@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <template class="GisParentalControlsPage" parent="GisPage">
+    <child>
+      <object class="GtkBox" id="page">
+        <property name="visible">True</property>
+        <property name="halign">center</property>
+        <property name="valign">fill</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GisPageHeader" id="header">
+            <property name="visible">True</property>
+            <property name="margin-top">24</property>
+            <!-- title and subtitle are set in code, so are not set here -->
+            <property name="icon-name">dialog-password-symbolic</property>
+            <property name="show-icon" bind-source="GisParentalControlsPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+          </object>
+        </child>
+        <child>
+          <object class="MctUserControls" id="user_controls">
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
