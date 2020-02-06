@@ -264,7 +264,7 @@ main (int argc, char *argv[])
    * the keyring manually so that we can pass the credentials
    * along to the new user in the handoff.
    */
-  if (mode == GIS_DRIVER_MODE_NEW_USER)
+  if (mode == GIS_DRIVER_MODE_NEW_USER && !gis_get_mock_mode ())
     gis_ensure_login_keyring ();
 
   driver = gis_driver_new (mode);
@@ -297,4 +297,21 @@ gis_ensure_stamp_files (void)
       g_clear_error (&error);
   }
   g_free (file);
+}
+
+/**
+ * gis_get_mock_mode:
+ *
+ * Gets whether gnome-initial-setup has been built for development, and hence
+ * shouldn’t permanently change any system configuration.
+ *
+ * By default, mock mode is enabled for unstable releases only. This heuristic
+ * may be changed in future.
+ *
+ * Returns: %TRUE if in mock mode, %FALSE otherwise
+ */
+gboolean
+gis_get_mock_mode (void)
+{
+  return ((GIS_MINOR_VERSION % 2) != 0);
 }
