@@ -9,6 +9,15 @@ before_script:
 .job_template: &job_definition
   stage: build
   script:
+    # FIXME: We can’t install malcontent via dnf until it’s packaged in Fedora,
+    # so build it manually.
+    - git clone https://gitlab.freedesktop.org/pwithnall/malcontent.git ./malcontent
+    - pushd ./malcontent
+    - git checkout master # TODO: tags/0.5.0 once released
+    - meson setup ${MESON_COMMON_OPTIONS} _build
+    - ninja -C _build
+    - sudo ninja -C _build install
+    - popd
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
