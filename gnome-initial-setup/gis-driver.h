@@ -103,6 +103,10 @@ void gis_driver_set_username (GisDriver   *driver,
                               const gchar *username);
 const gchar *gis_driver_get_username (GisDriver *driver);
 
+void gis_driver_set_full_name (GisDriver   *driver,
+                               const gchar *full_name);
+const gchar *gis_driver_get_full_name (GisDriver *driver);
+
 gboolean gis_driver_get_gdm_objects (GisDriver        *driver,
                                      GdmGreeter      **greeter,
                                      GdmUserVerifier **user_verifier);
