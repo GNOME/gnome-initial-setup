@@ -37,6 +37,8 @@ typedef struct _GisPage        GisPage;
 typedef struct _GisPageClass   GisPageClass;
 typedef struct _GisAssistantPagePrivate GisAssistantPagePrivate;
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GisPage, g_object_unref)
+
 typedef void (* GisPageApplyCallback) (GisPage *page,
                                        gboolean valid,
                                        gpointer user_data);
