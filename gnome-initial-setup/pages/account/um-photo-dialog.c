@@ -190,7 +190,7 @@ static GtkWidget *
 create_face_widget (gpointer item,
                     gpointer user_data)
 {
-        GdkPixbuf *pixbuf = NULL;
+        g_autoptr(GdkPixbuf) pixbuf = NULL;
         GtkWidget *image;
         g_autofree gchar *path = g_file_get_path (G_FILE (item));
 
@@ -198,11 +198,12 @@ create_face_widget (gpointer item,
                                                    AVATAR_PIXEL_SIZE,
                                                    AVATAR_PIXEL_SIZE,
                                                    NULL);
-        if (pixbuf == NULL)
-                return NULL;
 
-        image = gtk_image_new_from_pixbuf (round_image (pixbuf));
-        g_object_unref (pixbuf);
+        if (pixbuf != NULL)
+                image = gtk_image_new_from_pixbuf (round_image (pixbuf));
+        else
+                image = gtk_image_new ();
+
         gtk_image_set_pixel_size (GTK_IMAGE (image), AVATAR_PIXEL_SIZE);
 
         gtk_widget_show (image);
