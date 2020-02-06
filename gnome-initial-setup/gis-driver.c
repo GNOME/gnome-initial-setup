@@ -61,9 +61,10 @@ typedef enum {
   PROP_MODE = 1,
   PROP_USERNAME,
   PROP_SMALL_SCREEN,
+  PROP_PARENTAL_CONTROLS_ENABLED,
 } GisDriverProperty;
 
-static GParamSpec *obj_props[PROP_SMALL_SCREEN + 1];
+static GParamSpec *obj_props[PROP_PARENTAL_CONTROLS_ENABLED + 1];
 
 struct _GisDriverPrivate {
   GtkWindow *main_window;
@@ -75,6 +76,8 @@ struct _GisDriverPrivate {
 
   ActUser *user_account;
   gchar *user_password;
+
+  gboolean parental_controls_enabled;
 
   gchar *lang_id;
   gchar *username;
@@ -273,6 +276,47 @@ gis_driver_get_account_mode (GisDriver *driver)
   return priv->account_mode;
 }
 
+/**
+ * gis_driver_set_parental_controls_enabled:
+ * @driver: a #GisDriver
+ * @parental_controls_enabled: whether parental controls are enabled for the main user
+ *
+ * Set the #GisDriver:parental-controls-enabled property.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_parental_controls_enabled (GisDriver *driver,
+                                          gboolean   parental_controls_enabled)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (priv->parental_controls_enabled == parental_controls_enabled)
+    return;
+
+  priv->parental_controls_enabled = parental_controls_enabled;
+  rebuild_pages (driver);
+
+  g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_PARENTAL_CONTROLS_ENABLED]);
+}
+
+/**
+ * gis_driver_get_parental_controls_enabled:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:parental-controls-enabled property.
+ *
+ * Returns: whether parental controls are enabled for the main user
+ * Since: 3.36
+ */
+gboolean
+gis_driver_get_parental_controls_enabled (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  return priv->parental_controls_enabled;
+}
+
 gboolean
 gis_driver_get_gdm_objects (GisDriver        *driver,
                             GdmGreeter      **greeter,
@@ -441,6 +485,9 @@ gis_driver_get_property (GObject      *object,
     case PROP_SMALL_SCREEN:
       g_value_set_boolean (value, priv->small_screen);
       break;
+    case PROP_PARENTAL_CONTROLS_ENABLED:
+      g_value_set_boolean (value, priv->parental_controls_enabled);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -463,6 +510,9 @@ gis_driver_set_property (GObject      *object,
     case PROP_USERNAME:
       g_free (priv->username);
       priv->username = g_value_dup_string (value);
+      break;
+    case PROP_PARENTAL_CONTROLS_ENABLED:
+      gis_driver_set_parental_controls_enabled (driver, g_value_get_boolean (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -731,6 +781,23 @@ gis_driver_class_init (GisDriverClass *klass)
     g_param_spec_boolean ("small-screen", "", "",
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * GisDriver:parental-controls-enabled:
+   *
+   * Whether parental controls are enabled for the main user. If this is %TRUE,
+   * two user accounts will be created when this page is saved: one for the main
+   * user (a child) which will be a standard account; and one for the parent
+   * which will be an administrative account.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_PARENTAL_CONTROLS_ENABLED] =
+    g_param_spec_boolean ("parental-controls-enabled",
+                          "Parental Controls Enabled",
+                          "Whether parental controls are enabled for the main user.",
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }
