@@ -107,6 +107,10 @@ void gis_driver_set_full_name (GisDriver   *driver,
                                const gchar *full_name);
 const gchar *gis_driver_get_full_name (GisDriver *driver);
 
+void gis_driver_set_avatar (GisDriver *driver,
+                            GdkPixbuf *avatar);
+GdkPixbuf *gis_driver_get_avatar (GisDriver *driver);
+
 gboolean gis_driver_get_gdm_objects (GisDriver        *driver,
                                      GdmGreeter      **greeter,
                                      GdmUserVerifier **user_verifier);
