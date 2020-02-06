@@ -63,9 +63,10 @@ typedef enum {
   PROP_SMALL_SCREEN,
   PROP_PARENTAL_CONTROLS_ENABLED,
   PROP_FULL_NAME,
+  PROP_AVATAR,
 } GisDriverProperty;
 
-static GParamSpec *obj_props[PROP_FULL_NAME + 1];
+static GParamSpec *obj_props[PROP_AVATAR + 1];
 
 struct _GisDriverPrivate {
   GtkWindow *main_window;
@@ -86,6 +87,8 @@ struct _GisDriverPrivate {
   gchar *lang_id;
   gchar *username;
   gchar *full_name;  /* (owned) (nullable) */
+
+  GdkPixbuf *avatar;  /* (owned) (nullable) */
 
   GisDriverMode mode;
   UmAccountMode account_mode;
@@ -122,6 +125,8 @@ gis_driver_finalize (GObject *object)
   g_free (priv->username);
   g_free (priv->full_name);
   g_free (priv->user_password);
+
+  g_clear_object (&priv->avatar);
 
   g_clear_object (&priv->user_account);
   g_clear_pointer (&priv->vendor_conf_file, g_key_file_free);
@@ -294,6 +299,45 @@ gis_driver_get_full_name (GisDriver *driver)
   g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
 
   return priv->full_name;
+}
+
+/**
+ * gis_driver_set_avatar:
+ * @driver: a #GisDriver
+ * @avatar: (nullable) (transfer none): avatar of the main user, or %NULL if not known
+ *
+ * Set the #GisDriver:avatar property.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_avatar (GisDriver *driver,
+                       GdkPixbuf *avatar)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_if_fail (GIS_IS_DRIVER (driver));
+  g_return_if_fail (avatar == NULL || GDK_IS_PIXBUF (avatar));
+
+  if (g_set_object (&priv->avatar, avatar))
+    g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_AVATAR]);
+}
+
+/**
+ * gis_driver_get_avatar:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:avatar property.
+ *
+ * Returns: (nullable) (transfer none): avatar of the main user, or %NULL if not known
+ * Since: 3.36
+ */
+GdkPixbuf *
+gis_driver_get_avatar (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
+
+  return priv->avatar;
 }
 
 void
@@ -595,6 +639,9 @@ gis_driver_get_property (GObject      *object,
     case PROP_FULL_NAME:
       g_value_set_string (value, priv->full_name);
       break;
+    case PROP_AVATAR:
+      g_value_set_object (value, priv->avatar);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -623,6 +670,9 @@ gis_driver_set_property (GObject      *object,
       break;
     case PROP_FULL_NAME:
       gis_driver_set_full_name (driver, g_value_get_string (value));
+      break;
+    case PROP_AVATAR:
+      gis_driver_set_avatar (driver, g_value_get_object (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -921,6 +971,20 @@ gis_driver_class_init (GisDriverClass *klass)
                          "Full Name",
                          "Full name of the main user.",
                          NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GisDriver:avatar: (nullable)
+   *
+   * Avatar of the main user. May be %NULL if unknown or not set yet.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_AVATAR] =
+    g_param_spec_object ("avatar",
+                         "Avatar",
+                         "Avatar of the main user.",
+                         GDK_TYPE_PIXBUF,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
