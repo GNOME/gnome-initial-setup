@@ -466,7 +466,7 @@ gis_driver_set_property (GObject      *object,
       g_free (priv->username);
       priv->username = g_value_dup_string (value);
       break;
-   default:
+    default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
