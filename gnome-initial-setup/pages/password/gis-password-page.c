@@ -73,6 +73,13 @@ update_header (GisPasswordPage *page)
   const gchar *subtitle, *icon_name;
   GdkPixbuf *pixbuf;
 
+#ifndef HAVE_PARENTAL_CONTROLS
+  /* Don’t break UI compatibility if parental controls are disabled. */
+  title = g_strdup (_("Set a Password"));
+  subtitle = _("Be careful not to lose your password.");
+  pixbuf = NULL;
+  icon_name = "dialog-password-symbolic";
+#else
   if (!priv->parent_mode)
     {
       /* Translators: The placeholder is for the user’s full name. */
@@ -90,6 +97,7 @@ update_header (GisPasswordPage *page)
       icon_name = "dialog-password-symbolic";
       pixbuf = NULL;
     }
+#endif
 
   /* Doesn’t make sense to set both. */
   g_assert (icon_name == NULL || pixbuf == NULL);
