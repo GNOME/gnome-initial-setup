@@ -8,6 +8,9 @@ before_script:
     desktop-file-utils
     gcc
     gettext
+    git
+    gobject-introspection-devel
+    gtk-doc
     ibus-devel
     intltool
     krb5-devel
@@ -18,6 +21,7 @@ before_script:
     "pkgconfig(accountsservice)"
     "pkgconfig(cheese)"
     "pkgconfig(cheese-gtk)"
+    "pkgconfig(flatpak)"
     "pkgconfig(fontconfig)"
     "pkgconfig(gdm)"
     "pkgconfig(geocode-glib-1.0)"
@@ -40,6 +44,15 @@ before_script:
 .job_template: &job_definition
   stage: build
   script:
+    # FIXME: We can’t install malcontent via dnf until it’s packaged in Fedora,
+    # so build it manually.
+    - git clone https://gitlab.freedesktop.org/pwithnall/malcontent.git ./malcontent
+    - pushd ./malcontent
+    - git checkout tags/0.5.0
+    - meson setup ${MESON_COMMON_OPTIONS} --prefix /usr _build
+    - ninja -C _build
+    - sudo ninja -C _build install
+    - popd
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
