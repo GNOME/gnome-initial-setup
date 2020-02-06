@@ -80,6 +80,11 @@ void gis_driver_set_account_mode (GisDriver     *driver,
 
 UmAccountMode gis_driver_get_account_mode (GisDriver *driver);
 
+void gis_driver_set_parental_controls_enabled (GisDriver *driver,
+                                               gboolean   parental_controls_enabled);
+
+gboolean gis_driver_get_parental_controls_enabled (GisDriver *driver);
+
 void gis_driver_set_user_language (GisDriver   *driver,
                                    const gchar *lang_id,
                                    gboolean     update_locale);
