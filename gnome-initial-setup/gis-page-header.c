@@ -80,7 +80,6 @@ gis_page_header_get_property (GObject    *object,
                               GParamSpec *pspec)
 {
   GisPageHeader *header = GIS_PAGE_HEADER (object);
-  gchar *icon_name = NULL;
 
   switch (prop_id)
     {
@@ -93,8 +92,7 @@ gis_page_header_get_property (GObject    *object,
       break;
 
     case PROP_ICON_NAME:
-      g_object_get (header->icon, "icon-name", &icon_name, NULL);
-      g_value_take_string (value, icon_name);
+      g_object_get_property (G_OBJECT (header->icon), "icon-name", value);
       break;
 
     case PROP_SHOW_ICON:
@@ -128,7 +126,7 @@ gis_page_header_set_property (GObject      *object,
       break;
 
     case PROP_ICON_NAME:
-      g_object_set (header->icon, "icon-name", g_value_get_string (value), NULL);
+      g_object_set_property (G_OBJECT (header->icon), "icon-name", value);
       break;
 
     case PROP_SHOW_ICON:
