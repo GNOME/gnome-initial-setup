@@ -29,6 +29,8 @@ conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
+conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_54')
+conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_62')
 
 version_arr = meson.project_version().split('.')
 major_version = version_arr[0].to_int()
