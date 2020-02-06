@@ -507,8 +507,16 @@ static void
 set_small_screen_based_on_primary_monitor (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  GdkDisplay *default_display = gdk_display_get_default ();
-  GdkMonitor *primary_monitor = gdk_display_get_primary_monitor (default_display);
+  GdkDisplay *default_display;
+  GdkMonitor *primary_monitor;
+
+  default_display = gdk_display_get_default ();
+  if (default_display == NULL)
+    return;
+
+  primary_monitor = gdk_display_get_primary_monitor (default_display);
+  if (primary_monitor == NULL)
+    return;
 
   priv->small_screen = monitor_is_small (primary_monitor);
 }
