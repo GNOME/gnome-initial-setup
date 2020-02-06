@@ -192,8 +192,9 @@ create_face_widget (gpointer item,
 {
         GdkPixbuf *pixbuf = NULL;
         GtkWidget *image;
+        g_autofree gchar *path = g_file_get_path (G_FILE (item));
 
-        pixbuf = gdk_pixbuf_new_from_file_at_size (g_file_get_path (G_FILE (item)),
+        pixbuf = gdk_pixbuf_new_from_file_at_size (path,
                                                    AVATAR_PIXEL_SIZE,
                                                    AVATAR_PIXEL_SIZE,
                                                    NULL);
@@ -207,7 +208,7 @@ create_face_widget (gpointer item,
         gtk_widget_show (image);
 
         g_object_set_data_full (G_OBJECT (image),
-                                "filename", g_file_get_path (G_FILE (item)),
+                                "filename", g_steal_pointer (&path),
                                 (GDestroyNotify) g_free);
 
         return image;
