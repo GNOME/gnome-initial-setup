@@ -70,6 +70,9 @@ static PageData page_table[] = {
   PAGE (goa,      FALSE),
   PAGE (account,  TRUE),
   PAGE (password, TRUE),
+#ifdef HAVE_PARENTAL_CONTROLS
+  PAGE (parent_password, TRUE),
+#endif
   PAGE (summary,  FALSE),
   { NULL },
 };
