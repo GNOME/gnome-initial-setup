@@ -739,6 +739,13 @@ void
 gis_driver_save_data (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (gis_get_mock_mode ())
+    {
+      g_message ("%s: Skipping saving data due to being in mock mode", G_STRFUNC);
+      return;
+    }
+
   gis_assistant_save_data (priv->assistant);
 }
 
