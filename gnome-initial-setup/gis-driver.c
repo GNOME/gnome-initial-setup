@@ -62,9 +62,10 @@ typedef enum {
   PROP_USERNAME,
   PROP_SMALL_SCREEN,
   PROP_PARENTAL_CONTROLS_ENABLED,
+  PROP_FULL_NAME,
 } GisDriverProperty;
 
-static GParamSpec *obj_props[PROP_PARENTAL_CONTROLS_ENABLED + 1];
+static GParamSpec *obj_props[PROP_FULL_NAME + 1];
 
 struct _GisDriverPrivate {
   GtkWindow *main_window;
@@ -84,6 +85,7 @@ struct _GisDriverPrivate {
 
   gchar *lang_id;
   gchar *username;
+  gchar *full_name;  /* (owned) (nullable) */
 
   GisDriverMode mode;
   UmAccountMode account_mode;
@@ -118,6 +120,7 @@ gis_driver_finalize (GObject *object)
 
   g_free (priv->lang_id);
   g_free (priv->username);
+  g_free (priv->full_name);
   g_free (priv->user_password);
 
   g_clear_object (&priv->user_account);
@@ -247,6 +250,52 @@ gis_driver_get_username (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->username;
 }
+
+/**
+ * gis_driver_set_full_name:
+ * @driver: a #GisDriver
+ * @full_name: (nullable): full name of the main user, or %NULL if not known
+ *
+ * Set the #GisDriver:full-name property.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_full_name (GisDriver   *driver,
+                          const gchar *full_name)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_if_fail (GIS_IS_DRIVER (driver));
+  g_return_if_fail (full_name == NULL ||
+                    g_utf8_validate (full_name, -1, NULL));
+
+  if (g_strcmp0 (priv->full_name, full_name) == 0)
+    return;
+
+  g_free (priv->full_name);
+  priv->full_name = g_strdup (full_name);
+
+  g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_FULL_NAME]);
+}
+
+/**
+ * gis_driver_get_full_name:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:full-name property.
+ *
+ * Returns: (nullable): full name of the main user, or %NULL if not known
+ * Since: 3.36
+ */
+const gchar *
+gis_driver_get_full_name (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
+
+  return priv->full_name;
+}
+
 void
 gis_driver_set_user_permissions (GisDriver   *driver,
                                  ActUser     *user,
@@ -543,6 +592,9 @@ gis_driver_get_property (GObject      *object,
     case PROP_PARENTAL_CONTROLS_ENABLED:
       g_value_set_boolean (value, priv->parental_controls_enabled);
       break;
+    case PROP_FULL_NAME:
+      g_value_set_string (value, priv->full_name);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -568,6 +620,9 @@ gis_driver_set_property (GObject      *object,
       break;
     case PROP_PARENTAL_CONTROLS_ENABLED:
       gis_driver_set_parental_controls_enabled (driver, g_value_get_boolean (value));
+      break;
+    case PROP_FULL_NAME:
+      gis_driver_set_full_name (driver, g_value_get_string (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -853,6 +908,20 @@ gis_driver_class_init (GisDriverClass *klass)
                           "Whether parental controls are enabled for the main user.",
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GisDriver:full-name: (nullable)
+   *
+   * Full name of the main user. May be %NULL if unknown or not set yet.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_FULL_NAME] =
+    g_param_spec_string ("full-name",
+                         "Full Name",
+                         "Full name of the main user.",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }
