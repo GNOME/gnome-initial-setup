@@ -77,6 +77,9 @@ struct _GisDriverPrivate {
   ActUser *user_account;
   gchar *user_password;
 
+  ActUser *parent_account;  /* (owned) (nullable) */
+  gchar *parent_password;  /* (owned) (nullable) */
+
   gboolean parental_controls_enabled;
 
   gchar *lang_id;
@@ -119,6 +122,9 @@ gis_driver_finalize (GObject *object)
 
   g_clear_object (&priv->user_account);
   g_clear_pointer (&priv->vendor_conf_file, g_key_file_free);
+
+  g_clear_object (&priv->parent_account);
+  g_free (priv->parent_password);
 
   if (priv->locale != (locale_t) 0)
     {
@@ -259,6 +265,55 @@ gis_driver_get_user_permissions (GisDriver    *driver,
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   *user = priv->user_account;
   *password = priv->user_password;
+}
+
+/**
+ * gis_driver_set_parent_permissions:
+ * @driver: a #GisDriver
+ * @parent: (transfer none): user account for the parent
+ * @password: password for the parent
+ *
+ * Stores the parent account details for later use when saving the initial setup
+ * data.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_parent_permissions (GisDriver   *driver,
+                                   ActUser     *parent,
+                                   const gchar *password)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  g_set_object (&priv->parent_account, parent);
+  g_assert (priv->parent_password == NULL);
+  priv->parent_password = g_strdup (password);
+}
+
+/**
+ * gis_driver_get_parent_permissions:
+ * @driver: a #GisDriver
+ * @parent: (out) (transfer none) (optional) (nullable): return location for the
+ *    user account for the parent, which may be %NULL
+ * @password: (out) (transfer none) (optional) (nullable): return location for
+ *    the password for the parent
+ *
+ * Gets the parent account details saved from an earlier step in the initial
+ * setup process. They may be %NULL if not set yet.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_get_parent_permissions (GisDriver    *driver,
+                                   ActUser     **parent,
+                                   const gchar **password)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (parent != NULL)
+    *parent = priv->parent_account;
+  if (password != NULL)
+    *password = priv->parent_password;
 }
 
 void
