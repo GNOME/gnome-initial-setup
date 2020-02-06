@@ -69,23 +69,45 @@ static void
 update_header (GisPasswordPage *page)
 {
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-  const gchar *title, *subtitle;
+  g_autofree gchar *title = NULL;
+  g_autofree gchar *subtitle = NULL;
+  const gchar *icon_name;
+  GdkPixbuf *pixbuf;
 
   if (!priv->parent_mode)
     {
-      title = _("Set a User Password");
-      subtitle = _("Be careful not to lose your password.");
+      /* Translators: The placeholder is for the user’s full name. */
+      title = g_strdup_printf (_("Set a Password for %s"),
+                               gis_driver_get_full_name (GIS_PAGE (page)->driver));
+      subtitle = g_strdup (_("Be careful not to lose your password."));
+      pixbuf = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+      icon_name = (pixbuf != NULL) ? NULL : "dialog-password-symbolic";
     }
   else
     {
-      title = _("Set a Parent Password");
-      subtitle = _("This password will control access to the parental controls for the child’s user account.");
+      title = g_strdup (_("Set a Parent Password"));
+      /* Translators: The placeholder is the full name of the child user on the system. */
+      subtitle = g_strdup_printf (_("This password will control access to the parental controls for %s."),
+                                  gis_driver_get_full_name (GIS_PAGE (page)->driver));
+      /* FIXME: Use the malcontent icon once it’s available. See
+       *  * https://gitlab.freedesktop.org/pwithnall/malcontent/issues/9
+       *  * https://gitlab.gnome.org/GNOME/gnome-initial-setup/merge_requests/72#note_704634
+       */
+      icon_name = "dialog-password-symbolic";
+      pixbuf = NULL;
     }
+
+  /* Doesn’t make sense to set both. */
+  g_assert (icon_name == NULL || pixbuf == NULL);
 
   g_object_set (G_OBJECT (priv->header),
                 "title", title,
                 "subtitle", subtitle,
                 NULL);
+  if (pixbuf != NULL)
+    g_object_set (G_OBJECT (priv->header), "pixbuf", pixbuf, NULL);
+  else if (icon_name != NULL)
+    g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
 }
 
 static void
@@ -286,6 +308,16 @@ username_changed (GObject *obj, GParamSpec *pspec, GisPasswordPage *page)
 }
 
 static void
+full_name_or_avatar_changed (GObject    *obj,
+                             GParamSpec *pspec,
+                             gpointer    user_data)
+{
+  GisPasswordPage *page = GIS_PASSWORD_PAGE (user_data);
+
+  update_header (page);
+}
+
+static void
 confirm (GisPasswordPage *page)
 {
   if (page_validate (page))
@@ -316,6 +348,10 @@ gis_password_page_constructed (GObject *object)
 
   g_signal_connect (GIS_PAGE (page)->driver, "notify::username",
                     G_CALLBACK (username_changed), page);
+  g_signal_connect (GIS_PAGE (page)->driver, "notify::full-name",
+                    G_CALLBACK (full_name_or_avatar_changed), page);
+  g_signal_connect (GIS_PAGE (page)->driver, "notify::avatar",
+                    G_CALLBACK (full_name_or_avatar_changed), page);
 
   validate (page);
   update_header (page);
@@ -365,9 +401,12 @@ gis_password_page_set_property (GObject      *object,
 static void
 gis_password_page_dispose (GObject *object)
 {
-  if (GIS_PAGE (object)->driver)
-  g_signal_handlers_disconnect_by_func (GIS_PAGE (object)->driver,
-                                        username_changed, object);
+  if (GIS_PAGE (object)->driver) {
+    g_signal_handlers_disconnect_by_func (GIS_PAGE (object)->driver,
+                                          username_changed, object);
+    g_signal_handlers_disconnect_by_func (GIS_PAGE (object)->driver,
+                                          full_name_or_avatar_changed, object);
+  }
 
   G_OBJECT_CLASS (gis_password_page_parent_class)->dispose (object);
 }
