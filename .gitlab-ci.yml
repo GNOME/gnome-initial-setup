@@ -7,6 +7,7 @@ before_script:
   - dnf install -y
     desktop-file-utils gcc gettext ibus-devel intltool krb5-devel
     libpwquality-devel libsecret-devel meson ninja-build
+    git gobject-introspection-devel gtk-doc
     "pkgconfig(accountsservice)" "pkgconfig(cheese)" "pkgconfig(cheese-gtk)"
     "pkgconfig(fontconfig)" "pkgconfig(gdm)" "pkgconfig(geocode-glib-1.0)"
     "pkgconfig(gio-2.0)" "pkgconfig(gio-unix-2.0)" "pkgconfig(glib-2.0)"
@@ -14,11 +15,21 @@ before_script:
     "pkgconfig(goa-backend-1.0)" "pkgconfig(gstreamer-1.0)"
     "pkgconfig(gtk+-3.0)" "pkgconfig(gweather-3.0)" "pkgconfig(libgeoclue-2.0)"
     "pkgconfig(libnm)" "pkgconfig(libnma)" "pkgconfig(webkit2gtk-4.0)"
+    "pkgconfig(flatpak)"
     polkit-devel rest-devel
 
 .job_template: &job_definition
   stage: build
   script:
+    # FIXME: We can’t install malcontent via dnf until it’s packaged in Fedora,
+    # so build it manually.
+    - git clone https://gitlab.freedesktop.org/pwithnall/malcontent.git ./malcontent
+    - pushd ./malcontent
+    - git checkout user-controls-without-user # TODO: tags/0.5.0 once released
+    - meson setup ${MESON_COMMON_OPTIONS} --prefix /usr _build
+    - ninja -C _build
+    - sudo ninja -C _build install
+    - popd
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
