@@ -355,28 +355,29 @@ avatar_callback (GdkPixbuf   *pixbuf,
 {
   GisAccountPageLocal *page = user_data;
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
-  GdkPixbuf *tmp, *rounded;
+  g_autoptr(GdkPixbuf) tmp = NULL;
+  g_autoptr(GdkPixbuf) rounded = NULL;
 
   g_clear_object (&priv->avatar_pixbuf);
-  g_free (priv->avatar_filename);
-  priv->avatar_filename = NULL;
+  g_clear_pointer (&priv->avatar_filename, g_free);
 
   if (pixbuf) {
     priv->avatar_pixbuf = g_object_ref (pixbuf);
-    tmp = round_image (pixbuf);
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), tmp);
-    g_object_unref (tmp);
+    rounded = round_image (pixbuf);
   }
   else if (filename) {
     priv->avatar_filename = g_strdup (filename);
     tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
-    rounded = round_image (tmp);
-    g_object_unref (tmp);
 
+    if (tmp != NULL)
+      rounded = round_image (tmp);
+  }
+
+  if (rounded != NULL) {
     gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), rounded);
-    g_object_unref (rounded);
   }
   else {
+    /* Fallback. */
     gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
     gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic", 1);
   }
