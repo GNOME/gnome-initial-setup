@@ -179,45 +179,11 @@ localed_proxy_ready (GObject      *source,
   priv->localed = proxy;
 }
 
-static char *
-get_item (const char *buffer, const char *name)
-{
-  char *label, *start, *end, *result;
-  char end_char;
-
-  result = NULL;
-  start = NULL;
-  end = NULL;
-  label = g_strconcat (name, "=", NULL);
-  if ((start = strstr (buffer, label)) != NULL)
-    {
-      start += strlen (label);
-      end_char = '\n';
-      if (*start == '"')
-        {
-          start++;
-          end_char = '"';
-        }
-
-      end = strchr (start, end_char);
-    }
-
-    if (start != NULL && end != NULL)
-      {
-        result = g_strndup (start, end - start);
-      }
-
-  g_free (label);
-
-  return result;
-}
-
 static void
 update_distro_logo (GisLanguagePage *page)
 {
   GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
-  char *buffer;
-  char *id;
+  g_autofree char *id = g_get_os_info (G_OS_INFO_KEY_ID);
   gsize i;
 
   static const struct {
@@ -233,14 +199,6 @@ update_distro_logo (GisLanguagePage *page)
     { "SLES",                           "suse-logo-icon" },
   };
 
-  id = NULL;
-
-  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
-    {
-      id = get_item (buffer, "ID");
-      g_free (buffer);
-    }
-
   for (i = 0; i < G_N_ELEMENTS (id_to_logo); i++)
     {
       if (g_strcmp0 (id, id_to_logo[i].id) == 0)
@@ -249,8 +207,6 @@ update_distro_logo (GisLanguagePage *page)
           break;
         }
     }
-
-  g_free (id);
 }
 
 static void

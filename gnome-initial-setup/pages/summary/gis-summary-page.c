@@ -211,54 +211,12 @@ gis_summary_page_shown (GisPage *page)
   gtk_widget_grab_focus (priv->start_button);
 }
 
-static char *
-get_item (const char *buffer, const char *name)
-{
-  char *label, *start, *end, *result;
-  char end_char;
-
-  result = NULL;
-  start = NULL;
-  end = NULL;
-  label = g_strconcat (name, "=", NULL);
-  if ((start = strstr (buffer, label)) != NULL)
-    {
-      start += strlen (label);
-      end_char = '\n';
-      if (*start == '"')
-        {
-          start++;
-          end_char = '"';
-        }
-
-      end = strchr (start, end_char);
-    }
-
-    if (start != NULL && end != NULL)
-      {
-        result = g_strndup (start, end - start);
-      }
-
-  g_free (label);
-
-  return result;
-}
-
 static void
 update_distro_name (GisSummaryPage *page)
 {
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
-  char *buffer;
-  char *name;
+  g_autofree char *name = g_get_os_info (G_OS_INFO_KEY_NAME);
   char *text;
-
-  name = NULL;
-
-  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
-    {
-      name = get_item (buffer, "NAME");
-      g_free (buffer);
-    }
 
   if (!name)
     name = g_strdup ("GNOME 3");
@@ -276,8 +234,6 @@ update_distro_name (GisSummaryPage *page)
   text = g_strdup_printf (_("%s is ready to be used. We hope that you love it!"), name);
   gtk_label_set_label (GTK_LABEL (priv->tagline), text);
   g_free (text);
-
-  g_free (name);
 }
 
 static void
