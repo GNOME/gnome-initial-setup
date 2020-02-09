@@ -50,57 +50,13 @@ typedef struct _GisPrivacyPagePrivate GisPrivacyPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisPrivacyPage, gis_privacy_page, GIS_TYPE_PAGE);
 
-static char *
-get_item (const char *buffer, const char *name)
-{
-  char *label, *start, *end, *result;
-  char end_char;
-
-  result = NULL;
-  start = NULL;
-  end = NULL;
-  label = g_strconcat (name, "=", NULL);
-  if ((start = strstr (buffer, label)) != NULL)
-    {
-      start += strlen (label);
-      end_char = '\n';
-      if (*start == '"')
-        {
-          start++;
-          end_char = '"';
-        }
-
-      end = strchr (start, end_char);
-    }
-
-    if (start != NULL && end != NULL)
-      {
-        result = g_strndup (start, end - start);
-      }
-
-  g_free (label);
-
-  return result;
-}
-
 static void
 update_os_data (GisPrivacyPage *page)
 {
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
-  char *buffer;
-  char *name;
-  char *privacy_policy;
+  g_autofree char *name = g_get_os_info (G_OS_INFO_KEY_NAME);
+  g_autofree char *privacy_policy = g_get_os_info (G_OS_INFO_KEY_PRIVACY_POLICY_URL);
   char *text;
-
-  name = NULL;
-  privacy_policy = NULL;
-
-  if (g_file_get_contents ("/etc/os-release", &buffer, NULL, NULL))
-    {
-      name = get_item (buffer, "NAME");
-      privacy_policy = get_item (buffer, "PRIVACY_POLICY_URL");
-      g_free (buffer);
-    }
 
   if (!name)
     name = g_strdup ("GNOME");
@@ -119,19 +75,15 @@ update_os_data (GisPrivacyPage *page)
        * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
        * detect any distribution.
        */
-      char *distro_label = g_strdup_printf (_("Problem data will be collected by %s:"), name);
+      g_autofree char *distro_label = g_strdup_printf (_("Problem data will be collected by %s:"), name);
       text = g_strdup_printf ("%s <a href='%s'>%s</a>", distro_label, privacy_policy, _("Privacy Policy"));
       gtk_label_set_markup (GTK_LABEL (priv->distro_privacy_policy_label), text);
-      g_free (distro_label);
       g_free (text);
     }
   else
     {
       gtk_widget_hide (priv->distro_privacy_policy_label);
     }
-
-  g_free (name);
-  g_free (privacy_policy);
 }
 
 static void
