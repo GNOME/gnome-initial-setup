@@ -49,6 +49,7 @@ typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisSummaryPage, gis_summary_page, GIS_TYPE_PAGE);
 
+#ifdef HAVE_GDM
 static void
 request_info_query (GisSummaryPage  *page,
                     GdmUserVerifier *user_verifier,
@@ -118,6 +119,7 @@ on_session_opened (GdmGreeter     *greeter,
   gdm_greeter_call_start_session_when_ready_sync (greeter, service_name,
                                                   TRUE, NULL, NULL);
 }
+#endif
 
 static void
 add_uid_file (uid_t uid)
@@ -152,6 +154,7 @@ log_user_in (GisSummaryPage *page)
     return;
   }
 
+#ifdef HAVE_GDM
   g_signal_connect (user_verifier, "info",
                     G_CALLBACK (on_info), page);
   g_signal_connect (user_verifier, "problem",
@@ -163,16 +166,19 @@ log_user_in (GisSummaryPage *page)
 
   g_signal_connect (greeter, "session-opened",
                     G_CALLBACK (on_session_opened), page);
+#endif
 
   /* We are in NEW_USER mode and we want to make it possible for third
    * parties to find out which user ID we created.
    */
   add_uid_file (act_user_get_uid (priv->user_account));
 
+#ifdef HAVE_GDM
   gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
                                                            SERVICE_NAME,
                                                            act_user_get_user_name (priv->user_account),
                                                            NULL, &error);
+#endif
 
   if (error != NULL)
     g_warning ("Could not begin verification: %s", error->message);

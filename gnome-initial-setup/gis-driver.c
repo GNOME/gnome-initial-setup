@@ -620,6 +620,7 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
 static void
 connect_to_gdm (GisDriver *driver)
 {
+#if HAVE_GDM
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_autoptr(GError) error = NULL;
 
@@ -635,6 +636,7 @@ connect_to_gdm (GisDriver *driver)
     g_clear_object (&priv->greeter);
     g_clear_object (&priv->client);
   }
+#endif
 }
 
 static void
@@ -648,6 +650,12 @@ gis_driver_startup (GApplication *app)
   if (priv->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
 
+#ifdef DEVELOPMENT
+  g_object_set (gtk_settings_get_default (),
+                "gtk-application-prefer-dark-theme", TRUE,
+                NULL);
+#endif
+
   priv->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
                                     "application", app,
                                     "type", GTK_WINDOW_TOPLEVEL,
@@ -659,6 +667,10 @@ gis_driver_startup (GApplication *app)
                     "realize",
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
+
+#ifdef DEVELOPMENT
+  gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (priv->main_window)), "devel");
+#endif
 
   priv->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
   gtk_container_add (GTK_CONTAINER (priv->main_window), GTK_WIDGET (priv->assistant));

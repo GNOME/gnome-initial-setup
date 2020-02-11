@@ -29,6 +29,7 @@ conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
+conf.set('DEVELOPMENT', get_option('development'))
 
 enable_systemd = get_option('systemd')
 if enable_systemd
@@ -56,6 +57,10 @@ ibus_dep = dependency ('ibus-1.0',
                        version: '>= 1.4.99',
                        required: get_option('ibus'))
 conf.set('HAVE_IBUS', ibus_dep.found())
+
+# Needed to log in as the newly-created user
+gdm_dep = dependency ('gdm', version: '>= 3.8.3', required: not get_option('development'))
+conf.set('HAVE_GDM', gdm_dep.found())
 
 configure_file(output: 'config.h',
                configuration: conf)
