@@ -252,6 +252,7 @@ validate (GisAccountPageLocal *page)
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GtkWidget *entry;
   const gchar *name, *username;
+  gboolean parental_controls_enabled;
   gchar *tip;
 
   if (priv->timeout_id != 0) {
@@ -263,12 +264,17 @@ validate (GisAccountPageLocal *page)
 
   name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
+#ifdef HAVE_PARENTAL_CONTROLS
+  parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
+#else
+  parental_controls_enabled = FALSE;
+#endif
 
   priv->valid_name = is_valid_name (name);
   if (priv->valid_name)
     set_entry_validation_checkmark (GTK_ENTRY (priv->fullname_entry));
 
-  priv->valid_username = is_valid_username (username, &tip);
+  priv->valid_username = is_valid_username (username, parental_controls_enabled, &tip);
   if (priv->valid_username)
     set_entry_validation_checkmark (GTK_ENTRY (entry));
 
@@ -403,6 +409,8 @@ enable_parental_controls_check_button_toggled_cb (GtkToggleButton *toggle_button
    * two users if parental controls are enabled: the first user is always an
    * admin, and the second user is the main user using this @account_type. */
   priv->account_type = parental_controls_enabled ? ACT_USER_ACCOUNT_TYPE_STANDARD : ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+
+  validate (page);
 }
 
 static void
