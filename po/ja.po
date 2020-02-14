@@ -1,10 +1,10 @@
 # gnome-initial-setup ja.po.
-# Copyright (C) 2012-2019 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright (C) 2012-2020 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2012.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2016, 2017.
 # Ikuya Awashiro <ikuya@fruitsbasket.info>, 2014.
-# sicklylife <translation@sicklylife.jp>, 2019.
+# sicklylife <translation@sicklylife.jp>, 2019-2020.
 #
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
 "POT-Creation-Date: 2020-02-14 16:48+0000\n"
-"PO-Revision-Date: 2019-10-07 23:30+0900\n"
+"PO-Revision-Date: 2020-02-15 00:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -146,10 +146,8 @@ msgid "We need a few details to complete setup."
 msgstr "ユーザーに関する情報を入力してください。"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.c:562
-#, fuzzy
-#| msgid "Administrator _Name"
 msgid "Administrator"
-msgstr "管理者名(_N)"
+msgstr "管理者"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
@@ -170,11 +168,11 @@ msgstr "フルネーム(_F)"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:149
 msgid "Set up _parental controls for this user"
-msgstr ""
+msgstr "このユーザーのペアレンタルコントロールを設定する(_P)"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
 msgid "For use by a parent or supervisor, who must set up their own password."
-msgstr ""
+msgstr "親や管理者のパスワードを設定する必要があります。"
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:43
 msgid "_Enterprise Login"
@@ -222,8 +220,6 @@ msgid "The username cannot start with a “-”."
 msgstr "ユーザー名の先頭文字に“-”は使えません。"
 
 #: gnome-initial-setup/pages/account/um-utils.c:257
-#, fuzzy
-#| msgid "Sorry, that user name isn’t available. Please try another."
 msgid "That username isn’t available. Please try another."
 msgstr "そのユーザー名は利用できません。他の名前を使用してください。"
 
@@ -349,15 +345,16 @@ msgstr "オンにする"
 #: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
 #, c-format
 msgid "Parental Controls for %s"
-msgstr ""
+msgstr "%s のペアレンタルコントロール"
 
 #: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
 msgid "Set restrictions on what this user can run or install."
 msgstr ""
+"このユーザーが何をインストールできるか、何を実行できるかの制限を設定します。"
 
 #: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
 msgid "Parental Controls"
-msgstr ""
+msgstr "ペアレンタルコントロール"
 
 #. Don’t break UI compatibility if parental controls are disabled.
 #: gnome-initial-setup/pages/password/gis-password-page.c:79
@@ -371,22 +368,20 @@ msgstr "パスワードを忘れないように注意してください。"
 
 #. Translators: The placeholder is for the user’s full name.
 #: gnome-initial-setup/pages/password/gis-password-page.c:87
-#, fuzzy, c-format
-#| msgid "Set a Password"
+#, c-format
 msgid "Set a Password for %s"
-msgstr "パスワードを設定する"
+msgstr "%s のパスワードを設定する"
 
 #: gnome-initial-setup/pages/password/gis-password-page.c:95
-#, fuzzy
-#| msgid "Set a Password"
 msgid "Set a Parent Password"
-msgstr "パスワードを設定する"
+msgstr "親のパスワードを設定する"
 
 #. Translators: The placeholder is the full name of the child user on the system.
 #: gnome-initial-setup/pages/password/gis-password-page.c:97
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr ""
+"このパスワードは %s のペアレンタルコントロールへのアクセスを制御します。"
 
 #: gnome-initial-setup/pages/password/gis-password-page.c:233
 msgid "This is a weak password."
@@ -604,14 +599,15 @@ msgstr "%s を使い始める(_S)"
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr ""
+"%s を使用する準備ができました。気に入っていただければ幸いです。"
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:258
 msgid "Setup Complete"
-msgstr ""
+msgstr "セットアップ完了"
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
 msgid "All done!"
-msgstr ""
+msgstr "すべて終えました!"
 
 #. Translators: "city, country"
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
@@ -667,7 +663,7 @@ msgstr "近くの都市を探してください"
 #~ msgid ""
 #~ "I have _agreed to the terms and conditions in this end user license "
 #~ "agreement."
-#~ msgstr "本エンドユーザーライセンス契約の条件に同意します。(_A)"
+#~ msgstr "本エンドユーザーライセンス契約の条件に同意します(_A)。"
 
 #~ msgid "No regions found"
 #~ msgstr "地域が見つかりません"
