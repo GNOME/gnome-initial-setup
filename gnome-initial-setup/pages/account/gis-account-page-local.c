@@ -560,6 +560,7 @@ local_create_user (GisAccountPageLocal *local,
   /* Always create the admin user first, in case of failure part-way through
    * this function, which would leave us with no admin user at all. */
   if (parental_controls_enabled) {
+    g_autoptr(GDBusConnection) connection = NULL;
     const gchar *parent_username = "administrator";
     const gchar *parent_fullname = _("Administrator");
 
@@ -567,6 +568,32 @@ local_create_user (GisAccountPageLocal *local,
     if (local_error != NULL) {
       g_warning ("Failed to create parent user: %s", local_error->message);
       return;
+    }
+
+    /* Mark it as the parent user account.
+     * FIXME: This should be async. */
+    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &local_error);
+    if (connection != NULL) {
+      g_dbus_connection_call_sync (connection,
+                                   "org.freedesktop.Accounts",
+                                   act_user_get_object_path (parent_user),
+                                   "org.freedesktop.DBus.Properties",
+                                   "Set",
+                                   g_variant_new ("(ssv)",
+                                                  "com.endlessm.ParentalControls.AccountInfo",
+                                                  "IsParent",
+                                                  g_variant_new_boolean (TRUE)),
+                                   NULL,  /* reply type */
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   -1,  /* default timeout */
+                                   NULL,  /* cancellable */
+                                   &local_error);
+    }
+    if (local_error != NULL) {
+      /* Make this non-fatal, since the correct accounts-service interface
+       * might not be installed, depending on which version of malcontent is installed. */
+      g_warning ("Failed to mark user as parent: %s", local_error->message);
+      g_clear_error (&local_error);
     }
 
     g_signal_emit (local, signals[PARENT_USER_CREATED], 0, parent_user, "");
