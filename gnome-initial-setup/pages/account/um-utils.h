@@ -47,6 +47,7 @@ void     down_arrow                       (GtkStyleContext *context,
 
 gboolean is_valid_name                    (const gchar     *name);
 gboolean is_valid_username                (const gchar     *name,
+                                           gboolean         parental_controls_enabled,
                                            gchar          **tip);
 
 void     generate_username_choices        (const gchar     *name,

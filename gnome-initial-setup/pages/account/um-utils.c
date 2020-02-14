@@ -205,12 +205,13 @@ is_valid_name (const gchar *name)
 }
 
 gboolean
-is_valid_username (const gchar *username, gchar **tip)
+is_valid_username (const gchar *username, gboolean parental_controls_enabled, gchar **tip)
 {
         gboolean empty;
         gboolean in_use;
         gboolean too_long;
         gboolean valid;
+        gboolean parental_controls_conflict;
         const gchar *c;
 
         if (username == NULL || username[0] == '\0') {
@@ -238,9 +239,11 @@ is_valid_username (const gchar *username, gchar **tip)
                 }
         }
 
-        valid = !empty && !in_use && !too_long && valid;
+        parental_controls_conflict = (parental_controls_enabled && g_strcmp0 (username, "administrator") == 0);
 
-        if (!empty && (in_use || too_long || !valid)) {
+        valid = !empty && !in_use && !too_long && !parental_controls_conflict && valid;
+
+        if (!empty && (in_use || too_long || parental_controls_conflict || !valid)) {
                 if (in_use) {
                         *tip = g_strdup (_("Sorry, that user name isn’t available. Please try another."));
                 }
@@ -249,6 +252,9 @@ is_valid_username (const gchar *username, gchar **tip)
                 }
                 else if (username[0] == '-') {
                         *tip = g_strdup (_("The username cannot start with a “-”."));
+                }
+                else if (parental_controls_conflict) {
+                        *tip = g_strdup (_("That username isn’t available. Please try another."));
                 }
                 else {
                         *tip = g_strdup (_("The username should only consist of upper and lower case letters from a-z, digits and the following characters: . - _"));

@@ -31,6 +31,7 @@ enum {
   PROP_TITLE,
   PROP_SUBTITLE,
   PROP_ICON_NAME,
+  PROP_PIXBUF,
   PROP_SHOW_ICON,
   PROP_LAST,
 };
@@ -95,6 +96,10 @@ gis_page_header_get_property (GObject    *object,
       g_object_get_property (G_OBJECT (header->icon), "icon-name", value);
       break;
 
+    case PROP_PIXBUF:
+      g_object_get_property (G_OBJECT (header->icon), "pixbuf", value);
+      break;
+
     case PROP_SHOW_ICON:
       g_value_set_boolean (value, gtk_widget_get_visible (header->icon));
       break;
@@ -127,6 +132,10 @@ gis_page_header_set_property (GObject      *object,
 
     case PROP_ICON_NAME:
       g_object_set_property (G_OBJECT (header->icon), "icon-name", value);
+      break;
+
+    case PROP_PIXBUF:
+      g_object_set_property (G_OBJECT (header->icon), "pixbuf", value);
       break;
 
     case PROP_SHOW_ICON:
@@ -170,6 +179,12 @@ gis_page_header_class_init (GisPageHeaderClass *klass)
     g_param_spec_string ("icon-name",
                          "", "",
                          NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+  obj_props[PROP_PIXBUF] =
+    g_param_spec_object ("pixbuf",
+                         "", "",
+                         GDK_TYPE_PIXBUF,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_SHOW_ICON] =

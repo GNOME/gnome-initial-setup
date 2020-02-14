@@ -29,6 +29,17 @@ conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
+conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_64')
+conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_64')
+
+version_arr = meson.project_version().split('.')
+major_version = version_arr[0].to_int()
+minor_version = version_arr[1].to_int()
+micro_version = version_arr[2].to_int()
+
+conf.set('GIS_MAJOR_VERSION', major_version)
+conf.set('GIS_MINOR_VERSION', minor_version)
+conf.set('GIS_MICRO_VERSION', micro_version)
 
 enable_systemd = get_option('systemd')
 if enable_systemd
@@ -56,6 +67,15 @@ ibus_dep = dependency ('ibus-1.0',
                        version: '>= 1.4.99',
                        required: get_option('ibus'))
 conf.set('HAVE_IBUS', ibus_dep.found())
+
+# Needed for the parental controls pages
+libmalcontent_dep = dependency ('malcontent-0',
+                                version: '>= 0.5.0',
+                                required: get_option('parental_controls'))
+libmalcontent_ui_dep = dependency ('malcontent-ui-0',
+                                   version: '>= 0.5.0',
+                                   required: get_option('parental_controls'))
+conf.set('HAVE_PARENTAL_CONTROLS', libmalcontent_dep.found() and libmalcontent_ui_dep.found())
 
 configure_file(output: 'config.h',
                configuration: conf)

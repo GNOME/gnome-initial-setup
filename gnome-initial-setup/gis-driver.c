@@ -61,9 +61,12 @@ typedef enum {
   PROP_MODE = 1,
   PROP_USERNAME,
   PROP_SMALL_SCREEN,
+  PROP_PARENTAL_CONTROLS_ENABLED,
+  PROP_FULL_NAME,
+  PROP_AVATAR,
 } GisDriverProperty;
 
-static GParamSpec *obj_props[PROP_SMALL_SCREEN + 1];
+static GParamSpec *obj_props[PROP_AVATAR + 1];
 
 struct _GisDriverPrivate {
   GtkWindow *main_window;
@@ -76,8 +79,16 @@ struct _GisDriverPrivate {
   ActUser *user_account;
   gchar *user_password;
 
+  ActUser *parent_account;  /* (owned) (nullable) */
+  gchar *parent_password;  /* (owned) (nullable) */
+
+  gboolean parental_controls_enabled;
+
   gchar *lang_id;
   gchar *username;
+  gchar *full_name;  /* (owned) (nullable) */
+
+  GdkPixbuf *avatar;  /* (owned) (nullable) */
 
   GisDriverMode mode;
   UmAccountMode account_mode;
@@ -112,10 +123,16 @@ gis_driver_finalize (GObject *object)
 
   g_free (priv->lang_id);
   g_free (priv->username);
+  g_free (priv->full_name);
   g_free (priv->user_password);
+
+  g_clear_object (&priv->avatar);
 
   g_clear_object (&priv->user_account);
   g_clear_pointer (&priv->vendor_conf_file, g_key_file_free);
+
+  g_clear_object (&priv->parent_account);
+  g_free (priv->parent_password);
 
   if (priv->locale != (locale_t) 0)
     {
@@ -238,6 +255,91 @@ gis_driver_get_username (GisDriver *driver)
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->username;
 }
+
+/**
+ * gis_driver_set_full_name:
+ * @driver: a #GisDriver
+ * @full_name: (nullable): full name of the main user, or %NULL if not known
+ *
+ * Set the #GisDriver:full-name property.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_full_name (GisDriver   *driver,
+                          const gchar *full_name)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_if_fail (GIS_IS_DRIVER (driver));
+  g_return_if_fail (full_name == NULL ||
+                    g_utf8_validate (full_name, -1, NULL));
+
+  if (g_strcmp0 (priv->full_name, full_name) == 0)
+    return;
+
+  g_free (priv->full_name);
+  priv->full_name = g_strdup (full_name);
+
+  g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_FULL_NAME]);
+}
+
+/**
+ * gis_driver_get_full_name:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:full-name property.
+ *
+ * Returns: (nullable): full name of the main user, or %NULL if not known
+ * Since: 3.36
+ */
+const gchar *
+gis_driver_get_full_name (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
+
+  return priv->full_name;
+}
+
+/**
+ * gis_driver_set_avatar:
+ * @driver: a #GisDriver
+ * @avatar: (nullable) (transfer none): avatar of the main user, or %NULL if not known
+ *
+ * Set the #GisDriver:avatar property.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_avatar (GisDriver *driver,
+                       GdkPixbuf *avatar)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_if_fail (GIS_IS_DRIVER (driver));
+  g_return_if_fail (avatar == NULL || GDK_IS_PIXBUF (avatar));
+
+  if (g_set_object (&priv->avatar, avatar))
+    g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_AVATAR]);
+}
+
+/**
+ * gis_driver_get_avatar:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:avatar property.
+ *
+ * Returns: (nullable) (transfer none): avatar of the main user, or %NULL if not known
+ * Since: 3.36
+ */
+GdkPixbuf *
+gis_driver_get_avatar (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
+
+  return priv->avatar;
+}
+
 void
 gis_driver_set_user_permissions (GisDriver   *driver,
                                  ActUser     *user,
@@ -258,6 +360,55 @@ gis_driver_get_user_permissions (GisDriver    *driver,
   *password = priv->user_password;
 }
 
+/**
+ * gis_driver_set_parent_permissions:
+ * @driver: a #GisDriver
+ * @parent: (transfer none): user account for the parent
+ * @password: password for the parent
+ *
+ * Stores the parent account details for later use when saving the initial setup
+ * data.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_parent_permissions (GisDriver   *driver,
+                                   ActUser     *parent,
+                                   const gchar *password)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  g_set_object (&priv->parent_account, parent);
+  g_assert (priv->parent_password == NULL);
+  priv->parent_password = g_strdup (password);
+}
+
+/**
+ * gis_driver_get_parent_permissions:
+ * @driver: a #GisDriver
+ * @parent: (out) (transfer none) (optional) (nullable): return location for the
+ *    user account for the parent, which may be %NULL
+ * @password: (out) (transfer none) (optional) (nullable): return location for
+ *    the password for the parent
+ *
+ * Gets the parent account details saved from an earlier step in the initial
+ * setup process. They may be %NULL if not set yet.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_get_parent_permissions (GisDriver    *driver,
+                                   ActUser     **parent,
+                                   const gchar **password)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (parent != NULL)
+    *parent = priv->parent_account;
+  if (password != NULL)
+    *password = priv->parent_password;
+}
+
 void
 gis_driver_set_account_mode (GisDriver     *driver,
                              UmAccountMode  mode)
@@ -271,6 +422,47 @@ gis_driver_get_account_mode (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   return priv->account_mode;
+}
+
+/**
+ * gis_driver_set_parental_controls_enabled:
+ * @driver: a #GisDriver
+ * @parental_controls_enabled: whether parental controls are enabled for the main user
+ *
+ * Set the #GisDriver:parental-controls-enabled property.
+ *
+ * Since: 3.36
+ */
+void
+gis_driver_set_parental_controls_enabled (GisDriver *driver,
+                                          gboolean   parental_controls_enabled)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (priv->parental_controls_enabled == parental_controls_enabled)
+    return;
+
+  priv->parental_controls_enabled = parental_controls_enabled;
+  rebuild_pages (driver);
+
+  g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_PARENTAL_CONTROLS_ENABLED]);
+}
+
+/**
+ * gis_driver_get_parental_controls_enabled:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:parental-controls-enabled property.
+ *
+ * Returns: whether parental controls are enabled for the main user
+ * Since: 3.36
+ */
+gboolean
+gis_driver_get_parental_controls_enabled (GisDriver *driver)
+{
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  return priv->parental_controls_enabled;
 }
 
 gboolean
@@ -441,6 +633,15 @@ gis_driver_get_property (GObject      *object,
     case PROP_SMALL_SCREEN:
       g_value_set_boolean (value, priv->small_screen);
       break;
+    case PROP_PARENTAL_CONTROLS_ENABLED:
+      g_value_set_boolean (value, priv->parental_controls_enabled);
+      break;
+    case PROP_FULL_NAME:
+      g_value_set_string (value, priv->full_name);
+      break;
+    case PROP_AVATAR:
+      g_value_set_object (value, priv->avatar);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -463,6 +664,15 @@ gis_driver_set_property (GObject      *object,
     case PROP_USERNAME:
       g_free (priv->username);
       priv->username = g_value_dup_string (value);
+      break;
+    case PROP_PARENTAL_CONTROLS_ENABLED:
+      gis_driver_set_parental_controls_enabled (driver, g_value_get_boolean (value));
+      break;
+    case PROP_FULL_NAME:
+      gis_driver_set_full_name (driver, g_value_get_string (value));
+      break;
+    case PROP_AVATAR:
+      gis_driver_set_avatar (driver, g_value_get_object (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -732,6 +942,51 @@ gis_driver_class_init (GisDriverClass *klass)
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * GisDriver:parental-controls-enabled:
+   *
+   * Whether parental controls are enabled for the main user. If this is %TRUE,
+   * two user accounts will be created when this page is saved: one for the main
+   * user (a child) which will be a standard account; and one for the parent
+   * which will be an administrative account.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_PARENTAL_CONTROLS_ENABLED] =
+    g_param_spec_boolean ("parental-controls-enabled",
+                          "Parental Controls Enabled",
+                          "Whether parental controls are enabled for the main user.",
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GisDriver:full-name: (nullable)
+   *
+   * Full name of the main user. May be %NULL if unknown or not set yet.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_FULL_NAME] =
+    g_param_spec_string ("full-name",
+                         "Full Name",
+                         "Full name of the main user.",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GisDriver:avatar: (nullable)
+   *
+   * Avatar of the main user. May be %NULL if unknown or not set yet.
+   *
+   * Since: 3.36
+   */
+  obj_props[PROP_AVATAR] =
+    g_param_spec_object ("avatar",
+                         "Avatar",
+                         "Avatar of the main user.",
+                         GDK_TYPE_PIXBUF,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
@@ -739,6 +994,13 @@ void
 gis_driver_save_data (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
+  if (gis_get_mock_mode ())
+    {
+      g_message ("%s: Skipping saving data due to being in mock mode", G_STRFUNC);
+      return;
+    }
+
   gis_assistant_save_data (priv->assistant);
 }
 

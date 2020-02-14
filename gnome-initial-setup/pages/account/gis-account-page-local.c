@@ -50,6 +50,7 @@ struct _GisAccountPageLocalPrivate
   GtkWidget *header;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
+  GtkWidget *enable_parental_controls_check_button;
   gboolean   has_custom_username;
   GtkWidget *username_explanation;
   UmPhotoDialog *photo_dialog;
@@ -59,7 +60,6 @@ struct _GisAccountPageLocalPrivate
   GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
 
-  ActUser *act_user;
   ActUserManager *act_client;
 
   GoaClient *goa_client;
@@ -74,7 +74,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageLocal, gis_account_page_local, GTK_TYP
 
 enum {
   VALIDATION_CHANGED,
-  USER_CREATED,
+  MAIN_USER_CREATED,
+  PARENT_USER_CREATED,
   CONFIRM,
   LAST_SIGNAL,
 };
@@ -251,6 +252,7 @@ validate (GisAccountPageLocal *page)
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GtkWidget *entry;
   const gchar *name, *username;
+  gboolean parental_controls_enabled;
   gchar *tip;
 
   if (priv->timeout_id != 0) {
@@ -262,12 +264,17 @@ validate (GisAccountPageLocal *page)
 
   name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
+#ifdef HAVE_PARENTAL_CONTROLS
+  parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
+#else
+  parental_controls_enabled = FALSE;
+#endif
 
   priv->valid_name = is_valid_name (name);
   if (priv->valid_name)
     set_entry_validation_checkmark (GTK_ENTRY (priv->fullname_entry));
 
-  priv->valid_username = is_valid_username (username, &tip);
+  priv->valid_username = is_valid_username (username, parental_controls_enabled, &tip);
   if (priv->valid_username)
     set_entry_validation_checkmark (GTK_ENTRY (entry));
 
@@ -391,6 +398,22 @@ confirm (GisAccountPageLocal *page)
 }
 
 static void
+enable_parental_controls_check_button_toggled_cb (GtkToggleButton *toggle_button,
+                                                  gpointer         user_data)
+{
+  GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (user_data);
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  gboolean parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
+
+  /* This sets the account type of the main user. When we save_data(), we create
+   * two users if parental controls are enabled: the first user is always an
+   * admin, and the second user is the main user using this @account_type. */
+  priv->account_type = parental_controls_enabled ? ACT_USER_ACCOUNT_TYPE_STANDARD : ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+
+  validate (page);
+}
+
+static void
 gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
@@ -415,6 +438,13 @@ gis_account_page_local_constructed (GObject *object)
                             "activate", G_CALLBACK (confirm), page);
   g_signal_connect_swapped (priv->fullname_entry, "activate",
                             G_CALLBACK (confirm), page);
+  g_signal_connect (priv->enable_parental_controls_check_button, "toggled",
+                    G_CALLBACK (enable_parental_controls_check_button_toggled_cb), page);
+
+  /* Disable parental controls if support is not compiled in. */
+#ifndef HAVE_PARENTAL_CONTROLS
+  gtk_widget_hide (priv->enable_parental_controls_check_button);
+#endif
 
   priv->valid_name = FALSE;
   priv->valid_username = FALSE;
@@ -473,7 +503,8 @@ gis_account_page_local_dispose (GObject *object)
 }
 
 static void
-set_user_avatar (GisAccountPageLocal *page)
+set_user_avatar (GisAccountPageLocal *page,
+                 ActUser             *user)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GFile *file = NULL;
@@ -482,7 +513,7 @@ set_user_avatar (GisAccountPageLocal *page)
   GError *error = NULL;
 
   if (priv->avatar_filename != NULL) {
-    act_user_set_icon_file (priv->act_user, priv->avatar_filename);
+    act_user_set_icon_file (user, priv->avatar_filename);
     return;
   }
 
@@ -498,7 +529,7 @@ set_user_avatar (GisAccountPageLocal *page)
   if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
     goto out;
 
-  act_user_set_icon_file (priv->act_user, g_file_get_path (file));
+  act_user_set_icon_file (user, g_file_get_path (file));
 
  out:
   if (error != NULL) {
@@ -515,21 +546,40 @@ local_create_user (GisAccountPageLocal *page)
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   const gchar *username;
   const gchar *fullname;
-  GError *error = NULL;
+  g_autoptr(GError) local_error = NULL;
+  gboolean parental_controls_enabled;
+  g_autoptr(ActUser) main_user = NULL;
+  g_autoptr(ActUser) parent_user = NULL;
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
   fullname = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  parental_controls_enabled = gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver);
 
-  priv->act_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &error);
-  if (error != NULL) {
-    g_warning ("Failed to create user: %s", error->message);
-    g_error_free (error);
+  /* Always create the admin user first, in case of failure part-way through
+   * this function, which would leave us with no admin user at all. */
+  if (parental_controls_enabled) {
+    const gchar *parent_username = "administrator";
+    const gchar *parent_fullname = _("Administrator");
+
+    parent_user = act_user_manager_create_user (priv->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, &local_error);
+    if (local_error != NULL) {
+      g_warning ("Failed to create parent user: %s", local_error->message);
+      return;
+    }
+
+    g_signal_emit (page, signals[PARENT_USER_CREATED], 0, parent_user, "");
+  }
+
+  /* Now create the main user. */
+  main_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &local_error);
+  if (local_error != NULL) {
+    g_warning ("Failed to create user: %s", local_error->message);
     return;
   }
 
-  set_user_avatar (page);
+  set_user_avatar (page, main_user);
 
-  g_signal_emit (page, signals[USER_CREATED], 0, priv->act_user, "");
+  g_signal_emit (page, signals[MAIN_USER_CREATED], 0, main_user, "");
 }
 
 static void
@@ -545,6 +595,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_check_button);
 
   object_class->constructed = gis_account_page_local_constructed;
   object_class->dispose = gis_account_page_local_dispose;
@@ -553,9 +604,13 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
                                               G_TYPE_NONE, 0);
 
-  signals[USER_CREATED] = g_signal_new ("user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
-                                        G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
-                                        G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
+  signals[MAIN_USER_CREATED] = g_signal_new ("main-user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
+                                             G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
+                                             G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
+
+  signals[PARENT_USER_CREATED] = g_signal_new ("parent-user-created", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
+                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
+                                               G_TYPE_NONE, 2, ACT_TYPE_USER, G_TYPE_STRING);
 
   signals[CONFIRM] = g_signal_new ("confirm", GIS_TYPE_ACCOUNT_PAGE_LOCAL,
                                    G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
@@ -587,10 +642,33 @@ gboolean
 gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
-  const gchar *username;
+  const gchar *username, *full_name;
+  gboolean parental_controls_enabled;
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
   gis_driver_set_username (GIS_PAGE (page)->driver, username);
+
+  full_name = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
+  gis_driver_set_full_name (GIS_PAGE (page)->driver, full_name);
+
+  if (priv->avatar_pixbuf != NULL)
+    {
+      gis_driver_set_avatar (GIS_PAGE (page)->driver, priv->avatar_pixbuf);
+    }
+  else if (priv->avatar_filename != NULL)
+    {
+      g_autoptr(GdkPixbuf) pixbuf = NULL;
+
+      pixbuf = gdk_pixbuf_new_from_file_at_size (priv->avatar_filename, 96, 96, NULL);
+      gis_driver_set_avatar (GIS_PAGE (page)->driver, pixbuf);
+    }
+
+#ifdef HAVE_PARENTAL_CONTROLS
+  parental_controls_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_parental_controls_check_button));
+#else
+  parental_controls_enabled = FALSE;
+#endif
+  gis_driver_set_parental_controls_enabled (GIS_PAGE (page)->driver, parental_controls_enabled);
 
   return FALSE;
 }
