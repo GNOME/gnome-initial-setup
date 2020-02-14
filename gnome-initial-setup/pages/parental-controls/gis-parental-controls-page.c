@@ -46,49 +46,41 @@ struct _GisParentalControlsPage
 
 G_DEFINE_TYPE (GisParentalControlsPage, gis_parental_controls_page, GIS_TYPE_PAGE)
 
-static void
-gis_parental_controls_page_save_data (GisPage *gis_page)
+static gboolean
+gis_parental_controls_page_save_data (GisPage  *gis_page,
+                                      GError  **error)
 {
   GisParentalControlsPage *page = GIS_PARENTAL_CONTROLS_PAGE (gis_page);
   g_autoptr(GDBusConnection) system_bus = NULL;
   g_autoptr(MctManager) manager = NULL;
   g_auto(MctAppFilterBuilder) builder = MCT_APP_FILTER_BUILDER_INIT ();
   g_autoptr(MctAppFilter) app_filter = NULL;
-  g_autoptr(GError) local_error = NULL;
   ActUser *main_user;
 
   /* The parent and child users are created by the #GisAccountPage earlier in
    * the save_data() process. We now need to set the parental controls on the
-   * child user. */
+   * child user. The earlier step in the process must have succeeded. */
   gis_driver_get_user_permissions (gis_page->driver, &main_user, NULL);
-
-  /* FIXME: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/95 */
-  g_return_if_fail (main_user != NULL);
+  g_return_val_if_fail (main_user != NULL, FALSE);
 
   mct_user_controls_build_app_filter (MCT_USER_CONTROLS (page->user_controls), &builder);
   app_filter = mct_app_filter_builder_end (&builder);
 
   /* FIXME: should become asynchronous */
-  system_bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &local_error);
+  system_bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, error);
   if (system_bus == NULL)
-    {
-      g_warning ("Error getting system bus while setting up parental controls: %s", local_error->message);
-      return;
-    }
+    return FALSE;
 
   manager = mct_manager_new (system_bus);
-  mct_manager_set_app_filter (manager,
-                              act_user_get_uid (main_user),
-                              app_filter,
-                              MCT_MANAGER_SET_VALUE_FLAGS_NONE,
-                              NULL,
-                              &local_error);
+  if (!mct_manager_set_app_filter (manager,
+                                   act_user_get_uid (main_user),
+                                   app_filter,
+                                   MCT_MANAGER_SET_VALUE_FLAGS_NONE,
+                                   NULL,
+                                   error))
+    return FALSE;
 
-  if (local_error != NULL)
-    {
-      g_warning ("Error setting parental controls: %s", local_error->message);
-      return;
-    }
+  return TRUE;
 }
 
 static void
