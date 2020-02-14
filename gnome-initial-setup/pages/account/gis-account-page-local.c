@@ -534,14 +534,14 @@ set_user_avatar (GisAccountPageLocal *page,
   g_clear_object (&file);
 }
 
-static void
-local_create_user (GisAccountPageLocal *local,
-                   GisPage             *page)
+static gboolean
+local_create_user (GisAccountPageLocal  *local,
+                   GisPage              *page,
+                   GError              **error)
 {
   GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
   const gchar *username;
   const gchar *fullname;
-  g_autoptr(GError) local_error = NULL;
   gboolean parental_controls_enabled;
   g_autoptr(ActUser) main_user = NULL;
   g_autoptr(ActUser) parent_user = NULL;
@@ -553,15 +553,19 @@ local_create_user (GisAccountPageLocal *local,
   /* Always create the admin user first, in case of failure part-way through
    * this function, which would leave us with no admin user at all. */
   if (parental_controls_enabled) {
+    g_autoptr(GError) local_error = NULL;
     g_autoptr(GDBusConnection) connection = NULL;
     const gchar *parent_username = "administrator";
     const gchar *parent_fullname = _("Administrator");
 
-    parent_user = act_user_manager_create_user (priv->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, &local_error);
-    if (local_error != NULL) {
-      g_warning ("Failed to create parent user: %s", local_error->message);
-      return;
-    }
+    parent_user = act_user_manager_create_user (priv->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, error);
+    if (parent_user == NULL)
+      {
+        g_prefix_error (error,
+                        _("Failed to create user '%s': "),
+                        parent_username);
+        return FALSE;
+      }
 
     /* Make the admin account usable in case g-i-s crashes. If all goes
      * according to plan a password will be set on it in gis-password-page.c */
@@ -597,15 +601,22 @@ local_create_user (GisAccountPageLocal *local,
   }
 
   /* Now create the main user. */
-  main_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, &local_error);
-  if (local_error != NULL) {
-    g_warning ("Failed to create user: %s", local_error->message);
-    return;
-  }
+  main_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, error);
+  if (main_user == NULL)
+    {
+      g_prefix_error (error,
+                      _("Failed to create user '%s': "),
+                      username);
+      /* FIXME: Could we delete the @parent_user at this point to reset the state
+       * and allow g-i-s to be run again after a reboot? */
+      return FALSE;
+    }
 
   set_user_avatar (local, main_user);
 
   g_signal_emit (local, signals[MAIN_USER_CREATED], 0, main_user, "");
+
+  return TRUE;
 }
 
 static void
@@ -659,11 +670,12 @@ gis_account_page_local_validate (GisAccountPageLocal *page)
   return priv->valid_name && priv->valid_username;
 }
 
-void
-gis_account_page_local_create_user (GisAccountPageLocal *local,
-                                    GisPage             *page)
+gboolean
+gis_account_page_local_create_user (GisAccountPageLocal  *local,
+                                    GisPage              *page,
+                                    GError              **error)
 {
-  local_create_user (local, page);
+  return local_create_user (local, page, error);
 }
 
 gboolean

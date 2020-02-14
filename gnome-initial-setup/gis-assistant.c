@@ -428,14 +428,20 @@ gis_assistant_locale_changed (GisAssistant *assistant)
   update_titlebar (assistant);
 }
 
-void
-gis_assistant_save_data (GisAssistant *assistant)
+gboolean
+gis_assistant_save_data (GisAssistant  *assistant,
+                         GError       **error)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *l;
 
   for (l = priv->pages; l != NULL; l = l->next)
-    gis_page_save_data (l->data);
+    {
+      if (!gis_page_save_data (l->data, error))
+        return FALSE;
+    }
+
+  return TRUE;
 }
 
 static void
