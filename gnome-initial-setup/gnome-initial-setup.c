@@ -39,6 +39,7 @@
 #include "pages/privacy/gis-privacy-page.h"
 #include "pages/goa/gis-goa-page.h"
 #include "pages/account/gis-account-pages.h"
+#include "pages/parental-controls/gis-parental-controls-page.h"
 #include "pages/password/gis-password-page.h"
 #include "pages/summary/gis-summary-page.h"
 
@@ -70,6 +71,10 @@ static PageData page_table[] = {
   PAGE (goa,      FALSE),
   PAGE (account,  TRUE),
   PAGE (password, TRUE),
+#ifdef HAVE_PARENTAL_CONTROLS
+  PAGE (parental_controls, TRUE),
+  PAGE (parent_password, TRUE),
+#endif
   PAGE (summary,  FALSE),
   { NULL },
 };
@@ -255,6 +260,10 @@ main (int argc, char *argv[])
   gtk_init (&argc, &argv);
 
   g_message ("Starting gnome-initial-setup");
+  if (gis_get_mock_mode ())
+    g_message ("Mock mode: changes will not be saved to disk");
+  else
+    g_message ("Production mode: changes will be saved to disk");
 
   skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
   mode = get_mode ();
@@ -264,7 +273,7 @@ main (int argc, char *argv[])
    * the keyring manually so that we can pass the credentials
    * along to the new user in the handoff.
    */
-  if (mode == GIS_DRIVER_MODE_NEW_USER)
+  if (mode == GIS_DRIVER_MODE_NEW_USER && !gis_get_mock_mode ())
     gis_ensure_login_keyring ();
 
   driver = gis_driver_new (mode);
@@ -297,4 +306,21 @@ gis_ensure_stamp_files (void)
       g_clear_error (&error);
   }
   g_free (file);
+}
+
+/**
+ * gis_get_mock_mode:
+ *
+ * Gets whether gnome-initial-setup has been built for development, and hence
+ * shouldn’t permanently change any system configuration.
+ *
+ * By default, mock mode is enabled when running in a build environment. This
+ * heuristic may be changed in future.
+ *
+ * Returns: %TRUE if in mock mode, %FALSE otherwise
+ */
+gboolean
+gis_get_mock_mode (void)
+{
+  return (g_getenv ("UNDER_JHBUILD") != NULL);
 }

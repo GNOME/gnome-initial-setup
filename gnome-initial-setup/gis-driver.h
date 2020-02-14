@@ -75,10 +75,23 @@ void gis_driver_get_user_permissions (GisDriver    *driver,
                                       ActUser     **user,
                                       const gchar **password);
 
+void gis_driver_set_parent_permissions (GisDriver   *driver,
+                                        ActUser     *parent,
+                                        const gchar *password);
+
+void gis_driver_get_parent_permissions (GisDriver    *driver,
+                                        ActUser     **parent,
+                                        const gchar **password);
+
 void gis_driver_set_account_mode (GisDriver     *driver,
                                   UmAccountMode  mode);
 
 UmAccountMode gis_driver_get_account_mode (GisDriver *driver);
+
+void gis_driver_set_parental_controls_enabled (GisDriver *driver,
+                                               gboolean   parental_controls_enabled);
+
+gboolean gis_driver_get_parental_controls_enabled (GisDriver *driver);
 
 void gis_driver_set_user_language (GisDriver   *driver,
                                    const gchar *lang_id,
@@ -89,6 +102,14 @@ const gchar *gis_driver_get_user_language (GisDriver *driver);
 void gis_driver_set_username (GisDriver   *driver,
                               const gchar *username);
 const gchar *gis_driver_get_username (GisDriver *driver);
+
+void gis_driver_set_full_name (GisDriver   *driver,
+                               const gchar *full_name);
+const gchar *gis_driver_get_full_name (GisDriver *driver);
+
+void gis_driver_set_avatar (GisDriver *driver,
+                            GdkPixbuf *avatar);
+GdkPixbuf *gis_driver_get_avatar (GisDriver *driver);
 
 gboolean gis_driver_get_gdm_objects (GisDriver        *driver,
                                      GdmGreeter      **greeter,

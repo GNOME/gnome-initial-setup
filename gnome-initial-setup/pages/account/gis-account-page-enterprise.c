@@ -568,7 +568,13 @@ gis_account_page_enterprise_apply (GisAccountPageEnterprise *page,
                                    GisPageApplyCallback      callback,
                                    gpointer                  data)
 {
+  GisPage *account_page = GIS_PAGE (data);
   GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
+
+  /* Parental controls are not enterprise ready. It’s possible for them to have
+   * been enabled if the user enabled them, applied the account-local page, and
+   * then went back and decided to go all enterprise instead. */
+  gis_driver_set_parental_controls_enabled (account_page->driver, FALSE);
 
   priv->apply_complete_callback = callback;
   priv->apply_complete_data = data;

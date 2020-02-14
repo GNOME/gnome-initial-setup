@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012 Red Hat
+ * Copyright © 2020 Endless Mobile, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -16,27 +16,23 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  * Written by:
- *     Jasper St. Pierre <jstpierre@mecheye.net>
+ *     Philip Withnall <withnall@endlessm.com>
  */
 
-#ifndef __GNOME_INITIAL_SETUP_H__
-#define __GNOME_INITIAL_SETUP_H__
+#pragma once
 
-#include <gtk/gtk.h>
-#include <gio/gio.h>
-#include <glib/gi18n.h>
+#include <glib.h>
+#include <glib-object.h>
 
-typedef struct _GisDriver    GisDriver;
-typedef struct _GisAssistant GisAssistant;
-typedef struct _GisPage      GisPage;
+#include "gnome-initial-setup.h"
 
-#include "gis-driver.h"
-#include "gis-assistant.h"
-#include "gis-page.h"
-#include "gis-keyring.h"
+G_BEGIN_DECLS
 
-void gis_ensure_stamp_files (void);
-gboolean gis_get_mock_mode (void);
+#define GIS_TYPE_PARENTAL_CONTROLS_PAGE (gis_parental_controls_page_get_type ())
+G_DECLARE_FINAL_TYPE (GisParentalControlsPage, gis_parental_controls_page, GIS, PARENTAL_CONTROLS_PAGE, GisPage)
 
-#endif /* __GNOME_INITIAL_SETUP_H__ */
+GType gis_parental_controls_page_get_type (void);
 
+GisPage *gis_prepare_parental_controls_page (GisDriver *driver);
+
+G_END_DECLS
