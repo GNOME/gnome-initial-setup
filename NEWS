@@ -1,3 +1,36 @@
+3.35.91
+-------
+
+* New pages have been added to set up parental controls for the new user
+  account. They are shown (or not, by default) based on a checkbox on the
+  (local) user creation page. This feature requires malcontent ≥ 0.5.0
+  <https://gitlab.freedesktop.org/pwithnall/malcontent/> and complements
+  parental controls support already present in Flatpak and GNOME Software. If
+  disabled or if that dependency is not available, no new UI is introduced
+  compared to 3.35.90.
+
+* When running under JHBuild, gnome-keyring is left untouched, and state is not
+  saved when setup is complete. This heuristic is intended to make testing the
+  application during development easier.
+
+* GLib ≥ 2.63.1 is now required.
+
+* Fixed various memory leaks, warnings, and a memory safety bug.
+
+* Translation updates:
+ - Basque
+ - Croatian
+ - Czech
+ - French
+ - Galician
+ - Hungarian
+ - Indonesian
+ - Japanese
+ - Lithuanian
+ - Persian
+ - Serbian
+ - Turkish
+
 3.35.90
 -------
 
