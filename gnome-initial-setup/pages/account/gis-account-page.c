@@ -150,7 +150,7 @@ gis_account_page_save_data (GisPage *gis_page)
 
   switch (priv->mode) {
   case UM_LOCAL:
-    gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
+    gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local), gis_page);
     break;
   case UM_ENTERPRISE:
     break;

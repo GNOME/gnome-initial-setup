@@ -542,9 +542,10 @@ set_user_avatar (GisAccountPageLocal *page,
 }
 
 static void
-local_create_user (GisAccountPageLocal *page)
+local_create_user (GisAccountPageLocal *local,
+                   GisPage             *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
+  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
   const gchar *username;
   const gchar *fullname;
   g_autoptr(GError) local_error = NULL;
@@ -554,7 +555,7 @@ local_create_user (GisAccountPageLocal *page)
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
   fullname = gtk_entry_get_text (GTK_ENTRY (priv->fullname_entry));
-  parental_controls_enabled = gis_driver_get_parental_controls_enabled (GIS_PAGE (page)->driver);
+  parental_controls_enabled = gis_driver_get_parental_controls_enabled (page->driver);
 
   /* Always create the admin user first, in case of failure part-way through
    * this function, which would leave us with no admin user at all. */
@@ -568,7 +569,7 @@ local_create_user (GisAccountPageLocal *page)
       return;
     }
 
-    g_signal_emit (page, signals[PARENT_USER_CREATED], 0, parent_user, "");
+    g_signal_emit (local, signals[PARENT_USER_CREATED], 0, parent_user, "");
   }
 
   /* Now create the main user. */
@@ -578,9 +579,9 @@ local_create_user (GisAccountPageLocal *page)
     return;
   }
 
-  set_user_avatar (page, main_user);
+  set_user_avatar (local, main_user);
 
-  g_signal_emit (page, signals[MAIN_USER_CREATED], 0, main_user, "");
+  g_signal_emit (local, signals[MAIN_USER_CREATED], 0, main_user, "");
 }
 
 static void
@@ -635,9 +636,10 @@ gis_account_page_local_validate (GisAccountPageLocal *page)
 }
 
 void
-gis_account_page_local_create_user (GisAccountPageLocal *page)
+gis_account_page_local_create_user (GisAccountPageLocal *local,
+                                    GisPage             *page)
 {
-  local_create_user (page);
+  local_create_user (local, page);
 }
 
 gboolean
