@@ -77,7 +77,7 @@ update_header (GisPasswordPage *page)
 #ifndef HAVE_PARENTAL_CONTROLS
   /* Don’t break UI compatibility if parental controls are disabled. */
   title = g_strdup (_("Set a Password"));
-  subtitle = _("Be careful not to lose your password.");
+  subtitle = g_strdup (_("Be careful not to lose your password."));
   pixbuf = NULL;
   icon_name = "dialog-password-symbolic";
 #else
