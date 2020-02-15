@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+tarball="${1:?tarball filename is required}"
+cd "${MESON_BUILD_ROOT}/meson-dist"
+[[ -e "$tarball" ]]
+scp "$tarball" master.gnome.org:
+ssh master.gnome.org ftpadmin install "$tarball"
