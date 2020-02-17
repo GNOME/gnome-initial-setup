@@ -4,13 +4,14 @@
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013, 2016, 2017.
 # Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2018, 2019, 2020.
+# Balázs Meskó <mesko.balazs at fsf dot hu>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
 "s\n"
-"POT-Creation-Date: 2020-01-28 10:40+0000\n"
-"PO-Revision-Date: 2020-02-13 20:04+0100\n"
+"POT-Creation-Date: 2020-02-14 16:48+0000\n"
+"PO-Revision-Date: 2020-02-17 21:30+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -45,11 +46,11 @@ msgstr "_Előző"
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: gnome-initial-setup/gnome-initial-setup.c:236
+#: gnome-initial-setup/gnome-initial-setup.c:241
 msgid "Force existing user mode"
 msgstr "Létező felhasználói mód kényszerítése"
 
-#: gnome-initial-setup/gnome-initial-setup.c:242
+#: gnome-initial-setup/gnome-initial-setup.c:247
 msgid "— GNOME initial setup"
 msgstr "– GNOME kiinduló beállítások"
 
@@ -98,7 +99,7 @@ msgid "_Username"
 msgstr "_Felhasználónév"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:70
-#: gnome-initial-setup/pages/password/gis-password-page.ui:35
+#: gnome-initial-setup/pages/password/gis-password-page.ui:34
 msgid "_Password"
 msgstr "_Jelszó"
 
@@ -136,20 +137,25 @@ msgstr "Rendszergazda _neve"
 msgid "Administrator Password"
 msgstr "Rendszergazdai jelszó"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:205
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:206
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Ellenőrizze a nevet és a felhasználónevet. Egy képet is választhat."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:424
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:455
 msgid "We need a few details to complete setup."
 msgstr "Szükségünk van néhány részletre a beállítás befejezéséhez."
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:562
+#| msgid "Administrator _Name"
+msgid "Administrator"
+msgstr "Rendszergazda"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Avatar kép"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:264
+#: gnome-initial-setup/pages/account/gis-account-page.c:281
 msgid "About You"
 msgstr "Önről"
 
@@ -160,6 +166,15 @@ msgstr "Adjon meg egy nevet és felhasználónevet. Egy képet is választhat."
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
 msgid "_Full Name"
 msgstr "_Teljes név"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:149
+msgid "Set up _parental controls for this user"
+msgstr "Szülői _felügyeleti eszközök beállítása ehhez a felhasználóhoz"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
+msgid "For use by a parent or supervisor, who must set up their own password."
+msgstr ""
+"Szülőknek vagy csoportvezetőknek, akiknek saját jelszóval kell rendelkezniük."
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:43
 msgid "_Enterprise Login"
@@ -193,20 +208,25 @@ msgstr "Érvénytelen jelszó, próbálja újra"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Nem lehet csatlakozni a(z) %s tartományhoz: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:245
+#: gnome-initial-setup/pages/account/um-utils.c:248
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Elnézést, ez a felhasználónév nem érhető el. Próbáljon egy másikat."
 
-#: gnome-initial-setup/pages/account/um-utils.c:248
+#: gnome-initial-setup/pages/account/um-utils.c:251
 #, c-format
 msgid "The username is too long."
 msgstr "A felhasználónév túl hosszú."
 
-#: gnome-initial-setup/pages/account/um-utils.c:251
+#: gnome-initial-setup/pages/account/um-utils.c:254
 msgid "The username cannot start with a “-”."
 msgstr "A felhasználónév nem kezdődhet „-” karakterrel."
 
-#: gnome-initial-setup/pages/account/um-utils.c:254
+#: gnome-initial-setup/pages/account/um-utils.c:257
+#| msgid "Sorry, that user name isn’t available. Please try another."
+msgid "That username isn’t available. Please try another."
+msgstr "Ez a felhasználónév nem érhető el. Próbáljon egy másikat."
+
+#: gnome-initial-setup/pages/account/um-utils.c:260
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -214,17 +234,17 @@ msgstr ""
 "A felhasználónév csak a-z közötti kis- és nagybetűket, számjegyeket, és a "
 "következő karaktereket tartalmazhatja: . - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:258
+#: gnome-initial-setup/pages/account/um-utils.c:264
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Ez a saját mappájának elnevezésére lesz használva és nem lehet "
 "megváltoztatni."
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:89
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:92
 msgid "Add Account"
 msgstr "Fiók készítése"
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:341
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:357
 msgid "Online Accounts"
 msgstr "Online fiókok"
 
@@ -275,7 +295,7 @@ msgstr "Válassza ki a billentyűzetkiosztását vagy egy beviteli módot."
 msgid "No languages found"
 msgstr "Nyelvek nem találhatók"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:306
+#: gnome-initial-setup/pages/language/gis-language-page.c:262
 msgid "Welcome"
 msgstr "Üdvözlet"
 
@@ -327,27 +347,64 @@ msgstr "Vezeték nélküli nem érhető el"
 msgid "Turn On"
 msgstr "Bekapcsolás"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:144
-msgid "This is a weak password."
-msgstr "Ez egy gyenge jelszó."
+#. Translators: The placeholder is the user’s full name.
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#, c-format
+msgid "Parental Controls for %s"
+msgstr "%s szülői felügyeleti eszközei"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:150
-msgid "The passwords do not match."
-msgstr "A jelszavak nem egyeznek."
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+msgid "Set restrictions on what this user can run or install."
+msgstr ""
+"Állítson be korlátozásokat, hogy ez a felhasználó mit futtathat vagy "
+"telepíthet."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:272
-msgid "Password"
-msgstr "Jelszó"
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+msgid "Parental Controls"
+msgstr "Szülői felügyeleti eszközök"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:16
+#. Don’t break UI compatibility if parental controls are disabled.
+#: gnome-initial-setup/pages/password/gis-password-page.c:79
 msgid "Set a Password"
 msgstr "Jelszó beállítása"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:17
+#: gnome-initial-setup/pages/password/gis-password-page.c:80
+#: gnome-initial-setup/pages/password/gis-password-page.c:89
 msgid "Be careful not to lose your password."
 msgstr "Legyen óvatos, ne veszítse el a jelszavát."
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:67
+#. Translators: The placeholder is for the user’s full name.
+#: gnome-initial-setup/pages/password/gis-password-page.c:87
+#, c-format
+#| msgid "Set a Password"
+msgid "Set a Password for %s"
+msgstr "Jelszó beállítása %s számára"
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:95
+#| msgid "Set a Password"
+msgid "Set a Parent Password"
+msgstr "Szülői jelszó beállítása"
+
+#. Translators: The placeholder is the full name of the child user on the system.
+#: gnome-initial-setup/pages/password/gis-password-page.c:97
+#, c-format
+msgid "This password will control access to the parental controls for %s."
+msgstr ""
+"Ez a jelszó fogja vezérelni %s hozzáférését a szülői felügyeleti eszközökhöz."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:233
+msgid "This is a weak password."
+msgstr "Ez egy gyenge jelszó."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:239
+msgid "The passwords do not match."
+msgstr "A jelszavak nem egyeznek."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:425
+msgid "Password"
+msgstr "Jelszó"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:66
 msgid "_Confirm"
 msgstr "_Megerősítés"
 
@@ -487,7 +544,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:112
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -501,22 +558,22 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:122
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
 #, c-format
 msgid "Problem data will be collected by %s:"
 msgstr "A probléma adatait a(z) %s fogja begyűjteni:"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:123
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:183
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:258
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:79
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:135
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:210
 msgid "Privacy Policy"
 msgstr "Adatvédelmi irányelv"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:183
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:135
 msgid "Uses Mozilla Location Service:"
 msgstr "A Mozilla helymeghatározó szolgáltatását használja:"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:294
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:246
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:16
 msgid "Privacy"
 msgstr "Adatvédelem"
@@ -548,7 +605,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:269
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
 #, c-format
 msgid "_Start Using %s"
 msgstr "A(z) %s használatba _vétele"
@@ -556,12 +613,12 @@ msgstr "A(z) %s használatba _vétele"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:276
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr "A(z) %s használatra kész. Reméljük, hogy imádni fogja!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:302
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
 msgid "Setup Complete"
 msgstr "A beállítás befejeződött"
 
@@ -570,7 +627,7 @@ msgid "All done!"
 msgstr "Minden készen van!"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:263
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -579,28 +636,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:304
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
 msgid "%l:%M %p"
 msgstr "%H:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:307
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:456
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Időzóna"
