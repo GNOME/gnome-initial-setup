@@ -96,11 +96,7 @@ update_header (GisPasswordPage *page)
       /* Translators: The placeholder is the full name of the child user on the system. */
       subtitle = g_strdup_printf (_("This password will control access to the parental controls for %s."),
                                   gis_driver_get_full_name (GIS_PAGE (page)->driver));
-      /* FIXME: Use the malcontent icon once it’s available. See
-       *  * https://gitlab.freedesktop.org/pwithnall/malcontent/issues/9
-       *  * https://gitlab.gnome.org/GNOME/gnome-initial-setup/merge_requests/72#note_704634
-       */
-      icon_name = "dialog-password-symbolic";
+      icon_name = "org.freedesktop.MalcontentControl-symbolic";
       pixbuf = NULL;
     }
 #endif
