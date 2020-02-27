@@ -48,7 +48,7 @@ before_script:
     # so build it manually.
     - git clone https://gitlab.freedesktop.org/pwithnall/malcontent.git ./malcontent
     - pushd ./malcontent
-    - git checkout tags/0.5.0
+    - git checkout tags/0.6.0
     - meson setup ${MESON_COMMON_OPTIONS} --prefix /usr _build
     - ninja -C _build
     - sudo ninja -C _build install
