@@ -206,10 +206,7 @@ validate (GisPasswordPage *page)
   gint strength_level;
   const gchar *hint;
 
-  if (priv->timeout_id != 0) {
-    g_source_remove (priv->timeout_id);
-    priv->timeout_id = 0;
-  }
+  g_clear_handle_id (&priv->timeout_id, g_source_remove);
 
   password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
   verify = gtk_entry_get_text (GTK_ENTRY (priv->confirm_entry));
@@ -248,7 +245,7 @@ validate (GisPasswordPage *page)
 
   update_page_validation (page);
 
-  return FALSE;
+  return G_SOURCE_REMOVE;
 }
 
 static gboolean
