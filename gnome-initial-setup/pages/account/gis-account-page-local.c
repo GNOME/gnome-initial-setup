@@ -256,10 +256,7 @@ validate (GisAccountPageLocal *page)
   gboolean parental_controls_enabled;
   gchar *tip;
 
-  if (priv->timeout_id != 0) {
-    g_source_remove (priv->timeout_id);
-    priv->timeout_id = 0;
-  }
+  g_clear_handle_id (&priv->timeout_id, g_source_remove);
 
   entry = gtk_bin_get_child (GTK_BIN (priv->username_combo));
 
@@ -286,7 +283,7 @@ validate (GisAccountPageLocal *page)
 
   validation_changed (page);
 
-  return FALSE;
+  return G_SOURCE_REMOVE;
 }
 
 static gboolean
@@ -494,11 +491,7 @@ gis_account_page_local_dispose (GObject *object)
   g_clear_object (&priv->goa_client);
   g_clear_object (&priv->avatar_pixbuf);
   g_clear_pointer (&priv->avatar_filename, g_free);
-
-  if (priv->timeout_id != 0) {
-    g_source_remove (priv->timeout_id);
-    priv->timeout_id = 0;
-  }
+  g_clear_handle_id (&priv->timeout_id, g_source_remove);
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->dispose (object);
 }
