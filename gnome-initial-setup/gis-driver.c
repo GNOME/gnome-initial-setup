@@ -356,8 +356,12 @@ gis_driver_get_user_permissions (GisDriver    *driver,
                                  const gchar **password)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  *user = priv->user_account;
-  *password = priv->user_password;
+
+  if (user != NULL)
+    *user = priv->user_account;
+
+  if (password != NULL)
+    *password = priv->user_password;
 }
 
 /**
