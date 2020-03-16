@@ -570,6 +570,10 @@ local_create_user (GisAccountPageLocal *local,
       return;
     }
 
+    /* Make the admin account usable in case g-i-s crashes. If all goes
+     * according to plan a password will be set on it in gis-password-page.c */
+    act_user_set_password_mode (parent_user, ACT_USER_PASSWORD_MODE_SET_AT_LOGIN);
+
     /* Mark it as the parent user account.
      * FIXME: This should be async. */
     connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &local_error);
