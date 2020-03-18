@@ -158,7 +158,7 @@ fill_stack (GisWelcomeWidget *widget)
   GHashTable *initial = cc_common_language_get_initial_languages ();
   GHashTableIter iter;
   gpointer key, value;
-  GHashTable *added_translations;
+  g_autoptr(GHashTable) added_translations = NULL;
 
   added_translations = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -183,8 +183,6 @@ fill_stack (GisWelcomeWidget *widget)
 
       g_hash_table_insert (priv->translation_widgets, locale_id, label);
     }
-
-  g_hash_table_destroy (added_translations);
 }
 
 static void

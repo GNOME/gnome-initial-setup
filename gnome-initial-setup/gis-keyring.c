@@ -42,30 +42,22 @@
 void
 gis_ensure_login_keyring ()
 {
-	GSubprocess *subprocess = NULL;
-	GSubprocessLauncher *launcher = NULL;
-	GError *error = NULL;
+	g_autoptr(GSubprocess) subprocess = NULL;
+	g_autoptr(GSubprocessLauncher) launcher = NULL;
+	g_autoptr(GError) error = NULL;
 
 	g_debug ("launching gnome-keyring-daemon --unlock");
 	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE | G_SUBPROCESS_FLAGS_STDOUT_PIPE | G_SUBPROCESS_FLAGS_STDERR_SILENCE);
 	subprocess = g_subprocess_launcher_spawn (launcher, &error, "gnome-keyring-daemon", "--unlock", NULL);
 	if (subprocess == NULL) {
 		g_warning ("Failed to spawn gnome-keyring-daemon --unlock: %s", error->message);
-		g_error_free (error);
-		goto out;
+		return;
 	}
 
 	if (!g_subprocess_communicate_utf8 (subprocess, DUMMY_PWD, NULL, NULL, NULL, &error)) {
 		g_warning ("Failed to communicate with gnome-keyring-daemon: %s", error->message);
-		g_error_free (error);
-		goto out;
+		return;
 	}
-
-out:
-	if (subprocess)
-		g_object_unref (subprocess);
-	if (launcher)
-		g_object_unref (launcher);
 }
 
 void
