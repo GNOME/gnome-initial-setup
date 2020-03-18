@@ -63,24 +63,22 @@ gis_ensure_login_keyring ()
 void
 gis_update_login_keyring_password (const gchar *new_)
 {
-	GDBusConnection *bus = NULL;
-	SecretService *service = NULL;
-	SecretValue *old_secret = NULL;
-	SecretValue *new_secret = NULL;
-	GError *error = NULL;
+	g_autoptr(GDBusConnection) bus = NULL;
+	g_autoptr(SecretService) service = NULL;
+	g_autoptr(SecretValue) old_secret = NULL;
+	g_autoptr(SecretValue) new_secret = NULL;
+	g_autoptr(GError) error = NULL;
 	
 	service = secret_service_get_sync (SECRET_SERVICE_OPEN_SESSION, NULL, &error);
 	if (service == NULL) {
 		g_warning ("Failed to get secret service: %s", error->message);
-		g_error_free (error);
-		goto out;
+		return;
 	}
 
 	bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
 	if (bus == NULL) {
 		g_warning ("Failed to get session bus: %s", error->message);
-		g_error_free (error);
-		goto out;
+		return;
 	}
 
 	old_secret = secret_value_new (DUMMY_PWD, strlen (DUMMY_PWD), "text/plain");
@@ -102,17 +100,5 @@ gis_update_login_keyring_password (const gchar *new_)
 
         if (error != NULL) {
           g_warning ("Failed to change keyring password: %s", error->message);
-          g_error_free (error);
         }
-
-out:
-
-	if (service)
-		g_object_unref (service);
-	if (bus)
-		g_object_unref (bus);
-	if (old_secret)
-		secret_value_unref (old_secret);
-	if (new_secret)
-		secret_value_unref (new_secret);
 }
