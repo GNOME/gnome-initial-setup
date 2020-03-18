@@ -46,7 +46,7 @@ dependencies = [
     dependency ('rest-0.7'),
     dependency ('json-glib-1.0'),
     dependency ('krb5'),
-    dependency ('libsecret-1'),
+    dependency ('libsecret-1', version: '>= 0.18.8'),
     dependency ('pwquality'),
     dependency ('webkit2gtk-4.0'),
     cheese_dep,
