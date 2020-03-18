@@ -155,7 +155,7 @@ static void
 fill_stack (GisWelcomeWidget *widget)
 {
   GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
-  GHashTable *initial = cc_common_language_get_initial_languages ();
+  g_autoptr(GHashTable) initial = cc_common_language_get_initial_languages ();
   GHashTableIter iter;
   gpointer key, value;
   g_autoptr(GHashTable) added_translations = NULL;
