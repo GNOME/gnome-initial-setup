@@ -296,14 +296,12 @@ add_languages (CcLanguageChooser  *chooser,
 static void
 add_all_languages (CcLanguageChooser *chooser)
 {
-        char **locale_ids;
-        GHashTable *initial;
+        g_auto(GStrv) locale_ids = NULL;
+        g_autoptr(GHashTable) initial = NULL;
 
         locale_ids = gnome_get_all_locales ();
         initial = cc_common_language_get_initial_languages ();
         add_languages (chooser, locale_ids, initial);
-        g_hash_table_destroy (initial);
-        g_strfreev (locale_ids);
 }
 
 static gboolean
