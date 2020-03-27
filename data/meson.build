@@ -45,7 +45,7 @@ if enable_systemd
     unit_files = {
         'gnome-initial-setup.service' : [ 'gnome-session@gnome-initial-setup.target.wants/' ],
         'gnome-initial-setup-first-login.service' : [ 'gnome-session.target.wants/' ],
-        'gnome-initial-setup-copy-worker.service' : [ 'gnome-session.target.wants/' ],
+        'gnome-initial-setup-copy-worker.service' : [ 'basic.target.wants/' ],
         'gnome-welcome-tour.service' : [ 'gnome-session.target.wants/' ],
     }
 
