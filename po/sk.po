@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-01-28 10:40+0000\n"
-"PO-Revision-Date: 2020-01-29 11:50+0100\n"
+"POT-Creation-Date: 2020-03-28 08:36+0000\n"
+"PO-Revision-Date: 2020-04-05 12:56+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Project-Style: gnome\n"
 
 # desktop entry name
@@ -52,12 +52,12 @@ msgid "_Cancel"
 msgstr "_Zrušiť"
 
 # cmd desc
-#: gnome-initial-setup/gnome-initial-setup.c:236
+#: gnome-initial-setup/gnome-initial-setup.c:241
 msgid "Force existing user mode"
 msgstr "Vynúti režim existujúceho používateľa"
 
 # cmd desc
-#: gnome-initial-setup/gnome-initial-setup.c:242
+#: gnome-initial-setup/gnome-initial-setup.c:247
 msgid "— GNOME initial setup"
 msgstr "— Prvotné nastavenie prostredia GNOME"
 
@@ -109,7 +109,7 @@ msgstr "_Používateľské meno"
 
 # GtkLabel label
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:70
-#: gnome-initial-setup/pages/password/gis-password-page.ui:35
+#: gnome-initial-setup/pages/password/gis-password-page.ui:34
 msgid "_Password"
 msgstr "_Heslo"
 
@@ -148,22 +148,26 @@ msgstr "Me_no správcu"
 msgid "Administrator Password"
 msgstr "Heslo správcu"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:205
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Prosím, skontrolujte meno a používateľské meno. Taktiež môžete zvoliť "
 "obrázok."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:424
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:453
 msgid "We need a few details to complete setup."
 msgstr "Kvôli dokončeniu nastavenia je potrebných niekoľko údajov."
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:558
+msgid "Administrator"
+msgstr "Správca"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Obrázok podobizne"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:264
+#: gnome-initial-setup/pages/account/gis-account-page.c:281
 msgid "About You"
 msgstr "Osobné údaje"
 
@@ -176,6 +180,16 @@ msgstr ""
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
 msgid "_Full Name"
 msgstr "_Celé meno"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:149
+msgid "Set up _parental controls for this user"
+msgstr "Nastaviť _rodičovskú kontrolu pre tohto používateľa"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
+msgid "For use by a parent or supervisor, who must set up their own password."
+msgstr ""
+"Pre použitie rodičom alebo administrátorom, ktorí musia nastaviť svoje "
+"vlastné heslo."
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:43
 msgid "_Enterprise Login"
@@ -209,21 +223,25 @@ msgstr "Neplatné heslo. Prosím, skúste to znovu"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Nepodarilo sa pripojiť k doméne %s: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:245
+#: gnome-initial-setup/pages/account/um-utils.c:248
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr ""
 "Prepáčte, ale toto používateľské meno nie je dostupné. Prosím, skúste iné."
 
-#: gnome-initial-setup/pages/account/um-utils.c:248
+#: gnome-initial-setup/pages/account/um-utils.c:251
 #, c-format
 msgid "The username is too long."
 msgstr "Používateľské meno je príliš dlhé."
 
-#: gnome-initial-setup/pages/account/um-utils.c:251
+#: gnome-initial-setup/pages/account/um-utils.c:254
 msgid "The username cannot start with a “-”."
 msgstr "Používateľské meno nemôže začínať na „-“."
 
-#: gnome-initial-setup/pages/account/um-utils.c:254
+#: gnome-initial-setup/pages/account/um-utils.c:257
+msgid "That username isn’t available. Please try another."
+msgstr "Toto používateľské meno nie je dostupné. Prosím, skúste iné."
+
+#: gnome-initial-setup/pages/account/um-utils.c:260
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -232,18 +250,18 @@ msgstr ""
 "a z nasledovných znakov: . - _"
 
 # GtkLabel label
-#: gnome-initial-setup/pages/account/um-utils.c:258
+#: gnome-initial-setup/pages/account/um-utils.c:264
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Toto sa použije ako názov vášho domovského priečinka a nebude možné ho "
 "zmeniť."
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:89
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:92
 msgid "Add Account"
 msgstr "Pridanie účtu"
 
 # page title
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:341
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:357
 msgid "Online Accounts"
 msgstr "Účty služieb"
 
@@ -299,7 +317,7 @@ msgstr "Vyberte rozloženie klávesnice alebo metódu vstupu."
 msgid "No languages found"
 msgstr "Nenašli sa žiadne jazyky"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:306
+#: gnome-initial-setup/pages/language/gis-language-page.c:262
 msgid "Welcome"
 msgstr "Vitajte"
 
@@ -351,30 +369,66 @@ msgstr "Bezdrôtová sieť nie je dostupná"
 msgid "Turn On"
 msgstr "Zapnúť"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:144
-msgid "This is a weak password."
-msgstr "Toto heslo je slabé."
+#. Translators: The placeholder is the user’s full name.
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#, c-format
+msgid "Parental Controls for %s"
+msgstr "Rodičovská kontrola používateľa %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:150
-msgid "The passwords do not match."
-msgstr "Heslá sa nezhodujú."
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+msgid "Set restrictions on what this user can run or install."
+msgstr ""
+"Nastavte obmedzenia na to, čo môže tento používateľ spustiť alebo "
+"nainštalovať."
+
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+msgid "Parental Controls"
+msgstr "Rodičovská kontrola"
 
 # GtkLabel label
-#: gnome-initial-setup/pages/password/gis-password-page.c:272
-msgid "Password"
-msgstr "Heslo"
-
-# GtkLabel label
-#: gnome-initial-setup/pages/password/gis-password-page.ui:16
+#. Don’t break UI compatibility if parental controls are disabled.
+#: gnome-initial-setup/pages/password/gis-password-page.c:79
 msgid "Set a Password"
 msgstr "Nastavte heslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:17
+#: gnome-initial-setup/pages/password/gis-password-page.c:80
+#: gnome-initial-setup/pages/password/gis-password-page.c:89
 msgid "Be careful not to lose your password."
 msgstr "Dajte pozor, aby ste heslo nezabudli."
 
 # GtkLabel label
-#: gnome-initial-setup/pages/password/gis-password-page.ui:67
+#. Translators: The placeholder is for the user’s full name.
+#: gnome-initial-setup/pages/password/gis-password-page.c:87
+#, c-format
+msgid "Set a Password for %s"
+msgstr "Nastavte heslo pre používateľa %s"
+
+# GtkLabel label
+#: gnome-initial-setup/pages/password/gis-password-page.c:95
+msgid "Set a Parent Password"
+msgstr "Nastavte rodičovské heslo"
+
+#. Translators: The placeholder is the full name of the child user on the system.
+#: gnome-initial-setup/pages/password/gis-password-page.c:97
+#, c-format
+msgid "This password will control access to the parental controls for %s."
+msgstr "Toto heslo bude ovládať prístup k rodičovskej kontrole dieťaťa %s."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:226
+msgid "This is a weak password."
+msgstr "Toto heslo je slabé."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:232
+msgid "The passwords do not match."
+msgstr "Heslá sa nezhodujú."
+
+# GtkLabel label
+#: gnome-initial-setup/pages/password/gis-password-page.c:418
+msgid "Password"
+msgstr "Heslo"
+
+# GtkLabel label
+#: gnome-initial-setup/pages/password/gis-password-page.ui:66
 msgid "_Confirm"
 msgstr "_Potvrdiť"
 
@@ -511,7 +565,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:112
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -524,22 +578,22 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:122
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
 #, c-format
 msgid "Problem data will be collected by %s:"
 msgstr "Údaje o probléme budú zozbierané systémom %s:"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:123
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:183
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:258
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:79
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:135
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:210
 msgid "Privacy Policy"
 msgstr "Zásady súkromia"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:183
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:135
 msgid "Uses Mozilla Location Service:"
 msgstr "Využívajú sa služby umiestnenia spoločnosti Mozilla:"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:294
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:246
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:16
 msgid "Privacy"
 msgstr "Súkromie"
@@ -570,7 +624,7 @@ msgstr "Nastavenia súkromia sa dajú kedykoľvek zmeniť v aplikácii Nastaveni
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:269
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Začať používať systém %s"
@@ -578,13 +632,13 @@ msgstr "_Začať používať systém %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:276
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr ""
 "Distribúcia %s je pripravená na použitie. Veríme, že sa vám bude páčiť!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:302
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
 msgid "Setup Complete"
 msgstr "Nastavenie je dokončené"
 
@@ -593,7 +647,7 @@ msgid "All done!"
 msgstr "Všetko je hotové!"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:263
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -602,29 +656,29 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:304
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
 msgid "%l:%M %p"
 msgstr "%-H:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:307
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
 # GtkLabel label
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:456
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Časové pásmo"
