@@ -886,7 +886,12 @@ cc_input_chooser_get_layout (CcInputChooser *chooser,
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 
-	get_layout (chooser, priv->type, priv->id, layout, variant);
+        if (!get_layout (chooser, priv->type, priv->id, layout, variant)) {
+                if (layout != NULL)
+                        *layout = NULL;
+                if (variant != NULL)
+                        *variant = NULL;
+        }
 }
 
 void
