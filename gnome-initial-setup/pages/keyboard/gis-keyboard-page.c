@@ -354,6 +354,8 @@ preselect_input_source (GisKeyboardPage *self)
         const gchar *type;
         const gchar *id;
         gchar *language;
+        gboolean desktop_got_something;
+        gboolean desktop_got_input_method;
 
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         GSList *sources = get_localed_input (priv->localed);
@@ -363,25 +365,46 @@ preselect_input_source (GisKeyboardPage *self)
         g_slist_free_full (priv->system_sources, g_free);
         priv->system_sources = g_slist_reverse (sources);
 
-        /* For languages that use an input method, we will add both
-         * system keyboard layout and the ibus input method. For
-         * languages that use keyboard layout only, we will add only
-         * system keyboard layout. Because the keyboard layout
-         * information from gnome-desktop is not as accurate as system
-         * keyboard layout, if gnome-desktop returns keyboard layout,
-         * we ignore it and use system keyboard layout instead. If
-         * gnome-desktop instead returns an ibus input method, we will
-         * add both system keyboard layout and the ibus input method. */
+        /* We have two potential sources of information as to which
+         * source to pre-select here: the keyboard layout that is
+         * configured system-wide (read from priv->system_sources),
+         * and a gnome-desktop function that lets us look up a default
+         * input source for a given language.
+         *
+         * An important limitation here is that there is no system-wide
+         * configuration for input methods, so if the best choice for the
+         * language is an input method, we will only find it from the
+         * gnome-desktop lookup. But if both sources give us keyboard layouts,
+         * we want to prefer the one that's configured system-wide over the one
+         * from gnome-desktop.
+         *
+         * So we first do the gnome-desktop lookup, and keep track of what we
+         * got.
+         *
+         * - If we got an input method, we preselect that, and we're done.
+         * - If we got a keyboard layout, and there's no system-wide keyboard
+         *   layout set, we preselect the layout we got from gnome-desktop.
+         * - If we didn't get an input method from gnome-desktop and there
+         *   is a system-wide keyboard layout set, we preselect that.
+         * - If we got nothing from gnome-desktop and there's no system-wide
+         *   keyboard layout set, we don't preselect anything.
+         *
+         * See:
+         * - https://bugzilla.gnome.org/show_bug.cgi?id=776189
+         * - https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/104
+         */
         language = cc_common_language_get_current_language ();
 
-        if (priv->system_sources) {
+        desktop_got_something = gnome_get_input_source_from_locale (language, &type, &id);
+        desktop_got_input_method = (desktop_got_something && g_strcmp0 (type, "xkb") != 0);
+
+        if (desktop_got_something && (desktop_got_input_method || !priv->system_sources)) {
+                cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
+                                            id, type);
+        } else if (priv->system_sources) {
                 cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
                                             (const gchar *) priv->system_sources->data,
                                             "xkb");
-        } else if (gnome_get_input_source_from_locale (language, &type, &id) &&
-                   g_strcmp0 (type, "xkb") != 0) {
-                cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
-                                            id, type);
         }
 
         g_free (language);
