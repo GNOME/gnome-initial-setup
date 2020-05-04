@@ -373,15 +373,19 @@ preselect_input_source (GisKeyboardPage *self)
          * gnome-desktop instead returns an ibus input method, we will
          * add both system keyboard layout and the ibus input method. */
         language = cc_common_language_get_current_language ();
+        gboolean desktop_got_something;
+        gboolean desktop_got_input_source;
 
-        if (priv->system_sources) {
+        desktop_got_something = gnome_get_input_source_from_locale (language, &type, &id);
+        desktop_got_input_source = (desktop_got_something && g_strcmp0 (type, "xkb") != 0);
+
+        if (desktop_got_input_source || (!priv->system_sources && desktop_got_something)) {
+                cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
+                                            id, type);
+        } else if (priv->system_sources) {
                 cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
                                             (const gchar *) priv->system_sources->data,
                                             "xkb");
-        } else if (gnome_get_input_source_from_locale (language, &type, &id) &&
-                   g_strcmp0 (type, "xkb") != 0) {
-                cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
-                                            id, type);
         }
 
         g_free (language);
