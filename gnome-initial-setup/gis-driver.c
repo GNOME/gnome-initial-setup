@@ -33,6 +33,9 @@
 
 #define GIS_TYPE_DRIVER_MODE (gis_driver_mode_get_type ())
 
+#define GIS_WINDOW_WIDTH  1024
+#define GIS_WINDOW_HEIGHT  768
+
 /* Statically include this for now. Maybe later
  * we'll generate this from glib-mkenums. */
 GType
@@ -643,7 +646,7 @@ monitor_is_small (GdkMonitor *monitor)
     return TRUE;
 
   gdk_monitor_get_geometry (monitor, &geom);
-  return geom.height < 800;
+  return (geom.width < GIS_WINDOW_WIDTH || geom.height < GIS_WINDOW_HEIGHT);
 }
 
 static void
@@ -832,8 +835,8 @@ update_screen_size (GisDriver *driver)
                                       GTK_POLICY_NEVER,
                                       GTK_POLICY_NEVER);
 
-      size_hints.min_width = size_hints.max_width = 1024;
-      size_hints.min_height = size_hints.max_height = 768;
+      size_hints.min_width = size_hints.max_width = GIS_WINDOW_WIDTH;
+      size_hints.min_height = size_hints.max_height = GIS_WINDOW_HEIGHT;
       size_hints.win_gravity = GDK_GRAVITY_CENTER;
 
       gtk_window_set_geometry_hints (priv->main_window,
