@@ -14,19 +14,16 @@ po_dir = join_paths(meson.source_root(), 'po')
 data_dir = join_paths(prefix, get_option('datadir'))
 locale_dir = join_paths(prefix, get_option('localedir'))
 libexec_dir = join_paths(prefix, get_option('libexecdir'))
+sysconf_dir = join_paths(prefix, get_option('sysconfdir'))
 source_root = join_paths(meson.source_root(), 'gnome-initial-setup')
 pkgdata_dir = join_paths(data_dir, meson.project_name())
-
-vendor_conf_file = get_option('vendor-conf-file')
-if vendor_conf_file == ''
-    vendor_conf_file = join_paths(data_dir, 'gnome-initial-setup', 'vendor.conf')
-endif
+pkgsysconf_dir = join_paths(sysconf_dir, meson.project_name())
 
 conf = configuration_data()
-conf.set_quoted('VENDOR_CONF_FILE', vendor_conf_file)
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('GNOMELOCALEDIR', locale_dir)
 conf.set_quoted('PKGDATADIR', pkgdata_dir)
+conf.set_quoted('PKGSYSCONFDIR', pkgsysconf_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
 conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_64')
@@ -51,6 +48,11 @@ if enable_systemd
     #  systemduserunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir')
     # and uncomment systemd_dep below
     systemd_userunitdir = join_paths(prefix, 'lib', 'systemd', 'user')
+endif
+
+vendor_conf_file = get_option('vendor-conf-file')
+if vendor_conf_file != ''
+    conf.set_quoted('VENDOR_CONF_FILE', vendor_conf_file)
 endif
 
 # Needed for the 'account' page

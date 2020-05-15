@@ -502,22 +502,43 @@ gis_driver_hide_window (GisDriver *driver)
   gtk_widget_hide (GTK_WIDGET (priv->main_window));
 }
 
+static GKeyFile *
+load_vendor_conf_file_at_path (const char *path)
+{
+  g_autoptr(GError) error = NULL;
+  g_autoptr(GKeyFile) vendor_conf_file = g_key_file_new ();
+
+  if (!g_key_file_load_from_file (vendor_conf_file, path, G_KEY_FILE_NONE, &error))
+    {
+      if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+        g_warning ("Could not read file %s: %s:", path, error->message);
+      return NULL;
+    }
+
+  return g_steal_pointer (&vendor_conf_file);
+}
+
 static void
 load_vendor_conf_file (GisDriver *driver)
 {
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  g_autoptr(GError) error = NULL;
-  g_autoptr(GKeyFile) vendor_conf_file = g_key_file_new ();
 
-  if(!g_key_file_load_from_file (vendor_conf_file, VENDOR_CONF_FILE,
-                                 G_KEY_FILE_NONE, &error))
-    {
-      if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
-        g_warning ("Could not read file %s: %s", VENDOR_CONF_FILE, error->message);
-      return;
-    }
-
-  priv->vendor_conf_file = g_steal_pointer (&vendor_conf_file);
+#ifdef VENDOR_CONF_FILE
+  priv->vendor_conf_file = load_vendor_conf_file_at_path (VENDOR_CONF_FILE);
+#else
+  /* If no path was passed at build time, then we have search path:
+   *
+   *  - First check $(sysconfdir)/gnome-initial-setup/vendor.conf
+   *  - Then check $(datadir)/gnome-initial-setup/vendor.conf
+   *
+   * This allows distributions to provide a default packaged config in a
+   * location that might be managed by ostree, and allows OEMs to
+   * override using an unmanaged location.
+   */
+  priv->vendor_conf_file = load_vendor_conf_file_at_path (PKGSYSCONFDIR "/vendor.conf");
+  if (priv->vendor_conf_file == NULL)
+    priv->vendor_conf_file = load_vendor_conf_file_at_path (PKGDATADIR "/vendor.conf");
+#endif
 }
 
 static void
@@ -525,10 +546,16 @@ report_conf_error_if_needed (const gchar *group,
                              const gchar *key,
                              const GError *error)
 {
+#if VENDOR_CONF_FILE
+  const char *file = VENDOR_CONF_FILE;
+#else
+  const char *file = "vendor.conf";
+#endif
+
   if (!g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND) &&
       !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_GROUP_NOT_FOUND))
     g_warning ("Error getting the value for key '%s' of group [%s] in "
-               "%s: %s", group, key, VENDOR_CONF_FILE, error->message);
+               "%s: %s", group, key, file, error->message);
 }
 
 gboolean
