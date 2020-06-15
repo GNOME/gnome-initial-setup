@@ -26,6 +26,7 @@
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <webkit2/webkit2.h>
 
 #include "cc-common-language.h"
 #include "gis-assistant.h"
@@ -884,8 +885,11 @@ gis_driver_startup (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
   GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+  WebKitWebContext *context = webkit_web_context_get_default ();
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
+
+  webkit_web_context_set_sandbox_enabled (context, TRUE);
 
   if (priv->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
