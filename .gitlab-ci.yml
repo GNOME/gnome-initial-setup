@@ -58,7 +58,9 @@ before_script:
     # answer to sharing that code (#68), make those warnings non-fatal.
     - meson -Dsystemd=${EXPLICIT_FEATURES}
       --auto-features ${AUTO_FEATURES}
+      ${OPTIONS}
       -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
+      ${EXTRA_PARAMETERS}
       _build .
     - cd _build
     - ninja -v
@@ -76,9 +78,11 @@ build-minimal:
   variables:
     EXPLICIT_FEATURES: 'false'
     AUTO_FEATURES: 'disabled'
+    OPTIONS: ''
 
 build-maximal:
   <<: *job_definition
   variables:
     EXPLICIT_FEATURES: 'true'
     AUTO_FEATURES: 'enabled'
+    OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
