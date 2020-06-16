@@ -96,6 +96,7 @@ struct _GisDriverPrivate {
 
   locale_t locale;
 
+  const gchar *vendor_conf_file_path;
   GKeyFile *vendor_conf_file;
 };
 typedef struct _GisDriverPrivate GisDriverPrivate;
@@ -502,9 +503,11 @@ gis_driver_hide_window (GisDriver *driver)
   gtk_widget_hide (GTK_WIDGET (priv->main_window));
 }
 
-static GKeyFile *
-load_vendor_conf_file_at_path (const char *path)
+static gboolean
+load_vendor_conf_file_at_path (GisDriver *driver,
+                               const char *path)
 {
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_autoptr(GError) error = NULL;
   g_autoptr(GKeyFile) vendor_conf_file = g_key_file_new ();
 
@@ -512,19 +515,19 @@ load_vendor_conf_file_at_path (const char *path)
     {
       if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
         g_warning ("Could not read file %s: %s:", path, error->message);
-      return NULL;
+      return FALSE;
     }
 
-  return g_steal_pointer (&vendor_conf_file);
+  priv->vendor_conf_file_path = path;
+  priv->vendor_conf_file = g_steal_pointer (&vendor_conf_file);
+  return TRUE;
 }
 
 static void
 load_vendor_conf_file (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
 #ifdef VENDOR_CONF_FILE
-  priv->vendor_conf_file = load_vendor_conf_file_at_path (VENDOR_CONF_FILE);
+  load_vendor_conf_file_at_path (driver, VENDOR_CONF_FILE);
 #else
   /* If no path was passed at build time, then we have search path:
    *
@@ -535,27 +538,23 @@ load_vendor_conf_file (GisDriver *driver)
    * location that might be managed by ostree, and allows OEMs to
    * override using an unmanaged location.
    */
-  priv->vendor_conf_file = load_vendor_conf_file_at_path (PKGSYSCONFDIR "/vendor.conf");
-  if (priv->vendor_conf_file == NULL)
-    priv->vendor_conf_file = load_vendor_conf_file_at_path (PKGDATADIR "/vendor.conf");
+  if (!load_vendor_conf_file_at_path (driver, PKGSYSCONFDIR "/vendor.conf"))
+    load_vendor_conf_file_at_path (driver, PKGDATADIR "/vendor.conf");
 #endif
 }
 
 static void
-report_conf_error_if_needed (const gchar *group,
+report_conf_error_if_needed (GisDriver *driver,
+                             const gchar *group,
                              const gchar *key,
                              const GError *error)
 {
-#ifdef VENDOR_CONF_FILE
-  const char *file = VENDOR_CONF_FILE;
-#else
-  const char *file = "vendor.conf";
-#endif
+  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   if (!g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND) &&
       !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_GROUP_NOT_FOUND))
-    g_warning ("Error getting the value for key '%s' of group [%s] in "
-               "%s: %s", group, key, file, error->message);
+    g_warning ("Error getting the value for key '%s' of group [%s] in %s: %s",
+               group, key, priv->vendor_conf_file_path, error->message);
 }
 
 gboolean
@@ -573,7 +572,7 @@ gis_driver_conf_get_boolean (GisDriver *driver,
     if (error == NULL)
       return new_value;
 
-    report_conf_error_if_needed (group, key, error);
+    report_conf_error_if_needed (driver, group, key, error);
   }
 
   return default_value;
@@ -594,7 +593,7 @@ gis_driver_conf_get_string_list (GisDriver *driver,
     if (error == NULL)
       return new_value;
 
-    report_conf_error_if_needed (group, key, error);
+    report_conf_error_if_needed (driver, group, key, error);
   }
 
   return NULL;
@@ -614,7 +613,7 @@ gis_driver_conf_get_string (GisDriver *driver,
     if (error == NULL)
       return new_value;
 
-    report_conf_error_if_needed (group, key, error);
+    report_conf_error_if_needed (driver, group, key, error);
   }
 
   return NULL;
