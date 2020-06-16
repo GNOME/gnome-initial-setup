@@ -546,7 +546,7 @@ report_conf_error_if_needed (const gchar *group,
                              const gchar *key,
                              const GError *error)
 {
-#if VENDOR_CONF_FILE
+#ifdef VENDOR_CONF_FILE
   const char *file = VENDOR_CONF_FILE;
 #else
   const char *file = "vendor.conf";
