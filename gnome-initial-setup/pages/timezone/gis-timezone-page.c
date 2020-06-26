@@ -388,6 +388,18 @@ stop_geolocation (GisTimezonePage *page)
 }
 
 static void
+page_added (GisTimezonePage *page)
+{
+  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+
+   if (priv->geoclue_cancellable == NULL)
+     {
+       priv->geoclue_cancellable = g_cancellable_new ();
+       get_location_from_geoclue_async (page);
+     }
+}
+
+static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
@@ -418,10 +430,7 @@ gis_timezone_page_constructed (GObject *object)
   priv->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
   g_object_unref (settings);
 
-  priv->geoclue_cancellable = g_cancellable_new ();
-
   set_location (page, NULL);
-  get_location_from_geoclue_async (page);
 
   priv->search_entry_text_changed_id =
       g_signal_connect (priv->search_entry, "changed",
@@ -432,6 +441,8 @@ gis_timezone_page_constructed (GObject *object)
                     G_CALLBACK (entry_mapped), page);
   g_signal_connect (priv->map, "location-changed",
                     G_CALLBACK (map_location_changed), page);
+  g_signal_connect (GTK_WIDGET (page), "parent-set",
+                    G_CALLBACK (page_added), NULL);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
