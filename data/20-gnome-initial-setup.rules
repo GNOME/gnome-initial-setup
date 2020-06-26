@@ -9,14 +9,12 @@ polkit.addRule(function(action, subject) {
     if (subject.user !== 'gnome-initial-setup')
         return undefined;
 
-    var actionMatches = (action.id === 'org.freedesktop.udisks2.filesystem-mount-system' ||
-                         action.id.indexOf('org.freedesktop.hostname1.') === 0 ||
+    var actionMatches = (action.id.indexOf('org.freedesktop.hostname1.') === 0 ||
                          action.id.indexOf('org.freedesktop.NetworkManager.') === 0 ||
                          action.id.indexOf('org.freedesktop.locale1.') === 0 ||
                          action.id.indexOf('org.freedesktop.accounts.') === 0 ||
                          action.id.indexOf('org.freedesktop.timedate1.') === 0 ||
                          action.id.indexOf('org.freedesktop.realmd.') === 0 ||
-                         action.id.indexOf('org.freedesktop.RealtimeKit1.') === 0 ||
                          action.id.indexOf('com.endlessm.ParentalControls.') === 0);
 
     if (actionMatches) {
