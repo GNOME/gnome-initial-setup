@@ -369,11 +369,17 @@ gis_page_apply_cancel (GisPage *page)
   g_cancellable_cancel (priv->apply_cancel);
 }
 
-void
-gis_page_save_data (GisPage *page)
+gboolean
+gis_page_save_data (GisPage  *page,
+                    GError  **error)
 {
-  if (GIS_PAGE_GET_CLASS (page)->save_data)
-    GIS_PAGE_GET_CLASS (page)->save_data (page);
+  if (GIS_PAGE_GET_CLASS (page)->save_data == NULL)
+    {
+      /* Not implemented, which presumably means the page has nothing to save. */
+      return TRUE;
+    }
+
+  return GIS_PAGE_GET_CLASS (page)->save_data (page, error);
 }
 
 void
