@@ -59,7 +59,8 @@ const gchar *gis_assistant_get_title      (GisAssistant *assistant);
 GtkWidget *gis_assistant_get_titlebar     (GisAssistant *assistant);
 
 void      gis_assistant_locale_changed    (GisAssistant *assistant);
-void      gis_assistant_save_data         (GisAssistant *assistant);
+gboolean  gis_assistant_save_data         (GisAssistant  *assistant,
+                                           GError       **error);
 
 G_END_DECLS
 

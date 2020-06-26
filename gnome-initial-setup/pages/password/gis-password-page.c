@@ -145,8 +145,9 @@ update_page_validation (GisPasswordPage *page)
   gis_page_set_complete (GIS_PAGE (page), page_validate (page));
 }
 
-static void
-gis_password_page_save_data (GisPage *gis_page)
+static gboolean
+gis_password_page_save_data (GisPage  *gis_page,
+                             GError  **error)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
@@ -154,8 +155,7 @@ gis_password_page_save_data (GisPage *gis_page)
   UmAccountMode account_mode;
   const gchar *password = NULL;
 
-  if (gis_page->driver == NULL)
-    return;
+  g_assert (gis_page->driver != NULL);
 
   account_mode = gis_driver_get_account_mode (gis_page->driver);
 
@@ -169,7 +169,7 @@ gis_password_page_save_data (GisPage *gis_page)
 
     if (password != NULL)
       gis_update_login_keyring_password (password);
-    return;
+    return TRUE;
   }
 
   password = gtk_entry_get_text (GTK_ENTRY (priv->password_entry));
@@ -186,6 +186,8 @@ gis_password_page_save_data (GisPage *gis_page)
 
   if (!priv->parent_mode)
     gis_update_login_keyring_password (password);
+
+  return TRUE;
 }
 
 static void
