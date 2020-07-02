@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-05-29 20:46+0000\n"
-"PO-Revision-Date: 2020-06-24 12:53+0500\n"
+"POT-Creation-Date: 2020-06-26 13:14+0000\n"
+"PO-Revision-Date: 2020-07-02 09:24+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
@@ -145,16 +145,22 @@ msgstr ""
 msgid "We need a few details to complete setup."
 msgstr "Орнатуды аяқтау үшін біраз ақпарат керек."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:558
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:559
 msgid "Administrator"
 msgstr "Әкімші"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:565
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:608
+#, c-format
+msgid "Failed to create user '%s': "
+msgstr "\"%s\" пайдаланушысын жасау сәтсіз аяқталды: "
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Аватар суреті"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:281
+#: gnome-initial-setup/pages/account/gis-account-page.c:283
 msgid "About You"
 msgstr "Өзіңіз туралы"
 
@@ -346,18 +352,18 @@ msgid "Turn On"
 msgstr "Іске қосу"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "%s үшін ата-ана бақылауы"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
 msgid "Set restrictions on what this user can run or install."
 msgstr ""
 "Бұл пайдаланушы нені іске қоса немесе орната алатынын анықтайтын шектеулерін "
 "орнату."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
 msgid "Parental Controls"
 msgstr "Ата-ана бақылауы"
 
@@ -387,15 +393,15 @@ msgstr "Ата-ана бақылау паролін орнату"
 msgid "This password will control access to the parental controls for %s."
 msgstr "Бұл пароль %s үшін ата-ана бақылауына қатынауды басқаратын болады."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:226
+#: gnome-initial-setup/pages/password/gis-password-page.c:228
 msgid "This is a weak password."
 msgstr "Бұл пароль әлсіз."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:232
+#: gnome-initial-setup/pages/password/gis-password-page.c:234
 msgid "The passwords do not match."
 msgstr "Парольдер өзара сәйкес келмейді."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:418
+#: gnome-initial-setup/pages/password/gis-password-page.c:420
 msgid "Password"
 msgstr "Пароль"
 
@@ -597,7 +603,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
 msgid "_Start Using %s"
 msgstr "%s қолдануд_ы бастау"
@@ -605,12 +611,12 @@ msgstr "%s қолдануд_ы бастау"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr "%s қолдануға дайын. Оны ұнатасыз деп үміттенеміз!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:264
 msgid "Setup Complete"
 msgstr "Баптау аяқталды"
 
@@ -649,7 +655,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Уақыт белдеуі"
