@@ -1,4 +1,4 @@
-GNOME initial setup
+GNOME Initial Setup
 ===================
 
 After acquiring or installing a new system there are a few essential things
@@ -29,3 +29,41 @@ by taking a 'tour' after completing these setup tasks.
 
 The design for the initial-setup application can be found here:
 https://live.gnome.org/GnomeOS/Design/Whiteboards/InitialSetup
+
+Vendor Configuration
+--------------------
+
+Some aspects of Initial Setup's behaviour can be overridden through a
+_vendor configuration file_.
+
+By default, Initial Setup will try to read configuration from
+`$(sysconfdir)/gnome-initial-setup/vendor.conf` (i.e.
+`/etc/gnome-initial-setup/vendor.conf` in a typical installation). If this file
+does not exist or cannot be read, Initial Setup will read
+`$(datadir)/gnome-initial-setup/vendor.conf` (i.e.
+`/usr/share/gnome-initial-setup/vendor.conf`). The intention is that
+distributions will provide their configuration (if any) in the latter file,
+with the former used by administrators or hardware vendors to override the
+distribution's configuration.
+
+For backwards-compatibility, a `vendor-conf-file` option can be passed to
+`meson configure`. If specified, Initial Setup will *only* try to read
+configuration from that path; neither of the default paths will be checked.
+
+Here's a (contrived) example of what can be controlled using this file:
+
+```
+[pages]
+# Never show the timezone page
+skip=timezone
+# Don't show the language and keyboard pages in the 'first boot' situation,
+# only when running for an existing user
+existing_user_only=language;keyboard
+# Only show the privacy page in the 'first boot' situation
+new_user_only=privacy
+
+[goa]
+# Offer a different set of GNOME Online Accounts providers on the Online
+# Accounts page
+providers=owncloud;imap_smtp
+```
