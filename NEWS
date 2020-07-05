@@ -1,3 +1,42 @@
+3.37.3
+------
+
+* The avatars offered in the 'account' page can now be customized by setting
+  the 'org.gnome.desktop.interface avatar-directories' GSetting, which also
+  controls the avatars offered in Settings. (This introduces a dependency on
+  gsettings-desktop-schemas ≥ 3.37.1.)
+
+* Since version 3.30, it has been possible to customize certain aspects of
+  Initial Setup by specifing the 'vendor-conf-file' option at build time, then
+  installing a configuration file to that path. This version adds two paths
+  that will be checked by default: one for distribution configuration, and
+  another to override that configuration on specific deployments.
+
+  If you specify the 'vendor-conf-file' at build time, the old behaviour is
+  preserved and the new paths will not be searched. If possible, please migrate
+  any existing configuration to the new path, and stop specifying the
+  build-time option.
+
+* Bugs fixed:
+  - #106 timezone: Don't set timezone if tz page is skipped
+ - #75 Polkit rules seem to list now unneeded privileges
+ - #95 Add error argument to save_data() vfunc
+ - #104 Japanese (Kana Kanji) no longer the default input method for Japanese in 3.36.2
+ - #105 Reconsider installation location of vendor.conf
+ - #106 gnome-initial-setup tries to set timezone even though timezone page is disabled
+ - !60 account: Use facesdirs setting to override faces
+ - !84 Fix pkgdata_dir location
+ - !87 Enable web process sandbox
+ - !88 Fix build with -Dvendor-conf-path
+
+* Translation updates:
+ - Chinese (China)
+ - Kazakh
+ - Persian
+ - Romanian
+ - Spanish
+ - Ukrainian
+
 3.37.1
 ------
 
