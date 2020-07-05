@@ -52,7 +52,7 @@ configuration from that path; neither of the default paths will be checked.
 
 Here's a (contrived) example of what can be controlled using this file:
 
-```
+```ini
 [pages]
 # Never show the timezone page
 skip=timezone
