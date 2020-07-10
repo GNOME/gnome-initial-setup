@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup gnome-3-30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-02-23 10:47+0000\n"
-"PO-Revision-Date: 2020-02-25 17:53+0700\n"
+"POT-Creation-Date: 2020-06-26 13:14+0000\n"
+"PO-Revision-Date: 2020-07-10 19:14+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -142,20 +142,26 @@ msgstr "Kata Sandi Administrator"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Harap periksa nama dan nama pengguna. Anda juga dapat memilih gambar."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:456
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:453
 msgid "We need a few details to complete setup."
 msgstr "Kami perlu beberapa rincian untuk melengkapi penyiapan."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:559
 msgid "Administrator"
 msgstr "Administrator"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:565
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:608
+#, c-format
+msgid "Failed to create user '%s': "
+msgstr "Gagal membuat pengguna '%s': "
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Citra avatar"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:281
+#: gnome-initial-setup/pages/account/gis-account-page.c:283
 msgid "About You"
 msgstr "Tentang Anda"
 
@@ -279,7 +285,7 @@ msgstr "Lebih banyak…"
 msgid "No inputs found"
 msgstr "Tak ditemukan masukan"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:482
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:505
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Mengetik"
@@ -344,18 +350,18 @@ msgid "Turn On"
 msgstr "Nyalakan"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Pengawasan Orang Tua untuk %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
 msgid "Set restrictions on what this user can run or install."
 msgstr ""
 "Tetapkan batasan pada apa yang dapat dijalankan atau dipasang oleh pengguna "
 "ini."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
 msgid "Parental Controls"
 msgstr "Pengawasan Orang Tua"
 
@@ -385,15 +391,15 @@ msgstr "Atur Kata Sandi Orang Tua"
 msgid "This password will control access to the parental controls for %s."
 msgstr "Kata sandi ini akan mengontrol akses ke pengawasan orang tua untuk %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:233
+#: gnome-initial-setup/pages/password/gis-password-page.c:228
 msgid "This is a weak password."
 msgstr "Ini adalah kata sandi yang lemah."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:239
+#: gnome-initial-setup/pages/password/gis-password-page.c:234
 msgid "The passwords do not match."
 msgstr "Kata sandi tak cocok."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:425
+#: gnome-initial-setup/pages/password/gis-password-page.c:420
 msgid "Password"
 msgstr "Kata Sandi"
 
@@ -601,7 +607,7 @@ msgstr "Kendali privasi dapat diubah setiap saat dari aplikasi Pengaturan."
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Mulai memakai %s"
@@ -609,12 +615,12 @@ msgstr "_Mulai memakai %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr "%s siap digunakan. Kami harap Anda menyukainya!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:264
 msgid "Setup Complete"
 msgstr "Penyiapan Selesai"
 
@@ -653,7 +659,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Zona Waktu"
