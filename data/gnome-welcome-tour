@@ -2,20 +2,12 @@
 
 cfgdir=${XDG_CONFIG_DIR:-$HOME/.config}
 
-# Don't do anything if yelp isn't installed
-yelp_path=$(which yelp 2>/dev/null)
-if test -z "${yelp_path}"; then
+# Don't do anything if gnome-tour isn't installed
+gnome_tour_path=$(which gnome-tour 2>/dev/null)
+if test -z "${gnome_tour_path}"; then
     rm -f $cfgdir/run-welcome-tour
     exit
 fi
 
-if [ ! -d $cfgdir/yelp ]; then
-        mkdir $cfgdir/yelp
-        cat <<EOF >>$cfgdir/yelp/yelp.cfg
-[documents/help%3Agnome-help]
-geometry=(1024, 709)
-EOF
-fi
-
-yelp help:gnome-help/getting-started
+gnome-tour
 rm -f $cfgdir/run-welcome-tour
