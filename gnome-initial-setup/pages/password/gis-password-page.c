@@ -259,6 +259,33 @@ on_focusout (GisPasswordPage *page)
 }
 
 static void
+on_entry_icon_press (GtkEntry            *entry,
+                     GtkEntryIconPosition icon_pos,
+                     GdkEvent            *event G_GNUC_UNUSED,
+                     gpointer             data G_GNUC_UNUSED)
+{
+  if (icon_pos != GTK_ENTRY_ICON_PRIMARY)
+    return;
+
+  if (gtk_entry_get_visibility (entry))
+    {
+      gtk_entry_set_visibility (entry, FALSE);
+      gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_PRIMARY,
+                                         "eye-open-negative-filled-symbolic");
+      gtk_entry_set_icon_tooltip_text (entry, GTK_ENTRY_ICON_PRIMARY,
+                                       _("Show password"));
+    }
+  else
+    {
+      gtk_entry_set_visibility (entry, TRUE);
+      gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_PRIMARY,
+                                         "eye-not-looking-symbolic");
+      gtk_entry_set_icon_tooltip_text (entry, GTK_ENTRY_ICON_PRIMARY,
+                                       _("Hide password"));
+    }
+}
+
+static void
 password_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisPasswordPage *page)
@@ -341,6 +368,8 @@ gis_password_page_constructed (GObject *object)
                             G_CALLBACK (on_focusout), page);
   g_signal_connect_swapped (priv->password_entry, "activate",
                             G_CALLBACK (confirm), page);
+  g_signal_connect (priv->password_entry, "icon-press",
+                    G_CALLBACK (on_entry_icon_press), NULL);
 
   g_signal_connect (priv->confirm_entry, "notify::text",
                     G_CALLBACK (confirm_changed), page);
@@ -348,6 +377,8 @@ gis_password_page_constructed (GObject *object)
                             G_CALLBACK (on_focusout), page);
   g_signal_connect_swapped (priv->confirm_entry, "activate",
                             G_CALLBACK (confirm), page);
+  g_signal_connect (priv->confirm_entry, "icon-press",
+                    G_CALLBACK (on_entry_icon_press), NULL);
 
   g_signal_connect (GIS_PAGE (page)->driver, "notify::username",
                     G_CALLBACK (username_changed), page);
