@@ -5,11 +5,11 @@ Description=GNOME Initial Setup Copy Worker
 Before=gnome-session-pre.target graphical-session-pre.target
 
 # Never run in GDM
-Conflicts=gnome-session@gnome-login.target
+ConditionUser=!@system
 
 ConditionPathExists=!%E/gnome-initial-setup-done
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=@libexecdir@/gnome-initial-setup-copy-worker
 Restart=no
