@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-05-15 12:53+0000\n"
-"PO-Revision-Date: 2020-06-04 21:23-0400\n"
+"POT-Creation-Date: 2020-07-14 21:05+0000\n"
+"PO-Revision-Date: 2020-07-16 16:30+0800\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -146,16 +146,22 @@ msgstr "请检查名称和用户名。您还可以选择图片。"
 msgid "We need a few details to complete setup."
 msgstr "我们需要一些详细信息来完成设置。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:558
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:559
 msgid "Administrator"
 msgstr "管理员"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:565
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:608
+#, c-format
+msgid "Failed to create user '%s': "
+msgstr "创建用户 '%s' 失败："
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "头像图片"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:281
+#: gnome-initial-setup/pages/account/gis-account-page.c:283
 msgid "About You"
 msgstr "关于您"
 
@@ -337,16 +343,16 @@ msgid "Turn On"
 msgstr "打开"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "对 %s 用户的家长控制"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
 msgid "Set restrictions on what this user can run or install."
 msgstr "设置对该用户可运行或安装内容的限制。"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
 msgid "Parental Controls"
 msgstr "家长控制"
 
@@ -376,15 +382,15 @@ msgstr "设置一个家长密码"
 msgid "This password will control access to the parental controls for %s."
 msgstr "该密码将决定对用户 %s 的家长控制访问。"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:226
+#: gnome-initial-setup/pages/password/gis-password-page.c:228
 msgid "This is a weak password."
 msgstr "这是一个弱密码。"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:232
+#: gnome-initial-setup/pages/password/gis-password-page.c:234
 msgid "The passwords do not match."
 msgstr "密码不匹配。"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:418
+#: gnome-initial-setup/pages/password/gis-password-page.c:420
 msgid "Password"
 msgstr "密码"
 
@@ -564,7 +570,7 @@ msgstr "隐私控制可以随时在“设置”应用程序里更改。"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
 msgid "_Start Using %s"
 msgstr "开始使用 %s(_S)"
@@ -572,12 +578,12 @@ msgstr "开始使用 %s(_S)"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr "%s 已就绪。我们希望您喜欢它！"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:264
 msgid "Setup Complete"
 msgstr "配置完成"
 
@@ -616,7 +622,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "时区"
