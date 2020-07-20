@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-02-14 16:48+0000\n"
-"PO-Revision-Date: 2020-02-16 14:55-0300\n"
+"POT-Creation-Date: 2020-06-26 13:14+0000\n"
+"PO-Revision-Date: 2020-07-19 23:56-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 3.32.0\n"
+"X-Generator: Gtranslator 3.36.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -141,27 +141,32 @@ msgstr "_Nome do administrador"
 msgid "Administrator Password"
 msgstr "Senha do servidor"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:206
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
 msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Por favor, verifique o nome e o nome de usuário. Você pode escolher uma "
 "fotografia também."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:455
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:453
 msgid "We need a few details to complete setup."
 msgstr "São necessários alguns poucos detalhes para concluir a definição."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:562
-#| msgid "Administrator _Name"
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:559
 msgid "Administrator"
 msgstr "Administrador"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:565
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:608
+#, c-format
+msgid "Failed to create user '%s': "
+msgstr "Falha ao criar o usuário “%s”: "
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Imagem de avatar"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:281
+#: gnome-initial-setup/pages/account/gis-account-page.c:283
 msgid "About You"
 msgstr "Sobre você"
 
@@ -231,7 +236,6 @@ msgid "The username cannot start with a “-”."
 msgstr "O nome de usuário não pode começar com um “-”."
 
 #: gnome-initial-setup/pages/account/um-utils.c:257
-#| msgid "Sorry, that user name isn’t available. Please try another."
 msgid "That username isn’t available. Please try another."
 msgstr "Esse nome de usuário não está disponível. Por favor, tente outro."
 
@@ -291,7 +295,7 @@ msgstr "Mais…"
 msgid "No inputs found"
 msgstr "Nenhuma entrada encontrada"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:482
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:505
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Digitação"
@@ -356,16 +360,16 @@ msgid "Turn On"
 msgstr "Ligar"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Controle parental para %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
 msgid "Set restrictions on what this user can run or install."
 msgstr "Defina restrições sobre o que esse usuário pode executar ou instalar."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
 msgid "Parental Controls"
 msgstr "Controle parental"
 
@@ -382,12 +386,10 @@ msgstr "Tome cuidado para não perder sua senha."
 #. Translators: The placeholder is for the user’s full name.
 #: gnome-initial-setup/pages/password/gis-password-page.c:87
 #, c-format
-#| msgid "Set a Password"
 msgid "Set a Password for %s"
 msgstr "Defina uma senha para %s"
 
 #: gnome-initial-setup/pages/password/gis-password-page.c:95
-#| msgid "Set a Password"
 msgid "Set a Parent Password"
 msgstr "Defina uma senha parental"
 
@@ -397,15 +399,15 @@ msgstr "Defina uma senha parental"
 msgid "This password will control access to the parental controls for %s."
 msgstr "Essa senha vai controlar o acesso ao controle parental para %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:233
+#: gnome-initial-setup/pages/password/gis-password-page.c:228
 msgid "This is a weak password."
 msgstr "Esta é uma senha fraca."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:239
+#: gnome-initial-setup/pages/password/gis-password-page.c:234
 msgid "The passwords do not match."
 msgstr "As senhas não coincidem."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:425
+#: gnome-initial-setup/pages/password/gis-password-page.c:420
 msgid "Password"
 msgstr "Senha"
 
@@ -602,7 +604,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Comece a usar %s"
@@ -610,12 +612,12 @@ msgstr "_Comece a usar %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr "%s está pronto para ser usado. Esperamos que você adore!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:264
 msgid "Setup Complete"
 msgstr "Definições concluídas"
 
@@ -654,7 +656,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Fuso horário"
