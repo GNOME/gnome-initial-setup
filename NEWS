@@ -1,3 +1,27 @@
+3.37.90
+-------
+
+* Use `gnome-tour` instead of `yelp` to start the welcome tour. (MR !90.)
+
+* Switch to a new user session management approach of defining the session
+  services in `gnome-session@gnome-initial-setup.target.d/session.conf` in the
+  systemd user unit directory. This bumps the optional systemd dependency
+  to ≥ 242. See !66 for more details.
+
+* Bugs fixed:
+ - !66 Systemd unit update for 3.38
+ - !90 welcome tour: replace yelp with gnome-tour
+
+* Translation updates:
+ - Chinese (China)
+ - Friulian
+ - Indonesian
+ - Lithuanian
+ - Portuguese (Brazil)
+ - Swedish
+ - Tajik
+ - Turkish
+
 3.37.3
 ------
 
