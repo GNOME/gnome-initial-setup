@@ -37,6 +37,7 @@ struct _GisPagePrivate
   guint complete : 1;
   guint skippable : 1;
   guint needs_accept : 1;
+  guint has_forward : 1;
   guint padding : 5;
 };
 typedef struct _GisPagePrivate GisPagePrivate;
@@ -53,6 +54,7 @@ enum
   PROP_NEEDS_ACCEPT,
   PROP_APPLYING,
   PROP_SMALL_SCREEN,
+  PROP_HAS_FORWARD,
   PROP_LAST,
 };
 
@@ -82,6 +84,9 @@ gis_page_get_property (GObject    *object,
       break;
     case PROP_NEEDS_ACCEPT:
       g_value_set_boolean (value, priv->needs_accept);
+      break;
+    case PROP_HAS_FORWARD:
+      g_value_set_boolean (value, priv->has_forward);
       break;
     case PROP_APPLYING:
       g_value_set_boolean (value, gis_page_get_applying (page));
@@ -128,6 +133,9 @@ gis_page_set_property (GObject      *object,
       break;
     case PROP_NEEDS_ACCEPT:
       priv->needs_accept = g_value_get_boolean (value);
+      break;
+    case PROP_HAS_FORWARD:
+      priv->has_forward = g_value_get_boolean (value);
       break;
     case PROP_COMPLETE:
       priv->complete = g_value_get_boolean (value);
@@ -214,6 +222,9 @@ gis_page_class_init (GisPageClass *klass)
   obj_props[PROP_NEEDS_ACCEPT] =
     g_param_spec_boolean ("needs-accept", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
+  obj_props[PROP_HAS_FORWARD] =
+    g_param_spec_boolean ("has-forward", "", "", FALSE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_APPLYING] =
     g_param_spec_boolean ("applying", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
@@ -295,6 +306,24 @@ gis_page_set_needs_accept (GisPage *page, gboolean needs_accept)
   GisPagePrivate *priv = gis_page_get_instance_private (page);
   priv->needs_accept = needs_accept;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_NEEDS_ACCEPT]);
+}
+
+gboolean
+gis_page_get_has_forward (GisPage *page)
+{
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  return priv->has_forward;
+}
+
+void
+gis_page_set_has_forward (GisPage *page, gboolean has_forward)
+{
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+  if (priv->has_forward != has_forward)
+    {
+      priv->has_forward = has_forward;
+      g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_HAS_FORWARD]);
+    }
 }
 
 void

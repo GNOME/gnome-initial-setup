@@ -76,6 +76,8 @@ gboolean     gis_page_get_skippable (GisPage *page);
 void         gis_page_set_skippable (GisPage *page, gboolean skippable);
 gboolean     gis_page_get_needs_accept (GisPage *page);
 void         gis_page_set_needs_accept (GisPage *page, gboolean needs_accept);
+gboolean     gis_page_get_has_forward (GisPage *page);
+void         gis_page_set_has_forward (GisPage *page, gboolean has_forward);
 void         gis_page_locale_changed (GisPage *page);
 void         gis_page_apply_begin (GisPage *page, GisPageApplyCallback callback, gpointer user_data);
 void         gis_page_apply_cancel (GisPage *page);
