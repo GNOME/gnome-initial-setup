@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <template class="GisWelcomePage" parent="GisPage">
+    <property name="title" translatable="yes">Setup</property>
+    <property name="margin-top">0</property>
+    <property name="margin-bottom">0</property>
+    <property name="margin-start">0</property>
+    <property name="margin-end">0</property>
+    <property name="has-forward">1</property>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="halign">fill</property>
+        <property name="valign">fill</property>
+        <child>
+          <object class="GtkImage" id="header">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="visible">True</property>
+            <property name="vexpand">1</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="spacing">20</property>
+            <child>
+              <object class="GtkLabel" id="title">
+                 <property name="visible">True</property>
+                 <!-- This is set to a translated string at runtime -->
+                 <property name="label">Welcome to the latest GNOME!</property>
+                 <style>
+                   <class name="title-1"/>
+                 </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                 <property name="visible">True</property>
+                 <property name="label" translatable="yes">Setup will guide you through making an account and enabling some features. We’ll have you up and running in no time.</property>
+                 <property name="wrap">1</property>
+                 <property name="width-chars">35</property>
+                 <property name="max-width-chars">35</property>
+                 <property name="justify">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                 <property name="visible">True</property>
+                 <property name="halign">center</property>
+                 <property name="label" translatable="yes">_Start Setup</property>
+                 <property name="use-underline">1</property>
+                 <signal name="clicked" handler="start_setup"/>
+                 <style>
+                   <class name="suggested-action"/>
+                 </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

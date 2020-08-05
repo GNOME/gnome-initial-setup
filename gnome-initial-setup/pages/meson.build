@@ -8,6 +8,7 @@ pages = [
    'goa',
    'password',
    'summary',
+   'welcome',
 ]
 
 if libmalcontent_dep.found() and libmalcontent_ui_dep.found()
