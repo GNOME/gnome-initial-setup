@@ -239,6 +239,10 @@ update_navigation_buttons (GisAssistant *assistant)
         set_suggested_action_sensitive (next_widget, FALSE);
         set_navigation_button (assistant, next_widget);
       }
+
+      if (gis_page_get_has_forward (page)) {
+        gtk_widget_hide (next_widget);
+      }
     }
 }
 
