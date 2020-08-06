@@ -418,10 +418,9 @@ gis_page_shown (GisPage *page)
     GIS_PAGE_GET_CLASS (page)->shown (page);
 }
 
-gboolean
+void
 gis_page_skip (GisPage *page)
 {
   if (GIS_PAGE_GET_CLASS (page)->skip)
-    return GIS_PAGE_GET_CLASS (page)->skip (page);
-  return TRUE;
+    GIS_PAGE_GET_CLASS (page)->skip (page);
 }

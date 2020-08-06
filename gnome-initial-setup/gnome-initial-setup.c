@@ -212,10 +212,12 @@ rebuild_pages_cb (GisDriver *driver)
     if (!page)
       continue;
 
-    if (skipped && gis_page_skip (page))
+    if (skipped) {
+      gis_page_skip (page);
       g_ptr_array_add (skipped_pages, page);
-    else
+    } else {
       gis_driver_add_page (driver, page);
+    }
   }
 
   g_strfreev (skip_pages);
