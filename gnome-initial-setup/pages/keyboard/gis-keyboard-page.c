@@ -330,7 +330,7 @@ skip_proxy_ready (GObject      *source,
 	g_object_unref (proxy);
 }
 
-static gboolean
+static void
 gis_keyboard_page_skip (GisPage *page)
 {
 	GisKeyboardPage *self = GIS_KEYBOARD_PAGE (page);
@@ -345,7 +345,6 @@ gis_keyboard_page_skip (GisPage *page)
 				  priv->cancellable,
 				  (GAsyncReadyCallback) skip_proxy_ready,
 				  self);
-	return TRUE;
 }
 
 static void

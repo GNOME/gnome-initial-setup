@@ -32,6 +32,7 @@
 #include <cheese-gtk.h>
 #endif
 
+#include "pages/welcome/gis-welcome-page.h"
 #include "pages/language/gis-language-page.h"
 #include "pages/keyboard/gis-keyboard-page.h"
 #include "pages/network/gis-network-page.h"
@@ -63,6 +64,7 @@ typedef struct {
 #define PAGE(name, new_user_only) { #name, gis_prepare_ ## name ## _page, new_user_only }
 
 static PageData page_table[] = {
+  PAGE (welcome, FALSE),
   PAGE (language, FALSE),
   PAGE (keyboard, FALSE),
   PAGE (network,  FALSE),
@@ -87,6 +89,12 @@ should_skip_page (const gchar  *page_id,
 {
   guint i = 0;
 
+  /* special case welcome. We only want to show it if language
+   * is skipped
+   */
+  if (strcmp (page_id, "welcome") == 0)
+    return !should_skip_page ("language", skip_pages);
+
   /* check through our skip pages list for pages we don't want */
   if (skip_pages) {
     while (skip_pages[i]) {
@@ -95,6 +103,7 @@ should_skip_page (const gchar  *page_id,
       i++;
     }
   }
+
   return FALSE;
 }
 
@@ -210,10 +219,12 @@ rebuild_pages_cb (GisDriver *driver)
     if (!page)
       continue;
 
-    if (skipped && gis_page_skip (page))
+    if (skipped) {
+      gis_page_skip (page);
       g_ptr_array_add (skipped_pages, page);
-    else
+    } else {
       gis_driver_add_page (driver, page);
+    }
   }
 
   g_strfreev (skip_pages);

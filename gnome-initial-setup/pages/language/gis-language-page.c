@@ -262,16 +262,6 @@ gis_language_page_locale_changed (GisPage *page)
   gis_page_set_title (GIS_PAGE (page), _("Welcome"));
 }
 
-static gboolean
-gis_language_page_skip (GisPage *page)
-{
-  GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (GIS_LANGUAGE_PAGE (page));
-
-  gtk_widget_hide (priv->language_chooser);
-
-  return FALSE;
-}
-
 static void
 gis_language_page_dispose (GObject *object)
 {
@@ -299,7 +289,6 @@ gis_language_page_class_init (GisLanguagePageClass *klass)
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_language_page_locale_changed;
-  page_class->skip = gis_language_page_skip;
   object_class->constructed = gis_language_page_constructed;
   object_class->dispose = gis_language_page_dispose;
 }
