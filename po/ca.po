@@ -9,9 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
-"issues\n"
-"POT-Creation-Date: 2020-02-14 16:48+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
+"POT-Creation-Date: 2020-08-07 10:57+0000\n"
 "PO-Revision-Date: 2020-02-29 20:39+0100\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -27,31 +26,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuració inicial"
 
-#: gnome-initial-setup/gis-assistant.c:419
+#: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
 msgstr "_Següent"
 
-#: gnome-initial-setup/gis-assistant.c:420
+#: gnome-initial-setup/gis-assistant.c:424
 msgid "_Accept"
 msgstr "_Accepta"
 
-#: gnome-initial-setup/gis-assistant.c:421
+#: gnome-initial-setup/gis-assistant.c:425
 msgid "_Skip"
 msgstr "_Omet"
 
-#: gnome-initial-setup/gis-assistant.c:422
+#: gnome-initial-setup/gis-assistant.c:426
 msgid "_Previous"
 msgstr "A_nterior"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:427
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: gnome-initial-setup/gnome-initial-setup.c:241
+#: gnome-initial-setup/gnome-initial-setup.c:252
 msgid "Force existing user mode"
 msgstr "Força el mode d'usuari existent"
 
-#: gnome-initial-setup/gnome-initial-setup.c:247
+#: gnome-initial-setup/gnome-initial-setup.c:258
 msgid "— GNOME initial setup"
 msgstr "— Configuració inicial del GNOME"
 
@@ -138,24 +137,30 @@ msgstr "_Nom de l'administrador"
 msgid "Administrator Password"
 msgstr "Contrasenya de l'administrador"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:206
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Comproveu el nom i el nom d'usuari. Podeu triar també una fotografia."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:455
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:453
 msgid "We need a few details to complete setup."
 msgstr "Necessitem algunes dades per completar la configuració."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:562
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:559
 msgid "Administrator"
 msgstr "Administrador"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:565
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:608
+#, c-format, fuzzy
+msgid "Failed to create user '%s': "
+msgstr "No s'ha pogut crear l'usuari '%s'"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Imatge d'avatar"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
-#: gnome-initial-setup/pages/account/gis-account-page.c:281
+#: gnome-initial-setup/pages/account/gis-account-page.c:283
 msgid "About You"
 msgstr "Quant a vós"
 
@@ -173,7 +178,8 @@ msgstr "_Establiu els controls parentals per a aquest usuari"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
 msgid "For use by a parent or supervisor, who must set up their own password."
-msgstr "Per a ser usat per un adult, qui ha d'establir la seva pròpia contrasenya."
+msgstr ""
+"Per a ser usat per un adult, qui ha d'establir la seva pròpia contrasenya."
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:43
 msgid "_Enterprise Login"
@@ -275,12 +281,11 @@ msgstr "Més…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
-#.
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
 msgid "No inputs found"
 msgstr "No s'ha trobat cap font d'entrada"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:482
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Escriptura"
@@ -300,7 +305,6 @@ msgstr "Us donem la benvinguda"
 #. Translators: This is meant to be a warm, engaging welcome message,
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
-#.
 #: gnome-initial-setup/pages/language/gis-welcome-widget.c:136
 msgid "Welcome!"
 msgstr "Us donem la benvinguda!"
@@ -332,9 +336,9 @@ msgid ""
 "details, and enable you to access your email, calendar, and contacts. It is "
 "also necessary for enterprise login accounts."
 msgstr ""
-"La connexió a Internet us permetrà establir l'hora, afegir detalls i accedir "
-"al vostre correu electrònic, calendari i contactes. També és necessària per "
-"als comptes d'entrada corporativa."
+"La connexió a Internet us permetrà establir l'hora, afegir detalls i accedir"
+" al vostre correu electrònic, calendari i contactes. També és necessària per"
+" als comptes d'entrada corporativa."
 
 #: gnome-initial-setup/pages/network/gis-network-page.ui:76
 msgid "No wireless available"
@@ -345,16 +349,17 @@ msgid "Turn On"
 msgstr "Activa"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:110
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Controls parentals per %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:112
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
 msgid "Set restrictions on what this user can run or install."
-msgstr "Establiu les restriccions del que aquest usuari pot executar o instal·lar."
+msgstr ""
+"Establiu les restriccions del que aquest usuari pot executar o instal·lar."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:207
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
 msgid "Parental Controls"
 msgstr "Controls parentals"
 
@@ -378,21 +383,22 @@ msgstr "Establiu la contrasenya per %s"
 msgid "Set a Parent Password"
 msgstr "Establiu la contrasenya parental"
 
-#. Translators: The placeholder is the full name of the child user on the system.
+#. Translators: The placeholder is the full name of the child user on the
+#. system.
 #: gnome-initial-setup/pages/password/gis-password-page.c:97
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Aquesta contrasenya controlarà l'accés als controls parentals per %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:233
+#: gnome-initial-setup/pages/password/gis-password-page.c:228
 msgid "This is a weak password."
 msgstr "Aquesta contrasenya és feble."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:239
+#: gnome-initial-setup/pages/password/gis-password-page.c:234
 msgid "The passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:425
+#: gnome-initial-setup/pages/password/gis-password-page.c:420
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -427,7 +433,8 @@ msgstr ""
 #: gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. A password without your user name would be stronger."
+"This is a weak password. A password without your user name would be "
+"stronger."
 msgstr ""
 "Aquesta contrasenya és feble. Una contrasenya sense el vostre nom d'usuari "
 "seria més segura."
@@ -526,7 +533,8 @@ msgstr "Combineu majúscules i minúscules i empreu un o dos nombres."
 #: gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Adding more letters, numbers and punctuation will make the password stronger."
+"Adding more letters, numbers and punctuation will make the password "
+"stronger."
 msgstr ""
 "Si hi afegiu més lletres, nombres i signes de puntuació encara serà més "
 "segura."
@@ -534,7 +542,6 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#.
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
 #, c-format
 msgid ""
@@ -547,7 +554,6 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#.
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
 #, c-format
 msgid "Problem data will be collected by %s:"
@@ -594,7 +600,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:227
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Comenceu a utilitzar %s"
@@ -602,12 +608,12 @@ msgstr "_Comenceu a utilitzar %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:234
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
 msgstr "%s està a punt per a ser usat. Esperem que us agradi!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:258
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:264
 msgid "Setup Complete"
 msgstr "S'ha completat la configuració"
 
@@ -624,7 +630,6 @@ msgstr "%s, %s"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#.
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
@@ -646,7 +651,7 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:462
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Fus horari"
@@ -663,72 +668,29 @@ msgstr ""
 msgid "Please search for a nearby city"
 msgstr "Cerqueu una ciutat propera"
 
-#~ msgid "preferences-system"
-#~ msgstr "preferences-system"
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it. The space
+#. * before the exclamation mark in this string is a typographical thin
+#. * space (U200a) to improve the spacing in the title, which you can
+#. * keep or remove. The %s is getting replaced with the name and version
+#. * of the OS, e.g. "GNOME 3.38"
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:209
+msgid "Welcome to %s !"
+msgstr "Us donem la benvinguda a %s!"
 
-#~ msgid "License Agreements"
-#~ msgstr "Acords de llicència"
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:5
+msgid "Setup"
+msgstr "Configuració"
 
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr "He _acceptat les condicions d'ús de la llicència d'usuari."
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:43
+msgid ""
+"Setup will guide you through making an account and enabling some features. "
+"We’ll have you up and running in no time."
+msgstr ""
+"La configuració us guiarà en la creació d'un compte i activació d'algunes funcions. Us "
+"En poc temps tindreu tot configurat."
 
-#~ msgid "No regions found"
-#~ msgstr "No s'ha trobat cap regió"
-
-#~ msgid "Region"
-#~ msgstr "Regió"
-
-#~ msgid "Choose your country or region."
-#~ msgstr "Trieu el vostre país o regió."
-
-#~ msgid "Software Repositories"
-#~ msgstr "Fonts de programari"
-
-#~ msgid "Access additional software from selected third party sources."
-#~ msgstr ""
-#~ "Accedeix a programari addicional des de fonts de programari de tercers "
-#~ "seleccionades."
-
-#~ msgid ""
-#~ "Some of this software is proprietary and therefore has restrictions on "
-#~ "use, sharing, and access to source code."
-#~ msgstr ""
-#~ "Alguns d'aquests programes són propietaris i, per tant, tenen "
-#~ "restriccions en l'ús, compartició, i accés al seu codi font."
-
-#~ msgid "Additional Software Repositories"
-#~ msgstr "Fonts de programari addicionals"
-
-#~ msgid "<a href=\"more\">Find out more…</a>"
-#~ msgstr "<a href=\"more\">Descobriu-ne més...</a>"
-
-#~ msgid "Third Party Repositories"
-#~ msgstr "Dipòsits de tercers parts"
-
-#~ msgid ""
-#~ "Proprietary software typically has restrictions on how it can be used and "
-#~ "on access to source code. This prevents anyone but the software owner "
-#~ "from inspecting, improving or learning from its code."
-#~ msgstr ""
-#~ "El programari de propietat té habitualment restriccions respecte a com "
-#~ "pot ser utilitzat i en l'accés al seu codi font. Això impedeix a "
-#~ "qualsevol persona que no sigui el propietari inspeccionar-lo, millorar-lo "
-#~ "o aprendre'n del seu codi."
-
-#~ msgid ""
-#~ "In contrast, Free Software can be freely run, copied, distributed, "
-#~ "studied and modified."
-#~ msgstr ""
-#~ "Per contra, el programari lliure pot ser lliurement usat, copiat, "
-#~ "distribuït, estudiat i modificat."
-
-#~ msgid "Ready to Go"
-#~ msgstr "Llest"
-
-#~ msgid "You’re ready to go!"
-#~ msgstr "Tot a punt!"
-
-#~ msgid "Disable image"
-#~ msgstr "Inhabilita la imatge"
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:54
+msgid "_Start Setup"
+msgstr "_Inicia la configuració"
