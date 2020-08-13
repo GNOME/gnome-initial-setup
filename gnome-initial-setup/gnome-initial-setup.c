@@ -48,6 +48,7 @@
 #define VENDOR_SKIP_KEY "skip"
 #define VENDOR_NEW_USER_ONLY_KEY "new_user_only"
 #define VENDOR_EXISTING_USER_ONLY_KEY "existing_user_only"
+#define VENDOR_RUN_WELCOME_TOUR_KEY "run_welcome_tour"
 
 static gboolean force_existing_user_mode;
 
@@ -299,16 +300,21 @@ main (int argc, char *argv[])
 }
 
 void
-gis_ensure_stamp_files (void)
+gis_ensure_stamp_files (GisDriver *driver)
 {
   g_autofree gchar *welcome_file = NULL;
   g_autofree gchar *done_file = NULL;
   g_autoptr(GError) error = NULL;
 
-  welcome_file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
-  if (!g_file_set_contents (welcome_file, "yes", -1, &error)) {
-      g_warning ("Unable to create %s: %s", welcome_file, error->message);
-      g_clear_error (&error);
+  if (gis_driver_conf_get_boolean (driver,
+                                   VENDOR_PAGES_GROUP,
+                                   VENDOR_RUN_WELCOME_TOUR_KEY,
+                                   TRUE)) {
+      welcome_file = g_build_filename (g_get_user_config_dir (), "run-welcome-tour", NULL);
+      if (!g_file_set_contents (welcome_file, "yes", -1, &error)) {
+          g_warning ("Unable to create %s: %s", welcome_file, error->message);
+          g_clear_error (&error);
+      }
   }
 
   done_file = g_build_filename (g_get_user_config_dir (), "gnome-initial-setup-done", NULL);
