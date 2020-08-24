@@ -5,6 +5,7 @@ stages:
 
 before_script:
   - dnf install -y
+    --no-gpgcheck
     desktop-file-utils
     gcc
     gettext
