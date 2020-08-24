@@ -61,6 +61,8 @@ skip=timezone
 existing_user_only=language;keyboard
 # Only show the privacy page in the 'first boot' situation
 new_user_only=privacy
+# Don’t run the welcome tour once initial setup is complete
+run_welcome_tour=false
 
 [goa]
 # Offer a different set of GNOME Online Accounts providers on the Online

@@ -181,7 +181,7 @@ log_user_in (GisSummaryPage *page)
 static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
-  gis_ensure_stamp_files ();
+  gis_ensure_stamp_files (GIS_PAGE (page)->driver);
 
   switch (gis_driver_get_mode (GIS_PAGE (page)->driver))
     {
