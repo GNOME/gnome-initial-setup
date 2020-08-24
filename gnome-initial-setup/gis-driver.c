@@ -927,8 +927,9 @@ gis_driver_init (GisDriver *driver)
 
   load_vendor_conf_file (driver);
 
-  g_signal_connect (screen, "size-changed",
-                    G_CALLBACK (screen_size_changed), driver);
+  if (screen != NULL)
+    g_signal_connect (screen, "size-changed",
+                      G_CALLBACK (screen_size_changed), driver);
 }
 
 static void
