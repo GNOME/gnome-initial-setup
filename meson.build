@@ -1,6 +1,6 @@
 project('gnome-initial-setup',
         ['c'],
-        version: '3.37.91',
+        version: '3.37.91.1',
         license: 'GPLv2',
         meson_version: '>= 0.47.0',
 )
