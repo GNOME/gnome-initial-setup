@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-06-26 13:14+0000\n"
-"PO-Revision-Date: 2020-07-13 16:30+0300\n"
+"POT-Creation-Date: 2020-08-17 19:50+0000\n"
+"PO-Revision-Date: 2020-08-25 22:45+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -25,31 +25,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Pradinis nustatymas"
 
-#: gnome-initial-setup/gis-assistant.c:419
+#: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
 msgstr "_Pirmyn"
 
-#: gnome-initial-setup/gis-assistant.c:420
+#: gnome-initial-setup/gis-assistant.c:424
 msgid "_Accept"
 msgstr "_Priimti"
 
-#: gnome-initial-setup/gis-assistant.c:421
+#: gnome-initial-setup/gis-assistant.c:425
 msgid "_Skip"
 msgstr "Pra_leisti"
 
-#: gnome-initial-setup/gis-assistant.c:422
+#: gnome-initial-setup/gis-assistant.c:426
 msgid "_Previous"
 msgstr "_Ankstesnis"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:427
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: gnome-initial-setup/gnome-initial-setup.c:241
+#: gnome-initial-setup/gnome-initial-setup.c:252
 msgid "Force existing user mode"
 msgstr "Priverstinė naujo naudotojo veiksena"
 
-#: gnome-initial-setup/gnome-initial-setup.c:247
+#: gnome-initial-setup/gnome-initial-setup.c:258
 msgid "— GNOME initial setup"
 msgstr "— pradinė GNOME sąranka"
 
@@ -287,7 +287,7 @@ msgstr "Daugiau…"
 msgid "No inputs found"
 msgstr "Nerasta įvesties šaltinių"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:505
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Rašymas"
@@ -335,13 +335,12 @@ msgstr "Wi-Fi"
 
 #: gnome-initial-setup/pages/network/gis-network-page.ui:19
 msgid ""
-"Connecting to the Internet will enable you to set the time, add your "
-"details, and enable you to access your email, calendar, and contacts. It is "
-"also necessary for enterprise login accounts."
+"Connecting to the internet helps you get new apps, information, and other "
+"upgrades. It also helps set the time and your location automatically."
 msgstr ""
-"Prisijungimas prie interneto leis nustatyti laiką, pridėti jūsų informaciją "
-"bei leis pasiekti el. paštą, kalendorių bei kontaktus. Tai taip pat būtina "
-"kompanijos prisijungimo paskyroms."
+"Prisijungimas prie interneto padeda gauti naujų programų, informacijos bei "
+"kitų atnaujinimų. Taip pat padeda automatiškai nustatyti laiką bei jūsų "
+"vietą."
 
 #: gnome-initial-setup/pages/network/gis-network-page.ui:76
 msgid "No wireless available"
@@ -663,6 +662,46 @@ msgstr ""
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:56
 msgid "Please search for a nearby city"
 msgstr "Ieškokite artimiausio miesto"
+
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it. The space
+#. * before the exclamation mark in this string is a typographical thin
+#. * space (U200a) to improve the spacing in the title, which you can
+#. * keep or remove. The %s is getting replaced with the name and version
+#. * of the OS, e.g. "GNOME 3.38"
+#.
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:209
+#, c-format
+#| msgid "Welcome!"
+msgid "Welcome to %s !"
+msgstr "Sveiki pradėję naudoti %s !"
+
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:5
+msgid "Setup"
+msgstr "Nustatymas"
+
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:43
+msgid ""
+"Setup will guide you through making an account and enabling some features. "
+"We’ll have you up and running in no time."
+msgstr ""
+"Nustatymas padės susikurti paskyrą bei įjungti kai kurias savybes. Galėsite "
+"naudotis netrukus."
+
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:54
+#| msgid "Initial Setup"
+msgid "_Start Setup"
+msgstr "_Pradinis nustatymas"
+
+#~ msgid ""
+#~ "Connecting to the Internet will enable you to set the time, add your "
+#~ "details, and enable you to access your email, calendar, and contacts. It "
+#~ "is also necessary for enterprise login accounts."
+#~ msgstr ""
+#~ "Prisijungimas prie interneto leis nustatyti laiką, pridėti jūsų "
+#~ "informaciją bei leis pasiekti el. paštą, kalendorių bei kontaktus. Tai "
+#~ "taip pat būtina kompanijos prisijungimo paskyroms."
 
 #~ msgid "preferences-system"
 #~ msgstr "preferences-system"
