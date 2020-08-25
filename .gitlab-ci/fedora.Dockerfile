@@ -1,6 +1,5 @@
 FROM registry.fedoraproject.org/fedora:33
 
-# TODO: remove --nogpgcheck when Fedora 
 RUN dnf -y install \
     ccache \
     desktop-file-utils \
