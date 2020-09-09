@@ -31,7 +31,7 @@ while (($# > 0)); do
                 run) run=1;;
                 push) push=1;;
                 list) list=1;;
-                help) print_help=1;;
+                help|--help|-h) print_help=1;;
                 --base|-b) read_arg base "$@" || shift;;
                 --base-version) read_arg base_version "$@" || shift;;
                 --no-login) no_login=1;;
