@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 read_arg() {
     # $1 = arg name
