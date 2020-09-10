@@ -2,7 +2,7 @@ Debugging Initial Setup can be tricky if what you need to work on relies on the
 system booting for the very first time, and can't be reproduced easily (or at
 all) from a regular session once the “real” initial setup has happened and the
 first user has been created.
-k
+
 Examples of things you might want to do that can be especially tricky if you
 need to do them before creating the very first user:
 
