@@ -174,13 +174,12 @@ on_geoclue_simple_ready (GObject      *source_object,
 {
   GisTimezonePage *page = user_data;
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-  GError *error = NULL;
+  g_autoptr(GError) local_error = NULL;
 
-  priv->geoclue_simple = gclue_simple_new_finish (res, &error);
-  if (error != NULL)
+  priv->geoclue_simple = gclue_simple_new_finish (res, &local_error);
+  if (local_error != NULL)
     {
-      g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
-      g_error_free (error);
+      g_critical ("Failed to connect to GeoClue2 service: %s", local_error->message);
       return;
     }
 
