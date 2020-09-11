@@ -723,28 +723,6 @@ gis_driver_activate (GApplication *app)
   gtk_window_present (GTK_WINDOW (priv->main_window));
 }
 
-static gboolean
-maximize (gpointer data)
-{
-  GtkWindow *window = data;
-
-  gtk_window_maximize (window);
-  gtk_window_present (window);
-
-  return G_SOURCE_REMOVE;
-}
-
-static gboolean
-unmaximize (gpointer data)
-{
-  GtkWindow *window = data;
-
-  gtk_window_unmaximize (window);
-  gtk_window_present (window);
-
-  return G_SOURCE_REMOVE;
-}
-
 static void
 set_small_screen_based_on_primary_monitor (GisDriver *driver)
 {
@@ -819,7 +797,8 @@ update_screen_size (GisDriver *driver)
       gtk_window_set_resizable (priv->main_window, TRUE);
       gtk_window_set_position (priv->main_window, GTK_WIN_POS_NONE);
 
-      g_idle_add (maximize, priv->main_window);
+      gtk_window_maximize (priv->main_window);
+      gtk_window_present (priv->main_window);
     }
   else
     {
@@ -843,7 +822,8 @@ update_screen_size (GisDriver *driver)
       gtk_window_set_resizable (priv->main_window, FALSE);
       gtk_window_set_position (priv->main_window, GTK_WIN_POS_CENTER_ALWAYS);
 
-      g_idle_add (unmaximize, priv->main_window);
+      gtk_window_unmaximize (priv->main_window);
+      gtk_window_present (priv->main_window);
     }
 }
 
