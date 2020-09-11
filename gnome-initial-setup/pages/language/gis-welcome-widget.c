@@ -31,7 +31,7 @@
 struct _GisWelcomeWidgetPrivate
 {
   GtkWidget *stack;
-  GHashTable *translation_widgets;
+  GHashTable *translation_widgets;  /* (element-type owned utf8 unowned GtkWidget) (owned) */
 
   guint timeout_id;
 };
@@ -181,7 +181,7 @@ fill_stack (GisWelcomeWidget *widget)
         g_hash_table_insert (added_translations, (gpointer) text, label);
       }
 
-      g_hash_table_insert (priv->translation_widgets, locale_id, label);
+      g_hash_table_insert (priv->translation_widgets, g_strdup (locale_id), label);
     }
 }
 
@@ -223,7 +223,7 @@ gis_welcome_widget_init (GisWelcomeWidget *widget)
 {
   GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
 
-  priv->translation_widgets = g_hash_table_new (g_str_hash, g_str_equal);
+  priv->translation_widgets = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   gtk_widget_init_template (GTK_WIDGET (widget));
 }
