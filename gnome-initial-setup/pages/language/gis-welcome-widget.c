@@ -109,12 +109,12 @@ gis_welcome_widget_unmap (GtkWidget *widget)
   gis_welcome_widget_stop (GIS_WELCOME_WIDGET (widget));
 }
 
-static char *
+static const char *
 welcome (const char *locale_id)
 {
   locale_t locale;
   locale_t old_locale;
-  char *welcome;
+  const char *welcome;
 
   locale = newlocale (LC_MESSAGES_MASK, locale_id, (locale_t) 0);
   if (locale == (locale_t) 0)
@@ -165,8 +165,8 @@ fill_stack (GisWelcomeWidget *widget)
   g_hash_table_iter_init (&iter, initial);
   while (g_hash_table_iter_next (&iter, &key, &value))
     {
-      char *locale_id = key;
-      char *text;
+      const char *locale_id = key;
+      const char *text;
       GtkWidget *label;
 
       if (!cc_common_language_has_font (locale_id))
@@ -178,7 +178,7 @@ fill_stack (GisWelcomeWidget *widget)
         label = big_label (text);
         gtk_container_add (GTK_CONTAINER (priv->stack), label);
         gtk_widget_show (label);
-        g_hash_table_insert (added_translations, text, label);
+        g_hash_table_insert (added_translations, (gpointer) text, label);
       }
 
       g_hash_table_insert (priv->translation_widgets, locale_id, label);
