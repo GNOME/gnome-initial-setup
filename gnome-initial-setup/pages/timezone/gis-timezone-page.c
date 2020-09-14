@@ -57,6 +57,11 @@
 #define CLOCK_SCHEMA "org.gnome.desktop.interface"
 #define CLOCK_FORMAT_KEY "clock-format"
 
+/* FIXME: Drop this when we depend on a version of GeoClue which has
+ * https://gitlab.freedesktop.org/geoclue/geoclue/-/merge_requests/73 */
+typedef GClueSimple MyGClueSimple;
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (MyGClueSimple, g_object_unref)
+
 static void stop_geolocation (GisTimezonePage *page);
 
 struct _GisTimezonePagePrivate
@@ -174,16 +179,21 @@ on_geoclue_simple_ready (GObject      *source_object,
 {
   GisTimezonePage *page = user_data;
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-  GError *error = NULL;
+  g_autoptr(GError) local_error = NULL;
+  g_autoptr(MyGClueSimple) geoclue_simple = NULL;
 
-  priv->geoclue_simple = gclue_simple_new_finish (res, &error);
-  if (error != NULL)
+  /* This function may be called in an idle callback once @page has been
+   * disposed, if going through cancellation. So don’t dereference @priv or
+   * @page until the error has been checked. */
+  geoclue_simple = gclue_simple_new_finish (res, &local_error);
+  if (local_error != NULL)
     {
-      g_critical ("Failed to connect to GeoClue2 service: %s", error->message);
-      g_error_free (error);
+      if (!g_error_matches (local_error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_critical ("Failed to connect to GeoClue2 service: %s", local_error->message);
       return;
     }
 
+  priv->geoclue_simple = g_steal_pointer (&geoclue_simple);
   priv->geoclue_client = gclue_simple_get_client (priv->geoclue_simple);
   gclue_client_set_distance_threshold (priv->geoclue_client,
                                        GEOCODE_LOCATION_ACCURACY_CITY);
