@@ -2,7 +2,7 @@ project('gnome-initial-setup',
         ['c'],
         version: '3.38.0',
         license: 'GPLv2',
-        meson_version: '>= 0.47.0',
+        meson_version: '>= 0.49.0',
 )
 
 cc = meson.get_compiler('c')

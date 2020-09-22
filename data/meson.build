@@ -4,6 +4,28 @@ autostart_files = [
     'gnome-welcome-tour.desktop'
 ]
 
+gis_shell_component = 'org.gnome.Shell'
+gis_gnome_session_required_components = [
+    'org.gnome.SettingsDaemon.A11ySettings',
+    'org.gnome.SettingsDaemon.Color',
+    'org.gnome.SettingsDaemon.Datetime',
+    'org.gnome.SettingsDaemon.Housekeeping',
+    'org.gnome.SettingsDaemon.Keyboard',
+    'org.gnome.SettingsDaemon.MediaKeys',
+    'org.gnome.SettingsDaemon.Power',
+    'org.gnome.SettingsDaemon.PrintNotifications',
+    'org.gnome.SettingsDaemon.Rfkill',
+    'org.gnome.SettingsDaemon.ScreensaverProxy',
+    'org.gnome.SettingsDaemon.Sharing',
+    'org.gnome.SettingsDaemon.Smartcard',
+    'org.gnome.SettingsDaemon.Sound',
+    'org.gnome.SettingsDaemon.UsbProtection',
+    'org.gnome.SettingsDaemon.Wacom',
+    'org.gnome.SettingsDaemon.XSettings',
+]
+
+gis_user_session_wanted_components = gis_gnome_session_required_components
+
 desktop_conf = configuration_data()
 desktop_conf.set('LIBEXECDIR', libexec_dir)
 desktop_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
@@ -61,11 +83,23 @@ if enable_systemd
         endforeach
     endforeach
 
-    install_data(
-        'gnome-initial-setup.session.conf',
-        rename: join_paths('gnome-session@gnome-initial-setup.target.d', 'session.conf'),
-        install_dir: systemd_userunitdir
-  )
+    gis_user_session_wanted_targets = []
+    foreach component: gis_user_session_wanted_components
+        gis_user_session_wanted_targets += 'Wants=@0@.target'.format(component)
+    endforeach
+
+    configure_file(
+        input: '@0@.session.conf.in'.format(meson.project_name()),
+        output: 'session.conf',
+        configuration: {
+            'this_component': meson.project_name(),
+            'requires_component': gis_shell_component,
+            'wants_required_components': '\n'.join(
+                gis_user_session_wanted_targets),
+        },
+        install_dir: systemd_userunitdir / 'gnome-session@@0@.target.d'.format(
+            meson.project_name()),
+    )
 endif
 
 
@@ -73,7 +107,19 @@ rules_dir = join_paths(data_dir, 'polkit-1', 'rules.d')
 install_data('20-gnome-initial-setup.rules', install_dir: rules_dir)
 
 session_dir = join_paths(data_dir, 'gnome-session', 'sessions')
-install_data('gnome-initial-setup.session', install_dir: session_dir)
+configure_file(
+  input: '@0@.session.in'.format(meson.project_name()),
+  output: '@BASENAME@',
+  configuration: {
+    'this_component': meson.project_name(),
+    'gnome_session_required_components': ';'.join([
+        gis_shell_component,
+        meson.project_name(),
+      ] +
+      gis_gnome_session_required_components),
+  },
+  install_dir: session_dir,
+)
 
 mode_dir = join_paths(data_dir, 'gnome-shell', 'modes')
 install_data('initial-setup.json', install_dir: mode_dir)
