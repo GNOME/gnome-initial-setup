@@ -1,6 +1,6 @@
 project('gnome-initial-setup',
         ['c'],
-        version: '3.38.1',
+        version: '40.alpha',
         license: 'GPLv2',
         meson_version: '>= 0.49.0',
 )
@@ -30,15 +30,6 @@ conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
 conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_64')
 conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_64')
-
-version_arr = meson.project_version().split('.')
-major_version = version_arr[0].to_int()
-minor_version = version_arr[1].to_int()
-micro_version = version_arr[2].to_int()
-
-conf.set('GIS_MAJOR_VERSION', major_version)
-conf.set('GIS_MINOR_VERSION', minor_version)
-conf.set('GIS_MICRO_VERSION', micro_version)
 
 enable_systemd = get_option('systemd')
 if enable_systemd
