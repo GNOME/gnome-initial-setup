@@ -158,6 +158,12 @@ cheese_camera_device_monitor_new_cb (GObject *source,
         um->monitor = CHEESE_CAMERA_DEVICE_MONITOR (ret);
         setup_cheese_camera_device_monitor (um);
 }
+#else /* ! HAVE_CHEESE */
+static void
+webcam_icon_selected (UmPhotoDialog *um)
+{
+  g_warning ("Webcam icon selected, but compiled without Cheese support");
+}
 #endif /* HAVE_CHEESE */
 
 static void
@@ -463,9 +469,7 @@ um_photo_dialog_class_init (UmPhotoDialogClass *klass)
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, flowbox);
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, recent_pictures);
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, take_picture_button);
-#ifdef HAVE_CHEESE
         gtk_widget_class_bind_template_callback (wclass, webcam_icon_selected);
-#endif
 
         oclass->dispose = um_photo_dialog_dispose;
 }
