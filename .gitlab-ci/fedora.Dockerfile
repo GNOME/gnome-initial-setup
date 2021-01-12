@@ -1,6 +1,7 @@
 FROM registry.fedoraproject.org/fedora:33
 
-RUN dnf -y install \
+# Malcontent is in updates-testing as of 2020-01-12
+RUN dnf -y install --enablerepo=updates-testing \
     ccache \
     desktop-file-utils \
     gcc \
@@ -34,19 +35,11 @@ RUN dnf -y install \
     "pkgconfig(libgeoclue-2.0)" \
     "pkgconfig(libnm)" \
     "pkgconfig(libnma)" \
+    "pkgconfig(malcontent-ui-0)" \
     "pkgconfig(webkit2gtk-4.0)" \
     polkit-devel \
     rest-devel \
     && dnf clean all
-
-RUN \
-    git clone https://gitlab.freedesktop.org/pwithnall/malcontent.git /tmp/malcontent && \
-    pushd /tmp/malcontent && \
-    git checkout tags/0.6.0 && \
-    meson setup --prefix /usr _build && \
-    ninja -C _build install && \
-    popd && \
-    rm -r /tmp/malcontent
 
 ARG HOST_USER_ID=5555
 ENV HOST_USER_ID ${HOST_USER_ID}
