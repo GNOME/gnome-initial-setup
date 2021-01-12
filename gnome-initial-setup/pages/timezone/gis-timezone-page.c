@@ -158,7 +158,7 @@ on_location_notify (GClueSimple *simple,
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GClueLocation *location;
   gdouble latitude, longitude;
-  GWeatherLocation *glocation = NULL;
+  g_autoptr(GWeatherLocation) glocation = NULL;
 
   location = gclue_simple_get_location (simple);
 
@@ -169,7 +169,6 @@ on_location_notify (GClueSimple *simple,
   priv->in_geoclue_callback = TRUE;
   set_location (page, glocation);
   priv->in_geoclue_callback = FALSE;
-  gweather_location_unref (glocation);
 }
 
 static void
@@ -234,7 +233,7 @@ entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *pag
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
-  GWeatherLocation *location;
+  g_autoptr(GWeatherLocation) location = NULL;
 
   location = gweather_location_entry_get_location (entry);
   if (!location)
@@ -243,8 +242,6 @@ entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *pag
   priv->in_search = TRUE;
   set_location (page, location);
   priv->in_search = FALSE;
-
-  gweather_location_unref (location);
 }
 
 #define GETTEXT_PACKAGE_TIMEZONES "gnome-control-center-2.0-timezones"
