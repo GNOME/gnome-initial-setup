@@ -243,6 +243,8 @@ entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *pag
   priv->in_search = TRUE;
   set_location (page, location);
   priv->in_search = FALSE;
+
+  gweather_location_unref (location);
 }
 
 #define GETTEXT_PACKAGE_TIMEZONES "gnome-control-center-2.0-timezones"
