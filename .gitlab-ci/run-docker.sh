@@ -70,7 +70,7 @@ fi
 
 # All commands after this require --base to be set
 if [ -z $base ]; then
-        echo "Usage: $0 <command>"
+        echo "Usage: $0 <command> --base=<BASENAME>"
         exit 1
 fi
 
