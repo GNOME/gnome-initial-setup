@@ -89,7 +89,6 @@ main (int    argc,
   move_file_from_homedir (src, dest, path);
 
   FILE (".config/gnome-initial-setup-done");
-  FILE (".config/run-welcome-tour");
   FILE (".config/dconf/user");
   FILE (".config/goa-1.0/accounts.conf");
   FILE (".config/monitors.xml");

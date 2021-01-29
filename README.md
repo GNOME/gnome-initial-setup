@@ -24,9 +24,6 @@ in a 'first boot' situation. We are using gnome-shell in an 'initial-setup'
 mode that shows a somewhat reduced UI, similar to the way it is used on
 the login screen.
 
-We also want to offer the user a friendly way to learn more about GNOME,
-by taking a 'tour' after completing these setup tasks.
-
 The design for the initial-setup application can be found here:
 https://live.gnome.org/GnomeOS/Design/Whiteboards/InitialSetup
 
@@ -61,8 +58,6 @@ skip=timezone
 existing_user_only=language;keyboard
 # Only show the privacy page in the 'first boot' situation
 new_user_only=privacy
-# Don’t run the welcome tour once initial setup is complete
-run_welcome_tour=false
 
 [goa]
 # Offer a different set of GNOME Online Accounts providers on the Online
