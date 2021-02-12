@@ -19,6 +19,8 @@ stages:
     - ninja -v
     # Check that strings can be extracted
     - ninja -v gnome-initial-setup-pot
+    # Check the package can be installed
+    - DESTDIR=$(mktemp -d) ninja -v install
     - meson test
   artifacts:
     when: on_failure
