@@ -53,7 +53,7 @@ i18n.merge_file(
         configuration: desktop_conf
     ),
     output: 'gnome-initial-setup.desktop',
-    install_dir: join_paths(data_dir, 'gdm', 'greeter', 'applications'),
+    install_dir: join_paths(data_dir, 'applications'),
     po_dir: po_dir,
     install: true,
     type: 'desktop'
