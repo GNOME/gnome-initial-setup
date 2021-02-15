@@ -307,6 +307,20 @@ main (int argc, char *argv[])
 
   driver = gis_driver_new (mode);
 
+  /* On first login, GNOME Shell offers to run a tour. If we also run Initial
+   * Setup, the two immovable, centred windows will sit atop one another.
+   * Until we have the ability to run Initial Setup in the "kiosk" mode, like
+   * it does in new-user mode, disable Initial Setup for existing users.
+   *
+   * https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/120#note_1019004
+   * https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/12
+   */
+  if (mode == GIS_DRIVER_MODE_EXISTING_USER) {
+    g_message ("Skipping gnome-initial-setup for existing user");
+    gis_ensure_stamp_files (driver);
+    exit (EXIT_SUCCESS);
+  }
+
   /* We only do this in existing-user mode, because if gdm launches us
    * in new-user mode and we just exit, gdm's special g-i-s session
    * never terminates. */
