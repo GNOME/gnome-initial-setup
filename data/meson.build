@@ -20,7 +20,6 @@ gis_gnome_session_required_components = [
     'org.gnome.SettingsDaemon.Sound',
     'org.gnome.SettingsDaemon.UsbProtection',
     'org.gnome.SettingsDaemon.Wacom',
-    'org.gnome.SettingsDaemon.XSettings',
 ]
 
 gis_user_session_wanted_components = gis_gnome_session_required_components
