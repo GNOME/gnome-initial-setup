@@ -31,21 +31,13 @@ G_BEGIN_DECLS
 
 #define GIS_TYPE_DRIVER (gis_driver_get_type ())
 
-G_DECLARE_DERIVABLE_TYPE (GisDriver, gis_driver, GIS, DRIVER, GtkApplication)
+G_DECLARE_FINAL_TYPE (GisDriver, gis_driver, GIS, DRIVER, GtkApplication)
 
 typedef enum {
   UM_LOCAL,
   UM_ENTERPRISE,
   NUM_MODES,
 } UmAccountMode;
-
-struct _GisDriverClass
-{
-  GtkApplicationClass parent_class;
-
-  void (* rebuild_pages) (GisDriver *driver);
-  void (* locale_changed) (GisDriver *driver);
-};
 
 typedef enum {
   GIS_DRIVER_MODE_NEW_USER,
