@@ -29,15 +29,9 @@
 
 G_BEGIN_DECLS
 
-#define GIS_TYPE_DRIVER               (gis_driver_get_type ())
-#define GIS_DRIVER(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_DRIVER, GisDriver))
-#define GIS_DRIVER_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_DRIVER, GisDriverClass))
-#define GIS_IS_DRIVER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_DRIVER))
-#define GIS_IS_DRIVER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_DRIVER))
-#define GIS_DRIVER_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_DRIVER, GisDriverClass))
+#define GIS_TYPE_DRIVER (gis_driver_get_type ())
 
-typedef struct _GisDriver        GisDriver;
-typedef struct _GisDriverClass   GisDriverClass;
+G_DECLARE_FINAL_TYPE (GisDriver, gis_driver, GIS, DRIVER, GtkApplication)
 
 typedef enum {
   UM_LOCAL,
@@ -45,25 +39,10 @@ typedef enum {
   NUM_MODES,
 } UmAccountMode;
 
-struct _GisDriver
-{
-  GtkApplication parent;
-};
-
-struct _GisDriverClass
-{
-  GtkApplicationClass parent_class;
-
-  void (* rebuild_pages) (GisDriver *driver);
-  void (* locale_changed) (GisDriver *driver);
-};
-
 typedef enum {
   GIS_DRIVER_MODE_NEW_USER,
   GIS_DRIVER_MODE_EXISTING_USER,
 } GisDriverMode;
-
-GType gis_driver_get_type (void);
 
 GisAssistant *gis_driver_get_assistant (GisDriver *driver);
 

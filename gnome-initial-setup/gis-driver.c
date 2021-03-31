@@ -69,7 +69,9 @@ typedef enum {
 
 static GParamSpec *obj_props[PROP_AVATAR + 1];
 
-struct _GisDriverPrivate {
+struct _GisDriver {
+  GtkApplication  parent_instance;
+
   GtkWindow *main_window;
   GisAssistant *assistant;
 
@@ -100,19 +102,17 @@ struct _GisDriverPrivate {
   const gchar *vendor_conf_file_path;
   GKeyFile *vendor_conf_file;
 };
-typedef struct _GisDriverPrivate GisDriverPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE(GisDriver, gis_driver, GTK_TYPE_APPLICATION)
+G_DEFINE_TYPE (GisDriver, gis_driver, GTK_TYPE_APPLICATION)
 
 static void
 gis_driver_dispose (GObject *object)
 {
   GisDriver *driver = GIS_DRIVER (object);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
-  g_clear_object (&priv->user_verifier);
-  g_clear_object (&priv->greeter);
-  g_clear_object (&priv->client);
+  g_clear_object (&driver->user_verifier);
+  g_clear_object (&driver->greeter);
+  g_clear_object (&driver->client);
 
   G_OBJECT_CLASS (gis_driver_parent_class)->dispose (object);
 }
@@ -121,25 +121,24 @@ static void
 gis_driver_finalize (GObject *object)
 {
   GisDriver *driver = GIS_DRIVER (object);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
-  g_free (priv->lang_id);
-  g_free (priv->username);
-  g_free (priv->full_name);
-  g_free (priv->user_password);
+  g_free (driver->lang_id);
+  g_free (driver->username);
+  g_free (driver->full_name);
+  g_free (driver->user_password);
 
-  g_clear_object (&priv->avatar);
+  g_clear_object (&driver->avatar);
 
-  g_clear_object (&priv->user_account);
-  g_clear_pointer (&priv->vendor_conf_file, g_key_file_free);
+  g_clear_object (&driver->user_account);
+  g_clear_pointer (&driver->vendor_conf_file, g_key_file_free);
 
-  g_clear_object (&priv->parent_account);
-  g_free (priv->parent_password);
+  g_clear_object (&driver->parent_account);
+  g_free (driver->parent_password);
 
-  if (priv->locale != (locale_t) 0)
+  if (driver->locale != (locale_t) 0)
     {
       uselocale (LC_GLOBAL_LOCALE);
-      freelocale (priv->locale);
+      freelocale (driver->locale);
     }
 
   G_OBJECT_CLASS (gis_driver_parent_class)->finalize (object);
@@ -154,24 +153,23 @@ assistant_page_changed (GtkScrolledWindow *sw)
 static void
 prepare_main_window (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GtkWidget *child, *sw;
 
-  child = g_object_ref (gtk_bin_get_child (GTK_BIN (priv->main_window)));
-  gtk_container_remove (GTK_CONTAINER (priv->main_window), child);
+  child = g_object_ref (gtk_bin_get_child (GTK_BIN (driver->main_window)));
+  gtk_container_remove (GTK_CONTAINER (driver->main_window), child);
   sw = gtk_scrolled_window_new (NULL, NULL);
   gtk_widget_show (sw);
-  gtk_container_add (GTK_CONTAINER (priv->main_window), sw);
+  gtk_container_add (GTK_CONTAINER (driver->main_window), sw);
   gtk_container_add (GTK_CONTAINER (sw), child);
   g_object_unref (child);
 
-  g_signal_connect_swapped (priv->assistant,
+  g_signal_connect_swapped (driver->assistant,
                             "page-changed",
                             G_CALLBACK (assistant_page_changed),
                             sw);
 
-  gtk_window_set_titlebar (priv->main_window,
-                           gis_assistant_get_titlebar (priv->assistant));
+  gtk_window_set_titlebar (driver->main_window,
+                           gis_assistant_get_titlebar (driver->assistant));
 }
 
 static void
@@ -183,36 +181,28 @@ rebuild_pages (GisDriver *driver)
 GisAssistant *
 gis_driver_get_assistant (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  return priv->assistant;
+  return driver->assistant;
 }
 
 static void
-gis_driver_real_locale_changed (GisDriver *driver)
+gis_driver_locale_changed (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GtkTextDirection direction;
 
   direction = gtk_get_locale_direction ();
   gtk_widget_set_default_direction (direction);
 
   rebuild_pages (driver);
-  gis_assistant_locale_changed (priv->assistant);
-}
+  gis_assistant_locale_changed (driver->assistant);
 
-static void
-gis_driver_locale_changed (GisDriver *driver)
-{
   g_signal_emit (G_OBJECT (driver), signals[LOCALE_CHANGED], 0);
 }
 
 void
 gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id, gboolean update_locale)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  g_free (priv->lang_id);
-  priv->lang_id = g_strdup (lang_id);
+  g_free (driver->lang_id);
+  driver->lang_id = g_strdup (lang_id);
 
   cc_common_language_set_current_language (lang_id);
 
@@ -227,9 +217,9 @@ gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id, gboolean 
 
       uselocale (locale);
 
-      if (priv->locale != (locale_t) 0 && priv->locale != LC_GLOBAL_LOCALE)
-        freelocale (priv->locale);
-      priv->locale = locale;
+      if (driver->locale != (locale_t) 0 && driver->locale != LC_GLOBAL_LOCALE)
+        freelocale (driver->locale);
+      driver->locale = locale;
 
       gis_driver_locale_changed (driver);
     }
@@ -238,24 +228,22 @@ gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id, gboolean 
 const gchar *
 gis_driver_get_user_language (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  return priv->lang_id;
+  return driver->lang_id;
 }
 
 void
 gis_driver_set_username (GisDriver *driver, const gchar *username)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  g_free (priv->username);
-  priv->username = g_strdup (username);
+  g_free (driver->username);
+  driver->username = g_strdup (username);
+
   g_object_notify (G_OBJECT (driver), "username");
 }
 
 const gchar *
 gis_driver_get_username (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  return priv->username;
+  return driver->username;
 }
 
 /**
@@ -271,16 +259,15 @@ void
 gis_driver_set_full_name (GisDriver   *driver,
                           const gchar *full_name)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_return_if_fail (GIS_IS_DRIVER (driver));
   g_return_if_fail (full_name == NULL ||
                     g_utf8_validate (full_name, -1, NULL));
 
-  if (g_strcmp0 (priv->full_name, full_name) == 0)
+  if (g_strcmp0 (driver->full_name, full_name) == 0)
     return;
 
-  g_free (priv->full_name);
-  priv->full_name = g_strdup (full_name);
+  g_free (driver->full_name);
+  driver->full_name = g_strdup (full_name);
 
   g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_FULL_NAME]);
 }
@@ -297,10 +284,9 @@ gis_driver_set_full_name (GisDriver   *driver,
 const gchar *
 gis_driver_get_full_name (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
 
-  return priv->full_name;
+  return driver->full_name;
 }
 
 /**
@@ -316,11 +302,10 @@ void
 gis_driver_set_avatar (GisDriver *driver,
                        GdkPixbuf *avatar)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_return_if_fail (GIS_IS_DRIVER (driver));
   g_return_if_fail (avatar == NULL || GDK_IS_PIXBUF (avatar));
 
-  if (g_set_object (&priv->avatar, avatar))
+  if (g_set_object (&driver->avatar, avatar))
     g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_AVATAR]);
 }
 
@@ -336,10 +321,9 @@ gis_driver_set_avatar (GisDriver *driver,
 GdkPixbuf *
 gis_driver_get_avatar (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
 
-  return priv->avatar;
+  return driver->avatar;
 }
 
 void
@@ -347,10 +331,9 @@ gis_driver_set_user_permissions (GisDriver   *driver,
                                  ActUser     *user,
                                  const gchar *password)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  g_set_object (&priv->user_account, user);
-  g_free (priv->user_password);
-  priv->user_password = g_strdup (password);
+  g_set_object (&driver->user_account, user);
+  g_free (driver->user_password);
+  driver->user_password = g_strdup (password);
 }
 
 void
@@ -358,13 +341,11 @@ gis_driver_get_user_permissions (GisDriver    *driver,
                                  ActUser     **user,
                                  const gchar **password)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
   if (user != NULL)
-    *user = priv->user_account;
+    *user = driver->user_account;
 
   if (password != NULL)
-    *password = priv->user_password;
+    *password = driver->user_password;
 }
 
 /**
@@ -383,11 +364,9 @@ gis_driver_set_parent_permissions (GisDriver   *driver,
                                    ActUser     *parent,
                                    const gchar *password)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  g_set_object (&priv->parent_account, parent);
-  g_free (priv->parent_password);
-  priv->parent_password = g_strdup (password);
+  g_set_object (&driver->parent_account, parent);
+  g_free (driver->parent_password);
+  driver->parent_password = g_strdup (password);
 }
 
 /**
@@ -408,27 +387,23 @@ gis_driver_get_parent_permissions (GisDriver    *driver,
                                    ActUser     **parent,
                                    const gchar **password)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
   if (parent != NULL)
-    *parent = priv->parent_account;
+    *parent = driver->parent_account;
   if (password != NULL)
-    *password = priv->parent_password;
+    *password = driver->parent_password;
 }
 
 void
 gis_driver_set_account_mode (GisDriver     *driver,
                              UmAccountMode  mode)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  priv->account_mode = mode;
+  driver->account_mode = mode;
 }
 
 UmAccountMode
 gis_driver_get_account_mode (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  return priv->account_mode;
+  return driver->account_mode;
 }
 
 /**
@@ -444,12 +419,10 @@ void
 gis_driver_set_parental_controls_enabled (GisDriver *driver,
                                           gboolean   parental_controls_enabled)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  if (priv->parental_controls_enabled == parental_controls_enabled)
+  if (driver->parental_controls_enabled == parental_controls_enabled)
     return;
 
-  priv->parental_controls_enabled = parental_controls_enabled;
+  driver->parental_controls_enabled = parental_controls_enabled;
   rebuild_pages (driver);
 
   g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_PARENTAL_CONTROLS_ENABLED]);
@@ -467,9 +440,7 @@ gis_driver_set_parental_controls_enabled (GisDriver *driver,
 gboolean
 gis_driver_get_parental_controls_enabled (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  return priv->parental_controls_enabled;
+  return driver->parental_controls_enabled;
 }
 
 gboolean
@@ -477,13 +448,11 @@ gis_driver_get_gdm_objects (GisDriver        *driver,
                             GdmGreeter      **greeter,
                             GdmUserVerifier **user_verifier)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  if (priv->greeter == NULL || priv->user_verifier == NULL)
+  if (driver->greeter == NULL || driver->user_verifier == NULL)
     return FALSE;
 
-  *greeter = priv->greeter;
-  *user_verifier = priv->user_verifier;
+  *greeter = driver->greeter;
+  *user_verifier = driver->user_verifier;
 
   return TRUE;
 }
@@ -492,23 +461,19 @@ void
 gis_driver_add_page (GisDriver *driver,
                      GisPage   *page)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  gis_assistant_add_page (priv->assistant, page);
+  gis_assistant_add_page (driver->assistant, page);
 }
 
 void
 gis_driver_hide_window (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  gtk_widget_hide (GTK_WIDGET (priv->main_window));
+  gtk_widget_hide (GTK_WIDGET (driver->main_window));
 }
 
 static gboolean
 load_vendor_conf_file_at_path (GisDriver *driver,
                                const char *path)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_autoptr(GError) error = NULL;
   g_autoptr(GKeyFile) vendor_conf_file = g_key_file_new ();
 
@@ -519,8 +484,8 @@ load_vendor_conf_file_at_path (GisDriver *driver,
       return FALSE;
     }
 
-  priv->vendor_conf_file_path = path;
-  priv->vendor_conf_file = g_steal_pointer (&vendor_conf_file);
+  driver->vendor_conf_file_path = path;
+  driver->vendor_conf_file = g_steal_pointer (&vendor_conf_file);
   return TRUE;
 }
 
@@ -550,12 +515,10 @@ report_conf_error_if_needed (GisDriver *driver,
                              const gchar *key,
                              const GError *error)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
   if (!g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND) &&
       !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_GROUP_NOT_FOUND))
     g_warning ("Error getting the value for key '%s' of group [%s] in %s: %s",
-               group, key, priv->vendor_conf_file_path, error->message);
+               group, key, driver->vendor_conf_file_path, error->message);
 }
 
 gboolean
@@ -564,11 +527,9 @@ gis_driver_conf_get_boolean (GisDriver *driver,
                              const gchar *key,
                              gboolean default_value)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  if (priv->vendor_conf_file) {
+  if (driver->vendor_conf_file) {
     g_autoptr(GError) error = NULL;
-    gboolean new_value = g_key_file_get_boolean (priv->vendor_conf_file, group,
+    gboolean new_value = g_key_file_get_boolean (driver->vendor_conf_file, group,
                                                  key, &error);
     if (error == NULL)
       return new_value;
@@ -585,11 +546,9 @@ gis_driver_conf_get_string_list (GisDriver *driver,
                                  const gchar *key,
                                  gsize *out_length)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  if (priv->vendor_conf_file) {
+  if (driver->vendor_conf_file) {
     g_autoptr(GError) error = NULL;
-    GStrv new_value = g_key_file_get_string_list (priv->vendor_conf_file, group,
+    GStrv new_value = g_key_file_get_string_list (driver->vendor_conf_file, group,
                                                   key, out_length, &error);
     if (error == NULL)
       return new_value;
@@ -605,11 +564,9 @@ gis_driver_conf_get_string (GisDriver *driver,
                             const gchar *group,
                             const gchar *key)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
-  if (priv->vendor_conf_file) {
+  if (driver->vendor_conf_file) {
     g_autoptr(GError) error = NULL;
-    gchar *new_value = g_key_file_get_string (priv->vendor_conf_file, group,
+    gchar *new_value = g_key_file_get_string (driver->vendor_conf_file, group,
                                               key, &error);
     if (error == NULL)
       return new_value;
@@ -623,15 +580,13 @@ gis_driver_conf_get_string (GisDriver *driver,
 GisDriverMode
 gis_driver_get_mode (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  return priv->mode;
+  return driver->mode;
 }
 
 gboolean
 gis_driver_is_small_screen (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-  return priv->small_screen;
+  return driver->small_screen;
 }
 
 static gboolean
@@ -653,26 +608,26 @@ gis_driver_get_property (GObject      *object,
                          GParamSpec   *pspec)
 {
   GisDriver *driver = GIS_DRIVER (object);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
   switch ((GisDriverProperty) prop_id)
     {
     case PROP_MODE:
-      g_value_set_enum (value, priv->mode);
+      g_value_set_enum (value, driver->mode);
       break;
     case PROP_USERNAME:
-      g_value_set_string (value, priv->username);
+      g_value_set_string (value, driver->username);
       break;
     case PROP_SMALL_SCREEN:
-      g_value_set_boolean (value, priv->small_screen);
+      g_value_set_boolean (value, driver->small_screen);
       break;
     case PROP_PARENTAL_CONTROLS_ENABLED:
-      g_value_set_boolean (value, priv->parental_controls_enabled);
+      g_value_set_boolean (value, driver->parental_controls_enabled);
       break;
     case PROP_FULL_NAME:
-      g_value_set_string (value, priv->full_name);
+      g_value_set_string (value, driver->full_name);
       break;
     case PROP_AVATAR:
-      g_value_set_object (value, priv->avatar);
+      g_value_set_object (value, driver->avatar);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -687,15 +642,15 @@ gis_driver_set_property (GObject      *object,
                          GParamSpec   *pspec)
 {
   GisDriver *driver = GIS_DRIVER (object);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
+
   switch ((GisDriverProperty) prop_id)
     {
     case PROP_MODE:
-      priv->mode = g_value_get_enum (value);
+      driver->mode = g_value_get_enum (value);
       break;
     case PROP_USERNAME:
-      g_free (priv->username);
-      priv->username = g_value_dup_string (value);
+      g_free (driver->username);
+      driver->username = g_value_dup_string (value);
       break;
     case PROP_PARENTAL_CONTROLS_ENABLED:
       gis_driver_set_parental_controls_enabled (driver, g_value_get_boolean (value));
@@ -716,17 +671,15 @@ static void
 gis_driver_activate (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->activate (app);
 
-  gtk_window_present (GTK_WINDOW (priv->main_window));
+  gtk_window_present (GTK_WINDOW (driver->main_window));
 }
 
 static void
 set_small_screen_based_on_primary_monitor (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkDisplay *default_display;
   GdkMonitor *primary_monitor;
 
@@ -738,52 +691,50 @@ set_small_screen_based_on_primary_monitor (GisDriver *driver)
   if (primary_monitor == NULL)
     return;
 
-  priv->small_screen = monitor_is_small (primary_monitor);
+  driver->small_screen = monitor_is_small (primary_monitor);
 }
 
-/* Recompute priv->small_screen based on the monitor where the window is
+/* Recompute driver->small_screen based on the monitor where the window is
  * located, if the window is actually realized. If not, recompute it based on
  * the primary monitor of the default display. */
 static void
 recompute_small_screen (GisDriver *driver) {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkWindow *window;
   GdkDisplay *default_display = gdk_display_get_default ();
   GdkMonitor *active_monitor;
-  gboolean old_value = priv->small_screen;
+  gboolean old_value = driver->small_screen;
 
-  if (!gtk_widget_get_realized (GTK_WIDGET (priv->main_window)))
+  if (!gtk_widget_get_realized (GTK_WIDGET (driver->main_window)))
     {
       set_small_screen_based_on_primary_monitor (driver);
     }
   else
     {
-      window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
+      window = gtk_widget_get_window (GTK_WIDGET (driver->main_window));
       active_monitor = gdk_display_get_monitor_at_window (default_display, window);
-      priv->small_screen = monitor_is_small (active_monitor);
+      driver->small_screen = monitor_is_small (active_monitor);
     }
 
-  if (priv->small_screen != old_value)
+  if (driver->small_screen != old_value)
     g_object_notify (G_OBJECT (driver), "small-screen");
 }
 
 static void
 update_screen_size (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   GdkWindow *window;
   GdkGeometry size_hints;
   GtkWidget *sw;
 
   recompute_small_screen (driver);
 
-  if (!gtk_widget_get_realized (GTK_WIDGET (priv->main_window)))
+  if (!gtk_widget_get_realized (GTK_WIDGET (driver->main_window)))
     return;
 
-  sw = gtk_bin_get_child (GTK_BIN (priv->main_window));
-  window = gtk_widget_get_window (GTK_WIDGET (priv->main_window));
+  sw = gtk_bin_get_child (GTK_BIN (driver->main_window));
+  window = gtk_widget_get_window (GTK_WIDGET (driver->main_window));
 
-  if (priv->small_screen)
+  if (driver->small_screen)
     {
       if (window)
         gdk_window_set_functions (window,
@@ -793,12 +744,12 @@ update_screen_size (GisDriver *driver)
                                       GTK_POLICY_AUTOMATIC,
                                       GTK_POLICY_AUTOMATIC);
 
-      gtk_window_set_geometry_hints (priv->main_window, NULL, NULL, 0);
-      gtk_window_set_resizable (priv->main_window, TRUE);
-      gtk_window_set_position (priv->main_window, GTK_WIN_POS_NONE);
+      gtk_window_set_geometry_hints (driver->main_window, NULL, NULL, 0);
+      gtk_window_set_resizable (driver->main_window, TRUE);
+      gtk_window_set_position (driver->main_window, GTK_WIN_POS_NONE);
 
-      gtk_window_maximize (priv->main_window);
-      gtk_window_present (priv->main_window);
+      gtk_window_maximize (driver->main_window);
+      gtk_window_present (driver->main_window);
     }
   else
     {
@@ -815,15 +766,15 @@ update_screen_size (GisDriver *driver)
       size_hints.min_height = size_hints.max_height = 768;
       size_hints.win_gravity = GDK_GRAVITY_CENTER;
 
-      gtk_window_set_geometry_hints (priv->main_window,
+      gtk_window_set_geometry_hints (driver->main_window,
                                      NULL,
                                      &size_hints,
                                      GDK_HINT_MIN_SIZE | GDK_HINT_MAX_SIZE | GDK_HINT_WIN_GRAVITY);
-      gtk_window_set_resizable (priv->main_window, FALSE);
-      gtk_window_set_position (priv->main_window, GTK_WIN_POS_CENTER_ALWAYS);
+      gtk_window_set_resizable (driver->main_window, FALSE);
+      gtk_window_set_position (driver->main_window, GTK_WIN_POS_CENTER_ALWAYS);
 
-      gtk_window_unmaximize (priv->main_window);
-      gtk_window_present (priv->main_window);
+      gtk_window_unmaximize (driver->main_window);
+      gtk_window_present (driver->main_window);
     }
 }
 
@@ -842,20 +793,19 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
 static void
 connect_to_gdm (GisDriver *driver)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   g_autoptr(GError) error = NULL;
 
-  priv->client = gdm_client_new ();
+  driver->client = gdm_client_new ();
 
-  priv->greeter = gdm_client_get_greeter_sync (priv->client, NULL, &error);
+  driver->greeter = gdm_client_get_greeter_sync (driver->client, NULL, &error);
   if (error == NULL)
-    priv->user_verifier = gdm_client_get_user_verifier_sync (priv->client, NULL, &error);
+    driver->user_verifier = gdm_client_get_user_verifier_sync (driver->client, NULL, &error);
 
   if (error != NULL) {
     g_warning ("Failed to open connection to GDM: %s", error->message);
-    g_clear_object (&priv->user_verifier);
-    g_clear_object (&priv->greeter);
-    g_clear_object (&priv->client);
+    g_clear_object (&driver->user_verifier);
+    g_clear_object (&driver->greeter);
+    g_clear_object (&driver->client);
   }
 }
 
@@ -863,32 +813,31 @@ static void
 gis_driver_startup (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
   WebKitWebContext *context = webkit_web_context_get_default ();
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
 
   webkit_web_context_set_sandbox_enabled (context, TRUE);
 
-  if (priv->mode == GIS_DRIVER_MODE_NEW_USER)
+  if (driver->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
 
-  priv->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
+  driver->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
                                     "application", app,
                                     "type", GTK_WINDOW_TOPLEVEL,
                                     "icon-name", "preferences-system",
                                     "deletable", FALSE,
                                     NULL);
 
-  g_signal_connect (priv->main_window,
+  g_signal_connect (driver->main_window,
                     "realize",
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
 
-  priv->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
-  gtk_container_add (GTK_CONTAINER (priv->main_window), GTK_WIDGET (priv->assistant));
+  driver->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
+  gtk_container_add (GTK_CONTAINER (driver->main_window), GTK_WIDGET (driver->assistant));
 
-  gtk_widget_show (GTK_WIDGET (priv->assistant));
+  gtk_widget_show (GTK_WIDGET (driver->assistant));
 
   gis_driver_set_user_language (driver, setlocale (LC_MESSAGES, NULL), FALSE);
 
@@ -924,13 +873,12 @@ gis_driver_class_init (GisDriverClass *klass)
   gobject_class->finalize = gis_driver_finalize;
   application_class->startup = gis_driver_startup;
   application_class->activate = gis_driver_activate;
-  klass->locale_changed = gis_driver_real_locale_changed;
 
   signals[REBUILD_PAGES] =
     g_signal_new ("rebuild-pages",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
-                  G_STRUCT_OFFSET (GisDriverClass, rebuild_pages),
+                  0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 0);
 
@@ -938,7 +886,7 @@ gis_driver_class_init (GisDriverClass *klass)
     g_signal_new ("locale-changed",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
-                  G_STRUCT_OFFSET (GisDriverClass, locale_changed),
+                  0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 0);
 
@@ -1010,15 +958,13 @@ gboolean
 gis_driver_save_data (GisDriver  *driver,
                       GError    **error)
 {
-  GisDriverPrivate *priv = gis_driver_get_instance_private (driver);
-
   if (gis_get_mock_mode ())
     {
       g_message ("%s: Skipping saving data due to being in mock mode", G_STRFUNC);
       return TRUE;
     }
 
-  return gis_assistant_save_data (priv->assistant, error);
+  return gis_assistant_save_data (driver->assistant, error);
 }
 
 GisDriver *
