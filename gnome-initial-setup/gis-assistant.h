@@ -28,12 +28,7 @@ G_BEGIN_DECLS
 
 #define GIS_TYPE_ASSISTANT               (gis_assistant_get_type ())
 
-G_DECLARE_DERIVABLE_TYPE (GisAssistant, gis_assistant, GIS, ASSISTANT, GtkBox)
-
-struct _GisAssistantClass
-{
-  GtkBoxClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (GisAssistant, gis_assistant, GIS, ASSISTANT, GtkBox)
 
 void      gis_assistant_add_page          (GisAssistant *assistant,
                                            GisPage      *page);
