@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_ASSISTANT_H__
-#define __GIS_ASSISTANT_H__
+#pragma once
 
 #include "gis-page.h"
 
@@ -45,5 +44,3 @@ gboolean  gis_assistant_save_data         (GisAssistant  *assistant,
                                            GError       **error);
 
 G_END_DECLS
-
-#endif /* __GIS_ASSISTANT_H__ */
