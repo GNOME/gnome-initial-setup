@@ -63,11 +63,6 @@ typedef struct _GisAssistantPrivate GisAssistantPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 
-struct _GisAssistantPagePrivate
-{
-  GList *link;
-};
-
 static void
 visible_child_changed (GisAssistant *assistant)
 {
@@ -81,12 +76,9 @@ widget_destroyed (GtkWidget    *widget,
   GisPage *page = GIS_PAGE (widget);
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
-  priv->pages = g_list_delete_link (priv->pages, page->assistant_priv->link);
+  priv->pages = g_list_remove (priv->pages, page);
   if (page == priv->current_page)
     priv->current_page = NULL;
-
-  g_slice_free (GisAssistantPagePrivate, page->assistant_priv);
-  page->assistant_priv = NULL;
 }
 
 static void
@@ -107,9 +99,16 @@ should_show_page (GisPage *page)
 }
 
 static GisPage *
-find_next_page (GisPage *page)
+find_next_page (GisAssistant *self,
+                GisPage      *page)
 {
-  GList *l = page->assistant_priv->link->next;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (self);
+  GList *l = g_list_find (priv->pages, page);
+
+  g_return_val_if_fail (l != NULL, NULL);
+
+  /* We need the next page */
+  l = l->next;
 
   for (; l != NULL; l = l->next)
     {
@@ -126,7 +125,7 @@ static void
 switch_to_next_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  switch_to (assistant, find_next_page (priv->current_page));
+  switch_to (assistant, find_next_page (assistant, priv->current_page));
 }
 
 static void
@@ -151,9 +150,16 @@ gis_assistant_next_page (GisAssistant *assistant)
 }
 
 static GisPage *
-find_prev_page (GisPage *page)
+find_prev_page (GisAssistant *self,
+                GisPage      *page)
 {
-  GList *l = page->assistant_priv->link->prev;
+  GisAssistantPrivate *priv = gis_assistant_get_instance_private (self);
+  GList *l = g_list_find (priv->pages, page);
+
+  g_return_val_if_fail (l != NULL, NULL);
+
+  /* We need the previous page */
+  l = l->prev;
 
   for (; l != NULL; l = l->prev)
     {
@@ -171,7 +177,7 @@ gis_assistant_previous_page (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   g_return_if_fail (priv->current_page != NULL);
-  switch_to (assistant, find_prev_page (priv->current_page));
+  switch_to (assistant, find_prev_page (assistant, priv->current_page));
 }
 
 static void
@@ -197,15 +203,15 @@ update_navigation_buttons (GisAssistant *assistant)
 {
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GisPage *page = priv->current_page;
-  GisAssistantPagePrivate *page_priv;
+  GList *l;
   gboolean is_last_page;
 
   if (page == NULL)
     return;
 
-  page_priv = page->assistant_priv;
+  l = g_list_find (priv->pages, page);
 
-  is_last_page = (page_priv->link->next == NULL);
+  is_last_page = (l->next == NULL);
 
   if (is_last_page)
     {
@@ -222,7 +228,7 @@ update_navigation_buttons (GisAssistant *assistant)
       gboolean is_first_page;
       GtkWidget *next_widget;
 
-      is_first_page = (page_priv->link->prev == NULL);
+      is_first_page = (l->prev == NULL);
       gtk_widget_set_visible (priv->back, !is_first_page);
 
       if (gis_page_get_needs_accept (page))
@@ -256,7 +262,7 @@ update_applying_state (GisAssistant *assistant)
   if (priv->current_page)
     {
       applying = gis_page_get_applying (priv->current_page);
-      is_first_page = priv->current_page->assistant_priv->link->prev == NULL;
+      is_first_page = priv->pages->data == priv->current_page;
     }
   gtk_widget_set_sensitive (priv->forward, !applying);
   gtk_widget_set_visible (priv->back, !applying && !is_first_page);
@@ -310,19 +316,21 @@ gis_assistant_add_page (GisAssistant *assistant,
   GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *link;
 
-  g_return_if_fail (page->assistant_priv == NULL);
+  /* Page shouldn't already exist */
+  g_return_if_fail (!g_list_find (priv->pages, page));
 
-  page->assistant_priv = g_slice_new0 (GisAssistantPagePrivate);
   priv->pages = g_list_append (priv->pages, page);
-  link = page->assistant_priv->link = g_list_last (priv->pages);
+  link = g_list_last (priv->pages);
+  link = link->prev;
 
   g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), assistant);
   g_signal_connect (page, "notify", G_CALLBACK (page_notify), assistant);
 
   gtk_container_add (GTK_CONTAINER (priv->stack), GTK_WIDGET (page));
 
-  if (priv->current_page &&
-      priv->current_page->assistant_priv->link == link->prev)
+  /* Update buttons if current page is now the second last page */
+  if (priv->current_page && link &&
+      link->data == priv->current_page)
     update_navigation_buttons (assistant);
 }
 
