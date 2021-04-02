@@ -274,7 +274,7 @@ insert_language (GHashTable *ht,
 static void
 insert_user_languages (GHashTable *ht)
 {
-        char *name;
+        g_autofree char *name = NULL;
 
         /* Add the languages used by other users on the system */
         add_other_users_language (ht);
@@ -283,8 +283,6 @@ insert_user_languages (GHashTable *ht)
         name = cc_common_language_get_current_language ();
         if (g_hash_table_lookup (ht, name) == NULL) {
                 insert_language (ht, name);
-        } else {
-                g_free (name);
         }
 }
 
