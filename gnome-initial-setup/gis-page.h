@@ -35,7 +35,6 @@ G_BEGIN_DECLS
 
 typedef struct _GisPage        GisPage;
 typedef struct _GisPageClass   GisPageClass;
-typedef struct _GisAssistantPagePrivate GisAssistantPagePrivate;
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GisPage, g_object_unref)
 
@@ -48,8 +47,6 @@ struct _GisPage
   GtkBin parent;
 
   GisDriver *driver;
-
-  GisAssistantPagePrivate *assistant_priv;
 };
 
 struct _GisPageClass

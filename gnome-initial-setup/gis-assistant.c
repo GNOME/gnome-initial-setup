@@ -42,8 +42,10 @@ enum {
 static guint signals[LAST_SIGNAL];
 static GParamSpec *obj_props[PROP_LAST];
 
-struct _GisAssistantPrivate
+struct _GisAssistant
 {
+  GtkBox     parent_instance;
+
   GtkWidget *forward;
   GtkWidget *accept;
   GtkWidget *skip;
@@ -59,14 +61,8 @@ struct _GisAssistantPrivate
   GList *pages;
   GisPage *current_page;
 };
-typedef struct _GisAssistantPrivate GisAssistantPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
-
-struct _GisAssistantPagePrivate
-{
-  GList *link;
-};
+G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
 
 static void
 visible_child_changed (GisAssistant *assistant)
@@ -79,25 +75,19 @@ widget_destroyed (GtkWidget    *widget,
                   GisAssistant *assistant)
 {
   GisPage *page = GIS_PAGE (widget);
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
 
-  priv->pages = g_list_delete_link (priv->pages, page->assistant_priv->link);
-  if (page == priv->current_page)
-    priv->current_page = NULL;
-
-  g_slice_free (GisAssistantPagePrivate, page->assistant_priv);
-  page->assistant_priv = NULL;
+  assistant->pages = g_list_remove (assistant->pages, page);
+  if (page == assistant->current_page)
+    assistant->current_page = NULL;
 }
 
 static void
 switch_to (GisAssistant          *assistant,
            GisPage               *page)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
   g_return_if_fail (page != NULL);
 
-  gtk_stack_set_visible_child (GTK_STACK (priv->stack), GTK_WIDGET (page));
+  gtk_stack_set_visible_child (GTK_STACK (assistant->stack), GTK_WIDGET (page));
 }
 
 static inline gboolean
@@ -107,9 +97,15 @@ should_show_page (GisPage *page)
 }
 
 static GisPage *
-find_next_page (GisPage *page)
+find_next_page (GisAssistant *self,
+                GisPage      *page)
 {
-  GList *l = page->assistant_priv->link->next;
+  GList *l = g_list_find (self->pages, page);
+
+  g_return_val_if_fail (l != NULL, NULL);
+
+  /* We need the next page */
+  l = l->next;
 
   for (; l != NULL; l = l->next)
     {
@@ -125,8 +121,7 @@ find_next_page (GisPage *page)
 static void
 switch_to_next_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  switch_to (assistant, find_next_page (priv->current_page));
+  switch_to (assistant, find_next_page (assistant, assistant->current_page));
 }
 
 static void
@@ -143,17 +138,22 @@ on_apply_done (GisPage *page,
 void
 gis_assistant_next_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  if (priv->current_page)
-    gis_page_apply_begin (priv->current_page, on_apply_done, assistant);
+  if (assistant->current_page)
+    gis_page_apply_begin (assistant->current_page, on_apply_done, assistant);
   else
     switch_to_next_page (assistant);
 }
 
 static GisPage *
-find_prev_page (GisPage *page)
+find_prev_page (GisAssistant *self,
+                GisPage      *page)
 {
-  GList *l = page->assistant_priv->link->prev;
+  GList *l = g_list_find (self->pages, page);
+
+  g_return_val_if_fail (l != NULL, NULL);
+
+  /* We need the previous page */
+  l = l->prev;
 
   for (; l != NULL; l = l->prev)
     {
@@ -169,9 +169,8 @@ find_prev_page (GisPage *page)
 void
 gis_assistant_previous_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  g_return_if_fail (priv->current_page != NULL);
-  switch_to (assistant, find_prev_page (priv->current_page));
+  g_return_if_fail (assistant->current_page != NULL);
+  switch_to (assistant, find_prev_page (assistant, assistant->current_page));
 }
 
 static void
@@ -185,56 +184,53 @@ static void
 set_navigation_button (GisAssistant *assistant,
                        GtkWidget    *widget)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
-  gtk_widget_set_visible (priv->forward, (widget == priv->forward));
-  gtk_widget_set_visible (priv->accept, (widget == priv->accept));
-  gtk_widget_set_visible (priv->skip, (widget == priv->skip));
+  gtk_widget_set_visible (assistant->forward, (widget == assistant->forward));
+  gtk_widget_set_visible (assistant->accept, (widget == assistant->accept));
+  gtk_widget_set_visible (assistant->skip, (widget == assistant->skip));
 }
 
 void
 update_navigation_buttons (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  GisPage *page = priv->current_page;
-  GisAssistantPagePrivate *page_priv;
+  GisPage *page = assistant->current_page;
+  GList *l;
   gboolean is_last_page;
 
   if (page == NULL)
     return;
 
-  page_priv = page->assistant_priv;
+  l = g_list_find (assistant->pages, page);
 
-  is_last_page = (page_priv->link->next == NULL);
+  is_last_page = (l->next == NULL);
 
   if (is_last_page)
     {
-      gtk_widget_hide (priv->back);
-      gtk_widget_hide (priv->forward);
-      gtk_widget_hide (priv->skip);
-      gtk_widget_hide (priv->cancel);
-      gtk_widget_hide (priv->accept);
+      gtk_widget_hide (assistant->back);
+      gtk_widget_hide (assistant->forward);
+      gtk_widget_hide (assistant->skip);
+      gtk_widget_hide (assistant->cancel);
+      gtk_widget_hide (assistant->accept);
       /* FIXME: workaround for a GTK+ issue */
-      gtk_widget_queue_resize (priv->titlebar);
+      gtk_widget_queue_resize (assistant->titlebar);
     }
   else
     {
       gboolean is_first_page;
       GtkWidget *next_widget;
 
-      is_first_page = (page_priv->link->prev == NULL);
-      gtk_widget_set_visible (priv->back, !is_first_page);
+      is_first_page = (l->prev == NULL);
+      gtk_widget_set_visible (assistant->back, !is_first_page);
 
       if (gis_page_get_needs_accept (page))
-        next_widget = priv->accept;
+        next_widget = assistant->accept;
       else
-        next_widget = priv->forward;
+        next_widget = assistant->forward;
 
       if (gis_page_get_complete (page)) {
         set_suggested_action_sensitive (next_widget, TRUE);
         set_navigation_button (assistant, next_widget);
       } else if (gis_page_get_skippable (page)) {
-        set_navigation_button (assistant, priv->skip);
+        set_navigation_button (assistant, assistant->skip);
       } else {
         set_suggested_action_sensitive (next_widget, FALSE);
         set_navigation_button (assistant, next_widget);
@@ -252,29 +248,26 @@ update_applying_state (GisAssistant *assistant)
   gboolean applying = FALSE;
   gboolean is_first_page = FALSE;
 
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  if (priv->current_page)
+  if (assistant->current_page)
     {
-      applying = gis_page_get_applying (priv->current_page);
-      is_first_page = priv->current_page->assistant_priv->link->prev == NULL;
+      applying = gis_page_get_applying (assistant->current_page);
+      is_first_page = assistant->pages->data == assistant->current_page;
     }
-  gtk_widget_set_sensitive (priv->forward, !applying);
-  gtk_widget_set_visible (priv->back, !applying && !is_first_page);
-  gtk_widget_set_visible (priv->cancel, applying);
-  gtk_widget_set_visible (priv->spinner, applying);
+  gtk_widget_set_sensitive (assistant->forward, !applying);
+  gtk_widget_set_visible (assistant->back, !applying && !is_first_page);
+  gtk_widget_set_visible (assistant->cancel, applying);
+  gtk_widget_set_visible (assistant->spinner, applying);
 
   if (applying)
-    gtk_spinner_start (GTK_SPINNER (priv->spinner));
+    gtk_spinner_start (GTK_SPINNER (assistant->spinner));
   else
-    gtk_spinner_stop (GTK_SPINNER (priv->spinner));
+    gtk_spinner_stop (GTK_SPINNER (assistant->spinner));
 }
 
 static void
 update_titlebar (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
-  gtk_label_set_label (GTK_LABEL (priv->title),
+  gtk_label_set_label (GTK_LABEL (assistant->title),
                        gis_assistant_get_title (assistant));
 }
 
@@ -283,9 +276,7 @@ page_notify (GisPage      *page,
              GParamSpec   *pspec,
              GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
-  if (page != priv->current_page)
+  if (page != assistant->current_page)
     return;
 
   if (strcmp (pspec->name, "title") == 0)
@@ -307,37 +298,36 @@ void
 gis_assistant_add_page (GisAssistant *assistant,
                         GisPage      *page)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *link;
 
-  g_return_if_fail (page->assistant_priv == NULL);
+  /* Page shouldn't already exist */
+  g_return_if_fail (!g_list_find (assistant->pages, page));
 
-  page->assistant_priv = g_slice_new0 (GisAssistantPagePrivate);
-  priv->pages = g_list_append (priv->pages, page);
-  link = page->assistant_priv->link = g_list_last (priv->pages);
+  assistant->pages = g_list_append (assistant->pages, page);
+  link = g_list_last (assistant->pages);
+  link = link->prev;
 
   g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), assistant);
   g_signal_connect (page, "notify", G_CALLBACK (page_notify), assistant);
 
-  gtk_container_add (GTK_CONTAINER (priv->stack), GTK_WIDGET (page));
+  gtk_container_add (GTK_CONTAINER (assistant->stack), GTK_WIDGET (page));
 
-  if (priv->current_page &&
-      priv->current_page->assistant_priv->link == link->prev)
+  /* Update buttons if current page is now the second last page */
+  if (assistant->current_page && link &&
+      link->data == assistant->current_page)
     update_navigation_buttons (assistant);
 }
 
 GisPage *
 gis_assistant_get_current_page (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  return priv->current_page;
+  return assistant->current_page;
 }
 
 GList *
 gis_assistant_get_all_pages (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  return priv->pages;
+  return assistant->pages;
 }
 
 static void
@@ -358,17 +348,15 @@ static void
 do_cancel (GtkWidget    *button,
            GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  if (priv->current_page)
-    gis_page_apply_cancel (priv->current_page);
+  if (assistant->current_page)
+    gis_page_apply_cancel (assistant->current_page);
 }
 
 const gchar *
 gis_assistant_get_title (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  if (priv->current_page != NULL)
-    return gis_page_get_title (priv->current_page);
+  if (assistant->current_page != NULL)
+    return gis_page_get_title (assistant->current_page);
   else
     return "";
 }
@@ -376,27 +364,24 @@ gis_assistant_get_title (GisAssistant *assistant)
 GtkWidget *
 gis_assistant_get_titlebar (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-  return priv->titlebar;
+  return assistant->titlebar;
 }
 
 static void
 update_current_page (GisAssistant *assistant,
                      GisPage      *page)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
-  if (priv->current_page == page)
+  if (assistant->current_page == page)
     return;
 
-  priv->current_page = page;
+  assistant->current_page = page;
   g_object_notify_by_pspec (G_OBJECT (assistant), obj_props[PROP_TITLE]);
 
   update_titlebar (assistant);
   update_applying_state (assistant);
   update_navigation_buttons (assistant);
 
-  gtk_widget_grab_focus (priv->forward);
+  gtk_widget_grab_focus (assistant->forward);
 
   if (page)
     gis_page_shown (page);
@@ -417,16 +402,15 @@ current_page_changed (GObject    *gobject,
 void
 gis_assistant_locale_changed (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *l;
 
-  gtk_button_set_label (GTK_BUTTON (priv->forward), _("_Next"));
-  gtk_button_set_label (GTK_BUTTON (priv->accept), _("_Accept"));
-  gtk_button_set_label (GTK_BUTTON (priv->skip), _("_Skip"));
-  gtk_button_set_label (GTK_BUTTON (priv->back), _("_Previous"));
-  gtk_button_set_label (GTK_BUTTON (priv->cancel), _("_Cancel"));
+  gtk_button_set_label (GTK_BUTTON (assistant->forward), _("_Next"));
+  gtk_button_set_label (GTK_BUTTON (assistant->accept), _("_Accept"));
+  gtk_button_set_label (GTK_BUTTON (assistant->skip), _("_Skip"));
+  gtk_button_set_label (GTK_BUTTON (assistant->back), _("_Previous"));
+  gtk_button_set_label (GTK_BUTTON (assistant->cancel), _("_Cancel"));
 
-  for (l = priv->pages; l != NULL; l = l->next)
+  for (l = assistant->pages; l != NULL; l = l->next)
     gis_page_locale_changed (l->data);
 
   update_titlebar (assistant);
@@ -436,10 +420,9 @@ gboolean
 gis_assistant_save_data (GisAssistant  *assistant,
                          GError       **error)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
   GList *l;
 
-  for (l = priv->pages; l != NULL; l = l->next)
+  for (l = assistant->pages; l != NULL; l = l->next)
     {
       if (!gis_page_save_data (l->data, error))
         return FALSE;
@@ -451,19 +434,17 @@ gis_assistant_save_data (GisAssistant  *assistant,
 static void
 gis_assistant_init (GisAssistant *assistant)
 {
-  GisAssistantPrivate *priv = gis_assistant_get_instance_private (assistant);
-
   gtk_widget_init_template (GTK_WIDGET (assistant));
 
-  g_signal_connect (priv->stack, "notify::visible-child",
+  g_signal_connect (assistant->stack, "notify::visible-child",
                     G_CALLBACK (current_page_changed), assistant);
 
-  g_signal_connect (priv->forward, "clicked", G_CALLBACK (go_forward), assistant);
-  g_signal_connect (priv->accept, "clicked", G_CALLBACK (go_forward), assistant);
-  g_signal_connect (priv->skip, "clicked", G_CALLBACK (go_forward), assistant);
+  g_signal_connect (assistant->forward, "clicked", G_CALLBACK (go_forward), assistant);
+  g_signal_connect (assistant->accept, "clicked", G_CALLBACK (go_forward), assistant);
+  g_signal_connect (assistant->skip, "clicked", G_CALLBACK (go_forward), assistant);
 
-  g_signal_connect (priv->back, "clicked", G_CALLBACK (go_backward), assistant);
-  g_signal_connect (priv->cancel, "clicked", G_CALLBACK (do_cancel), assistant);
+  g_signal_connect (assistant->back, "clicked", G_CALLBACK (go_backward), assistant);
+  g_signal_connect (assistant->cancel, "clicked", G_CALLBACK (do_cancel), assistant);
 
   gis_assistant_locale_changed (assistant);
   update_applying_state (assistant);
@@ -496,17 +477,17 @@ gis_assistant_class_init (GisAssistantClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-assistant.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, forward);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, accept);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, skip);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, back);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, forward);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, accept);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, skip);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, back);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, title);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAssistant, stack);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, title);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, stack);
 
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), visible_child_changed);
 
