@@ -189,7 +189,7 @@ on_geoclue_simple_ready (GObject      *source_object,
   if (local_error != NULL)
     {
       if (!g_error_matches (local_error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-        g_critical ("Failed to connect to GeoClue2 service: %s", local_error->message);
+        g_info ("Failed to connect to GeoClue2 service: %s", local_error->message);
       return;
     }
 
