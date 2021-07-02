@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2019-02-07 08:37+0000\n"
-"PO-Revision-Date: 2019-02-25 22:00+0300\n"
-"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
+"POT-Creation-Date: 2020-08-17 19:50+0000\n"
+"PO-Revision-Date: 2021-07-02 18:08+0300\n"
+"Last-Translator: Alexey Rubtsov <rushills@gmail.com>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -19,18 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.0\n"
 
-#: data/gnome-initial-setup.desktop.in.in:3
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
+#: data/gnome-initial-setup.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "Первоначальная настройка"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-initial-setup.desktop.in.in:5
-#: data/gnome-initial-setup-first-login.desktop.in.in:5
-msgid "preferences-system"
-msgstr "preferences-system"
 
 #: gnome-initial-setup/gis-assistant.c:423
 msgid "_Next"
@@ -52,11 +46,11 @@ msgstr "_Назад"
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: gnome-initial-setup/gnome-initial-setup.c:259
+#: gnome-initial-setup/gnome-initial-setup.c:252
 msgid "Force existing user mode"
 msgstr "Принудительно использовать режим существующего пользователя"
 
-#: gnome-initial-setup/gnome-initial-setup.c:265
+#: gnome-initial-setup/gnome-initial-setup.c:258
 msgid "— GNOME initial setup"
 msgstr "— Первоначальная настройка GNOME"
 
@@ -64,32 +58,27 @@ msgstr "— Первоначальная настройка GNOME"
 msgid "Take a Picture…"
 msgstr "Сделать фотоснимок…"
 
-#: gnome-initial-setup/pages/account/gis-account-page.c:264
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:41
-msgid "About You"
-msgstr "О вас"
-
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
 msgid "Failed to register account"
 msgstr "Не удалось зарегистрировать учётную запись"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:376
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
 msgid "No supported way to authenticate with this domain"
 msgstr "Нет поддерживаемых способов аутентификации в этом домене"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:416
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
 msgid "Failed to join domain"
 msgstr "Не удалось присоединиться к домену"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:484
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
 msgid "Failed to log into domain"
 msgstr "Не удалось войти в домен"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:17
 msgid "Enterprise Login"
 msgstr "Корпоративная учётная запись"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:18
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -100,34 +89,34 @@ msgstr ""
 "также можете использовать эту учётную запись для доступа к ресурсам компании "
 "в Интернете."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:65
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:316
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:36
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:287
 msgid "_Domain"
 msgstr "_Домен"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:82
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:101
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:84
 msgid "_Username"
 msgstr "_Имя пользователя"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:99
-#: gnome-initial-setup/pages/password/gis-password-page.ui:66
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:70
+#: gnome-initial-setup/pages/password/gis-password-page.ui:34
 msgid "_Password"
 msgstr "_Пароль"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:175
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:146
 msgid "Enterprise domain or realm name"
 msgstr "Название домена предприятия или области"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:240
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:211
 msgid "C_ontinue"
 msgstr "П_родолжить"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:275
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:246
 msgid "Domain Administrator Login"
 msgstr "Вход для администратора домена"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:295
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:266
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -137,37 +126,62 @@ msgstr ""
 "зарегистрирован в домене. Администратор сети должен ввести здесь доменный "
 "пароль и выбрать уникальное имя для вашего компьютера."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:350
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:321
 msgid "_Computer"
 msgstr "_Компьютер"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:382
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:353
 msgid "Administrator _Name"
 msgstr "Имя _администратора"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:416
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:387
 msgid "Administrator Password"
 msgstr "Пароль администратора"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:203
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Проверьте имя и имя пользователя. Также можно выбрать изображение."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:422
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:453
 msgid "We need a few details to complete setup."
 msgstr "Для завершения осталось указать ещё немного информации."
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:559
+msgid "Administrator"
+msgstr "Администратор"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:565
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:608
+#, c-format
+msgid "Failed to create user '%s': "
+msgstr "Не удалось создать пользователя «%s»: "
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:21
 msgid "Avatar image"
 msgstr "Аватар"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:38
+#: gnome-initial-setup/pages/account/gis-account-page.c:283
+msgid "About You"
+msgstr "О вас"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:39
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Укажите имя и имя пользователя. Также можно выбрать изображение."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:70
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:53
 msgid "_Full Name"
 msgstr "П_олное имя"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:149
+msgid "Set up _parental controls for this user"
+msgstr "Установить _родительский контроль для пользователя"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
+msgid "For use by a parent or supervisor, who must set up their own password."
+msgstr ""
+"Для использования родителями или другими ответственными, кто должен "
+"назначить отдельный пароль."
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:43
 msgid "_Enterprise Login"
@@ -201,20 +215,24 @@ msgstr "Неправильный пароль. Попробуйте ещё ра�
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Не удалось подключиться к домену %s: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:245
+#: gnome-initial-setup/pages/account/um-utils.c:248
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Данное имя пользователя недоступно. Попробуйте ввести другое."
 
-#: gnome-initial-setup/pages/account/um-utils.c:248
+#: gnome-initial-setup/pages/account/um-utils.c:251
 #, c-format
 msgid "The username is too long."
 msgstr "Имя пользователя слишком длинное."
 
-#: gnome-initial-setup/pages/account/um-utils.c:251
+#: gnome-initial-setup/pages/account/um-utils.c:254
 msgid "The username cannot start with a “-”."
 msgstr "Имя пользователя не может начинаться с символа «-»."
 
-#: gnome-initial-setup/pages/account/um-utils.c:254
+#: gnome-initial-setup/pages/account/um-utils.c:257
+msgid "That username isn’t available. Please try another."
+msgstr "Данное имя пользователя недоступно. Попробуйте ввести другое."
+
+#: gnome-initial-setup/pages/account/um-utils.c:260
 msgid ""
 "The username should only consist of upper and lower case letters from a-z, "
 "digits and the following characters: . - _"
@@ -222,36 +240,25 @@ msgstr ""
 "Имя пользователя может состоять только из букв латинского алфавита в верхнем "
 "и нижнем регистре, цифр и следующих символов: . - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:258
+#: gnome-initial-setup/pages/account/um-utils.c:264
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Будет использовано для именования вашей домашней папки; не может быть "
 "изменено."
 
-#: gnome-initial-setup/pages/eulas/gis-eula-page.c:301
-#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:21
-msgid "License Agreements"
-msgstr "Лицензионные соглашения"
-
-#: gnome-initial-setup/pages/eulas/gis-eula-page.ui:50
-msgid ""
-"I have _agreed to the terms and conditions in this end user license "
-"agreement."
-msgstr "Я _принимаю соглашения и условия этой лицензии."
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:87
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:92
 msgid "Add Account"
 msgstr "Добавить учётную запись"
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:339
+#: gnome-initial-setup/pages/goa/gis-goa-page.c:357
 msgid "Online Accounts"
 msgstr "Сетевые учётные записи"
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:39
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:17
 msgid "Connect Your Online Accounts"
 msgstr "Подключить сетевые учётные записи"
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:58
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:18
 msgid ""
 "Connect your accounts to easily access your email, online calendar, "
 "contacts, documents and photos."
@@ -259,7 +266,7 @@ msgstr ""
 "Подключите ваши учётные записи для простого доступа к электронной почте, "
 "онлайн-календарю, контактам, документам и фотографиям."
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:95
+#: gnome-initial-setup/pages/goa/gis-goa-page.ui:48
 msgid ""
 "Accounts can be added and removed at any time from the Settings application."
 msgstr ""
@@ -271,8 +278,7 @@ msgid "Preview"
 msgstr "Предпросмотр"
 
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:222
-#: gnome-initial-setup/pages/region/cc-region-chooser.c:210
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:227
 msgid "More…"
 msgstr "Ещё…"
 
@@ -283,20 +289,20 @@ msgstr "Ещё…"
 msgid "No inputs found"
 msgstr "Источники ввода не найдены"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:480
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:30
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Набор"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:42
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
 msgstr "Выберите раскладку клавиатуры или способ ввода."
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:238
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:243
 msgid "No languages found"
 msgstr "Языки не найдены"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:308
+#: gnome-initial-setup/pages/language/gis-language-page.c:262
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
@@ -304,70 +310,102 @@ msgstr "Добро пожаловать"
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
 #.
-#: gnome-initial-setup/pages/language/gis-welcome-widget.c:123
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:136
 msgid "Welcome!"
 msgstr "Добро пожаловать!"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:313
+#: gnome-initial-setup/pages/network/gis-network-page.c:318
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Другая…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:398
+#: gnome-initial-setup/pages/network/gis-network-page.c:403
 msgid "Wireless networking is disabled"
 msgstr "Беспроводные сетевые соединения отключены"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:405
+#: gnome-initial-setup/pages/network/gis-network-page.c:410
 msgid "Checking for available wireless networks"
 msgstr "Поиск доступных беспроводных сетей"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:713
+#: gnome-initial-setup/pages/network/gis-network-page.c:805
 msgid "Network"
 msgstr "Сеть"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:33
+#: gnome-initial-setup/pages/network/gis-network-page.ui:18
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:45
+#: gnome-initial-setup/pages/network/gis-network-page.ui:19
 msgid ""
-"Connecting to the Internet will enable you to set the time, add your "
-"details, and enable you to access your email, calendar, and contacts. It is "
-"also necessary for enterprise login accounts."
+"Connecting to the internet helps you get new apps, information, and other "
+"upgrades. It also helps set the time and your location automatically."
 msgstr ""
-"Интернет-соединение позволит настроить время, добавить персональные "
-"сведения, а также предоставит доступ к электронной почте, календарю и "
-"контактам. Оно также необходимо для корпоративных учётных записей."
+"Подключение к интернету поможет вам получать новые приложения, информацию и "
+"другие обновления. Это также поможет автоматически устанавливать время и "
+"ваше местоположение."
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:103
+#: gnome-initial-setup/pages/network/gis-network-page.ui:76
 msgid "No wireless available"
 msgstr "Беспроводные сети не найдены"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:118
+#: gnome-initial-setup/pages/network/gis-network-page.ui:91
 msgid "Turn On"
 msgstr "Включить"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:142
-msgid "This is a weak password."
-msgstr "Это слабый пароль."
+#. Translators: The placeholder is the user’s full name.
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#, c-format
+msgid "Parental Controls for %s"
+msgstr "Родительский контроль для %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:148
-msgid "The passwords do not match."
-msgstr "Пароли не совпадают."
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+msgid "Set restrictions on what this user can run or install."
+msgstr ""
+"Установить ограничения на то, что этот пользователь может устанавливать."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:270
-msgid "Password"
-msgstr "Пароль"
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+msgid "Parental Controls"
+msgstr "Родительский контроль"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:34
+#. Don’t break UI compatibility if parental controls are disabled.
+#: gnome-initial-setup/pages/password/gis-password-page.c:79
 msgid "Set a Password"
 msgstr "Установите пароль"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:47
+#: gnome-initial-setup/pages/password/gis-password-page.c:80
+#: gnome-initial-setup/pages/password/gis-password-page.c:89
 msgid "Be careful not to lose your password."
 msgstr "Будьте внимательны, не потеряйте пароль."
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:98
+#. Translators: The placeholder is for the user’s full name.
+#: gnome-initial-setup/pages/password/gis-password-page.c:87
+#, c-format
+msgid "Set a Password for %s"
+msgstr "Установить пароль для %s"
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:95
+msgid "Set a Parent Password"
+msgstr "Установить пароль родителя"
+
+#. Translators: The placeholder is the full name of the child user on the system.
+#: gnome-initial-setup/pages/password/gis-password-page.c:97
+#, c-format
+msgid "This password will control access to the parental controls for %s."
+msgstr "Этот пароль проверит доступ к родительскому контролю для %s"
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:228
+msgid "This is a weak password."
+msgstr "Это слабый пароль."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:234
+msgid "The passwords do not match."
+msgstr "Пароли не совпадают."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:420
+msgid "Password"
+msgstr "Пароль"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:66
 msgid "_Confirm"
 msgstr "_Подтвердить"
 
@@ -501,7 +539,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:110
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
 #, c-format
 msgid ""
 "Sending reports of technical problems helps us to improve %s. Reports are "
@@ -514,31 +552,31 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:120
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
 #, c-format
 msgid "Problem data will be collected by %s:"
 msgstr "Проблемные данные будут собраны %s:"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:121
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:256
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:79
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:135
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:210
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:181
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:135
 msgid "Uses Mozilla Location Service:"
 msgstr "Использует службы определения местоположения Mozilla:"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:292
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:32
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:246
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:16
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:49
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:31
 msgid "Location Services"
 msgstr "Службы определения местоположения"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:70
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:52
 msgid ""
 "Allows applications to determine your geographical location. An indication "
 "is shown when location services are in use."
@@ -546,100 +584,43 @@ msgstr ""
 "Позволяют приложениям определять ваше географическое местоположение. "
 "Специальный индикатор будет уведомлять о включении служб."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:74
 msgid "Automatic Problem Reporting"
 msgstr "Автоматические отчёты о проблемах"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:128
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:110
 msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr ""
 "Настройки конфиденциальности можно изменять в любое время в приложении "
 "Параметры."
 
-#: gnome-initial-setup/pages/region/cc-region-chooser.c:227
-msgid "No regions found"
-msgstr "Регион не найден"
-
-#: gnome-initial-setup/pages/region/gis-region-page.c:226
-#: gnome-initial-setup/pages/region/gis-region-page.ui:31
-msgid "Region"
-msgstr "Регион"
-
-#: gnome-initial-setup/pages/region/gis-region-page.ui:44
-msgid "Choose your country or region."
-msgstr "Выберите вашу страну или регион."
-
-#: gnome-initial-setup/pages/software/gis-software-page.c:184
-msgid "Software Repositories"
-msgstr "Источники программного обеспечения"
-
-#. TRANSLATORS: this is the third party repositories info bar.
-#: gnome-initial-setup/pages/software/gis-software-page.c:188
-msgid "Access additional software from selected third party sources."
-msgstr ""
-"Доступ к дополнительному программному обеспечению из выбранных сторонних "
-"источников."
-
-#. TRANSLATORS: this is the third party repositories info bar.
-#: gnome-initial-setup/pages/software/gis-software-page.c:192
-msgid ""
-"Some of this software is proprietary and therefore has restrictions on use, "
-"sharing, and access to source code."
-msgstr ""
-"Некоторые из этих программ являются проприетарными и поэтому имеют "
-"ограничения на использование, совместное использование и доступ к исходному "
-"коду."
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:31
-msgid "Additional Software Repositories"
-msgstr "Дополнительные источники программного обеспечения"
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:55
-msgid "<a href=\"more\">Find out more…</a>"
-msgstr "<a href=\"more\">Узнать больше…</a>"
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:69
-msgid "Third Party Repositories"
-msgstr "Сторонние репозитории"
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:165
-msgid ""
-"Proprietary software typically has restrictions on how it can be used and on "
-"access to source code. This prevents anyone but the software owner from "
-"inspecting, improving or learning from its code."
-msgstr ""
-"Проприетарное программное обеспечение имеет ограничения на использование и "
-"доступ к исходному коду. Это не позволяет никому, кроме владельца "
-"программного обеспечения, проверять, улучшать или обучаться используя код "
-"этого программного обеспечения."
-
-#: gnome-initial-setup/pages/software/gis-software-page.ui:177
-msgid ""
-"In contrast, Free Software can be freely run, copied, distributed, studied "
-"and modified."
-msgstr ""
-"В отличие от этого, свободное программное обеспечение можно свободно "
-"запускать, копировать, распространять, изучать и вносить изменения."
-
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:304
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Начать работу с %s"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:334
-msgid "Ready to Go"
-msgstr "Готово к работе"
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * detect any distribution.
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:240
+#, c-format
+msgid "%s is ready to be used. We hope that you love it!"
+msgstr "%s готова к использованию. Надеемся, что вам понравится!"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
-msgid "You’re ready to go!"
-msgstr "Теперь всё готово!"
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:264
+msgid "Setup Complete"
+msgstr "Настройка закончена"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
+msgid "All done!"
+msgstr "Всё готово!"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:236
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -648,33 +629,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:277
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:280
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:283
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:426
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:33
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Часовой пояс"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:53
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:18
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
@@ -683,9 +664,115 @@ msgstr ""
 "автоматически. Также можно установить часовой пояс самостоятельно, указав "
 "город."
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:82
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:56
 msgid "Please search for a nearby city"
 msgstr "Найдите ближайший город"
+
+#. Translators: This is meant to be a warm, engaging welcome message,
+#. * like greeting somebody at the door. If the exclamation mark is not
+#. * suitable for this in your language you may replace it. The space
+#. * before the exclamation mark in this string is a typographical thin
+#. * space (U200a) to improve the spacing in the title, which you can
+#. * keep or remove. The %s is getting replaced with the name and version
+#. * of the OS, e.g. "GNOME 3.38"
+#.
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:209
+#, c-format
+msgid "Welcome to %s !"
+msgstr "Добро пожаловать в %s!"
+
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:5
+msgid "Setup"
+msgstr "Настройка"
+
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:43
+msgid ""
+"Setup will guide you through making an account and enabling some features. "
+"We’ll have you up and running in no time."
+msgstr ""
+"Настройка проведёт вас от создания учётной записи до подключения некоторых "
+"возможностей. Мы поможем вам всё подготовить за мгновение."
+
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:54
+msgid "_Start Setup"
+msgstr "Начать _настройку"
+
+#~ msgid "preferences-system"
+#~ msgstr "preferences-system"
+
+#~ msgid "License Agreements"
+#~ msgstr "Лицензионные соглашения"
+
+#~ msgid ""
+#~ "I have _agreed to the terms and conditions in this end user license "
+#~ "agreement."
+#~ msgstr "Я _принимаю соглашения и условия этой лицензии."
+
+#~ msgid ""
+#~ "Connecting to the Internet will enable you to set the time, add your "
+#~ "details, and enable you to access your email, calendar, and contacts. It "
+#~ "is also necessary for enterprise login accounts."
+#~ msgstr ""
+#~ "Интернет-соединение позволит настроить время, добавить персональные "
+#~ "сведения, а также предоставит доступ к электронной почте, календарю и "
+#~ "контактам. Оно также необходимо для корпоративных учётных записей."
+
+#~ msgid "No regions found"
+#~ msgstr "Регион не найден"
+
+#~ msgid "Region"
+#~ msgstr "Регион"
+
+#~ msgid "Choose your country or region."
+#~ msgstr "Выберите вашу страну или регион."
+
+#~ msgid "Software Repositories"
+#~ msgstr "Источники программного обеспечения"
+
+#~ msgid "Access additional software from selected third party sources."
+#~ msgstr ""
+#~ "Доступ к дополнительному программному обеспечению из выбранных сторонних "
+#~ "источников."
+
+#~ msgid ""
+#~ "Some of this software is proprietary and therefore has restrictions on "
+#~ "use, sharing, and access to source code."
+#~ msgstr ""
+#~ "Некоторые из этих программ являются проприетарными и поэтому имеют "
+#~ "ограничения на использование, совместное использование и доступ к "
+#~ "исходному коду."
+
+#~ msgid "Additional Software Repositories"
+#~ msgstr "Дополнительные источники программного обеспечения"
+
+#~ msgid "<a href=\"more\">Find out more…</a>"
+#~ msgstr "<a href=\"more\">Узнать больше…</a>"
+
+#~ msgid "Third Party Repositories"
+#~ msgstr "Сторонние репозитории"
+
+#~ msgid ""
+#~ "Proprietary software typically has restrictions on how it can be used and "
+#~ "on access to source code. This prevents anyone but the software owner "
+#~ "from inspecting, improving or learning from its code."
+#~ msgstr ""
+#~ "Проприетарное программное обеспечение имеет ограничения на использование "
+#~ "и доступ к исходному коду. Это не позволяет никому, кроме владельца "
+#~ "программного обеспечения, проверять, улучшать или обучаться используя код "
+#~ "этого программного обеспечения."
+
+#~ msgid ""
+#~ "In contrast, Free Software can be freely run, copied, distributed, "
+#~ "studied and modified."
+#~ msgstr ""
+#~ "В отличие от этого, свободное программное обеспечение можно свободно "
+#~ "запускать, копировать, распространять, изучать и вносить изменения."
+
+#~ msgid "Ready to Go"
+#~ msgstr "Готово к работе"
+
+#~ msgid "You’re ready to go!"
+#~ msgstr "Теперь всё готово!"
 
 #~ msgid "Disable image"
 #~ msgstr "Отключить изображение"
@@ -751,13 +838,6 @@ msgstr "Найдите ближайший город"
 #~ msgid "You can review your online accounts (and add others) after setup."
 #~ msgstr ""
 #~ "Изменить сетевые учётные записи (и добавить другие) можно после настройки."
-
-#~ msgid ""
-#~ "Thank you for choosing %s.\n"
-#~ "We hope that you love it."
-#~ msgstr ""
-#~ "Спасибо что выбрали %s.\n"
-#~ "Надеемся, что вам понравится."
 
 #~ msgid ""
 #~ "We think that your time zone is %s. Press Next to continue or search for "
