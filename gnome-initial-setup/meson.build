@@ -52,6 +52,7 @@ dependencies = [
     dependency ('webkit2gtk-4.0', version: '>= 2.26.0'),
     cheese_dep,
     cheese_gtk_dep,
+    pkgkit_dep,
     ibus_dep,
     libmalcontent_dep,
     libmalcontent_ui_dep,
