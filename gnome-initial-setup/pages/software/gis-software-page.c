@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2016 Red Hat
+ * Copyright (C) 2016, 2021 Red Hat
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,6 +18,7 @@
  * Written by:
  *     Matthias Clasen <mclasen@redhat.com>
  *     Kalev Lember <klember@redhat.com>
+ *     Michael Catanzaro <mcatanzaro@redhat.com>
  */
 
 /* SOFTWARE pages {{{1 */
@@ -31,10 +32,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#ifdef ENABLE_SOFTWARE_SOURCES
-#define I_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE
-#include <packagekit-glib2/packagekit.h>
-#endif
 
 #include "gis-page-header.h"
 
@@ -43,12 +40,6 @@ struct _GisSoftwarePagePrivate
   GtkWidget *more_popover;
   GtkWidget *proprietary_switch;
   GtkWidget *header;
-
-  GSettings *software_settings;
-  guint enable_count;
-#ifdef ENABLE_SOFTWARE_SOURCES
-  PkTask *task;
-#endif
 };
 
 typedef struct _GisSoftwarePagePrivate GisSoftwarePagePrivate;
@@ -59,121 +50,58 @@ static void
 gis_software_page_constructed (GObject *object)
 {
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (object);
-  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
   G_OBJECT_CLASS (gis_software_page_parent_class)->constructed (object);
-
-  priv->software_settings = g_settings_new ("org.gnome.software");
-#ifdef ENABLE_SOFTWARE_SOURCES
-  priv->task = pk_task_new ();
-#endif
-
-  gtk_switch_set_active (GTK_SWITCH (priv->proprietary_switch),
-                         g_settings_get_boolean (priv->software_settings, "show-nonfree-software"));
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
 
-static void
-gis_software_page_dispose (GObject *object)
+/* Distro-specific stuff is isolated here so that the rest of this page can be
+ * used by other distros. Feel free to add your distro here.
+ */
+static char *
+find_fedora_third_party (void)
 {
-  GisSoftwarePage *page = GIS_SOFTWARE_PAGE (object);
-  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-
-  g_clear_object (&priv->software_settings);
-#ifdef ENABLE_SOFTWARE_SOURCES
-  g_clear_object (&priv->task);
-#endif
-
-  G_OBJECT_CLASS (gis_software_page_parent_class)->dispose (object);
-}
-
-#ifdef ENABLE_SOFTWARE_SOURCES
-static void
-repo_enabled_cb (GObject      *source,
-                 GAsyncResult *res,
-                 gpointer      data)
-{
-  GisSoftwarePage *page = GIS_SOFTWARE_PAGE (data);
-  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-  g_autoptr(GError) error = NULL;
-  g_autoptr(PkResults) results = NULL;
-
-  results = pk_client_generic_finish (PK_CLIENT (source),
-                                      res,
-                                      &error);
-  if (!results)
-    {
-      if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-        return;
-#if PK_CHECK_VERSION(1,1,4)
-      if (!g_error_matches (error, PK_CLIENT_ERROR, 0xff + PK_ERROR_ENUM_REPO_ALREADY_SET))
-#endif
-        g_critical ("Failed to enable repository: %s", error->message);
-    }
-
-  priv->enable_count--;
-  if (priv->enable_count == 0)
-    {
-      /* all done */
-      gis_page_apply_complete (GIS_PAGE (page), TRUE);
-    }
-}
-#endif
-
-gboolean
-enable_repos (GisSoftwarePage *page,
-              gchar **repo_ids,
-              gboolean enable,
-              GCancellable *cancellable)
-{
-#ifdef ENABLE_SOFTWARE_SOURCES
-  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-  guint i;
-
-  /* enable each repo */
-  for (i = 0; repo_ids[i] != NULL; i++)
-    {
-      g_debug ("%s proprietary software source: %s", enable ? "Enable" : "Disable", repo_ids[i]);
-
-      priv->enable_count++;
-      pk_client_repo_enable_async (PK_CLIENT (priv->task),
-                                   repo_ids[i],
-                                   enable,
-                                   cancellable,
-                                   NULL, NULL,
-                                   repo_enabled_cb,
-                                   page);
-    }
-#endif
-
-  return TRUE;
+  return g_find_program_in_path ("fedora-third-party");
 }
 
 static gboolean
-gis_software_page_apply (GisPage *gis_page,
+should_show_software_page (void)
+{
+  g_autofree char *has_fedora_third_party = find_fedora_third_party ();
+  return has_fedora_third_party != NULL;
+}
+
+static gboolean
+gis_software_page_apply (GisPage      *gis_page,
                          GCancellable *cancellable)
 {
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-  gboolean enable;
-  g_auto(GStrv) repo_ids = NULL;
+  g_autofree char *program = NULL;
+  g_autoptr (GSubprocessLauncher) launcher = NULL;
+  g_autoptr (GSubprocess) subprocess = NULL;
+  g_autoptr (GError) error = NULL;
 
-  enable = gtk_switch_get_active (GTK_SWITCH (priv->proprietary_switch));
+  program = find_fedora_third_party ();
 
-  g_debug ("%s proprietary software repositories", enable ? "Enable" : "Disable");
+  if (program)
+    {
+      const char *arg1;
 
-  g_settings_set_boolean (priv->software_settings, "show-nonfree-software", enable);
-  /* don't prompt for the same thing again in gnome-software */
-  g_settings_set_boolean (priv->software_settings, "show-nonfree-prompt", FALSE);
+      if (gtk_switch_get_state (GTK_SWITCH (priv->proprietary_switch)))
+        arg1 = "enabled";
+      else
+        arg1 = "disabled";
 
-  repo_ids = g_settings_get_strv (priv->software_settings, "nonfree-sources");
-  if (repo_ids == NULL || g_strv_length (repo_ids) == 0)
-    return FALSE;
+      gis_pkexec (program, arg1, "root", &error);
+      if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("%s failed: %s", program, error->message);
+    }
 
-  return enable_repos (page, repo_ids, enable, cancellable);
+  return FALSE;
 }
 
 static void
@@ -235,7 +163,6 @@ gis_software_page_class_init (GisSoftwarePageClass *klass)
   page_class->locale_changed = gis_software_page_locale_changed;
   page_class->apply = gis_software_page_apply;
   object_class->constructed = gis_software_page_constructed;
-  object_class->dispose = gis_software_page_dispose;
 }
 
 static void
@@ -251,21 +178,12 @@ GisPage *
 gis_prepare_software_page (GisDriver *driver)
 {
   GisPage *page = NULL;
-
-#ifdef ENABLE_SOFTWARE_SOURCES
-  GSettingsSchemaSource *source;
-  GSettingsSchema *schema;
-
-  source = g_settings_schema_source_get_default ();
-  schema = g_settings_schema_source_lookup (source, "org.gnome.software", TRUE);
-  if (schema != NULL && g_settings_schema_has_key (schema, "show-nonfree-software"))
-    page = g_object_new (GIS_TYPE_SOFTWARE_PAGE,
-                         "driver", driver,
-                         NULL);
-
-  if (schema != NULL)
-    g_settings_schema_unref (schema);
-#endif
+  if (should_show_software_page ())
+    {
+      page = g_object_new (GIS_TYPE_SOFTWARE_PAGE,
+                           "driver", driver,
+                           NULL);
+    }
 
   return page;
 }
