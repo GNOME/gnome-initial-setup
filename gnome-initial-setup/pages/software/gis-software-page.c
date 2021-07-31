@@ -37,7 +37,6 @@
 
 struct _GisSoftwarePagePrivate
 {
-  GtkWidget *more_popover;
   GtkWidget *proprietary_switch;
   GtkWidget *header;
 };
@@ -109,31 +108,9 @@ gis_software_page_locale_changed (GisPage *gis_page)
 {
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-  g_autoptr(GString) str = g_string_new (NULL);
 
-  gis_page_set_title (GIS_PAGE (page), _("Software Repositories"));
-
-  g_string_append (str,
-                   /* TRANSLATORS: this is the third party repositories info bar. */
-                   _("Access additional software from selected third party sources."));
-  g_string_append (str, " ");
-  g_string_append (str,
-                   /* TRANSLATORS: this is the third party repositories info bar. */
-                   _("Some of this software is proprietary and therefore has restrictions on use, sharing, and access to source code."));
-  g_object_set (priv->header, "subtitle", str->str, NULL);
-}
-
-static gboolean
-activate_link (const char *label,
-               const char *uri,
-               gpointer    data)
-{
-  GisSoftwarePage *page = GIS_SOFTWARE_PAGE (data);
-  GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-
-  gtk_widget_show (priv->more_popover);
-
-  return TRUE;
+  gis_page_set_title (GIS_PAGE (page), _("Third-Party Repositories"));
+  g_object_set (priv->header, "subtitle", _("Third-party repositories provide access to additional software from selected external sources. They include popular apps, as well as firmware that is important for some devices. Some proprietary software is included."), NULL);
 }
 
 static gboolean
@@ -153,10 +130,8 @@ gis_software_page_class_init (GisSoftwarePageClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-software-page.ui");
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, more_popover);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, proprietary_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSoftwarePage, header);
-  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), state_set);
 
   page_class->page_id = PAGE_ID;
