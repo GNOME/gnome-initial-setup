@@ -1,7 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
  * Copyright (C) 2015-2016 Red Hat
- * Copyright (C) 2015-2017 Endless Mobile, Inc.
+ * Copyright (C) 2015-2017 Endless OS Foundation LLC
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -19,8 +19,8 @@
  * 02111-1307, USA.
  *
  * Written by:
- *     Dan Nicholson <nicholson@endlessm.com>
- *     Will Thompson <wjt@endlessm.com>
+ *     Dan Nicholson <dbn@endlessos.org>
+ *     Will Thompson <wjt@endlessos.org>
  */
 
 #include "gis-pkexec.h"
