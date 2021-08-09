@@ -31,12 +31,11 @@ gis_pkexec (const gchar  *command,
             const gchar  *user,
             GError      **error)
 {
-  GSubprocessLauncher *launcher = NULL;
-  GSubprocess *process = NULL;
+  g_autoptr(GSubprocessLauncher) launcher = NULL;
+  g_autoptr(GSubprocess) process = NULL;
   const gchar * const root_argv[] = { "pkexec", command, arg1, NULL };
   const gchar * const user_argv[] = { "pkexec", "--user", user, command, arg1, NULL };
   const gchar * const *argv = user == NULL ? root_argv : user_argv;
-  gboolean ret = FALSE;
 
   launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_NONE);
 
@@ -48,18 +47,13 @@ gis_pkexec (const gchar  *command,
 
   if (!process) {
     g_prefix_error (error, "Failed to create %s process: ", command);
-    goto out;
+    return FALSE;
   }
 
   if (!g_subprocess_wait_check (process, NULL, error)) {
     g_prefix_error (error, "%s failed: ", command);
-    goto out;
+    return FALSE;
   }
 
-  ret = TRUE;
-
-out:
-  g_clear_object (&process);
-  g_clear_object (&launcher);
-  return ret;
+  return TRUE;
 }
