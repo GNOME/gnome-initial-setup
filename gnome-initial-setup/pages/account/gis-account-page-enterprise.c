@@ -176,6 +176,7 @@ on_permit_user_login (GObject *source,
     g_debug ("Caching remote user: %s", login);
 
     priv->act_user = act_user_manager_cache_user (priv->act_client, login, NULL);
+    act_user_set_account_type (priv->act_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
     g_signal_emit (page, signals[USER_CACHED], 0, priv->act_user, gtk_entry_get_text (GTK_ENTRY (priv->password)));
     apply_complete (page, TRUE);
 
