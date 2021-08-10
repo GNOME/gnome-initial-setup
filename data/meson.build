@@ -59,10 +59,11 @@ i18n.merge_file(
     type: 'desktop'
 )
 
-if enable_systemd
-    unitconf = configuration_data()
-    unitconf.set('libexecdir', libexec_dir)
+data_conf = configuration_data()
+data_conf.set('bindir', bin_dir)
+data_conf.set('libexecdir', libexec_dir)
 
+if enable_systemd
     unit_files = {
         'gnome-initial-setup-first-login.service' : [ 'gnome-session.target.wants/' ],
         'gnome-initial-setup-copy-worker.service' : [ 'gnome-session.target.wants/' ],
@@ -72,7 +73,7 @@ if enable_systemd
         configure_file(
             input: unit + '.in',
             output: unit,
-            configuration: unitconf,
+            configuration: data_conf,
             install_dir: systemd_userunitdir
         )
 
@@ -102,7 +103,13 @@ endif
 
 
 rules_dir = join_paths(data_dir, 'polkit-1', 'rules.d')
-install_data('20-gnome-initial-setup.rules', install_dir: rules_dir)
+configure_file(
+    input: '20-gnome-initial-setup.rules.in',
+    output: '20-gnome-initial-setup.rules',
+    install: true,
+    install_dir: rules_dir,
+    configuration: data_conf,
+)
 
 session_dir = join_paths(data_dir, 'gnome-session', 'sessions')
 configure_file(

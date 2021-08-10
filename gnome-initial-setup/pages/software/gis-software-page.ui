@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <template class="GisSoftwarePage" parent="GisPage">
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="valign">fill</property>
+        <child>
+          <object class="GisPageHeader" id="header">
+            <property name="visible">True</property>
+            <property name="margin_top">24</property>
+            <property name="title" translatable="yes">Third-Party Repositories</property>
+            <property name="icon_name">gis-software-symbolic</property>
+            <property name="show_icon" bind-source="GisSoftwarePage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="margin-top">40</property>
+            <property name="orientation">horizontal</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Third-Party Repositories</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSwitch" id="proprietary_switch">
+                <property name="halign">end</property>
+                <property name="visible">True</property>
+                <signal name="state-set" handler="state_set"/>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
