@@ -2,15 +2,15 @@
 # Copyright (C) 2009 accerciser COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
-# Matej Urbančič <mateju@svn.gnome.org>, 2012–2020.
+# Matej Urbančič <mateju@svn.gnome.org>, 2012–2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-08-19 21:31+0000\n"
-"PO-Revision-Date: 2020-08-21 17:57+0200\n"
+"POT-Creation-Date: 2021-08-10 10:14+0000\n"
+"PO-Revision-Date: 2021-08-10 13:06+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -20,38 +20,38 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
 msgid "Initial Setup"
 msgstr "Začetna nastavitev"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:407
 msgid "_Next"
 msgstr "_Naprej"
 
-#: gnome-initial-setup/gis-assistant.c:424
+#: gnome-initial-setup/gis-assistant.c:408
 msgid "_Accept"
 msgstr "_Sprejmi"
 
-#: gnome-initial-setup/gis-assistant.c:425
+#: gnome-initial-setup/gis-assistant.c:409
 msgid "_Skip"
 msgstr "Pre_skoči"
 
-#: gnome-initial-setup/gis-assistant.c:426
+#: gnome-initial-setup/gis-assistant.c:410
 msgid "_Previous"
 msgstr "_Predhodni"
 
-#: gnome-initial-setup/gis-assistant.c:427
+#: gnome-initial-setup/gis-assistant.c:411
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: gnome-initial-setup/gnome-initial-setup.c:252
+#: gnome-initial-setup/gnome-initial-setup.c:272
 msgid "Force existing user mode"
 msgstr "Vsili obstoječi uporabniški način"
 
-#: gnome-initial-setup/gnome-initial-setup.c:258
+#: gnome-initial-setup/gnome-initial-setup.c:278
 msgid "— GNOME initial setup"
 msgstr "– začetne nastavitve GNOME"
 
@@ -59,19 +59,19 @@ msgstr "– začetne nastavitve GNOME"
 msgid "Take a Picture…"
 msgstr "Zajem slike …"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:185
 msgid "Failed to register account"
 msgstr "Vpisovanje računa je spodletelo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:379
 msgid "No supported way to authenticate with this domain"
 msgstr "Ni podprtega načina za overitev s to domeno"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:419
 msgid "Failed to join domain"
 msgstr "Pridruževanje domeni je spodletelo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:487
 msgid "Failed to log into domain"
 msgstr "Prijava v domeno je spodletela"
 
@@ -589,6 +589,23 @@ msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr "Določila zasebnosti je mogoče prilagajati med nastavitvami."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.ui:16
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Third-Party Repositories"
+msgstr "Skladišča tretjih virov"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"external sources. They include popular apps, as well as firmware that is "
+"important for some devices. Some proprietary software is included."
+msgstr ""
+"Skladišča tretjih ponudnikov omogočajo dostop do dodatne programske opreme "
+"izbranih zunanjih virov. Med njimi so priljubljeni programi, strojna "
+"programska oprema, ki je pomembna za delovanje sistema, in tudi lastniška "
+"programska oprema."
+
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
@@ -615,7 +632,7 @@ msgid "All done!"
 msgstr "Končano!"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -624,28 +641,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Časovni pas"
@@ -739,9 +756,6 @@ msgstr "_Začni z nastavitvijo"
 
 #~ msgid "<a href=\"more\">Find out more…</a>"
 #~ msgstr "<a href=\"more\">Več o tem …</a>"
-
-#~ msgid "Third Party Repositories"
-#~ msgstr "Skladišča tretjih virov"
 
 #~ msgid ""
 #~ "Proprietary software typically has restrictions on how it can be used and "
