@@ -9,9 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
-"issues\n"
-"POT-Creation-Date: 2020-08-17 19:50+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
+"POT-Creation-Date: 2021-08-10 09:42+0000\n"
 "PO-Revision-Date: 2020-02-29 20:39+0100\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -27,31 +26,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuració inicial"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:407
 msgid "_Next"
 msgstr "_Següent"
 
-#: gnome-initial-setup/gis-assistant.c:424
+#: gnome-initial-setup/gis-assistant.c:408
 msgid "_Accept"
 msgstr "_Accepta"
 
-#: gnome-initial-setup/gis-assistant.c:425
+#: gnome-initial-setup/gis-assistant.c:409
 msgid "_Skip"
 msgstr "_Omet"
 
-#: gnome-initial-setup/gis-assistant.c:426
+#: gnome-initial-setup/gis-assistant.c:410
 msgid "_Previous"
 msgstr "A_nterior"
 
-#: gnome-initial-setup/gis-assistant.c:427
+#: gnome-initial-setup/gis-assistant.c:411
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: gnome-initial-setup/gnome-initial-setup.c:252
+#: gnome-initial-setup/gnome-initial-setup.c:272
 msgid "Force existing user mode"
 msgstr "Força el mode d'usuari existent"
 
-#: gnome-initial-setup/gnome-initial-setup.c:258
+#: gnome-initial-setup/gnome-initial-setup.c:278
 msgid "— GNOME initial setup"
 msgstr "— Configuració inicial del GNOME"
 
@@ -59,19 +58,19 @@ msgstr "— Configuració inicial del GNOME"
 msgid "Take a Picture…"
 msgstr "Fes una foto…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:185
 msgid "Failed to register account"
 msgstr "S'ha produït un error en registrar el compte"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:379
 msgid "No supported way to authenticate with this domain"
 msgstr "No hi ha cap manera compatible per a autenticar-se amb aquest domini"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:419
 msgid "Failed to join domain"
 msgstr "S'ha produït un error en unir-se al domini"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:487
 msgid "Failed to log into domain"
 msgstr "S'ha produït un error en iniciar la sessió al domini"
 
@@ -242,7 +241,8 @@ msgstr ""
 #: gnome-initial-setup/pages/account/um-utils.c:264
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
-"Es farà servir per a anomenar la vostra carpeta personal i no es pot canviar."
+"Es farà servir per a anomenar la vostra carpeta personal i no es pot "
+"canviar."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.c:92
 msgid "Add Account"
@@ -433,7 +433,8 @@ msgstr ""
 #: gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
 msgid ""
-"This is a weak password. A password without your user name would be stronger."
+"This is a weak password. A password without your user name would be "
+"stronger."
 msgstr ""
 "Aquesta contrasenya és feble. Una contrasenya sense el vostre nom d'usuari "
 "seria més segura."
@@ -532,7 +533,8 @@ msgstr "Combineu majúscules i minúscules i empreu un o dos nombres."
 #: gnome-initial-setup/pages/password/pw-utils.c:119
 msgctxt "Password hint"
 msgid ""
-"Adding more letters, numbers and punctuation will make the password stronger."
+"Adding more letters, numbers and punctuation will make the password "
+"stronger."
 msgstr ""
 "Si hi afegiu més lletres, nombres i signes de puntuació encara serà més "
 "segura."
@@ -595,6 +597,23 @@ msgstr ""
 "Els controls de privadesa es poden canviar en qualsevol moment des de les "
 "preferències."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.ui:16
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Third-Party Repositories"
+msgstr "Repositoris de tercers"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
+msgid ""
+"Third-party repositories provide access to additional software from selected"
+" external sources. They include popular apps, as well as firmware that is "
+"important for some devices. Some proprietary software is included."
+msgstr ""
+"Els repositoris de tercers proporcionen accés a programari addicional de fonts "
+"externes seleccionades. Inclouen aplicacions populars, així com "
+"microprogramari que és important per a alguns dispositius. S'inclou algun "
+"programari propietari."
+
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
@@ -620,7 +639,7 @@ msgid "All done!"
 msgstr "S'ha acabat"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -628,28 +647,28 @@ msgstr "%s, %s"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
 msgid "%R"
 msgstr "%-H:%M"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Fus horari"
@@ -696,9 +715,9 @@ msgstr "_Inicia la configuració"
 
 #~ msgid ""
 #~ "Connecting to the Internet will enable you to set the time, add your "
-#~ "details, and enable you to access your email, calendar, and contacts. It "
-#~ "is also necessary for enterprise login accounts."
+#~ "details, and enable you to access your email, calendar, and contacts. It is "
+#~ "also necessary for enterprise login accounts."
 #~ msgstr ""
-#~ "La connexió a Internet us permetrà establir l'hora, afegir detalls i "
-#~ "accedir al vostre correu electrònic, calendari i contactes. També és "
-#~ "necessària per als comptes d'entrada corporativa."
+#~ "La connexió a Internet us permetrà establir l'hora, afegir detalls i accedir"
+#~ " al vostre correu electrònic, calendari i contactes. També és necessària per"
+#~ " als comptes d'entrada corporativa."
