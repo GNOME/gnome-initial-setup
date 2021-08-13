@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: 3.12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-11-17 10:14+0000\n"
-"PO-Revision-Date: 2021-02-11 18:13+0000\n"
+"POT-Creation-Date: 2021-08-10 09:42+0000\n"
+"PO-Revision-Date: 2021-08-13 11:10+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: https://l10n.gnome.org/teams/pt/\n"
 "Language: pt\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -32,31 +32,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuração Inicial"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:407
 msgid "_Next"
 msgstr "_Seguinte"
 
-#: gnome-initial-setup/gis-assistant.c:424
+#: gnome-initial-setup/gis-assistant.c:408
 msgid "_Accept"
 msgstr "_Aceitar"
 
-#: gnome-initial-setup/gis-assistant.c:425
+#: gnome-initial-setup/gis-assistant.c:409
 msgid "_Skip"
 msgstr "_Ignorar"
 
-#: gnome-initial-setup/gis-assistant.c:426
+#: gnome-initial-setup/gis-assistant.c:410
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: gnome-initial-setup/gis-assistant.c:427
+#: gnome-initial-setup/gis-assistant.c:411
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: gnome-initial-setup/gnome-initial-setup.c:271
+#: gnome-initial-setup/gnome-initial-setup.c:272
 msgid "Force existing user mode"
 msgstr "Forçar modo de utilizador já existente"
 
-#: gnome-initial-setup/gnome-initial-setup.c:277
+#: gnome-initial-setup/gnome-initial-setup.c:278
 msgid "— GNOME initial setup"
 msgstr "— Configuração inicial do GNOME"
 
@@ -64,19 +64,19 @@ msgstr "— Configuração inicial do GNOME"
 msgid "Take a Picture…"
 msgstr "Tirar uma fotografia…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:185
 msgid "Failed to register account"
 msgstr "Falha ao registar a conta"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:379
 msgid "No supported way to authenticate with this domain"
 msgstr "Nenhuma forma suportada de autenticar neste domínio"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:419
 msgid "Failed to join domain"
 msgstr "Falha ao juntar-se ao domínio"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:487
 msgid "Failed to log into domain"
 msgstr "Falha ao iniciar sessão no domínio"
 
@@ -611,6 +611,23 @@ msgstr ""
 "Controlos de privacidade podem ser alterados em qualquer altura nas "
 "definições."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.ui:16
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Third-Party Repositories"
+msgstr "Repositórios de terceiros"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"external sources. They include popular apps, as well as firmware that is "
+"important for some devices. Some proprietary software is included."
+msgstr ""
+"Os repositórios de terceiros permitem o acesso a software adicional de "
+"fontes externas selecionadas. Incluem aplicações populares, bem como "
+"firmware que é importante para alguns dispositivos. Alguns softwares "
+"proprietários estão incluídos."
+
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
@@ -636,7 +653,7 @@ msgid "All done!"
 msgstr "Tudo pronto!"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -645,28 +662,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:483
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Fuso Horário"
@@ -765,9 +782,6 @@ msgstr "_Iniciar Configuração"
 
 #~ msgid "<a href=\"more\">Find out more…</a>"
 #~ msgstr "<a href=\"more\">Saber mais…</a>"
-
-#~ msgid "Third Party Repositories"
-#~ msgstr "Repositórios de terceiros"
 
 #~ msgid ""
 #~ "Proprietary software typically has restrictions on how it can be used and "
