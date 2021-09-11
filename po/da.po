@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2020-08-17 19:50+0000\n"
-"PO-Revision-Date: 2020-09-08 19:06+0200\n"
+"POT-Creation-Date: 2021-08-10 09:42+0000\n"
+"PO-Revision-Date: 2021-08-28 16:11+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -29,31 +29,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Førstegangsopsætning"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:407
 msgid "_Next"
 msgstr "_Næste"
 
-#: gnome-initial-setup/gis-assistant.c:424
+#: gnome-initial-setup/gis-assistant.c:408
 msgid "_Accept"
 msgstr "_Acceptér"
 
-#: gnome-initial-setup/gis-assistant.c:425
+#: gnome-initial-setup/gis-assistant.c:409
 msgid "_Skip"
 msgstr "_Spring over"
 
-#: gnome-initial-setup/gis-assistant.c:426
+#: gnome-initial-setup/gis-assistant.c:410
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: gnome-initial-setup/gis-assistant.c:427
+#: gnome-initial-setup/gis-assistant.c:411
 msgid "_Cancel"
 msgstr "_Annullér"
 
-#: gnome-initial-setup/gnome-initial-setup.c:252
+#: gnome-initial-setup/gnome-initial-setup.c:272
 msgid "Force existing user mode"
 msgstr "Tving eksisterende bruger-tilstand"
 
-#: gnome-initial-setup/gnome-initial-setup.c:258
+#: gnome-initial-setup/gnome-initial-setup.c:278
 msgid "— GNOME initial setup"
 msgstr "— Førstegangsopsætning af GNOME"
 
@@ -61,19 +61,19 @@ msgstr "— Førstegangsopsætning af GNOME"
 msgid "Take a Picture…"
 msgstr "Tag et billede …"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:185
 msgid "Failed to register account"
 msgstr "Kunne ikke registrere konto"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:379
 msgid "No supported way to authenticate with this domain"
 msgstr "Ingen understøttet måde at godkende med dette domæne"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:419
 msgid "Failed to join domain"
 msgstr "Kunne ikke tilslutte domæne"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:487
 msgid "Failed to log into domain"
 msgstr "Kunne ikke logge ind i domæne"
 
@@ -594,6 +594,22 @@ msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr "Styring af privatliv kan altid ændres i programmet Indstillinger."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.ui:16
+#: gnome-initial-setup/pages/software/gis-software-page.ui:31
+msgid "Third-Party Repositories"
+msgstr "Tredjepartsarkiver"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"external sources. They include popular apps, as well as firmware that is "
+"important for some devices. Some proprietary software is included."
+msgstr ""
+"Tredjepartsarkiver giver adgang til flere programmer fra eksterne kilder. De "
+"indeholder populære programmer og firmware, som er vigtig for visse enheder. "
+"Nogle proprietære programmer er med."
+
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
 #. * detect any distribution.
@@ -619,7 +635,7 @@ msgid "All done!"
 msgstr "Færdig!"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -628,28 +644,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:298
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:302
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:305
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:473
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Tidszone"
@@ -740,9 +756,6 @@ msgstr "_Start Opsætning"
 
 #~ msgid "<a href=\"more\">Find out more…</a>"
 #~ msgstr "<a href=\"more\">Læs mere …</a>"
-
-#~ msgid "Third Party Repositories"
-#~ msgstr "Tredjepartsarkiver"
 
 #~ msgid ""
 #~ "Proprietary software typically has restrictions on how it can be used and "
