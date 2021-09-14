@@ -91,9 +91,9 @@ gis_software_page_apply (GisPage      *gis_page,
       const char *arg1;
 
       if (gtk_switch_get_state (GTK_SWITCH (priv->proprietary_switch)))
-        arg1 = "enabled";
+        arg1 = "enable";
       else
-        arg1 = "disabled";
+        arg1 = "disable";
 
       gis_pkexec (program, arg1, "root", &error);
       if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
