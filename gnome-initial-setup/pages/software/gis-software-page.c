@@ -110,7 +110,7 @@ gis_software_page_locale_changed (GisPage *gis_page)
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
 
   gis_page_set_title (GIS_PAGE (page), _("Third-Party Repositories"));
-  g_object_set (priv->header, "subtitle", _("Third-party repositories provide access to additional software from selected external sources. They include popular apps, as well as firmware that is important for some devices. Some proprietary software is included."), NULL);
+  g_object_set (priv->header, "subtitle", _("Third-party repositories provide access to additional software from selected external sources, including popular apps and drivers that are important for some devices. Some proprietary software is included."), NULL);
 }
 
 static gboolean
