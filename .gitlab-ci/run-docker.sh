@@ -91,10 +91,12 @@ if [ ! -x "$(command -v docker)" ] || (docker --help |& grep -q podman); then
         # CI runners.
         echo "Using: Podman"
         format="--format docker"
+        user=("--user" "0")
         CMD="podman"
 else
         echo "Using: Docker"
         format=""
+        user=()
         CMD="sudo docker"
 fi
 
@@ -125,6 +127,7 @@ fi
 if [ $run == 1 ]; then
         echo -e "\e[1;32mRUNNING\e[0m: ${base} as ${TAG}"
         ${CMD} run \
+                "${user[@]}" \
                 --rm \
                 --volume "$(pwd)/..:/home/user/app" \
                 --workdir "/home/user/app" \
