@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora:35
+FROM registry.fedoraproject.org/fedora:rawhide
 
 RUN dnf -y install \
     ccache \
@@ -30,6 +30,7 @@ RUN dnf -y install \
     "pkgconfig(goa-backend-1.0)" \
     "pkgconfig(gstreamer-1.0)" \
     "pkgconfig(gtk+-3.0)" \
+    "pkgconfig(gtk4)" \
     "pkgconfig(gweather-3.0)" \
     "pkgconfig(libgeoclue-2.0)" \
     "pkgconfig(libnm)" \
