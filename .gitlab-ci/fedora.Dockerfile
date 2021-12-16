@@ -1,7 +1,6 @@
-FROM registry.fedoraproject.org/fedora:33
+FROM registry.fedoraproject.org/fedora:35
 
-# Malcontent is in updates-testing as of 2020-01-12
-RUN dnf -y install --enablerepo=updates-testing \
+RUN dnf -y install \
     ccache \
     desktop-file-utils \
     gcc \
