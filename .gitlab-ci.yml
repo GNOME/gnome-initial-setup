@@ -13,6 +13,10 @@ stages:
       --auto-features ${AUTO_FEATURES}
       ${OPTIONS}
       -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
+      -Dgnome-desktop:werror=false
+      -Dgnome-desktop:gtk_doc=false
+      -Dgnome-desktop:desktop_docs=false
+      -Dgnome-desktop:legacy_library=false
       ${EXTRA_PARAMETERS}
       _build .
     - cd _build
