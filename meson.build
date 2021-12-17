@@ -2,7 +2,7 @@ project('gnome-initial-setup',
         ['c'],
         version: '41.1',
         license: 'GPLv2',
-        meson_version: '>= 0.50.0',
+        meson_version: '>= 0.53.0',
 )
 
 cc = meson.get_compiler('c')
@@ -53,13 +53,15 @@ cheese_dep = dependency ('cheese',
 cheese_gtk_dep = dependency ('cheese-gtk',
                          version: '>= 3.3.5',
                          required: get_option('cheese'))
-conf.set('HAVE_CHEESE', cheese_dep.found() and cheese_gtk_dep.found())
+have_cheese = cheese_dep.found() and cheese_gtk_dep.found()
+conf.set('HAVE_CHEESE', have_cheese)
 
 # Needed for the 'keyboard' page
 ibus_dep = dependency ('ibus-1.0',
                        version: '>= 1.4.99',
                        required: get_option('ibus'))
-conf.set('HAVE_IBUS', ibus_dep.found())
+have_ibus = ibus_dep.found()
+conf.set('HAVE_IBUS', have_ibus)
 
 # Needed for the parental controls pages
 libmalcontent_dep = dependency ('malcontent-0',
@@ -68,7 +70,8 @@ libmalcontent_dep = dependency ('malcontent-0',
 libmalcontent_ui_dep = dependency ('malcontent-ui-0',
                                    version: '>= 0.6.0',
                                    required: get_option('parental_controls'))
-conf.set('HAVE_PARENTAL_CONTROLS', libmalcontent_dep.found() and libmalcontent_ui_dep.found())
+have_parental_controls = libmalcontent_dep.found() and libmalcontent_ui_dep.found()
+conf.set('HAVE_PARENTAL_CONTROLS', have_parental_controls)
 
 configure_file(output: 'config.h',
                configuration: conf)
@@ -78,3 +81,18 @@ subdir('data')
 subdir('gnome-initial-setup')
 subdir('po')
 subdir('build-aux')
+
+summary(
+  {
+    'systemd support': enable_systemd,
+    'Cheese': have_cheese,
+    'IBus': have_ibus,
+    'Parental Controls': have_parental_controls,
+    'Vendor Configuration File':
+      vendor_conf_file == ''
+        ? '(default search path)'
+        : vendor_conf_file,
+  },
+  section: 'Options',
+  bool_yn: true,
+)
