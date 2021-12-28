@@ -225,17 +225,17 @@ update_distro_name (GisSummaryPage *page)
   char *text;
 
   if (!name)
-    name = g_strdup ("GNOME 3");
+    name = g_strdup ("GNOME");
 
   /* Translators: the parameter here is the name of a distribution,
-   * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+   * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
    * detect any distribution. */
   text = g_strdup_printf (_("_Start Using %s"), name);
   gtk_label_set_label (GTK_LABEL (priv->start_button_label), text);
   g_free (text);
 
   /* Translators: the parameter here is the name of a distribution,
-   * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+   * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
    * detect any distribution. */
   text = g_strdup_printf (_("%s is ready to be used. We hope that you love it!"), name);
   gtk_label_set_label (GTK_LABEL (priv->tagline), text);
