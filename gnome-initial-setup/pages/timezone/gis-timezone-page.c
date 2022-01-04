@@ -39,7 +39,6 @@
 #include <geoclue.h>
 #include <geocode-glib/geocode-glib.h>
 
-#define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
 #include <libgweather/gweather.h>
 
 #include "timedated.h"
@@ -126,20 +125,20 @@ set_location (GisTimezonePage  *page,
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
-  g_clear_pointer (&priv->current_location, gweather_location_unref);
+  g_clear_object (&priv->current_location);
 
   gtk_widget_set_visible (priv->search_overlay, (location == NULL));
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
   if (location)
     {
-      GWeatherTimezone *zone;
+      GTimeZone *zone;
       const char *tzid;
 
-      priv->current_location = gweather_location_ref (location);
+      priv->current_location = g_object_ref (location);
 
       zone = gweather_location_get_timezone (location);
-      tzid = gweather_timezone_get_tzid (zone);
+      tzid = g_time_zone_get_identifier (zone);
 
       cc_timezone_map_set_timezone (CC_TIMEZONE_MAP (priv->map), tzid);
 
@@ -158,18 +157,18 @@ on_location_notify (GClueSimple *simple,
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GClueLocation *location;
   gdouble latitude, longitude;
-  GWeatherLocation *glocation = NULL;
+  g_autoptr(GWeatherLocation) world = gweather_location_get_world ();
+  g_autoptr(GWeatherLocation) glocation = NULL;
 
   location = gclue_simple_get_location (simple);
 
   latitude = gclue_location_get_latitude (location);
   longitude = gclue_location_get_longitude (location);
 
-  glocation = gweather_location_find_nearest_city (NULL, latitude, longitude);
+  glocation = gweather_location_find_nearest_city (world, latitude, longitude);
   priv->in_geoclue_callback = TRUE;
   set_location (page, glocation);
   priv->in_geoclue_callback = FALSE;
-  gweather_location_unref (glocation);
 }
 
 static void
@@ -229,12 +228,13 @@ entry_text_changed (GtkEditable *editable,
   priv->search_entry_text_changed_id = 0;
 }
 
+#if 0
 static void
 entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
 {
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GWeatherLocationEntry *entry = GWEATHER_LOCATION_ENTRY (object);
-  GWeatherLocation *location;
+  g_autoptr(GWeatherLocation) location = NULL;
 
   location = gweather_location_entry_get_location (entry);
   if (!location)
@@ -243,9 +243,8 @@ entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *pag
   priv->in_search = TRUE;
   set_location (page, location);
   priv->in_search = FALSE;
-
-  gweather_location_unref (location);
 }
+#endif
 
 #define GETTEXT_PACKAGE_TIMEZONES "gnome-control-center-2.0-timezones"
 
@@ -447,8 +446,10 @@ gis_timezone_page_constructed (GObject *object)
   priv->search_entry_text_changed_id =
       g_signal_connect (priv->search_entry, "changed",
                         G_CALLBACK (entry_text_changed), page);
+#if 0
   g_signal_connect (priv->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
+#endif
   g_signal_connect (priv->search_entry, "map",
                     G_CALLBACK (entry_mapped), page);
   g_signal_connect (priv->map, "location-changed",

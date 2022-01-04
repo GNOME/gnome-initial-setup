@@ -17,6 +17,10 @@ stages:
       -Dgnome-desktop:gtk_doc=false
       -Dgnome-desktop:desktop_docs=false
       -Dgnome-desktop:legacy_library=false
+      -Dlibgweather:enable_vala=false
+      -Dlibgweather:gtk_doc=false
+      -Dlibgweather:introspection=false
+      -Dlibgweather:tests=false
       ${EXTRA_PARAMETERS}
       _build .
     - cd _build
