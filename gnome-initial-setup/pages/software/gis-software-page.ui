@@ -19,28 +19,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkButton" id="enable_disable_button">
+            <property name="halign">center</property>
+            <property name="margin">36</property>
+            <property name="use-underline">True</property>
             <property name="visible">True</property>
-            <property name="margin-top">40</property>
-            <property name="orientation">horizontal</property>
-            <property name="homogeneous">True</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Third-Party Repositories</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="proprietary_switch">
-                <property name="halign">end</property>
-                <property name="visible">True</property>
-                <signal name="state-set" handler="state_set"/>
-              </object>
-            </child>
+            <signal name="clicked" handler="enable_disable_button_clicked_cb"/>
           </object>
         </child>
       </object>
