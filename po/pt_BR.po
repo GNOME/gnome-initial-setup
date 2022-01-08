@@ -1,20 +1,20 @@
 # Brazilian Portuguese translation for gnome-initial-setup.
-# Copyright (C) 2021 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright (C) 2022 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Felipe Borges <felipeborges@src.gnome.org>, 2012.
 # Georges Basile Stavracas Neto <georges.stavracas@gmail.com>, 2013.
 # Fábio Nogueira <fnogueira@gnome.org>, 2016.
 # Enrico Nicoletto <liverig@gmail.com>, 2013, 2014, 2015, 2018.
 # Bruno Lopes da Silva <brunolopesbldsb@gmail.com>, 2018.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2021.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2021-08-14 12:09+0000\n"
-"PO-Revision-Date: 2021-10-05 20:05-0300\n"
+"POT-Creation-Date: 2022-01-06 15:43+0000\n"
+"PO-Revision-Date: 2022-01-08 13:20-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -600,25 +600,32 @@ msgstr ""
 "Controles de privacidade podem ser alterados a qualquer momento nas "
 "Configurações."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
 #: gnome-initial-setup/pages/software/gis-software-page.ui:16
-#: gnome-initial-setup/pages/software/gis-software-page.ui:31
 msgid "Third-Party Repositories"
 msgstr "Repositórios de terceiros"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:113
+#: gnome-initial-setup/pages/software/gis-software-page.c:114
 msgid ""
 "Third-party repositories provide access to additional software from selected "
-"external sources. They include popular apps, as well as firmware that is "
-"important for some devices. Some proprietary software is included."
+"external sources, including popular apps and drivers that are important for "
+"some devices. Some proprietary software is included."
 msgstr ""
 "Repositórios de terceiros fornecem acesso a software adicional de fontes "
-"externas selecionadas. Eles incluem aplicativos populares, bem como firmware "
-"que é importante para alguns dispositivos. Alguns softwares privativos estão "
+"externas selecionadas, incluindo aplicativos e drivers populares que são "
+"importantes para alguns dispositivos. Alguns softwares privativos estão "
 "incluídos."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
+msgid "_Disable Third-Party Repositories"
+msgstr "_Desabilitar repositórios de terceiros"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:132
+msgid "_Enable Third-Party Repositories"
+msgstr "_Habilitar repositórios de terceiros"
+
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
@@ -626,7 +633,7 @@ msgid "_Start Using %s"
 msgstr "_Começar a usar %s"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
@@ -637,12 +644,34 @@ msgstr "%s está pronto para ser usado. Esperamos que você adore!"
 msgid "Setup Complete"
 msgstr "Definições concluídas"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
 msgid "All done!"
 msgstr "Tudo pronto!"
 
+#. Recurse, adding the ADM1 name to the country name
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#. <location> with no parent <city>
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:523
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:551
+#, c-format
+#| msgctxt "timezone loc"
+#| msgid "%s, %s"
+msgid "%s, %s"
+msgstr "%s, %s"
+
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:822
+msgid "Loading…"
+msgstr "Carregando…"
+
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -651,28 +680,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:483
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Fuso horário"
