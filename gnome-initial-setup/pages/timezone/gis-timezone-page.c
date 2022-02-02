@@ -522,6 +522,7 @@ gis_timezone_page_init (GisTimezonePage *page)
   g_type_ensure (CC_TYPE_TIMEZONE_MAP);
   g_type_ensure (GIS_TYPE_BUBBLE_WIDGET);
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
+  g_type_ensure (GIS_TYPE_LOCATION_ENTRY);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
