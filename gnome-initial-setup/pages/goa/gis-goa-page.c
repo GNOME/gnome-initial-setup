@@ -213,7 +213,7 @@ sync_visibility (GisGoaPage *page)
   if (gis_assistant_get_current_page (assistant) == GIS_PAGE (page))
     return;
 
-  visible = (priv->accounts_exist || g_network_monitor_get_network_available (network_monitor));
+  visible = (priv->accounts_exist || g_network_monitor_get_connectivity (network_monitor) == G_NETWORK_CONNECTIVITY_FULL);
   gtk_widget_set_visible (GTK_WIDGET (page), visible);
 }
 
@@ -259,9 +259,9 @@ accounts_changed (GoaClient *client, GoaObject *object, gpointer user_data)
 }
 
 static void
-network_status_changed (GNetworkMonitor *monitor,
-                        gboolean         available,
-                        gpointer         user_data)
+network_connectivity_changed (GNetworkMonitor *monitor,
+                              GParamSpec      *pspec,
+                              gpointer         user_data)
 {
   GisGoaPage *page = GIS_GOA_PAGE (user_data);
   sync_visibility (page);
@@ -324,8 +324,8 @@ gis_goa_page_constructed (GObject *object)
                     G_CALLBACK (accounts_changed), page);
   g_signal_connect (priv->goa_client, "account-removed",
                     G_CALLBACK (accounts_changed), page);
-  g_signal_connect (network_monitor, "network-changed",
-                    G_CALLBACK (network_status_changed), page);
+  g_signal_connect (network_monitor, "notify::connectivity",
+                    G_CALLBACK (network_connectivity_changed), page);
 
   gtk_list_box_set_header_func (GTK_LIST_BOX (priv->accounts_list),
                                 update_header_func,
@@ -346,7 +346,7 @@ gis_goa_page_dispose (GObject *object)
 
   g_clear_object (&priv->goa_client);
 
-  g_signal_handlers_disconnect_by_func (network_monitor, G_CALLBACK (network_status_changed), page);
+  g_signal_handlers_disconnect_by_func (network_monitor, G_CALLBACK (network_connectivity_changed), page);
 
   G_OBJECT_CLASS (gis_goa_page_parent_class)->dispose (object);
 }
