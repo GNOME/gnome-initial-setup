@@ -21,6 +21,13 @@ stages:
       -Dlibgweather:gtk_doc=false
       -Dlibgweather:introspection=false
       -Dlibgweather:tests=false
+      -Dlibhandy:examples=false
+      -Dlibhandy:glade_catalog=disabled
+      -Dlibhandy:gtk_doc=false
+      -Dlibhandy:introspection=disabled
+      -Dlibhandy:profiling=false
+      -Dlibhandy:tests=false
+      -Dlibhandy:vapi=false
       ${EXTRA_PARAMETERS}
       _build .
     - cd _build

@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
+#include <handy.h>
 
 #ifdef HAVE_CHEESE
 #include <cheese-gtk.h>
@@ -289,6 +290,9 @@ main (int argc, char *argv[])
 #endif
 
   gtk_init (&argc, &argv);
+  hdy_init ();
+  hdy_style_manager_set_color_scheme (hdy_style_manager_get_default (),
+    HDY_COLOR_SCHEME_PREFER_LIGHT);
 
   g_message ("Starting gnome-initial-setup");
   if (gis_get_mock_mode ())
