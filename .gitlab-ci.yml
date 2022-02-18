@@ -1,35 +1,119 @@
-image: registry.gitlab.gnome.org/gnome/gnome-initial-setup/fedora:v2
+include:
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/11fe3571905faceef51c7253dfdaf79ece8cf062/templates/fedora.yml'
+
+variables:
+  FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
 
 stages:
+  - prepare
   - build
 
+.fedora.container.common:
+  variables:
+    # When branching a stable release, change 'main'
+    # to the release number/branch to ensure that
+    # a new image will be created, tailored for the
+    # stable branch.
+    FDO_DISTRIBUTION_TAG: '2022-02-19.2-main'
+    FDO_DISTRIBUTION_VERSION: 34
+
+# See also https://gitlab.freedesktop.org/freedesktop/ci-templates
+build.container.fedora@x86_64:
+  extends:
+  - '.fdo.container-build@fedora'
+  - '.fedora.container.common'
+  stage: 'prepare'
+  variables:
+    # no need to pull the whole tree for rebuilding the image
+    GIT_STRATEGY: none
+    # Expiry sets fdo.expires on the image
+    FDO_EXPIRES_AFTER: 8w
+    FDO_DISTRIBUTION_PACKAGES: >-
+      @c-development @development-tools
+      accountsservice-devel
+      ccache
+      cheese-libs-devel
+      cheese-libs-devel
+      desktop-file-utils
+      flatpak-devel
+      fontconfig-devel
+      gdm-devel
+      geoclue2-devel
+      geocode-glib-devel
+      git
+      glib2-devel
+      gnome-online-accounts-devel
+      gobject-introspection-devel
+      gstreamer1-devel
+      gtk3-devel
+      gtk4-devel
+      gtk-doc
+      ibus-devel
+      iso-codes-devel
+      krb5-devel
+      libnma-devel
+      libpwquality-devel
+      libseccomp-devel
+      libsecret-devel
+      malcontent-ui-devel
+      meson
+      NetworkManager-libnm-devel
+      ninja-build
+      polkit-devel
+      rest-devel
+      webkit2gtk3-devel
+      xkeyboard-config-devel
+
+    FDO_DISTRIBUTION_EXEC: |-
+      mkdir /tmp/deps && \
+      pushd /tmp/deps && \
+        git clone --depth 1 https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git && \
+          cd gsettings-desktop-schemas && \
+          meson . _build --prefix=/usr/local && \
+          ninja -C _build -v && \
+          ninja -C _build -v install && \
+          cd .. && \
+        git clone --depth 1 https://gitlab.gnome.org/GNOME/libgweather.git && \
+          cd libgweather && \
+          meson . _build --prefix=/usr/local -Denable_vala=false -Dgtk_doc=false -Dintrospection=false -Dtests=false && \
+          ninja -C _build -v && \
+          ninja -C _build -v install && \
+          cd .. && \
+        git clone --depth 1 https://gitlab.gnome.org/GNOME/gnome-desktop.git && \
+          cd gnome-desktop && \
+          meson . _build --prefix=/usr/local -Dwerror=false -Dgtk_doc=false -Ddesktop_docs=false -Dlegacy_library=false && \
+          ninja -C _build -v && \
+          ninja -C _build -v install && \
+          cd .. && \
+        git clone --depth 1 https://gitlab.gnome.org/GNOME/libhandy.git && \
+          cd libhandy && \
+          meson . _build --prefix=/usr/local -Dexamples=false -Dglade_catalog=disabled -Dgtk_doc=false -Dintrospection=disabled -Dprofiling=false -Dtests=false -Dvapi=false && \
+          ninja -C _build -v && \
+          ninja -C _build -v install && \
+          cd .. && \
+        popd && \
+      rm -rf /tmp/deps
+
 .job_template: &job_definition
+  extends:
+    - '.fdo.distribution-image@fedora'
+    - '.fedora.container.common'
+
   stage: build
+
   script:
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
-    - meson -Dsystemd=${EXPLICIT_FEATURES}
-      --auto-features ${AUTO_FEATURES}
-      ${OPTIONS}
-      -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
-      -Dgnome-desktop:werror=false
-      -Dgnome-desktop:gtk_doc=false
-      -Dgnome-desktop:desktop_docs=false
-      -Dgnome-desktop:legacy_library=false
-      -Dlibgweather:enable_vala=false
-      -Dlibgweather:gtk_doc=false
-      -Dlibgweather:introspection=false
-      -Dlibgweather:tests=false
-      -Dlibhandy:examples=false
-      -Dlibhandy:glade_catalog=disabled
-      -Dlibhandy:gtk_doc=false
-      -Dlibhandy:introspection=disabled
-      -Dlibhandy:profiling=false
-      -Dlibhandy:tests=false
-      -Dlibhandy:vapi=false
-      ${EXTRA_PARAMETERS}
-      _build .
+    - meson
+        -Dsystemd=${EXPLICIT_FEATURES}
+        --auto-features ${AUTO_FEATURES}
+        ${OPTIONS}
+        -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
+        ${EXTRA_PARAMETERS}
+        --wrap-mode=nodownload
+        _build
+        .
     - cd _build
     - ninja -v
     # Check that strings can be extracted
