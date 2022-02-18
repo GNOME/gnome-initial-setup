@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora:rawhide
+FROM registry.fedoraproject.org/fedora:36
 
 RUN dnf -y install \
     ccache \
@@ -33,6 +33,7 @@ RUN dnf -y install \
     "pkgconfig(gtk4)" \
     "pkgconfig(gweather-3.0)" \
     "pkgconfig(libgeoclue-2.0)" \
+    "pkgconfig(libhandy-1)" \
     "pkgconfig(libnm)" \
     "pkgconfig(libnma)" \
     "pkgconfig(malcontent-ui-0)" \
