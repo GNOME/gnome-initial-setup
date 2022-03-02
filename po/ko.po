@@ -2,15 +2,15 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Moses Kim <creatinov.kim@gmail.com>, 2018.
-# Seong-ho Cho <shcho@gnome.org>, 2012-2021.
+# Seong-ho Cho <shcho@gnome.org>, 2012-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2021-08-10 09:42+0000\n"
-"PO-Revision-Date: 2021-08-30 18:20+0900\n"
+"POT-Creation-Date: 2022-01-06 15:43+0000\n"
+"PO-Revision-Date: 2022-03-01 18:30+0900\n"
 "Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
 "Language-Team: 한국어 <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -570,24 +570,31 @@ msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr "설정 프로그램에서 언제든 개인 정보 처리 방식을 바꿀 수 있습니다."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
 #: gnome-initial-setup/pages/software/gis-software-page.ui:16
-#: gnome-initial-setup/pages/software/gis-software-page.ui:31
 msgid "Third-Party Repositories"
 msgstr "서드 파티 저장소"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:113
+#: gnome-initial-setup/pages/software/gis-software-page.c:114
 msgid ""
 "Third-party repositories provide access to additional software from selected "
-"external sources. They include popular apps, as well as firmware that is "
-"important for some devices. Some proprietary software is included."
+"external sources, including popular apps and drivers that are important for "
+"some devices. Some proprietary software is included."
 msgstr ""
-"서드파티 저장소에서는 선택한 외부 저장소에서 추가 프로그램에 접근할 수 있게 "
-"해줍니다. 일부 장치에 중요한 펌웨어와 인기있는 앱이 추가 프로그램에 해당합니"
-"다. 일부 상업용 프로그램도 들어있습니다."
+"서드파티 저장소에서는 일부 장치에 중요한 잘 알려진 앱, 드라이버를 제공하는 선"
+"택 외부 저장소에서 추가 프로그램에 접근할 수 있게 해줍니다. 일부 상업용 프로"
+"그램도 들어있습니다."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
+msgid "_Disable Third-Party Repositories"
+msgstr "서드 파티 저장소 미사용(_D)"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:132
+msgid "_Enable Third-Party Repositories"
+msgstr "서드 파티 저장소 사용(_E)"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
@@ -595,7 +602,7 @@ msgid "_Start Using %s"
 msgstr "%s 시작(_S)"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
@@ -606,12 +613,32 @@ msgstr "%s 배포판을 사용할 수 있도록 준비했습니다. 맘에 들�
 msgid "Setup Complete"
 msgstr "설치 완료"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
 msgid "All done!"
 msgstr "모두 끝났습니다!"
 
+#. Recurse, adding the ADM1 name to the country name
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#. <location> with no parent <city>
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:523
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:551
+#, c-format
+msgid "%s, %s"
+msgstr "%2$s %1$s"
+
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:822
+msgid "Loading…"
+msgstr "불러오는 중…"
+
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -620,28 +647,28 @@ msgstr "%2$s %1$s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
 msgid "%l:%M %p"
 msgstr "%p %l:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s(%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:483
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "시간대"
