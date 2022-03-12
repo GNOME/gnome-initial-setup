@@ -1,10 +1,10 @@
 # gnome-initial-setup ja.po.
-# Copyright (C) 2012-2017, 2019-2021 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright (C) 2012-2017, 2019-2022 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2012.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2016, 2017.
 # Ikuya Awashiro <ikuya@fruitsbasket.info>, 2014.
-# sicklylife <translation@sicklylife.jp>, 2019-2021.
+# sicklylife <translation@sicklylife.jp>, 2019-2022.
 # Matthias Kruk <>, 2021.
 #
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
 "POT-Creation-Date: 2020-08-17 19:50+0000\n"
-"PO-Revision-Date: 2021-10-19 20:30+0900\n"
+"PO-Revision-Date: 2022-03-12 21:15+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -595,15 +595,23 @@ msgstr "プライバシー設定は、設定メニューからいつでも変更
 msgid "Third-Party Repositories"
 msgstr "サードパーティーのリポジトリ"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:113
+#: gnome-initial-setup/pages/software/gis-software-page.c:114
 msgid ""
 "Third-party repositories provide access to additional software from selected "
-"external sources. They include popular apps, as well as firmware that is "
-"important for some devices. Some proprietary software is included."
+"external sources, including popular apps and drivers that are important for "
+"some devices. Some proprietary software is included."
 msgstr ""
-"サードパーティーのリポジトリを利用すれば、人気のアプリや一部のデバイス向け"
-"の重要なファームウェア、いくつかのプロプライエタリソフトウェアといった追加"
-"のソフトウェアを利用できるようになります。"
+"サードパーティーのリポジトリを利用すれば、人気のアプリや一部のデバイス向けの"
+"重要なドライバー、いくつかのプロプライエタリソフトウェアといった追加のソフト"
+"ウェアを利用できるようになります。"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
+msgid "_Disable Third-Party Repositories"
+msgstr "サードパーティーのリポジトリを無効にする(_D)"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:132
+msgid "_Enable Third-Party Repositories"
+msgstr "サードパーティーのリポジトリを有効にする(_E)"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
@@ -628,6 +636,26 @@ msgstr "セットアップ完了"
 #: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
 msgid "All done!"
 msgstr "すべて終えました!"
+
+#. Recurse, adding the ADM1 name to the country name
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#. <location> with no parent <city>
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:523
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:551
+#, c-format
+msgid "%s, %s"
+msgstr "%s、%s"
+
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:822
+msgid "Loading…"
+msgstr "読み込み中…"
 
 #. Translators: "city, country"
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:261
