@@ -1,16 +1,16 @@
 # Norwegian bokmål translation of gnome-initial-setup.
 # Copyright (C) 1999-2005 Free Software Foundation, Inc.
 #
-# Kjartan Maraas <kmaraas@gnome.org>, 1999-2020.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2022.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 # Åka Sikrom <a4NOSPAMPLEASETHANKYOU@hush.com>, 2014,2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-initial-setup 3.38.x\n"
+"Project-Id-Version: gnome-initial-setup 4.2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2020-11-21 15:09+0000\n"
-"PO-Revision-Date: 2020-11-30 15:56+0100\n"
+"POT-Creation-Date: 2022-01-06 15:43+0000\n"
+"PO-Revision-Date: 2022-03-17 14:24+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -24,31 +24,31 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Førstegangsoppsett"
 
-#: gnome-initial-setup/gis-assistant.c:423
+#: gnome-initial-setup/gis-assistant.c:407
 msgid "_Next"
 msgstr "_Neste"
 
-#: gnome-initial-setup/gis-assistant.c:424
+#: gnome-initial-setup/gis-assistant.c:408
 msgid "_Accept"
 msgstr "Godt_a"
 
-#: gnome-initial-setup/gis-assistant.c:425
+#: gnome-initial-setup/gis-assistant.c:409
 msgid "_Skip"
 msgstr "Hopp _over"
 
-#: gnome-initial-setup/gis-assistant.c:426
+#: gnome-initial-setup/gis-assistant.c:410
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: gnome-initial-setup/gis-assistant.c:427
+#: gnome-initial-setup/gis-assistant.c:411
 msgid "_Cancel"
 msgstr "A_vbryt"
 
-#: gnome-initial-setup/gnome-initial-setup.c:271
+#: gnome-initial-setup/gnome-initial-setup.c:272
 msgid "Force existing user mode"
 msgstr "Bruk eksisterende brukermodus"
 
-#: gnome-initial-setup/gnome-initial-setup.c:277
+#: gnome-initial-setup/gnome-initial-setup.c:278
 msgid "— GNOME initial setup"
 msgstr "— Førstegangsoppsett for GNOME"
 
@@ -56,19 +56,19 @@ msgstr "— Førstegangsoppsett for GNOME"
 msgid "Take a Picture…"
 msgstr "Ta et bilde …"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:185
 msgid "Failed to register account"
 msgstr "Klarte ikke å registrere konto"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:379
 msgid "No supported way to authenticate with this domain"
 msgstr "Fant ingen støttede autentiseringsmetoder på dette domenet"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:419
 msgid "Failed to join domain"
 msgstr "Klarte ikke å bli medlem av domenet"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:487
 msgid "Failed to log into domain"
 msgstr "Klarte ikke å logge inn i domenet"
 
@@ -331,7 +331,10 @@ msgstr "Trådløst"
 msgid ""
 "Connecting to the internet helps you get new apps, information, and other "
 "upgrades. It also helps set the time and your location automatically."
-msgstr "Ved å koble til internett vil du kunne få nye programmer, informasjon og andre oppgraderinger. Det hjelper også til å sette klokken og lokasjonen din automatisk."
+msgstr ""
+"Ved å koble til internett vil du kunne få nye programmer, informasjon og "
+"andre oppgraderinger. Det hjelper også til å sette klokken og lokasjonen din "
+"automatisk."
 
 #: gnome-initial-setup/pages/network/gis-network-page.ui:76
 msgid "No wireless available"
@@ -586,8 +589,28 @@ msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr "Personvernkontroller kan endres når som helst i Innstillinger."
 
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
+#: gnome-initial-setup/pages/software/gis-software-page.ui:16
+msgid "Third-Party Repositories"
+msgstr "Tredjepartslager"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:114
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"external sources, including popular apps and drivers that are important for "
+"some devices. Some proprietary software is included."
+msgstr "Tredjepartslager gir tilgang til ekstra programvare fra utvalgte eksterne kilder, inkludert populære programmer og drivere som er viktig for noen enheter. Noe proprietær programvare kan være inkludert."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
+msgid "_Disable Third-Party Repositories"
+msgstr "Slå _av tredjepartslager"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:132
+msgid "_Enable Third-Party Repositories"
+msgstr "Slå _på tredjepartslager"
+
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
@@ -595,7 +618,7 @@ msgid "_Start Using %s"
 msgstr "_Ta i bruk %s"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
@@ -606,9 +629,29 @@ msgstr "%s er klar til bruk. Vi håper at du elsker det!"
 msgid "Setup Complete"
 msgstr "Oppsett fullført"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
 msgid "All done!"
 msgstr "Alt er ferdig!"
+
+#. Recurse, adding the ADM1 name to the country name
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#. <location> with no parent <city>
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:523
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:551
+#, c-format
+msgid "%s, %s"
+msgstr "%s, %s"
+
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:822
+msgid "Loading…"
+msgstr "Laster …"
 
 #. Translators: "city, country"
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
@@ -679,7 +722,9 @@ msgstr "Oppsett"
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
-msgstr "Oppsett vil lose deg gjennom prosessen med å lage en konto og å aktivere noen funksjoner. Du vil komme i gang på kort tid."
+msgstr ""
+"Oppsett vil lose deg gjennom prosessen med å lage en konto og å aktivere "
+"noen funksjoner. Du vil komme i gang på kort tid."
 
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:54
 msgid "_Start Setup"
