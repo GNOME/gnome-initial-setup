@@ -1,3 +1,13 @@
+42.0.1
+------
+
+* The dark theme preference support introduced in 42.rc caused a regression in
+  Initial Setup's handling of the login keyring. The effect was that the new
+  user's login keyring password does not match their system password, and so
+  cannot be unlocked. This regression is fixed in this release. Thanks to Adam
+  Williamson for diagnosing the problem & Matthias Clasen for suggesting the
+  fix. (#141)
+
 42.0
 ----
 
