@@ -282,7 +282,7 @@ main (int argc, char *argv[])
    * the login keyring password to a well-known value, which we overwrite with
    * the user's password once they choose one.
    */
-  g_setenv ("HDY_DISABLE_PORTAL", "1", /* overwrite */ TRUE);
+  g_setenv ("HDY_DISABLE_PORTAL", "1", TRUE);
 
   context = g_option_context_new (_("— GNOME initial setup"));
   g_option_context_add_main_entries (context, entries, NULL);
