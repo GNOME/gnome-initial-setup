@@ -3,15 +3,15 @@
 # Copyright © 2016 GNOME i18n Project for Vietnamese.
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2012-2013.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2014-2017, 2021.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2014-2017, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2021-09-20 19:11+0000\n"
-"PO-Revision-Date: 2021-09-26 14:58+0700\n"
+"POT-Creation-Date: 2022-03-31 20:56+0000\n"
+"PO-Revision-Date: 2022-04-04 07:51+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -46,11 +46,11 @@ msgstr "T_rước"
 msgid "_Cancel"
 msgstr "T_hôi"
 
-#: gnome-initial-setup/gnome-initial-setup.c:272
+#: gnome-initial-setup/gnome-initial-setup.c:273
 msgid "Force existing user mode"
 msgstr "Ép buộc chế độ người dùng cũ"
 
-#: gnome-initial-setup/gnome-initial-setup.c:278
+#: gnome-initial-setup/gnome-initial-setup.c:287
 msgid "— GNOME initial setup"
 msgstr "— Cài đặt GNOME lần đầu"
 
@@ -583,25 +583,32 @@ msgid ""
 msgstr ""
 "Điều kiển chính sách riêng tư được thay đổi bất cứ lúc nào từ phần cài đặt."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:113
 #: gnome-initial-setup/pages/software/gis-software-page.ui:16
-#: gnome-initial-setup/pages/software/gis-software-page.ui:31
 msgid "Third-Party Repositories"
 msgstr "Kho Phần mềm Bên Thứ ba"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:113
+#: gnome-initial-setup/pages/software/gis-software-page.c:114
 msgid ""
 "Third-party repositories provide access to additional software from selected "
-"external sources. They include popular apps, as well as firmware that is "
-"important for some devices. Some proprietary software is included."
+"external sources, including popular apps and drivers that are important for "
+"some devices. Some proprietary software is included."
 msgstr ""
 "Kho phần mềm của bên thứ ba cung cấp quyền truy cập vào phần mềm bổ sung từ "
-"các nguồn bên ngoài được chọn. Chúng bao gồm các ứng dụng phổ biến, cũng như "
-"firmware quan trọng đối với một số thiết bị. Một số phần mềm độc quyền được "
-"bao gồm."
+"các nguồn bên ngoài được chọn, bao gồm các ứng dụng phổ biến, và các trình "
+"điều khiển thứ mà quan trọng đối với một số thiết bị. Một số phần mềm độc "
+"quyền được bao gồm."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
+msgid "_Disable Third-Party Repositories"
+msgstr "_Tắt Kho Phần mềm Bên Thứ ba"
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:132
+msgid "_Enable Third-Party Repositories"
+msgstr "_Bật Kho Phần mềm Bên Thứ ba"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:233
 #, c-format
@@ -609,7 +616,7 @@ msgid "_Start Using %s"
 msgstr "_Bắt đầu dùng %s"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME 3" if we can't
+#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:240
 #, c-format
@@ -620,12 +627,34 @@ msgstr "%s đã sẵn sàng cho bạn dùng. Chúng tôi hi vọng rằng bạn 
 msgid "Setup Complete"
 msgstr "Cài đặt đã hoàn tất"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:70
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:64
 msgid "All done!"
 msgstr "Đã xong!"
 
+#. Recurse, adding the ADM1 name to the country name
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#. <location> with no parent <city>
+#. Translators: this is the name of a location followed by a region, for example:
+#. * 'London, United Kingdom'
+#. * You shouldn't need to translate this string unless the language has a different comma.
+#.
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:523
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:551
+#, c-format
+#| msgctxt "timezone loc"
+#| msgid "%s, %s"
+msgid "%s, %s"
+msgstr "%s, %s"
+
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:822
+msgid "Loading…"
+msgstr "Đang tải…"
+
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:273
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -634,28 +663,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:310
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:314
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:317
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:485
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:483
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid "Time Zone"
 msgstr "Múi giờ"
