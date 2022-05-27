@@ -29,7 +29,8 @@ build.container.fedora@x86_64:
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
     FDO_DISTRIBUTION_PACKAGES: >-
-      @c-development @development-tools
+      @c-development
+      @development-tools
       accountsservice-devel
       ccache
       cheese-libs-devel
@@ -45,11 +46,11 @@ build.container.fedora@x86_64:
       gnome-desktop4-devel
       gnome-online-accounts-devel
       gobject-introspection-devel
-      gstreamer1-devel
       gsettings-desktop-schemas-devel
+      gstreamer1-devel
+      gtk-doc
       gtk3-devel
       gtk4-devel
-      gtk-doc
       ibus-devel
       iso-codes-devel
       krb5-devel
