@@ -517,7 +517,7 @@ extract_initials_from_name (const gchar *name)
         g_string_append_unichar (initials, unichar);
 
         p = g_utf8_strrchr (normalized, -1, ' ');
-        if (p != NULL && g_utf8_next_char (p) != NULL) {
+        if (p != NULL) {
                 p = g_utf8_next_char (p);
 
                 unichar = g_utf8_get_char (p);
