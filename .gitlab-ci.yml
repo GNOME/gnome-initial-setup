@@ -14,8 +14,8 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2022-02-19.2-main'
-    FDO_DISTRIBUTION_VERSION: 34
+    FDO_DISTRIBUTION_TAG: '2022-05-27.1-main'
+    FDO_DISTRIBUTION_VERSION: 36
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
 build.container.fedora@x86_64:
@@ -42,15 +42,19 @@ build.container.fedora@x86_64:
       geocode-glib-devel
       git
       glib2-devel
+      gnome-desktop4-devel
       gnome-online-accounts-devel
       gobject-introspection-devel
       gstreamer1-devel
+      gsettings-desktop-schemas-devel
       gtk3-devel
       gtk4-devel
       gtk-doc
       ibus-devel
       iso-codes-devel
       krb5-devel
+      libgweather4-devel
+      libhandy-devel
       libnma-devel
       libpwquality-devel
       libseccomp-devel
@@ -63,36 +67,6 @@ build.container.fedora@x86_64:
       rest-devel
       webkit2gtk3-devel
       xkeyboard-config-devel
-
-    FDO_DISTRIBUTION_EXEC: |-
-      mkdir /tmp/deps && \
-      pushd /tmp/deps && \
-        git clone --depth 1 https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git && \
-          cd gsettings-desktop-schemas && \
-          meson . _build --prefix=/usr/local && \
-          ninja -C _build -v && \
-          ninja -C _build -v install && \
-          cd .. && \
-        git clone --depth 1 https://gitlab.gnome.org/GNOME/libgweather.git && \
-          cd libgweather && \
-          meson . _build --prefix=/usr/local -Denable_vala=false -Dgtk_doc=false -Dintrospection=false -Dtests=false && \
-          ninja -C _build -v && \
-          ninja -C _build -v install && \
-          cd .. && \
-        git clone --depth 1 https://gitlab.gnome.org/GNOME/gnome-desktop.git && \
-          cd gnome-desktop && \
-          meson . _build --prefix=/usr/local -Dwerror=false -Dgtk_doc=false -Ddesktop_docs=false -Dlegacy_library=false && \
-          ninja -C _build -v && \
-          ninja -C _build -v install && \
-          cd .. && \
-        git clone --depth 1 https://gitlab.gnome.org/GNOME/libhandy.git && \
-          cd libhandy && \
-          meson . _build --prefix=/usr/local -Dexamples=false -Dglade_catalog=disabled -Dgtk_doc=false -Dintrospection=disabled -Dprofiling=false -Dtests=false -Dvapi=false && \
-          ninja -C _build -v && \
-          ninja -C _build -v install && \
-          cd .. && \
-        popd && \
-      rm -rf /tmp/deps
 
 .job_template: &job_definition
   extends:
