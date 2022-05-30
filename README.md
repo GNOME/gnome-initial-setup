@@ -13,7 +13,7 @@ good defaults:
  * Create a user account
  * Set the correct timezone / location
  * Set up online accounts
- * Learn some basics about GNOME 3
+ * Learn some basics about GNOME
 
 The desired experience is that the system boots straight into the
 initial-setup tool, and when the setup tasks are completed, we smoothly
