@@ -50,8 +50,6 @@ struct _CcTimezoneMap
   GdkPixbuf *background;
   GdkPixbuf *pin;
 
-  gdouble selected_offset;
-
   TzDB *tzdb;
   TzLocation *location;
 
@@ -291,51 +289,14 @@ cc_timezone_map_draw (GtkWidget *widget,
                       cairo_t   *cr)
 {
   CcTimezoneMap *map = CC_TIMEZONE_MAP (widget);
-  g_autoptr(GdkPixbuf) orig_hilight = NULL;
   GtkAllocation alloc;
-  g_autofree gchar *file = NULL;
-  g_autoptr(GError) err = NULL;
   gdouble pointx, pointy;
-  char buf[16];
 
   gtk_widget_get_allocation (widget, &alloc);
 
   /* paint background */
   gdk_cairo_set_source_pixbuf (cr, map->background, 0, 0);
   cairo_paint (cr);
-
-  /* paint hilight */
-  if (gtk_widget_is_sensitive (widget))
-    {
-      file = g_strdup_printf (DATETIME_RESOURCE_PATH "/timezone_%s.png",
-                              g_ascii_formatd (buf, sizeof (buf),
-                                               "%g", map->selected_offset));
-    }
-  else
-    {
-      file = g_strdup_printf (DATETIME_RESOURCE_PATH "/timezone_%s_dim.png",
-                              g_ascii_formatd (buf, sizeof (buf),
-                                               "%g", map->selected_offset));
-
-    }
-
-  orig_hilight = gdk_pixbuf_new_from_resource (file, &err);
-
-  if (!orig_hilight)
-    {
-      g_warning ("Could not load hilight: %s",
-                 (err) ? err->message : "Unknown Error");
-    }
-  else
-    {
-      g_autoptr(GdkPixbuf) hilight = NULL;
-
-      hilight = gdk_pixbuf_scale_simple (orig_hilight, alloc.width,
-                                         alloc.height, GDK_INTERP_BILINEAR);
-      gdk_cairo_set_source_pixbuf (cr, hilight, 0, 0);
-
-      cairo_paint (cr);
-    }
 
   if (map->location)
     {
@@ -440,9 +401,6 @@ set_location (CcTimezoneMap *map,
   map->location = location;
 
   info = tz_info_from_location (map->location);
-
-  map->selected_offset = tz_location_get_utc_offset (map->location)
-    / (60.0*60.0) + ((info->daylight) ? -1.0 : 0.0);
 
   g_signal_emit (map, signals[LOCATION_CHANGED], 0, map->location);
 }
