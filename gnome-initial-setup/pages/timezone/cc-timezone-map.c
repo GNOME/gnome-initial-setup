@@ -46,14 +46,9 @@ struct _CcTimezoneMap
 
   GdkPixbuf *orig_background;
   GdkPixbuf *orig_background_dim;
-  GdkPixbuf *orig_color_map;
 
   GdkPixbuf *background;
-  GdkPixbuf *color_map;
   GdkPixbuf *pin;
-
-  guchar *visible_map_pixels;
-  gint visible_map_rowstride;
 
   gdouble selected_offset;
 
@@ -74,50 +69,6 @@ enum
 static guint signals[LAST_SIGNAL];
 
 
-static CcTimezoneMapOffset color_codes[] =
-{
-    {-11.0, 43, 0, 0, 255 },
-    {-10.0, 85, 0, 0, 255 },
-    {-9.5, 102, 255, 0, 255 },
-    {-9.0, 128, 0, 0, 255 },
-    {-8.0, 170, 0, 0, 255 },
-    {-7.0, 212, 0, 0, 255 },
-    {-6.0, 255, 0, 1, 255 }, // north
-    {-6.0, 255, 0, 0, 255 }, // south
-    {-5.0, 255, 42, 42, 255 },
-    {-4.5, 192, 255, 0, 255 },
-    {-4.0, 255, 85, 85, 255 },
-    {-3.5, 0, 255, 0, 255 },
-    {-3.0, 255, 128, 128, 255 },
-    {-2.0, 255, 170, 170, 255 },
-    {-1.0, 255, 213, 213, 255 },
-    {0.0, 43, 17, 0, 255 },
-    {1.0, 85, 34, 0, 255 },
-    {2.0, 128, 51, 0, 255 },
-    {3.0, 170, 68, 0, 255 },
-    {3.5, 0, 255, 102, 255 },
-    {4.0, 212, 85, 0, 255 },
-    {4.5, 0, 204, 255, 255 },
-    {5.0, 255, 102, 0, 255 },
-    {5.5, 0, 102, 255, 255 },
-    {5.75, 0, 238, 207, 247 },
-    {6.0, 255, 127, 42, 255 },
-    {6.5, 204, 0, 254, 254 },
-    {7.0, 255, 153, 85, 255 },
-    {8.0, 255, 179, 128, 255 },
-    {9.0, 255, 204, 170, 255 },
-    {9.5, 170, 0, 68, 250 },
-    {10.0, 255, 230, 213, 255 },
-    {10.5, 212, 124, 21, 250 },
-    {11.0, 212, 170, 0, 255 },
-    {11.5, 249, 25, 87, 253 },
-    {12.0, 255, 204, 0, 255 },
-    {12.75, 254, 74, 100, 248 },
-    {13.0, 255, 85, 153, 250 },
-    {-100, 0, 0, 0, 0 }
-};
-
-
 static void
 cc_timezone_map_dispose (GObject *object)
 {
@@ -125,18 +76,9 @@ cc_timezone_map_dispose (GObject *object)
 
   g_clear_object (&self->orig_background);
   g_clear_object (&self->orig_background_dim);
-  g_clear_object (&self->orig_color_map);
   g_clear_object (&self->background);
   g_clear_object (&self->pin);
   g_clear_pointer (&self->bubble_text, g_free);
-
-  if (self->color_map)
-    {
-      g_clear_object (&self->color_map);
-
-      self->visible_map_pixels = NULL;
-      self->visible_map_rowstride = 0;
-    }
 
   G_OBJECT_CLASS (cc_timezone_map_parent_class)->dispose (object);
 }
@@ -203,17 +145,6 @@ cc_timezone_map_size_allocate (GtkWidget     *widget,
                                              allocation->width,
                                              allocation->height,
                                              GDK_INTERP_BILINEAR);
-
-  if (map->color_map)
-    g_object_unref (map->color_map);
-
-  map->color_map = gdk_pixbuf_scale_simple (map->orig_color_map,
-                                            allocation->width,
-                                            allocation->height,
-                                            GDK_INTERP_BILINEAR);
-
-  map->visible_map_pixels = gdk_pixbuf_get_pixels (map->color_map);
-  map->visible_map_rowstride = gdk_pixbuf_get_rowstride (map->color_map);
 
   GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->size_allocate (widget,
                                                                   allocation);
@@ -521,9 +452,6 @@ button_press_event (CcTimezoneMap  *map,
                     GdkEventButton *event)
 {
   gint x, y;
-  guchar r, g, b, a;
-  guchar *pixels;
-  gint rowstride;
   gint i;
 
   const GPtrArray *array;
@@ -533,25 +461,6 @@ button_press_event (CcTimezoneMap  *map,
 
   x = event->x;
   y = event->y;
-
-
-  rowstride = map->visible_map_rowstride;
-  pixels = map->visible_map_pixels;
-
-  r = pixels[(rowstride * y + x * 4)];
-  g = pixels[(rowstride * y + x * 4) + 1];
-  b = pixels[(rowstride * y + x * 4) + 2];
-  a = pixels[(rowstride * y + x * 4) + 3];
-
-
-  for (i = 0; color_codes[i].offset != -100; i++)
-    {
-       if (color_codes[i].red == r && color_codes[i].green == g
-           && color_codes[i].blue == b && color_codes[i].alpha == a)
-         {
-           map->selected_offset = color_codes[i].offset;
-         }
-    }
 
   gtk_widget_queue_draw (GTK_WIDGET (map));
 
@@ -607,15 +516,6 @@ cc_timezone_map_init (CcTimezoneMap *map)
                                                            &err);
 
   if (!map->orig_background_dim)
-    {
-      g_warning ("Could not load background image: %s",
-                 (err) ? err->message : "Unknown error");
-      g_clear_error (&err);
-    }
-
-  map->orig_color_map = gdk_pixbuf_new_from_resource (DATETIME_RESOURCE_PATH "/cc.png",
-                                                      &err);
-  if (!map->orig_color_map)
     {
       g_warning ("Could not load background image: %s",
                  (err) ? err->message : "Unknown error");
