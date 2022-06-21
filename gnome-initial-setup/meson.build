@@ -27,6 +27,44 @@ sources += [
     'gis-keyring.h'
 ]
 
+if get_option('soup2')
+  libsoup_api_version = '2.4'
+  webkitgtk_dep = dependency ('webkit2gtk-4.0')
+else
+  libsoup_api_version = '3.0'
+  webkitgtk_dep = dependency ('webkit2gtk-4.1')
+endif
+
+geocode_glib_dep = dependency ('geocode-glib-1.0')
+geocode_soup_version = geocode_glib_dep.get_pkgconfig_variable('soupapiversion')
+if geocode_soup_version == ''
+  geocode_soup_version = '2.4' # Pre libsoup3 support
+endif
+if geocode_soup_version != libsoup_api_version
+  error('geocode-glib was built against a different API of libsoup. @0@ instead of @1@.'.format(geocode_soup_version, libsoup_api_version))
+endif
+
+gweather_dep = dependency ('gweather4', fallback: ['libgweather', 'libgweather_dep'])
+gweather_soup_version = gweather_dep.get_pkgconfig_variable('soupapiversion')
+if gweather_soup_version == ''
+  gweather_soup_version = '2.4' # Pre libsoup3 support
+endif
+if gweather_soup_version != libsoup_api_version
+  error('libgweather was built against a different API of libsoup. @0@ instead of @1@.'.format(gweather_soup_version, libsoup_api_version))
+endif
+
+librest_dep = dependency('rest-1.0', required: false)
+if not librest_dep.found()
+  librest_dep = dependency('rest-0.7')
+endif
+librest_soup_version = librest_dep.get_pkgconfig_variable('soupapiversion')
+if librest_soup_version == ''
+  librest_soup_version = '2.4' # Pre libsoup3 support
+endif
+if librest_soup_version != libsoup_api_version
+  error('librest was built against a different API of libsoup. @0@ instead of @1@.'.format(librest_soup_version, libsoup_api_version))
+endif
+
 dependencies = [
     dependency ('libnm', version: '>= 1.2'),
     dependency ('libnma', version: '>= 1.0'),
@@ -35,29 +73,29 @@ dependencies = [
     dependency ('gnome-desktop-4', fallback: ['gnome-desktop', 'libgnome_desktop_base_dep']),
     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
     dependency ('fontconfig'),
-    dependency ('gweather4', fallback: ['libgweather', 'libgweather_dep']),
     dependency ('goa-1.0'),
     dependency ('goa-backend-1.0'),
     dependency ('gtk+-3.0', version: '>= 3.11.3'),
     dependency ('glib-2.0', version: '>= 2.63.1'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
-    dependency ('geocode-glib-1.0'),
     dependency ('libgeoclue-2.0', version: '>= 2.3.1'),
     dependency ('libhandy-1', version: '>= 1.5.90', fallback: ['libhandy', 'libhandy_dep']),
     cc.find_library('m', required: false),
     dependency ('pango', version: '>= 1.32.5'),
-    dependency ('rest-0.7'),
     dependency ('json-glib-1.0'),
     dependency ('krb5'),
     dependency ('libsecret-1', version: '>= 0.18.8'),
     dependency ('pwquality'),
-    dependency ('webkit2gtk-4.0', version: '>= 2.26.0'),
     cheese_dep,
     cheese_gtk_dep,
+    geocode_glib_dep,
+    gweather_dep,
     ibus_dep,
     libmalcontent_dep,
     libmalcontent_ui_dep,
+    librest_dep,
+    webkitgtk_dep
 ]
 
 executable(
