@@ -80,7 +80,7 @@ build.container.fedora@x86_64:
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
-    - meson
+    - meson setup
         -Dsystemd=${EXPLICIT_FEATURES}
         -Dsoup2=true
         --auto-features ${AUTO_FEATURES}
@@ -88,6 +88,7 @@ build.container.fedora@x86_64:
         -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
         ${EXTRA_PARAMETERS}
         --wrap-mode=nodownload
+        --fatal-meson-warnings
         _build
         .
     - cd _build

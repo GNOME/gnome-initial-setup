@@ -10,13 +10,12 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 prefix = get_option('prefix')
-po_dir = join_paths(meson.source_root(), 'po')
+po_dir = join_paths(meson.current_source_dir(), 'po')
 bin_dir = join_paths(prefix, get_option('bindir'))
 data_dir = join_paths(prefix, get_option('datadir'))
 locale_dir = join_paths(prefix, get_option('localedir'))
 libexec_dir = join_paths(prefix, get_option('libexecdir'))
 sysconf_dir = join_paths(prefix, get_option('sysconfdir'))
-source_root = join_paths(meson.source_root(), 'gnome-initial-setup')
 pkgdata_dir = join_paths(data_dir, meson.project_name())
 pkgsysconf_dir = join_paths(sysconf_dir, meson.project_name())
 
@@ -37,8 +36,8 @@ if enable_systemd
     systemd_dep = dependency('systemd', version: '>= 242', required: false)
     assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
 
-    systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
-                                                             define_variable: ['prefix', prefix])
+    systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
+                                                   pkgconfig_define: ['prefix', prefix])
 endif
 
 vendor_conf_file = get_option('vendor-conf-file')
