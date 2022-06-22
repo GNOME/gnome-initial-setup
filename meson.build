@@ -36,8 +36,8 @@ if enable_systemd
     systemd_dep = dependency('systemd', version: '>= 242', required: false)
     assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
 
-    systemd_userunitdir = systemd_dep.get_pkgconfig_variable('systemduserunitdir',
-                                                             define_variable: ['prefix', prefix])
+    systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
+                                                   pkgconfig_define: ['prefix', prefix])
 endif
 
 vendor_conf_file = get_option('vendor-conf-file')

@@ -36,19 +36,19 @@ else
 endif
 
 geocode_glib_dep = dependency ('geocode-glib-1.0')
-geocode_soup_version = geocode_glib_dep.get_pkgconfig_variable('soupapiversion')
-if geocode_soup_version == ''
-  geocode_soup_version = '2.4' # Pre libsoup3 support
-endif
+geocode_soup_version = geocode_glib_dep.get_variable(
+    pkgconfig: 'soupapiversion',
+    default_value: '2.4', # Pre libsoup3 support
+)
 if geocode_soup_version != libsoup_api_version
   error('geocode-glib was built against a different API of libsoup. @0@ instead of @1@.'.format(geocode_soup_version, libsoup_api_version))
 endif
 
 gweather_dep = dependency ('gweather4', fallback: ['libgweather', 'libgweather_dep'])
-gweather_soup_version = gweather_dep.get_pkgconfig_variable('soupapiversion')
-if gweather_soup_version == ''
-  gweather_soup_version = '2.4' # Pre libsoup3 support
-endif
+gweather_soup_version = gweather_dep.get_variable(
+    pkgconfig: 'soupapiversion',
+    default_value: '2.4', # Pre libsoup3 support
+)
 if gweather_soup_version != libsoup_api_version
   error('libgweather was built against a different API of libsoup. @0@ instead of @1@.'.format(gweather_soup_version, libsoup_api_version))
 endif
@@ -57,10 +57,10 @@ librest_dep = dependency('rest-1.0', required: false)
 if not librest_dep.found()
   librest_dep = dependency('rest-0.7')
 endif
-librest_soup_version = librest_dep.get_pkgconfig_variable('soupapiversion')
-if librest_soup_version == ''
-  librest_soup_version = '2.4' # Pre libsoup3 support
-endif
+librest_soup_version = librest_dep.get_variable(
+    pkgconfig: 'soupapiversion',
+    default_value: '2.4', # Pre libsoup3 support
+)
 if librest_soup_version != libsoup_api_version
   error('librest was built against a different API of libsoup. @0@ instead of @1@.'.format(librest_soup_version, libsoup_api_version))
 endif
