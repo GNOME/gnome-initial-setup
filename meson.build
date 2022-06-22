@@ -10,7 +10,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 prefix = get_option('prefix')
-po_dir = join_paths(meson.source_root(), 'po')
+po_dir = join_paths(meson.current_source_dir(), 'po')
 bin_dir = join_paths(prefix, get_option('bindir'))
 data_dir = join_paths(prefix, get_option('datadir'))
 locale_dir = join_paths(prefix, get_option('localedir'))
