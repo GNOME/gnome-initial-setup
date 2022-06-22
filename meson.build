@@ -16,7 +16,6 @@ data_dir = join_paths(prefix, get_option('datadir'))
 locale_dir = join_paths(prefix, get_option('localedir'))
 libexec_dir = join_paths(prefix, get_option('libexecdir'))
 sysconf_dir = join_paths(prefix, get_option('sysconfdir'))
-source_root = join_paths(meson.source_root(), 'gnome-initial-setup')
 pkgdata_dir = join_paths(data_dir, meson.project_name())
 pkgsysconf_dir = join_paths(sysconf_dir, meson.project_name())
 
