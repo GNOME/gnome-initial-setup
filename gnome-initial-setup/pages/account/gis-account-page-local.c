@@ -38,7 +38,7 @@
 #define GOA_API_IS_SUBJECT_TO_CHANGE
 #include <goa/goa.h>
 
-#include <rest/oauth-proxy.h>
+#include <rest/rest-proxy.h>
 #include <json-glib/json-glib.h>
 
 #define VALIDATION_TIMEOUT 600
