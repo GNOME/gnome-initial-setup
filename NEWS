@@ -1,3 +1,26 @@
+43.alpha
+--------
+
+* Initial Setup now builds against rest-1.0 if available, falling back to
+  rest-0.7 if not. There is no meson option to control this.
+
+* Initial Setup now builds against libsoup 3 by default. As a transitional
+  measure, you can opt to build against libsoup 2 by passing -Dsoup2=true
+  to meson setup. geocode-glib-1.0, gweather4, and rest (1.0 or 0.7) must
+  have been built against the same version of libsoup.
+
+* A number of Meson .wrap files for dependencies such as gweather4 have been
+  removed. These dependencies are now widely available in stable distros and
+  container images thereof.
+
+* Initial Setup no longer reads gnome-version.xml to determine the GNOME
+  version in the fallback case when no OS information is available from
+  /etc/os-release. gnome-version.xml has been removed from GNOME 43.
+
+* Translation updates:
+ - French
+ - Georgian
+
 42.1.1
 ------
 
