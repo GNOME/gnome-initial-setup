@@ -35,7 +35,11 @@ else
   webkitgtk_dep = dependency ('webkit2gtk-4.1')
 endif
 
-geocode_glib_dep = dependency ('geocode-glib-1.0')
+if get_option('soup2')
+  geocode_glib_dep = dependency ('geocode-glib-1.0')
+else
+  geocode_glib_dep = dependency ('geocode-glib-2.0')
+endif
 geocode_soup_version = geocode_glib_dep.get_variable(
     pkgconfig: 'soupapiversion',
     default_value: '2.4', # Pre libsoup3 support
