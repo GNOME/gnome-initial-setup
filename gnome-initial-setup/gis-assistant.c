@@ -71,17 +71,6 @@ visible_child_changed (GisAssistant *assistant)
 }
 
 static void
-widget_destroyed (GtkWidget    *widget,
-                  GisAssistant *assistant)
-{
-  GisPage *page = GIS_PAGE (widget);
-
-  assistant->pages = g_list_remove (assistant->pages, page);
-  if (page == assistant->current_page)
-    assistant->current_page = NULL;
-}
-
-static void
 switch_to (GisAssistant          *assistant,
            GisPage               *page)
 {
@@ -307,15 +296,25 @@ gis_assistant_add_page (GisAssistant *assistant,
   link = g_list_last (assistant->pages);
   link = link->prev;
 
-  g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), assistant);
   g_signal_connect (page, "notify", G_CALLBACK (page_notify), assistant);
 
-  gtk_container_add (GTK_CONTAINER (assistant->stack), GTK_WIDGET (page));
+  gtk_stack_add_child (GTK_STACK (assistant->stack), GTK_WIDGET (page));
 
   /* Update buttons if current page is now the second last page */
   if (assistant->current_page && link &&
       link->data == assistant->current_page)
     update_navigation_buttons (assistant);
+}
+
+void
+gis_assistant_remove_page (GisAssistant *assistant,
+                           GisPage      *page)
+{
+  assistant->pages = g_list_remove (assistant->pages, page);
+  if (page == assistant->current_page)
+    assistant->current_page = NULL;
+
+  gtk_stack_remove (GTK_STACK (assistant->stack), GTK_WIDGET (page));
 }
 
 GisPage *

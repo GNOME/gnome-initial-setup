@@ -24,6 +24,8 @@
 
 #include "gnome-initial-setup.h"
 
+#include <adwaita.h>
+
 G_BEGIN_DECLS
 
 #define GIS_TYPE_PAGE               (gis_page_get_type ())
@@ -44,14 +46,14 @@ typedef void (* GisPageApplyCallback) (GisPage *page,
 
 struct _GisPage
 {
-  GtkBin parent;
+  AdwBin parent;
 
   GisDriver *driver;
 };
 
 struct _GisPageClass
 {
-  GtkBinClass parent_class;
+  AdwBinClass parent_class;
   char *page_id;
 
   void         (*locale_changed) (GisPage *page);

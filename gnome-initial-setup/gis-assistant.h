@@ -31,6 +31,8 @@ G_DECLARE_FINAL_TYPE (GisAssistant, gis_assistant, GIS, ASSISTANT, GtkBox)
 
 void      gis_assistant_add_page          (GisAssistant *assistant,
                                            GisPage      *page);
+void      gis_assistant_remove_page       (GisAssistant *assistant,
+                                           GisPage      *page);
 
 void      gis_assistant_next_page         (GisAssistant *assistant);
 void      gis_assistant_previous_page     (GisAssistant *assistant);

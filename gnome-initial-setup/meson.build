@@ -27,6 +27,13 @@ sources += [
     'gis-keyring.h'
 ]
 
+libadwaita_dep = dependency(
+  'libadwaita-1',
+  version: '>= 1.2.alpha',
+  fallback: ['libadwaita', 'libadwaita_dep'],
+  default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
+)
+
 geocode_glib_2_dep = dependency(
   'geocode-glib-2.0',
   fallback: ['geocode-glib', 'geocode_glib_dep'],
@@ -49,13 +56,12 @@ dependencies = [
     dependency ('fontconfig'),
     #dependency ('goa-1.0'),
     #dependency ('goa-backend-1.0'),
-    dependency ('gtk+-3.0', version: '>= 3.11.3'),
+    dependency ('gtk4', version: '>= 4.6'),
     dependency ('glib-2.0', version: '>= 2.63.1'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
     #dependency ('gweather4'),
     #dependency ('libgeoclue-2.0', version: '>= 2.3.1'),
-    dependency ('libhandy-1', version: '>= 1.5.90'),
     cc.find_library('m', required: false),
     dependency ('pango', version: '>= 1.32.5'),
     #dependency ('json-glib-1.0'),
@@ -63,10 +69,11 @@ dependencies = [
     dependency ('libsecret-1', version: '>= 0.18.8'),
     #dependency ('pwquality'),
     #dependency ('rest-1.0'),
-    dependency ('webkit2gtk-4.1'),
+    dependency ('webkit2gtk-5.0'),
     #ibus_dep,
     #libmalcontent_dep,
     #libmalcontent_ui_dep,
+    libadwaita_dep,
 ]
 
 executable(
