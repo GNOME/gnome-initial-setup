@@ -44,7 +44,6 @@ typedef enum {
 
 struct _GisNetworkPagePrivate {
   GtkWidget *network_list;
-  GtkWidget *scrolled_window;
   GtkWidget *no_network_label;
   GtkWidget *no_network_spinner;
   GtkWidget *turn_on_label;
@@ -158,8 +157,8 @@ ap_sort (GtkListBoxRow *a,
   GtkWidget *wa, *wb;
   guint sa, sb;
 
-  wa = gtk_bin_get_child (GTK_BIN (a));
-  wb = gtk_bin_get_child (GTK_BIN (b));
+  wa = gtk_list_box_row_get_child (a);
+  wb = gtk_list_box_row_get_child (b);
 
   sa = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (wa), "strength"));
   sb = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (wb), "strength"));
@@ -167,21 +166,6 @@ ap_sort (GtkListBoxRow *a,
   if (sb > sa) return 1;
 
   return 0;
-}
-
-static void
-update_header_func (GtkListBoxRow *child,
-                    GtkListBoxRow *before,
-                    gpointer       user_data)
-{
-  GtkWidget *header;
-
-  if (before == NULL)
-    return;
-
-  header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-  gtk_list_box_row_set_header (child, header);
-  gtk_widget_show (header);
 }
 
 static void
@@ -245,20 +229,20 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   widget = gtk_label_new (ssid_text);
   gtk_widget_set_margin_top (widget, 12);
   gtk_widget_set_margin_bottom (widget, 12);
-  gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
+  gtk_box_append (GTK_BOX (row), widget);
 
   if (activated) {
-    state_widget = gtk_image_new_from_icon_name ("object-select-symbolic", GTK_ICON_SIZE_MENU);
+    state_widget = gtk_image_new_from_icon_name ("object-select-symbolic");
   } else if (activating) {
     state_widget = gtk_spinner_new ();
-    gtk_widget_show (state_widget);
     gtk_spinner_start (GTK_SPINNER (state_widget));
   }
 
   if (state_widget) {
-    gtk_widget_set_halign (state_widget, GTK_ALIGN_CENTER);
+    gtk_widget_set_halign (state_widget, GTK_ALIGN_START);
     gtk_widget_set_valign (state_widget, GTK_ALIGN_CENTER);
-    gtk_box_pack_start (GTK_BOX (row), state_widget, FALSE, FALSE, 0);
+    gtk_widget_set_hexpand (state_widget, TRUE);
+    gtk_box_append (GTK_BOX (row), state_widget);
   }
 
   grid = gtk_grid_new ();
@@ -266,11 +250,11 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   gtk_grid_set_column_homogeneous (GTK_GRID (grid), TRUE);
   gtk_widget_set_valign (grid, GTK_ALIGN_CENTER);
   gtk_size_group_add_widget (priv->icons, grid);
-  gtk_box_pack_end (GTK_BOX (row), grid, FALSE, FALSE, 0);
+  gtk_box_append (GTK_BOX (row), grid);
 
   if (security != NM_AP_SEC_UNKNOWN &&
       security != NM_AP_SEC_NONE) {
-    widget = gtk_image_new_from_icon_name ("network-wireless-encrypted-symbolic", GTK_ICON_SIZE_MENU);
+    widget = gtk_image_new_from_icon_name ("network-wireless-encrypted-symbolic");
     gtk_grid_attach (GTK_GRID (grid), widget, 0, 0, 1, 1);
   }
 
@@ -284,11 +268,9 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
     icon_name = "network-wireless-signal-good-symbolic";
   else
     icon_name = "network-wireless-signal-excellent-symbolic";
-  widget = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
+  widget = gtk_image_new_from_icon_name (icon_name);
   gtk_widget_set_halign (widget, GTK_ALIGN_END);
   gtk_grid_attach (GTK_GRID (grid), widget, 1, 0, 1, 1);
-
-  gtk_widget_show_all (row);
 
   /* if this connection is the active one or is being activated, then make sure
    * it's sorted before all others */
@@ -299,10 +281,7 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
 
-  widget = gtk_list_box_row_new ();
-  gtk_container_add (GTK_CONTAINER (widget), row);
-  gtk_widget_show (widget);
-  gtk_container_add (GTK_CONTAINER (priv->network_list), widget);
+  gtk_list_box_append (GTK_LIST_BOX (priv->network_list), row);
 }
 
 static void
@@ -318,13 +297,12 @@ add_access_point_other (GisNetworkPage *page)
   widget = gtk_label_new (C_("Wireless access point", "Other…"));
   gtk_widget_set_margin_top (widget, 12);
   gtk_widget_set_margin_bottom (widget, 12);
-  gtk_box_pack_start (GTK_BOX (row), widget, FALSE, FALSE, 0);
-  gtk_widget_show_all (row);
+  gtk_box_append (GTK_BOX (row), widget);
 
   g_object_set_data (G_OBJECT (row), "object-path", "ap-other...");
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (0));
 
-  gtk_container_add (GTK_CONTAINER (priv->network_list), row);
+  gtk_list_box_append (GTK_LIST_BOX (priv->network_list), row);
 }
 
 static gboolean refresh_wireless_list (GisNetworkPage *page);
@@ -372,8 +350,8 @@ refresh_wireless_list (GisNetworkPage *page)
   NMAccessPoint *ap;
   const GPtrArray *aps;
   GPtrArray *unique_aps;
+  GtkWidget *child;
   guint i;
-  GList *children, *l;
   gboolean enabled;
 
   g_debug ("Refreshing Wi-Fi networks list");
@@ -386,10 +364,8 @@ refresh_wireless_list (GisNetworkPage *page)
 
   active_ap = nm_device_wifi_get_active_access_point (NM_DEVICE_WIFI (priv->nm_device));
 
-  children = gtk_container_get_children (GTK_CONTAINER (priv->network_list));
-  for (l = children; l; l = l->next)
-    gtk_container_remove (GTK_CONTAINER (priv->network_list), l->data);
-  g_list_free (children);
+  while ((child = gtk_widget_get_first_child (priv->network_list)) != NULL)
+    gtk_list_box_remove (GTK_LIST_BOX (priv->network_list), child);
 
   aps = nm_device_wifi_get_access_points (NM_DEVICE_WIFI (priv->nm_device));
   enabled = nm_client_wireless_get_enabled (priv->nm_client);
@@ -414,7 +390,7 @@ refresh_wireless_list (GisNetworkPage *page)
       gtk_widget_hide (priv->turn_on_switch);
     }
 
-    gtk_widget_hide (priv->scrolled_window);
+    gtk_widget_hide (priv->network_list);
     goto out;
 
   } else {
@@ -422,7 +398,7 @@ refresh_wireless_list (GisNetworkPage *page)
     gtk_widget_hide (priv->no_network_label);
     gtk_widget_hide (priv->turn_on_label);
     gtk_widget_hide (priv->turn_on_switch);
-    gtk_widget_show (priv->scrolled_window);
+    gtk_widget_show (priv->network_list);
   }
 
   unique_aps = get_strongest_unique_aps (aps);
@@ -501,8 +477,9 @@ static void
 connect_to_hidden_network (GisNetworkPage *page)
 {
   GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
-  cc_network_panel_connect_to_hidden_network (gtk_widget_get_toplevel (GTK_WIDGET (page)),
-                                              priv->nm_client);
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (page));
+
+  cc_network_panel_connect_to_hidden_network (GTK_WIDGET (root), priv->nm_client);
 }
 
 static void
@@ -525,7 +502,7 @@ row_activated (GtkListBox *box,
   if (priv->refreshing)
     return;
 
-  child = gtk_bin_get_child (GTK_BIN (row));
+  child = gtk_list_box_row_get_child (row);
   object_path = g_object_get_data (G_OBJECT (child), "object-path");
   ssid_target = g_object_get_data (G_OBJECT (child), "ssid");
 
@@ -765,7 +742,6 @@ gis_network_page_constructed (GObject *object)
   priv->icons = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
   gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->network_list), GTK_SELECTION_NONE);
-  gtk_list_box_set_header_func (GTK_LIST_BOX (priv->network_list), update_header_func, NULL, NULL);
   gtk_list_box_set_sort_func (GTK_LIST_BOX (priv->network_list), ap_sort, NULL, NULL);
   g_signal_connect (priv->network_list, "row-activated",
                     G_CALLBACK (row_activated), page);
@@ -822,7 +798,6 @@ gis_network_page_class_init (GisNetworkPageClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-network-page.ui");
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, network_list);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, scrolled_window);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, no_network_label);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, no_network_spinner);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisNetworkPage, turn_on_label);

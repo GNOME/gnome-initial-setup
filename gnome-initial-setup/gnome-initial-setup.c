@@ -32,7 +32,7 @@
 #include "pages/welcome/gis-welcome-page.h"
 #include "pages/language/gis-language-page.h"
 #include "pages/keyboard/gis-keyboard-page.h"
-//#include "pages/network/gis-network-page.h"
+#include "pages/network/gis-network-page.h"
 //#include "pages/timezone/gis-timezone-page.h"
 //#include "pages/privacy/gis-privacy-page.h"
 //#include "pages/software/gis-software-page.h"
@@ -65,7 +65,7 @@ static PageData page_table[] = {
   PAGE (welcome, FALSE),
   PAGE (language, FALSE),
   PAGE (keyboard, FALSE),
-  //PAGE (network,  FALSE),
+  PAGE (network,  FALSE),
   //PAGE (privacy,  FALSE),
   //PAGE (timezone, TRUE),
   //PAGE (software, TRUE),
@@ -93,6 +93,8 @@ should_skip_page (const gchar  *page_id,
    */
   if (strcmp (page_id, "welcome") == 0)
     return !should_skip_page ("language", skip_pages);
+
+  return FALSE;
 
   /* check through our skip pages list for pages we don't want */
   if (skip_pages) {

@@ -46,8 +46,8 @@ geocode_glib_2_dep = dependency(
 )
 
 dependencies = [
-    #dependency ('libnm', version: '>= 1.2'),
-    #dependency ('libnma', version: '>= 1.0'),
+    dependency ('libnm', version: '>= 1.2'),
+    dependency ('libnma-gtk4', version: '>= 1.0'),
     dependency ('polkit-gobject-1', version: '>= 0.103'),
     dependency ('accountsservice'),
     #geocode_glib_2_dep,
