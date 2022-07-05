@@ -9,7 +9,7 @@ pages = [
    #'password',
    #'software',
    #'summary',
-   #'welcome',
+   'welcome',
 ]
 
 #if libmalcontent_dep.found() and libmalcontent_ui_dep.found()

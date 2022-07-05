@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
-//#include "pages/welcome/gis-welcome-page.h"
+#include "pages/welcome/gis-welcome-page.h"
 //#include "pages/language/gis-language-page.h"
 //#include "pages/keyboard/gis-keyboard-page.h"
 //#include "pages/network/gis-network-page.h"
@@ -62,7 +62,7 @@ typedef struct {
 #define PAGE(name, new_user_only) { #name, gis_prepare_ ## name ## _page, new_user_only }
 
 static PageData page_table[] = {
-  //PAGE (welcome, FALSE),
+  PAGE (welcome, FALSE),
   //PAGE (language, FALSE),
   //PAGE (keyboard, FALSE),
   //PAGE (network,  FALSE),
