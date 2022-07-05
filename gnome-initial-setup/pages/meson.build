@@ -1,7 +1,7 @@
 pages = [
    #'account',
    'language',
-   #'keyboard',
+   'keyboard',
    #'network',
    #'timezone',
    #'privacy',

@@ -2,31 +2,34 @@
 <interface>
   <template class="GisKeyboardPage" parent="GisPage">
     <child>
-      <object class="GtkBox" id="page">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-	<property name="halign">center</property>
-        <property name="valign">fill</property>
-        <property name="orientation">vertical</property>
+      <object class="AdwPreferencesPage">
         <child>
-          <object class="GisPageHeader" id="header">
-            <property name="visible">True</property>
-            <property name="margin_top">24</property>
-            <property name="title" translatable="yes">Typing</property>
-            <property name="subtitle" translatable="yes">Select your keyboard layout or an input method.</property>
-            <property name="icon_name">input-keyboard-symbolic</property>
-            <property name="show_icon" bind-source="GisKeyboardPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+          <object class="AdwPreferencesGroup">
+
+            <child>
+              <object class="GtkBox" id="page">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GisPageHeader" id="header">
+                    <property name="margin_top">24</property>
+                    <property name="title" translatable="yes">Typing</property>
+                    <property name="subtitle" translatable="yes">Select your keyboard layout or an input method.</property>
+                    <property name="icon_name">input-keyboard-symbolic</property>
+                    <property name="show_icon" bind-source="GisKeyboardPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="CcInputChooser" id="input_chooser">
+                    <property name="margin_top">18</property>
+                    <property name="margin_bottom">18</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
           </object>
         </child>
-        <child>
-          <object class="CcInputChooser" id="input_chooser">
-            <property name="margin_top">18</property>
-            <property name="margin_bottom">18</property>
-            <property name="visible">True</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-          </object>
-        </child>
+
       </object>
     </child>
   </template>
