@@ -82,7 +82,6 @@ build.container.fedora@x86_64:
     # answer to sharing that code (#68), make those warnings non-fatal.
     - meson setup
         -Dsystemd=${EXPLICIT_FEATURES}
-        -Dsoup2=true
         --auto-features ${AUTO_FEATURES}
         ${OPTIONS}
         -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
