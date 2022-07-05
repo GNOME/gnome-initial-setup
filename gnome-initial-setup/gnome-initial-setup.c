@@ -33,18 +33,18 @@
 #include <cheese-gtk.h>
 #endif
 
-#include "pages/welcome/gis-welcome-page.h"
-#include "pages/language/gis-language-page.h"
-#include "pages/keyboard/gis-keyboard-page.h"
-#include "pages/network/gis-network-page.h"
-#include "pages/timezone/gis-timezone-page.h"
-#include "pages/privacy/gis-privacy-page.h"
-#include "pages/software/gis-software-page.h"
-#include "pages/goa/gis-goa-page.h"
-#include "pages/account/gis-account-pages.h"
-#include "pages/parental-controls/gis-parental-controls-page.h"
-#include "pages/password/gis-password-page.h"
-#include "pages/summary/gis-summary-page.h"
+//#include "pages/welcome/gis-welcome-page.h"
+//#include "pages/language/gis-language-page.h"
+//#include "pages/keyboard/gis-keyboard-page.h"
+//#include "pages/network/gis-network-page.h"
+//#include "pages/timezone/gis-timezone-page.h"
+//#include "pages/privacy/gis-privacy-page.h"
+//#include "pages/software/gis-software-page.h"
+//#include "pages/goa/gis-goa-page.h"
+//#include "pages/account/gis-account-pages.h"
+//#include "pages/parental-controls/gis-parental-controls-page.h"
+//#include "pages/password/gis-password-page.h"
+//#include "pages/summary/gis-summary-page.h"
 
 #define VENDOR_PAGES_GROUP "pages"
 #define VENDOR_SKIP_KEY "skip"
@@ -66,21 +66,21 @@ typedef struct {
 #define PAGE(name, new_user_only) { #name, gis_prepare_ ## name ## _page, new_user_only }
 
 static PageData page_table[] = {
-  PAGE (welcome, FALSE),
-  PAGE (language, FALSE),
-  PAGE (keyboard, FALSE),
-  PAGE (network,  FALSE),
-  PAGE (privacy,  FALSE),
-  PAGE (timezone, TRUE),
-  PAGE (software, TRUE),
-  PAGE (goa,      FALSE),
-  PAGE (account,  TRUE),
-  PAGE (password, TRUE),
+  //PAGE (welcome, FALSE),
+  //PAGE (language, FALSE),
+  //PAGE (keyboard, FALSE),
+  //PAGE (network,  FALSE),
+  //PAGE (privacy,  FALSE),
+  //PAGE (timezone, TRUE),
+  //PAGE (software, TRUE),
+  //PAGE (goa,      FALSE),
+  //PAGE (account,  TRUE),
+  //PAGE (password, TRUE),
 #ifdef HAVE_PARENTAL_CONTROLS
-  PAGE (parental_controls, TRUE),
-  PAGE (parent_password, TRUE),
+  //PAGE (parental_controls, TRUE),
+  //PAGE (parent_password, TRUE),
 #endif
-  PAGE (summary,  FALSE),
+  //PAGE (summary,  FALSE),
   { NULL },
 };
 
