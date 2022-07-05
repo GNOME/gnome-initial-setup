@@ -188,6 +188,8 @@ fill_stack (GisWelcomeWidget *widget)
 static void
 gis_welcome_widget_constructed (GObject *object)
 {
+  G_OBJECT_CLASS (gis_welcome_widget_parent_class)->constructed (object);
+
   fill_stack (GIS_WELCOME_WIDGET (object));
 }
 
