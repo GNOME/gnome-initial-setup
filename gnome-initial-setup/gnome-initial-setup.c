@@ -357,7 +357,6 @@ main (int argc, char *argv[])
 void
 gis_ensure_stamp_files (GisDriver *driver)
 {
-  g_autofree gchar *welcome_file = NULL;
   g_autofree gchar *done_file = NULL;
   g_autoptr(GError) error = NULL;
 
