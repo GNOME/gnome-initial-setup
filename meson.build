@@ -45,16 +45,6 @@ if vendor_conf_file != ''
     conf.set_quoted('VENDOR_CONF_FILE', vendor_conf_file)
 endif
 
-# Needed for the 'account' page
-cheese_dep = dependency ('cheese',
-                         version: '>= 3.28',
-                         required: get_option('cheese'))
-cheese_gtk_dep = dependency ('cheese-gtk',
-                         version: '>= 3.3.5',
-                         required: get_option('cheese'))
-have_cheese = cheese_dep.found() and cheese_gtk_dep.found()
-conf.set('HAVE_CHEESE', have_cheese)
-
 # Needed for the 'keyboard' page
 ibus_dep = dependency ('ibus-1.0',
                        version: '>= 1.4.99',
@@ -84,7 +74,6 @@ subdir('build-aux')
 summary(
   {
     'systemd support': enable_systemd,
-    'Cheese': have_cheese,
     'IBus': have_ibus,
     'Parental Controls': have_parental_controls,
     'Vendor Configuration File':

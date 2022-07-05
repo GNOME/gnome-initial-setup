@@ -64,8 +64,6 @@ dependencies = [
     #dependency ('pwquality'),
     #dependency ('rest-1.0'),
     dependency ('webkit2gtk-4.1'),
-    cheese_dep,
-    cheese_gtk_dep,
     #ibus_dep,
     #libmalcontent_dep,
     #libmalcontent_ui_dep,

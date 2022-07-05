@@ -29,10 +29,6 @@
 #include <glib/gi18n.h>
 #include <handy.h>
 
-#ifdef HAVE_CHEESE
-#include <cheese-gtk.h>
-#endif
-
 //#include "pages/welcome/gis-welcome-page.h"
 //#include "pages/language/gis-language-page.h"
 //#include "pages/keyboard/gis-keyboard-page.h"
@@ -292,10 +288,6 @@ main (int argc, char *argv[])
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
-
-#ifdef HAVE_CHEESE
-  cheese_gtk_init (NULL, NULL);
-#endif
 
   gtk_init (&argc, &argv);
   hdy_init ();
