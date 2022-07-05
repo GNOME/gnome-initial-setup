@@ -64,7 +64,11 @@ update_welcome_title (GisWelcomePage *page)
   if (name != NULL)
     {
       g_autofree char *version = g_get_os_info (G_OS_INFO_KEY_VERSION_ID);
-      entity = g_strdup_printf ("%s %s", name, version);
+
+      if (version)
+        entity = g_strdup_printf ("%s %s", name, version);
+      else
+        entity = g_strdup (name);
     }
   else
     {
