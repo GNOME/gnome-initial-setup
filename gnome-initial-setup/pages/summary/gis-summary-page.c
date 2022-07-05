@@ -39,8 +39,7 @@
 
 struct _GisSummaryPagePrivate {
   GtkWidget *start_button;
-  GtkWidget *start_button_label;
-  GtkWidget *tagline;
+  AdwStatusPage *status_page;
 
   ActUser *user_account;
   const gchar *user_password;
@@ -231,14 +230,14 @@ update_distro_name (GisSummaryPage *page)
    * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
    * detect any distribution. */
   text = g_strdup_printf (_("_Start Using %s"), name);
-  gtk_label_set_label (GTK_LABEL (priv->start_button_label), text);
+  gtk_button_set_label (GTK_BUTTON (priv->start_button), text);
   g_free (text);
 
   /* Translators: the parameter here is the name of a distribution,
    * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
    * detect any distribution. */
   text = g_strdup_printf (_("%s is ready to be used. We hope that you love it!"), name);
-  gtk_label_set_label (GTK_LABEL (priv->tagline), text);
+  adw_status_page_set_description (priv->status_page, text);
   g_free (text);
 }
 
@@ -274,8 +273,7 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-summary-page.ui");
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, start_button);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, start_button_label);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, tagline);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisSummaryPage, status_page);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_summary_page_locale_changed;

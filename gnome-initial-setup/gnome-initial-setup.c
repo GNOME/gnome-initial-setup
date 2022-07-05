@@ -40,7 +40,7 @@
 //#include "pages/account/gis-account-pages.h"
 //#include "pages/parental-controls/gis-parental-controls-page.h"
 //#include "pages/password/gis-password-page.h"
-//#include "pages/summary/gis-summary-page.h"
+#include "pages/summary/gis-summary-page.h"
 
 #define VENDOR_PAGES_GROUP "pages"
 #define VENDOR_SKIP_KEY "skip"
@@ -76,7 +76,7 @@ static PageData page_table[] = {
   //PAGE (parental_controls, TRUE),
   //PAGE (parent_password, TRUE),
 #endif
-  //PAGE (summary,  FALSE),
+  PAGE (summary,  FALSE),
   { NULL },
 };
 

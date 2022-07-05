@@ -8,7 +8,7 @@ pages = [
    #'goa',
    #'password',
    #'software',
-   #'summary',
+   'summary',
    'welcome',
 ]
 
