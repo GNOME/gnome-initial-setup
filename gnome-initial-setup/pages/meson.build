@@ -1,6 +1,6 @@
 pages = [
    #'account',
-   #'language',
+   'language',
    #'keyboard',
    #'network',
    #'timezone',

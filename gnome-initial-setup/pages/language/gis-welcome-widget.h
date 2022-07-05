@@ -22,7 +22,7 @@
 #ifndef __GIS_WELCOME_WIDGET_H__
 #define __GIS_WELCOME_WIDGET_H__
 
-#include <gtk/gtk.h>
+#include <adwaita.h>
 
 G_BEGIN_DECLS
 
@@ -38,12 +38,12 @@ typedef struct _GisWelcomeWidgetClass   GisWelcomeWidgetClass;
 
 struct _GisWelcomeWidget
 {
-  GtkBin parent;
+  AdwBin parent;
 };
 
 struct _GisWelcomeWidgetClass
 {
-  GtkBinClass parent_class;
+  AdwBinClass parent_class;
 };
 
 GType gis_welcome_widget_get_type (void);
