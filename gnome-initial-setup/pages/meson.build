@@ -4,7 +4,7 @@ pages = [
    'keyboard',
    'network',
    #'timezone',
-   #'privacy',
+   'privacy',
    #'goa',
    #'password',
    #'software',

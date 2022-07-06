@@ -34,7 +34,7 @@
 #include "pages/keyboard/gis-keyboard-page.h"
 #include "pages/network/gis-network-page.h"
 //#include "pages/timezone/gis-timezone-page.h"
-//#include "pages/privacy/gis-privacy-page.h"
+#include "pages/privacy/gis-privacy-page.h"
 //#include "pages/software/gis-software-page.h"
 //#include "pages/goa/gis-goa-page.h"
 //#include "pages/account/gis-account-pages.h"
@@ -66,7 +66,7 @@ static PageData page_table[] = {
   PAGE (language, FALSE),
   PAGE (keyboard, FALSE),
   PAGE (network,  FALSE),
-  //PAGE (privacy,  FALSE),
+  PAGE (privacy,  FALSE),
   //PAGE (timezone, TRUE),
   //PAGE (software, TRUE),
   //PAGE (goa,      FALSE),
