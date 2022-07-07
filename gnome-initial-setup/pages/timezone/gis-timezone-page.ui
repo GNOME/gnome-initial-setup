@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Tue Oct 22 19:34:41 2013 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
   <template class="GisTimezonePage" parent="GisPage">
     <child>
       <object class="GtkBox" id="box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="halign">center</property>
         <property name="valign">fill</property>
         <child>
           <object class="GisPageHeader" id="header">
-            <property name="visible">True</property>
             <property name="margin_top">24</property>
             <property name="title" translatable="yes">Time Zone</property>
             <property name="subtitle" translatable="yes">The time zone will be set automatically if your location can be found. You can also search for a city to set it yourself.</property>
@@ -22,45 +17,35 @@
         </child>
         <child>
           <object class="GtkBox" id="page_box">
-            <property name="visible">True</property>
             <property name="margin_top">18</property>
             <property name="valign">center</property>
             <property name="orientation">vertical</property>
             <property name="spacing">14</property>
             <child>
               <object class="GisLocationEntry" id="search_entry">
-                <property name="visible">True</property>
                 <property name="halign">center</property>
                 <property name="max-width-chars">55</property>
               </object>
             </child>
             <child>
               <object class="GtkFrame" id="map_frame">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="margin_bottom">18</property>
                 <property name="hexpand">True</property>
                 <property name="label_xalign">0</property>
                 <child>
                   <object class="GtkOverlay" id="map_overlay">
-                    <property name="visible">True</property>
                     <child>
                       <object class="CcTimezoneMap" id="map">
-                        <property name="visible">True</property>
                         <property name="hexpand">True</property>
                       </object>
                     </child>
                     <child type="overlay">
                       <object class="GisBubbleWidget" id="search_overlay">
-                        <property name="visible">True</property>
                         <property name="label" translatable="yes">Please search for a nearby city</property>
                         <property name="icon-name">edit-find-symbolic</property>
                         <property name="halign">center</property>
                         <property name="valign">center</property>
                       </object>
-                      <packing>
-                        <property name="pass-through">True</property>
-                      </packing>
                     </child>
                   </object>
                 </child>

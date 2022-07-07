@@ -346,7 +346,7 @@ map_location_changed (CcTimezoneMap   *map,
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
   if (!priv->in_search)
-    gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
+    gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
 
   update_timezone (page, location);
   queue_set_timezone (page, location->zone);
@@ -398,15 +398,18 @@ stop_geolocation (GisTimezonePage *page)
 }
 
 static void
-page_added (GisTimezonePage *page)
+gis_timezone_page_root (GtkWidget *widget)
 {
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (widget);
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
-   if (priv->geoclue_cancellable == NULL)
-     {
-       priv->geoclue_cancellable = g_cancellable_new ();
-       get_location_from_geoclue_async (page);
-     }
+  GTK_WIDGET_CLASS (gis_timezone_page_parent_class)->root (widget);
+
+ if (priv->geoclue_cancellable == NULL)
+   {
+     priv->geoclue_cancellable = g_cancellable_new ();
+     get_location_from_geoclue_async (page);
+   }
 }
 
 static void
@@ -451,8 +454,6 @@ gis_timezone_page_constructed (GObject *object)
                     G_CALLBACK (entry_mapped), page);
   g_signal_connect (priv->map, "location-changed",
                     G_CALLBACK (map_location_changed), page);
-  g_signal_connect (GTK_WIDGET (page), "parent-set",
-                    G_CALLBACK (page_added), NULL);
 
   gtk_widget_show (GTK_WIDGET (page));
 }
@@ -500,18 +501,20 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-timezone-page.ui");
+  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-timezone-page.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, map);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisTimezonePage, search_overlay);
+  gtk_widget_class_bind_template_child_private (widget_class, GisTimezonePage, map);
+  gtk_widget_class_bind_template_child_private (widget_class, GisTimezonePage, search_entry);
+  gtk_widget_class_bind_template_child_private (widget_class, GisTimezonePage, search_overlay);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
   page_class->apply = gis_timezone_page_apply;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
+  widget_class->root = gis_timezone_page_root;
 }
 
 static void

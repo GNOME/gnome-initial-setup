@@ -181,14 +181,46 @@ tz_location_get_position (TzLocation *loc, double *longitude, double *latitude)
 	*latitude = loc->latitude;
 }
 
+/* For timezone map display purposes, we try to highlight regions of the
+ * world that keep the same time.  There is no reasonable API to discover
+ * this; at the moment we just group timezones by their non-daylight-savings
+ * UTC offset and hope that's good enough.  However, in some cases that
+ * produces confusing results.  For example, Irish Standard Time is legally
+ * defined as the country's summer time, with a negative DST offset in
+ * winter; but this results in the same observed clock times as countries
+ * that observe Western European (Summer) Time, not those that observe
+ * Central European (Summer) Time, so we should group Ireland with the
+ * former, matching the grouping implied by data/timezone_*.png.
+ *
+ * This is something of a hack, and there remain other problems with
+ * timezone grouping: for example, grouping timezones north and south of the
+ * equator together where DST is observed at different times of the year is
+ * dubious.
+ */
+struct {
+	const char *zone;
+	gint offset;
+} base_offset_overrides[] = {
+	{ "Europe/Dublin",  0 },
+};
+
 glong
-tz_location_get_utc_offset (TzLocation *loc)
+tz_location_get_base_utc_offset (TzLocation *loc)
 {
 	g_autoptr(TzInfo) tz_info = NULL;
 	glong offset;
+	guint i;
 
 	tz_info = tz_info_from_location (loc);
-	offset = tz_info->utc_offset;
+	offset = tz_info->utc_offset + (tz_info->daylight ? -3600 : 0);
+
+	for (i = 0; i < G_N_ELEMENTS (base_offset_overrides); i++) {
+		if (g_str_equal (loc->zone, base_offset_overrides[i].zone)) {
+			offset = base_offset_overrides[i].offset;
+			break;
+		}
+	}
+
 	return offset;
 }
 
@@ -215,19 +247,10 @@ tz_info_from_location (TzLocation *loc)
 	curzone = localtime (&curtime);
 
 #ifndef __sun
-	/* Currently this solution doesnt seem to work - I get that */
-	/* America/Phoenix uses daylight savings, which is wrong    */
-	tzinfo->tzname_normal = g_strdup (curzone->tm_zone);
-	if (curzone->tm_isdst) 
-		tzinfo->tzname_daylight =
-			g_strdup (&curzone->tm_zone[curzone->tm_isdst]);
-	else
-		tzinfo->tzname_daylight = NULL;
-
+	tzinfo->tzname = g_strdup (curzone->tm_zone);
 	tzinfo->utc_offset = curzone->tm_gmtoff;
 #else
-	tzinfo->tzname_normal = NULL;
-	tzinfo->tzname_daylight = NULL;
+	tzinfo->tzname = NULL;
 	tzinfo->utc_offset = 0;
 #endif
 
@@ -247,8 +270,7 @@ tz_info_free (TzInfo *tzinfo)
 {
 	g_return_if_fail (tzinfo != NULL);
 	
-	if (tzinfo->tzname_normal) g_free (tzinfo->tzname_normal);
-	if (tzinfo->tzname_daylight) g_free (tzinfo->tzname_daylight);
+	if (tzinfo->tzname) g_free (tzinfo->tzname);
 	g_free (tzinfo);
 }
 

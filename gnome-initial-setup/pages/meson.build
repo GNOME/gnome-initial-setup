@@ -3,7 +3,7 @@ pages = [
    'language',
    'keyboard',
    'network',
-   #'timezone',
+   'timezone',
    'privacy',
    #'goa',
    #'password',

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <adwaita.h>
 #include <libgweather/gweather.h>
 
 G_BEGIN_DECLS
@@ -23,14 +23,14 @@ typedef struct _GisLocationEntryPrivate GisLocationEntryPrivate;
 #define GIS_LOCATION_ENTRY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GIS_TYPE_LOCATION_ENTRY, GisLocationEntryClass))
 
 struct _GisLocationEntry {
-    GtkSearchEntry parent;
+    AdwBin parent;
 
     /*< private >*/
     GisLocationEntryPrivate *priv;
 };
 
 struct _GisLocationEntryClass {
-    GtkSearchEntryClass parent_class;
+    AdwBinClass parent_class;
 };
 
 GType                   gis_location_entry_get_type        (void);

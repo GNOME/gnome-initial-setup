@@ -22,7 +22,7 @@
 #ifndef __GIS_BUBBLE_WIDGET_H__
 #define __GIS_BUBBLE_WIDGET_H__
 
-#include <gtk/gtk.h>
+#include <adwaita.h>
 
 G_BEGIN_DECLS
 
@@ -38,12 +38,12 @@ typedef struct _GisBubbleWidgetClass   GisBubbleWidgetClass;
 
 struct _GisBubbleWidget
 {
-    GtkBin parent;
+    AdwBin parent;
 };
 
 struct _GisBubbleWidgetClass
 {
-    GtkBinClass parent_class;
+    AdwBinClass parent_class;
 };
 
 GType gis_bubble_widget_get_type (void);
