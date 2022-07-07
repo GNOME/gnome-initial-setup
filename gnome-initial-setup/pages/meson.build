@@ -5,7 +5,7 @@ pages = [
    'network',
    'timezone',
    'privacy',
-   #'goa',
+   'goa',
    #'password',
    'software',
    'summary',
