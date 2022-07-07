@@ -77,7 +77,7 @@ struct _GisAccountPageEnterprisePrivate
 };
 typedef struct _GisAccountPageEnterprisePrivate GisAccountPageEnterprisePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageEnterprise, gis_account_page_enterprise, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageEnterprise, gis_account_page_enterprise, ADW_TYPE_BIN);
 
 enum {
   VALIDATION_CHANGED,
@@ -111,7 +111,7 @@ show_error_dialog (GisAccountPageEnterprise *page,
   if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
     return;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))),
+  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page))),
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
@@ -123,7 +123,6 @@ show_error_dialog (GisAccountPageEnterprise *page,
                                               "%s", error->message);
   }
 
-  g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), NULL);
   gtk_window_present (GTK_WINDOW (dialog));
 }
 
@@ -136,14 +135,14 @@ gis_account_page_enterprise_validate (GisAccountPageEnterprise *page)
   GtkTreeIter iter;
   GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
-  name = gtk_entry_get_text (GTK_ENTRY (priv->login));
+  name = gtk_editable_get_text (GTK_EDITABLE (priv->login));
   valid_name = is_valid_name (name);
 
   if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (priv->domain), &iter)) {
     gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->domain)),
                         &iter, 0, &name, -1);
   } else {
-    name = gtk_entry_get_text (GTK_ENTRY (priv->domain_entry));
+    name = gtk_editable_get_text (GTK_EDITABLE (priv->domain_entry));
   }
 
   valid_domain = is_valid_name (name);
@@ -170,14 +169,14 @@ on_permit_user_login (GObject *source,
      * should also lookup information about this via the realm and make
      * sure all that is functional.
      */
-    login = um_realm_calculate_login (common, gtk_entry_get_text (GTK_ENTRY (priv->login)));
+    login = um_realm_calculate_login (common, gtk_editable_get_text (GTK_EDITABLE (priv->login)));
     g_return_if_fail (login != NULL);
 
     g_debug ("Caching remote user: %s", login);
 
     priv->act_user = act_user_manager_cache_user (priv->act_client, login, NULL);
     act_user_set_account_type (priv->act_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
-    g_signal_emit (page, signals[USER_CACHED], 0, priv->act_user, gtk_entry_get_text (GTK_ENTRY (priv->password)));
+    g_signal_emit (page, signals[USER_CACHED], 0, priv->act_user, gtk_editable_get_text (GTK_EDITABLE (priv->password)));
     apply_complete (page, TRUE);
 
     g_free (login);
@@ -201,7 +200,7 @@ enterprise_permit_user_login (GisAccountPageEnterprise *page, UmRealmObject *rea
 
   common = um_realm_object_get_common (realm);
 
-  login = um_realm_calculate_login (common, gtk_entry_get_text (GTK_ENTRY (priv->login)));
+  login = um_realm_calculate_login (common, gtk_editable_get_text (GTK_EDITABLE (priv->login)));
   g_return_if_fail (login != NULL);
 
   add[0] = login;
@@ -242,8 +241,8 @@ on_set_static_hostname (GObject *source,
 
   /* Prompted for some admin credentials, try to use them to log in */
   um_realm_login (priv->realm,
-                  gtk_entry_get_text (GTK_ENTRY (priv->join_name)),
-                  gtk_entry_get_text (GTK_ENTRY (priv->join_password)),
+                  gtk_editable_get_text (GTK_EDITABLE (priv->join_name)),
+                  gtk_editable_get_text (GTK_EDITABLE (priv->join_password)),
                   priv->cancellable, on_join_login, page);
 }
 
@@ -265,7 +264,7 @@ on_join_response (GtkDialog *dialog,
     return;
   }
 
-  name = gtk_entry_get_text (GTK_ENTRY (priv->join_computer));
+  name = gtk_editable_get_text (GTK_EDITABLE (priv->join_computer));
   if (gethostname (hostname, sizeof (hostname)) == 0 &&
       !g_str_equal (name, hostname)) {
     g_debug ("Setting StaticHostname to '%s'", name);
@@ -287,12 +286,12 @@ on_join_response (GtkDialog *dialog,
                             G_MAXINT, NULL, on_set_static_hostname, page);
 
   } else {
-    name = gtk_entry_get_text (GTK_ENTRY (priv->join_name));
+    name = gtk_editable_get_text (GTK_EDITABLE (priv->join_name));
     g_debug ("Logging in as admin user: %s", name);
 
     /* Prompted for some admin credentials, try to use them to log in */
     um_realm_login (priv->realm, name,
-                    gtk_entry_get_text (GTK_ENTRY (priv->join_password)),
+                    gtk_editable_get_text (GTK_EDITABLE (priv->join_password)),
                     NULL, on_join_login, page);
   }
 }
@@ -307,7 +306,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
   gchar hostname[128];
   const gchar *name;
 
-  gtk_entry_set_text (GTK_ENTRY (priv->join_password), "");
+  gtk_editable_set_text (GTK_EDITABLE (priv->join_password), "");
   gtk_widget_grab_focus (GTK_WIDGET (priv->join_password));
 
   kerberos = um_realm_object_get_kerberos (priv->realm);
@@ -317,7 +316,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
                       um_realm_kerberos_get_domain_name (kerberos));
 
   if (gethostname (hostname, sizeof (hostname)) == 0)
-    gtk_entry_set_text (GTK_ENTRY (priv->join_computer), hostname);
+    gtk_editable_set_text (GTK_EDITABLE (priv->join_computer), hostname);
 
   clear_entry_validation_error (GTK_ENTRY (priv->join_name));
   clear_entry_validation_error (GTK_ENTRY (priv->join_password));
@@ -326,7 +325,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
     name = um_realm_kerberos_membership_get_suggested_administrator (membership);
     if (name && !g_str_equal (name, "")) {
       g_debug ("Suggesting admin user: %s", name);
-      gtk_entry_set_text (GTK_ENTRY (priv->join_name), name);
+      gtk_editable_set_text (GTK_EDITABLE (priv->join_name), name);
     } else {
       gtk_widget_grab_focus (GTK_WIDGET (priv->join_name));
     }
@@ -347,7 +346,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
 
   g_debug ("Showing admin password dialog");
   gtk_window_set_transient_for (GTK_WINDOW (priv->join_dialog),
-                                GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))));
+                                GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page))));
   gtk_window_set_modal (GTK_WINDOW (priv->join_dialog), TRUE);
   gtk_window_present (GTK_WINDOW (priv->join_dialog));
 
@@ -373,8 +372,8 @@ on_join_login (GObject *source,
   /* Logged in as admin successfully, use creds to join domain */
   if (error == NULL) {
     if (!um_realm_join_as_admin (priv->realm,
-                                 gtk_entry_get_text (GTK_ENTRY (priv->join_name)),
-                                 gtk_entry_get_text (GTK_ENTRY (priv->join_password)),
+                                 gtk_editable_get_text (GTK_EDITABLE (priv->join_name)),
+                                 gtk_editable_get_text (GTK_EDITABLE (priv->join_password)),
                                  creds, NULL, on_realm_joined, page)) {
       show_error_dialog (page, _("No supported way to authenticate with this domain"), NULL);
       g_message ("Authenticating as admin is not supported by the realm");
@@ -455,8 +454,8 @@ on_realm_login (GObject *source,
       /* Join the domain, try using the user's creds */
     } else if (creds == NULL ||
                !um_realm_join_as_user (priv->realm,
-                                       gtk_entry_get_text (GTK_ENTRY (priv->login)),
-                                       gtk_entry_get_text (GTK_ENTRY (priv->password)),
+                                       gtk_editable_get_text (GTK_EDITABLE (priv->login)),
+                                       gtk_editable_get_text (GTK_EDITABLE (priv->password)),
                                        creds, priv->cancellable,
                                        on_realm_joined,
                                        page)) {
@@ -500,8 +499,8 @@ enterprise_check_login (GisAccountPageEnterprise *page)
   g_assert (priv->realm);
 
   um_realm_login (priv->realm,
-                  gtk_entry_get_text (GTK_ENTRY (priv->login)),
-                  gtk_entry_get_text (GTK_ENTRY (priv->password)),
+                  gtk_editable_get_text (GTK_EDITABLE (priv->login)),
+                  gtk_editable_get_text (GTK_EDITABLE (priv->password)),
                   priv->cancellable,
                   on_realm_login,
                   page);
@@ -556,7 +555,7 @@ enterprise_add_user (GisAccountPageEnterprise *page)
     /* Something the user typed, we need to discover realm */
   } else {
     um_realm_manager_discover (priv->realm_manager,
-                               gtk_entry_get_text (GTK_ENTRY (priv->domain_entry)),
+                               gtk_editable_get_text (GTK_EDITABLE (priv->domain_entry)),
                                priv->cancellable,
                                on_realm_discover_input,
                                page);
@@ -736,7 +735,7 @@ on_domain_changed (GtkComboBox *widget,
 
   priv->domain_chosen = TRUE;
   validation_changed (page);
-  clear_entry_validation_error (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (widget))));
+  clear_entry_validation_error (GTK_ENTRY (adw_bin_get_child (ADW_BIN (widget))));
 }
 
 static void
@@ -822,7 +821,6 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, login);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, password);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain_entry);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, realms_model);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, header);
 
@@ -843,8 +841,12 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
 static void
 gis_account_page_enterprise_init (GisAccountPageEnterprise *page)
 {
+  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
+
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
+
+  priv->domain_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (priv->domain));
 }
 
 void

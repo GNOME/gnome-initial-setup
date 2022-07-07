@@ -1,5 +1,5 @@
 pages = [
-   #'account',
+   'account',
    'language',
    'keyboard',
    'network',

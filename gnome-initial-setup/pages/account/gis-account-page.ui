@@ -1,64 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
   <template class="GisAccountPage" parent="GisPage">
     <child>
-      <object class="GtkBox" id="page">
-        <property name="visible">True</property>
-        <property name="halign">center</property>
-        <property name="valign">fill</property>
-        <property name="orientation">vertical</property>
+      <object class="AdwPreferencesPage">
+
         <child>
-          <object class="GtkStack" id="stack">
-            <property name="visible">True</property>
-            <property name="valign">start</property>
-            <property name="vexpand">True</property>
+          <object class="AdwPreferencesGroup">
             <child>
-              <object class="GisAccountPageLocal" id="page_local">
-                <property name="visible">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GisAccountPageEnterprise" id="page_enterprise">
-                <property name="visible">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkStack" id="offline_stack">
-            <property name="visible">True</property>
-            <property name="halign">center</property>
-            <property name="valign">end</property>
-            <property name="margin_bottom">18</property>
-            <child>
-              <object class="GtkToggleButton" id="page_toggle">
-                <property name="visible">True</property>
-                <property name="use_underline">True</property>
-                <property name="label" translatable="yes">_Enterprise Login</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="offline_label">
-                <property name="visible">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Go online to set up Enterprise Login.</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
+              <object class="GtkStack" id="stack">
+                <property name="valign">start</property>
+                <property name="vexpand">True</property>
+                <child>
+                  <object class="GisAccountPageLocal" id="page_local" />
+                </child>
+                <child>
+                  <object class="GisAccountPageEnterprise" id="page_enterprise" />
+                </child>
               </object>
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="GtkStack" id="offline_stack">
+                <property name="valign">end</property>
+                <child>
+                  <object class="GtkToggleButton" id="page_toggle">
+                    <property name="use_underline">True</property>
+                    <property name="label" translatable="yes">_Enterprise Login</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="offline_label">
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Go online to set up Enterprise Login.</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
       </object>
     </child>
+
   </template>
 </interface>

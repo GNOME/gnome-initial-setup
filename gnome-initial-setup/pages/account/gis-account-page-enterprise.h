@@ -22,7 +22,7 @@
 #ifndef __GIS_ACCOUNT_PAGE_ENTERPRISE_H__
 #define __GIS_ACCOUNT_PAGE_ENTERPRISE_H__
 
-#include <gtk/gtk.h>
+#include <adwaita.h>
 
 /* For GisPageApplyCallback */
 #include "gis-page.h"
@@ -41,12 +41,12 @@ typedef struct _GisAccountPageEnterpriseClass   GisAccountPageEnterpriseClass;
 
 struct _GisAccountPageEnterprise
 {
-    GtkBin parent;
+    AdwBin parent;
 };
 
 struct _GisAccountPageEnterpriseClass
 {
-    GtkBinClass parent_class;
+    AdwBinClass parent_class;
 };
 
 GType gis_account_page_enterprise_get_type (void);

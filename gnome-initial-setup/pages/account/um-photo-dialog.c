@@ -37,7 +37,6 @@
 struct _UmPhotoDialog {
         GtkPopover parent;
 
-        GtkWidget *popup_button;
         GtkWidget *take_picture_button;
         GtkWidget *flowbox;
         GtkWidget *recent_pictures;
@@ -68,7 +67,7 @@ face_widget_activated (GtkFlowBox      *flowbox,
         const char *filename;
         GtkWidget  *image;
 
-        image = gtk_bin_get_child (GTK_BIN (child));
+        image = gtk_flow_box_child_get_child (child);
         filename = g_object_get_data (G_OBJECT (image), "filename");
 
         um->callback (NULL, filename, um->data);
@@ -243,32 +242,6 @@ setup_photo_popup (UmPhotoDialog *um)
         }
 }
 
-static void
-popup_icon_menu (GtkToggleButton *button, UmPhotoDialog *um)
-{
-        gtk_popover_popup (GTK_POPOVER (um));
-}
-
-static gboolean
-on_popup_button_button_pressed (GtkToggleButton *button,
-                                GdkEventButton *event,
-                                UmPhotoDialog  *um)
-{
-        if (event->button == 1) {
-                if (!gtk_widget_get_visible (GTK_WIDGET (um))) {
-                        popup_icon_menu (button, um);
-                        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
-                } else {
-                        gtk_popover_popdown (GTK_POPOVER (um));
-                        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), FALSE);
-                }
-
-                return TRUE;
-        }
-
-        return FALSE;
-}
-
 void
 um_photo_dialog_generate_avatar (UmPhotoDialog *um,
                                  const gchar   *name)
@@ -290,7 +263,6 @@ um_photo_dialog_generate_avatar (UmPhotoDialog *um,
 
         g_list_store_insert (um->recent_faces, 0,
                              um->generated_avatar);
-        gtk_widget_show_all (um->recent_pictures);
 
         if (!um->custom_avatar_was_chosen) {
                 um->callback (NULL, g_file_get_path (um->generated_avatar), um->data);
@@ -298,23 +270,14 @@ um_photo_dialog_generate_avatar (UmPhotoDialog *um,
 }
 
 UmPhotoDialog *
-um_photo_dialog_new (GtkWidget            *button,
-                     SelectAvatarCallback  callback,
+um_photo_dialog_new (SelectAvatarCallback  callback,
                      gpointer              data)
 {
         UmPhotoDialog *um;
 
-        um = g_object_new (UM_TYPE_PHOTO_DIALOG,
-                           "relative-to", button,
-                           NULL);
+        um = g_object_new (UM_TYPE_PHOTO_DIALOG, NULL);
 
-        /* Set up the popup */
-        um->popup_button = button;
         setup_photo_popup (um);
-        g_signal_connect (button, "toggled",
-                          G_CALLBACK (popup_icon_menu), um);
-        g_signal_connect (button, "button-press-event",
-                          G_CALLBACK (on_popup_button_button_pressed), um);
 
         um->callback = callback;
         um->data = data;
