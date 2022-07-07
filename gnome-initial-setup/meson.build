@@ -66,7 +66,7 @@ dependencies = [
     dependency ('json-glib-1.0'),
     dependency ('krb5'),
     dependency ('libsecret-1', version: '>= 0.18.8'),
-    #dependency ('pwquality'),
+    dependency ('pwquality'),
     dependency ('rest-1.0'),
     dependency ('webkit2gtk-5.0'),
     ibus_dep,
