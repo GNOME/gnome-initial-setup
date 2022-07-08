@@ -102,13 +102,21 @@ dependencies = [
     webkitgtk_dep
 ]
 
-executable(
+gnome_initial_setup_exe = executable(
     'gnome-initial-setup',
     sources,
     include_directories: config_h_dir,
     dependencies: dependencies,
     install: true,
     install_dir: get_option('libexecdir')
+)
+
+# Smoke-test to ensure the binary actually runs. This catches, for example,
+# transitively linking against two different versions of libsoup.
+test(
+    'gnome-initial-setup--help',
+    gnome_initial_setup_exe,
+    args: ['--help'],
 )
 
 executable(
