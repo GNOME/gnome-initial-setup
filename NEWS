@@ -1,3 +1,21 @@
+43.alpha.1
+----------
+
+* When built with -Dsoup2=false (the default), Initial Setup now depends on
+  geocode-glib-2.0, introduced in geocode-glib 3.26.3 as a parallel-installable,
+  soup3-flavoured version of the library. When built with -Dsoup2=true, Initial
+  Setup continues to depend on geocode-glib-1.0.
+
+* Initial Setup's build system tries to detect when its dependencies are built
+  against an incompatible libsoup, but there is one known case that is not
+  detected at build time. If Initial Setup is built with parental controls
+  enabled, the malcontent parental controls library brings with it a dependency
+  on libflatpak and libostree. Neither of these libraries can currently be built
+  against libsoup3. Either they must be built against  libcurl rather than
+  libsoup; or Initial Setup must be built with -Dsoup2=true; or Initial Setup
+  must be built with -Dparental_controls=disabled; or Initial Setup will abort
+  on startup.
+
 43.alpha
 --------
 
