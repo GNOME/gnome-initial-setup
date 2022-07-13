@@ -38,6 +38,8 @@ if enable_systemd
 
     systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
                                                    pkgconfig_define: ['prefix', prefix])
+    systemd_sysusersdir = systemd_dep.get_variable(pkgconfig: 'sysusersdir',
+                                                   pkgconfig_define: ['prefix', prefix])
 endif
 
 vendor_conf_file = get_option('vendor-conf-file')

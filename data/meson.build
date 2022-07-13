@@ -97,6 +97,8 @@ if enable_systemd
         install_dir: systemd_userunitdir / 'gnome-session@@0@.target.d'.format(
             meson.project_name()),
     )
+
+    install_data('gnome-initial-setup.conf', install_dir: systemd_sysusersdir)
 endif
 
 
