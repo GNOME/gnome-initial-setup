@@ -70,8 +70,8 @@ dependencies = [
     dependency ('rest-1.0'),
     dependency ('webkit2gtk-5.0'),
     ibus_dep,
-    #libmalcontent_dep,
-    #libmalcontent_ui_dep,
+    libmalcontent_dep,
+    libmalcontent_ui_dep,
     libadwaita_dep,
 ]
 
