@@ -91,7 +91,7 @@ struct _GisDriver {
   gchar *username;
   gchar *full_name;  /* (owned) (nullable) */
 
-  GdkPixbuf *avatar;  /* (owned) (nullable) */
+  GdkPaintable *avatar;  /* (owned) (nullable) */
 
   GisDriverMode mode;
   UmAccountMode account_mode;
@@ -299,11 +299,11 @@ gis_driver_get_full_name (GisDriver *driver)
  * Since: 3.36
  */
 void
-gis_driver_set_avatar (GisDriver *driver,
-                       GdkPixbuf *avatar)
+gis_driver_set_avatar (GisDriver    *driver,
+                       GdkPaintable *avatar)
 {
   g_return_if_fail (GIS_IS_DRIVER (driver));
-  g_return_if_fail (avatar == NULL || GDK_IS_PIXBUF (avatar));
+  g_return_if_fail (avatar == NULL || GDK_IS_PAINTABLE (avatar));
 
   if (g_set_object (&driver->avatar, avatar))
     g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_AVATAR]);
@@ -318,7 +318,7 @@ gis_driver_set_avatar (GisDriver *driver,
  * Returns: (nullable) (transfer none): avatar of the main user, or %NULL if not known
  * Since: 3.36
  */
-GdkPixbuf *
+GdkPaintable *
 gis_driver_get_avatar (GisDriver *driver)
 {
   g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
@@ -902,7 +902,7 @@ gis_driver_class_init (GisDriverClass *klass)
     g_param_spec_object ("avatar",
                          "Avatar",
                          "Avatar of the main user.",
-                         GDK_TYPE_PIXBUF,
+                         GDK_TYPE_PAINTABLE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);

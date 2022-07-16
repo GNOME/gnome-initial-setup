@@ -698,14 +698,22 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 
   if (priv->avatar_pixbuf != NULL)
     {
-      gis_driver_set_avatar (GIS_PAGE (page)->driver, priv->avatar_pixbuf);
+      g_autoptr(GdkTexture) texture = NULL;
+
+      texture = gdk_texture_new_for_pixbuf (priv->avatar_pixbuf);
+      gis_driver_set_avatar (GIS_PAGE (page)->driver, GDK_PAINTABLE (texture));
     }
   else if (priv->avatar_filename != NULL)
     {
-      g_autoptr(GdkPixbuf) pixbuf = NULL;
+      g_autoptr(GdkTexture) texture = NULL;
+      g_autoptr(GError) error = NULL;
 
-      pixbuf = gdk_pixbuf_new_from_file_at_size (priv->avatar_filename, 96, 96, NULL);
-      gis_driver_set_avatar (GIS_PAGE (page)->driver, pixbuf);
+      texture = gdk_texture_new_from_filename (priv->avatar_filename, &error);
+
+      if (!error)
+        gis_driver_set_avatar (GIS_PAGE (page)->driver, GDK_PAINTABLE (texture));
+      else
+        g_warning ("Error loading avatar: %s", error->message);
     }
 
 #ifdef HAVE_PARENTAL_CONTROLS

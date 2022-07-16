@@ -83,13 +83,13 @@ update_header (GisPasswordPage *page)
   g_autofree gchar *title = NULL;
   g_autofree gchar *subtitle = NULL;
   const gchar *icon_name;
-  GdkPixbuf *pixbuf;
+  GdkPaintable *paintable;
 
 #ifndef HAVE_PARENTAL_CONTROLS
   /* Don’t break UI compatibility if parental controls are disabled. */
   title = g_strdup (_("Set a Password"));
   subtitle = g_strdup (_("Be careful not to lose your password."));
-  pixbuf = NULL;
+  paintable = NULL;
   icon_name = "dialog-password-symbolic";
 #else
   if (!priv->parent_mode)
@@ -98,8 +98,8 @@ update_header (GisPasswordPage *page)
       title = g_strdup_printf (_("Set a Password for %s"),
                                gis_driver_get_full_name (GIS_PAGE (page)->driver));
       subtitle = g_strdup (_("Be careful not to lose your password."));
-      pixbuf = gis_driver_get_avatar (GIS_PAGE (page)->driver);
-      icon_name = (pixbuf != NULL) ? NULL : "dialog-password-symbolic";
+      paintable = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+      icon_name = (paintable != NULL) ? NULL : "dialog-password-symbolic";
     }
   else
     {
@@ -108,19 +108,19 @@ update_header (GisPasswordPage *page)
       subtitle = g_strdup_printf (_("This password will control access to the parental controls for %s."),
                                   gis_driver_get_full_name (GIS_PAGE (page)->driver));
       icon_name = "org.freedesktop.MalcontentControl-symbolic";
-      pixbuf = NULL;
+      paintable = NULL;
     }
 #endif
 
   /* Doesn’t make sense to set both. */
-  g_assert (icon_name == NULL || pixbuf == NULL);
+  g_assert (icon_name == NULL || paintable == NULL);
 
   g_object_set (G_OBJECT (priv->header),
                 "title", title,
                 "subtitle", subtitle,
                 NULL);
-  if (pixbuf != NULL)
-    g_object_set (G_OBJECT (priv->header), "pixbuf", pixbuf, NULL);
+  if (paintable != NULL)
+    g_object_set (G_OBJECT (priv->header), "paintable", paintable, NULL);
   else if (icon_name != NULL)
     g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
 }
