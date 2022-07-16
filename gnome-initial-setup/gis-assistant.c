@@ -52,7 +52,6 @@ struct _GisAssistant
   GtkWidget *back;
   GtkWidget *cancel;
 
-  GtkWidget *main_layout;
   GtkWidget *spinner;
   GtkWidget *titlebar;
   GtkWidget *title;
@@ -482,7 +481,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, back);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
 
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, title);
