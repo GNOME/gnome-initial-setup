@@ -96,21 +96,21 @@ update_header (GisParentalControlsPage *page)
 {
   g_autofree gchar *title = NULL;
   const gchar *subtitle, *icon_name;
-  GdkPixbuf *pixbuf;
+  GdkPaintable *paintable;
 
   /* Translators: The placeholder is the user’s full name. */
   title = g_strdup_printf (_("Parental Controls for %s"),
                            gis_driver_get_full_name (GIS_PAGE (page)->driver));
   subtitle = _("Set restrictions on what this user can run or install.");
-  pixbuf = gis_driver_get_avatar (GIS_PAGE (page)->driver);
-  icon_name = (pixbuf != NULL) ? NULL : "dialog-password-symbolic";
+  paintable = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+  icon_name = (paintable != NULL) ? NULL : "dialog-password-symbolic";
 
   g_object_set (G_OBJECT (page->header),
                 "title", title,
                 "subtitle", subtitle,
                 NULL);
-  if (pixbuf != NULL)
-    g_object_set (G_OBJECT (page->header), "pixbuf", pixbuf, NULL);
+  if (paintable != NULL)
+    g_object_set (G_OBJECT (page->header), "paintable", paintable, NULL);
   else if (icon_name != NULL)
     g_object_set (G_OBJECT (page->header), "icon-name", icon_name, NULL);
 }

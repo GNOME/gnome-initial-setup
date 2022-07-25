@@ -22,7 +22,7 @@
 #ifndef __GIS_ACCOUNT_PAGE_LOCAL_H__
 #define __GIS_ACCOUNT_PAGE_LOCAL_H__
 
-#include <gtk/gtk.h>
+#include <adwaita.h>
 
 G_BEGIN_DECLS
 
@@ -38,12 +38,12 @@ typedef struct _GisAccountPageLocalClass   GisAccountPageLocalClass;
 
 struct _GisAccountPageLocal
 {
-    GtkBin parent;
+    AdwBin parent;
 };
 
 struct _GisAccountPageLocalClass
 {
-    GtkBinClass parent_class;
+    AdwBinClass parent_class;
 };
 
 GType gis_account_page_local_get_type (void);

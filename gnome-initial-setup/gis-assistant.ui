@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="gtk30">
-  <!-- interface-requires gtk+ 3.10 -->
   <object class="GtkHeaderBar" id="titlebar">
-    <property name="visible">True</property>
     <child type="title">
       <object class="GtkLabel" id="title">
-        <property name="visible">True</property>
         <attributes>
           <attribute name="weight" value="bold"/>
         </attributes>
@@ -13,60 +10,44 @@
     </child>
     <child>
       <object class="GtkButton" id="cancel">
-        <property name="visible">True</property>
         <property name="use-underline">True</property>
       </object>
     </child>
     <child>
       <object class="GtkButton" id="back">
-        <property name="visible">True</property>
         <property name="use-underline">True</property>
       </object>
     </child>
     <child>
       <object class="GtkLabel" id="placeholder">
-        <property name="visible">True</property>
       </object>
     </child>
-    <child>
-      <object class="GtkSpinner" id="spinner">
-        <property name="visible">True</property>
-      </object>
-      <packing>
-        <property name="pack-type">end</property>
-      </packing>
+    <child type="end">
+      <object class="GtkSpinner" id="spinner" />
     </child>
-    <child>
+    <child type="end">
       <object class="GtkButton" id="skip">
+        <property name="visible">False</property>
         <property name="use-underline">True</property>
       </object>
-      <packing>
-        <property name="pack-type">end</property>
-      </packing>
     </child>
-    <child>
+    <child type="end">
       <object class="GtkButton" id="forward">
+        <property name="visible">False</property>
         <property name="use-underline">True</property>
-        <property name="can-default">True</property>
         <style>
           <class name="suggested-action"/>
         </style>
       </object>
-      <packing>
-        <property name="pack-type">end</property>
-      </packing>
     </child>
-    <child>
+    <child type="end">
       <object class="GtkButton" id="accept">
+        <property name="visible">False</property>
         <property name="use-underline">True</property>
-        <property name="can-default">True</property>
         <style>
           <class name="suggested-action"/>
         </style>
       </object>
-      <packing>
-        <property name="pack-type">end</property>
-      </packing>
     </child>
   </object>
 
@@ -81,21 +62,13 @@
   <template class="GisAssistant" parent="GtkBox">
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkBox" id="main_layout">
-        <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">12</property>
-        <child>
-          <object class="GtkStack" id="stack">
-            <property name="visible">True</property>
-            <property name="transition-type">slide-left-right</property>
-            <property name="vexpand">True</property>
-            <property name="hexpand">True</property>
-            <property name="hhomogeneous">False</property>
-            <property name="vhomogeneous">False</property>
-            <signal name="notify::visible-child" handler="visible_child_changed" object="GisAssistant" swapped="yes"/>
-          </object>
-        </child>
+      <object class="GtkStack" id="stack">
+        <property name="transition-type">slide-left-right</property>
+        <property name="vexpand">True</property>
+        <property name="hexpand">True</property>
+        <property name="hhomogeneous">False</property>
+        <property name="vhomogeneous">False</property>
+        <signal name="notify::visible-child" handler="visible_child_changed" object="GisAssistant" swapped="yes"/>
       </object>
     </child>
   </template>

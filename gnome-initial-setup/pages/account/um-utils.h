@@ -32,19 +32,6 @@ void     set_entry_validation_error       (GtkEntry    *entry,
 void     set_entry_validation_checkmark   (GtkEntry    *entry);
 void     clear_entry_validation_error     (GtkEntry    *entry);
 
-void     popup_menu_below_button          (GtkMenu     *menu,
-                                           gint        *x,
-                                           gint        *y,
-                                           gboolean    *push_in,
-                                           GtkWidget   *button);
-
-void     down_arrow                       (GtkStyleContext *context,
-                                           cairo_t         *cr,
-                                           gint             x,
-                                           gint             y,
-                                           gint             width,
-                                           gint             height);
-
 gboolean is_valid_name                    (const gchar     *name);
 gboolean is_valid_username                (const gchar     *name,
                                            gboolean         parental_controls_enabled,

@@ -26,12 +26,13 @@
 #include "gis-page.h"
 #include <act/act-user-manager.h>
 #include <gdm/gdm-client.h>
+#include <adwaita.h>
 
 G_BEGIN_DECLS
 
 #define GIS_TYPE_DRIVER (gis_driver_get_type ())
 
-G_DECLARE_FINAL_TYPE (GisDriver, gis_driver, GIS, DRIVER, GtkApplication)
+G_DECLARE_FINAL_TYPE (GisDriver, gis_driver, GIS, DRIVER, AdwApplication)
 
 typedef enum {
   UM_LOCAL,
@@ -86,9 +87,9 @@ void gis_driver_set_full_name (GisDriver   *driver,
                                const gchar *full_name);
 const gchar *gis_driver_get_full_name (GisDriver *driver);
 
-void gis_driver_set_avatar (GisDriver *driver,
-                            GdkPixbuf *avatar);
-GdkPixbuf *gis_driver_get_avatar (GisDriver *driver);
+void gis_driver_set_avatar (GisDriver    *driver,
+                            GdkPaintable *avatar);
+GdkPaintable *gis_driver_get_avatar (GisDriver *driver);
 
 gboolean gis_driver_get_gdm_objects (GisDriver        *driver,
                                      GdmGreeter      **greeter,

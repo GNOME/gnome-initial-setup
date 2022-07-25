@@ -2,127 +2,78 @@
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <template class="GisPrivacyPage" parent="GisPage">
-    <property name="visible">True</property>
+
     <child>
-      <object class="GtkBox" id="box">
-        <property name="visible">True</property>
-        <property name="halign">center</property>
-        <property name="valign">fill</property>
-        <property name="orientation">vertical</property>
+      <object class="AdwPreferencesPage">
+
         <child>
-          <object class="GisPageHeader" id="header">
-            <property name="visible">True</property>
-            <property name="margin_top">24</property>
-            <property name="title" translatable="yes">Privacy</property>
-            <property name="icon_name">preferences-system-privacy-symbolic</property>
-            <property name="show_icon" bind-source="GisPrivacyPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="margin-top">40</property>
-            <property name="orientation">horizontal</property>
-            <property name="homogeneous">True</property>
+          <object class="AdwPreferencesGroup">
             <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Location Services</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="location_switch">
-                <property name="halign">end</property>
-                <property name="visible">True</property>
+              <object class="GisPageHeader" id="header">
+                <property name="margin_top">24</property>
+                <property name="title" translatable="yes">Privacy</property>
+                <property name="icon_name">preferences-system-privacy-symbolic</property>
+                <property name="show_icon" bind-source="GisPrivacyPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
               </object>
             </child>
           </object>
         </child>
+
         <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="margin-top">10</property>
-            <property name="xalign">0</property>
-            <property name="max-width-chars">50</property>
-            <property name="wrap">True</property>
-            <property name="label" translatable="yes">Allows applications to determine your geographical location. An indication is shown when location services are in use.</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="mozilla_privacy_policy_label">
-            <property name="visible">True</property>
-            <property name="margin-top">10</property>
-            <property name="xalign">0</property>
-            <property name="halign">start</property>
-            <property name="use-markup">True</property>
-            <signal name="activate-link" handler="activate_link"/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="reporting_row">
-            <property name="margin-top">20</property>
-            <property name="orientation">horizontal</property>
-            <property name="homogeneous">True</property>
+          <object class="AdwPreferencesGroup">
             <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Automatic Problem Reporting</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="reporting_switch">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
+              <object class="AdwActionRow">
+                <property name="use-markup">True</property>
+                <property name="title" translatable="yes">Location Services</property>
+                <property name="subtitle" translatable="yes">Allows applications to determine your geographical location. Uses the Mozilla Location Service (&lt;a href='https://location.services.mozilla.com/privacy'&gt;privacy policy&lt;/a&gt;).</property>
+                <property name="activatable-widget">location_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="location_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
         </child>
+
         <child>
-          <object class="GtkLabel" id="reporting_label">
-            <property name="margin-top">10</property>
-            <property name="xalign">0</property>
-            <property name="max-width-chars">50</property>
-            <property name="wrap">True</property>
+          <object class="AdwPreferencesGroup" id="reporting_group">
+            <child>
+              <object class="AdwActionRow" id="reporting_row">
+                <property name="title" translatable="yes">Automatic Problem Reporting</property>
+                <property name="activatable-widget">reporting_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="reporting_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
+
         <child>
-          <object class="GtkLabel" id="distro_privacy_policy_label">
-            <property name="visible">True</property>
-            <property name="margin-top">10</property>
-            <property name="xalign">0</property>
-            <property name="halign">start</property>
-            <property name="use-markup">True</property>
-            <signal name="activate-link" handler="activate_link"/>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="GtkLabel" id="footer_label">
+                <property name="valign">end</property>
+                <property name="vexpand">True</property>
+                <property name="label" translatable="yes">Privacy controls can be changed at any time from the Settings application.</property>
+                <property name="xalign">0.5</property>
+                <property name="justify">center</property>
+                <property name="wrap">True</property>
+                <property name="margin_bottom">18</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
-        <child>
-          <object class="GtkLabel" id="footer_label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Privacy controls can be changed at any time from the Settings application.</property>
-            <property name="justify">center</property>
-            <property name="wrap">True</property>
-            <property name="margin_bottom">18</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
+
       </object>
     </child>
+
   </template>
 </interface>

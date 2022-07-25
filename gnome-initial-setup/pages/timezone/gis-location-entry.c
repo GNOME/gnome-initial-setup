@@ -22,6 +22,7 @@
  */
 
 struct _GisLocationEntryPrivate {
+    GtkWidget        *entry;
     GWeatherLocation *location;
     GWeatherLocation *top;
     gboolean          show_named_timezones;
@@ -30,7 +31,11 @@ struct _GisLocationEntryPrivate {
     GtkTreeModel     *model;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisLocationEntry, gis_location_entry, GTK_TYPE_SEARCH_ENTRY)
+static void editable_iface_init (GtkEditableInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (GisLocationEntry, gis_location_entry, GTK_TYPE_WIDGET,
+                         G_ADD_PRIVATE (GisLocationEntry)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_EDITABLE, editable_iface_init));
 
 enum {
     PROP_0,
@@ -86,6 +91,21 @@ static gboolean match_selected (GtkEntryCompletion *completion,
 static void     entry_changed (GisLocationEntry *entry);
 static void _no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry);
 
+static GtkEditable*
+gis_location_entry_get_delegate (GtkEditable *editable)
+{
+    GisLocationEntry *entry = GIS_LOCATION_ENTRY (editable);
+    GisLocationEntryPrivate *priv = gis_location_entry_get_instance_private (entry);
+
+    return GTK_EDITABLE (priv->entry);
+}
+
+static void
+editable_iface_init (GtkEditableInterface *iface)
+{
+    iface->get_delegate = gis_location_entry_get_delegate;
+}
+
 static void
 gis_location_entry_init (GisLocationEntry *entry)
 {
@@ -93,6 +113,10 @@ gis_location_entry_init (GisLocationEntry *entry)
     GisLocationEntryPrivate *priv;
 
     priv = entry->priv = gis_location_entry_get_instance_private (entry);
+
+    priv->entry = gtk_entry_new ();
+    gtk_widget_set_parent (priv->entry, GTK_WIDGET (entry));
+    gtk_editable_init_delegate (GTK_EDITABLE (entry));
 
     completion = gtk_entry_completion_new ();
 
@@ -107,7 +131,7 @@ gis_location_entry_init (GisLocationEntry *entry)
     g_signal_connect (completion, "no-matches",
                       G_CALLBACK (_no_matches), entry);
 
-    gtk_entry_set_completion (GTK_ENTRY (entry), completion);
+    gtk_entry_set_completion (GTK_ENTRY (entry->priv->entry), completion);
     g_object_unref (completion);
 
     priv->custom_text = FALSE;
@@ -145,6 +169,9 @@ dispose (GObject *object)
         g_object_unref (priv->cancellable);
         priv->cancellable = NULL;
     }
+
+    gtk_editable_finish_delegate (GTK_EDITABLE (entry));
+    g_clear_pointer (&priv->entry, gtk_widget_unparent);
 
     G_OBJECT_CLASS (gis_location_entry_parent_class)->dispose (object);
 }
@@ -186,7 +213,7 @@ constructed (GObject *object)
     fill_location_entry_model (store, entry->priv->top, NULL, NULL, NULL, NULL, entry->priv->show_named_timezones);
 
     entry->priv->model = GTK_TREE_MODEL (store);
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry));
+    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
     gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
     gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (store));
 
@@ -197,6 +224,7 @@ static void
 gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (location_entry_class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (location_entry_class);
 
     object_class->constructed = constructed;
     object_class->finalize = finalize;
@@ -226,6 +254,10 @@ gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
                              "The selected GWeatherLocation",
                              GWEATHER_TYPE_LOCATION,
                              G_PARAM_READWRITE));
+
+    gtk_editable_install_properties (object_class, LAST_PROP);
+
+    gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 }
 
 static void
@@ -233,6 +265,9 @@ set_property (GObject *object, guint prop_id,
               const GValue *value, GParamSpec *pspec)
 {
     GisLocationEntry *entry = GIS_LOCATION_ENTRY (object);
+
+    if (gtk_editable_delegate_set_property (object, prop_id, value, pspec))
+      return;
 
     switch (prop_id) {
     case PROP_TOP:
@@ -257,6 +292,9 @@ get_property (GObject *object, guint prop_id,
 {
     GisLocationEntry *entry = GIS_LOCATION_ENTRY (object);
 
+    if (gtk_editable_delegate_get_property (object, prop_id, value, pspec))
+      return;
+
     switch (prop_id) {
     case PROP_SHOW_NAMED_TIMEZONES:
         g_value_set_boolean (value, entry->priv->show_named_timezones);
@@ -276,24 +314,33 @@ entry_changed (GisLocationEntry *entry)
     GtkEntryCompletion *completion;
     const gchar *text;
 
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry));
+    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
 
     if (entry->priv->cancellable) {
         g_cancellable_cancel (entry->priv->cancellable);
         g_object_unref (entry->priv->cancellable);
         entry->priv->cancellable = NULL;
-        gtk_entry_completion_delete_action (completion, 0);
     }
 
-    gtk_entry_completion_set_match_func (gtk_entry_get_completion (GTK_ENTRY (entry)), matcher, NULL, NULL);
-    gtk_entry_completion_set_model (gtk_entry_get_completion (GTK_ENTRY (entry)), entry->priv->model);
+    gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
+    gtk_entry_completion_set_model (completion, entry->priv->model);
 
-    text = gtk_entry_get_text (GTK_ENTRY (entry));
+    text = gtk_editable_get_text (GTK_EDITABLE (entry));
 
     if (text && *text)
         entry->priv->custom_text = TRUE;
     else
         set_location_internal (entry, NULL, NULL, NULL);
+}
+
+static void
+set_entry_text (GisLocationEntry *entry,
+                const char       *text)
+{
+    GisLocationEntryPrivate *priv = entry->priv;
+
+    if (g_strcmp0 (gtk_editable_get_text (GTK_EDITABLE (priv->entry)), text) != 0)
+        gtk_editable_set_text (GTK_EDITABLE (priv->entry), text);
 }
 
 static void
@@ -316,16 +363,16 @@ set_location_internal (GisLocationEntry *entry,
                             LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME, &name,
                             LOC_GIS_LOCATION_ENTRY_COL_LOCATION, &priv->location,
                             -1);
-        gtk_entry_set_text (GTK_ENTRY (entry), name);
+        set_entry_text (entry, name);
         priv->custom_text = FALSE;
         g_free (name);
     } else if (loc) {
         priv->location = g_object_ref (loc);
-        gtk_entry_set_text (GTK_ENTRY (entry), gweather_location_get_name (loc));
+        set_entry_text (entry, gweather_location_get_name (loc));
         priv->custom_text = FALSE;
     } else {
         priv->location = NULL;
-        gtk_entry_set_text (GTK_ENTRY (entry), "");
+        set_entry_text (entry, "");
         priv->custom_text = TRUE;
     }
 
@@ -355,7 +402,7 @@ gis_location_entry_set_location (GisLocationEntry *entry,
 
     g_return_if_fail (GIS_IS_LOCATION_ENTRY (entry));
 
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry));
+    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
     model = gtk_entry_completion_get_model (completion);
 
     if (loc == NULL) {
@@ -446,7 +493,7 @@ gis_location_entry_set_city (GisLocationEntry *entry,
     g_return_val_if_fail (GIS_IS_LOCATION_ENTRY (entry), FALSE);
     g_return_val_if_fail (code != NULL, FALSE);
 
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry));
+    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
     model = gtk_entry_completion_get_model (completion);
 
     gtk_tree_model_get_iter_first (model, &iter);
@@ -805,21 +852,18 @@ _got_places (GObject      *source_object,
     g_object_unref (store);
 
  out:
-    gtk_entry_completion_delete_action (completion, 0);
     g_clear_object (&self->priv->cancellable);
 }
 
 static void
 _no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry) {
-    const gchar *key = gtk_entry_get_text(GTK_ENTRY (entry));
+    const gchar *key = gtk_editable_get_text (GTK_EDITABLE (entry->priv->entry));
     GeocodeForward *forward;
 
     if (entry->priv->cancellable) {
         g_cancellable_cancel (entry->priv->cancellable);
         g_object_unref (entry->priv->cancellable);
         entry->priv->cancellable = NULL;
-    } else {
-        gtk_entry_completion_insert_action_text (completion, 0, _("Loading…"));
     }
 
     entry->priv->cancellable = g_cancellable_new ();

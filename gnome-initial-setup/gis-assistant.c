@@ -52,7 +52,6 @@ struct _GisAssistant
   GtkWidget *back;
   GtkWidget *cancel;
 
-  GtkWidget *main_layout;
   GtkWidget *spinner;
   GtkWidget *titlebar;
   GtkWidget *title;
@@ -68,17 +67,6 @@ static void
 visible_child_changed (GisAssistant *assistant)
 {
   g_signal_emit (assistant, signals[PAGE_CHANGED], 0);
-}
-
-static void
-widget_destroyed (GtkWidget    *widget,
-                  GisAssistant *assistant)
-{
-  GisPage *page = GIS_PAGE (widget);
-
-  assistant->pages = g_list_remove (assistant->pages, page);
-  if (page == assistant->current_page)
-    assistant->current_page = NULL;
 }
 
 static void
@@ -210,8 +198,6 @@ update_navigation_buttons (GisAssistant *assistant)
       gtk_widget_hide (assistant->skip);
       gtk_widget_hide (assistant->cancel);
       gtk_widget_hide (assistant->accept);
-      /* FIXME: workaround for a GTK+ issue */
-      gtk_widget_queue_resize (assistant->titlebar);
     }
   else
     {
@@ -307,15 +293,25 @@ gis_assistant_add_page (GisAssistant *assistant,
   link = g_list_last (assistant->pages);
   link = link->prev;
 
-  g_signal_connect (page, "destroy", G_CALLBACK (widget_destroyed), assistant);
   g_signal_connect (page, "notify", G_CALLBACK (page_notify), assistant);
 
-  gtk_container_add (GTK_CONTAINER (assistant->stack), GTK_WIDGET (page));
+  gtk_stack_add_child (GTK_STACK (assistant->stack), GTK_WIDGET (page));
 
   /* Update buttons if current page is now the second last page */
   if (assistant->current_page && link &&
       link->data == assistant->current_page)
     update_navigation_buttons (assistant);
+}
+
+void
+gis_assistant_remove_page (GisAssistant *assistant,
+                           GisPage      *page)
+{
+  assistant->pages = g_list_remove (assistant->pages, page);
+  if (page == assistant->current_page)
+    assistant->current_page = NULL;
+
+  gtk_stack_remove (GTK_STACK (assistant->stack), GTK_WIDGET (page));
 }
 
 GisPage *
@@ -483,7 +479,6 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, back);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
 
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, main_layout);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, title);

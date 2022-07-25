@@ -37,11 +37,9 @@
 struct _GisPrivacyPagePrivate
 {
   GtkWidget *location_switch;
+  GtkWidget *reporting_group;
   GtkWidget *reporting_row;
   GtkWidget *reporting_switch;
-  GtkWidget *reporting_label;
-  GtkWidget *mozilla_privacy_policy_label;
-  GtkWidget *distro_privacy_policy_label;
   GSettings *location_settings;
   GSettings *privacy_settings;
   guint abrt_watch_id;
@@ -56,34 +54,31 @@ update_os_data (GisPrivacyPage *page)
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
   g_autofree char *name = g_get_os_info (G_OS_INFO_KEY_NAME);
   g_autofree char *privacy_policy = g_get_os_info (G_OS_INFO_KEY_PRIVACY_POLICY_URL);
-  char *text;
+  g_autofree char *subtitle = NULL;
 
   if (!name)
     name = g_strdup ("GNOME");
 
-  /* Translators: the parameter here is the name of a distribution,
-   * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-   * detect any distribution.
-   */
-  text = g_strdup_printf (_("Sending reports of technical problems helps us to improve %s. Reports are sent anonymously and are scrubbed of personal data."), name);
-  gtk_label_set_label (GTK_LABEL (priv->reporting_label), text);
-  g_free (text);
-
   if (privacy_policy)
+    {
+      /* Translators: the first parameter here is the name of a distribution,
+       * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
+       * detect any distribution.
+       */
+      subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
+                                    "removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
+                                  name, privacy_policy);
+    }
+  else
     {
       /* Translators: the parameter here is the name of a distribution,
        * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
        * detect any distribution.
        */
-      g_autofree char *distro_label = g_strdup_printf (_("Problem data will be collected by %s:"), name);
-      text = g_strdup_printf ("%s <a href='%s'>%s</a>", distro_label, privacy_policy, _("Privacy Policy"));
-      gtk_label_set_markup (GTK_LABEL (priv->distro_privacy_policy_label), text);
-      g_free (text);
+      subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
+                                    "removed. Data is collected by %s."), name);
     }
-  else
-    {
-      gtk_widget_hide (priv->distro_privacy_policy_label);
-    }
+  adw_action_row_set_subtitle (ADW_ACTION_ROW (priv->reporting_row), subtitle);
 }
 
 static void
@@ -95,9 +90,7 @@ abrt_appeared_cb (GDBusConnection *connection,
   GisPrivacyPage *page = user_data;
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
 
-  gtk_widget_show (priv->reporting_row);
-  gtk_widget_show (priv->reporting_label);
-  gtk_widget_show (priv->distro_privacy_policy_label);
+  gtk_widget_show (priv->reporting_group);
 }
 
 static void
@@ -108,9 +101,7 @@ abrt_vanished_cb (GDBusConnection *connection,
   GisPrivacyPage *page = user_data;
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
 
-  gtk_widget_hide (priv->reporting_row);
-  gtk_widget_hide (priv->reporting_label);
-  gtk_widget_hide (priv->distro_privacy_policy_label);
+  gtk_widget_hide (priv->reporting_group);
 }
 
 static void
@@ -118,7 +109,6 @@ gis_privacy_page_constructed (GObject *object)
 {
   GisPrivacyPage *page = GIS_PRIVACY_PAGE (object);
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
-  char *text;
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->constructed (object);
 
@@ -131,10 +121,6 @@ gis_privacy_page_constructed (GObject *object)
   gtk_switch_set_active (GTK_SWITCH (priv->reporting_switch), TRUE);
 
   update_os_data (page);
-
-  text = g_strdup_printf ("%s <a href='%s'>%s</a>", _("Uses Mozilla Location Service:"), "https://location.services.mozilla.com/privacy", _("Privacy Policy"));
-  gtk_label_set_markup (GTK_LABEL (priv->mozilla_privacy_policy_label), text);
-  g_free (text);
 
   priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
                                           "org.freedesktop.problems.daemon",
@@ -208,17 +194,17 @@ activate_link (GtkLabel       *label,
   GtkWidget *progress_bar;
 
   dialog = gtk_dialog_new_with_buttons (_("Privacy Policy"),
-                                        GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (page))),
+                                        GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page))),
                                         GTK_DIALOG_MODAL
                                         | GTK_DIALOG_DESTROY_WITH_PARENT
                                         | GTK_DIALOG_USE_HEADER_BAR,
                                         NULL, NULL);
 
   overlay = gtk_overlay_new ();
-  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), overlay);
+  gtk_box_append (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), overlay);
 
   progress_bar = gtk_progress_bar_new ();
-  gtk_style_context_add_class (gtk_widget_get_style_context (progress_bar), GTK_STYLE_CLASS_OSD);
+  gtk_widget_add_css_class (progress_bar, "osd");
   gtk_widget_set_halign (progress_bar, GTK_ALIGN_FILL);
   gtk_widget_set_valign (progress_bar, GTK_ALIGN_START);
   gtk_overlay_add_overlay (GTK_OVERLAY (overlay), progress_bar);
@@ -229,9 +215,8 @@ activate_link (GtkLabel       *label,
   gtk_widget_set_vexpand (view, TRUE);
   g_signal_connect (view, "notify::estimated-load-progress",
                     G_CALLBACK (notify_progress_cb), progress_bar);
+  gtk_overlay_set_child (GTK_OVERLAY (overlay), view);
 
-  gtk_container_add (GTK_CONTAINER (overlay), view);
-  gtk_widget_show_all (overlay);
 
   gtk_window_present (GTK_WINDOW (dialog));
 
@@ -254,11 +239,9 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-privacy-page.ui");
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_switch);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_group);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_row);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_switch);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, mozilla_privacy_policy_label);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, distro_privacy_policy_label);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
 
   page_class->page_id = PAGE_ID;

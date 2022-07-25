@@ -1,114 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Wed Oct 16 17:37:48 2013 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
   <template class="GisNetworkPage" parent="GisPage">
     <child>
-      <object class="GtkBox" id="box">
-        <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="valign">fill</property>
-        <property name="margin_bottom">32</property>
+      <object class="AdwPreferencesPage">
         <child>
-          <object class="GisPageHeader" id="header">
-            <property name="visible">True</property>
-            <property name="margin_top">24</property>
-            <property name="title" translatable="yes">Wi-Fi</property>
-            <property name="subtitle" translatable="yes">Connecting to the internet helps you get new apps, information, and other upgrades. It also helps set the time and your location automatically.</property>
-            <property name="icon_name">network-wireless-symbolic</property>
-            <property name="show_icon" bind-source="GisNetworkPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolled_window">
-            <property name="margin_top">18</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hscrollbar_policy">never</property>
-            <property name="shadow_type">in</property>
+          <object class="AdwPreferencesGroup">
             <child>
-              <object class="GtkViewport" id="viewport1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
+              <object class="GtkBox" id="box">
+                <property name="orientation">vertical</property>
+                <property name="margin_bottom">32</property>
+                <child>
+                  <object class="GisPageHeader" id="header">
+                    <property name="margin_top">24</property>
+                    <property name="title" translatable="yes">Wi-Fi</property>
+                    <property name="subtitle" translatable="yes">Connecting to the internet helps you get new apps, information, and other upgrades. It also helps set the time and your location automatically.</property>
+                    <property name="icon_name">network-wireless-symbolic</property>
+                    <property name="show_icon" bind-source="GisNetworkPage" bind-property="small-screen" bind-flags="invert-boolean|sync-create"/>
+                  </object>
+                </child>
                 <child>
                   <object class="GtkListBox" id="network_list">
-                    <property name="visible">True</property>
+                    <property name="valign">start</property>
                     <property name="vexpand">True</property>
+                    <property name="margin-top">18</property>
+                    <style>
+                      <class name="boxed-list" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkGrid" id="no_network_grid">
+                    <property name="margin_top">18</property>
+                    <property name="halign">center</property>
+                    <property name="valign">start</property>
+                    <property name="row-spacing">10</property>
+                    <child>
+                      <object class="GtkSpinner" id="no_network_spinner">
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="margin_start">6</property>
+                        <property name="margin_end">6</property>
+                        <property name="spinning">True</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                          <property name="column-span">1</property>
+                          <property name="row-span">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="no_network_label">
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="label" translatable="yes">No wireless available</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">0</property>
+                          <property name="column-span">2</property>
+                          <property name="row-span">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="turn_on_label">
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="label" translatable="yes">Turn On</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">1</property>
+                          <property name="column-span">1</property>
+                          <property name="row-span">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="turn_on_switch">
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="row">1</property>
+                          <property name="column-span">1</property>
+                          <property name="row-span">1</property>
+                        </layout>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkGrid" id="no_network_grid">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">18</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="row-spacing">10</property>
-            <child>
-              <object class="GtkSpinner" id="no_network_spinner">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_start">6</property>
-                <property name="margin_end">6</property>
-                <property name="active">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="no_network_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">No wireless available</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">2</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="turn_on_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Turn On</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="turn_on_switch">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
           </object>
         </child>

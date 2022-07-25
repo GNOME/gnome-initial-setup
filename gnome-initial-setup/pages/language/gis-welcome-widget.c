@@ -30,7 +30,7 @@
 
 struct _GisWelcomeWidgetPrivate
 {
-  GtkWidget *stack;
+  AdwCarousel *carousel;
   GHashTable *translation_widgets;  /* (element-type owned utf8 unowned GtkWidget) (owned) */
 
   guint timeout_id;
@@ -39,34 +39,30 @@ typedef struct _GisWelcomeWidgetPrivate GisWelcomeWidgetPrivate;
 
 #define TIMEOUT 5
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisWelcomeWidget, gis_welcome_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (GisWelcomeWidget, gis_welcome_widget, ADW_TYPE_BIN);
 
 static gboolean
 advance_stack (gpointer user_data)
 {
   GisWelcomeWidget *widget = user_data;
   GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
-  GList *children, *l;
+  GtkWidget *child;
+  unsigned int next_page;
+  unsigned int n_pages;
+  double current_page;
 
-  children = gtk_container_get_children (GTK_CONTAINER (priv->stack));
-  if (children == NULL)
+  n_pages = adw_carousel_get_n_pages (priv->carousel);
+  if (n_pages == 0)
     goto out;
 
-  for (l = children; l != NULL; l = l->next)
-    {
-      if (l->data == gtk_stack_get_visible_child (GTK_STACK (priv->stack)))
-        break;
-    }
+  current_page = ceil (adw_carousel_get_position (priv->carousel));
+  next_page = ((int) current_page + 1) % n_pages;
 
-  /* wrap around */
-  if (l->next)
-    l = l->next;
-  else
-    l = children;
+  child = gtk_widget_get_first_child (GTK_WIDGET (priv->carousel));
+  while (next_page-- > 0)
+    child = gtk_widget_get_next_sibling (child);
 
-  gtk_stack_set_visible_child (GTK_STACK (priv->stack), l->data);
-
-  g_list_free (children);
+  adw_carousel_scroll_to (priv->carousel, child, TRUE);
 
  out:
   return G_SOURCE_CONTINUE;
@@ -152,7 +148,7 @@ big_label (const char *text)
 }
 
 static void
-fill_stack (GisWelcomeWidget *widget)
+fill_carousel (GisWelcomeWidget *widget)
 {
   GisWelcomeWidgetPrivate *priv = gis_welcome_widget_get_instance_private (widget);
   g_autoptr(GHashTable) initial = cc_common_language_get_initial_languages ();
@@ -176,8 +172,7 @@ fill_stack (GisWelcomeWidget *widget)
       label = g_hash_table_lookup (added_translations, text);
       if (label == NULL) {
         label = big_label (text);
-        gtk_container_add (GTK_CONTAINER (priv->stack), label);
-        gtk_widget_show (label);
+        adw_carousel_append (priv->carousel, label);
         g_hash_table_insert (added_translations, (gpointer) text, label);
       }
 
@@ -188,7 +183,9 @@ fill_stack (GisWelcomeWidget *widget)
 static void
 gis_welcome_widget_constructed (GObject *object)
 {
-  fill_stack (GIS_WELCOME_WIDGET (object));
+  G_OBJECT_CLASS (gis_welcome_widget_parent_class)->constructed (object);
+
+  fill_carousel (GIS_WELCOME_WIDGET (object));
 }
 
 static void
@@ -210,7 +207,7 @@ gis_welcome_widget_class_init (GisWelcomeWidgetClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-welcome-widget.ui");
 
-  gtk_widget_class_bind_template_child_private (widget_class, GisWelcomeWidget, stack);
+  gtk_widget_class_bind_template_child_private (widget_class, GisWelcomeWidget, carousel);
 
   object_class->constructed = gis_welcome_widget_constructed;
   object_class->dispose = gis_welcome_widget_dispose;
@@ -241,5 +238,5 @@ gis_welcome_widget_show_locale (GisWelcomeWidget *widget,
 
   label = g_hash_table_lookup (priv->translation_widgets, locale_id);
   if (label)
-    gtk_stack_set_visible_child (GTK_STACK (priv->stack), label);
+    adw_carousel_scroll_to (priv->carousel, label, FALSE);
 }

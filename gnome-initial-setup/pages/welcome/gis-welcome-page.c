@@ -43,17 +43,6 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (GisWelcomePage, gis_welcome_page, GIS_TYPE_PAGE)
 
 static void
-update_welcome_header (GisWelcomePage *page)
-{
-  GisWelcomePagePrivate *priv = gis_welcome_page_get_instance_private (page);
-  const char *path = "/org/gnome/initial-setup/initial-setup-welcome.svg";
-  g_autoptr(GdkPixbuf) pixbuf = NULL;
-
-  pixbuf = gdk_pixbuf_new_from_resource_at_scale (path, 1000, -1, TRUE, NULL);
-  gtk_image_set_from_pixbuf (GTK_IMAGE (priv->header), pixbuf);
-}
-
-static void
 update_welcome_title (GisWelcomePage *page)
 {
   GisWelcomePagePrivate *priv = gis_welcome_page_get_instance_private (page);
@@ -64,7 +53,11 @@ update_welcome_title (GisWelcomePage *page)
   if (name != NULL)
     {
       g_autofree char *version = g_get_os_info (G_OS_INFO_KEY_VERSION_ID);
-      entity = g_strdup_printf ("%s %s", name, version);
+
+      if (version)
+        entity = g_strdup_printf ("%s %s", name, version);
+      else
+        entity = g_strdup (name);
     }
   else
     {
@@ -91,11 +84,9 @@ gis_welcome_page_constructed (GObject *object)
 
   G_OBJECT_CLASS (gis_welcome_page_parent_class)->constructed (object);
 
-  update_welcome_header (page);
   update_welcome_title (page);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
-  gtk_widget_show (GTK_WIDGET (page));
 }
 
 static void

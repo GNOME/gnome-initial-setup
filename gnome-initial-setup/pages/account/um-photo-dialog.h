@@ -36,8 +36,7 @@ typedef void (SelectAvatarCallback) (GdkPixbuf   *pixbuf,
                                      const gchar *filename,
                                      gpointer     data);
 
-UmPhotoDialog *um_photo_dialog_new      (GtkWidget            *button,
-                                         SelectAvatarCallback  callback,
+UmPhotoDialog *um_photo_dialog_new      (SelectAvatarCallback  callback,
                                          gpointer              data);
 void           um_photo_dialog_free     (UmPhotoDialog *dialog);
 

@@ -42,7 +42,7 @@ struct _GisPagePrivate
 };
 typedef struct _GisPagePrivate GisPagePrivate;
 
-G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (GisPage, gis_page, GTK_TYPE_BIN);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (GisPage, gis_page, ADW_TYPE_BIN);
 
 enum
 {
@@ -238,10 +238,6 @@ gis_page_class_init (GisPageClass *klass)
 static void
 gis_page_init (GisPage *page)
 {
-  gtk_widget_set_margin_start (GTK_WIDGET (page), 12);
-  gtk_widget_set_margin_top (GTK_WIDGET (page), 12);
-  gtk_widget_set_margin_bottom (GTK_WIDGET (page), 12);
-  gtk_widget_set_margin_end (GTK_WIDGET (page), 12);
 }
 
 char *

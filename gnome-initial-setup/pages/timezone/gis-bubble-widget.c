@@ -30,7 +30,7 @@ struct _GisBubbleWidgetPrivate
 };
 typedef struct _GisBubbleWidgetPrivate GisBubbleWidgetPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisBubbleWidget, gis_bubble_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE (GisBubbleWidget, gis_bubble_widget, ADW_TYPE_BIN);
 
 enum {
   PROP_0,
@@ -56,12 +56,8 @@ gis_bubble_widget_get_property (GObject    *object,
       g_value_set_string (value, gtk_label_get_label (GTK_LABEL (priv->label)));
       break;
     case PROP_ICON_NAME:
-      {
-        const char *icon_name;
-        gtk_image_get_icon_name (GTK_IMAGE (priv->icon), &icon_name, NULL);
-        g_value_set_string (value, icon_name);
-        break;
-      }
+      g_value_set_string (value, gtk_image_get_icon_name (GTK_IMAGE (priv->icon)));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -105,15 +101,12 @@ add_style_from_resource (const char *resource)
   uri = g_strconcat ("resource://", resource, NULL);
   file = g_file_new_for_uri (uri);
 
-  if (!gtk_css_provider_load_from_file (provider, file, NULL))
-    goto out;
+  gtk_css_provider_load_from_file (provider, file);
 
-  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (provider),
-                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              GTK_STYLE_PROVIDER (provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
   g_object_unref (provider);
-
- out:
   g_object_unref (file);
   g_free (uri);
 }
@@ -127,6 +120,8 @@ gis_bubble_widget_class_init (GisBubbleWidgetClass *klass)
 
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisBubbleWidget, icon);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisBubbleWidget, label);
+
+  gtk_widget_class_set_css_name (GTK_WIDGET_CLASS (klass), "bubble");
 
   object_class->set_property = gis_bubble_widget_set_property;
   object_class->get_property = gis_bubble_widget_get_property;

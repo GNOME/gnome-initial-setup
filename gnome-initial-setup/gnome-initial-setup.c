@@ -23,15 +23,11 @@
 
 #include "gnome-initial-setup.h"
 
+#include <adwaita.h>
 #include <pwd.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
-#include <handy.h>
-
-#ifdef HAVE_CHEESE
-#include <cheese-gtk.h>
-#endif
 
 #include "pages/welcome/gis-welcome-page.h"
 #include "pages/language/gis-language-page.h"
@@ -97,6 +93,8 @@ should_skip_page (const gchar  *page_id,
    */
   if (strcmp (page_id, "welcome") == 0)
     return !should_skip_page ("language", skip_pages);
+
+  return FALSE;
 
   /* check through our skip pages list for pages we don't want */
   if (skip_pages) {
@@ -177,8 +175,21 @@ destroy_pages_after (GisAssistant *assistant,
   l = l->next;
   for (; l != NULL; l = next) {
     next = l->next;
-    gtk_widget_destroy (GTK_WIDGET (l->data));
+    gis_assistant_remove_page (assistant, l->data);
   }
+}
+
+static void
+destroy_page (gpointer data)
+{
+  GtkWidget *assistant;
+  GisPage *page;
+
+  page = data;
+  assistant = gtk_widget_get_ancestor (GTK_WIDGET (page), GIS_TYPE_ASSISTANT);
+
+  if (assistant)
+    gis_assistant_remove_page (GIS_ASSISTANT (assistant), page);
 }
 
 static void
@@ -196,7 +207,7 @@ rebuild_pages_cb (GisDriver *driver)
   page_data = page_table;
 
   g_ptr_array_free (skipped_pages, TRUE);
-  skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
+  skipped_pages = g_ptr_array_new_with_free_func (destroy_page);
 
   if (current_page != NULL) {
     destroy_pages_after (assistant, current_page);
@@ -276,13 +287,13 @@ main (int argc, char *argv[])
 
   g_unsetenv ("GIO_USE_VFS");
 
-  /* By default, libhandy reads settings from the Settings portal, which causes
+  /* By default, libadwaita reads settings from the Settings portal, which causes
    * the portal to be started, which causes gnome-keyring to be started. This
    * interferes with our attempt below to manually start gnome-keyring and set
    * the login keyring password to a well-known value, which we overwrite with
    * the user's password once they choose one.
    */
-  g_setenv ("HDY_DISABLE_PORTAL", "1", TRUE);
+  g_setenv ("ADW_DISABLE_PORTAL", "1", TRUE);
 
   context = g_option_context_new (_("— GNOME initial setup"));
   g_option_context_add_main_entries (context, entries, NULL);
@@ -293,22 +304,13 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-#ifdef HAVE_CHEESE
-  cheese_gtk_init (NULL, NULL);
-#endif
-
-  gtk_init (&argc, &argv);
-  hdy_init ();
-  hdy_style_manager_set_color_scheme (hdy_style_manager_get_default (),
-    HDY_COLOR_SCHEME_PREFER_LIGHT);
-
   g_message ("Starting gnome-initial-setup");
   if (gis_get_mock_mode ())
     g_message ("Mock mode: changes will not be saved to disk");
   else
     g_message ("Production mode: changes will be saved to disk");
 
-  skipped_pages = g_ptr_array_new_with_free_func ((GDestroyNotify) gtk_widget_destroy);
+  skipped_pages = g_ptr_array_new_with_free_func (destroy_page);
   mode = get_mode ();
 
   /* When we are running as the gnome-initial-setup user we
@@ -320,6 +322,8 @@ main (int argc, char *argv[])
     gis_ensure_login_keyring ();
 
   driver = gis_driver_new (mode);
+  adw_style_manager_set_color_scheme (adw_style_manager_get_default (),
+                                      ADW_COLOR_SCHEME_PREFER_LIGHT);
 
   /* On first login, GNOME Shell offers to run a tour. If we also run Initial
    * Setup, the two immovable, centred windows will sit atop one another.
@@ -357,7 +361,6 @@ main (int argc, char *argv[])
 void
 gis_ensure_stamp_files (GisDriver *driver)
 {
-  g_autofree gchar *welcome_file = NULL;
   g_autofree gchar *done_file = NULL;
   g_autoptr(GError) error = NULL;
 

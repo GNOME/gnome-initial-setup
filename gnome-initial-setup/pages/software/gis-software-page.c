@@ -54,8 +54,6 @@ gis_software_page_constructed (GObject *object)
   G_OBJECT_CLASS (gis_software_page_parent_class)->constructed (object);
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
-
-  gtk_widget_show (GTK_WIDGET (page));
 }
 
 /* Distro-specific stuff is isolated here so that the rest of this page can be
@@ -81,8 +79,6 @@ gis_software_page_apply (GisPage      *gis_page,
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
   g_autofree char *program = NULL;
-  g_autoptr (GSubprocessLauncher) launcher = NULL;
-  g_autoptr (GSubprocess) subprocess = NULL;
   g_autoptr (GError) error = NULL;
 
   program = find_fedora_third_party ();
@@ -118,19 +114,16 @@ static void
 enabled_state_changed (GisSoftwarePage *page)
 {
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
-  GtkStyleContext *style;
-
-  style = gtk_widget_get_style_context (priv->enable_disable_button);
 
   if (priv->enabled)
     {
       gtk_button_set_label (GTK_BUTTON (priv->enable_disable_button), _("_Disable Third-Party Repositories"));
-      gtk_style_context_remove_class (style, "suggested-action");
+      gtk_widget_remove_css_class (priv->enable_disable_button, "suggested-action");
     }
   else
     {
       gtk_button_set_label (GTK_BUTTON (priv->enable_disable_button), _("_Enable Third-Party Repositories"));
-      gtk_style_context_add_class (style, "suggested-action");
+      gtk_widget_add_css_class (priv->enable_disable_button, "suggested-action");
     }
 }
 

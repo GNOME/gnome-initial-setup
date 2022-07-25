@@ -1,5 +1,5 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/11fe3571905faceef51c7253dfdaf79ece8cf062/templates/fedora.yml'
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/c5626190ec14b475271288dda7a7dae8dbe0cd76/templates/arch.yml'
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
@@ -8,20 +8,19 @@ stages:
   - prepare
   - build
 
-.fedora.container.common:
+.arch.container.common:
   variables:
     # When branching a stable release, change 'main'
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2022-05-27.1-main'
-    FDO_DISTRIBUTION_VERSION: 36
+    FDO_DISTRIBUTION_TAG: '2022-07-25.10-main'
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
-build.container.fedora@x86_64:
+build.container.arch@x86_64:
   extends:
-  - '.fdo.container-build@fedora'
-  - '.fedora.container.common'
+  - '.fdo.container-build@arch'
+  - '.arch.container.common'
   stage: 'prepare'
   variables:
     # no need to pull the whole tree for rebuilding the image
@@ -29,50 +28,44 @@ build.container.fedora@x86_64:
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
     FDO_DISTRIBUTION_PACKAGES: >-
-      @c-development
-      @development-tools
-      accountsservice-devel
-      ccache
-      cheese-libs-devel
-      cheese-libs-devel
-      desktop-file-utils
-      flatpak-devel
-      fontconfig-devel
-      gdm-devel
-      geoclue2-devel
-      geocode-glib-devel
+      accountsservice
+      appstream
+      base-devel
+      flatpak
+      fontconfig
+      gdm
+      geoclue
+      geocode-glib
       git
-      glib2-devel
-      gnome-desktop4-devel
-      gnome-online-accounts-devel
-      gobject-introspection-devel
-      gsettings-desktop-schemas-devel
-      gstreamer1-devel
+      gnome-desktop-4
+      gnome-online-accounts
+      gsettings-desktop-schemas
+      gobject-introspection
+      gtk4
       gtk-doc
-      gtk3-devel
-      gtk4-devel
-      ibus-devel
-      iso-codes-devel
-      krb5-devel
-      libgweather4-devel
-      libhandy-devel
-      libnma-devel
-      libpwquality-devel
-      libseccomp-devel
-      libsecret-devel
-      malcontent-ui-devel
+      itstool
+      json-glib
+      krb5
+      libadwaita
+      libglib-testing
+      libgweather-4
+      libibus
+      libmalcontent
+      libnm
+      libnma-gtk4
+      libpwquality
+      librest
+      libsecret
       meson
-      NetworkManager-libnm-devel
-      ninja-build
-      polkit-devel
-      rest-devel
-      webkit2gtk3-devel
-      xkeyboard-config-devel
+      polkit
+      sassc
+      webkit2gtk-5.0
+      yelp-tools
 
 .job_template: &job_definition
   extends:
-    - '.fdo.distribution-image@fedora'
-    - '.fedora.container.common'
+    - '.fdo.distribution-image@arch'
+    - '.arch.container.common'
 
   stage: build
 
@@ -82,13 +75,10 @@ build.container.fedora@x86_64:
     # answer to sharing that code (#68), make those warnings non-fatal.
     - meson setup
         -Dsystemd=${EXPLICIT_FEATURES}
-        -Dsoup2=true
         --auto-features ${AUTO_FEATURES}
         ${OPTIONS}
         -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
         ${EXTRA_PARAMETERS}
-        --wrap-mode=nodownload
-        --fatal-meson-warnings
         _build
         .
     - cd _build

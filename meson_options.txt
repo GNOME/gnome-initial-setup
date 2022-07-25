@@ -3,12 +3,6 @@ option('vendor-conf-file',
        description: 'points to a keyfile containing vendor customization, use this only to override the usual search path'
 )
 
-option('cheese',
-       description: 'enable support for Cheese',
-       type: 'feature',
-       value: 'auto'
-)
-
 option('ibus',
        description: 'enable support for IBus',
        type: 'feature',
@@ -25,10 +19,4 @@ option('parental_controls',
   type: 'feature',
   value: 'auto',
   description: 'Enable parental controls pages',
-)
-
-option('soup2',
-  type: 'boolean',
-  value: false,
-  description: 'Use libsoup 2 instead of libsoup 3'
 )

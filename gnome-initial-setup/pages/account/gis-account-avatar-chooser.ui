@@ -1,35 +1,38 @@
 <?xml version="1.0"?>
 <interface>
-  <!-- interface-requires gtk+ 3.8 -->
   <template class="UmPhotoDialog" parent="GtkPopover">
     <property name="height-request">360</property>
     <property name="width-request">480</property>
     <child>
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
         <child>
           <object class="GtkFlowBox" id="recent_pictures">
-            <property name="visible">True</property>
             <property name="halign">start</property>
-            <property name="margin">20</property>
+            <property name="margin-top">20</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
             <property name="margin-bottom">0</property>
             <property name="selection-mode">none</property>
           </object>
         </child>
         <child>
           <object class="GtkFlowBox" id="flowbox">
-            <property name="visible">True</property>
-            <property name="border-width">20</property>
+            <property name="margin-top">12</property>
+            <property name="margin-bottom">12</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
             <property name="selection-mode">none</property>
           </object>
         </child>
         <child>
           <object class="GtkBox">
-            <property name="visible">True</property>
             <property name="halign">GTK_ALIGN_CENTER</property>
-            <property name="border-width">10</property>
-            <property name="spacing">10</property>
+            <property name="margin-top">12</property>
+            <property name="margin-bottom">12</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="spacing">12</property>
             <child>
               <object class="GtkButton" id="take_picture_button">
                 <property name="visible">False</property>
@@ -41,9 +44,6 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="pack-type">GTK_PACK_END</property>
-          </packing>
         </child>
       </object>
     </child>
