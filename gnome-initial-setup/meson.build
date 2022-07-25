@@ -27,13 +27,6 @@ sources += [
     'gis-keyring.h'
 ]
 
-libadwaita_dep = dependency(
-  'libadwaita-1',
-  version: '>= 1.2.alpha',
-  fallback: ['libadwaita', 'libadwaita_dep'],
-  default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
-)
-
 geocode_glib_2_dep = dependency(
   'geocode-glib-2.0',
   fallback: ['geocode-glib', 'geocode_glib_dep'],

@@ -53,6 +53,16 @@ ibus_dep = dependency ('ibus-1.0',
 have_ibus = ibus_dep.found()
 conf.set('HAVE_IBUS', have_ibus)
 
+# Check for libadwaita before malcontent-ui, otherwise Meson may search and
+# find an older version of libadwaita in the host system, cache it, and fail
+# to fallback to a submodule.
+libadwaita_dep = dependency(
+  'libadwaita-1',
+  version: '>= 1.2.alpha',
+  fallback: ['libadwaita', 'libadwaita_dep'],
+  default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
+)
+
 # Needed for the parental controls pages
 libmalcontent_dep = dependency ('malcontent-0',
                                 version: '>= 0.6.0',
