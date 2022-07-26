@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_ACCOUNT_PAGE_H__
-#define __GIS_ACCOUNT_PAGE_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -51,5 +50,3 @@ struct _GisAccountPageClass
 GType gis_account_page_get_type (void);
 
 G_END_DECLS
-
-#endif /* __GIS_ACCOUNT_PAGE_H__ */

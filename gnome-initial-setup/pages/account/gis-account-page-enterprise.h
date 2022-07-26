@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_ACCOUNT_PAGE_ENTERPRISE_H__
-#define __GIS_ACCOUNT_PAGE_ENTERPRISE_H__
+#pragma once
 
 #include <adwaita.h>
 
@@ -60,4 +59,3 @@ void     gis_account_page_enterprise_shown (GisAccountPageEnterprise *enterprise
 
 G_END_DECLS
 
-#endif /* __GIS_ACCOUNT_PAGE_ENTERPRISE_H__ */
