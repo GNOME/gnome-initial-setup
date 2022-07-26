@@ -27,26 +27,7 @@
 
 G_BEGIN_DECLS
 
-#define GIS_TYPE_ACCOUNT_PAGE               (gis_account_page_get_type ())
-#define GIS_ACCOUNT_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_ACCOUNT_PAGE, GisAccountPage))
-#define GIS_ACCOUNT_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_ACCOUNT_PAGE, GisAccountPageClass))
-#define GIS_IS_ACCOUNT_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_ACCOUNT_PAGE))
-#define GIS_IS_ACCOUNT_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_ACCOUNT_PAGE))
-#define GIS_ACCOUNT_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_ACCOUNT_PAGE, GisAccountPageClass))
-
-typedef struct _GisAccountPage        GisAccountPage;
-typedef struct _GisAccountPageClass   GisAccountPageClass;
-
-struct _GisAccountPage
-{
-  GisPage parent;
-};
-
-struct _GisAccountPageClass
-{
-  GisPageClass parent_class;
-};
-
-GType gis_account_page_get_type (void);
+#define GIS_TYPE_ACCOUNT_PAGE (gis_account_page_get_type ())
+G_DECLARE_FINAL_TYPE (GisAccountPage, gis_account_page, GIS, ACCOUNT_PAGE, GisPage)
 
 G_END_DECLS

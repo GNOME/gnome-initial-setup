@@ -32,8 +32,10 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-struct _GisAccountPagePrivate
+struct _GisAccountPage
 {
+  GisPage    parent;
+
   GtkWidget *page_local;
   GtkWidget *page_enterprise;
   GtkWidget *stack;
@@ -44,9 +46,8 @@ struct _GisAccountPagePrivate
 
   UmAccountMode mode;
 };
-typedef struct _GisAccountPagePrivate GisAccountPagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPage, gis_account_page, GIS_TYPE_PAGE);
+G_DEFINE_TYPE (GisAccountPage, gis_account_page, GIS_TYPE_PAGE);
 
 static void
 enterprise_apply_complete (GisPage  *dummy,
@@ -61,13 +62,11 @@ enterprise_apply_complete (GisPage  *dummy,
 static gboolean
 page_validate (GisAccountPage *page)
 {
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  switch (priv->mode) {
+  switch (page->mode) {
   case UM_LOCAL:
-    return gis_account_page_local_validate (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
+    return gis_account_page_local_validate (GIS_ACCOUNT_PAGE_LOCAL (page->page_local));
   case UM_ENTERPRISE:
-    return gis_account_page_enterprise_validate (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise));
+    return gis_account_page_enterprise_validate (GIS_ACCOUNT_PAGE_ENTERPRISE (page->page_enterprise));
   default:
     g_assert_not_reached ();
   }
@@ -90,23 +89,21 @@ static void
 set_mode (GisAccountPage *page,
           UmAccountMode   mode)
 {
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  if (priv->mode == mode)
+  if (page->mode == mode)
     return;
 
-  priv->mode = mode;
+  page->mode = mode;
   gis_driver_set_account_mode (GIS_PAGE (page)->driver, mode);
 
   switch (mode)
     {
     case UM_LOCAL:
-      gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_local);
-      gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
+      gtk_stack_set_visible_child (GTK_STACK (page->stack), page->page_local);
+      gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (page->page_local));
       break;
     case UM_ENTERPRISE:
-      gtk_stack_set_visible_child (GTK_STACK (priv->stack), priv->page_enterprise);
-      gis_account_page_enterprise_shown (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise));
+      gtk_stack_set_visible_child (GTK_STACK (page->stack), page->page_enterprise);
+      gis_account_page_enterprise_shown (GIS_ACCOUNT_PAGE_ENTERPRISE (page->page_enterprise));
       break;
     default:
       g_assert_not_reached ();
@@ -128,13 +125,12 @@ gis_account_page_apply (GisPage *gis_page,
                         GCancellable *cancellable)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
-  switch (priv->mode) {
+  switch (page->mode) {
   case UM_LOCAL:
-    return gis_account_page_local_apply (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local), gis_page);
+    return gis_account_page_local_apply (GIS_ACCOUNT_PAGE_LOCAL (page->page_local), gis_page);
   case UM_ENTERPRISE:
-    return gis_account_page_enterprise_apply (GIS_ACCOUNT_PAGE_ENTERPRISE (priv->page_enterprise), cancellable,
+    return gis_account_page_enterprise_apply (GIS_ACCOUNT_PAGE_ENTERPRISE (page->page_enterprise), cancellable,
                                               enterprise_apply_complete, page);
   default:
     g_assert_not_reached ();
@@ -147,11 +143,10 @@ gis_account_page_save_data (GisPage  *gis_page,
                             GError  **error)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
-  switch (priv->mode) {
+  switch (page->mode) {
   case UM_LOCAL:
-    return gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local), gis_page, error);
+    return gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (page->page_local), gis_page, error);
   case UM_ENTERPRISE:
     /* Nothing to do. */
     return TRUE;
@@ -165,9 +160,8 @@ static void
 gis_account_page_shown (GisPage *gis_page)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
 
-  gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (priv->page_local));
+  gis_account_page_local_shown (GIS_ACCOUNT_PAGE_LOCAL (page->page_local));
 }
 
 static void
@@ -227,46 +221,43 @@ on_network_changed (GNetworkMonitor *monitor,
                     gboolean         available,
                     GisAccountPage  *page)
 {
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
-
-  if (!available && priv->mode != UM_ENTERPRISE)
-    gtk_stack_set_visible_child (GTK_STACK (priv->offline_stack), priv->offline_label);
+  if (!available && page->mode != UM_ENTERPRISE)
+    gtk_stack_set_visible_child (GTK_STACK (page->offline_stack), page->offline_label);
   else
-    gtk_stack_set_visible_child (GTK_STACK (priv->offline_stack), priv->page_toggle);
+    gtk_stack_set_visible_child (GTK_STACK (page->offline_stack), page->page_toggle);
 }
 
 static void
 gis_account_page_constructed (GObject *object)
 {
   GisAccountPage *page = GIS_ACCOUNT_PAGE (object);
-  GisAccountPagePrivate *priv = gis_account_page_get_instance_private (page);
   GNetworkMonitor *monitor;
   gboolean available;
 
   G_OBJECT_CLASS (gis_account_page_parent_class)->constructed (object);
 
-  g_signal_connect (priv->page_local, "validation-changed",
+  g_signal_connect (page->page_local, "validation-changed",
                     G_CALLBACK (on_validation_changed), page);
-  g_signal_connect (priv->page_local, "main-user-created",
+  g_signal_connect (page->page_local, "main-user-created",
                     G_CALLBACK (on_local_main_user_created), page);
-  g_signal_connect (priv->page_local, "parent-user-created",
+  g_signal_connect (page->page_local, "parent-user-created",
                     G_CALLBACK (on_local_parent_user_created), page);
-  g_signal_connect (priv->page_local, "confirm",
+  g_signal_connect (page->page_local, "confirm",
                     G_CALLBACK (on_local_page_confirmed), page);
 
-  g_signal_connect (priv->page_enterprise, "validation-changed",
+  g_signal_connect (page->page_enterprise, "validation-changed",
                     G_CALLBACK (on_validation_changed), page);
-  g_signal_connect (priv->page_enterprise, "user-cached",
+  g_signal_connect (page->page_enterprise, "user-cached",
                     G_CALLBACK (on_local_user_cached), page);
 
   update_page_validation (page);
 
-  g_signal_connect (priv->page_toggle, "toggled", G_CALLBACK (toggle_mode), page);
-  g_object_bind_property (page, "applying", priv->page_toggle, "sensitive", G_BINDING_INVERT_BOOLEAN);
-  g_object_bind_property (priv->page_enterprise, "visible", priv->offline_stack, "visible", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+  g_signal_connect (page->page_toggle, "toggled", G_CALLBACK (toggle_mode), page);
+  g_object_bind_property (page, "applying", page->page_toggle, "sensitive", G_BINDING_INVERT_BOOLEAN);
+  g_object_bind_property (page->page_enterprise, "visible", page->offline_stack, "visible", G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
   /* force a refresh by setting to an invalid value */
-  priv->mode = NUM_MODES;
+  page->mode = NUM_MODES;
   set_mode (page, UM_LOCAL);
 
   monitor = g_network_monitor_get_default ();
@@ -291,13 +282,13 @@ gis_account_page_class_init (GisAccountPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_local);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_enterprise);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, stack);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPage, page_local);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPage, page_enterprise);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPage, stack);
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, page_toggle);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, offline_label);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPage, offline_stack);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPage, page_toggle);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPage, offline_label);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPage, offline_stack);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_account_page_locale_changed;

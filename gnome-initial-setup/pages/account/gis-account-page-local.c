@@ -43,8 +43,10 @@
 
 #define VALIDATION_TIMEOUT 600
 
-struct _GisAccountPageLocalPrivate
+struct _GisAccountPageLocal
 {
+  AdwBin     parent;
+
   GtkWidget *avatar_button;
   GtkWidget *avatar_image;
   GtkWidget *header;
@@ -69,9 +71,8 @@ struct _GisAccountPageLocalPrivate
   gboolean valid_username;
   ActUserAccountType account_type;
 };
-typedef struct _GisAccountPageLocalPrivate GisAccountPageLocalPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageLocal, gis_account_page_local, ADW_TYPE_BIN);
+G_DEFINE_TYPE (GisAccountPageLocal, gis_account_page_local, ADW_TYPE_BIN);
 
 enum {
   VALIDATION_CHANGED,
@@ -170,14 +171,13 @@ get_profile_sync (const gchar        *access_token,
 static void
 prepopulate_account_page (GisAccountPageLocal *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   gchar *name = NULL;
   gchar *picture = NULL;
   GdkPixbuf *pixbuf = NULL;
 
-  if (priv->goa_client) {
+  if (page->goa_client) {
     GList *accounts, *l;
-    accounts = goa_client_get_accounts (priv->goa_client);
+    accounts = goa_client_get_accounts (page->goa_client);
     for (l = accounts; l != NULL; l = l->next) {
       GoaOAuth2Based *oa2;
       oa2 = goa_object_get_oauth2_based (GOA_OBJECT (l->data));
@@ -204,8 +204,8 @@ prepopulate_account_page (GisAccountPageLocal *page)
   }
 
   if (name) {
-    g_object_set (priv->header, "subtitle", _("Please check the name and username. You can choose a picture too."), NULL);
-    gtk_editable_set_text (GTK_EDITABLE (priv->fullname_entry), name);
+    g_object_set (page->header, "subtitle", _("Please check the name and username. You can choose a picture too."), NULL);
+    gtk_editable_set_text (GTK_EDITABLE (page->fullname_entry), name);
   }
 
   if (picture) {
@@ -230,9 +230,9 @@ prepopulate_account_page (GisAccountPageLocal *page)
   if (pixbuf) {
     GdkPixbuf *rounded = round_image (pixbuf);
 
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), rounded);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (page->avatar_image), rounded);
     g_object_unref (rounded);
-    priv->avatar_pixbuf = pixbuf;
+    page->avatar_pixbuf = pixbuf;
   }
 
   g_free (name);
@@ -250,36 +250,35 @@ accounts_changed (GoaClient *client, GoaObject *object, gpointer data)
 static gboolean
 validate (GisAccountPageLocal *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GtkWidget *entry;
   const gchar *name, *username;
   gboolean parental_controls_enabled;
   gchar *tip;
 
-  g_clear_handle_id (&priv->timeout_id, g_source_remove);
+  g_clear_handle_id (&page->timeout_id, g_source_remove);
 
-  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (priv->username_combo));
+  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo));
 
-  name = gtk_editable_get_text (GTK_EDITABLE (priv->fullname_entry));
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
+  name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
+  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (page->username_combo));
 #ifdef HAVE_PARENTAL_CONTROLS
-  parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->enable_parental_controls_check_button));
+  parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (page->enable_parental_controls_check_button));
 #else
   parental_controls_enabled = FALSE;
 #endif
 
-  priv->valid_name = is_valid_name (name);
-  if (priv->valid_name)
-    set_entry_validation_checkmark (GTK_ENTRY (priv->fullname_entry));
+  page->valid_name = is_valid_name (name);
+  if (page->valid_name)
+    set_entry_validation_checkmark (GTK_ENTRY (page->fullname_entry));
 
-  priv->valid_username = is_valid_username (username, parental_controls_enabled, &tip);
-  if (priv->valid_username)
+  page->valid_username = is_valid_username (username, parental_controls_enabled, &tip);
+  if (page->valid_username)
     set_entry_validation_checkmark (GTK_ENTRY (entry));
 
-  gtk_label_set_text (GTK_LABEL (priv->username_explanation), tip);
+  gtk_label_set_text (GTK_LABEL (page->username_explanation), tip);
   g_free (tip);
 
-  um_photo_dialog_generate_avatar (priv->photo_dialog, name);
+  um_photo_dialog_generate_avatar (page->photo_dialog, name);
 
   validation_changed (page);
 
@@ -299,30 +298,29 @@ fullname_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPageLocal *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GtkWidget *entry;
   GtkTreeModel *model;
   const char *name;
 
   name = gtk_editable_get_text (GTK_EDITABLE (w));
 
-  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (priv->username_combo));
-  model = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo));
+  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo));
+  model = gtk_combo_box_get_model (GTK_COMBO_BOX (page->username_combo));
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  if ((name == NULL || strlen (name) == 0) && !priv->has_custom_username) {
+  if ((name == NULL || strlen (name) == 0) && !page->has_custom_username) {
     gtk_editable_set_text (GTK_EDITABLE (entry), "");
   }
   else if (name != NULL && strlen (name) != 0) {
     generate_username_choices (name, GTK_LIST_STORE (model));
-    if (!priv->has_custom_username)
-      gtk_combo_box_set_active (GTK_COMBO_BOX (priv->username_combo), 0);
+    if (!page->has_custom_username)
+      gtk_combo_box_set_active (GTK_COMBO_BOX (page->username_combo), 0);
   }
 
   clear_entry_validation_error (GTK_ENTRY (w));
 
-  priv->valid_name = FALSE;
+  page->valid_name = FALSE;
 
   /* username_changed() is called consequently due to changes */
 }
@@ -331,26 +329,25 @@ static void
 username_changed (GtkComboBoxText     *combo,
                   GisAccountPageLocal *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GtkWidget *entry;
   const gchar *username;
 
   entry = gtk_combo_box_get_child (GTK_COMBO_BOX (combo));
   username = gtk_editable_get_text (GTK_EDITABLE (entry));
   if (*username == '\0')
-    priv->has_custom_username = FALSE;
+    page->has_custom_username = FALSE;
   else if (gtk_widget_has_focus (entry) ||
-           gtk_combo_box_get_active (GTK_COMBO_BOX (priv->username_combo)) > 0)
-    priv->has_custom_username = TRUE;
+           gtk_combo_box_get_active (GTK_COMBO_BOX (page->username_combo)) > 0)
+    page->has_custom_username = TRUE;
 
   clear_entry_validation_error (GTK_ENTRY (entry));
 
-  priv->valid_username = FALSE;
+  page->valid_username = FALSE;
   validation_changed (page);
 
-  if (priv->timeout_id != 0)
-    g_source_remove (priv->timeout_id);
-  priv->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
+  if (page->timeout_id != 0)
+    g_source_remove (page->timeout_id);
+  page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
 }
 
 static void
@@ -359,19 +356,18 @@ avatar_callback (GdkPixbuf   *pixbuf,
                  gpointer     user_data)
 {
   GisAccountPageLocal *page = user_data;
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   g_autoptr(GdkPixbuf) tmp = NULL;
   g_autoptr(GdkPixbuf) rounded = NULL;
 
-  g_clear_object (&priv->avatar_pixbuf);
-  g_clear_pointer (&priv->avatar_filename, g_free);
+  g_clear_object (&page->avatar_pixbuf);
+  g_clear_pointer (&page->avatar_filename, g_free);
 
   if (pixbuf) {
-    priv->avatar_pixbuf = g_object_ref (pixbuf);
+    page->avatar_pixbuf = g_object_ref (pixbuf);
     rounded = round_image (pixbuf);
   }
   else if (filename) {
-    priv->avatar_filename = g_strdup (filename);
+    page->avatar_filename = g_strdup (filename);
     tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
 
     if (tmp != NULL)
@@ -379,12 +375,12 @@ avatar_callback (GdkPixbuf   *pixbuf,
   }
 
   if (rounded != NULL) {
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->avatar_image), rounded);
+    gtk_image_set_from_pixbuf (GTK_IMAGE (page->avatar_image), rounded);
   }
   else {
     /* Fallback. */
-    gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
-    gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic");
+    gtk_image_set_pixel_size (GTK_IMAGE (page->avatar_image), 96);
+    gtk_image_set_from_icon_name (GTK_IMAGE (page->avatar_image), "avatar-default-symbolic");
   }
 }
 
@@ -400,13 +396,12 @@ enable_parental_controls_check_button_toggled_cb (GtkCheckButton *check_button,
                                                   gpointer        user_data)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (user_data);
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
-  gboolean parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->enable_parental_controls_check_button));
+  gboolean parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (page->enable_parental_controls_check_button));
 
   /* This sets the account type of the main user. When we save_data(), we create
    * two users if parental controls are enabled: the first user is always an
    * admin, and the second user is the main user using this @account_type. */
-  priv->account_type = parental_controls_enabled ? ACT_USER_ACCOUNT_TYPE_STANDARD : ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+  page->account_type = parental_controls_enabled ? ACT_USER_ACCOUNT_TYPE_STANDARD : ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
 
   validate (page);
 }
@@ -428,61 +423,60 @@ static void
 gis_account_page_local_constructed (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->constructed (object);
 
-  priv->act_client = act_user_manager_get_default ();
+  page->act_client = act_user_manager_get_default ();
 
-  g_signal_connect (priv->fullname_entry, "notify::text",
+  g_signal_connect (page->fullname_entry, "notify::text",
                     G_CALLBACK (fullname_changed), page);
-  track_focus_out (page, priv->fullname_entry);
+  track_focus_out (page, page->fullname_entry);
 
-  g_signal_connect_swapped (priv->fullname_entry, "activate",
+  g_signal_connect_swapped (page->fullname_entry, "activate",
                             G_CALLBACK (validate), page);
-  g_signal_connect (priv->username_combo, "changed",
+  g_signal_connect (page->username_combo, "changed",
                     G_CALLBACK (username_changed), page);
-  track_focus_out (page, priv->username_combo);
+  track_focus_out (page, page->username_combo);
 
-  g_signal_connect_swapped (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->username_combo)),
+  g_signal_connect_swapped (gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo)),
                             "activate", G_CALLBACK (confirm), page);
-  g_signal_connect_swapped (priv->fullname_entry, "activate",
+  g_signal_connect_swapped (page->fullname_entry, "activate",
                             G_CALLBACK (confirm), page);
-  g_signal_connect (priv->enable_parental_controls_check_button, "toggled",
+  g_signal_connect (page->enable_parental_controls_check_button, "toggled",
                     G_CALLBACK (enable_parental_controls_check_button_toggled_cb), page);
 
   /* Disable parental controls if support is not compiled in. */
 #ifndef HAVE_PARENTAL_CONTROLS
-  gtk_widget_hide (priv->enable_parental_controls_box);
+  gtk_widget_hide (page->enable_parental_controls_box);
 #endif
 
-  priv->valid_name = FALSE;
-  priv->valid_username = FALSE;
+  page->valid_name = FALSE;
+  page->valid_username = FALSE;
 
   /* FIXME: change this for a large deployment scenario; maybe through a GSetting? */
-  priv->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+  page->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
 
-  g_object_set (priv->header, "subtitle", _("We need a few details to complete setup."), NULL);
-  gtk_editable_set_text (GTK_EDITABLE (priv->fullname_entry), "");
-  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->username_combo))));
-  priv->has_custom_username = FALSE;
+  g_object_set (page->header, "subtitle", _("We need a few details to complete setup."), NULL);
+  gtk_editable_set_text (GTK_EDITABLE (page->fullname_entry), "");
+  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (page->username_combo))));
+  page->has_custom_username = FALSE;
 
-  gtk_image_set_pixel_size (GTK_IMAGE (priv->avatar_image), 96);
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->avatar_image), "avatar-default-symbolic");
+  gtk_image_set_pixel_size (GTK_IMAGE (page->avatar_image), 96);
+  gtk_image_set_from_icon_name (GTK_IMAGE (page->avatar_image), "avatar-default-symbolic");
 
-  priv->goa_client = goa_client_new_sync (NULL, NULL);
-  if (priv->goa_client) {
-    g_signal_connect (priv->goa_client, "account-added",
+  page->goa_client = goa_client_new_sync (NULL, NULL);
+  if (page->goa_client) {
+    g_signal_connect (page->goa_client, "account-added",
                       G_CALLBACK (accounts_changed), page);
-    g_signal_connect (priv->goa_client, "account-removed",
+    g_signal_connect (page->goa_client, "account-removed",
                       G_CALLBACK (accounts_changed), page);
     prepopulate_account_page (page);
   }
 
-  priv->photo_dialog = um_photo_dialog_new (avatar_callback, page);
-  um_photo_dialog_generate_avatar (priv->photo_dialog, "");
-  gtk_menu_button_set_popover (GTK_MENU_BUTTON (priv->avatar_button),
-                               GTK_WIDGET (priv->photo_dialog));
+  page->photo_dialog = um_photo_dialog_new (avatar_callback, page);
+  um_photo_dialog_generate_avatar (page->photo_dialog, "");
+  gtk_menu_button_set_popover (GTK_MENU_BUTTON (page->avatar_button),
+                               GTK_WIDGET (page->photo_dialog));
 
   validate (page);
 }
@@ -491,12 +485,11 @@ static void
 gis_account_page_local_dispose (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
 
-  g_clear_object (&priv->goa_client);
-  g_clear_object (&priv->avatar_pixbuf);
-  g_clear_pointer (&priv->avatar_filename, g_free);
-  g_clear_handle_id (&priv->timeout_id, g_source_remove);
+  g_clear_object (&page->goa_client);
+  g_clear_object (&page->avatar_pixbuf);
+  g_clear_pointer (&page->avatar_filename, g_free);
+  g_clear_handle_id (&page->timeout_id, g_source_remove);
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->dispose (object);
 }
@@ -505,18 +498,17 @@ static void
 set_user_avatar (GisAccountPageLocal *page,
                  ActUser             *user)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
   GFile *file = NULL;
   GFileIOStream *io_stream = NULL;
   GOutputStream *stream = NULL;
   GError *error = NULL;
 
-  if (priv->avatar_filename != NULL) {
-    act_user_set_icon_file (user, priv->avatar_filename);
+  if (page->avatar_filename != NULL) {
+    act_user_set_icon_file (user, page->avatar_filename);
     return;
   }
 
-  if (priv->avatar_pixbuf == NULL) {
+  if (page->avatar_pixbuf == NULL) {
     return;
   }
 
@@ -525,7 +517,7 @@ set_user_avatar (GisAccountPageLocal *page,
     goto out;
 
   stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
-  if (!gdk_pixbuf_save_to_stream (priv->avatar_pixbuf, stream, "png", NULL, &error, NULL))
+  if (!gdk_pixbuf_save_to_stream (page->avatar_pixbuf, stream, "png", NULL, &error, NULL))
     goto out;
 
   act_user_set_icon_file (user, g_file_get_path (file));
@@ -544,15 +536,14 @@ local_create_user (GisAccountPageLocal  *local,
                    GisPage              *page,
                    GError              **error)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
   const gchar *username;
   const gchar *fullname;
   gboolean parental_controls_enabled;
   g_autoptr(ActUser) main_user = NULL;
   g_autoptr(ActUser) parent_user = NULL;
 
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
-  fullname = gtk_editable_get_text (GTK_EDITABLE (priv->fullname_entry));
+  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
+  fullname = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
   parental_controls_enabled = gis_driver_get_parental_controls_enabled (page->driver);
 
   /* Always create the admin user first, in case of failure part-way through
@@ -563,7 +554,7 @@ local_create_user (GisAccountPageLocal  *local,
     const gchar *parent_username = "administrator";
     const gchar *parent_fullname = _("Administrator");
 
-    parent_user = act_user_manager_create_user (priv->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, error);
+    parent_user = act_user_manager_create_user (local->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, error);
     if (parent_user == NULL)
       {
         g_prefix_error (error,
@@ -606,7 +597,7 @@ local_create_user (GisAccountPageLocal  *local,
   }
 
   /* Now create the main user. */
-  main_user = act_user_manager_create_user (priv->act_client, username, fullname, priv->account_type, error);
+  main_user = act_user_manager_create_user (local->act_client, username, fullname, local->account_type, error);
   if (main_user == NULL)
     {
       g_prefix_error (error,
@@ -631,14 +622,14 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page-local.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_button);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, header);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_box);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_check_button);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_button);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, header);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_box);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_check_button);
 
   object_class->constructed = gis_account_page_local_constructed;
   object_class->dispose = gis_account_page_local_dispose;
@@ -670,9 +661,7 @@ gis_account_page_local_init (GisAccountPageLocal *page)
 gboolean
 gis_account_page_local_validate (GisAccountPageLocal *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (page);
-
-  return priv->valid_name && priv->valid_username;
+  return page->valid_name && page->valid_username;
 }
 
 gboolean
@@ -686,29 +675,28 @@ gis_account_page_local_create_user (GisAccountPageLocal  *local,
 gboolean
 gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
   const gchar *username, *full_name;
   gboolean parental_controls_enabled;
 
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->username_combo));
+  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
   gis_driver_set_username (GIS_PAGE (page)->driver, username);
 
-  full_name = gtk_editable_get_text (GTK_EDITABLE (priv->fullname_entry));
+  full_name = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
   gis_driver_set_full_name (GIS_PAGE (page)->driver, full_name);
 
-  if (priv->avatar_pixbuf != NULL)
+  if (local->avatar_pixbuf != NULL)
     {
       g_autoptr(GdkTexture) texture = NULL;
 
-      texture = gdk_texture_new_for_pixbuf (priv->avatar_pixbuf);
+      texture = gdk_texture_new_for_pixbuf (local->avatar_pixbuf);
       gis_driver_set_avatar (GIS_PAGE (page)->driver, GDK_PAINTABLE (texture));
     }
-  else if (priv->avatar_filename != NULL)
+  else if (local->avatar_filename != NULL)
     {
       g_autoptr(GdkTexture) texture = NULL;
       g_autoptr(GError) error = NULL;
 
-      texture = gdk_texture_new_from_filename (priv->avatar_filename, &error);
+      texture = gdk_texture_new_from_filename (local->avatar_filename, &error);
 
       if (!error)
         gis_driver_set_avatar (GIS_PAGE (page)->driver, GDK_PAINTABLE (texture));
@@ -717,7 +705,7 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
     }
 
 #ifdef HAVE_PARENTAL_CONTROLS
-  parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->enable_parental_controls_check_button));
+  parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (local->enable_parental_controls_check_button));
 #else
   parental_controls_enabled = FALSE;
 #endif
@@ -729,6 +717,5 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 void
 gis_account_page_local_shown (GisAccountPageLocal *local)
 {
-  GisAccountPageLocalPrivate *priv = gis_account_page_local_get_instance_private (local);
-  gtk_widget_grab_focus (priv->fullname_entry);
+  gtk_widget_grab_focus (local->fullname_entry);
 }

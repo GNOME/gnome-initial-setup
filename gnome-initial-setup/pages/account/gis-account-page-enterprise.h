@@ -28,27 +28,8 @@
 
 G_BEGIN_DECLS
 
-#define GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE               (gis_account_page_enterprise_get_type ())
-#define GIS_ACCOUNT_PAGE_ENTERPRISE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE, GisAccountPageEnterprise))
-#define GIS_ACCOUNT_PAGE_ENTERPRISE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE, GisAccountPageEnterpriseClass))
-#define GIS_IS_ACCOUNT_PAGE_ENTERPRISE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE))
-#define GIS_IS_ACCOUNT_PAGE_ENTERPRISE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE))
-#define GIS_ACCOUNT_PAGE_ENTERPRISE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE, GisAccountPageEnterpriseClass))
-
-typedef struct _GisAccountPageEnterprise        GisAccountPageEnterprise;
-typedef struct _GisAccountPageEnterpriseClass   GisAccountPageEnterpriseClass;
-
-struct _GisAccountPageEnterprise
-{
-    AdwBin parent;
-};
-
-struct _GisAccountPageEnterpriseClass
-{
-    AdwBinClass parent_class;
-};
-
-GType gis_account_page_enterprise_get_type (void);
+#define GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE (gis_account_page_enterprise_get_type ())
+G_DECLARE_FINAL_TYPE (GisAccountPageEnterprise, gis_account_page_enterprise, GIS, ACCOUNT_PAGE_ENTERPRISE, AdwBin)
 
 gboolean gis_account_page_enterprise_validate (GisAccountPageEnterprise *enterprise);
 gboolean gis_account_page_enterprise_apply (GisAccountPageEnterprise *enterprise,

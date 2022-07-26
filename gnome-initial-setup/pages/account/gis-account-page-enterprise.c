@@ -45,8 +45,10 @@ static void        on_realm_joined     (GObject *source,
                                         GAsyncResult *result,
                                         gpointer user_data);
 
-struct _GisAccountPageEnterprisePrivate
+struct _GisAccountPageEnterprise
 {
+  AdwBin     parent;
+
   GtkWidget *header;
   GtkWidget *login;
   GtkWidget *password;
@@ -75,9 +77,8 @@ struct _GisAccountPageEnterprisePrivate
   GisPageApplyCallback apply_complete_callback;
   gpointer apply_complete_data;
 };
-typedef struct _GisAccountPageEnterprisePrivate GisAccountPageEnterprisePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisAccountPageEnterprise, gis_account_page_enterprise, ADW_TYPE_BIN);
+G_DEFINE_TYPE (GisAccountPageEnterprise, gis_account_page_enterprise, ADW_TYPE_BIN);
 
 enum {
   VALIDATION_CHANGED,
@@ -97,8 +98,7 @@ static void
 apply_complete (GisAccountPageEnterprise *page,
                 gboolean                  valid)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
-  priv->apply_complete_callback (NULL, valid, priv->apply_complete_data);
+  page->apply_complete_callback (NULL, valid, page->apply_complete_data);
 }
 
 static void
@@ -133,16 +133,15 @@ gis_account_page_enterprise_validate (GisAccountPageEnterprise *page)
   gboolean valid_name;
   gboolean valid_domain;
   GtkTreeIter iter;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
-  name = gtk_editable_get_text (GTK_EDITABLE (priv->login));
+  name = gtk_editable_get_text (GTK_EDITABLE (page->login));
   valid_name = is_valid_name (name);
 
-  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (priv->domain), &iter)) {
-    gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->domain)),
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (page->domain), &iter)) {
+    gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (page->domain)),
                         &iter, 0, &name, -1);
   } else {
-    name = gtk_editable_get_text (GTK_EDITABLE (priv->domain_entry));
+    name = gtk_editable_get_text (GTK_EDITABLE (page->domain_entry));
   }
 
   valid_domain = is_valid_name (name);
@@ -155,7 +154,6 @@ on_permit_user_login (GObject *source,
                       gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   UmRealmCommon *common;
   GError *error = NULL;
   gchar *login;
@@ -169,14 +167,14 @@ on_permit_user_login (GObject *source,
      * should also lookup information about this via the realm and make
      * sure all that is functional.
      */
-    login = um_realm_calculate_login (common, gtk_editable_get_text (GTK_EDITABLE (priv->login)));
+    login = um_realm_calculate_login (common, gtk_editable_get_text (GTK_EDITABLE (page->login)));
     g_return_if_fail (login != NULL);
 
     g_debug ("Caching remote user: %s", login);
 
-    priv->act_user = act_user_manager_cache_user (priv->act_client, login, NULL);
-    act_user_set_account_type (priv->act_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
-    g_signal_emit (page, signals[USER_CACHED], 0, priv->act_user, gtk_editable_get_text (GTK_EDITABLE (priv->password)));
+    page->act_user = act_user_manager_cache_user (page->act_client, login, NULL);
+    act_user_set_account_type (page->act_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+    g_signal_emit (page, signals[USER_CACHED], 0, page->act_user, gtk_editable_get_text (GTK_EDITABLE (page->password)));
     apply_complete (page, TRUE);
 
     g_free (login);
@@ -191,7 +189,6 @@ on_permit_user_login (GObject *source,
 static void
 enterprise_permit_user_login (GisAccountPageEnterprise *page, UmRealmObject *realm)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   UmRealmCommon *common;
   gchar *login;
   const gchar *add[2];
@@ -200,7 +197,7 @@ enterprise_permit_user_login (GisAccountPageEnterprise *page, UmRealmObject *rea
 
   common = um_realm_object_get_common (realm);
 
-  login = um_realm_calculate_login (common, gtk_editable_get_text (GTK_EDITABLE (priv->login)));
+  login = um_realm_calculate_login (common, gtk_editable_get_text (GTK_EDITABLE (page->login)));
   g_return_if_fail (login != NULL);
 
   add[0] = login;
@@ -212,7 +209,7 @@ enterprise_permit_user_login (GisAccountPageEnterprise *page, UmRealmObject *rea
 
   um_realm_common_call_change_login_policy (common, "",
                                             add, remove, options,
-                                            priv->cancellable,
+                                            page->cancellable,
                                             on_permit_user_login,
                                             page);
 
@@ -226,7 +223,6 @@ on_set_static_hostname (GObject *source,
                         gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GError *error = NULL;
   GVariant *retval;
 
@@ -240,10 +236,10 @@ on_set_static_hostname (GObject *source,
   g_variant_unref (retval);
 
   /* Prompted for some admin credentials, try to use them to log in */
-  um_realm_login (priv->realm,
-                  gtk_editable_get_text (GTK_EDITABLE (priv->join_name)),
-                  gtk_editable_get_text (GTK_EDITABLE (priv->join_password)),
-                  priv->cancellable, on_join_login, page);
+  um_realm_login (page->realm,
+                  gtk_editable_get_text (GTK_EDITABLE (page->join_name)),
+                  gtk_editable_get_text (GTK_EDITABLE (page->join_password)),
+                  page->cancellable, on_join_login, page);
 }
 
 static void
@@ -252,7 +248,6 @@ on_join_response (GtkDialog *dialog,
                   gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GDBusConnection *connection;
   GError *error = NULL;
   gchar hostname[128];
@@ -264,12 +259,12 @@ on_join_response (GtkDialog *dialog,
     return;
   }
 
-  name = gtk_editable_get_text (GTK_EDITABLE (priv->join_computer));
+  name = gtk_editable_get_text (GTK_EDITABLE (page->join_computer));
   if (gethostname (hostname, sizeof (hostname)) == 0 &&
       !g_str_equal (name, hostname)) {
     g_debug ("Setting StaticHostname to '%s'", name);
 
-    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, priv->cancellable, &error);
+    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, page->cancellable, &error);
     if (error != NULL) {
       apply_complete (page, FALSE);
       g_warning ("Could not get DBus connection: %s", error->message);
@@ -286,12 +281,12 @@ on_join_response (GtkDialog *dialog,
                             G_MAXINT, NULL, on_set_static_hostname, page);
 
   } else {
-    name = gtk_editable_get_text (GTK_EDITABLE (priv->join_name));
+    name = gtk_editable_get_text (GTK_EDITABLE (page->join_name));
     g_debug ("Logging in as admin user: %s", name);
 
     /* Prompted for some admin credentials, try to use them to log in */
-    um_realm_login (priv->realm, name,
-                    gtk_editable_get_text (GTK_EDITABLE (priv->join_password)),
+    um_realm_login (page->realm, name,
+                    gtk_editable_get_text (GTK_EDITABLE (page->join_password)),
                     NULL, on_join_login, page);
   }
 }
@@ -300,57 +295,56 @@ static void
 join_show_prompt (GisAccountPageEnterprise *page,
                   GError *error)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   UmRealmKerberosMembership *membership;
   UmRealmKerberos *kerberos;
   gchar hostname[128];
   const gchar *name;
 
-  gtk_editable_set_text (GTK_EDITABLE (priv->join_password), "");
-  gtk_widget_grab_focus (GTK_WIDGET (priv->join_password));
+  gtk_editable_set_text (GTK_EDITABLE (page->join_password), "");
+  gtk_widget_grab_focus (GTK_WIDGET (page->join_password));
 
-  kerberos = um_realm_object_get_kerberos (priv->realm);
-  membership = um_realm_object_get_kerberos_membership (priv->realm);
+  kerberos = um_realm_object_get_kerberos (page->realm);
+  membership = um_realm_object_get_kerberos_membership (page->realm);
 
-  gtk_label_set_text (GTK_LABEL (priv->join_domain),
+  gtk_label_set_text (GTK_LABEL (page->join_domain),
                       um_realm_kerberos_get_domain_name (kerberos));
 
   if (gethostname (hostname, sizeof (hostname)) == 0)
-    gtk_editable_set_text (GTK_EDITABLE (priv->join_computer), hostname);
+    gtk_editable_set_text (GTK_EDITABLE (page->join_computer), hostname);
 
-  clear_entry_validation_error (GTK_ENTRY (priv->join_name));
-  clear_entry_validation_error (GTK_ENTRY (priv->join_password));
+  clear_entry_validation_error (GTK_ENTRY (page->join_name));
+  clear_entry_validation_error (GTK_ENTRY (page->join_password));
 
-  if (!priv->join_prompted) {
+  if (!page->join_prompted) {
     name = um_realm_kerberos_membership_get_suggested_administrator (membership);
     if (name && !g_str_equal (name, "")) {
       g_debug ("Suggesting admin user: %s", name);
-      gtk_editable_set_text (GTK_EDITABLE (priv->join_name), name);
+      gtk_editable_set_text (GTK_EDITABLE (page->join_name), name);
     } else {
-      gtk_widget_grab_focus (GTK_WIDGET (priv->join_name));
+      gtk_widget_grab_focus (GTK_WIDGET (page->join_name));
     }
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_HOSTNAME)) {
     g_debug ("Bad host name: %s", error->message);
-    set_entry_validation_error (GTK_ENTRY (priv->join_computer), error->message);
+    set_entry_validation_error (GTK_ENTRY (page->join_computer), error->message);
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Bad admin password: %s", error->message);
-    set_entry_validation_error (GTK_ENTRY (priv->join_password), error->message);
+    set_entry_validation_error (GTK_ENTRY (page->join_password), error->message);
 
   } else {
     g_debug ("Admin login failure: %s", error->message);
     g_dbus_error_strip_remote_error (error);
-    set_entry_validation_error (GTK_ENTRY (priv->join_name), error->message);
+    set_entry_validation_error (GTK_ENTRY (page->join_name), error->message);
   }
 
   g_debug ("Showing admin password dialog");
-  gtk_window_set_transient_for (GTK_WINDOW (priv->join_dialog),
+  gtk_window_set_transient_for (GTK_WINDOW (page->join_dialog),
                                 GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page))));
-  gtk_window_set_modal (GTK_WINDOW (priv->join_dialog), TRUE);
-  gtk_window_present (GTK_WINDOW (priv->join_dialog));
+  gtk_window_set_modal (GTK_WINDOW (page->join_dialog), TRUE);
+  gtk_window_present (GTK_WINDOW (page->join_dialog));
 
-  priv->join_prompted = TRUE;
+  page->join_prompted = TRUE;
   g_object_unref (kerberos);
   g_object_unref (membership);
 
@@ -363,17 +357,16 @@ on_join_login (GObject *source,
                gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GError *error = NULL;
   GBytes *creds;
 
-  um_realm_login_finish (priv->realm, result, &creds, &error);
+  um_realm_login_finish (page->realm, result, &creds, &error);
 
   /* Logged in as admin successfully, use creds to join domain */
   if (error == NULL) {
-    if (!um_realm_join_as_admin (priv->realm,
-                                 gtk_editable_get_text (GTK_EDITABLE (priv->join_name)),
-                                 gtk_editable_get_text (GTK_EDITABLE (priv->join_password)),
+    if (!um_realm_join_as_admin (page->realm,
+                                 gtk_editable_get_text (GTK_EDITABLE (page->join_name)),
+                                 gtk_editable_get_text (GTK_EDITABLE (page->join_password)),
                                  creds, NULL, on_realm_joined, page)) {
       show_error_dialog (page, _("No supported way to authenticate with this domain"), NULL);
       g_message ("Authenticating as admin is not supported by the realm");
@@ -395,15 +388,14 @@ on_realm_joined (GObject *source,
                  gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GError *error = NULL;
 
-  um_realm_join_finish (priv->realm, result, &error);
+  um_realm_join_finish (page->realm, result, &error);
 
   /* Yay, joined the domain, register the user locally */
   if (error == NULL) {
     g_debug ("Joining realm completed successfully");
-    enterprise_permit_user_login (page, priv->realm);
+    enterprise_permit_user_login (page, page->realm);
 
     /* Credential failure while joining domain, prompt for admin creds */
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN) ||
@@ -429,11 +421,10 @@ on_realm_login (GObject *source,
                 gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GError *error = NULL;
   GBytes *creds = NULL;
 
-  um_realm_login_finish (priv->realm, result, &creds, &error);
+  um_realm_login_finish (page->realm, result, &creds, &error);
 
   /*
    * User login is valid, but cannot authenticate right now (eg: user needs
@@ -447,16 +438,16 @@ on_realm_login (GObject *source,
   if (error == NULL) {
 
     /* Already joined to the domain, just register this user */
-    if (um_realm_is_configured (priv->realm)) {
+    if (um_realm_is_configured (page->realm)) {
       g_debug ("Already joined to this realm");
-      enterprise_permit_user_login (page, priv->realm);
+      enterprise_permit_user_login (page, page->realm);
 
       /* Join the domain, try using the user's creds */
     } else if (creds == NULL ||
-               !um_realm_join_as_user (priv->realm,
-                                       gtk_editable_get_text (GTK_EDITABLE (priv->login)),
-                                       gtk_editable_get_text (GTK_EDITABLE (priv->password)),
-                                       creds, priv->cancellable,
+               !um_realm_join_as_user (page->realm,
+                                       gtk_editable_get_text (GTK_EDITABLE (page->login)),
+                                       gtk_editable_get_text (GTK_EDITABLE (page->password)),
+                                       creds, page->cancellable,
                                        on_realm_joined,
                                        page)) {
 
@@ -471,14 +462,14 @@ on_realm_login (GObject *source,
     /* A problem with the user's login name or password */
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_LOGIN)) {
     g_debug ("Problem with the user's login: %s", error->message);
-    set_entry_validation_error (GTK_ENTRY (priv->login), error->message);
-    gtk_widget_grab_focus (priv->login);
+    set_entry_validation_error (GTK_ENTRY (page->login), error->message);
+    gtk_widget_grab_focus (page->login);
     apply_complete (page, FALSE);
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Problem with the user's password: %s", error->message);
-    set_entry_validation_error (GTK_ENTRY (priv->password), error->message);
-    gtk_widget_grab_focus (priv->password);
+    set_entry_validation_error (GTK_ENTRY (page->password), error->message);
+    gtk_widget_grab_focus (page->password);
     apply_complete (page, FALSE);
 
     /* Other login failure */
@@ -494,14 +485,13 @@ on_realm_login (GObject *source,
 static void
 enterprise_check_login (GisAccountPageEnterprise *page)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
-  g_assert (priv->realm);
+  g_assert (page->realm);
 
-  um_realm_login (priv->realm,
-                  gtk_editable_get_text (GTK_EDITABLE (priv->login)),
-                  gtk_editable_get_text (GTK_EDITABLE (priv->password)),
-                  priv->cancellable,
+  um_realm_login (page->realm,
+                  gtk_editable_get_text (GTK_EDITABLE (page->login)),
+                  gtk_editable_get_text (GTK_EDITABLE (page->password)),
+                  page->cancellable,
                   on_realm_login,
                   page);
 }
@@ -512,17 +502,16 @@ on_realm_discover_input (GObject *source,
                          gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GError *error = NULL;
   GList *realms;
 
-  realms = um_realm_manager_discover_finish (priv->realm_manager,
+  realms = um_realm_manager_discover_finish (page->realm_manager,
                                              result, &error);
 
   /* Found a realm, log user into domain */
   if (error == NULL) {
     g_assert (realms != NULL);
-    priv->realm = g_object_ref (realms->data);
+    page->realm = g_object_ref (realms->data);
     enterprise_check_login (page);
     g_list_free_full (realms, g_object_unref);
 
@@ -530,8 +519,8 @@ on_realm_discover_input (GObject *source,
     /* The domain is likely invalid */
     g_dbus_error_strip_remote_error (error);
     g_message ("Couldn't discover domain: %s", error->message);
-    gtk_widget_grab_focus (priv->domain_entry);
-    set_entry_validation_error (GTK_ENTRY (priv->domain_entry), error->message);
+    gtk_widget_grab_focus (page->domain_entry);
+    set_entry_validation_error (GTK_ENTRY (page->domain_entry), error->message);
     apply_complete (page, FALSE);
     g_error_free (error);
   }
@@ -540,23 +529,22 @@ on_realm_discover_input (GObject *source,
 static void
 enterprise_add_user (GisAccountPageEnterprise *page)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GtkTreeIter iter;
 
-  priv->join_prompted = FALSE;
-  g_clear_object (&priv->realm);
+  page->join_prompted = FALSE;
+  g_clear_object (&page->realm);
 
   /* Already know about this realm, try to login as user */
-  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (priv->domain), &iter)) {
-    gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->domain)),
-                        &iter, 1, &priv->realm, -1);
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (page->domain), &iter)) {
+    gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (page->domain)),
+                        &iter, 1, &page->realm, -1);
     enterprise_check_login (page);
 
     /* Something the user typed, we need to discover realm */
   } else {
-    um_realm_manager_discover (priv->realm_manager,
-                               gtk_editable_get_text (GTK_EDITABLE (priv->domain_entry)),
-                               priv->cancellable,
+    um_realm_manager_discover (page->realm_manager,
+                               gtk_editable_get_text (GTK_EDITABLE (page->domain_entry)),
+                               page->cancellable,
                                on_realm_discover_input,
                                page);
   }
@@ -569,16 +557,15 @@ gis_account_page_enterprise_apply (GisAccountPageEnterprise *page,
                                    gpointer                  data)
 {
   GisPage *account_page = GIS_PAGE (data);
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
   /* Parental controls are not enterprise ready. It’s possible for them to have
    * been enabled if the user enabled them, applied the account-local page, and
    * then went back and decided to go all enterprise instead. */
   gis_driver_set_parental_controls_enabled (account_page->driver, FALSE);
 
-  priv->apply_complete_callback = callback;
-  priv->apply_complete_data = data;
-  priv->cancellable = g_object_ref (cancellable);
+  page->apply_complete_callback = callback;
+  page->apply_complete_data = data;
+  page->cancellable = g_object_ref (cancellable);
   enterprise_add_user (page);
   return TRUE;
 }
@@ -626,7 +613,6 @@ static void
 enterprise_add_realm (GisAccountPageEnterprise *page,
                       UmRealmObject  *realm)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GtkTreeIter iter;
   gchar *name;
 
@@ -639,15 +625,15 @@ enterprise_add_realm (GisAccountPageEnterprise *page,
    * returns is the one it prefers.
    */
 
-  if (!model_contains_realm (GTK_TREE_MODEL (priv->realms_model), name)) {
-    gtk_list_store_append (GTK_LIST_STORE (priv->realms_model), &iter);
-    gtk_list_store_set (GTK_LIST_STORE (priv->realms_model), &iter,
+  if (!model_contains_realm (GTK_TREE_MODEL (page->realms_model), name)) {
+    gtk_list_store_append (GTK_LIST_STORE (page->realms_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (page->realms_model), &iter,
                         0, name,
                         1, realm,
                         -1);
 
-    if (!priv->domain_chosen && um_realm_is_configured (realm))
-      gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->domain), &iter);
+    if (!page->domain_chosen && um_realm_is_configured (realm))
+      gtk_combo_box_set_active_iter (GTK_COMBO_BOX (page->domain), &iter);
 
     g_debug ("added realm to drop down: %s %s", name,
              g_dbus_object_get_object_path (G_DBUS_OBJECT (realm)));
@@ -671,12 +657,11 @@ on_realm_manager_created (GObject *source,
                           gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GError *error = NULL;
   GList *realms, *l;
 
-  g_clear_object (&priv->realm_manager);
-  priv->realm_manager = um_realm_manager_new_finish (result, &error);
+  g_clear_object (&page->realm_manager);
+  page->realm_manager = um_realm_manager_new_finish (result, &error);
 
   if (error != NULL) {
     g_warning ("Couldn't contact realmd service: %s", error->message);
@@ -685,16 +670,16 @@ on_realm_manager_created (GObject *source,
   }
 
   /* Lookup all the realm objects */
-  realms = um_realm_manager_get_realms (priv->realm_manager);
+  realms = um_realm_manager_get_realms (page->realm_manager);
   for (l = realms; l != NULL; l = g_list_next (l))
     enterprise_add_realm (page, l->data);
 
   g_list_free (realms);
-  g_signal_connect (priv->realm_manager, "realm-added",
+  g_signal_connect (page->realm_manager, "realm-added",
                     G_CALLBACK (on_manager_realm_added), page);
 
   /* When no realms try to discover a sensible default, triggers realm-added signal */
-  um_realm_manager_discover (priv->realm_manager, "", NULL, NULL, NULL);
+  um_realm_manager_discover (page->realm_manager, "", NULL, NULL, NULL);
   gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
@@ -714,13 +699,12 @@ on_realmd_disappeared (GDBusConnection *unused1,
                        gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
-  if (priv->realm_manager != NULL) {
-    g_signal_handlers_disconnect_by_func (priv->realm_manager,
+  if (page->realm_manager != NULL) {
+    g_signal_handlers_disconnect_by_func (page->realm_manager,
                                           on_manager_realm_added,
                                           page);
-    g_clear_object (&priv->realm_manager);
+    g_clear_object (&page->realm_manager);
   }
 
   gtk_widget_set_visible (GTK_WIDGET (page), FALSE);
@@ -731,9 +715,8 @@ on_domain_changed (GtkComboBox *widget,
                    gpointer user_data)
 {
   GisAccountPageEnterprise *page = user_data;
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
-  priv->domain_chosen = TRUE;
+  page->domain_chosen = TRUE;
   validation_changed (page);
   clear_entry_validation_error (GTK_ENTRY (adw_bin_get_child (ADW_BIN (widget))));
 }
@@ -751,12 +734,11 @@ static void
 gis_account_page_enterprise_realize (GtkWidget *widget)
 {
   GisAccountPageEnterprise *page = GIS_ACCOUNT_PAGE_ENTERPRISE (widget);
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
   GtkWidget *gis_page;
 
   gis_page = gtk_widget_get_ancestor (widget, GIS_TYPE_PAGE);
   g_object_bind_property (gis_page, "small-screen",
-                          priv->header, "show-icon",
+                          page->header, "show-icon",
                           G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
 
   GTK_WIDGET_CLASS (gis_account_page_enterprise_parent_class)->realize (widget);
@@ -766,22 +748,21 @@ static void
 gis_account_page_enterprise_constructed (GObject *object)
 {
   GisAccountPageEnterprise *page = GIS_ACCOUNT_PAGE_ENTERPRISE (object);
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
   G_OBJECT_CLASS (gis_account_page_enterprise_parent_class)->constructed (object);
 
-  priv->act_client = act_user_manager_get_default ();
+  page->act_client = act_user_manager_get_default ();
 
-  priv->realmd_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM, "org.freedesktop.realmd",
+  page->realmd_watch = g_bus_watch_name (G_BUS_TYPE_SYSTEM, "org.freedesktop.realmd",
                                          G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
                                          on_realmd_appeared, on_realmd_disappeared,
                                          page, NULL);
 
-  g_signal_connect (priv->join_dialog, "response",
+  g_signal_connect (page->join_dialog, "response",
                     G_CALLBACK (on_join_response), page);
-  g_signal_connect (priv->domain, "changed",
+  g_signal_connect (page->domain, "changed",
                     G_CALLBACK (on_domain_changed), page);
-  g_signal_connect (priv->login, "changed",
+  g_signal_connect (page->login, "changed",
                     G_CALLBACK (on_entry_changed), page);
 }
 
@@ -789,18 +770,17 @@ static void
 gis_account_page_enterprise_dispose (GObject *object)
 {
   GisAccountPageEnterprise *page = GIS_ACCOUNT_PAGE_ENTERPRISE (object);
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
 
-  if (priv->realmd_watch)
-    g_bus_unwatch_name (priv->realmd_watch);
+  if (page->realmd_watch)
+    g_bus_unwatch_name (page->realmd_watch);
 
-  priv->realmd_watch = 0;
+  page->realmd_watch = 0;
 
-  g_cancellable_cancel (priv->cancellable);
+  g_cancellable_cancel (page->cancellable);
 
-  g_clear_object (&priv->realm_manager);
-  g_clear_object (&priv->realm);
-  g_clear_object (&priv->cancellable);
+  g_clear_object (&page->realm_manager);
+  g_clear_object (&page->realm);
+  g_clear_object (&page->cancellable);
 
   G_OBJECT_CLASS (gis_account_page_enterprise_parent_class)->dispose (object);
 }
@@ -818,17 +798,17 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page-enterprise.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, login);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, password);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, realms_model);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, header);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, login);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, password);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, realms_model);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, header);
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_dialog);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_name);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_password);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_domain);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_computer);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_dialog);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_name);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_password);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_domain);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_computer);
 
   signals[VALIDATION_CHANGED] = g_signal_new ("validation-changed", GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE,
                                               G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
@@ -841,18 +821,14 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
 static void
 gis_account_page_enterprise_init (GisAccountPageEnterprise *page)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
-
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
 
-  priv->domain_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (priv->domain));
+  page->domain_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->domain));
 }
 
 void
 gis_account_page_enterprise_shown (GisAccountPageEnterprise *page)
 {
-  GisAccountPageEnterprisePrivate *priv = gis_account_page_enterprise_get_instance_private (page);
-
-  gtk_widget_grab_focus (priv->domain_entry);
+  gtk_widget_grab_focus (page->domain_entry);
 }

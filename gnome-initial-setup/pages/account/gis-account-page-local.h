@@ -25,27 +25,8 @@
 
 G_BEGIN_DECLS
 
-#define GIS_TYPE_ACCOUNT_PAGE_LOCAL               (gis_account_page_local_get_type ())
-#define GIS_ACCOUNT_PAGE_LOCAL(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_ACCOUNT_PAGE_LOCAL, GisAccountPageLocal))
-#define GIS_ACCOUNT_PAGE_LOCAL_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_ACCOUNT_PAGE_LOCAL, GisAccountPageLocalClass))
-#define GIS_IS_ACCOUNT_PAGE_LOCAL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_ACCOUNT_PAGE_LOCAL))
-#define GIS_IS_ACCOUNT_PAGE_LOCAL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_ACCOUNT_PAGE_LOCAL))
-#define GIS_ACCOUNT_PAGE_LOCAL_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_ACCOUNT_PAGE_LOCAL, GisAccountPageLocalClass))
-
-typedef struct _GisAccountPageLocal        GisAccountPageLocal;
-typedef struct _GisAccountPageLocalClass   GisAccountPageLocalClass;
-
-struct _GisAccountPageLocal
-{
-    AdwBin parent;
-};
-
-struct _GisAccountPageLocalClass
-{
-    AdwBinClass parent_class;
-};
-
-GType gis_account_page_local_get_type (void);
+#define GIS_TYPE_ACCOUNT_PAGE_LOCAL (gis_account_page_local_get_type ())
+G_DECLARE_FINAL_TYPE (GisAccountPageLocal, gis_account_page_local, GIS, ACCOUNT_PAGE_LOCAL, AdwBin)
 
 gboolean gis_account_page_local_validate (GisAccountPageLocal *local);
 gboolean gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page);
