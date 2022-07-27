@@ -106,9 +106,58 @@ is_valid_name (const gchar *name)
         return !is_empty;
 }
 
+#define LOWERCASE_ONLY_REGEX "^[a-z][-a-z0-9_]*$"
+
+static GRegex*
+get_adduser_regex (gboolean *out_is_lowercase_only)
+{
+        static gboolean lowercase_only = FALSE;
+        static gboolean initialized = FALSE;
+        static GRegex *adduser_regex = NULL;
+
+        if (!initialized) {
+                g_autofree gchar *contents = NULL;
+
+                if (g_file_get_contents ("/etc/adduser.conf", &contents, NULL, NULL)) {
+                        g_auto(GStrv) lines = g_strsplit (contents, "\n", -1);
+                        gsize i;
+
+                        for (i = 0; lines && lines[i] != NULL; i++) {
+                                g_autofree gchar *unquoted = NULL;
+                                gchar *line = g_strstrip (lines[i]);
+
+                                if (*line == '#' || !g_str_has_prefix (line, "NAME_REGEX="))
+                                        continue;
+
+                                line += strlen ("NAME_REGEX=");
+                                unquoted = g_shell_unquote (line, NULL);
+
+                                if (!unquoted)
+                                        continue;
+
+                                adduser_regex = g_regex_new (unquoted,
+                                                             G_REGEX_OPTIMIZE,
+                                                             0,
+                                                             NULL);
+
+                                /* This comes from Debian regex */
+                                lowercase_only = g_str_equal (unquoted, LOWERCASE_ONLY_REGEX);
+                                break;
+                        }
+                }
+
+                initialized = TRUE;
+        }
+
+        *out_is_lowercase_only = lowercase_only;
+        return adduser_regex;
+}
+
 gboolean
 is_valid_username (const gchar *username, gboolean parental_controls_enabled, gchar **tip)
 {
+        gboolean adduser_regex_valid;
+        gboolean lowecase_only;
         gboolean empty;
         gboolean in_use;
         gboolean too_long;
@@ -125,25 +174,36 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
                 in_use = is_username_used (username);
                 too_long = strlen (username) > MAXNAMELEN;
         }
+        adduser_regex_valid = TRUE;
+        lowecase_only = FALSE;
         valid = TRUE;
 
         if (!in_use && !empty && !too_long) {
+                GRegex *adduser_regex = get_adduser_regex (&lowecase_only);
+
                 /* First char must be a letter, and it must only composed
                  * of ASCII letters, digits, and a '.', '-', '_'
                  */
                 for (c = username; *c; c++) {
                         if (! ((*c >= 'a' && *c <= 'z') ||
-                               (*c >= 'A' && *c <= 'Z') ||
+                               (!lowecase_only && (*c >= 'A' && *c <= 'Z')) ||
                                (*c >= '0' && *c <= '9') ||
                                (*c == '_') || (*c == '.') ||
                                (*c == '-' && c != username)))
                            valid = FALSE;
                 }
+
+                /* Second, if useradd.conf provides a regex for username
+                 * validation, use it.
+                 */
+                if (valid && adduser_regex)
+                        adduser_regex_valid = g_regex_match (adduser_regex, username, 0, NULL);
+
         }
 
         parental_controls_conflict = (parental_controls_enabled && g_strcmp0 (username, "administrator") == 0);
 
-        valid = !empty && !in_use && !too_long && !parental_controls_conflict && valid;
+        valid = !empty && !in_use && !too_long && !parental_controls_conflict && adduser_regex_valid && valid;
 
         if (!empty && (in_use || too_long || parental_controls_conflict || !valid)) {
                 if (in_use) {
@@ -157,6 +217,12 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
                 }
                 else if (parental_controls_conflict) {
                         *tip = g_strdup (_("That username isn’t available. Please try another."));
+                }
+                else if (!adduser_regex_valid && !lowecase_only) {
+                        *tip = g_strdup (_("The username does not conform to the system policies. Contact your system administrator."));
+                }
+                else if (lowecase_only) {
+                        *tip = g_strdup (_("The username should only consist of lower case letters from a-z, digits and the following characters: . - _"));
                 }
                 else {
                         *tip = g_strdup (_("The username should only consist of upper and lower case letters from a-z, digits and the following characters: . - _"));
