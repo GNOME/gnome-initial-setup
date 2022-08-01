@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_ACCOUNT_PAGES_H__
-#define __GIS_ACCOUNT_PAGES_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -31,6 +30,4 @@ G_BEGIN_DECLS
 GisPage *gis_prepare_account_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* __GIS_ACCOUNT_PAGES_H__ */
 
