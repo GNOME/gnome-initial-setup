@@ -120,7 +120,7 @@ gis_location_entry_init (GisLocationEntry *entry)
 
     completion = gtk_entry_completion_new ();
 
-    gtk_entry_completion_set_popup_set_width (completion, FALSE);
+    gtk_entry_completion_set_popup_set_width (completion, TRUE);
     gtk_entry_completion_set_text_column (completion, LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME);
     gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
     gtk_entry_completion_set_inline_completion (completion, TRUE);
