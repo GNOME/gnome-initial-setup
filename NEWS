@@ -1,3 +1,50 @@
+43.beta
+-------
+
+* Initial Setup has been ported to GTK 4, libadwaita, and friends, thanks to
+  Georges Stavracas. As a result:
+
+  - libnma-gtk4 is now required, rather than libnma
+
+  - GTK 4 is required in addition to GTK 3. This is because goa-backend does
+    not have a GTK 4 port. Like in gnome-control-center, the use of goa-backend
+    is split out into a separate process.
+
+  - webkit2gtk5 is now required. (However, goa-backend brings a transitive
+    dependency on webkit2gtk4.)
+
+  - Since webkit2gtk5 requires libsoup 3, the soup2=true configuration option
+    has been removed. Initial Setup depends on geocode-glib-2.0, and versions
+    of librest and gweather4 built against libsoup 3.
+
+  - Support for taking a selfie as your account avatar has been removed, since
+    libcheese-gtk lacks a GTK 4 port, and the optional libcheese[-gtk]
+    dependency is no more.
+
+  There is a known regression from the port: selecting a timezone by typing the
+  name of a city and picking a location from the dropdown does not work. To
+  work around this, click a location on the map to select a timezone. This is
+  tracked as https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/145
+  and will be addressed in a future release.
+
+* When systemd support is enabled, Initial Setup now installs a sysusers.d
+  snippet for its user, thanks to David King.
+
+* Translation updates:
+ - Abkhazian
+ - Chinese (China)
+ - Galician
+ - Georgian
+ - Hebrew
+ - Indonesian
+ - Persian
+ - Portuguese
+ - Russian
+ - Spanish
+ - Swedish
+ - Turkish
+ - Ukrainian
+
 43.alpha.1
 ----------
 
