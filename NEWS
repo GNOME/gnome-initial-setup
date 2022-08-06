@@ -4,7 +4,7 @@
 * Initial Setup has been ported to GTK 4, libadwaita, and friends, thanks to
   Georges Stavracas. As a result:
 
-  - libnma-gtk4 is now required, rather than libnma
+  - libnma-gtk4 is now required, rather than libnma.
 
   - GTK 4 is required in addition to GTK 3. This is because goa-backend does
     not have a GTK 4 port. Like in gnome-control-center, the use of goa-backend
@@ -20,6 +20,9 @@
   - Support for taking a selfie as your account avatar has been removed, since
     libcheese-gtk lacks a GTK 4 port, and the optional libcheese[-gtk]
     dependency is no more.
+
+  - Parental controls support requires malcontent 0.11 which is not released
+    at the time of writing.
 
   There is a known regression from the port: selecting a timezone by typing the
   name of a city and picking a location from the dropdown does not work. To
