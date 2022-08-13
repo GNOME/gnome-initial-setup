@@ -94,8 +94,6 @@ should_skip_page (const gchar  *page_id,
   if (strcmp (page_id, "welcome") == 0)
     return !should_skip_page ("language", skip_pages);
 
-  return FALSE;
-
   /* check through our skip pages list for pages we don't want */
   if (skip_pages) {
     while (skip_pages[i]) {
