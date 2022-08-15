@@ -28,3 +28,18 @@ sources += files(
     'gis-timezone-page.c',
     'gis-timezone-page.h'
 )
+
+executable('test-gis-location-entry',
+    files(
+        'gis-location-entry.c',
+        'gis-location-entry.h',
+        'test-gis-location-entry.c',
+    ),
+    dependencies: [
+        libadwaita_dep,
+        gweather_dep,
+        geocode_glib_2_dep,
+    ],
+    include_directories: config_h_dir,
+    install: false,
+)
