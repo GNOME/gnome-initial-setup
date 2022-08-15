@@ -354,6 +354,8 @@ set_location_internal (GisLocationEntry *entry,
 
     g_assert (iter == NULL || loc == NULL);
 
+    g_signal_handlers_block_by_func (entry, entry_changed, NULL);
+
     if (iter) {
         gtk_tree_model_get (model, iter,
                             LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME, &name,
@@ -368,6 +370,8 @@ set_location_internal (GisLocationEntry *entry,
         priv->location = NULL;
         set_entry_text (entry, "");
     }
+
+    g_signal_handlers_unblock_by_func (entry, entry_changed, NULL);
 
     gtk_editable_set_position (GTK_EDITABLE (entry), -1);
     g_object_notify (G_OBJECT (entry), "location");
