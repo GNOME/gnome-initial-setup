@@ -26,7 +26,6 @@ struct _GisLocationEntryPrivate {
     GWeatherLocation *location;
     GWeatherLocation *top;
     gboolean          show_named_timezones;
-    gboolean          custom_text;
     GCancellable     *cancellable;
     GtkTreeModel     *model;
 };
@@ -134,7 +133,6 @@ gis_location_entry_init (GisLocationEntry *entry)
     gtk_entry_set_completion (GTK_ENTRY (entry->priv->entry), completion);
     g_object_unref (completion);
 
-    priv->custom_text = FALSE;
     g_signal_connect (entry, "changed",
                       G_CALLBACK (entry_changed), NULL);
 }
@@ -327,9 +325,7 @@ entry_changed (GisLocationEntry *entry)
 
     text = gtk_editable_get_text (GTK_EDITABLE (entry));
 
-    if (text && *text)
-        entry->priv->custom_text = TRUE;
-    else
+    if (!text || *text == '\0')
         set_location_internal (entry, NULL, NULL, NULL);
 }
 
@@ -364,16 +360,13 @@ set_location_internal (GisLocationEntry *entry,
                             LOC_GIS_LOCATION_ENTRY_COL_LOCATION, &priv->location,
                             -1);
         set_entry_text (entry, name);
-        priv->custom_text = FALSE;
         g_free (name);
     } else if (loc) {
         priv->location = g_object_ref (loc);
         set_entry_text (entry, gweather_location_get_name (loc));
-        priv->custom_text = FALSE;
     } else {
         priv->location = NULL;
         set_entry_text (entry, "");
-        priv->custom_text = TRUE;
     }
 
     gtk_editable_set_position (GTK_EDITABLE (entry), -1);
@@ -446,25 +439,6 @@ gis_location_entry_get_location (GisLocationEntry *entry)
         return g_object_ref (entry->priv->location);
     else
         return NULL;
-}
-
-/**
- * gis_location_entry_has_custom_text:
- * @entry: a #GisLocationEntry
- *
- * Checks whether or not @entry's text has been modified by the user.
- * Note that this does not mean that no location is associated with @entry.
- * gis_location_entry_get_location() should be used for this.
- *
- * Return value: %TRUE if @entry's text was modified by the user, or %FALSE if
- * it's set to the default text of a location.
- **/
-gboolean
-gis_location_entry_has_custom_text (GisLocationEntry *entry)
-{
-    g_return_val_if_fail (GIS_IS_LOCATION_ENTRY (entry), FALSE);
-
-    return entry->priv->custom_text;
 }
 
 /**

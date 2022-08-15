@@ -39,7 +39,6 @@ GtkWidget *             gis_location_entry_new             (GWeatherLocation *to
 void                    gis_location_entry_set_location    (GisLocationEntry *entry,
                                                             GWeatherLocation *loc);
 GWeatherLocation *      gis_location_entry_get_location    (GisLocationEntry *entry);
-gboolean                gis_location_entry_has_custom_text (GisLocationEntry *entry);
 gboolean                gis_location_entry_set_city        (GisLocationEntry *entry,
                                                             const char       *city_name,
                                                             const char       *code);
