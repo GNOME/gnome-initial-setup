@@ -782,6 +782,8 @@ fill_store (gpointer data, gpointer user_data)
     normalized = g_utf8_normalize (display_name, -1, G_NORMALIZE_ALL);
     compare_name = g_utf8_casefold (normalized, -1);
 
+    g_debug ("Adding geocode match %s", display_name);
+
     gtk_list_store_insert_with_values (user_data, NULL, -1,
                                        PLACE_GIS_LOCATION_ENTRY_COL_PLACE, place,
                                        PLACE_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME, display_name,
@@ -799,27 +801,28 @@ _got_places (GObject      *source_object,
              gpointer      user_data)
 {
     GList *places;
-    GisLocationEntry *self = user_data;
-    GError *error = NULL;
+    GisLocationEntry *self = NULL;
+    g_autoptr(GError) error = NULL;
     GtkListStore *store = NULL;
     GtkEntryCompletion *completion;
 
     places = geocode_forward_search_finish (GEOCODE_FORWARD (source_object), result, &error);
-    if (places == NULL) {
+    if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
         /* return without touching anything if cancelled (the entry might have been disposed) */
-        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
-            g_clear_error (&error);
-            return;
-        }
+        g_debug ("Geocode query cancelled");
+        return;
+    }
 
-        g_clear_error (&error);
-        completion = gtk_entry_get_completion (user_data);
+    self = GIS_LOCATION_ENTRY (user_data);
+    completion = gtk_entry_get_completion (GTK_ENTRY (self->priv->entry));
+
+    if (places == NULL) {
+        g_debug ("No geocode results, restoring default model");
         gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
         gtk_entry_completion_set_model (completion, self->priv->model);
         goto out;
     }
 
-    completion = gtk_entry_get_completion (user_data);
     store = gtk_list_store_new (5, G_TYPE_STRING, GEOCODE_TYPE_PLACE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
                                              tree_compare_local_name, NULL, NULL);
@@ -846,6 +849,7 @@ _no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry) {
 
     entry->priv->cancellable = g_cancellable_new ();
 
+    g_debug ("Starting geocode query for %s", key);
     forward = geocode_forward_new_for_string(key);
     geocode_forward_search_async (forward, entry->priv->cancellable, _got_places, entry);
 }
