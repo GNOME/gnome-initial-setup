@@ -1,7 +1,5 @@
 sources = []
 
-subdir('pages')
-
 resources = gnome.compile_resources(
     'gis-assistant-resources',
     files('gis-assistant.gresource.xml'),
@@ -38,6 +36,10 @@ geocode_glib_2_dep = dependency(
   ],
 )
 
+gweather_dep = dependency('gweather4')
+
+subdir('pages')
+
 dependencies = [
     dependency ('libnm', version: '>= 1.2'),
     dependency ('libnma-gtk4', version: '>= 1.0'),
@@ -52,7 +54,7 @@ dependencies = [
     dependency ('glib-2.0', version: '>= 2.63.1'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
-    dependency ('gweather4'),
+    gweather_dep,
     dependency ('libgeoclue-2.0', version: '>= 2.3.1'),
     cc.find_library('m', required: false),
     dependency ('pango', version: '>= 1.32.5'),
