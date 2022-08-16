@@ -803,7 +803,7 @@ _got_places (GObject      *source_object,
     g_autolist(GeocodePlace) places = NULL;
     GisLocationEntry *self = NULL;
     g_autoptr(GError) error = NULL;
-    GtkListStore *store = NULL;
+    g_autoptr(GtkListStore) store = NULL;
     GtkEntryCompletion *completion;
 
     places = geocode_forward_search_finish (GEOCODE_FORWARD (source_object), result, &error);
@@ -820,18 +820,15 @@ _got_places (GObject      *source_object,
         g_debug ("No geocode results, restoring default model");
         gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
         gtk_entry_completion_set_model (completion, self->priv->model);
-        goto out;
+    } else {
+        store = gtk_list_store_new (5, G_TYPE_STRING, GEOCODE_TYPE_PLACE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+        gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
+                                                 tree_compare_local_name, NULL, NULL);
+        g_list_foreach (places, fill_store, store);
+        gtk_entry_completion_set_match_func (completion, new_matcher, NULL, NULL);
+        gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (store));
     }
 
-    store = gtk_list_store_new (5, G_TYPE_STRING, GEOCODE_TYPE_PLACE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
-    gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
-                                             tree_compare_local_name, NULL, NULL);
-    g_list_foreach (places, fill_store, store);
-    gtk_entry_completion_set_match_func (completion, new_matcher, NULL, NULL);
-    gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (store));
-    g_object_unref (store);
-
- out:
     g_clear_object (&self->priv->cancellable);
 }
 
