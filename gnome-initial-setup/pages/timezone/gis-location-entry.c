@@ -800,7 +800,7 @@ _got_places (GObject      *source_object,
              GAsyncResult *result,
              gpointer      user_data)
 {
-    GList *places;
+    g_autolist(GeocodePlace) places = NULL;
     GisLocationEntry *self = NULL;
     g_autoptr(GError) error = NULL;
     GtkListStore *store = NULL;
@@ -827,7 +827,6 @@ _got_places (GObject      *source_object,
     gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
                                              tree_compare_local_name, NULL, NULL);
     g_list_foreach (places, fill_store, store);
-    g_list_free (places);
     gtk_entry_completion_set_match_func (completion, new_matcher, NULL, NULL);
     gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (store));
     g_object_unref (store);
