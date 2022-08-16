@@ -477,7 +477,7 @@ log_handler (const gchar    *domain,
              const gchar    *message,
              gpointer        user_data)
 {
-  g_printerr ("%s: %s", domain, message);
+  g_printerr ("%s: %s\n", domain, message);
 }
 
 int
