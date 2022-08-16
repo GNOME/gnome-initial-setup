@@ -29,6 +29,7 @@ conf.set_quoted('SYSCONFDIR', sysconf_dir)
 conf.set_quoted('LIBEXECDIR', libexec_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
+conf.set('G_LOG_USE_STRUCTURED', true)
 conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_64')
 conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_64')
 
