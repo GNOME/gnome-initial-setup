@@ -1,8 +1,10 @@
 # Turkish translation for gnome-initial-setup.
-# Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright (C) 2012-2022 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
+#
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2012, 2013, 2014, 2015, 2016.
+# Sabri Ünal <libreajans@gmail.com>, 2022.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2013-2022.
 #
 msgid ""
@@ -10,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-07-25 18:49+0000\n"
-"PO-Revision-Date: 2022-07-26 00:26+0300\n"
+"POT-Creation-Date: 2022-08-16 08:31+0000\n"
+"PO-Revision-Date: 2022-08-22 05:15+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -19,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-POOTLE-MTIME: 1433282659.000000\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -47,11 +49,11 @@ msgstr "_Geri"
 msgid "_Cancel"
 msgstr "_Vazgeç"
 
-#: gnome-initial-setup/gnome-initial-setup.c:284
+#: gnome-initial-setup/gnome-initial-setup.c:282
 msgid "Force existing user mode"
 msgstr "Var olan kullanıcı kipine zorla"
 
-#: gnome-initial-setup/gnome-initial-setup.c:298
+#: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
 msgstr "— GNOME ilk kurulum"
 
@@ -59,19 +61,19 @@ msgstr "— GNOME ilk kurulum"
 msgid "Take a Picture…"
 msgstr "Fotoğraf Çek…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Hesap kaydedilemedi"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
 msgid "No supported way to authenticate with this domain"
 msgstr "Bu etki alanıyla kimlik doğrulamak için desteklenen yol yok"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
 msgid "Failed to join domain"
 msgstr "Etki alanına katılma başarısız"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
 msgid "Failed to log into domain"
 msgstr "Etki alanında oturum açılamadı"
 
@@ -143,16 +145,16 @@ msgid "Please check the name and username. You can choose a picture too."
 msgstr ""
 "Lütfen adı ve kullanıcı adını gözden geçirin. Fotoğraf da seçebilirsiniz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:465
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
 msgid "We need a few details to complete setup."
 msgstr "Kurulumu tamamlamak için birkaç ayrıntıya gereksiniyoruz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
 msgid "Administrator"
 msgstr "Yönetici"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:570
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:613
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "'%s' kullanıcısı oluşturulamadı: "
@@ -162,7 +164,7 @@ msgid "Avatar image"
 msgstr "Görüntü resmi"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
-#: gnome-initial-setup/pages/account/gis-account-page.c:283
+#: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Hakkınızda"
 
@@ -267,6 +269,17 @@ msgid ""
 msgstr ""
 "İstediğinizde Ayarlar uygulamasından hesap ekleyebilir ya da "
 "kaldırabilirsiniz."
+
+#. translators: This is the title of the "Show Account" dialog. The
+#. * %s is the name of the provider. e.g., 'Google'.
+#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
+#, c-format
+msgid "%s Account"
+msgstr "%s Hesabı"
+
+#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
+msgid "Remove Account"
+msgstr "Hesabı Kaldır"
 
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
@@ -533,8 +546,8 @@ msgid ""
 "Sends technical reports that have personal information automatically "
 "removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Kişisel verinin kendiliğinden kaldırıldığı teknik raporlar gönderir."
-"Veri %1$s tarafından toplanır (<a href='%2$s'>gizlilik ilkesi</a>)."
+"Kişisel verinin kendiliğinden kaldırıldığı teknik raporlar gönderir.Veri "
+"%1$s tarafından toplanır (<a href='%2$s'>gizlilik ilkesi</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
@@ -546,8 +559,8 @@ msgid ""
 "Sends technical reports that have personal information automatically "
 "removed. Data is collected by %s."
 msgstr ""
-"Kişisel verinin kendiliğinden kaldırıldığı teknik raporlar gönderir."
-"Veri %s tarafından toplanır."
+"Kişisel verinin kendiliğinden kaldırıldığı teknik raporlar gönderir.Veri %s "
+"tarafından toplanır."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:196
 msgid "Privacy Policy"
@@ -569,8 +582,8 @@ msgid ""
 "privacy'>privacy policy</a>)."
 msgstr ""
 "Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum "
-"Hizmetleri (<a href='https://location.services.mozilla.com/privacy'>"
-"gizlilik ilkesi</a>) kullanılır."
+"Hizmetleri (<a href='https://location.services.mozilla.com/privacy'>gizlilik "
+"ilkesi</a>) kullanılır."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid "Automatic Problem Reporting"
@@ -640,8 +653,8 @@ msgstr "Tümü bitti!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:570
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:598
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -722,177 +735,3 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "Kurulumu _Başlat"
-
-#~ msgid "Add Account"
-#~ msgstr "Hesap Ekle"
-
-#~ msgid "This is a weak password."
-#~ msgstr "Bu zayıf bir paroladır."
-
-#, c-format
-#~ msgid ""
-#~ "Sending reports of technical problems helps us to improve %s. Reports are "
-#~ "sent anonymously and are scrubbed of personal data."
-#~ msgstr ""
-#~ "Teknik sorunları bize bildirmeniz, %s’i geliştirmemize yardımcı "
-#~ "olmaktadır. Bu bildirimler anonim olarak gönderilir ve kişisel veriden "
-#~ "arındırılmıştır."
-
-#, c-format
-#~ msgid "Problem data will be collected by %s:"
-#~ msgstr "Sorun verisi %s tarafından toplanacak:"
-
-#~ msgid "Uses Mozilla Location Service:"
-#~ msgstr "Mozilla Konum Hizmetlerini Kullanır:"
-
-#~ msgid "Loading…"
-#~ msgstr "Yükleniyor…"
-
-#~ msgid ""
-#~ "Connecting to the Internet will enable you to set the time, add your "
-#~ "details, and enable you to access your email, calendar, and contacts. It "
-#~ "is also necessary for enterprise login accounts."
-#~ msgstr ""
-#~ "İnternete bağlanmak saati ayarlamanızı, kişisel ayrıntılarınızı "
-#~ "eklemenizi, e-postalarınıza, takminize ve kişilerinize erişmenizi sağlar. "
-#~ "Ayrıca kurumsal hesaplara giriş için gereklidir."
-
-#~ msgid "preferences-system"
-#~ msgstr "preferences-system"
-
-#~ msgid "License Agreements"
-#~ msgstr "Lisans Sözleşmeleri"
-
-#~ msgid ""
-#~ "I have _agreed to the terms and conditions in this end user license "
-#~ "agreement."
-#~ msgstr ""
-#~ "Bu son kullanıcı lisans sözleşmesindeki hüküm ve koşulları _kabul "
-#~ "ediyorum."
-
-#~ msgid "No regions found"
-#~ msgstr "Bölge bulunamadı"
-
-#~ msgid "Region"
-#~ msgstr "Bölge"
-
-#~ msgid "Choose your country or region."
-#~ msgstr "Ülkenizi veya bölgenizi seçin."
-
-#~ msgid "Software Repositories"
-#~ msgstr "Yazılım Depoları"
-
-#~ msgid "Access additional software from selected third party sources."
-#~ msgstr "Seçili üçüncü taraf kaynaklardan ek yazılımlara erişin."
-
-#~ msgid ""
-#~ "Some of this software is proprietary and therefore has restrictions on "
-#~ "use, sharing, and access to source code."
-#~ msgstr ""
-#~ "Bu yazılımların bir bölümü sahiplidir ve bu nedenle kullanım, paylaşım, "
-#~ "kaynak koda erişim üzerinde kısıtlamaları vardır."
-
-#~ msgid "Additional Software Repositories"
-#~ msgstr "Ek Yazılım Depoları"
-
-#~ msgid "<a href=\"more\">Find out more…</a>"
-#~ msgstr "<a href=\"more\">Daha çoğunu keşfedin…</a>"
-
-#~ msgid ""
-#~ "Proprietary software typically has restrictions on how it can be used and "
-#~ "on access to source code. This prevents anyone but the software owner "
-#~ "from inspecting, improving or learning from its code."
-#~ msgstr ""
-#~ "Sahipli yazılımların genellikle nasıl kullanılacağı ve kaynak koda "
-#~ "erişimle ilgili kısıtları vardır. Bu; yazılımın sahibi dışındakilerin "
-#~ "kaynak kodları incelemesini, geliştirmesini ve bunlardan birşeyler "
-#~ "öğrenmesini engeller."
-
-#~ msgid ""
-#~ "In contrast, Free Software can be freely run, copied, distributed, "
-#~ "studied and modified."
-#~ msgstr ""
-#~ "Buna karşın Özgür Yazılımlar; özgürce çalıştırılabilir, kopyalanabilir, "
-#~ "dağıtılabilir, üzerinde çalışma yapılabilir ve değiştirilebilirdir."
-
-#~ msgid "Ready to Go"
-#~ msgstr "Kullanıma Hazır"
-
-#~ msgid "You’re ready to go!"
-#~ msgstr "Başlamaya hazırsınız!"
-
-#~ msgid "Disable image"
-#~ msgstr "Resmi etkisizleştir"
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to avoid common words."
-#~ msgstr "Yaygın sözcüklerden kaçınmayı deneyin."
-
-#~ msgctxt "Password hint"
-#~ msgid "Try to use more numbers."
-#~ msgstr "Daha çok rakam kullanmayı deneyin."
-
-#~ msgctxt "Password hint"
-#~ msgid ""
-#~ "Password needs to be longer. Try to add more letters, numbers and "
-#~ "punctuation."
-#~ msgstr ""
-#~ "Parola daha uzun olmalıdır. Harf, sayı ve noktalama işareti karışımı "
-#~ "kullanmayı deneyin."
-
-#~ msgid ""
-#~ "Proprietary software sources provide access to additional software, "
-#~ "including web browsers and games. This software typically has "
-#~ "restrictions on use and access to source code, and is not provided by %s."
-#~ msgstr ""
-#~ "Sahipli yazılım kaynakları; web tarayıcıları ve oyunlar da dahil olmak "
-#~ "üzere, ek yazılımlara erişim sağlar. Bu yazılımların genellikle kullanım "
-#~ "ve kaynak koda erişim kısıtları vardır ve sağlayıcısı %s değildir."
-
-#~ msgid "Proprietary Software Sources"
-#~ msgstr "Sahipli Yazılım Kaynakları"
-
-#~| msgid "A user with the username '%s' already exists."
-#~ msgid "A user with the username ‘%s’ already exists."
-#~ msgstr "‘%s’ adlı bir kullanıcı zaten var"
-
-#~ msgid "_Verify"
-#~ msgstr "_Doğrula"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Weak"
-#~ msgstr "Güç: Zayıf"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Low"
-#~ msgstr "Güç: Düşük"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Medium"
-#~ msgstr "Güç: Orta"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: Good"
-#~ msgstr "Güç: İyi"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strength: High"
-#~ msgstr "Güç: Yüksek"
-
-#~ msgid "Are these the right details? You can change them if you want."
-#~ msgstr "Bu ayrıntılar doğru mu? İsterseniz bunları değiştirebilirsiniz."
-
-#~ msgid "You can review your online accounts (and add others) after setup."
-#~ msgstr ""
-#~ "Çevrimiçi hesaplarınızı kurulumdan sonra gözden geçirebilir (ve "
-#~ "diğerlerini ekleyebilirsiniz.)"
-
-#~ msgid ""
-#~ "We think that your time zone is %s. Press Next to continue or search for "
-#~ "a city to manually set the time zone."
-#~ msgstr ""
-#~ "Saat diliminizi %s olarak belirledik. Devam etmek için İleri'ye tıklayın "
-#~ "ya da saat dilimini elle ayarlamak için şehir arayın."
-
-#~ msgid "Cancel"
-#~ msgstr "İptal"
