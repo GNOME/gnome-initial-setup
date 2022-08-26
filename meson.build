@@ -70,7 +70,7 @@ libadwaita_dep = dependency(
 libmalcontent_dep = dependency ('malcontent-0',
                                 version: '>= 0.6.0',
                                 required: get_option('parental_controls'))
-libmalcontent_ui_dep = dependency ('malcontent-ui-0',
+libmalcontent_ui_dep = dependency ('malcontent-ui-1',
                                    version: '>= 0.11.0',
                                    required: get_option('parental_controls'),
                                    fallback: ['malcontent-ui', 'libmalcontent_ui_dep'])
