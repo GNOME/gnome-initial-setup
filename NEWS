@@ -1,3 +1,24 @@
+43.rc
+-----
+
+* Initial Setup no longer crashes if you attempt to use capital letters or
+  periods in your username on systems that reject such usernames. Instead,
+  it always forbids capital letters and periods in usernames. (#117, !30,
+  thanks to Xiang Fan)
+
+* Several regressions in the timezone page were fixed, including selecting a
+  timezone by typing the name of a city and picking a location from
+  the dropdown (#145, !157, Georges Stavracas) and searching for locations not
+  found in the gweather database (!158).
+
+* Page-skipping works again (!156, Adam Williamson)
+
+* Parental Controls support now correctly requires malcontent 0.11.0's new API
+  name. Beware: if libostree or libflatpak are built against libsoup2.4, then
+  linking Initial Setup to libmalcontent for parental controls support will
+  cause it to abort on startup, since Initial Setup also links to webkit2gtk5
+  which requires libsoup3.
+
 43.beta
 -------
 
