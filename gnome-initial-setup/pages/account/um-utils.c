@@ -106,6 +106,9 @@ is_valid_name (const gchar *name)
         return !is_empty;
 }
 
+#define OLD_TIP N_("The username should only consist of upper and lower case letters from a-z, digits and the following characters: . - _")
+#undef OLD_TIP
+
 gboolean
 is_valid_username (const gchar *username, gboolean parental_controls_enabled, gchar **tip)
 {
@@ -129,13 +132,12 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
 
         if (!in_use && !empty && !too_long) {
                 /* First char must be a letter, and it must only composed
-                 * of ASCII letters, digits, and a '.', '-', '_'
+                 * of lowercase ASCII letters, digits, and '-' or '_'
                  */
                 for (c = username; *c; c++) {
                         if (! ((*c >= 'a' && *c <= 'z') ||
-                               (*c >= 'A' && *c <= 'Z') ||
                                (*c >= '0' && *c <= '9') ||
-                               (*c == '_') || (*c == '.') ||
+                               (*c == '_') ||
                                (*c == '-' && c != username)))
                            valid = FALSE;
                 }
@@ -159,7 +161,7 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
                         *tip = g_strdup (_("That username isn’t available. Please try another."));
                 }
                 else {
-                        *tip = g_strdup (_("The username should only consist of upper and lower case letters from a-z, digits and the following characters: . - _"));
+                        *tip = g_strdup (_("The username should only consist of lower case letters from a-z, digits and the following characters: - _"));
                 }
         }
         else {
