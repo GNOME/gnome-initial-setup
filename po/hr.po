@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup gnome-3-24\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-07-26 11:08+0000\n"
-"PO-Revision-Date: 2022-08-13 01:12+0200\n"
+"POT-Creation-Date: 2022-08-26 20:46+0000\n"
+"PO-Revision-Date: 2022-08-27 22:12+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -45,11 +45,11 @@ msgstr "_Prijašnje"
 msgid "_Cancel"
 msgstr "_Odustani"
 
-#: gnome-initial-setup/gnome-initial-setup.c:284
+#: gnome-initial-setup/gnome-initial-setup.c:282
 msgid "Force existing user mode"
 msgstr "Prisili način postojećeg korisnika"
 
-#: gnome-initial-setup/gnome-initial-setup.c:298
+#: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
 msgstr "— GNOME početno postavljanje"
 
@@ -57,19 +57,19 @@ msgstr "— GNOME početno postavljanje"
 msgid "Take a Picture…"
 msgstr "Uslikaj…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Neuspješna registracija računa"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
 msgid "No supported way to authenticate with this domain"
 msgstr "Nema podržanog načina za ovjeru s ovom domenom"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
 msgid "Failed to join domain"
 msgstr "Neuspješno pridruživanje s domenom"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
 msgid "Failed to log into domain"
 msgstr "Neuspješna prijava u domenu"
 
@@ -140,16 +140,16 @@ msgstr "N_astavi"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Provjerite ime i korisničko ime. Možete isto odabrati i sliku."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:465
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
 msgid "We need a few details to complete setup."
 msgstr "Trebamo još nekoliko pojedinosti za završetak postavljanja."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
 msgid "Administrator"
 msgstr "Administrator"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:570
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:613
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Neuspjelo stvaranje korisnika '%s': "
@@ -159,7 +159,7 @@ msgid "Avatar image"
 msgstr "Slika avatara"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
-#: gnome-initial-setup/pages/account/gis-account-page.c:283
+#: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "O vama"
 
@@ -213,32 +213,32 @@ msgstr "Neispravna lozinka, pokušajte ponovno"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Nemoguće povezivanje s %s domenom: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:150
+#: gnome-initial-setup/pages/account/um-utils.c:153
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Nažalost, to korisničko ime nije dostupno. Pokušajte s drugim."
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:156
 #, c-format
 msgid "The username is too long."
 msgstr "Korisnčko ime je predugačko."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
-msgid "The username cannot start with a “-”."
-msgstr "Korisničko ime ne može početi s ”-”."
-
 #: gnome-initial-setup/pages/account/um-utils.c:159
+msgid "The username must start with a lower case letter from a-z."
+msgstr "Korisničko ime mora započeti s malim slovom od a-ž."
+
+#: gnome-initial-setup/pages/account/um-utils.c:162
 msgid "That username isn’t available. Please try another."
 msgstr "Korisničko ime nije dostupno. Pokušajte s drugim."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:165
 msgid ""
-"The username should only consist of upper and lower case letters from a-z, "
-"digits and the following characters: . - _"
+"The username should only consist of lower case letters from a-z, digits, and "
+"the following characters: - _"
 msgstr ""
-"Korisničko ime bi se trebalo samo sastojati od malih i velikih slova od a-ž, "
-"brojeva i bilo koji od znakova: . - _"
+"Korisničko ime bi se trebalo sastojati samo od malih slova od a-ž, brojeva i "
+"sljedećih znakova: - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:166
+#: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "To će se koristiti kao naziv vaše osobne mape i ne može se promijeniti."
@@ -558,7 +558,7 @@ msgid ""
 "removed. Data is collected by %s."
 msgstr ""
 "Šalje tehničke izvještaje koji automatski uklanjaju osobne informacije. "
-"Podatke prikuplja %s"
+"Podatke prikuplja %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:196
 msgid "Privacy Policy"
@@ -651,8 +651,8 @@ msgstr "Sve je završeno!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:570
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:598
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
