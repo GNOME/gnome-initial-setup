@@ -1,15 +1,15 @@
 # Persian translation for gnome-initial-setup.
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
-# Arash Mousavi <mousavi.arash@gmail.com>, 2012, 2013, 2014, 2015. 2016, 2017.
+# Arash Mousavi <mousavi.arash@gmail.com>, 2012-2017.
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2014, 2018-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2022-07-26 11:08+0000\n"
-"PO-Revision-Date: 2022-07-27 00:09+0430\n"
+"POT-Creation-Date: 2022-08-26 20:46+0000\n"
+"PO-Revision-Date: 2022-08-27 10:05+0430\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -44,11 +44,11 @@ msgstr "_پیشین"
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: gnome-initial-setup/gnome-initial-setup.c:284
+#: gnome-initial-setup/gnome-initial-setup.c:282
 msgid "Force existing user mode"
 msgstr "اجبار به حالت کاربر موجود"
 
-#: gnome-initial-setup/gnome-initial-setup.c:298
+#: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
 msgstr "— راه‌اندازی نخستین گنوم"
 
@@ -56,19 +56,19 @@ msgstr "— راه‌اندازی نخستین گنوم"
 msgid "Take a Picture…"
 msgstr "عکسی بگیرید…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "شکست در ثبت حساب"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
 msgid "No supported way to authenticate with this domain"
 msgstr "هیچ روش پشتیبانی شده‌ای برای تصدیق هویت با این دامنه وجود ندارد"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
 msgid "Failed to join domain"
 msgstr "پیوستن به دامنه شکست خورد"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
 msgid "Failed to log into domain"
 msgstr "ورود به دامنه شکست خورد"
 
@@ -139,16 +139,16 @@ msgstr "ا_دامه"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "لطفاً نام و نام‌کاربری را بررسی کنید. می‌توانید تصویری هم برگزینید."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:465
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
 msgid "We need a few details to complete setup."
 msgstr "برای کامل کردن راه‌اندازی نیاز به کمی جزئیات داریم."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
 msgid "Administrator"
 msgstr "مدیر"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:570
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:613
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "شکست در ایجاد کاربر «%s»: "
@@ -158,7 +158,7 @@ msgid "Avatar image"
 msgstr "عکس آواتار"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
-#: gnome-initial-setup/pages/account/gis-account-page.c:283
+#: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "دربارهٔ شما"
 
@@ -210,32 +210,31 @@ msgstr "گذرواژهٔ نامعتبر، لطفاً دوباره تلاش کن�
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "نمی‌توان به دامنهٔ %s متصل شد: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:150
+#: gnome-initial-setup/pages/account/um-utils.c:153
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "متأسّفانه این نام کاربری موجود نیست. لطفاًً موردی دیگر را بیازمایید."
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:156
 #, c-format
 msgid "The username is too long."
 msgstr "نام‌کاربری خیلی طولانی است."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
-msgid "The username cannot start with a “-”."
-msgstr "نام‌کاربری نمی‌تواند با «-» شروع شود."
-
 #: gnome-initial-setup/pages/account/um-utils.c:159
+msgid "The username must start with a lower case letter from a-z."
+msgstr "نام کاربری باید با حرفی کوچک از a تا z آغاز شود."
+
+#: gnome-initial-setup/pages/account/um-utils.c:162
 msgid "That username isn’t available. Please try another."
 msgstr "این نام کاربری موجود نیست. لطفاًً موردی دیگر را بیازمایید."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:165
 msgid ""
-"The username should only consist of upper and lower case letters from a-z, "
-"digits and the following characters: . - _"
+"The username should only consist of lower case letters from a-z, digits, and the "
+"following characters: - _"
 msgstr ""
-"نام‌کاربری باید فقط حاوی حروف بزرگ و کوچک از بازهٔ a-z، اعداد و نویسه‌های مقابل "
-"باشد: . - _"
+"نام کاربری باید فقط حاوی حروف کوچک از a تا z، رقم‌ها و نویسه‌های مقابل باشد: - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:166
+#: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "این نام برای شاخهٔ خانگیتان استفاده شده و قابل تغییر نخواهد بود."
 
@@ -630,8 +629,8 @@ msgstr "انجام شد!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:570
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:598
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
 #, c-format
 msgid "%s, %s"
 msgstr "%s، %s"
