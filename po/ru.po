@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-07-26 11:08+0000\n"
-"PO-Revision-Date: 2022-07-26 15:34+0300\n"
+"POT-Creation-Date: 2022-08-26 20:46+0000\n"
+"PO-Revision-Date: 2022-08-27 13:56+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -46,11 +46,11 @@ msgstr "_Назад"
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: gnome-initial-setup/gnome-initial-setup.c:284
+#: gnome-initial-setup/gnome-initial-setup.c:282
 msgid "Force existing user mode"
 msgstr "Принудительно использовать режим существующего пользователя"
 
-#: gnome-initial-setup/gnome-initial-setup.c:298
+#: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
 msgstr "— Первоначальная настройка GNOME"
 
@@ -58,19 +58,19 @@ msgstr "— Первоначальная настройка GNOME"
 msgid "Take a Picture…"
 msgstr "Сделать фотоснимок…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Не удалось зарегистрировать учетную запись"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
 msgid "No supported way to authenticate with this domain"
 msgstr "Нет поддерживаемых способов аутентификации в этом домене"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
 msgid "Failed to join domain"
 msgstr "Не удалось присоединиться к домену"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
 msgid "Failed to log into domain"
 msgstr "Не удалось войти в домен"
 
@@ -142,16 +142,16 @@ msgstr "П_родолжить"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Проверьте имя и имя пользователя. Также можно выбрать изображение."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:465
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
 msgid "We need a few details to complete setup."
 msgstr "Для завершения осталось указать еще немного информации."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
 msgid "Administrator"
 msgstr "Администратор"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:570
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:613
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Не удалось создать пользователя '%s': "
@@ -161,7 +161,7 @@ msgid "Avatar image"
 msgstr "Аватар"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
-#: gnome-initial-setup/pages/account/gis-account-page.c:283
+#: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "О вас"
 
@@ -215,32 +215,32 @@ msgstr "Неправильный пароль. Попробуйте еще ра�
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Не удалось подключиться к домену %s: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:150
+#: gnome-initial-setup/pages/account/um-utils.c:153
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Данное имя пользователя недоступно. Попробуйте ввести другое."
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:156
 #, c-format
 msgid "The username is too long."
 msgstr "Имя пользователя слишком длинное."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
-msgid "The username cannot start with a “-”."
-msgstr "Имя пользователя не может начинаться с символа «-»."
-
 #: gnome-initial-setup/pages/account/um-utils.c:159
+msgid "The username must start with a lower case letter from a-z."
+msgstr "Имя пользователя должно начинаться со строчной буквы от а до я."
+
+#: gnome-initial-setup/pages/account/um-utils.c:162
 msgid "That username isn’t available. Please try another."
 msgstr "Данное имя пользователя недоступно. Попробуйте ввести другое."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:165
 msgid ""
-"The username should only consist of upper and lower case letters from a-z, "
-"digits and the following characters: . - _"
+"The username should only consist of lower case letters from a-z, digits, and "
+"the following characters: - _"
 msgstr ""
-"Имя пользователя может состоять только из букв латинского алфавита в верхнем "
-"и нижнем регистре, цифр и следующих символов: . - _"
+"Имя пользователя должно состоять только из строчных букв от а до я, цифр и "
+"следующих символов: - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:166
+#: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Будет использовано для именования вашей домашней папки; не может быть "
@@ -657,8 +657,8 @@ msgstr "Все готово!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:570
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:598
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
