@@ -8,8 +8,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2022-07-26 11:08+0000\n"
-"PO-Revision-Date: 2022-08-07 10:00+0100\n"
+"POT-Creation-Date: 2022-08-26 20:46+0000\n"
+"PO-Revision-Date: 2022-08-31 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -43,11 +43,11 @@ msgstr "_Aurrekoa"
 msgid "_Cancel"
 msgstr "_Utzi"
 
-#: gnome-initial-setup/gnome-initial-setup.c:284
+#: gnome-initial-setup/gnome-initial-setup.c:282
 msgid "Force existing user mode"
 msgstr "Behartu dagoen erabiltzaile-modura"
 
-#: gnome-initial-setup/gnome-initial-setup.c:298
+#: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
 msgstr "— GNOMEren hasierako konfigurazioa"
 
@@ -55,19 +55,19 @@ msgstr "— GNOMEren hasierako konfigurazioa"
 msgid "Take a Picture…"
 msgstr "Atera argazki bat…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Huts egin du kontua erregistratzean"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
 msgid "No supported way to authenticate with this domain"
 msgstr "Ez dago modurik onartuta domeinu honekin autentifikatzeko"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
 msgid "Failed to join domain"
 msgstr "Huts egin du domeinuarekin elkartzean"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
 msgid "Failed to log into domain"
 msgstr "Huts egin du domeinuan saioa hastean"
 
@@ -132,16 +132,16 @@ msgstr "_Jarraitu"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Egiaztatu izena eta erabiltzaile-izena. Argazki bat ere aukera dezakezu."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:465
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
 msgid "We need a few details to complete setup."
 msgstr "Xehetasun gutxi batzuk behar dira konfigurazioa amaitzeko."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
 msgid "Administrator"
 msgstr "Administratzailea"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:570
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:613
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Huts egin du '%s' erabiltzailea sortzeak: "
@@ -151,7 +151,7 @@ msgid "Avatar image"
 msgstr "Avatar irudia"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
-#: gnome-initial-setup/pages/account/gis-account-page.c:283
+#: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Zuri buruz"
 
@@ -203,30 +203,30 @@ msgstr "Baliogabeko pasahitza, saiatu berriro"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Ezin izan da %s domeinuarekin konektatu: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:150
+#: gnome-initial-setup/pages/account/um-utils.c:153
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Erabiltzaile-izen hori ez dago erabilgarri. Saiatu beste batekin."
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:156
 #, c-format
 msgid "The username is too long."
 msgstr "Erabiltzaile-izena luzeegia da."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
-msgid "The username cannot start with a “-”."
-msgstr "Erabiltzaile-izena ezin da \"-\" karakterearekin hasi."
-
 #: gnome-initial-setup/pages/account/um-utils.c:159
+msgid "The username must start with a lower case letter from a-z."
+msgstr "Erabiltzaile-izenak a-z arteko minuskula batekin hasi behar du."
+
+#: gnome-initial-setup/pages/account/um-utils.c:162
 msgid "That username isn’t available. Please try another."
 msgstr "Erabiltzaile-izen hori ez dago erabilgarri. Saiatu beste batekin."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:165
 msgid ""
-"The username should only consist of upper and lower case letters from a-z, "
-"digits and the following characters: . - _"
-msgstr "Erabiltzaile-izenak honako karaktereak soilik eduki ditzake:  alfabetoko a-z arteko hizki maiuskulak eta minuskulak, digituak eta '.', '-' eta '_' karaktereak."
+"The username should only consist of lower case letters from a-z, digits, and "
+"the following characters: - _"
+msgstr "Erabiltzaile-izenak honako karaktereak soilik eduki ditzake:  alfabetoko a-z arteko hizki minuskulak, digituak eta '.', '-' eta '_' karaktereak."
 
-#: gnome-initial-setup/pages/account/um-utils.c:166
+#: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Zure karpeta nagusia izendatzeko erabiliko da, eta ezin da aldatu."
 
@@ -604,8 +604,8 @@ msgstr "Eginda."
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:570
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:598
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
