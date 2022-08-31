@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup gnome-3-30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-07-26 11:08+0000\n"
-"PO-Revision-Date: 2022-07-26 18:13+0700\n"
+"POT-Creation-Date: 2022-08-26 20:46+0000\n"
+"PO-Revision-Date: 2022-08-31 15:57+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -46,11 +46,11 @@ msgstr "Se_belumnya"
 msgid "_Cancel"
 msgstr "_Batal"
 
-#: gnome-initial-setup/gnome-initial-setup.c:284
+#: gnome-initial-setup/gnome-initial-setup.c:282
 msgid "Force existing user mode"
 msgstr "Paksakan mode pengguna yang ada"
 
-#: gnome-initial-setup/gnome-initial-setup.c:298
+#: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
 msgstr "— GNOME penyiapan awal"
 
@@ -58,19 +58,19 @@ msgstr "— GNOME penyiapan awal"
 msgid "Take a Picture…"
 msgstr "Ambil Foto…"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:184
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to register account"
 msgstr "Gagal mendaftar akun"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:378
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
 msgid "No supported way to authenticate with this domain"
 msgstr "Tak ada cara yang didukung untuk mengautentikasi dengan domain ini"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:418
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
 msgid "Failed to join domain"
 msgstr "Gagal bergabung domain"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:486
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
 msgid "Failed to log into domain"
 msgstr "Gagal log masuk ke domain"
 
@@ -142,16 +142,16 @@ msgstr "L_anjutkan"
 msgid "Please check the name and username. You can choose a picture too."
 msgstr "Harap periksa nama dan nama pengguna. Anda juga dapat memilih gambar."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:465
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
 msgid "We need a few details to complete setup."
 msgstr "Kami perlu beberapa rincian untuk melengkapi penyiapan."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:564
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
 msgid "Administrator"
 msgstr "Administrator"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:570
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:613
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Gagal membuat pengguna '%s': "
@@ -161,7 +161,7 @@ msgid "Avatar image"
 msgstr "Citra avatar"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
-#: gnome-initial-setup/pages/account/gis-account-page.c:283
+#: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Tentang Anda"
 
@@ -215,32 +215,32 @@ msgstr "Kata sandi tak valid, harap coba lagi"
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Tak bisa menyambung ke domain %s: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:150
+#: gnome-initial-setup/pages/account/um-utils.c:153
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Maaf, nama pengguna itu tidak tersedia. Silakan coba yang lain."
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:156
 #, c-format
 msgid "The username is too long."
 msgstr "Nama pengguna terlalu panjang."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
-msgid "The username cannot start with a “-”."
-msgstr "Nama pengguna tidak boleh diawali dengan “-”."
-
 #: gnome-initial-setup/pages/account/um-utils.c:159
+msgid "The username must start with a lower case letter from a-z."
+msgstr "Nama pengguna harus dimulai dengan huruf kecil dari a-z."
+
+#: gnome-initial-setup/pages/account/um-utils.c:162
 msgid "That username isn’t available. Please try another."
 msgstr "Nama pengguna itu tidak tersedia. Silakan coba yang lain."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:165
 msgid ""
-"The username should only consist of upper and lower case letters from a-z, "
-"digits and the following characters: . - _"
+"The username should only consist of lower case letters from a-z, digits, and "
+"the following characters: - _"
 msgstr ""
-"Nama pengguna mesti hanya terdiri dari huruf besar dan kecil dari a-z, "
-"dijit, dan karakter berikut: . - _"
+"Nama pengguna hanya boleh terdiri dari huruf kecil dari a-z, digit, dan "
+"karakter berikut: - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:166
+#: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Ini akan dipakai untuk menamai folder rumah Anda dan tak dapat diubah."
 
@@ -664,8 +664,8 @@ msgstr "Semua selesai!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:570
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:598
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
