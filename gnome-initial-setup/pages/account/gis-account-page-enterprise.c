@@ -89,6 +89,18 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 static void
+clear_password_validation_error (GtkWidget *entry)
+{
+  gtk_widget_remove_css_class (entry, "error");
+}
+
+static void
+set_password_validation_error (GtkWidget *entry)
+{
+  gtk_widget_add_css_class (entry, "error");
+}
+
+static void
 validation_changed (GisAccountPageEnterprise *page)
 {
   g_signal_emit (page, signals[VALIDATION_CHANGED], 0);
@@ -313,7 +325,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
     gtk_editable_set_text (GTK_EDITABLE (page->join_computer), hostname);
 
   clear_entry_validation_error (GTK_ENTRY (page->join_name));
-  clear_entry_validation_error (GTK_ENTRY (page->join_password));
+  clear_password_validation_error (page->join_password);
 
   if (!page->join_prompted) {
     name = um_realm_kerberos_membership_get_suggested_administrator (membership);
@@ -330,7 +342,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Bad admin password: %s", error->message);
-    set_entry_validation_error (GTK_ENTRY (page->join_password), error->message);
+    set_password_validation_error (page->join_password);
 
   } else {
     g_debug ("Admin login failure: %s", error->message);
@@ -468,7 +480,7 @@ on_realm_login (GObject *source,
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Problem with the user's password: %s", error->message);
-    set_entry_validation_error (GTK_ENTRY (page->password), error->message);
+    set_password_validation_error (page->password);
     gtk_widget_grab_focus (page->password);
     apply_complete (page, FALSE);
 
@@ -718,7 +730,7 @@ on_domain_changed (GtkComboBox *widget,
 
   page->domain_chosen = TRUE;
   validation_changed (page);
-  clear_entry_validation_error (GTK_ENTRY (adw_bin_get_child (ADW_BIN (widget))));
+  clear_entry_validation_error (GTK_ENTRY (gtk_combo_box_get_child (widget)));
 }
 
 static void
