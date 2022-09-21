@@ -743,6 +743,13 @@ on_entry_changed (GtkEditable *editable,
 }
 
 static void
+on_password_changed (GtkEditable *editable,
+                     gpointer user_data)
+{
+  clear_password_validation_error (GTK_WIDGET (editable));
+}
+
+static void
 gis_account_page_enterprise_realize (GtkWidget *widget)
 {
   GisAccountPageEnterprise *page = GIS_ACCOUNT_PAGE_ENTERPRISE (widget);
@@ -776,6 +783,10 @@ gis_account_page_enterprise_constructed (GObject *object)
                     G_CALLBACK (on_domain_changed), page);
   g_signal_connect (page->login, "changed",
                     G_CALLBACK (on_entry_changed), page);
+  g_signal_connect (page->password, "changed",
+                    G_CALLBACK (on_password_changed), page);
+  g_signal_connect (page->join_password, "changed",
+                    G_CALLBACK (on_password_changed), page);
 }
 
 static void
