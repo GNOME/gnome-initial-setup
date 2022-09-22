@@ -92,12 +92,15 @@ static void
 clear_password_validation_error (GtkWidget *entry)
 {
   gtk_widget_remove_css_class (entry, "error");
+  gtk_widget_set_tooltip_text (entry, NULL);
 }
 
 static void
-set_password_validation_error (GtkWidget *entry)
+set_password_validation_error (GtkWidget   *entry,
+                               const gchar *text)
 {
   gtk_widget_add_css_class (entry, "error");
+  gtk_widget_set_tooltip_text (entry, text);
 }
 
 static void
@@ -342,7 +345,7 @@ join_show_prompt (GisAccountPageEnterprise *page,
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Bad admin password: %s", error->message);
-    set_password_validation_error (page->join_password);
+    set_password_validation_error (page->join_password, error->message);
 
   } else {
     g_debug ("Admin login failure: %s", error->message);
@@ -480,7 +483,7 @@ on_realm_login (GObject *source,
 
   } else if (g_error_matches (error, UM_REALM_ERROR, UM_REALM_ERROR_BAD_PASSWORD)) {
     g_debug ("Problem with the user's password: %s", error->message);
-    set_password_validation_error (page->password);
+    set_password_validation_error (page->password, error->message);
     gtk_widget_grab_focus (page->password);
     apply_complete (page, FALSE);
 
