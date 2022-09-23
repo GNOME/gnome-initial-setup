@@ -72,3 +72,17 @@ prompt, so `gnome-initial-setup` silently writes the stamp file and exits.
 
 [xdg autostart]: https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html
     "The Desktop Application Autostart Specification"
+
+Tips for development
+====================
+
+Enterprise Login
+----------------
+
+Initial Setup can configure the system to be part of an enterprise domain.
+This functionality is available if `realmd` is installed (or, more precisely,
+the name `org.freedesktop.realmd` is owned on the system bus) and hidden if not.
+
+The FreeIPA project runs a [demo server](https://www.freeipa.org/page/Demo),
+which may be useful to test this functionality if you do not have an
+enterprise domain of your own to test against.
