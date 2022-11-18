@@ -26,7 +26,7 @@
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
-#include <webkit2/webkit2.h>
+#include <webkit/webkit.h>
 
 #include "cc-common-language.h"
 #include "gis-assistant.h"

@@ -63,10 +63,7 @@ dependencies = [
     dependency ('libsecret-1', version: '>= 0.18.8'),
     dependency ('pwquality'),
     dependency ('rest-1.0'),
-    dependency (
-        'webkitgtk-6.0',
-        'webkit2gtk-5.0',
-    ),
+    dependency ('webkitgtk-6.0'),
     ibus_dep,
     libmalcontent_dep,
     libmalcontent_ui_dep,
