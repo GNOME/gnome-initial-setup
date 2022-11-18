@@ -27,7 +27,7 @@
 #include "privacy-resources.h"
 #include "gis-privacy-page.h"
 
-#include <webkit2/webkit2.h>
+#include <webkit/webkit.h>
 
 #include <locale.h>
 #include <gtk/gtk.h>
