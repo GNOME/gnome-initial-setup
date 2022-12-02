@@ -27,7 +27,11 @@
 #include "privacy-resources.h"
 #include "gis-privacy-page.h"
 
+#ifdef HAVE_WEBKITGTK_6_0
+#include <webkit/webkit.h>
+#else
 #include <webkit2/webkit2.h>
+#endif
 
 #include <locale.h>
 #include <gtk/gtk.h>

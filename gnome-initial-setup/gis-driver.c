@@ -26,7 +26,12 @@
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
+
+#ifdef HAVE_WEBKITGTK_6_0
+#include <webkit/webkit.h>
+#else
 #include <webkit2/webkit2.h>
+#endif
 
 #include "cc-common-language.h"
 #include "gis-assistant.h"

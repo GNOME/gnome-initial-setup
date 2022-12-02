@@ -1,6 +1,6 @@
 project('gnome-initial-setup',
         ['c'],
-        version: '43.1.1',
+        version: '43.2',
         license: 'GPL-2.0-or-later',
         meson_version: '>= 0.53.0',
 )
@@ -76,6 +76,13 @@ libmalcontent_ui_dep = dependency ('malcontent-ui-1',
                                    fallback: ['malcontent-ui', 'libmalcontent_ui_dep'])
 have_parental_controls = libmalcontent_dep.found() and libmalcontent_ui_dep.found()
 conf.set('HAVE_PARENTAL_CONTROLS', have_parental_controls)
+
+webkitgtk_dep = dependency('webkitgtk-6.0', required: false)
+if webkitgtk_dep.found()
+    conf.set10('HAVE_WEBKITGTK_6_0', true)
+else
+    webkitgtk_dep = dependency('webkit2gtk-5.0')
+endif
 
 configure_file(output: 'config.h',
                configuration: conf)

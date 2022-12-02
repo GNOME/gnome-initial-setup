@@ -14,7 +14,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2022-11-11.0-43'
+    FDO_DISTRIBUTION_TAG: '2022-12-02.0-43'
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
 build.container.arch@x86_64:
@@ -56,6 +56,7 @@ build.container.arch@x86_64:
       libpwquality
       librest
       libsecret
+      malcontent
       meson
       polkit
       sassc
@@ -74,6 +75,8 @@ build.container.arch@x86_64:
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
     - meson setup
+        --wrap-mode=nofallback
+        --fatal-meson-warnings
         -Dsystemd=${EXPLICIT_FEATURES}
         --auto-features ${AUTO_FEATURES}
         ${OPTIONS}
