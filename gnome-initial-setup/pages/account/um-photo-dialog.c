@@ -37,7 +37,6 @@
 struct _UmPhotoDialog {
         GtkPopover parent;
 
-        GtkWidget *take_picture_button;
         GtkWidget *flowbox;
         GtkWidget *recent_pictures;
 
@@ -307,7 +306,6 @@ um_photo_dialog_class_init (UmPhotoDialogClass *klass)
 
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, flowbox);
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, recent_pictures);
-        gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, take_picture_button);
         gtk_widget_class_bind_template_callback (wclass, webcam_icon_selected);
 
         oclass->dispose = um_photo_dialog_dispose;
