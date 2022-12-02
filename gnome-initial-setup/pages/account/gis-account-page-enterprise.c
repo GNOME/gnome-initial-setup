@@ -138,6 +138,9 @@ show_error_dialog (GisAccountPageEnterprise *page,
                                               "%s", error->message);
   }
 
+  g_signal_connect (dialog, "response",
+                    G_CALLBACK (gtk_window_destroy),
+                    NULL);
   gtk_window_present (GTK_WINDOW (dialog));
 }
 
