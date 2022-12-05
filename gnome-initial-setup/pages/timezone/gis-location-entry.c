@@ -114,6 +114,7 @@ gis_location_entry_init (GisLocationEntry *entry)
     priv = entry->priv = gis_location_entry_get_instance_private (entry);
 
     priv->entry = gtk_entry_new ();
+    gtk_entry_set_placeholder_text (GTK_ENTRY (priv->entry), _("Search cities"));
     gtk_widget_set_parent (priv->entry, GTK_WIDGET (entry));
     gtk_editable_init_delegate (GTK_EDITABLE (entry));
 
