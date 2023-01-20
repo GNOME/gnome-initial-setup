@@ -788,7 +788,9 @@ gis_driver_startup (GApplication *app)
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
 
+#if !WEBKIT_CHECK_VERSION(2, 39, 5)
   webkit_web_context_set_sandbox_enabled (context, TRUE);
+#endif
 
   if (driver->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
