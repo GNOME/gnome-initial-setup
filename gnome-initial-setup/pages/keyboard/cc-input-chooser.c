@@ -217,32 +217,28 @@ input_widget_new (CcInputChooser *chooser,
 	widget->name = g_strdup (name);
 	widget->is_extra = is_extra;
 
-	widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-	gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
-	gtk_widget_set_margin_top (widget->box, 10);
-	gtk_widget_set_margin_bottom (widget->box, 10);
-	gtk_widget_set_margin_start (widget->box, 10);
-	gtk_widget_set_margin_end (widget->box, 10);
+	widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+        gtk_widget_set_margin_top (widget->box, 12);
+        gtk_widget_set_margin_bottom (widget->box, 12);
+        gtk_widget_set_margin_start (widget->box, 12);
+        gtk_widget_set_margin_end (widget->box, 12);
+        gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
 
 	widget->label = gtk_label_new (name);
-        gtk_label_set_xalign (GTK_LABEL (widget->label), 0);
-        gtk_label_set_yalign (GTK_LABEL (widget->label), 0.5);
         gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);
         gtk_label_set_max_width_chars (GTK_LABEL (widget->label), 40);
-	gtk_label_set_width_chars (GTK_LABEL (widget->label), 40);
+        gtk_label_set_xalign (GTK_LABEL (widget->label), 0);
 	gtk_box_append (GTK_BOX (widget->box), widget->label);
-
 
         widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
 	gtk_box_append (GTK_BOX (widget->box), widget->checkmark);
 
-        gtk_widget_set_margin_start (widget->checkmark, 10);
-	gtk_widget_set_margin_end (widget->checkmark, 10);
-	gtk_widget_set_halign (widget->box, GTK_ALIGN_START);
-
 	text = g_strdup_printf ("<a href='preview'>%s</a>", _("Preview"));
 	label = gtk_label_new ("");
 	gtk_label_set_markup (GTK_LABEL (label), text);
+        gtk_label_set_xalign (GTK_LABEL (label), 0);
+        gtk_widget_set_hexpand (label, TRUE);
+        gtk_widget_set_halign (label, GTK_ALIGN_END);
 	g_free (text);
 	g_signal_connect (label, "activate-link",
 			  G_CALLBACK (preview_cb), chooser);
