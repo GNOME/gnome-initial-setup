@@ -722,7 +722,7 @@ update_screen_size (GisDriver *driver)
       gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
                                       GTK_POLICY_AUTOMATIC,
                                       GTK_POLICY_AUTOMATIC);
-      gtk_window_set_default_size (driver->main_window, -1, -1);
+      gtk_window_set_default_size (driver->main_window, 800, 600);
       gtk_window_set_resizable (driver->main_window, TRUE);
       gtk_window_maximize (driver->main_window);
       gtk_window_present (driver->main_window);
