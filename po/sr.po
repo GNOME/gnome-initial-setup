@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-09-06 07:33+0000\n"
-"PO-Revision-Date: 2022-09-06 09:50+0200\n"
+"POT-Creation-Date: 2023-02-17 21:17+0000\n"
+"PO-Revision-Date: 2023-02-18 07:23+0100\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -53,23 +53,19 @@ msgstr "Приморај режим постојећег корисника"
 msgid "— GNOME initial setup"
 msgstr "— Почетно подешавање Гнома"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:39
-msgid "Take a Picture…"
-msgstr "Сликајте се…"
-
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
 msgid "Failed to register account"
 msgstr "Нисам успео да региструјем налог"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
 msgid "No supported way to authenticate with this domain"
 msgstr "Нема подржаног начина за пријаву на овај домен"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
 msgid "Failed to join domain"
 msgstr "Нисам успео да приступим домену"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
 msgid "Failed to log into domain"
 msgstr "Нисам успео да се пријавим на домен"
 
@@ -88,7 +84,7 @@ msgstr ""
 "приступите ресурсима предузећа на интернету."
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:153
 msgid "_Domain"
 msgstr "_Домен"
 
@@ -98,7 +94,7 @@ msgid "_Username"
 msgstr "_Корисник"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:32
+#: gnome-initial-setup/pages/password/gis-password-page.ui:25
 msgid "_Password"
 msgstr "_Лозинка"
 
@@ -106,11 +102,11 @@ msgstr "_Лозинка"
 msgid "Enterprise domain or realm name"
 msgstr "Пословни домен или назив подручја"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:137
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:126
 msgid "Domain Administrator Login"
 msgstr "Пријава администратора домена"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:141
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -120,19 +116,19 @@ msgstr ""
 "Нека администратор ваше мреже овде упише лозинку домена, и нека изабере "
 "јединствени назив за ваш рачунар."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:179
 msgid "_Computer"
 msgstr "_Рачунар"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:203
 msgid "Administrator _Name"
 msgstr "Име _администратора"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:227
 msgid "Administrator Password"
 msgstr "Лозинка администратора"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:268
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:260
 msgid "C_ontinue"
 msgstr "_Настави"
 
@@ -278,11 +274,11 @@ msgstr "%s налог"
 msgid "Remove Account"
 msgstr "Уклони налог"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
 msgid "Preview"
 msgstr "Преглед"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Још…"
@@ -290,7 +286,7 @@ msgstr "Још…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
 msgid "No inputs found"
 msgstr "Нисам пронашао уносе"
 
@@ -302,6 +298,10 @@ msgstr "Куцање"
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
 msgstr "Изаберите распоред тастатуре или начин уноса."
+
+#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
+msgid "Search keyboards and input methods"
+msgstr "Претражи распореде тастатуре или начине уноса."
 
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "No languages found"
@@ -409,9 +409,9 @@ msgstr "Лозинке се не подударају."
 msgid "Password"
 msgstr "Лозинка"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:53
-msgid "_Confirm"
-msgstr "_Потврди"
+#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+msgid "_Confirm Password"
+msgstr "Потврди лозин_ку"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -546,7 +546,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
@@ -560,7 +560,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
@@ -569,11 +569,11 @@ msgstr ""
 "Шаљи техничке извештаје у којима су приватни подаци самостално уклоњени. "
 "Податке прикупља дистрибуција „%s“."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:196
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Политика приватности"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:231
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Приватност"
@@ -651,6 +651,10 @@ msgstr "Подешавање је завршено"
 msgid "All done!"
 msgstr "Готово!"
 
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:117
+msgid "Search cities"
+msgstr "Потражи градове"
+
 #. Recurse, adding the ADM1 name to the country name
 #. Translators: this is the name of a location followed by a region, for example:
 #. * 'London, United Kingdom'
@@ -661,8 +665,8 @@ msgstr "Готово!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:577
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -743,6 +747,12 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "По_крени подешавање"
+
+#~ msgid "Take a Picture…"
+#~ msgstr "Сликајте се…"
+
+#~ msgid "_Confirm"
+#~ msgstr "_Потврди"
 
 #~ msgid "This is a weak password."
 #~ msgstr "Ово је слаба лозинка."
