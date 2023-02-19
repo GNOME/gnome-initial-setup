@@ -301,6 +301,12 @@ gis_account_page_class_init (GisAccountPageClass *klass)
 static void
 gis_account_page_init (GisAccountPage *page)
 {
+  g_autoptr(GtkCssProvider) provider = NULL;
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-account-page.css");
+  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              GTK_STYLE_PROVIDER (provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
   g_resources_register (account_get_resource ());
   g_type_ensure (GIS_TYPE_ACCOUNT_PAGE_LOCAL);
   g_type_ensure (GIS_TYPE_ACCOUNT_PAGE_ENTERPRISE);
