@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-10-25 16:24+0000\n"
-"PO-Revision-Date: 2022-10-27 02:13+0300\n"
-"Last-Translator: Launchpad translators\n"
+"POT-Creation-Date: 2023-02-17 21:17+0000\n"
+"PO-Revision-Date: 2023-02-22 00:09+0300\n"
+"Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
@@ -53,23 +53,19 @@ msgstr "Прымусова захаваць наяўны рэжым карыст
 msgid "— GNOME initial setup"
 msgstr "- Першапачатковая наладка GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:39
-msgid "Take a Picture…"
-msgstr "Зрабіць здымак…"
-
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:197
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
 msgid "Failed to register account"
 msgstr "Не ўдалося зарэгістраваць акаўнт"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:386
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
 msgid "No supported way to authenticate with this domain"
 msgstr "Адсутнічае даступны спосаб ідэнтыфікацыі ў гэтым дамене"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:425
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
 msgid "Failed to join domain"
 msgstr "Не ўдалося далучыцца да дамена"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:492
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
 msgid "Failed to log into domain"
 msgstr "Не ўдалося ўвайсці ў дамен"
 
@@ -98,7 +94,7 @@ msgid "_Username"
 msgstr "І_мя карыстальніка"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:32
+#: gnome-initial-setup/pages/password/gis-password-page.ui:25
 msgid "_Password"
 msgstr "_Пароль"
 
@@ -278,11 +274,11 @@ msgstr "Акаўнт %s"
 msgid "Remove Account"
 msgstr "Выдаліць акаўнт"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
 msgid "Preview"
 msgstr "_Папярэдні агляд"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Яшчэ…"
@@ -290,7 +286,7 @@ msgstr "Яшчэ…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
 msgid "No inputs found"
 msgstr "Спосабы ўводу і раскладкі не знойдзены"
 
@@ -302,6 +298,10 @@ msgstr "Набор тэксту"
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
 msgstr "Выберыце клавіятурную раскладку або спосаб уводу."
+
+#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
+msgid "Search keyboards and input methods"
+msgstr "Пошук клавіятуры або спосабу ўводу."
 
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "No languages found"
@@ -408,9 +408,9 @@ msgstr "Паролі не супадаюць."
 msgid "Password"
 msgstr "Пароль"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:53
-msgid "_Confirm"
-msgstr "_Пацвердзіць"
+#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+msgid "_Confirm Password"
+msgstr "_Пацвердзіць пароль"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -550,7 +550,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
@@ -563,7 +563,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
@@ -572,11 +572,11 @@ msgstr ""
 "Адпраўляе тэхнічныя справаздачы, з якіх аўтаматычна выдаляецца асабовая "
 "інфармацыя. Даныя збірае %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:196
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Палітыка прыватнасці"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:231
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Прыватнасць"
@@ -652,6 +652,10 @@ msgstr "Наладка завершана"
 msgid "All done!"
 msgstr "Усё гатова!"
 
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:117
+msgid "Search cities"
+msgstr "Пошук горада"
+
 #. Recurse, adding the ADM1 name to the country name
 #. Translators: this is the name of a location followed by a region, for example:
 #. * 'London, United Kingdom'
@@ -662,8 +666,8 @@ msgstr "Усё гатова!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:577
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -745,6 +749,12 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "Пачаць _наладку"
+
+#~ msgid "Take a Picture…"
+#~ msgstr "Зрабіць здымак…"
+
+#~ msgid "_Confirm"
+#~ msgstr "_Пацвердзіць"
 
 #~ msgid "The username cannot start with a “-”."
 #~ msgstr "Імя карыстальніка не можа пачынацца з \"-\"."
