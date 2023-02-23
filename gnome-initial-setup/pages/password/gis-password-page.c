@@ -479,14 +479,14 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
+
+  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-password-page.css");
 }
 
 static void
 gis_password_page_init (GisPasswordPage *page)
 {
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
-
-  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-password-page.css");
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }
