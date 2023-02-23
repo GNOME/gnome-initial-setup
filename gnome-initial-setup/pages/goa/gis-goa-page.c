@@ -578,6 +578,8 @@ gis_goa_page_class_init (GisGoaPageClass *klass)
   object_class->dispose = gis_goa_page_dispose;
   widget_class->realize = gis_goa_page_realize;
   widget_class->unrealize = gis_goa_page_unrealize;
+
+  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-goa-page.css");
 }
 
 static void
@@ -586,8 +588,6 @@ gis_goa_page_init (GisGoaPage *page)
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
-
-  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-goa-page.css");
 }
 
 GisPage *
