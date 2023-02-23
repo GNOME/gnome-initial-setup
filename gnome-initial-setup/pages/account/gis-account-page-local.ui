@@ -7,19 +7,33 @@
         <property name="valign">fill</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkMenuButton" id="avatar_button">
+          <object class="GtkOverlay">
             <property name="margin_top">24</property>
             <property name="halign">center</property>
-            <style>
-              <class name="flat"/>
-            </style>
-            <accessibility>
-              <property name="description" translatable="yes">Avatar image</property>
-            </accessibility>
             <child>
               <object class="GtkImage" id="avatar_image">
                 <property name="pixel_size">96</property>
                 <property name="icon_name">avatar-default-symbolic</property>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="AdwBin">
+                <style>
+                  <class name="cutout-button"/>
+                </style>
+                <property name="halign">end</property>
+                <property name="valign">end</property>
+                <child>
+                  <object class="GtkMenuButton" id="avatar_button">
+                    <property name="icon-name">document-edit-symbolic</property>
+                    <accessibility>
+                      <property name="label" translatable="yes">Edit avatar</property>
+                    </accessibility>
+                    <style>
+                      <class name="circular"/>
+                    </style>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
