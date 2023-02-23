@@ -583,18 +583,12 @@ gis_goa_page_class_init (GisGoaPageClass *klass)
 static void
 gis_goa_page_init (GisGoaPage *page)
 {
-  g_autoptr(GtkCssProvider) provider = NULL;
-
   g_resources_register (goa_get_resource ());
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-goa-page.css");
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-goa-page.css");
 }
 
 GisPage *
