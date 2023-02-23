@@ -525,7 +525,6 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 static void
 gis_keyboard_page_init (GisKeyboardPage *self)
 {
-        g_resources_register (keyboard_get_resource ());
         g_type_ensure (GIS_TYPE_PAGE_HEADER);
 	g_type_ensure (CC_TYPE_INPUT_CHOOSER);
 

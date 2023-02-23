@@ -520,8 +520,6 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 static void
 gis_timezone_page_init (GisTimezonePage *page)
 {
-  g_resources_register (timezone_get_resource ());
-  g_resources_register (datetime_get_resource ());
   g_type_ensure (CC_TYPE_TIMEZONE_MAP);
   g_type_ensure (GIS_TYPE_BUBBLE_WIDGET);
   g_type_ensure (GIS_TYPE_PAGE_HEADER);

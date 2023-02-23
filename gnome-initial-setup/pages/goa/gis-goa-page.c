@@ -583,7 +583,6 @@ gis_goa_page_class_init (GisGoaPageClass *klass)
 static void
 gis_goa_page_init (GisGoaPage *page)
 {
-  g_resources_register (goa_get_resource ());
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));

@@ -157,7 +157,6 @@ gis_software_page_class_init (GisSoftwarePageClass *klass)
 static void
 gis_software_page_init (GisSoftwarePage *page)
 {
-  g_resources_register (software_get_resource ());
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));

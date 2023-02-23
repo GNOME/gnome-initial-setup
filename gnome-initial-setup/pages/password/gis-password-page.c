@@ -484,7 +484,6 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
 static void
 gis_password_page_init (GisPasswordPage *page)
 {
-  g_resources_register (password_get_resource ());
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gis_add_style_from_resource ("/org/gnome/initial-setup/gis-password-page.css");
