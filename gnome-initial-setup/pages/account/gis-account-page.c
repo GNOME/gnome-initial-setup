@@ -297,12 +297,7 @@ gis_account_page_class_init (GisAccountPageClass *klass)
   page_class->shown = gis_account_page_shown;
   object_class->constructed = gis_account_page_constructed;
 
-  g_autoptr(GtkCssProvider) provider = NULL;
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (provider, "/org/gnome/initial-setup/gis-account-page.css");
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-account-page.css");
 }
 
 static void
