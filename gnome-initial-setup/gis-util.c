@@ -1,6 +1,5 @@
-/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012 Red Hat
+ * Copyright 2023 Endless OS Foundation LLC
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -14,31 +13,21 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
- *
- * Written by:
- *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GNOME_INITIAL_SETUP_H__
-#define __GNOME_INITIAL_SETUP_H__
+#include "config.h"
 
 #include <gtk/gtk.h>
-#include <gio/gio.h>
-#include <glib/gi18n.h>
 
-typedef struct _GisDriver    GisDriver;
-typedef struct _GisAssistant GisAssistant;
-typedef struct _GisPage      GisPage;
-
-#include "gis-driver.h"
-#include "gis-assistant.h"
-#include "gis-page.h"
-#include "gis-pkexec.h"
-#include "gis-keyring.h"
 #include "gis-util.h"
 
-void gis_ensure_stamp_files (GisDriver *driver);
-gboolean gis_get_mock_mode (void);
+void
+gis_add_style_from_resource (const char *resource_path)
+{
+  g_autoptr(GtkCssProvider) provider = gtk_css_provider_new ();
 
-#endif /* __GNOME_INITIAL_SETUP_H__ */
-
+  gtk_css_provider_load_from_resource (provider, resource_path);
+  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              GTK_STYLE_PROVIDER (provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+}

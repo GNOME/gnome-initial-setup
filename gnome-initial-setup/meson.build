@@ -16,6 +16,7 @@ sources += [
     'gis-pkexec.c',
     'gis-driver.c',
     'gis-keyring.c',
+    'gis-util.c',
     'gnome-initial-setup.h',
     'gis-assistant.h',
     'gis-page.h',

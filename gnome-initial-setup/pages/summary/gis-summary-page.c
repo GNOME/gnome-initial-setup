@@ -284,8 +284,6 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
 static void
 gis_summary_page_init (GisSummaryPage *page)
 {
-  g_resources_register (summary_get_resource ());
-
   gtk_widget_init_template (GTK_WIDGET (page));
 }
 

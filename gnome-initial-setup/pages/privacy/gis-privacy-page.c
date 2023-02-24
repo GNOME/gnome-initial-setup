@@ -258,7 +258,6 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 static void
 gis_privacy_page_init (GisPrivacyPage *page)
 {
-  g_resources_register (privacy_get_resource ());
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
 }

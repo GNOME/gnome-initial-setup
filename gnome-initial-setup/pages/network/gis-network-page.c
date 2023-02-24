@@ -813,7 +813,6 @@ gis_network_page_class_init (GisNetworkPageClass *klass)
 static void
 gis_network_page_init (GisNetworkPage *page)
 {
-  g_resources_register (network_get_resource ());
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
 
   gtk_widget_init_template (GTK_WIDGET (page));

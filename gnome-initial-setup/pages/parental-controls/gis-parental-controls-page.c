@@ -224,7 +224,6 @@ gis_parental_controls_page_class_init (GisParentalControlsPageClass *klass)
 static void
 gis_parental_controls_page_init (GisParentalControlsPage *page)
 {
-  g_resources_register (parental_controls_get_resource ());
 
   /* Ensure types exist for widgets in the UI file. */
   g_type_ensure (GIS_TYPE_PAGE_HEADER);

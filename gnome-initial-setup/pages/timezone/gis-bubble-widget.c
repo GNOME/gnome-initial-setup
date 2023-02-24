@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include "gis-bubble-widget.h"
+#include "gis-util.h"
 
 struct _GisBubbleWidgetPrivate
 {
@@ -90,28 +91,6 @@ gis_bubble_widget_set_property (GObject      *object,
 }
 
 static void
-add_style_from_resource (const char *resource)
-{
-  GtkCssProvider *provider;
-  GFile *file;
-  char *uri;
-
-  provider = gtk_css_provider_new ();
-
-  uri = g_strconcat ("resource://", resource, NULL);
-  file = g_file_new_for_uri (uri);
-
-  gtk_css_provider_load_from_file (provider, file);
-
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-  g_object_unref (provider);
-  g_object_unref (file);
-  g_free (uri);
-}
-
-static void
 gis_bubble_widget_class_init (GisBubbleWidgetClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -131,7 +110,7 @@ gis_bubble_widget_class_init (GisBubbleWidgetClass *klass)
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 
-  add_style_from_resource ("/org/gnome/initial-setup/gis-bubble-widget.css");
+  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-bubble-widget.css");
 }
 
 static void
