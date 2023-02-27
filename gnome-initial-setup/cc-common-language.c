@@ -241,7 +241,7 @@ insert_language (GHashTable *ht,
         char *label_untranslated;
         char *key;
 
-        locale = newlocale (LC_MESSAGES_MASK, lang, (locale_t) 0);
+        locale = newlocale (LC_ALL_MASK, lang, (locale_t) 0);
         if (locale == (locale_t) 0) {
                 g_debug ("%s: Failed to create locale %s", G_STRFUNC, lang);
                 return;

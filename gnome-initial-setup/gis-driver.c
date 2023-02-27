@@ -213,7 +213,7 @@ gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id, gboolean 
 
   if (update_locale)
     {
-      locale_t locale = newlocale (LC_MESSAGES_MASK, lang_id, (locale_t) 0);
+      locale_t locale = newlocale (LC_ALL_MASK, lang_id, (locale_t) 0);
       if (locale == (locale_t) 0)
         {
           g_warning ("Failed to create locale %s: %s", lang_id, g_strerror (errno));
