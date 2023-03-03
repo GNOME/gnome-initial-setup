@@ -465,8 +465,6 @@ gis_keyboard_page_constructed (GObject *object)
         GisKeyboardPage *self = GIS_KEYBOARD_PAGE (object);
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
 
-	g_type_ensure (CC_TYPE_INPUT_CHOOSER);
-
         G_OBJECT_CLASS (gis_keyboard_page_parent_class)->constructed (object);
 
         g_signal_connect (priv->input_chooser, "confirm",
