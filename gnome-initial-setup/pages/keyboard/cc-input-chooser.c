@@ -259,6 +259,7 @@ sync_all_checkmarks (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv;
         GtkWidget *row;
+        gboolean invalidate = FALSE;
 
         priv = cc_input_chooser_get_instance_private (chooser);
         row = gtk_widget_get_first_child (priv->input_list);
@@ -271,7 +272,7 @@ sync_all_checkmarks (CcInputChooser *chooser)
                 widget = get_input_widget (child);
 
                 if (widget == NULL)
-                        return;
+                        break;
 
 	        if (priv->id == NULL || priv->type == NULL)
 		        should_be_visible = FALSE;
@@ -280,13 +281,20 @@ sync_all_checkmarks (CcInputChooser *chooser)
                                             g_strcmp0 (widget->type, priv->type) == 0;
                 gtk_widget_set_opacity (widget->checkmark, should_be_visible ? 1.0 : 0.0);
 
-                if (widget->is_extra && should_be_visible)
+                if (widget->is_extra && should_be_visible) {
+                        g_debug ("Marking selected layout %s (%s:%s) as non-extra",
+                                 widget->name, widget->type, widget->id);
                         widget->is_extra = FALSE;
+                        invalidate = TRUE;
+                }
 
                 row = gtk_widget_get_next_sibling (row);
         }
 
-        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->input_list));
+        if (invalidate) {
+                gtk_list_box_invalidate_sort (GTK_LIST_BOX (priv->input_list));
+                gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->input_list));
+        }
 }
 
 static GtkWidget *
@@ -344,10 +352,18 @@ choose_non_extras (CcInputChooser *chooser)
                 if (widget == NULL)
                         break;
 
+                g_debug ("Picking %s (%s:%s) as non-extra",
+                         widget->name, widget->type, widget->id);
                 widget->is_extra = FALSE;
 
                 row = gtk_widget_get_next_sibling (row);
         }
+
+        /* Changing is_extra above affects the ordering and the visibility
+         * of the newly non-extra rows.
+         */
+        gtk_list_box_invalidate_sort (GTK_LIST_BOX (priv->input_list));
+        gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->input_list));
 }
 
 static void
