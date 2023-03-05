@@ -585,6 +585,7 @@ static void
 update_ibus_active_sources (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv;
+        gboolean invalidate = FALSE;
         IBusEngineDesc *engine_desc;
         const gchar *type;
         const gchar *id;
@@ -611,8 +612,15 @@ update_ibus_active_sources (CcInputChooser *chooser)
                 if (engine_desc) {
                         name = engine_get_display_name (engine_desc);
                         gtk_label_set_text (GTK_LABEL (row->label), name);
-                        g_free (name);
+                        g_clear_pointer (&row->name, g_free);
+                        row->name = g_steal_pointer (&name);
+                        invalidate = TRUE;
                 }
+        }
+
+        if (invalidate) {
+                gtk_list_box_invalidate_sort (GTK_LIST_BOX (priv->input_list));
+                gtk_list_box_invalidate_filter (GTK_LIST_BOX (priv->input_list));
         }
 }
 
