@@ -50,6 +50,7 @@ struct _CcInputChooserPrivate
 {
         GtkWidget *filter_entry;
         GtkWidget *input_list;
+        GPtrArray *input_widget_boxes;
 	GHashTable *inputs;
 
         GtkWidget *no_results;
@@ -96,6 +97,11 @@ typedef struct {
         gboolean is_extra;
 } InputWidget;
 
+/*
+ * Invariant: for each box in priv->input_widget_boxes,
+ * get_input_widget (row) is non-null and
+ * get_input_widget (row)->box == box
+ */
 static InputWidget *
 get_input_widget (GtkWidget *widget)
 {
@@ -258,21 +264,20 @@ static void
 sync_all_checkmarks (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv;
-        GtkWidget *row;
         gboolean invalidate = FALSE;
+        gsize i;
 
         priv = cc_input_chooser_get_instance_private (chooser);
-        row = gtk_widget_get_first_child (priv->input_list);
-        while (row) {
+
+        for (i = 0; i < priv->input_widget_boxes->len; i++) {
                 InputWidget *widget;
                 GtkWidget *child;
                 gboolean should_be_visible;
 
-                child = gtk_list_box_row_get_child (GTK_LIST_BOX_ROW (row));
+                child = g_ptr_array_index (priv->input_widget_boxes, i);
                 widget = get_input_widget (child);
-
-                if (widget == NULL)
-                        break;
+                g_assert (widget != NULL);
+                g_assert (widget->box == child);
 
 	        if (priv->id == NULL || priv->type == NULL)
 		        should_be_visible = FALSE;
@@ -287,8 +292,6 @@ sync_all_checkmarks (CcInputChooser *chooser)
                         widget->is_extra = FALSE;
                         invalidate = TRUE;
                 }
-
-                row = gtk_widget_get_next_sibling (row);
         }
 
         if (invalidate) {
@@ -335,28 +338,26 @@ static void
 choose_non_extras (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv;
-        GtkWidget *row;
         guint count = 0;
+        gsize i;
 
         priv = cc_input_chooser_get_instance_private (chooser);
-        row = gtk_widget_get_first_child (priv->input_list);
-        while (row) {
+
+        for (i = 0; i < priv->input_widget_boxes->len; i++) {
                 InputWidget *widget;
                 GtkWidget *child;
 
                 if (++count > MIN_ROWS)
                         break;
 
-                child = gtk_list_box_row_get_child (GTK_LIST_BOX_ROW (row));
+                child = g_ptr_array_index (priv->input_widget_boxes, i);
                 widget = get_input_widget (child);
-                if (widget == NULL)
-                        break;
+                g_assert (widget != NULL);
+                g_assert (widget->box == child);
 
                 g_debug ("Picking %s (%s:%s) as non-extra",
                          widget->name, widget->type, widget->id);
                 widget->is_extra = FALSE;
-
-                row = gtk_widget_get_next_sibling (row);
         }
 
         /* Changing is_extra above affects the ordering and the visibility
@@ -391,6 +392,7 @@ add_rows_to_list (CcInputChooser  *chooser,
 		g_hash_table_add (priv->inputs, key);
 
 		widget = input_widget_new (chooser, type, id, TRUE);
+		g_ptr_array_add (priv->input_widget_boxes, g_object_ref_sink (widget));
 		gtk_list_box_append (GTK_LIST_BOX (priv->input_list), widget);
 	}
 }
@@ -588,21 +590,21 @@ update_ibus_active_sources (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv;
         IBusEngineDesc *engine_desc;
-        GtkWidget *child;
         const gchar *type;
         const gchar *id;
         gchar *name;
+        gsize i;
 
         priv = cc_input_chooser_get_instance_private (chooser);
-        child = gtk_widget_get_first_child (priv->input_list);
-        while (child) {
+
+        for (i = 0; i < priv->input_widget_boxes->len; i++) {
+                GtkWidget *child;
                 InputWidget *row;
 
-		row = get_input_widget (child);
-                child = gtk_widget_get_next_sibling (child);
-
-		if (row == NULL)
-			continue;
+                child = g_ptr_array_index (priv->input_widget_boxes, i);
+                row = get_input_widget (child);
+                g_assert (row != NULL);
+                g_assert (row->box == child);
 
                 type = row->type;
                 id = row->id;
@@ -774,6 +776,7 @@ cc_input_chooser_finalize (GObject *object)
 
 	g_clear_object (&priv->xkb_info);
 	g_hash_table_unref (priv->inputs);
+        g_clear_pointer (&priv->input_widget_boxes, g_ptr_array_unref);
 #ifdef HAVE_IBUS
         g_clear_object (&priv->ibus);
         if (priv->ibus_cancellable)
@@ -844,7 +847,10 @@ cc_input_chooser_class_init (CcInputChooserClass *klass)
 static void
 cc_input_chooser_init (CcInputChooser *chooser)
 {
+        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
+
         gtk_widget_init_template (GTK_WIDGET (chooser));
+        priv->input_widget_boxes = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 void
