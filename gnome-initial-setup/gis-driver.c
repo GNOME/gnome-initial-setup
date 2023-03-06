@@ -799,6 +799,7 @@ gis_driver_startup (GApplication *app)
                                     "application", app,
                                     "icon-name", "preferences-system",
                                     "deletable", FALSE,
+                                    "title", _("Initial Setup"),
                                     NULL);
 
   g_signal_connect (driver->main_window,
