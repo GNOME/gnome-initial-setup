@@ -40,6 +40,7 @@
 
 struct _GisPrivacyPagePrivate
 {
+  GtkWidget *location_row;
   GtkWidget *location_switch;
   GtkWidget *reporting_group;
   GtkWidget *reporting_row;
@@ -229,6 +230,34 @@ activate_link (GtkLabel       *label,
   return TRUE;
 }
 
+static GtkWidget *
+get_subtitle_widget_from_row (GtkWidget *row)
+{
+  GtkWidget *subtitle_label;
+  GtkWidget *prefixes_box;
+  GtkWidget *title_label;
+  GtkWidget *header_box;
+  GtkWidget *title_box;
+  GtkWidget *image;
+
+  /* XXX: this is a dirty hack to fix issue #181 [1] and must only be
+   * applied to stable branches where a proper fix cannot be made. Sorry.
+   *
+   * [1] https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/181
+   */
+
+  header_box = gtk_list_box_row_get_child (GTK_LIST_BOX_ROW (row));
+
+  prefixes_box = gtk_widget_get_first_child (header_box);
+  image = gtk_widget_get_next_sibling (prefixes_box);
+  title_box = gtk_widget_get_next_sibling (image);
+
+  title_label = gtk_widget_get_first_child (title_box);
+  subtitle_label = gtk_widget_get_next_sibling (title_label);
+
+  return subtitle_label;
+}
+
 static void
 gis_privacy_page_locale_changed (GisPage *page)
 {
@@ -242,6 +271,7 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-privacy-page.ui");
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_row);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_group);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_row);
@@ -258,8 +288,15 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 static void
 gis_privacy_page_init (GisPrivacyPage *page)
 {
+  GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
+
+  g_signal_connect (get_subtitle_widget_from_row (priv->location_row),
+                    "activate-link",
+                    G_CALLBACK (activate_link),
+                    page);
 }
 
 GisPage *
