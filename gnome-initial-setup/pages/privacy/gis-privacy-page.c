@@ -42,7 +42,7 @@ struct _GisPrivacyPagePrivate
 {
   GtkWidget *location_switch;
   GtkWidget *reporting_group;
-  GtkWidget *reporting_row;
+  GtkWidget *reporting_label;
   GtkWidget *reporting_switch;
   GSettings *location_settings;
   GSettings *privacy_settings;
@@ -82,7 +82,7 @@ update_os_data (GisPrivacyPage *page)
       subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
                                     "removed. Data is collected by %s."), name);
     }
-  adw_action_row_set_subtitle (ADW_ACTION_ROW (priv->reporting_row), subtitle);
+  gtk_label_set_markup (GTK_LABEL (priv->reporting_label), subtitle);
 }
 
 static void
@@ -244,7 +244,7 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-privacy-page.ui");
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_group);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_row);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_switch);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
 
