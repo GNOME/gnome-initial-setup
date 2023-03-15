@@ -94,7 +94,7 @@ abrt_appeared_cb (GDBusConnection *connection,
   GisPrivacyPage *page = user_data;
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
 
-  gtk_widget_show (priv->reporting_group);
+  gtk_widget_set_visible (priv->reporting_group, TRUE);
 }
 
 static void
@@ -105,7 +105,7 @@ abrt_vanished_cb (GDBusConnection *connection,
   GisPrivacyPage *page = user_data;
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
 
-  gtk_widget_hide (priv->reporting_group);
+  gtk_widget_set_visible (priv->reporting_group, FALSE);
 }
 
 static void
@@ -179,11 +179,7 @@ notify_progress_cb (GObject *object, GParamSpec *pspec, gpointer user_data)
 
   progress = webkit_web_view_get_estimated_load_progress (web_view);
 
-  if (progress == 1.0)
-    gtk_widget_hide (progress_bar);
-  else
-    gtk_widget_show (progress_bar);
-
+  gtk_widget_set_visible (progress_bar, progress != 1.0);
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), progress);
 }
 
@@ -192,20 +188,25 @@ activate_link (GtkLabel       *label,
                const gchar    *uri,
                GisPrivacyPage *page)
 {
+  GtkWidget *headerbar;
   GtkWidget *dialog;
   GtkWidget *overlay;
   GtkWidget *view;
   GtkWidget *progress_bar;
 
-  dialog = gtk_dialog_new_with_buttons (_("Privacy Policy"),
-                                        GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page))),
-                                        GTK_DIALOG_MODAL
-                                        | GTK_DIALOG_DESTROY_WITH_PARENT
-                                        | GTK_DIALOG_USE_HEADER_BAR,
-                                        NULL, NULL);
+  headerbar = gtk_header_bar_new ();
+  gtk_header_bar_set_show_title_buttons (GTK_HEADER_BAR (headerbar), TRUE);
+
+  dialog = g_object_new (GTK_TYPE_WINDOW,
+                         "destroy-with-parent", TRUE,
+                         "transient-for", gtk_widget_get_root (GTK_WIDGET (page)),
+                         "titlebar", headerbar,
+                         "title", _("Privacy Policy"),
+                         "modal", TRUE,
+                         NULL);
 
   overlay = gtk_overlay_new ();
-  gtk_box_append (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), overlay);
+  gtk_window_set_child (GTK_WINDOW (dialog), overlay);
 
   progress_bar = gtk_progress_bar_new ();
   gtk_widget_add_css_class (progress_bar, "osd");
