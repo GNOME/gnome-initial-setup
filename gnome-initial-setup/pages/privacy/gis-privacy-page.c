@@ -215,7 +215,7 @@ activate_link (GtkLabel       *label,
   gtk_overlay_add_overlay (GTK_OVERLAY (overlay), progress_bar);
 
   view = webkit_web_view_new ();
-  gtk_widget_set_size_request (view, 600, 500);
+  gtk_widget_set_size_request (view, 760, 500);
   gtk_widget_set_hexpand (view, TRUE);
   gtk_widget_set_vexpand (view, TRUE);
   g_signal_connect (view, "notify::estimated-load-progress",
