@@ -81,24 +81,26 @@ gis_software_page_apply (GisPage      *gis_page,
   g_autofree char *program = NULL;
   g_autoptr (GError) error = NULL;
 
-  program = find_fedora_third_party ();
-
-  if (program)
+  if (priv->enabled)
     {
-      const char *arg1;
-
-      if (priv->enabled)
-        arg1 = "enable";
-      else
-        arg1 = "disable";
-
-      gis_pkexec (program, arg1, "root", &error);
-      if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-        g_warning ("%s failed: %s", program, error->message);
+      program = find_fedora_third_party ();
+      if (program)
+        {
+          gis_pkexec (program, "enable", "root", &error);
+          if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+            g_warning ("%s failed: %s", program, error->message);
+        }
     }
+
+  /* If not enabled, do nothing rather than calling 'fedora-third-party disable' 
+   * to leave the setting in an indeterminate state, to allow GNOME Software to
+   * prompt the user once more when it runs for the first time.
+   */
 
   return FALSE;
 }
+
+/* End distro-specific stuff */
 
 static void
 gis_software_page_locale_changed (GisPage *gis_page)
