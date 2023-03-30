@@ -407,7 +407,8 @@ get_locale_infos (CcInputChooser *chooser)
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 	const gchar *type = NULL;
 	const gchar *id = NULL;
-	gchar *lang, *country;
+	g_autofree gchar *lang = NULL;
+	g_autofree gchar *country = NULL;
 	GList *list;
 
 	if (gnome_get_input_source_from_locale (priv->locale, &type, &id)) {
@@ -419,7 +420,7 @@ get_locale_infos (CcInputChooser *chooser)
 	}
 
 	if (!gnome_parse_locale (priv->locale, &lang, &country, NULL, NULL))
-		goto out;
+		return;
 
 	list = gnome_xkb_info_get_layouts_for_language (priv->xkb_info, lang);
 	add_rows_to_list (chooser, list, INPUT_SOURCE_TYPE_XKB, id);
@@ -436,10 +437,6 @@ get_locale_infos (CcInputChooser *chooser)
 	list = gnome_xkb_info_get_all_layouts (priv->xkb_info);
 	add_rows_to_list (chooser, list, INPUT_SOURCE_TYPE_XKB, id);
 	g_list_free (list);
-
-out:
-	g_free (lang);
-	g_free (country);
 }
 
 static gboolean
