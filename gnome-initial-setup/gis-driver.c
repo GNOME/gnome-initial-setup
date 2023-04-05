@@ -472,7 +472,7 @@ gis_driver_add_page (GisDriver *driver,
 void
 gis_driver_hide_window (GisDriver *driver)
 {
-  gtk_widget_hide (GTK_WIDGET (driver->main_window));
+  gtk_widget_set_visible (GTK_WIDGET (driver->main_window), FALSE);
 }
 
 static gboolean

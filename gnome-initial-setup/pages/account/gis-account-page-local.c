@@ -447,7 +447,7 @@ gis_account_page_local_constructed (GObject *object)
 
   /* Disable parental controls if support is not compiled in. */
 #ifndef HAVE_PARENTAL_CONTROLS
-  gtk_widget_hide (page->enable_parental_controls_box);
+  gtk_widget_set_visible (page->enable_parental_controls_box, FALSE);
 #endif
 
   page->valid_name = FALSE;

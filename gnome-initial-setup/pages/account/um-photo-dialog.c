@@ -104,7 +104,7 @@ create_face_widget (gpointer item,
 
         gtk_image_set_pixel_size (GTK_IMAGE (image), AVATAR_PIXEL_SIZE);
 
-        gtk_widget_show (image);
+        gtk_widget_set_visible (image, TRUE);
 
         g_object_set_data_full (G_OBJECT (image),
                                 "filename", g_steal_pointer (&path),

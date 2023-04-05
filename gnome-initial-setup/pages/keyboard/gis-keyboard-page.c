@@ -493,7 +493,7 @@ gis_keyboard_page_constructed (GObject *object)
 
         update_page_complete (self);
 
-        gtk_widget_show (GTK_WIDGET (self));
+        gtk_widget_set_visible (GTK_WIDGET (self), TRUE);
 }
 
 static void

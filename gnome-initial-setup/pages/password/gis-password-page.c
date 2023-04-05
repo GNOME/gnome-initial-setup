@@ -306,10 +306,7 @@ username_changed (GObject *obj, GParamSpec *pspec, GisPasswordPage *page)
   GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   priv->username = gis_driver_get_username (GIS_DRIVER (obj));
 
-  if (priv->username)
-    gtk_widget_show (GTK_WIDGET (page));
-  else
-    gtk_widget_hide (GTK_WIDGET (page));  
+  gtk_widget_set_visible (GTK_WIDGET (page), priv->username != NULL);
 
   clear_password_validation_error (priv->password_entry);
   clear_password_validation_error (priv->confirm_entry);
@@ -376,7 +373,7 @@ gis_password_page_constructed (GObject *object)
   validate (page);
   update_header (page);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
 static void

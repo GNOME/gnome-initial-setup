@@ -318,7 +318,7 @@ populate_provider_list (GisGoaPage *page)
   if (error)
     {
       g_warning ("Error listing providers: %s", error->message);
-      gtk_widget_hide (GTK_WIDGET (page));
+      gtk_widget_set_visible (GTK_WIDGET (page), FALSE);
       return;
     }
 

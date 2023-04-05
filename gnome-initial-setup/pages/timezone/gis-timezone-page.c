@@ -455,7 +455,7 @@ gis_timezone_page_constructed (GObject *object)
   g_signal_connect (priv->map, "location-changed",
                     G_CALLBACK (map_location_changed), page);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
 static void

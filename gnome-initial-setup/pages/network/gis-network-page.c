@@ -377,28 +377,28 @@ refresh_wireless_list (GisNetworkPage *page)
 
     if (!enabled || !hw_enabled) {
       gtk_label_set_text (GTK_LABEL (priv->no_network_label), _("Wireless networking is disabled"));
-      gtk_widget_show (priv->no_network_label);
-      gtk_widget_hide (priv->no_network_spinner);
+      gtk_widget_set_visible (priv->no_network_label, TRUE);
+      gtk_widget_set_visible (priv->no_network_spinner, FALSE);
 
       gtk_widget_set_visible (priv->turn_on_label, hw_enabled);
       gtk_widget_set_visible (priv->turn_on_switch, hw_enabled);
     } else {
       gtk_label_set_text (GTK_LABEL (priv->no_network_label), _("Checking for available wireless networks"));
-      gtk_widget_show (priv->no_network_spinner);
-      gtk_widget_show (priv->no_network_label);
-      gtk_widget_hide (priv->turn_on_label);
-      gtk_widget_hide (priv->turn_on_switch);
+      gtk_widget_set_visible (priv->no_network_spinner, TRUE);
+      gtk_widget_set_visible (priv->no_network_label, TRUE);
+      gtk_widget_set_visible (priv->turn_on_label, FALSE);
+      gtk_widget_set_visible (priv->turn_on_switch, FALSE);
     }
 
-    gtk_widget_hide (priv->network_list);
+    gtk_widget_set_visible (priv->network_list, FALSE);
     goto out;
 
   } else {
-    gtk_widget_hide (priv->no_network_spinner);
-    gtk_widget_hide (priv->no_network_label);
-    gtk_widget_hide (priv->turn_on_label);
-    gtk_widget_hide (priv->turn_on_switch);
-    gtk_widget_show (priv->network_list);
+    gtk_widget_set_visible (priv->no_network_spinner, FALSE);
+    gtk_widget_set_visible (priv->no_network_label, FALSE);
+    gtk_widget_set_visible (priv->turn_on_label, FALSE);
+    gtk_widget_set_visible (priv->turn_on_switch, FALSE);
+    gtk_widget_set_visible (priv->network_list, TRUE);
   }
 
   unique_aps = get_strongest_unique_aps (aps);

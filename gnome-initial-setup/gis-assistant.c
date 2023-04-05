@@ -193,11 +193,11 @@ update_navigation_buttons (GisAssistant *assistant)
 
   if (is_last_page)
     {
-      gtk_widget_hide (assistant->back);
-      gtk_widget_hide (assistant->forward);
-      gtk_widget_hide (assistant->skip);
-      gtk_widget_hide (assistant->cancel);
-      gtk_widget_hide (assistant->accept);
+      gtk_widget_set_visible (assistant->back, FALSE);
+      gtk_widget_set_visible (assistant->forward, FALSE);
+      gtk_widget_set_visible (assistant->skip, FALSE);
+      gtk_widget_set_visible (assistant->cancel, FALSE);
+      gtk_widget_set_visible (assistant->accept, FALSE);
     }
   else
     {
@@ -223,7 +223,7 @@ update_navigation_buttons (GisAssistant *assistant)
       }
 
       if (gis_page_get_has_forward (page)) {
-        gtk_widget_hide (next_widget);
+        gtk_widget_set_visible (next_widget, FALSE);
       }
     }
 }
