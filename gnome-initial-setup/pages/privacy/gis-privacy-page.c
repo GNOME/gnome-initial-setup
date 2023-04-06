@@ -157,10 +157,10 @@ gis_privacy_page_apply (GisPage *gis_page,
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
   gboolean active;
 
-  active = gtk_switch_get_active (GTK_SWITCH (priv->location_switch));
+  active = gtk_widget_is_visible (priv->location_switch) && gtk_switch_get_active (GTK_SWITCH (priv->location_switch));
   g_settings_set_boolean (priv->location_settings, "enabled", active);
 
-  active = gtk_switch_get_active (GTK_SWITCH (priv->reporting_switch));
+  active = gtk_widget_is_visible (priv->reporting_switch) && gtk_switch_get_active (GTK_SWITCH (priv->reporting_switch));
   g_settings_set_boolean (priv->privacy_settings, "report-technical-problems", active);
 
   return FALSE;
