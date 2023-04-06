@@ -1,6 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2015 Red Hat
+ * Copyright (C) 2015, 2023 Red Hat
+ * Copyright (C) 2014 Endless Mobile, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -44,9 +45,14 @@ struct _GisPrivacyPagePrivate
   GtkWidget *reporting_group;
   GtkWidget *reporting_label;
   GtkWidget *reporting_switch;
+  GtkWidget *metrics_group;
+  GtkWidget *metrics_label;
+  GtkWidget *metrics_switch;
   GSettings *location_settings;
   GSettings *privacy_settings;
   guint abrt_watch_id;
+  guint metrics_watch_id;
+  GDBusProxy *metrics_proxy;
 };
 typedef struct _GisPrivacyPagePrivate GisPrivacyPagePrivate;
 
@@ -58,7 +64,8 @@ update_os_data (GisPrivacyPage *page)
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
   g_autofree char *name = g_get_os_info (G_OS_INFO_KEY_NAME);
   g_autofree char *privacy_policy = g_get_os_info (G_OS_INFO_KEY_PRIVACY_POLICY_URL);
-  g_autofree char *subtitle = NULL;
+  g_autofree char *metrics_subtitle = NULL;
+  g_autofree char *reporting_subtitle = NULL;
 
   if (!name)
     return FALSE;
@@ -68,19 +75,31 @@ update_os_data (GisPrivacyPage *page)
       /* Translators: the first parameter here is the name of a distribution,
        * like "Fedora" or "Ubuntu".
        */
-      subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
-                                    "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
-                                    name, privacy_policy);
+      metrics_subtitle = g_strdup_printf (_("Help improve %1$s by providing limited usage data that does not contain personal information. "
+                                            "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."), name, privacy_policy);
+
+      /* Translators: the first parameter here is the name of a distribution,
+       * like "Fedora" or "Ubuntu".
+       */
+      reporting_subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
+                                              "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."), name, privacy_policy);
     }
   else
     {
       /* Translators: the parameter here is the name of a distribution,
        * like "Fedora" or "Ubuntu".
        */
-      subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
-                                    "Data is collected by %s."), name);
+      metrics_subtitle = g_strdup_printf (_("Help improve %1$s by providing limited usage data that does not contain personal information. "
+                                            "Data is collected by %1$s."), name);
+
+      /* Translators: the parameter here is the name of a distribution,
+       * like "Fedora" or "Ubuntu".
+       */
+      reporting_subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
+                                              "Data is collected by %s."), name);
     }
-  gtk_label_set_markup (GTK_LABEL (priv->reporting_label), subtitle);
+  gtk_label_set_markup (GTK_LABEL (priv->metrics_label), metrics_subtitle);
+  gtk_label_set_markup (GTK_LABEL (priv->reporting_label), reporting_subtitle);
   return TRUE;
 }
 
@@ -108,10 +127,48 @@ abrt_vanished_cb (GDBusConnection *connection,
 }
 
 static void
+metrics_appeared_cb (GDBusConnection *connection,
+                     const gchar     *name,
+                     const gchar     *name_owner,
+                     gpointer         user_data)
+{
+  GisPrivacyPage *page = user_data;
+  GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+  g_autoptr (GError) error = NULL;
+
+  gtk_widget_set_visible (priv->metrics_group, TRUE);
+
+  /* FIXME: make async, add cancellable */
+  priv->metrics_proxy = g_dbus_proxy_new_sync (connection,
+                                               G_DBUS_PROXY_FLAGS_NONE,
+                                               NULL,
+                                               "com.endlessm.Metrics",
+                                               "/com/endlessm/Metrics",
+                                               "com.endlessm.Metrics.EventRecorderServer",
+                                               NULL,
+                                               &error);
+  if (error != NULL)
+    g_warning ("Unable to create metrics daemon proxy: %s", error->message);
+}
+
+static void
+metrics_vanished_cb (GDBusConnection *connection,
+                     const gchar     *name,
+                     gpointer         user_data)
+{
+  GisPrivacyPage *page = user_data;
+  GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+
+  gtk_widget_set_visible (priv->metrics_group, FALSE);
+  g_clear_object (&priv->metrics_proxy);
+}
+
+static void
 gis_privacy_page_constructed (GObject *object)
 {
   GisPrivacyPage *page = GIS_PRIVACY_PAGE (object);
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+  //g_autoptr (GError) error = NULL;
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->constructed (object);
 
@@ -122,9 +179,19 @@ gis_privacy_page_constructed (GObject *object)
 
   gtk_switch_set_active (GTK_SWITCH (priv->location_switch), TRUE);
   gtk_switch_set_active (GTK_SWITCH (priv->reporting_switch), TRUE);
+  gtk_switch_set_active (GTK_SWITCH (priv->metrics_switch), TRUE);
 
   if (update_os_data (page))
     {
+      /* FIXME: check error */
+      priv->metrics_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
+                                                 "com.endlessm.Metrics",
+                                                 G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
+                                                 metrics_appeared_cb,
+                                                 metrics_vanished_cb,
+                                                 page,
+                                                 NULL);
+
       priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
                                               "org.freedesktop.problems.daemon",
                                               G_BUS_NAME_WATCHER_FLAGS_NONE,
@@ -143,10 +210,36 @@ gis_privacy_page_dispose (GObject *object)
 
   g_clear_object (&priv->location_settings);
   g_clear_object (&priv->privacy_settings);
+  g_clear_object (&priv->metrics_proxy);
 
+  g_clear_handle_id (&priv->metrics_watch_id, g_bus_unwatch_name);
   g_clear_handle_id (&priv->abrt_watch_id, g_bus_unwatch_name);
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->dispose (object);
+}
+
+static void
+sync_metrics_active_state (GisPrivacyPage *page)
+{
+  GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
+  gboolean metrics_active;
+  g_autoptr (GError) error = NULL;
+
+  if (!priv->metrics_proxy)
+    return;
+
+  metrics_active = gtk_widget_is_visible (priv->metrics_switch) && gtk_switch_get_active (GTK_SWITCH (priv->metrics_switch));
+
+  /* FIXME: make async, add cancellable */
+  g_dbus_proxy_call_sync (priv->metrics_proxy,
+                          "SetEnabled",
+                          g_variant_new ("(b)", metrics_active),
+                          G_DBUS_CALL_FLAGS_NONE,
+                          -1,
+                          NULL,
+                          &error);
+  if (error != NULL)
+    g_warning ("Unable to set the enabled state of metrics daemon: %s", error->message);
 }
 
 static gboolean
@@ -162,6 +255,8 @@ gis_privacy_page_apply (GisPage *gis_page,
 
   active = gtk_widget_is_visible (priv->reporting_switch) && gtk_switch_get_active (GTK_SWITCH (priv->reporting_switch));
   g_settings_set_boolean (priv->privacy_settings, "report-technical-problems", active);
+
+  sync_metrics_active_state (page);
 
   return FALSE;
 }
@@ -239,6 +334,9 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-privacy-page.ui");
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, metrics_group);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, metrics_label);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, metrics_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_switch);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_group);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);

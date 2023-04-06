@@ -20,28 +20,28 @@
         </child>
 
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="AdwPreferencesGroup" id="metrics_group">
+            <property name="margin-top">12</property>
+            <property name="visible">False</property>
             <child>
-              <object class="AdwActionRow">
-                <property name="use-markup">True</property>
-                <property name="title" translatable="yes">Location Services</property>
-                <property name="activatable-widget">location_switch</property>
+              <object class="AdwActionRow" id="metrics_row">
+                <property name="title" translatable="yes">Data Collection</property>
+                <property name="activatable-widget">metrics_switch</property>
                 <child>
-                  <object class="GtkSwitch" id="location_switch">
+                  <object class="GtkSwitch" id="metrics_switch">
                     <property name="valign">center</property>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="metrics_label">
                 <property name="margin-top">12</property>
                 <property name="wrap">True</property>
                 <property name="wrap-mode">word-char</property>
                 <property name="use-markup">True</property>
                 <property name="ellipsize">none</property>
                 <property name="xalign">0.0</property>
-                <property name="label" translatable="yes">Allows apps to determine your geographical location. Uses the Mozilla Location Service (&lt;a href='https://location.services.mozilla.com/privacy'&gt;privacy policy&lt;/a&gt;).</property>
                 <signal name="activate-link" handler="activate_link" object="GisPrivacyPage" swapped="no" />
                 <style>
                   <class name="caption" />
@@ -74,6 +74,38 @@
                 <property name="use-markup">True</property>
                 <property name="ellipsize">none</property>
                 <property name="xalign">0.0</property>
+                <signal name="activate-link" handler="activate_link" object="GisPrivacyPage" swapped="no" />
+                <style>
+                  <class name="caption" />
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="AdwActionRow">
+                <property name="use-markup">True</property>
+                <property name="title" translatable="yes">Location Services</property>
+                <property name="activatable-widget">location_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="location_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="margin-top">12</property>
+                <property name="wrap">True</property>
+                <property name="wrap-mode">word-char</property>
+                <property name="use-markup">True</property>
+                <property name="ellipsize">none</property>
+                <property name="xalign">0.0</property>
+                <property name="label" translatable="yes">Allows apps to determine your geographical location. Uses the Mozilla Location Service (&lt;a href='https://location.services.mozilla.com/privacy'&gt;privacy policy&lt;/a&gt;).</property>
                 <signal name="activate-link" handler="activate_link" object="GisPrivacyPage" swapped="no" />
                 <style>
                   <class name="caption" />
