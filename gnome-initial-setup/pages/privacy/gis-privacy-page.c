@@ -52,7 +52,7 @@ typedef struct _GisPrivacyPagePrivate GisPrivacyPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisPrivacyPage, gis_privacy_page, GIS_TYPE_PAGE);
 
-static void
+static gboolean
 update_os_data (GisPrivacyPage *page)
 {
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
@@ -61,13 +61,12 @@ update_os_data (GisPrivacyPage *page)
   g_autofree char *subtitle = NULL;
 
   if (!name)
-    name = g_strdup ("GNOME");
+    return FALSE;
 
   if (privacy_policy)
     {
       /* Translators: the first parameter here is the name of a distribution,
-       * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-       * detect any distribution.
+       * like "Fedora" or "Ubuntu".
        */
       subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
                                     "removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
@@ -76,13 +75,13 @@ update_os_data (GisPrivacyPage *page)
   else
     {
       /* Translators: the parameter here is the name of a distribution,
-       * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-       * detect any distribution.
+       * like "Fedora" or "Ubuntu".
        */
       subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
                                     "removed. Data is collected by %s."), name);
     }
   gtk_label_set_markup (GTK_LABEL (priv->reporting_label), subtitle);
+  return TRUE;
 }
 
 static void
@@ -124,15 +123,16 @@ gis_privacy_page_constructed (GObject *object)
   gtk_switch_set_active (GTK_SWITCH (priv->location_switch), TRUE);
   gtk_switch_set_active (GTK_SWITCH (priv->reporting_switch), TRUE);
 
-  update_os_data (page);
-
-  priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
-                                          "org.freedesktop.problems.daemon",
-                                          G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                          abrt_appeared_cb,
-                                          abrt_vanished_cb,
-                                          page,
-                                          NULL);
+  if (update_os_data (page))
+    {
+      priv->abrt_watch_id = g_bus_watch_name (G_BUS_TYPE_SYSTEM,
+                                              "org.freedesktop.problems.daemon",
+                                              G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                              abrt_appeared_cb,
+                                              abrt_vanished_cb,
+                                              page,
+                                              NULL);
+    }
 }
 
 static void
