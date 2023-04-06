@@ -144,11 +144,7 @@ gis_privacy_page_dispose (GObject *object)
   g_clear_object (&priv->location_settings);
   g_clear_object (&priv->privacy_settings);
 
-  if (priv->abrt_watch_id > 0)
-    {
-      g_bus_unwatch_name (priv->abrt_watch_id);
-      priv->abrt_watch_id = 0;
-    }
+  g_clear_handle_id (&priv->abrt_watch_id, g_bus_unwatch_name);
 
   G_OBJECT_CLASS (gis_privacy_page_parent_class)->dispose (object);
 }
