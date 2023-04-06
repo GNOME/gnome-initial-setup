@@ -68,17 +68,17 @@ update_os_data (GisPrivacyPage *page)
       /* Translators: the first parameter here is the name of a distribution,
        * like "Fedora" or "Ubuntu".
        */
-      subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
-                                    "removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
-                                  name, privacy_policy);
+      subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
+                                    "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
+                                    name, privacy_policy);
     }
   else
     {
       /* Translators: the parameter here is the name of a distribution,
        * like "Fedora" or "Ubuntu".
        */
-      subtitle = g_strdup_printf (_("Sends technical reports that have personal information automatically "
-                                    "removed. Data is collected by %s."), name);
+      subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
+                                    "Data is collected by %s."), name);
     }
   gtk_label_set_markup (GTK_LABEL (priv->reporting_label), subtitle);
   return TRUE;
