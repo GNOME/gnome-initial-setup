@@ -162,7 +162,7 @@ language_widget_new (const char *locale_id,
                 label = gtk_label_new (country_name);
                 gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
                 gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
-                gtk_style_context_add_class (gtk_widget_get_style_context (label), "dim-label");
+                gtk_widget_add_css_class (label, "dim-label");
                 gtk_label_set_xalign (GTK_LABEL (label), 0);
                 gtk_widget_set_hexpand (label, TRUE);
                 gtk_widget_set_halign (label, GTK_ALIGN_END);
@@ -226,7 +226,7 @@ more_widget_new (void)
                               "hexpand", TRUE,
                               "halign", GTK_ALIGN_CENTER,
                               NULL);
-        gtk_style_context_add_class (gtk_widget_get_style_context (arrow), "dim-label");
+        gtk_widget_add_css_class (arrow, "dim-label");
         gtk_widget_set_margin_top (widget, 12);
         gtk_widget_set_margin_bottom (widget, 12);
         gtk_box_append (GTK_BOX (widget), arrow);

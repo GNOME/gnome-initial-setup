@@ -142,7 +142,7 @@ big_label (const char *text)
 {
   GtkWidget *label = gtk_label_new (text);
 
-  gtk_style_context_add_class (gtk_widget_get_style_context (label), "title-1");
+  gtk_widget_add_css_class (label, "title-1");
 
   return label;
 }

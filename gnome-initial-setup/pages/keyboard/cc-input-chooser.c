@@ -303,7 +303,7 @@ more_widget_new (void)
         gtk_widget_set_tooltip_text (widget, _("More…"));
 
         arrow = gtk_image_new_from_icon_name ("view-more-symbolic");
-        gtk_style_context_add_class (gtk_widget_get_style_context (arrow), "dim-label");
+        gtk_widget_add_css_class (arrow, "dim-label");
         gtk_widget_set_margin_top (widget, 12);
         gtk_widget_set_margin_bottom (widget, 12);
         gtk_widget_set_hexpand (arrow, TRUE);
