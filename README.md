@@ -2,30 +2,81 @@ GNOME Initial Setup
 ===================
 
 After acquiring or installing a new system there are a few essential things
-to set up before use. gnome-initial-setup aims to provide a simple, easy,
-and safe way to prepare a new system.
+to set up before use. Initial Setup aims to provide a simple, easy, and safe way
+to prepare a new system. This should only include a few essential steps for
+which we can't provide good defaults. The desired experience is that the system
+boots straight into Initial Setup, and when the setup tasks are completed, we
+smoothly transition into the user session for the newly-created user account.
 
-This should only include a few essential steps for which we can't provide
-good defaults:
+There are two modes.
 
- * Select your language
- * Get onto the network
- * Create a user account
- * Set the correct timezone / location
- * Set up online accounts
- * Learn some basics about GNOME
+New User Mode
+-------------
 
-The desired experience is that the system boots straight into the
-initial-setup tool, and when the setup tasks are completed, we smoothly
-transition into the user session for the newly created user account.
+When there are no existing user accounts on the system, gdm launches Initial
+Setup in a special initial setup session that runs GNOME Shell with a somewhat
+reduced UI, similar to the way it is used on the login screen. In this mode,
+Initial Setup will create a new user account. By default, all pages except
+Welcome are displayed:
 
-To realize this experience, we rely on gdm to launch gnome-initial-setup
-in a 'first boot' situation. We are using gnome-shell in an 'initial-setup'
-mode that shows a somewhat reduced UI, similar to the way it is used on
-the login screen.
+ * Language
+ * Keyboard
+ * Network
+ * Privacy
+ * Timezone
+ * Software (currently only used by Fedora)
+ * Online Accounts
+ * Account
+ * Password
+ * Parental Controls (if malcontent is enabled)
+ * Parent Password (if malcontent is enabled)
+ * Summary
 
-The design for the initial-setup application can be found here:
-https://live.gnome.org/GnomeOS/Design/Whiteboards/InitialSetup
+There are some deficiencies with this mode. First, some pages are redundant
+with distro installers. Linux distros do not want to prompt the user to
+configure the same thing multiple times. Distros have to suppress particular
+pages using the vendor.conf file (discussed below). For example, Fedora's
+vendor.conf suppresses the Language and Keyboard pages when in new user mode,
+and suppresses the Timezone page always, to avoid redundancy with its Anaconda
+installer. The Welcome page is displayed whenever the Language page is
+suppressed via vendor.conf. Second, the new user mode will be used for both
+regular and OEM installs, because there is no separate OEM mode. When pages are
+suppressed to avoid redundancy with distro installers, OEM installs suffer
+because there users never run the installer and therefore never receive the
+suppressed pages. In the future, we should create a separate OEM mode to fix
+this.
+
+Existing User Mode
+------------------
+
+Initial Setup has code to support running when logging into a new user account
+for the first time. Confusingly, this is called existing user mode, but it
+makes sense if you think "the user already exists and Initial Setup does not
+need to create it." Although the code exists, it is actually impossible to ever
+access existing user mode as of Initial Setup 40. This mode was entirely
+disabled in https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/113
+to avoid conflicting with GNOME Tour. It would be nice to bring it back, but to
+do so, we would want to fix https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/12.
+Historically, existing user mode runs in the normal user account session, but we
+really need it to run in the same special initial setup session that is used for
+new user mode. Otherwise, the Language page does not actually work; the locale
+has to be set before launching the normal user session, and cannot be changed
+once the session has started. Since the code still exists, it is worth
+documenting here even though it is currently unreachable.
+
+When running in existing user mode, the Timezone, Software, Account, Password,
+Parental Controls, and Parent Password pages are all disabled because they do not
+make sense in this mode. This results in the following workflow:
+
+ * Language
+ * Keyboard
+ * Network
+ * Privacy
+ * Online Accounts
+ * Summary
+
+Although this mode is unreachable in the upstream version of Initial Setup, both
+Debian and Ubuntu have downstream patches to restore it.
 
 Vendor Configuration
 --------------------
