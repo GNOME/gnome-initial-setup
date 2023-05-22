@@ -2,15 +2,15 @@
 # Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-intial-setup package.
 # Milo Casagrande <milo@milo.name>, 2022.
-# Gianvito Cavasoli <gianvito@gmx.it>, 2012-2022.
+# Gianvito Cavasoli <gianvito@gmx.it>, 2012-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2022-08-26 20:46+0000\n"
-"PO-Revision-Date: 2022-10-20 11:21+0200\n"
+"POT-Creation-Date: 2023-04-25 15:24+0000\n"
+"PO-Revision-Date: 2023-05-18 12:29+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -18,10 +18,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Impostazioni iniziali"
 
@@ -53,23 +54,19 @@ msgstr "Forzare modalità utente esistente"
 msgid "— GNOME initial setup"
 msgstr "— Impostazioni iniziali GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:39
-msgid "Take a Picture…"
-msgstr "Scatta una foto…"
-
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
 msgid "Failed to register account"
 msgstr "Registrazione dell'account non riuscita"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
 msgid "No supported way to authenticate with this domain"
 msgstr "Nessun modo supportato per l'autenticazione con questo dominio"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
 msgid "Failed to join domain"
 msgstr "Inserimento nel dominio non riuscito"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
 msgid "Failed to log into domain"
 msgstr "Accesso nel dominio non riuscito"
 
@@ -88,17 +85,17 @@ msgstr ""
 "questo account per accedere alle risorse aziendali su Internet."
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:153
 msgid "_Domain"
 msgstr "_Dominio"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:67
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Username"
 msgstr "Nome _utente"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:32
+#: gnome-initial-setup/pages/password/gis-password-page.ui:25
 msgid "_Password"
 msgstr "Pass_word"
 
@@ -106,11 +103,11 @@ msgstr "Pass_word"
 msgid "Enterprise domain or realm name"
 msgstr "Dominio aziendale o nome realm"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:137
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:126
 msgid "Domain Administrator Login"
 msgstr "Accesso amministratore di dominio"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:141
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -120,19 +117,19 @@ msgstr ""
 "iscritto nel dominio. L'amministratore di rete deve digitare la password di "
 "dominio qui e scegliere un nome unico per il computer."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:179
 msgid "_Computer"
 msgstr "_Computer"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:203
 msgid "Administrator _Name"
 msgstr "_Nome amministratore"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:227
 msgid "Administrator Password"
 msgstr "Password amministratore"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:268
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:260
 msgid "C_ontinue"
 msgstr "C_ontinua"
 
@@ -155,28 +152,28 @@ msgstr "Amministratore"
 msgid "Failed to create user '%s': "
 msgstr "Creazione utente «%s» non riuscita:"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:17
-msgid "Avatar image"
-msgstr "Immagine avatar"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
+msgid "Edit avatar"
+msgstr "Modifica avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Informazioni personali"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:32
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Fornire un nome e un nome utente. Si può anche scegliere un'immagine."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:44
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
 msgid "_Full Name"
 msgstr "_Nome completo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:119
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
 msgid "Set up _parental controls for this user"
 msgstr "Impostare il controllo _genitori per questo utente"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:125
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Per l'uso da parte di un genitore o supervisore, che deve impostare la "
@@ -224,7 +221,6 @@ msgid "The username is too long."
 msgstr "Il nome utente è troppo lungo."
 
 #: gnome-initial-setup/pages/account/um-utils.c:159
-#| msgid "The username cannot start with a “-”."
 msgid "The username must start with a lower case letter from a-z."
 msgstr "Il nome utente deve iniziare con una lettera minuscola da a-z."
 
@@ -233,9 +229,6 @@ msgid "That username isn’t available. Please try another."
 msgstr "Questo nome utente non è disponibile. Provarne un altro."
 
 #: gnome-initial-setup/pages/account/um-utils.c:165
-#| msgid ""
-#| "The username should only consist of upper and lower case letters from a-"
-#| "z, digits and the following characters: . - _"
 msgid ""
 "The username should only consist of lower case letters from a-z, digits, and "
 "the following characters: - _"
@@ -276,20 +269,18 @@ msgstr ""
 #. * %s is the name of the provider. e.g., 'Google'.
 #: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
 #, c-format
-#| msgid "Add Account"
 msgid "%s Account"
 msgstr "Account %s"
 
 #: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-#| msgid "Add Account"
 msgid "Remove Account"
 msgstr "Rimuovi account"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
 msgid "Preview"
 msgstr "Anteprima"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Altro…"
@@ -297,11 +288,11 @@ msgstr "Altro…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "Nessun input trovato"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Digitazione"
@@ -309,6 +300,10 @@ msgstr "Digitazione"
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
 msgstr "Selezionare la disposizione della tastiera o un metodo di input."
+
+#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
+msgid "Search keyboards and input methods"
+msgstr "Cerca tastiere e metodi di input"
 
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "No languages found"
@@ -412,9 +407,9 @@ msgstr "Le password non corrispondono."
 msgid "Password"
 msgstr "Password"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:53
-msgid "_Confirm"
-msgstr "_Conferma"
+#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+msgid "_Confirm Password"
+msgstr "_Conferma password"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -557,7 +552,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
@@ -571,7 +566,7 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
@@ -580,11 +575,11 @@ msgstr ""
 "Invia resoconti tecnici con le informazioni personali rimosse "
 "automaticamente. I dati sono raccolti da %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:196
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Politica sulla privacy"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:231
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Privacy"
@@ -593,10 +588,7 @@ msgstr "Privacy"
 msgid "Location Services"
 msgstr "Servizi sulla posizione"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
-#| msgid ""
-#| "Allows applications to determine your geographical location. An "
-#| "indication is shown when location services are in use."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
 "Allows applications to determine your geographical location. Uses the "
 "Mozilla Location Service (<a href='https://location.services.mozilla.com/"
@@ -606,23 +598,23 @@ msgstr ""
 "il servizio di posizione di Mozilla (<a href='https://location.services."
 "mozilla.com/privacy'>politica sulla riservatezza</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "Segnalazione automatica di problemi"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
 msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr ""
 "I controlli sulla privacy possono essere modificati in qualsiasi momento "
 "nell'applicazione Impostazioni."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Repository di terze parti"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -632,11 +624,11 @@ msgstr ""
 "fonti esterne selezionate, tra cui app e driver popolari che sono importanti "
 "per alcuni dispositivi. Alcuni software proprietari sono inclusi."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Disabilita repository di terze parti"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "_Abilita repository di terze parti"
 
@@ -664,6 +656,10 @@ msgstr "Impostazione completata"
 msgid "All done!"
 msgstr "Tutto fatto."
 
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:117
+msgid "Search cities"
+msgstr "Cerca città"
+
 #. Recurse, adding the ADM1 name to the country name
 #. Translators: this is the name of a location followed by a region, for example:
 #. * 'London, United Kingdom'
@@ -674,8 +670,8 @@ msgstr "Tutto fatto."
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:577
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
