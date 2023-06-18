@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017, 2018, 2019, 2021, 2022.
+# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
 "s\n"
-"POT-Creation-Date: 2022-08-26 20:46+0000\n"
-"PO-Revision-Date: 2022-10-25 16:24+0000\n"
+"POT-Creation-Date: 2023-04-25 15:24+0000\n"
+"PO-Revision-Date: 2023-06-18 09:39+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -20,6 +20,7 @@ msgstr ""
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Upphafsstillingar"
 
@@ -51,23 +52,19 @@ msgstr "Þvinga núverandi notandaham"
 msgid "— GNOME initial setup"
 msgstr "— GNOME upphafsstillingar"
 
-#: gnome-initial-setup/pages/account/gis-account-avatar-chooser.ui:39
-msgid "Take a Picture…"
-msgstr "Taka mynd…"
-
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
 msgid "Failed to register account"
 msgstr "Mistókst að skrá aðgang"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:371
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
 msgid "No supported way to authenticate with this domain"
 msgstr "Engin aðferð er studd til auðkenningar á þessu léni"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:410
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
 msgid "Failed to join domain"
 msgstr "Mistókst að fá aðgang að léni"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:477
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
 msgid "Failed to log into domain"
 msgstr "Mistókst að skrá inn á lén"
 
@@ -86,17 +83,17 @@ msgstr ""
 "tengjast netlægum tilföngum viðkomandi fyrirtækis."
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:153
 msgid "_Domain"
 msgstr "_Lén"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:67
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Username"
 msgstr "Notan_danafn"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:32
+#: gnome-initial-setup/pages/password/gis-password-page.ui:25
 msgid "_Password"
 msgstr "_Lykilorð"
 
@@ -104,11 +101,11 @@ msgstr "_Lykilorð"
 msgid "Enterprise domain or realm name"
 msgstr "Fyrirtækislén eða heiti svæðis"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:137
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:126
 msgid "Domain Administrator Login"
 msgstr "Innskráning lénstjóra"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:141
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -118,19 +115,19 @@ msgstr ""
 "tölva að vera skráð á lénið. Láttu stjórnanda netkerfisins\n"
 "setja inn viðeigandi lykilorð hérna og velja einstakt heiti fyrir t-lvuna."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:179
 msgid "_Computer"
 msgstr "_Tölva"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:203
 msgid "Administrator _Name"
 msgstr "_Nafn kerfisstjóra"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:227
 msgid "Administrator Password"
 msgstr "Lykilorð kerfisstjóra"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:268
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:260
 msgid "C_ontinue"
 msgstr "_Halda áfram"
 
@@ -152,28 +149,28 @@ msgstr "Kerfisstjóri"
 msgid "Failed to create user '%s': "
 msgstr "Mistókst að búa til notandann '%s': "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:17
-msgid "Avatar image"
-msgstr "Auðkennismynd"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
+msgid "Edit avatar"
+msgstr "Breyta auðkennismynd"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Um þig"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:32
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Settu inn notandanafn og lykilorð. Þú getur einnig valið mynd."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:44
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
 msgid "_Full Name"
 msgstr "_Fullt nafn"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:119
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
 msgid "Set up _parental controls for this user"
 msgstr "Setja upp aðgangsstýringar foreldra fyrir þennan notanda"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:125
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Ætlað til notkunar fyrir foreldra eða umsjónarmenn, sem verða að setja upp "
@@ -222,7 +219,6 @@ msgid "The username is too long."
 msgstr "Notandanafnið er of langt."
 
 #: gnome-initial-setup/pages/account/um-utils.c:159
-#| msgid "The username cannot start with a “-”."
 msgid "The username must start with a lower case letter from a-z."
 msgstr "Notandanafn verður að byrja á litlum staf frá a-z"
 
@@ -231,15 +227,12 @@ msgid "That username isn’t available. Please try another."
 msgstr "Þetta notandanafn er ekki tiltækt. Prófaðu eitthvað annað."
 
 #: gnome-initial-setup/pages/account/um-utils.c:165
-#| msgid ""
-#| "The username should only consist of upper and lower case letters from a-"
-#| "z, digits and the following characters: . - _"
 msgid ""
 "The username should only consist of lower case letters from a-z, digits, and "
 "the following characters: - _"
 msgstr ""
-"Notandanafn ætti einungis að innihalda lág/hástafi frá a-z, tölustafi eða"
-" einhvern af eftirfarandi stöfum:  - _"
+"Notandanafn ætti einungis að innihalda lág/hástafi frá a-z, tölustafi eða "
+"einhvern af eftirfarandi stöfum:  - _"
 
 #: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
@@ -274,20 +267,18 @@ msgstr ""
 #. * %s is the name of the provider. e.g., 'Google'.
 #: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
 #, c-format
-#| msgid "Add Account"
 msgid "%s Account"
 msgstr "Aðgangur %s"
 
 #: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-#| msgid "Add Account"
 msgid "Remove Account"
 msgstr "Fjarlægja notandaaðgang"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
 msgid "Preview"
 msgstr "Forskoðun"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:299
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Meira…"
@@ -295,11 +286,11 @@ msgstr "Meira…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:321
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "Engin inntök fundust"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Innsláttur"
@@ -307,6 +298,11 @@ msgstr "Innsláttur"
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
 msgstr "Veldu lyklaborðsuppsetningu eða inntaksaðferð."
+
+#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
+#| msgid "Select your keyboard layout or an input method."
+msgid "Search keyboards and input methods"
+msgstr "Leita að lyklaborðsuppsetningum og inntaksaðferðum"
 
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "No languages found"
@@ -412,9 +408,10 @@ msgstr "Lykilorðin stemma ekki."
 msgid "Password"
 msgstr "Lykilorð"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:53
-msgid "_Confirm"
-msgstr "Stað_festa"
+#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#| msgid "_Password"
+msgid "_Confirm Password"
+msgstr "Stað_festu lykilorð"
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -549,34 +546,34 @@ msgstr ""
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:68
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
 "removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Sendir tæknilegar skýrslur þar sem persónugreinanlegar upplýsingar hafa verið"
-" fjarlægðar. Gögnum er safnað af %1$s (<a href='%2$s'>persónuverndarstefna</a"
-">)."
+"Sendir tæknilegar skýrslur þar sem persónugreinanlegar upplýsingar hafa "
+"verið fjarlægðar. Gögnum er safnað af %1$s (<a "
+"href='%2$s'>persónuverndarstefna</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:78
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that have personal information automatically "
 "removed. Data is collected by %s."
 msgstr ""
-"Sendir tæknilegar skýrslur þar sem persónugreinanlegar upplýsingar hafa verið"
-" fjarlægðar Gögnum er safnað af %s."
+"Sendir tæknilegar skýrslur þar sem persónugreinanlegar upplýsingar hafa "
+"verið fjarlægðar Gögnum er safnað af %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:196
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Stefna vegna gagnaleyndar og friðhelgi"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:231
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Gagnaleynd"
@@ -585,36 +582,33 @@ msgstr "Gagnaleynd"
 msgid "Location Services"
 msgstr "Staðsetningarþjónustur"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
-#| msgid ""
-#| "Allows applications to determine your geographical location. An "
-#| "indication is shown when location services are in use."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
 "Allows applications to determine your geographical location. Uses the "
 "Mozilla Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
-"Leyfir forritum að finna út landfræðilega staðsetningu þína. Notar Mozilla"
-" staðsetningarþjónustuna (<a href='https://location.services."
-"mozilla.com/privacy'>persónuverndarstefna</a>)."
+"Leyfir forritum að finna út landfræðilega staðsetningu þína. Notar Mozilla "
+"staðsetningarþjónustuna (<a href='https://location.services.mozilla.com/"
+"privacy'>persónuverndarstefna</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "Tilkynna sjálfkrafa um vandamál"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
 msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr ""
 "Hægt er að breyta stýringum fyrir gagnaleynd hvenær sem er með því að fara í "
 "stillingaforritið."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Hugbúnaðarsöfn annarra aðila"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -625,11 +619,11 @@ msgstr ""
 "rekla sem nauðsynlegir eru fyrir sum tæki. Þarna má einnig telja ýmsan "
 "séreignahugbúnað."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Gera hugbúnaðarsöfn annarra aðila óvirk"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "Virkja _hugbúnaðarsöfn annarra aðila"
 
@@ -657,6 +651,10 @@ msgstr "Uppsetningu lokið"
 msgid "All done!"
 msgstr "Allt klárt!"
 
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:117
+msgid "Search cities"
+msgstr "Leita að borgum"
+
 #. Recurse, adding the ADM1 name to the country name
 #. Translators: this is the name of a location followed by a region, for example:
 #. * 'London, United Kingdom'
@@ -667,8 +665,8 @@ msgstr "Allt klárt!"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:548
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:576
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:577
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -749,6 +747,15 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "_Byrja uppsetningu"
+
+#~ msgid "Take a Picture…"
+#~ msgstr "Taka mynd…"
+
+#~ msgid "Avatar image"
+#~ msgstr "Auðkennismynd"
+
+#~ msgid "_Confirm"
+#~ msgstr "Stað_festa"
 
 #~ msgid "This is a weak password."
 #~ msgstr "Þetta er veikt lykilorð."
