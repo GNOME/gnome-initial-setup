@@ -1,3 +1,5 @@
+subdir('dconf')
+
 autostart_files = [
     'gnome-initial-setup-copy-worker.desktop',
     'gnome-initial-setup-first-login.desktop',
