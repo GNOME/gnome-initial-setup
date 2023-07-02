@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-02-17 20:28+0000\n"
-"PO-Revision-Date: 2023-02-18 12:55+0200\n"
+"POT-Creation-Date: 2023-04-25 15:24+0000\n"
+"PO-Revision-Date: 2023-07-02 23:57+0300\n"
 "Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: Ελληνικά <>\n"
 "Language: el\n"
@@ -19,11 +19,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Αρχική ρύθμιση"
 
@@ -92,7 +93,7 @@ msgid "_Domain"
 msgstr "_Τομέας"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:67
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Username"
 msgstr "Όν_ομα χρήστη"
 
@@ -157,30 +158,30 @@ msgstr "Διαχειριστής"
 msgid "Failed to create user '%s': "
 msgstr "Αποτυχία δημιουργίας χρήστη «%s»: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:17
-msgid "Avatar image"
-msgstr "Προσωπική εικόνα"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
+msgid "Edit avatar"
+msgstr "Επεξεργασία ειδώλου"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Σχετικά με εσάς"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:32
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Παρακαλούμε, δώστε ένα όνομα και ένα όνομα χρήστη. Μπορείτε επίσης να "
 "επιλέξετε μια εικόνα."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:44
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
 msgid "_Full Name"
 msgstr "Ονομα_τεπώνυμο"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:119
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
 msgid "Set up _parental controls for this user"
 msgstr "Ρύθμιση _γονικού ελέγχου για αυτόν τον χρήστη"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:125
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Για χρήση από γονέα ή επιβλέποντα, ο οποίος πρέπει να δημιουργήσει το δικό "
@@ -288,7 +289,7 @@ msgstr "Αφαίρεση λογαριασμού"
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Περισσότερα…"
@@ -296,11 +297,11 @@ msgstr "Περισσότερα…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "Δε βρέθηκαν είσοδοι"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Πληκτρολόγηση"
@@ -311,7 +312,7 @@ msgstr "Επιλέξτε τη διάταξη του πληκτρολογίου �
 
 #: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
 msgid "Search keyboards and input methods"
-msgstr "Αναζήτηση μεθόδων πληκτρολογίου και εισόδου."
+msgstr "Αναζήτηση πληκτρολογίων και μεθόδων εισόδου"
 
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "No languages found"
@@ -601,7 +602,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr "Πολιτική ιδιωτικότητας"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Ιδιωτικότητα"
@@ -610,7 +611,7 @@ msgstr "Ιδιωτικότητα"
 msgid "Location Services"
 msgstr "Υπηρεσίες τοποθεσίας"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
 "Allows applications to determine your geographical location. Uses the "
 "Mozilla Location Service (<a href='https://location.services.mozilla.com/"
@@ -620,23 +621,23 @@ msgstr ""
 "Υπηρεσία τοποθεσίας Mozilla (<a href='https://location.services.mozilla.com/"
 "privacy'>πολιτική απορρήτου</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "Αυτόματη αναφορά προβλήματος"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
 msgid ""
 "Privacy controls can be changed at any time from the Settings application."
 msgstr ""
 "Οι ρυθμίσεις ιδιωτικότητας μπορούν να αλλαχθούν οποιαδήποτε στιγμή από τις "
 "Ρυθμίσεις."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Αποθετήρια τρίτων"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -647,11 +648,11 @@ msgstr ""
 "υλικολογισμικό που είναι σημαντικό για ορισμένες συσκευές. Περιλαμβάνεται "
 "κάποιο ιδιοταγές λογισμικό."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Απενεργοποίηση αποθετηρίων τρίτων"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "_Ενεργοποίηση αποθετηρίων τρίτων"
 
@@ -775,6 +776,9 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "Έ_ναρξη ρύθμισης"
+
+#~ msgid "Avatar image"
+#~ msgstr "Προσωπική εικόνα"
 
 #~ msgid "Take a Picture…"
 #~ msgstr "Λήψη μιας φωτογραφίας…"
