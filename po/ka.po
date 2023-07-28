@@ -5,22 +5,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-03-25 11:16+0000\n"
-"PO-Revision-Date: 2023-04-10 18:45+0200\n"
+"POT-Creation-Date: 2023-04-25 10:37+0000\n"
+"PO-Revision-Date: 2023-07-28 07:47+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
-"Language-Team: \n"
+"Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "საწყისი მორგება"
 
@@ -256,10 +257,8 @@ msgstr ""
 "ფოტოებთან წვდომისთვის მიუერთდით შესაბამის ანგარიშებს."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
-msgstr ""
-"ანგარიშების დამატება და წაშლა ნებისმიერ დროს შეიძლება მორგების აპლიკაციიდან."
+msgid "Accounts can be added and removed at any time from the Settings app."
+msgstr "ანგარიშების დამატება და წაშლა ნებისმიერ დროს შეიძლება მორგების აპიდან."
 
 #. translators: This is the title of the "Show Account" dialog. The
 #. * %s is the name of the provider. e.g., 'Google'.
@@ -526,37 +525,34 @@ msgid ""
 msgstr "მეტი ციფრები, ასოები და პუნქტუაციის ნიშნები პაროლს უფრო გააძლიერებს."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"გააგზავნის ტექნიკურ ანგარიშებს, რომლებიდანაც პირადი ინფორმაცია ავტომატურად "
-"წაიშლება. მონაცემები გროვდება %1$s -ის მიერ (<a href='%2$s'>კონფიდენციალობა</"
-"a>)."
+"გააგზავნის ტექნიკურ ანგარიშებს, რომლებიც პირად ინფორმაციას არ შეიცავენ. "
+"მონაცემები გროვდება %1$s -ის მიერ (<a href='%2$s'>კონფიდენციალობა</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"გააგზავნის ტექნიკურ ანგარიშებს, რომლებიდანაც პირადი ინფორმაცია ავტომატურად "
-"წაიშლება. მონაცემები გროვდება %1$s -ის მიერ."
+"გააგზავნის ტექნიკურ ანგარიშებს, რომლებიც პირად ინფორმაციას არ შეიცავენ. "
+"მონაცემები გროვდება %1$s -ის მიერ."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:204
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "პირადულობის დაცვა"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:236
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "პირადი ინფორმაცია"
@@ -567,24 +563,23 @@ msgstr "მდებარეობის სერვისები"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
-"აპლიკაციებისთვის თქვენი გეოგრაფიული მდებარეობის დადგენის უფლების მიცემა. "
-"იყენებს Mozilla-ის მდებარეობის სერვისს (<a href='https://location.services."
-"mozilla.com/privacy'>კონფიდენციალობა</a>)."
+"აპებისთვის თქვენი გეოგრაფიული მდებარეობის დადგენის უფლების მიცემა. იყენებს "
+"Mozilla-ის მდებარეობის სერვისს (<a href='https://location.services.mozilla."
+"com/privacy'>კონფიდენციალობა</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "პრობლემის ავტომატური ანგარიში"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
-"პირადულობის დაცვის წესების შეცვლა ნებისმიერ დროსაა შესაძლებელი მორგების "
-"აპლიკაციიდან."
+"კონფიდენციალობის დაცვის წესების შეცვლა ნებისმიერ დროსაა შესაძლებელი მორგების "
+"აპიდან."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
