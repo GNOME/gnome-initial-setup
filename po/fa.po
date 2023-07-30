@@ -8,19 +8,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2023-02-23 14:48+0000\n"
-"PO-Revision-Date: 2023-03-16 10:30+0330\n"
-"Last-Translator: MohammadSaleh Kamyab <mskf1383@envs.net>\n"
+"POT-Creation-Date: 2023-04-25 10:37+0000\n"
+"PO-Revision-Date: 2023-07-31 02:06+0330\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
-#: data/gnome-initial-setup.desktop.in.in:3
+#: data/gnome-initial-setup.desktop.in.in:3 gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "برپایی نخستین"
 
@@ -251,9 +251,8 @@ msgstr ""
 "حساب‌هایتان را وصل کنید."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
-msgstr "حساب‌ها می‌توانند در هر زمانی از طریق برنامهٔ تنظیمات حذف یا اضافه شوند."
+msgid "Accounts can be added and removed at any time from the Settings app."
+msgstr "حساب‌ها می‌توانند در هر زمانی از طریق کارهٔ تنظیمات حذف یا اضافه شوند."
 
 #. translators: This is the title of the "Show Account" dialog. The
 #. * %s is the name of the provider. e.g., 'Google'.
@@ -270,7 +269,7 @@ msgstr "برداشتن حساب"
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "بیش‌تر…"
@@ -278,11 +277,11 @@ msgstr "بیش‌تر…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "ورودی‌ای پیدا نشد"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "تایپ"
@@ -516,36 +515,34 @@ msgid ""
 msgstr "افزودن حروف، اعداد و نشانه‌های بیش‌تر، گذرواژه را قوی‌تر می‌کند."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically removed. "
-"Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"گزارش‌های فنی‌ای که اطّلاعات شخصیشان به طور خودکار برداشته شده را می‌فرستد. داده‌ها "
-"به دست %1$s جمع می‌شوند (<a href='%2$s'>سیاست محرمانگی</a>)."
+"گزارش‌های فنی‌ای که اطّلاعات شخصیشان برداشته شده را می‌فرستد. داده‌ها به دست %1$s جمع "
+"می‌شوند (<a href='%2$s'>سیاست محرمانگی</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically removed. "
-"Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"گزارش‌های فنی‌ای که اطّلاعات شخصیشان به طور خودکار برداشته شده را می‌فرستد. داده‌ها "
-"به دست %s جمع می‌شوند."
+"گزارش‌های فنی‌ای که اطّلاعات شخصیشان برداشته شده را می‌فرستد. داده‌ها به دست %s جمع "
+"می‌شوند."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "سیاست محرمانگی"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "محرمانگی"
@@ -554,30 +551,30 @@ msgstr "محرمانگی"
 msgid "Location Services"
 msgstr "خدمات مکانی"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the Mozilla "
-"Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
+"Allows apps to determine your geographical location. Uses the Mozilla Location "
+"Service (<a href='https://location.services.mozilla.com/privacy'>privacy policy</"
+"a>)."
 msgstr ""
-"می‌گذارد برنامه‌ها از مکان جغرافیاییتان آگاه شوند. از خدمت مکانی موزیلا استفاده "
+"می‌گذارد کاره‌ها از مکان جغرافیاییتان آگاه شوند. از خدمت مکانی موزیلا استفاده "
 "می‌کند (<a href='https://location.services.mozilla.com/privacy'>سیاست محرمانگی</"
 "a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "گزارش خودکار اشکالات"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid "Privacy controls can be changed at any time from the Settings application."
-msgstr "واپایش‌های محرمانگی می‌توانند در هر زمانی از برنامهٔ تنظیمات تغییر یابند."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
+msgstr "واپایش‌های محرمانگی می‌توانند در هر زمانی از کارهٔ تنظیمات تغییر یابند."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "مخزن‌های سوم‌شخص"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for some "
@@ -587,11 +584,11 @@ msgstr ""
 "کاره‌های محبوب و راه‌اندازهایی که برای برخی افزاره‌ها مهمند، فراهم می‌کنند.شامل چند "
 "نرم‌افزار مالکیتی."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_از کار انداختن مخزن‌های سوم‌شخص"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "_به کار انداختن مخزن‌های سوم‌شخص"
 
