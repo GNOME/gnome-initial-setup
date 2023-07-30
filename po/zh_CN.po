@@ -7,17 +7,17 @@
 # Tong Hui <tonghuix@gmail.com>, 2013, 2015.
 # Mingcong Bai <jeffbai@aosc.xyz>, 2017, 2018.
 # Dingzhong Chen <wsxy162@gmail.com>, 2016-2018, 2019.
-# lumingzh <lumingzh@qq.com>, 2022.
 # Nanling <neithern@outlook.com>, 2023.
+# lumingzh <lumingzh@qq.com>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-02-23 14:48+0000\n"
-"PO-Revision-Date: 2023-03-26 12:02+0800\n"
-"Last-Translator: Nanling <neithern@outlook.com>\n"
+"POT-Creation-Date: 2023-04-25 10:37+0000\n"
+"PO-Revision-Date: 2023-07-29 14:04+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,7 @@ msgstr ""
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "初始配置"
 
@@ -253,9 +254,8 @@ msgid ""
 msgstr "连接帐号，轻松访问您的邮件、在线日历、联系人、文档和照片。"
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
-msgstr "账号可以在“设置”应用程序里随时添加和移除。"
+msgid "Accounts can be added and removed at any time from the Settings app."
+msgstr "账号可以在“设置”应用里随时添加和移除。"
 
 #. translators: This is the title of the "Show Account" dialog. The
 #. * %s is the name of the provider. e.g., 'Google'.
@@ -272,7 +272,7 @@ msgstr "移除帐号"
 msgid "Preview"
 msgstr "预览"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "更多…"
@@ -280,11 +280,11 @@ msgstr "更多…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "未找到输入设备"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "输入"
@@ -517,34 +517,32 @@ msgid ""
 msgstr "加上更多字母，数字和标点符号可改善密码强度。"
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"发送已自动移除私人信息的技术报告。数据收集方为 %1$s（<a href='%2$s'>隐私政策"
-"</a>）。"
+"发送不包含私人信息的技术报告。数据收集方为 %1$s（<a href='%2$s'>隐私政策</"
+"a>）。"
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
-msgstr "发送已自动移除私人信息的技术报告。数据收集方为 %s。"
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
+msgstr "发送不包含私人信息的技术报告。数据收集方为 %s。"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "隐私政策"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "隐私"
@@ -553,30 +551,29 @@ msgstr "隐私"
 msgid "Location Services"
 msgstr "位置服务"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
-"允许应用程序确定您的地理位置。使用 Mozilla 位置服务（<a href='https://"
-"location.services.mozilla.com/privacy'>隐私政策</a>）。"
+"允许应用确定您的地理位置。使用 Mozilla 位置服务（<a href='https://location."
+"services.mozilla.com/privacy'>隐私政策</a>）。"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "自动提交问题报告"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
-msgstr "隐私控制可以随时在“设置”应用程序里更改。"
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
+msgstr "隐私控制可以随时在“设置”应用里更改。"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "第三方软件源"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -585,11 +582,11 @@ msgstr ""
 "第三方软件源提供了对来自选择的外部来源额外软件的访问，包括流行的应用及某些设"
 "备所需的驱动。也包含了一些专有软件。"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "禁用第三方软件源(_D)"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "启用第三方软件源(_E)"
 
