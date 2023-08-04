@@ -1,3 +1,49 @@
+45.beta
+-------
+
+* Initial Setup now invokes tecla, rather than gkbd-keyboard-display, to
+  show keyboard layout previews. This is a new runtime dependency.
+
+* Initial Setup now installs dconf presets to disable some irrelevant Shell
+  functionality and always display the Accessibility menu in the Initial Setup
+  session. (Florian Müllner, !207)
+
+* Bugs fixed:
+ - #180 Label for a default non-xkb ibus input method remains a placeholder
+ - #183 Replace applications with apps
+ - #186 Third-party repos: don't set the status if the user doesn't activate
+ - #187 [ARM64][Wayland] gnome-initial-setup crashing
+ - #191 Replace gkbd-keyboard-display with Tecla
+ - !189 keyboard: Don't leak IBus engine display name
+ - !191 driver: Set a non-trivial window title
+ - !201 Replace deprecated gtk_widget_show/hide with set_visible
+ - !202 Replace deprecated gtk_style_context_add_class with gtk_widget_add_css_class
+ - !203 ci: Update to new ci-templates snapshot
+ - !204 Misc tweaks for ABRT setting on privacy page
+ - !206 Improve the README
+
+* Translation updates:
+ - Belarusian
+ - Chinese (China)
+ - Dutch
+ - English (United Kingdom)
+ - Friulian
+ - Georgian
+ - Greek, Modern (1453-)
+ - Hebrew
+ - Hungarian
+ - Icelandic
+ - Italian
+ - Latvian
+ - Persian
+ - Portuguese
+ - Portuguese (Brazil)
+ - Russian
+ - Slovenian
+ - Turkish
+ - Ukrainian
+ - Vietnamese
+
 44.0
 ----
 
