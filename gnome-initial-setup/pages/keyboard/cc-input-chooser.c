@@ -194,27 +194,28 @@ input_widget_new (CcInputChooser *chooser,
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 	GtkWidget *label;
         InputWidget *widget = g_new0 (InputWidget, 1);
-	const gchar *name;
 	gchar *text;
 
 	if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB)) {
+		const gchar *name;
+
 		gnome_xkb_info_get_layout_info (priv->xkb_info, id, &name, NULL, NULL, NULL);
+		widget->name = g_strdup (name);
 	}
 #ifdef HAVE_IBUS
         else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
                 if (priv->ibus_engines)
-                        name = engine_get_display_name (g_hash_table_lookup (priv->ibus_engines, id));
+                        widget->name = engine_get_display_name (g_hash_table_lookup (priv->ibus_engines, id));
                 else
-                        name = id;
+                        widget->name = g_strdup (id);
 	}
 #endif
 	else {
-		name = "ERROR";
+		widget->name = g_strdup ("ERROR");
 	}
 
         widget->id = g_strdup (id);
 	widget->type = g_strdup (type);
-	widget->name = g_strdup (name);
 	widget->is_extra = is_extra;
 
 	widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
@@ -224,7 +225,7 @@ input_widget_new (CcInputChooser *chooser,
         gtk_widget_set_margin_end (widget->box, 12);
         gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
 
-	widget->label = gtk_label_new (name);
+	widget->label = gtk_label_new (widget->name);
         gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);
         gtk_label_set_max_width_chars (GTK_LABEL (widget->label), 40);
         gtk_label_set_xalign (GTK_LABEL (widget->label), 0);
