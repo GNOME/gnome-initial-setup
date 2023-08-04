@@ -182,9 +182,9 @@ preview_cb (GtkLabel       *label,
 		return TRUE;
 
 	if (variant[0])
-		commandline = g_strdup_printf ("gkbd-keyboard-display -l \"%s\t%s\"", layout, variant);
+		commandline = g_strdup_printf ("tecla \"%s+%s\"", layout, variant);
 	else
-		commandline = g_strdup_printf ("gkbd-keyboard-display -l %s", layout);
+		commandline = g_strdup_printf ("tecla %s", layout);
 	g_spawn_command_line_async (commandline, NULL);
 	g_free (commandline);
 
