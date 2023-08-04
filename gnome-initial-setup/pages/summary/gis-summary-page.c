@@ -254,7 +254,7 @@ gis_summary_page_constructed (GObject *object)
 
   gis_page_set_complete (GIS_PAGE (page), TRUE);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
 static void

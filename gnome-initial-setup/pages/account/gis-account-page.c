@@ -265,7 +265,7 @@ gis_account_page_constructed (GObject *object)
   on_network_changed (monitor, available, page);
   g_signal_connect_object (monitor, "network-changed", G_CALLBACK (on_network_changed), page, 0);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
 static void

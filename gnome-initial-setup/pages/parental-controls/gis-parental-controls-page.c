@@ -174,7 +174,7 @@ gis_parental_controls_page_constructed (GObject *object)
 
   update_header (page);
 
-  gtk_widget_show (GTK_WIDGET (page));
+  gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
 static void

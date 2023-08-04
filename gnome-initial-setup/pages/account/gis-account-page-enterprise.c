@@ -271,7 +271,7 @@ on_join_response (GtkDialog *dialog,
   gchar hostname[128];
   const gchar *name;
 
-  gtk_widget_hide (GTK_WIDGET (dialog));
+  gtk_widget_set_visible (GTK_WIDGET (dialog), FALSE);
   if (response != GTK_RESPONSE_OK) {
     apply_complete (page, FALSE);
     return;
