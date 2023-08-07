@@ -11,19 +11,20 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-03-02 20:25+0000\n"
-"PO-Revision-Date: 2023-03-14 09:54+0100\n"
-"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"POT-Creation-Date: 2023-04-25 10:37+0000\n"
+"PO-Revision-Date: 2023-08-07 11:28+0200\n"
+"Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Prvotní nastavení"
 
@@ -259,8 +260,7 @@ msgstr ""
 "line kalendáři, kontaktům, dokumentům a fotografiím."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
+msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr "Účty můžete kdykoliv přidat a odebrat v aplikaci Nastavení."
 
 #. translators: This is the title of the "Show Account" dialog. The
@@ -278,7 +278,7 @@ msgstr "Odebrat účet"
 msgid "Preview"
 msgstr "Náhled"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Více…"
@@ -286,11 +286,11 @@ msgstr "Více…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "Nenalezena žádná vstupní zařízení"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Psaní"
@@ -531,36 +531,33 @@ msgstr ""
 "silnější."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Zasílá technická hlášení, která mají automaticky odstraněné osobní údaje. "
-"Data shromažďuje %1$s (<a href='%2$s'>zásady soukromí</a>)."
+"Zasílá technická hlášení, která neobsahují osobní údaje. Data shromažďuje "
+"%1$s (<a href='%2$s'>zásady soukromí</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"Zasílá technická hlášení, která mají automaticky odstraněné osobní údaje. "
-"Data shromažďuje %s."
+"Zasílá technická hlášení, která neobsahují osobní údaje. Data shromažďuje %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Zásady soukromí"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Soukromí"
@@ -569,31 +566,30 @@ msgstr "Soukromí"
 msgid "Location Services"
 msgstr "Geolokační služby"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
 "Umožňují aplikacím určit vaši geografickou polohu. K tomuto účelu se používá "
 "geolokační služba Mozilla (<a href='https://location.services.mozilla.com/"
 "privacy'>zásady soukromí</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Automatické hlášení problémů"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "Řízení soukromí můžete kdykoliv změnit v aplikaci Nastavení."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Repozitáře třetích stran"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -603,11 +599,11 @@ msgstr ""
 "externích zdrojů, které zahrnují populární aplikace a ovladače důležité pro "
 "některá zařízení. Součástí je i některý komerční software."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Zakázat repozitáře třetích stran"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "Povolit r_epozitáře třetích stran"
 
