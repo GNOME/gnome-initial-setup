@@ -2,15 +2,16 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2022-2023.
+# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-02-23 14:48+0000\n"
-"PO-Revision-Date: 2023-02-28 13:27+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2023-04-25 10:37+0000\n"
+"PO-Revision-Date: 2023-08-08 08:01+0200\n"
+"Last-Translator: Daniel Mustieles García <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,7 @@ msgstr ""
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
@@ -256,8 +258,7 @@ msgstr ""
 "calendario en línea, contactos, documentos y fotos."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
+msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr ""
 "Se pueden añadir o quitar cuentas en cualquier momento desde la aplicación "
 "de Configuración."
@@ -277,7 +278,7 @@ msgstr "Quitar cuenta"
 msgid "Preview"
 msgstr "Vista previa"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Más…"
@@ -285,11 +286,11 @@ msgstr "Más…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "No se han encontrado fuentes de entrada"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Escritura"
@@ -540,37 +541,34 @@ msgstr ""
 "más robusta."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Envía informes técnicos cuya información personal se ha eliminado "
-"automáticamente. Los datos los recopila la %1$s (<a href='%2$s'>política de "
-"privacidad</a>)."
+"Envía informes técnicos que no contienen información personal. Los datos los "
+"recopila %1$s (<a href='%2$s'>política de privacidad</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"Envía informes técnicos cuya información personal se ha eliminado "
-"automáticamente. Los datos los recopila %s."
+"Envía informes técnicos que no contienen información personal. Los datos los "
+"recopila %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Política de privacidad"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Privacidad"
@@ -579,34 +577,32 @@ msgstr "Privacidad"
 msgid "Location Services"
 msgstr "Servicios de ubicación"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
 "Permite a las aplicaciones determinar su ubicación geográfica. Usa el "
-"servicio de ubicación de Mozilla Uses the Mozilla Location Service (<a "
-"href='https://location.services.mozilla.com/privacy'>política de privacidad</"
-"a>)."
+"servicio de ubicación de Mozilla (<a href='https://location.services.mozilla."
+"com/privacy'>política de privacidad</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Informar de problemas automáticamente"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Los controles de privacidad se pueden cambiar en cualquier momento desde la "
 "aplicación de Configuración."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Repositorios de terceros"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -617,11 +613,11 @@ msgstr ""
 "controladores importantes para algunos dispositivos. También incluyen "
 "software propietario."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Desactivar repositorios de terceros"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "_Activar repositorios de terceros"
 
