@@ -8,8 +8,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2023-02-23 14:48+0000\n"
-"PO-Revision-Date: 2023-02-25 10:00+0100\n"
+"POT-Creation-Date: 2023-04-25 10:37+0000\n"
+"PO-Revision-Date: 2023-08-12 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -20,6 +20,7 @@ msgstr "Project-Id-Version: gnome-initial-setup master\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Hasierako konfigurazioa"
 
@@ -241,9 +242,8 @@ msgid ""
 msgstr "Konektatu zure kontuak posta elektroniko, lineako egutegia, kontaktuak, dokumentuak eta argazkiak modu errazean atzitzeko."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
-msgstr "Kontuak edozer unetan gehi eta ken daitezke Ezarpenenetatik."
+msgid "Accounts can be added and removed at any time from the Settings app."
+msgstr "Kontuak edozein unetan gehitu eta kendu daitezke ezarpenetan."
 
 #. translators: This is the title of the "Show Account" dialog. The
 #. * %s is the name of the provider. e.g., 'Google'.
@@ -260,7 +260,7 @@ msgstr "Kendu kontua"
 msgid "Preview"
 msgstr "Aurrebista"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Gehiago…"
@@ -268,11 +268,11 @@ msgstr "Gehiago…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
 msgid "No inputs found"
 msgstr "Ez da sarrerarik aurkitu"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Idazketa"
@@ -398,7 +398,7 @@ msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing some letters "
 "and numbers."
-msgstr "Pasahitz hau erabilitako azkenengoaren oso antzekoa da. Saiatu hizki eta zenbaki batzuk aldatuz."
+msgstr "Pasahitz hau erabilitako azkenengoaren oso antzekoa da. Saiatu hizki eta zenbaki batzuk aldatzen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:85
 #: gnome-initial-setup/pages/password/pw-utils.c:93
@@ -406,87 +406,87 @@ msgctxt "Password hint"
 msgid ""
 "This password is very similar to your last one. Try changing the password a "
 "bit more."
-msgstr "Pasahitz hau erabilitako azkenengoaren oso antzekoa da. Alda ezazu pasahitza pixka bat gehiago."
+msgstr "Pasahitz hau erabilitako azkenengoaren oso antzekoa da. Saiatu pasahitza pixka bat gehiago aldatzen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:87
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. A password without your user name would be stronger."
-msgstr "Pasahitza ahula da. Erabiltzaile-izenik gabeko pasahitzak sendoagoa izan beharko luke."
+msgstr "Pasahitza ahula da. Zure erabiltzaile-izenik gabeko pasahitz bat askoz ere sendoagoa litzateke."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:89
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid using your name in the password."
-msgstr "Pasahitza ahula da. Ez ezazu zure izena pasahitzean erabili."
+msgstr "Pasahitza ahula da. Saiatu zure izena pasahitzean erabiltzea saihesten."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:91
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid some of the words included in the "
 "password."
-msgstr "Pasahitza ahula da. Saihestu pasahitzean dauden hitz batzuk erabiltzea."
+msgstr "Pasahitza ahula da. Saiatu pasahitzean sartutako hitz batzuk saihesten."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:95
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid common words."
-msgstr "Pasahitza ahula da. Erabili hizki, zenbaki eta ikur gehiago."
+msgstr "Pasahitza ahula da. Saiatu hitz arruntak saihesten."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:97
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid reordering existing words."
-msgstr "Pasahitza ahula da. Saihestu dauden hitzak ordenaz aldatzea."
+msgstr "Pasahitza ahula da. Saiatu dauden hitzen berrantolaketa saihesten."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:99
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more numbers."
-msgstr "Pasahitza ahula da. Erabili zenbaki gehiago."
+msgstr "Pasahitza ahula da. Saiatu zenbaki gehiago erabiltzen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:101
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more uppercase letters."
-msgstr "Pasahitza ahula da. Erabili hizki maiuskula gehiago."
+msgstr "Pasahitza ahula da. Saiatu hizki maiuskulak gehiago erabiltzen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:103
 msgctxt "Password hint"
 msgid "This is a weak password. Try to use more lowercase letters."
-msgstr "Pasahitza ahula da. Erabili hizki minuskula gehiago."
+msgstr "Pasahitza ahula da. Saiatu hizki minuskulak gehiago erabiltzen."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:105
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use more special characters, like "
 "punctuation."
-msgstr "Pasahitza ahula da. Erabili karaktere berezi gehiago, adibidez puntuazio ikurrak."
+msgstr "Pasahitza ahula da. Saiatu karaktere berezi gehiago erabiltzen, adibidez harridura-ikurrak."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:107
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to use a mixture of letters, numbers and "
 "punctuation."
-msgstr "Pasahitza ahula da. Erabili hizki, zenbaki eta puntuazio ikurren nahasketa bat."
+msgstr "Pasahitza ahula da. Saiatu hizki, zenbaki eta ikurren arteko nahasketa batekin."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:109
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid repeating the same character."
-msgstr "Pasahitza ahula da. Saiatu karaktere berdina ez errepikatzea."
+msgstr "Pasahitza ahula da. Saiatu karaktere berdina errepikatzea saihesten."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:111
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to avoid repeating the same type of character: "
 "you need to mix up letters, numbers and punctuation."
-msgstr "Pasahitza ahula da. Saiatu karaktere mota berdina ez errepikatzea:  erabili hizki, zenbaki eta puntuazio ikurren nahasketa bat."
+msgstr "Pasahitza ahula da. Saiatu karaktere mota berdina errepikatzea saihesten: hizki, zenbaki eta ikurrak nahastu behar dituzu."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "Pasahitza ahula da. Saihestu 1234 edo abcd bezalako sekuentziak erabiltzea."
+msgstr "Pasahitza ahula da. Saiatu 1234 edo abc bezalako sekuentziak saihesten."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
 msgid ""
 "This is a weak password. Try to add more letters, numbers and punctuation."
-msgstr "Pasahitza ahula da. Gehitu hizki, zenbaki eta ikur gehiago."
+msgstr "Pasahitza ahula da. Saiatu hizki, zenbaki eta ikurren arteko nahasketa gehiagorekin."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:117
 msgctxt "Password hint"
@@ -500,32 +500,30 @@ msgid ""
 msgstr "Hizki, zenbaki eta ikur gehiago gehitzeak sendoagoa egingo du."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
-msgstr "Informazio pertsonala automatikoki kentzen zaien txosten teknikoak bidaltzen ditu. Datuak honek biltzen ditu: %1$s (<a href='%2$s'>pribatutasun-politika</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+msgstr "Txosten teknikoak bidaltzen ditu, betiere informazio pertsonala automatikoki kenduta. Datuak honek biltzen ditu: %1$s (<a href='%2$s'>pribatutasun-politika</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
-msgstr "Informazio pertsonala automatikoki kentzen zaien txosten teknikoak bidaltzen ditu. Datuak honek biltzen ditu: %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
+msgstr "Txosten teknikoak bidaltzen ditu, betiere informazio pertsonala automatikoki kenduta. Datuak honek biltzen ditu: %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Pribatutasunaren araua"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Pribatutasuna"
@@ -534,39 +532,38 @@ msgstr "Pribatutasuna"
 msgid "Location Services"
 msgstr "Kokalekuaren zerbitzuak"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
-msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr "APlikazioek zure kokaleku geografikoa ezagutu dezaten ahalbidetzen du. Mozilla Location Service erabiltzen du (<a href='https://location.services.mozilla.com/privacy'>pribatutasun-politika</a>)."
-
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
+"privacy'>privacy policy</a>)."
+msgstr "Aplikazioek zure kokaleku geografikoa ezagutu dezaten ahalbidetzen du. Mozilla Location Service erabiltzen du (<a href='https://location.services.mozilla.com/privacy'>pribatutasun-politika</a>)."
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Eman erroreen berri automatikoki"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
-msgstr "Pribatutasunaren kontrolak edozer unetan alda daitezke Ezarpenenetatik."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
+msgstr "Pribatutasunaren kontrolak edozein unetan aldatu daitezke ezarpenetan."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Hirugarrenen biltegiak"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
 "some devices. Some proprietary software is included."
 msgstr "Hirugarrenen biltegiek kanpoko iturburu hautatuetako software gehigarria atzitzeko aukera ematen dute. Aplikazio ezagunak daude horietan, eta baita zenbait gailuetarako garrantzitsua diren kontrolagailuak ere. Jabedun zenbait software ere badago hor."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Desgaitu hirugarrenen biltegiak"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "_Gaitu hirugarrenen biltegiak"
 
@@ -584,7 +581,7 @@ msgstr "_Hasi %s erabiltzen"
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
 msgid "%s is ready to be used. We hope that you love it!"
-msgstr "%s erabiltzeko prest dago. Espero duzu gustuko izango duzula!"
+msgstr "%s erabiltzeko prest dago. Espero dugu gustuko izango duzula!"
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:263
 msgid "Setup Complete"
@@ -654,7 +651,7 @@ msgstr "Ordu-zona"
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
-msgstr "Ordu-zona automatikoki konfiguratuko da zure kokalekua aurkitzen bada. Herri bat ere bila dezakezu zuk zeuk konfiguratzeko."
+msgstr "Ordu-zona automatikoki konfiguratuko da zure kokalekua aurkitzen bada. Herri bat ere bilatu dezakezu zuk zeuk konfiguratzeko."
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:44
 msgid "Please search for a nearby city"
