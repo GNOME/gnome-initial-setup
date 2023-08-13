@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GisInstallPage" parent="GisPage">
+    <child>
+      <object class="AdwStatusPage" id="status_page">
+        <property name="icon-name">document-save-symbolic</property>
+        <property name="title" translatable="yes">Try or Install?</property>
+        <property name="description" translatable="yes">You can try a temporary version of ${NAME} without making changes to the computer. If you decide to install later, just launch the installer from the Activities view.
+
+        Alternatively, choose install to launch the installer.</property>
+
+        <child>
+          <object class="GtkButton" id="start_button">
+            <property name="use_underline">True</property>
+            <property name="halign">center</property>
+            <style>
+              <class name="suggested-action"/>
+              <class name="pill"/>
+            </style>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox" id="button_box">
+            <property name="orientation">horizontal</property>
+            <property name="homogeneous">True</property>
+            <property name="spacing">24</property>
+            <property name="halign">center</property>
+            <child>
+              <object class="GtkButton" id="try_button">
+                <property name="label" translatable="yes">Try ${NAME}</property>
+                <style>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="install_button">
+                <property name="label" translatable="yes">Install to Disk…</property>
+                <style>
+                  <class name="suggested-action"/>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

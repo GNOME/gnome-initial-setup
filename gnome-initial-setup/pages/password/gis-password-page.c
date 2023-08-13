@@ -480,6 +480,12 @@ gis_password_page_init (GisPasswordPage *page)
 GisPage *
 gis_prepare_password_page (GisDriver *driver)
 {
+  GisDriverMode driver_mode;
+
+  driver_mode = gis_driver_get_mode (driver);
+  if (driver_mode == GIS_DRIVER_MODE_LIVE_USER && !gis_kernel_command_line_has_argument ((const char *[]) { "rd.live.overlay", NULL }))
+    return NULL;
+
   return g_object_new (GIS_TYPE_PASSWORD_PAGE,
                        "driver", driver,
                        NULL);

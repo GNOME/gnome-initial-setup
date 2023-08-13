@@ -187,7 +187,7 @@ set_input_settings (GisKeyboardPage *self,
 
         g_variant_builder_init (&input_options_builder, G_VARIANT_TYPE ("as"));
 
-        is_system_mode = gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER;
+        is_system_mode = gis_driver_get_mode (GIS_PAGE (self)->driver) & GIS_DRIVER_MODE_SYSTEM;
 
         layouts_array = g_ptr_array_new ();
         variants_array = g_ptr_array_new ();
@@ -301,7 +301,7 @@ update_input (GisKeyboardPage *self)
 
 	set_input_settings (self, type, id);
 
-	if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER) {
+	if (gis_driver_get_mode (GIS_PAGE (self)->driver) & GIS_DRIVER_MODE_SYSTEM) {
 		if (g_permission_get_allowed (priv->permission)) {
 			set_localed_input (self);
 		} else if (g_permission_get_can_acquire (priv->permission)) {
@@ -363,7 +363,7 @@ preselect_input_source (GisKeyboardPage *self)
                 got_input_source = gnome_get_input_source_from_locale (language, &type, &id);
 
                 if (got_input_source) {
-                        gboolean is_system_mode = gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER;
+                        gboolean is_system_mode = gis_driver_get_mode (GIS_PAGE (self)->driver) & GIS_DRIVER_MODE_SYSTEM;
                         if (is_system_mode || g_str_equal (type, "ibus")) {
                                 cc_input_chooser_set_input (CC_INPUT_CHOOSER (priv->input_chooser),
                                                             id,
@@ -384,7 +384,7 @@ update_page_complete (GisKeyboardPage *self)
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         gboolean complete;
 
-        if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER) {
+        if (gis_driver_get_mode (GIS_PAGE (self)->driver) & GIS_DRIVER_MODE_SYSTEM) {
                 complete = (priv->localed != NULL &&
                             cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL);
         }  else {
@@ -496,7 +496,7 @@ gis_keyboard_page_constructed (GObject *object)
 	gnome_get_default_input_sources (priv->cancellable, on_got_default_sources, self);
 
 	/* If we're in new user mode then we're manipulating system settings */
-	if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER)
+	if (gis_driver_get_mode (GIS_PAGE (self)->driver) & GIS_DRIVER_MODE_SYSTEM)
 		priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-keyboard", NULL, NULL, NULL);
 
         update_page_complete (self);

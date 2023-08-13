@@ -17,3 +17,7 @@
 #pragma once
 
 void gis_add_style_from_resource (const char *path);
+gboolean gis_kernel_command_line_has_argument (const char *arguments[]);
+
+typedef char * (* GisVariableLookupFunc) (const char *key, gpointer user_data);
+void gis_substitute_variables_in_text (char **text, GisVariableLookupFunc lookup_func, gpointer user_data);

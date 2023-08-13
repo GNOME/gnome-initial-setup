@@ -43,6 +43,8 @@ gis_driver_mode_get_type (void) {
       static const GFlagsValue values[] = {
         { GIS_DRIVER_MODE_NEW_USER, "GIS_DRIVER_MODE_NEW_USER", "new_user" },
         { GIS_DRIVER_MODE_EXISTING_USER, "GIS_DRIVER_MODE_EXISTING_USER", "existing_user" },
+        { GIS_DRIVER_MODE_LIVE_USER, "GIS_DRIVER_MODE_LIVE_USER", "live_user" },
+        { GIS_DRIVER_MODE_SYSTEM, "GIS_DRIVER_MODE_SYSTEM", "system" },
         { GIS_DRIVER_MODE_ALL, "GIS_DRIVER_MODE_ALL", "all" },
         { 0, NULL, NULL }
       };
@@ -855,7 +857,7 @@ gis_driver_startup (GApplication *app)
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
 
-  if (driver->mode == GIS_DRIVER_MODE_NEW_USER)
+  if (driver->mode & GIS_DRIVER_MODE_SYSTEM)
     connect_to_gdm (driver);
 
   driver->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,

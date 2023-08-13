@@ -144,7 +144,7 @@ language_changed (CcLanguageChooser  *chooser,
 
   gis_driver_set_user_language (driver, priv->new_locale_id, TRUE);
 
-  if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
+  if (gis_driver_get_mode (driver) & GIS_DRIVER_MODE_SYSTEM) {
 
       gis_page_set_complete (GIS_PAGE (page), FALSE);
 
@@ -256,8 +256,7 @@ gis_language_page_constructed (GObject *object)
   g_signal_connect (priv->language_chooser, "confirm",
                     G_CALLBACK (language_confirmed), page);
 
-  /* If we're in new user mode then we're manipulating system settings */
-  if (gis_driver_get_mode (GIS_PAGE (page)->driver) == GIS_DRIVER_MODE_NEW_USER)
+  if (gis_driver_get_mode (GIS_PAGE (page)->driver) & GIS_DRIVER_MODE_SYSTEM)
     {
       priv->permission = polkit_permission_new_sync ("org.freedesktop.locale1.set-locale", NULL, NULL, NULL);
 

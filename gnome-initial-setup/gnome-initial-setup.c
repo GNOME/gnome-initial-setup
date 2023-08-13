@@ -40,13 +40,16 @@
 #include "pages/parental-controls/gis-parental-controls-page.h"
 #include "pages/password/gis-password-page.h"
 #include "pages/summary/gis-summary-page.h"
+#include "pages/install/gis-install-page.h"
 
 #define VENDOR_PAGES_GROUP "pages"
 #define VENDOR_SKIP_KEY "skip"
 #define VENDOR_NEW_USER_ONLY_KEY "new_user_only"
 #define VENDOR_EXISTING_USER_ONLY_KEY "existing_user_only"
+#define VENDOR_LIVE_USER_ONLY_KEY "live_user_only"
 
 static gboolean force_existing_user_mode;
+static gboolean force_live_user_mode;
 
 static GPtrArray *skipped_pages;
 
@@ -64,17 +67,19 @@ static PageData page_table[] = {
   PAGE (welcome, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
   PAGE (language, GIS_DRIVER_MODE_ALL),
   PAGE (keyboard, GIS_DRIVER_MODE_ALL),
-  PAGE (network,  GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (network,  GIS_DRIVER_MODE_ALL),
   PAGE (privacy,  GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
-  PAGE (timezone, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (timezone, GIS_DRIVER_MODE_ALL),
   PAGE (software, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
-  PAGE (account,  GIS_DRIVER_MODE_NEW_USER),
+  /* In live user mode, the account page isn't displayed, it just quietly creates the live user */
+  PAGE (account,  GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_LIVE_USER),
   PAGE (password, GIS_DRIVER_MODE_NEW_USER),
 #ifdef HAVE_PARENTAL_CONTROLS
   PAGE (parental_controls, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
   PAGE (parent_password, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
 #endif
   PAGE (summary, GIS_DRIVER_MODE_NEW_USER),
+  PAGE (install, GIS_DRIVER_MODE_LIVE_USER),
   { NULL },
 };
 
@@ -118,8 +123,8 @@ pages_to_skip_from_file (GisDriver *driver)
   /* This code will read the keyfile containing vendor customization options and
    * look for options under the "pages" group, and supports the following keys:
    *   - skip (optional): list of pages to be skipped always
-   *   - new_user_only (optional): list of pages to be skipped in existing user mode
-   *   - existing_user_only (optional): list of pages to be skipped in new user mode
+   *   - new_user_only (optional): list of pages to be skipped for modes other than new_user
+   *   - existing_user_only (optional): list of pages to be skipped for modes other than existing_user
    *
    * In addition it will look for options under the "{mode} pages" group where {mode} is the
    * current driver mode for the following keys:
@@ -275,6 +280,8 @@ get_mode (void)
 {
   if (force_existing_user_mode)
     return GIS_DRIVER_MODE_EXISTING_USER;
+  else if (force_live_user_mode)
+    return GIS_DRIVER_MODE_LIVE_USER;
   else
     return GIS_DRIVER_MODE_NEW_USER;
 }
@@ -308,6 +315,8 @@ main (int argc, char *argv[])
   GOptionEntry entries[] = {
     { "existing-user", 0, 0, G_OPTION_ARG_NONE, &force_existing_user_mode,
       _("Force existing user mode"), NULL },
+    { "live-user", 0, 0, G_OPTION_ARG_NONE, &force_live_user_mode,
+      _("Force live user mode"), NULL },
     { NULL }
   };
 
@@ -325,6 +334,9 @@ main (int argc, char *argv[])
   g_option_context_add_main_entries (context, entries, NULL);
 
   g_option_context_parse (context, &argc, &argv, NULL);
+
+  if (gis_kernel_command_line_has_argument ((const char *[]) { "rd.live.image", "endless.live_boot", NULL }))
+    force_live_user_mode = TRUE;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -344,7 +356,7 @@ main (int argc, char *argv[])
    * the keyring manually so that we can pass the credentials
    * along to the new user in the handoff.
    */
-  if (mode == GIS_DRIVER_MODE_NEW_USER && !gis_get_mock_mode ())
+  if ((mode & GIS_DRIVER_MODE_SYSTEM) && !gis_get_mock_mode ())
     gis_ensure_login_keyring ();
 
   driver = gis_driver_new (mode);
