@@ -1,5 +1,6 @@
 pages = [
    'account',
+   'install',
    'language',
    'keyboard',
    'network',

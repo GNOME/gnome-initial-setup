@@ -26,6 +26,27 @@
 GisPage *
 gis_prepare_account_page (GisDriver *driver)
 {
+  GisDriverMode driver_mode;
+
+  driver_mode = gis_driver_get_mode (driver);
+
+  if (driver_mode == GIS_DRIVER_MODE_LIVE_USER && !gis_kernel_command_line_has_argument ((const char *[]) { "rd.live.overlay", NULL })) {
+    ActUserManager *act_client = act_user_manager_get_default ();
+    const char *username = "liveuser";
+    g_autoptr(ActUser) user = NULL;
+    g_autoptr(GError) error = NULL;
+
+    user = act_user_manager_create_user (act_client, username, username, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, &error);
+
+    if (user != NULL) {
+      act_user_set_password_mode (user, ACT_USER_PASSWORD_MODE_NONE);
+      gis_driver_set_username (driver, username);
+      gis_driver_set_account_mode (driver, UM_LOCAL);
+      gis_driver_set_user_permissions (driver, user, NULL);
+    }
+    return NULL;
+  }
+
   return g_object_new (GIS_TYPE_ACCOUNT_PAGE,
                        "driver", driver,
                        NULL);
