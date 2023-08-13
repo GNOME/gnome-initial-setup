@@ -31,6 +31,7 @@
 G_BEGIN_DECLS
 
 #define GIS_TYPE_DRIVER (gis_driver_get_type ())
+#define GIS_TYPE_DRIVER_MODE (gis_driver_mode_get_type ())
 
 G_DECLARE_FINAL_TYPE (GisDriver, gis_driver, GIS, DRIVER, AdwApplication)
 
@@ -41,9 +42,12 @@ typedef enum {
 } UmAccountMode;
 
 typedef enum {
-  GIS_DRIVER_MODE_NEW_USER,
-  GIS_DRIVER_MODE_EXISTING_USER,
+  GIS_DRIVER_MODE_NEW_USER = 1 << 0,
+  GIS_DRIVER_MODE_EXISTING_USER = 1 << 1,
+  GIS_DRIVER_MODE_ALL = (GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
 } GisDriverMode;
+
+GType gis_driver_mode_get_type (void);
 
 GisAssistant *gis_driver_get_assistant (GisDriver *driver);
 

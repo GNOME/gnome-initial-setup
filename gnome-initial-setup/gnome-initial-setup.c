@@ -55,26 +55,26 @@ typedef GisPage *(*PreparePage) (GisDriver *driver);
 typedef struct {
   const gchar *page_id;
   PreparePage prepare_page_func;
-  gboolean new_user_only;
+  GisDriverMode modes;
 } PageData;
 
-#define PAGE(name, new_user_only) { #name, gis_prepare_ ## name ## _page, new_user_only }
+#define PAGE(name, modes) { #name, gis_prepare_ ## name ## _page, modes }
 
 static PageData page_table[] = {
-  PAGE (welcome, FALSE),
-  PAGE (language, FALSE),
-  PAGE (keyboard, FALSE),
-  PAGE (network,  FALSE),
-  PAGE (privacy,  FALSE),
-  PAGE (timezone, TRUE),
-  PAGE (software, TRUE),
-  PAGE (account,  TRUE),
-  PAGE (password, TRUE),
+  PAGE (welcome, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (language, GIS_DRIVER_MODE_ALL),
+  PAGE (keyboard, GIS_DRIVER_MODE_ALL),
+  PAGE (network,  GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (privacy,  GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (timezone, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (software, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (account,  GIS_DRIVER_MODE_NEW_USER),
+  PAGE (password, GIS_DRIVER_MODE_NEW_USER),
 #ifdef HAVE_PARENTAL_CONTROLS
-  PAGE (parental_controls, TRUE),
-  PAGE (parent_password, TRUE),
+  PAGE (parental_controls, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
+  PAGE (parent_password, GIS_DRIVER_MODE_NEW_USER | GIS_DRIVER_MODE_EXISTING_USER),
 #endif
-  PAGE (summary,  FALSE),
+  PAGE (summary, GIS_DRIVER_MODE_NEW_USER),
   { NULL },
 };
 
@@ -105,26 +105,15 @@ should_skip_page (const gchar  *page_id,
 }
 
 static gchar **
-strv_append (gchar **a,
-             gchar **b)
+pages_to_skip_from_file (GisDriver *driver)
 {
-  guint n = g_strv_length (a);
-  guint m = g_strv_length (b);
-
-  a = g_renew (gchar *, a, n + m + 1);
-  for (guint i = 0; i < m; i++)
-    a[n + i] = g_strdup (b[i]);
-  a[n + m] = NULL;
-
-  return a;
-}
-
-static gchar **
-pages_to_skip_from_file (GisDriver *driver,
-                         gboolean   is_new_user)
-{
-  GStrv skip_pages = NULL;
-  GStrv additional_skip_pages = NULL;
+  GisDriverMode driver_mode;
+  GisDriverMode other_modes;
+  g_autoptr(GStrvBuilder) builder = g_strv_builder_new();
+  g_auto (GStrv) skip_pages = NULL;
+  g_autofree char *mode_group = NULL;
+  g_autoptr (GFlagsClass) driver_mode_flags_class = NULL;
+  const GFlagsValue *driver_mode_flags = NULL;
 
   /* This code will read the keyfile containing vendor customization options and
    * look for options under the "pages" group, and supports the following keys:
@@ -132,7 +121,19 @@ pages_to_skip_from_file (GisDriver *driver,
    *   - new_user_only (optional): list of pages to be skipped in existing user mode
    *   - existing_user_only (optional): list of pages to be skipped in new user mode
    *
+   * In addition it will look for options under the "{mode} pages" group where {mode} is the
+   * current driver mode for the following keys:
+   *   - skip (optional): list of pages to be skipped for the current mode
+   *
    * This is how this file might look on a vendor image:
+   *
+   *   [pages]
+   *   skip=timezone
+   *
+   *   [new_user pages]
+   *   skip=language;keyboard
+   *
+   * Older files might look like so:
    *
    *   [pages]
    *   skip=timezone
@@ -141,19 +142,47 @@ pages_to_skip_from_file (GisDriver *driver,
 
   skip_pages = gis_driver_conf_get_string_list (driver, VENDOR_PAGES_GROUP,
                                                 VENDOR_SKIP_KEY, NULL);
-  additional_skip_pages =
-  	gis_driver_conf_get_string_list (driver, VENDOR_PAGES_GROUP,
-                                     is_new_user ? VENDOR_EXISTING_USER_ONLY_KEY : VENDOR_NEW_USER_ONLY_KEY,
-                                     NULL);
+  if (skip_pages != NULL)
+    {
+      g_strv_builder_addv (builder, (const char **) skip_pages);
+      g_clear_pointer (&skip_pages, g_strfreev);
+    }
 
-  if (!skip_pages && additional_skip_pages) {
-    skip_pages = additional_skip_pages;
-  } else if (skip_pages && additional_skip_pages) {
-    skip_pages = strv_append (skip_pages, additional_skip_pages);
-    g_strfreev (additional_skip_pages);
+  driver_mode_flags_class = g_type_class_ref (GIS_TYPE_DRIVER_MODE);
+
+  driver_mode = gis_driver_get_mode (driver);
+  driver_mode_flags = g_flags_get_first_value (driver_mode_flags_class, driver_mode);
+
+  mode_group = g_strdup_printf ("%s pages", driver_mode_flags->value_nick);
+  skip_pages = gis_driver_conf_get_string_list (driver, mode_group,
+                                                VENDOR_SKIP_KEY, NULL);
+  if (skip_pages != NULL)
+    {
+      g_strv_builder_addv (builder, (const char **) skip_pages);
+      g_clear_pointer (&skip_pages, g_strfreev);
+    }
+
+  other_modes = GIS_DRIVER_MODE_ALL & ~driver_mode;
+  while (other_modes) {
+    const GFlagsValue *other_mode_flags = g_flags_get_first_value (driver_mode_flags_class, other_modes);
+
+    if (other_mode_flags != NULL) {
+      g_autofree char *vendor_key = g_strdup_printf ("%s_only", other_mode_flags->value_nick);
+
+      skip_pages = gis_driver_conf_get_string_list (driver, VENDOR_PAGES_GROUP,
+                                                    vendor_key, NULL);
+
+      if (skip_pages != NULL)
+        {
+          g_strv_builder_addv (builder, (const char **) skip_pages);
+          g_clear_pointer (&skip_pages, g_strfreev);
+        }
+
+      other_modes &= ~other_mode_flags->value;
+    }
   }
 
-  return skip_pages;
+  return g_strv_builder_end (builder);
 }
 
 static void
@@ -196,7 +225,8 @@ rebuild_pages_cb (GisDriver *driver)
   GisAssistant *assistant;
   GisPage *current_page;
   gchar **skip_pages;
-  gboolean is_new_user, skipped;
+  GisDriverMode driver_mode;
+  gboolean skipped;
 
   assistant = gis_driver_get_assistant (driver);
   current_page = gis_assistant_get_current_page (assistant);
@@ -215,13 +245,13 @@ rebuild_pages_cb (GisDriver *driver)
     ++page_data;
   }
 
-  is_new_user = (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER);
-  skip_pages = pages_to_skip_from_file (driver, is_new_user);
+  driver_mode = gis_driver_get_mode (driver);
+  skip_pages = pages_to_skip_from_file (driver);
 
   for (; page_data->page_id != NULL; ++page_data) {
     skipped = FALSE;
 
-    if ((page_data->new_user_only && !is_new_user) ||
+    if (((page_data->modes & driver_mode) == 0) ||
         (should_skip_page (page_data->page_id, skip_pages)))
       skipped = TRUE;
 
