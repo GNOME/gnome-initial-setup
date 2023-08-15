@@ -52,7 +52,7 @@ dependencies = [
     dependency ('fontconfig'),
     dependency ('goa-1.0'),
     dependency ('gtk4', version: '>= 4.6'),
-    dependency ('glib-2.0', version: '>= 2.63.1'),
+    dependency ('glib-2.0', version: '>= 2.76.0'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
     gweather_dep,
