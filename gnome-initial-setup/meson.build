@@ -42,7 +42,7 @@ dependencies = [
     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
     dependency ('fontconfig'),
     dependency ('gtk4', version: '>= 4.10'),
-    dependency ('glib-2.0', version: '>= 2.63.1'),
+    dependency ('glib-2.0', version: '>= 2.76.0'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
     gweather_dep,
