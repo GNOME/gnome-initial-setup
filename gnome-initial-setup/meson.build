@@ -27,7 +27,7 @@ sources += [
     'gis-keyring.h'
 ]
 
-glib_dep = dependency ('glib-2.0', version: '>= 2.63.1')
+glib_dep = dependency ('glib-2.0', version: '>= 2.76.0')
 gio_dep = dependency ('gio-unix-2.0', version: '>= 2.53.0')
 
 geocode_glib_2_dep = dependency('geocode-glib-2.0')
