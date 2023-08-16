@@ -130,3 +130,9 @@ configure_file(
 
 mode_dir = join_paths(data_dir, 'gnome-shell', 'modes')
 install_data('initial-setup.json', install_dir: mode_dir)
+
+install_subdir(
+  'gnome-initial-setup',
+  install_dir : working_dir,
+  strip_directory : true
+)

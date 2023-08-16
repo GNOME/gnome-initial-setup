@@ -101,6 +101,8 @@ struct _GisDriver {
 
   const gchar *vendor_conf_file_path;
   GKeyFile *vendor_conf_file;
+
+  GKeyFile *state_file;
 };
 
 G_DEFINE_TYPE (GisDriver, gis_driver, ADW_TYPE_APPLICATION)
@@ -131,6 +133,7 @@ gis_driver_finalize (GObject *object)
 
   g_clear_object (&driver->user_account);
   g_clear_pointer (&driver->vendor_conf_file, g_key_file_free);
+  g_clear_pointer (&driver->state_file, g_key_file_free);
 
   g_clear_object (&driver->parent_account);
   g_free (driver->parent_password);

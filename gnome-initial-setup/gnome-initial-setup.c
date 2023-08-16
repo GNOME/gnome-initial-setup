@@ -48,6 +48,8 @@
 #define VENDOR_EXISTING_USER_ONLY_KEY "existing_user_only"
 #define VENDOR_LIVE_USER_ONLY_KEY "live_user_only"
 
+#define STATE_FILE GIS_WORKING_DIR "/state"
+
 static gboolean force_existing_user_mode;
 static gboolean force_live_user_mode;
 
@@ -119,6 +121,7 @@ pages_to_skip_from_file (GisDriver *driver)
   g_autofree char *mode_group = NULL;
   g_autoptr (GFlagsClass) driver_mode_flags_class = NULL;
   const GFlagsValue *driver_mode_flags = NULL;
+  g_autoptr (GError) error = NULL;
 
   /* This code will read the keyfile containing vendor customization options and
    * look for options under the "pages" group, and supports the following keys:
@@ -184,6 +187,26 @@ pages_to_skip_from_file (GisDriver *driver)
         }
 
       other_modes &= ~other_mode_flags->value;
+    }
+  }
+
+  /* Also, if this is a system mode, we check if the user already answered questions earlier in
+   * a different system mode, and skip those pages too.
+   */
+  if (driver_mode & GIS_DRIVER_MODE_NEW_USER) {
+    g_autoptr(GKeyFile) state = NULL;
+    gboolean state_loaded;
+
+    state = g_key_file_new ();
+    state_loaded = g_key_file_load_from_file (state, STATE_FILE, G_KEY_FILE_NONE, &error);
+
+    if (state_loaded) {
+      skip_pages = g_key_file_get_string_list (state, VENDOR_PAGES_GROUP, VENDOR_SKIP_KEY, NULL, NULL);
+
+      if (skip_pages != NULL) {
+          g_strv_builder_addv (builder, (const char **) skip_pages);
+          g_clear_pointer (&skip_pages, g_strfreev);
+      }
     }
   }
 
@@ -396,6 +419,46 @@ main (int argc, char *argv[])
   return status;
 }
 
+static void
+write_state (GisDriver *driver)
+{
+  g_autoptr(GKeyFile) state = NULL;
+  g_autoptr(GError) error = NULL;
+  g_autoptr(GStrvBuilder) builder = NULL;
+  g_auto(GStrv) visited_pages = NULL;
+  GisAssistant *assistant;
+  GList *pages, *node;
+
+  assistant = gis_driver_get_assistant (driver);
+
+  if (assistant == NULL)
+    return;
+
+  state = g_key_file_new ();
+
+  builder = g_strv_builder_new ();
+
+  pages = gis_assistant_get_all_pages (assistant);
+  for (node = pages; node != NULL; node = node->next) {
+    GisPage *page = node->data;
+    g_strv_builder_add (builder, GIS_PAGE_GET_CLASS (page)->page_id);
+  }
+
+  visited_pages = g_strv_builder_end (builder);
+
+  g_key_file_set_string_list (state,
+                              VENDOR_PAGES_GROUP,
+                              VENDOR_SKIP_KEY,
+                              (const char * const *)
+                              visited_pages,
+                              g_strv_length (visited_pages));
+
+  if (!g_key_file_save_to_file (state, STATE_FILE, &error)) {
+    g_warning ("Unable to save state to %s: %s", STATE_FILE, error->message);
+    return;
+  }
+}
+
 void
 gis_ensure_stamp_files (GisDriver *driver)
 {
@@ -407,6 +470,8 @@ gis_ensure_stamp_files (GisDriver *driver)
       g_warning ("Unable to create %s: %s", done_file, error->message);
       g_clear_error (&error);
   }
+
+  write_state (driver);
 }
 
 /**
