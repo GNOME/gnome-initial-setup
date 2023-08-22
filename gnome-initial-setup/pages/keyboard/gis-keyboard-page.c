@@ -111,7 +111,6 @@ set_input_settings (GisKeyboardPage *self)
                 g_variant_builder_add (&builder, "(ss)", type, id);
 
 	g_settings_set_value (priv->input_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
-	g_settings_set_uint (priv->input_settings, KEY_CURRENT_INPUT_SOURCE, 0);
 
 	g_settings_apply (priv->input_settings);
 }
