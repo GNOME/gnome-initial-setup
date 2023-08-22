@@ -185,11 +185,11 @@ add_faces_from_dirs (GListStore *faces, GStrv facesdirs, gboolean add_all)
                         g_autoptr (GFileInfo) info = infoptr;
                         g_autoptr (GFile) face_file = NULL;
 
-                        type = g_file_info_get_file_type (info);
+                        type = g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_STANDARD_TYPE);
                         if (type != G_FILE_TYPE_REGULAR && type != G_FILE_TYPE_SYMBOLIC_LINK)
                                 continue;
 
-                        target = g_file_info_get_symlink_target (info);
+                        target = g_file_info_get_attribute_byte_string (info, G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET);
                         if (target != NULL && g_str_has_prefix (target , "legacy/"))
                                 continue;
 
