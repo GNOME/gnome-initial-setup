@@ -196,6 +196,8 @@ pages_to_skip_from_file (GisDriver *driver)
   if (driver_mode & GIS_DRIVER_MODE_NEW_USER) {
     g_autoptr(GKeyFile) state = NULL;
     gboolean state_loaded;
+    g_autoptr(GKeyFile) anaconda = NULL;
+    gboolean anaconda_loaded;
 
     state = g_key_file_new ();
     state_loaded = g_key_file_load_from_file (state, STATE_FILE, G_KEY_FILE_NONE, &error);
@@ -206,6 +208,27 @@ pages_to_skip_from_file (GisDriver *driver)
       if (skip_pages != NULL) {
           g_strv_builder_addv (builder, (const char **) skip_pages);
           g_clear_pointer (&skip_pages, g_strfreev);
+      }
+    }
+
+    anaconda = g_key_file_new ();
+    anaconda_loaded = g_key_file_load_from_file (anaconda, "/etc/sysconfig/anaconda", G_KEY_FILE_NONE, NULL);
+
+    if (anaconda_loaded) {
+      struct {
+        const char *spoke_name;
+        const char *page_name;
+      } spoke_page_map[] = {
+        { "WelcomeLanguageSpoke", "language" },
+        { "DatetimeSpoke", "timezone" },
+        { "KeyboardSpoke", "keyboard" },
+        { NULL, NULL }
+      };
+      size_t i;
+
+      for (i = 0; spoke_page_map[i].spoke_name != NULL; i++) {
+        if (g_key_file_get_boolean (anaconda, spoke_page_map[i].spoke_name, "visited", NULL))
+          g_strv_builder_add (builder, spoke_page_map[i].page_name);
       }
     }
   }
