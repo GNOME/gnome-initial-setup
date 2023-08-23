@@ -1,0 +1,6 @@
+gettext "Force live user mode"
+gettext "Force OEM mode"
+gettext "Install or Try?"
+gettext "This live media can be used to install GNOME, or it can be used to try GNOME as a temporary system. Installation can be started at any time using the install icon in Activities."
+gettext "Install…"
+gettext "Try"
