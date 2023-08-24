@@ -44,6 +44,7 @@
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
+#define KEY_MRU_SOURCES          "mru-sources"
 
 struct _GisKeyboardPagePrivate {
         GtkWidget *input_chooser;
@@ -87,9 +88,12 @@ set_input_settings (GisKeyboardPage *self)
         GVariantBuilder builder;
         GSList *l;
         gboolean is_xkb_source = FALSE;
+        GVariant *value;
+        GVariant *previous_value;
 
         type = cc_input_chooser_get_input_type (CC_INPUT_CHOOSER (priv->input_chooser));
         id = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser));
+        previous_value = g_settings_get_value (priv->input_settings, KEY_INPUT_SOURCES);
 
         g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
 
@@ -110,9 +114,26 @@ set_input_settings (GisKeyboardPage *self)
         if (!is_xkb_source)
                 g_variant_builder_add (&builder, "(ss)", type, id);
 
-	g_settings_set_value (priv->input_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+        value = g_variant_ref_sink (g_variant_builder_end (&builder));
+        g_settings_set_value (priv->input_settings, KEY_INPUT_SOURCES, value);
 
-	g_settings_apply (priv->input_settings);
+        /* We need to make sure it's always possible to compute the current input
+         * source from the settings, e.g. so distro installers can distinguish between
+         * configured input sources vs. current input source. Writing the sources
+         * setting alone is insufficient. If the mru-sources setting has never been
+         * written, then the user has never changed input sources, and we can set
+         * mru-sources to the previous value of the sources setting to indicate that
+         * the first previously-configured input source is the current input source.
+         * If mru-sources has been written, then the user has changed input sources
+         * and we don't need to do anything extra.
+         */
+        if (g_settings_get_user_value (priv->input_settings, KEY_MRU_SOURCES) == NULL)
+                g_settings_set_value (priv->input_settings, KEY_MRU_SOURCES, previous_value);
+
+        g_settings_apply (priv->input_settings);
+
+        g_variant_unref (value);
+        g_variant_unref (previous_value);
 }
 
 static void
