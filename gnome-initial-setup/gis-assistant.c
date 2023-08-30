@@ -59,6 +59,8 @@ struct _GisAssistant
 
   GList *pages;
   GisPage *current_page;
+
+  gboolean data_saved;
 };
 
 G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
@@ -179,6 +181,7 @@ update_navigation_buttons (GisAssistant *assistant)
 {
   GisPage *page = assistant->current_page;
   GList *l;
+  gboolean is_first_page;
   gboolean is_last_page;
 
   if (page == NULL)
@@ -186,11 +189,13 @@ update_navigation_buttons (GisAssistant *assistant)
 
   l = g_list_find (assistant->pages, page);
 
+  is_first_page = (l->prev == NULL);
   is_last_page = (l->next == NULL);
+
+  gtk_widget_set_visible (assistant->back, !is_first_page && !assistant->data_saved);
 
   if (is_last_page)
     {
-      gtk_widget_set_visible (assistant->back, FALSE);
       gtk_widget_set_visible (assistant->forward, FALSE);
       gtk_widget_set_visible (assistant->skip, FALSE);
       gtk_widget_set_visible (assistant->cancel, FALSE);
@@ -198,11 +203,7 @@ update_navigation_buttons (GisAssistant *assistant)
     }
   else
     {
-      gboolean is_first_page;
       GtkWidget *next_widget;
-
-      is_first_page = (l->prev == NULL);
-      gtk_widget_set_visible (assistant->back, !is_first_page);
 
       if (gis_page_get_needs_accept (page))
         next_widget = assistant->accept;
@@ -415,6 +416,9 @@ gis_assistant_save_data (GisAssistant  *assistant,
                          GError       **error)
 {
   GList *l;
+
+  assistant->data_saved = TRUE;
+  gtk_widget_set_visible (assistant->back, FALSE);
 
   for (l = assistant->pages; l != NULL; l = l->next)
     {

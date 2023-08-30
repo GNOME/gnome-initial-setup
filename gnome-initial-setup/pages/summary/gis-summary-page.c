@@ -180,6 +180,15 @@ log_user_in (GisSummaryPage *page)
 static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
+  g_autoptr (GError) error = NULL;
+
+  if (!gis_driver_save_data (GIS_PAGE (page)->driver, &error))
+    {
+      /* FIXME: This should probably be shown to the user and some options
+       * provided to them. */
+      g_warning ("Error saving data: %s", error->message);
+    }
+
   gis_ensure_stamp_files (GIS_PAGE (page)->driver);
 
   switch (gis_driver_get_mode (GIS_PAGE (page)->driver))
@@ -201,20 +210,6 @@ gis_summary_page_shown (GisPage *page)
   GisSummaryPage *summary = GIS_SUMMARY_PAGE (page);
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (summary);
   g_autoptr(GError) local_error = NULL;
-
-  if (!gis_driver_save_data (GIS_PAGE (page)->driver, &local_error))
-    {
-      g_warning ("Error saving data: %s", local_error->message);
-
-      GtkWindow *parent = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page)));
-      GtkWidget *dialog = adw_message_dialog_new (parent,
-                                                  _("Setup Failed"),
-                                                  local_error->message);
-      adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (dialog), "close", _("Close"));
-      /* FIXME: Provide some more options for debugging or recovery */
-
-      gtk_window_present (GTK_WINDOW (dialog));
-    }
 
   gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
                                    &priv->user_account,
