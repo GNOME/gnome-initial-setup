@@ -180,6 +180,15 @@ log_user_in (GisSummaryPage *page)
 static void
 done_cb (GtkButton *button, GisSummaryPage *page)
 {
+  g_autoptr (GError) error = NULL;
+
+  if (!gis_driver_save_data (GIS_PAGE (page)->driver, &error))
+    {
+      /* FIXME: This should probably be shown to the user and some options
+       * provided to them. */
+      g_warning ("Error saving data: %s", error->message);
+    }
+
   gis_ensure_stamp_files (GIS_PAGE (page)->driver);
 
   switch (gis_driver_get_mode (GIS_PAGE (page)->driver))
@@ -201,13 +210,6 @@ gis_summary_page_shown (GisPage *page)
   GisSummaryPage *summary = GIS_SUMMARY_PAGE (page);
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (summary);
   g_autoptr(GError) local_error = NULL;
-
-  if (!gis_driver_save_data (GIS_PAGE (page)->driver, &local_error))
-    {
-      /* FIXME: This should probably be shown to the user and some options
-       * provided to them. */
-      g_warning ("Error saving data: %s", local_error->message);
-    }
 
   gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
                                    &priv->user_account,
