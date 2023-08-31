@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
 "s\n"
-"POT-Creation-Date: 2023-04-25 10:37+0000\n"
-"PO-Revision-Date: 2023-08-20 09:57-0700\n"
+"POT-Creation-Date: 2023-08-23 14:24+0000\n"
+"PO-Revision-Date: 2023-08-30 19:08-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@list.sf.net>\n"
 "Language: pa\n"
@@ -41,6 +41,7 @@ msgid "_Previous"
 msgstr "ਪਿੱਛੇ(_P)"
 
 #: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "ਰੱਦ ਕਰੋ(_C)"
 
@@ -218,7 +219,6 @@ msgid "The username is too long."
 msgstr "ਵਰਤੋਂਕਾਰ ਨਾਂ ਬਹੁਤ ਲੰਮਾ ਹੈ।"
 
 #: gnome-initial-setup/pages/account/um-utils.c:159
-#| msgid "The username cannot start with a “-”."
 msgid "The username must start with a lower case letter from a-z."
 msgstr "ਵਰਤੋਂਕਾਰ-ਨਾਂ ਅੰਗਰੇਜ਼ੀ ਦੇ a-z ਦੇ ਛੋਟੇ ਅੱਖਰ ਨਾਲ ਹੀ ਸ਼ੁਰੂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
@@ -227,9 +227,6 @@ msgid "That username isn’t available. Please try another."
 msgstr "ਉਹ ਵਰਤੋਂਕਾਰ ਨਾਂ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਹੋਰ ਵਰਤ ਕੇ ਵੇਖੋ।"
 
 #: gnome-initial-setup/pages/account/um-utils.c:165
-#| msgid ""
-#| "The username should only consist of upper and lower case letters from a-"
-#| "z, digits and the following characters: . - _"
 msgid ""
 "The username should only consist of lower case letters from a-z, digits, and "
 "the following characters: - _"
@@ -258,9 +255,6 @@ msgstr ""
 " ਤਰ੍ਹਾਂ ਕਨੈਕਟ ਕਰੋ।"
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-#| msgid ""
-#| "Accounts can be added and removed at any time from the Settings "
-#| "application."
 msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr "ਖਾਤਿਆਂ ਨੂੰ ਸੈਟਿੰਗਾਂ ਐਪ ਰਾਹੀਂ ਕਿਸੇ ਵੀ ਸਮੇਂ ਜੋੜਿਆ ਅਤੇ ਹਟਾਇਆ ਜਾ ਸਕਦਾ ਹੈ।"
 
@@ -268,20 +262,18 @@ msgstr "ਖਾਤਿਆਂ ਨੂੰ ਸੈਟਿੰਗਾਂ ਐਪ ਰਾਹ�
 #. * %s is the name of the provider. e.g., 'Google'.
 #: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
 #, c-format
-#| msgid "Add Account"
 msgid "%s Account"
 msgstr "%s ਖਾਤਾ"
 
 #: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-#| msgid "Add Account"
 msgid "Remove Account"
 msgstr "ਖਾਤਾ ਹਟਾਓ"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "ਝਲਕ"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "…ਹੋਰ"
@@ -289,9 +281,9 @@ msgstr "…ਹੋਰ"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
 msgid "No inputs found"
-msgstr "ਕੋਈ ਇੰਪੁੱਟ ਨਹੀਂ ਲੱਭੀ"
+msgstr "ਕੋਈ ਇਨਪੁੱਟ ਨਹੀਂ ਲੱਭੀ"
 
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
@@ -300,12 +292,11 @@ msgstr "ਲਿਖਣਾ"
 
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
-msgstr "ਕੀਬੋਰਡ ਲੇਆਉਟ ਜਾਂ ਇੰਪੁੱਟ ਢੰਗ ਚੁਣੋ।"
+msgstr "ਕੀਬੋਰਡ ਲੇਆਉਟ ਜਾਂ ਇਨਪੁੱਟ ਢੰਗ ਚੁਣੋ।"
 
 #: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
-#| msgid "Select your keyboard layout or an input method."
 msgid "Search keyboards and input methods"
-msgstr "ਕੀਬੋਰਡ ਜਾਂ ਇੰਪੁੱਟ ਢੰਗਾਂ ਨੂੰ ਲੱਭੋ"
+msgstr "ਕੀਬੋਰਡ ਜਾਂ ਇਨਪੁੱਟ ਢੰਗਾਂ ਨੂੰ ਲੱਭੋ"
 
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "No languages found"
@@ -383,7 +374,7 @@ msgstr "ਪਾਸਵਰਡ ਦਿਓ"
 #: gnome-initial-setup/pages/password/gis-password-page.c:91
 #: gnome-initial-setup/pages/password/gis-password-page.c:100
 msgid "Be careful not to lose your password."
-msgstr "ਧਿਆਨ ਰੱਖੋ ਕਿ ਤੁਸੀਂ ਆਪਣਾ ਪਾਸਵਰਡ ਭੁੱਲ ਨਾ ਜਾਉ"
+msgstr "ਧਿਆਨ ਰੱਖੋ ਕਿ ਤੁਸੀਂ ਆਪਣਾ ਪਾਸਵਰਡ ਭੁੱਲ ਨਾ ਜਾਓ"
 
 #. Translators: The placeholder is for the user’s full name.
 #: gnome-initial-setup/pages/password/gis-password-page.c:98
@@ -406,12 +397,11 @@ msgstr ""
 msgid "The passwords do not match."
 msgstr "ਪਾਸਵਰਡ ਮਿਲਦੇ ਨਹੀਂ ਹਨ।"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:437
+#: gnome-initial-setup/pages/password/gis-password-page.c:434
 msgid "Password"
 msgstr "ਪਾਸਵਰਡ"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:62
-#| msgid "_Password"
 msgid "_Confirm Password"
 msgstr "ਪਾਸਵਰਡ ਤਸਦੀਕ ਕਰੋ(_C)"
 
@@ -547,7 +537,8 @@ msgid ""
 "collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
 "ਤਕਨੀਕੀ ਰਿਪੋਰਟਾਂ ਭੇਜਦਾ ਹੈ, ਜੋ ਕਿ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਹੀ ਰੱਖਦੀਆਂ ਹਨ। ਡਾਟਾ ਨੂੰ %1$s"
-" ਰਾਹੀਂ ਇਕੱਤਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ (<a href='%2$s'>ਪਰਦੇਦਾਰੀ ਨੀਤੀ</a>)।"
+" ਰਾਹੀਂ ਇਕੱਤਰ "
+"ਕੀਤਾ ਜਾਂਦਾ ਹੈ (<a href='%2$s'>ਪਰਦੇਦਾਰੀ ਨੀਤੀ</a>)।"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
@@ -559,7 +550,8 @@ msgid ""
 "collected by %s."
 msgstr ""
 "ਤਕਨੀਕੀ ਰਿਪੋਰਟਾਂ ਭੇਜਦਾ ਹੈ, ਜੋ ਕਿ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਹੀ ਰੱਖਦੀਆਂ ਹਨ। ਡਾਟਾ ਨੂੰ %s"
-" ਰਾਹੀਂ ਇਕੱਤਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
+" ਰਾਹੀਂ ਇਕੱਤਰ "
+"ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
@@ -575,25 +567,21 @@ msgid "Location Services"
 msgstr "ਟਿਕਾਣਾ ਸੇਵਾਵਾਂ"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
-#| msgid ""
-#| "Allows applications to determine your geographical location. An "
-#| "indication is shown when location services are in use."
 msgid ""
 "Allows apps to determine your geographical location. Uses the Mozilla "
 "Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
-"ਐਪਲੀਕੇਸ਼ਨਾਂ ਨੂੰ ਆਪਣੇ ਭੂਗੋਲਿਕ ਟਿਕਾਣੇ ਦਾ ਪਤਾ ਲਗਾਉਣ ਦੀ ਇਜ਼ਾਜਤ ਦਿਓ। ਮੌਜੀਲਾ ਟਿਕਾਣਾ "
-"ਸੇਵਾ ਵਰਤੀ ਜਾਂਦੀ ਹੈ (<a href='https://location.services.mozilla.com/privacy'"
-">ਪਰਦੇਦਾਰੀ ਨੀਤੀ</a>)।"
+"ਐਪਲੀਕੇਸ਼ਨਾਂ ਨੂੰ ਆਪਣੇ ਭੂਗੋਲਿਕ ਟਿਕਾਣੇ ਦਾ ਪਤਾ ਲਗਾਉਣ ਦੀ ਇਜ਼ਾਜਤ ਦਿਓ। ਮੌਜੀਲਾ ਟਿਕਾਣਾ"
+" ਸੇਵਾ ਵਰਤੀ "
+"ਜਾਂਦੀ ਹੈ (<a href='https://location.services.mozilla.com/privacy'>ਪਰਦੇਦਾਰੀ "
+"ਨੀਤੀ</a>)।"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "ਆਪਣੇ-ਆਪ ਸਮੱਸਿਆ ਦੀ ਰਿਪੋਰਟ ਭੇਜਣੀ"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
-#| msgid ""
-#| "Privacy controls can be changed at any time from the Settings application."
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "ਪਰਦੇਦਾਰੀ ਕੰਟਰੋਲ ਨੂੰ ਸੈਟਿੰਗਾਂ ਐਪ ਤੋਂ ਕਿਸੇ ਵੀ ਸਮੇਂ ਕੰਟਰੋਲ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।"
@@ -745,6 +733,37 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "ਮੁੱਢਲਾ ਸੈਟਅੱਪ(_S)"
+
+#: po/EXTRA_STRINGS.sh:1
+#| msgid "Force existing user mode"
+msgid "Force live user mode"
+msgstr "ਲਾਈਵ ਵਰਤੋਂਕਾਰ ਮੋਡ ਲਈ ਮਜ਼ਬੂਰ ਕਰੋ"
+
+#: po/EXTRA_STRINGS.sh:2
+msgid "Force OEM mode"
+msgstr "OEM ਮੋਡ ਲਈ ਮਜ਼ਬੂਰ ਕਰੋ"
+
+#: po/EXTRA_STRINGS.sh:3
+msgid "Install or Try?"
+msgstr "ਇੰਸਟਾਲ ਜਾਂ ਅਜ਼ਮਾਉਣਾ ਹੈ?"
+
+#: po/EXTRA_STRINGS.sh:4
+msgid ""
+"This live media can be used to install GNOME, or it can be used to try GNOME "
+"as a temporary system. Installation can be started at any time using the "
+"install icon in Activities."
+msgstr ""
+"ਇਸ ਲਾਈਵ ਮੀਡਿਆ ਨੂੰ ਗਨੋਮ ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਜਾਂ ਗਨੋਮ ਨੂੰ ਆਰਜ਼ੀ ਸਿਸਟਮ ਉੱਤੇ ਇੰਸਟਾਲ ਕਰਨ"
+" ਲਈ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਸਰਗਰਮੀਆਂ ਵਿੱਚ ਇੰਸਟਾਲ ਆਈਕਾਨ ਨੂੰ ਵਰਤ ਕੇ ਕਿਸੇ ਵੀ ਸਮੇਂ"
+" ਇੰਸਟਾਲੇਸ਼ਨ ਸ਼ੁਰੂ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।"
+
+#: po/EXTRA_STRINGS.sh:5
+msgid "Install…"
+msgstr "…ਇੰਸਟਾਲ"
+
+#: po/EXTRA_STRINGS.sh:6
+msgid "Try"
+msgstr "ਅਜ਼ਮਾਓ"
 
 #~ msgid "Take a Picture…"
 #~ msgstr "…ਤਸਵੀਰ ਲਵੋ"
