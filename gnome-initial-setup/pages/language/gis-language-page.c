@@ -57,6 +57,23 @@ typedef struct _GisLanguagePagePrivate GisLanguagePagePrivate;
 G_DEFINE_TYPE_WITH_PRIVATE (GisLanguagePage, gis_language_page, GIS_TYPE_PAGE);
 
 static void
+on_locale_set (GDBusProxy      *proxy,
+               GAsyncResult    *result,
+               GisLanguagePage *self)
+{
+  g_autoptr(GError) error = NULL;
+  g_autoptr(GVariant) call_result = NULL;
+
+  call_result = g_dbus_proxy_call_finish (proxy, result, &error);
+
+  if (error != NULL) {
+    g_warning ("Could not set system locale: %s", error->message);
+  }
+
+  gis_page_set_complete (GIS_PAGE (self), TRUE);
+}
+
+static void
 set_localed_locale (GisLanguagePage *self)
 {
   GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (self);
@@ -72,7 +89,9 @@ set_localed_locale (GisLanguagePage *self)
                      "SetLocale",
                      g_variant_new ("(asb)", b, TRUE),
                      G_DBUS_CALL_FLAGS_NONE,
-                     -1, NULL, NULL, NULL);
+                     -1, priv->cancellable,
+                     (GAsyncReadyCallback) on_locale_set,
+                     self);
   g_variant_builder_unref (b);
 }
 
@@ -126,6 +145,9 @@ language_changed (CcLanguageChooser  *chooser,
   gis_driver_set_user_language (driver, priv->new_locale_id, TRUE);
 
   if (gis_driver_get_mode (driver) == GIS_DRIVER_MODE_NEW_USER) {
+
+      gis_page_set_complete (GIS_PAGE (page), FALSE);
+
       if (g_permission_get_allowed (priv->permission)) {
           set_localed_locale (page);
       }
@@ -176,6 +198,7 @@ localed_proxy_ready (GObject      *source,
   }
 
   priv->localed = proxy;
+  gis_page_set_complete (GIS_PAGE (self), TRUE);
 }
 
 static void
@@ -250,8 +273,10 @@ gis_language_page_constructed (GObject *object)
                         object);
       g_object_unref (bus);
     }
-
-  gis_page_set_complete (GIS_PAGE (page), TRUE);
+  else
+    {
+      gis_page_set_complete (GIS_PAGE (page), TRUE);
+    }
   gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
 
