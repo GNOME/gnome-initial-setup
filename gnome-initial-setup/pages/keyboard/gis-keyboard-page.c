@@ -415,8 +415,13 @@ update_page_complete (GisKeyboardPage *self)
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
         gboolean complete;
 
-        complete = (priv->localed != NULL &&
-                    cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL);
+        if (gis_driver_get_mode (GIS_PAGE (self)->driver) == GIS_DRIVER_MODE_NEW_USER) {
+                complete = (priv->localed != NULL &&
+                            cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL);
+        }  else {
+                complete = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL;
+        }
+
         gis_page_set_complete (GIS_PAGE (self), complete);
 }
 
