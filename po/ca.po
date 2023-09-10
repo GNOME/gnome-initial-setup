@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Gil Forcada <gilforcada@guifi.net>, 2012, 2013, 2014.
 # Josep Sànchez <papapep@gmx.com>, 2013.
-# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2015-2016, 2018, 2022
+# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2015-2016, 2018, 2022-2023
 # Jordi Serratosa <jordis@softcatala.cat>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues\n"
-"POT-Creation-Date: 2023-02-23 14:48+0000\n"
-"PO-Revision-Date: 2023-02-27 18:06+0100\n"
+"POT-Creation-Date: 2023-08-23 14:24+0000\n"
+"PO-Revision-Date: 2023-09-10 18:06+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -23,6 +23,7 @@ msgstr ""
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Configuració inicial"
 
@@ -43,6 +44,7 @@ msgid "_Previous"
 msgstr "A_nterior"
 
 #: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -257,8 +259,7 @@ msgstr ""
 "calendari en línia, els contactes, els documents i les fotos."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
+msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr ""
 "Es poden afegir o suprimir comptes en qualsevol moment des de les "
 "preferències."
@@ -274,22 +275,22 @@ msgstr "Compte %s"
 msgid "Remove Account"
 msgstr "Suprimeix el compte"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Previsualitza"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Més…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
 msgid "No inputs found"
 msgstr "No s'ha trobat cap font d'entrada"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Escriptura"
@@ -401,7 +402,7 @@ msgstr "Aquesta contrasenya controlarà l'accés als controls parentals per %s."
 msgid "The passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:437
+#: gnome-initial-setup/pages/password/gis-password-page.c:434
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -543,35 +544,32 @@ msgstr ""
 "segura."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#. * like "Fedora" or "Ubuntu".
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Envia informes tècnics que tenen informació personal eliminada "
-"automàticament. Les dades són recollides per %1$s (<a href='%2$s'>política "
-"de privadesa</a>)."
+"Envia informes tècnics que no contenen informació personal. %1$s recull "
+"dades (<a href='%2$s'>política de privadesa</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#. * like "Fedora" or "Ubuntu".
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"Envia informes tècnics que tenen informació personal eliminada "
-"automàticament. Les dades són recollides per %s."
+"Envia informes tècnics que no contenen informació personal. Les dades són "
+"recollides per %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Política de privadesa"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Privadesa"
@@ -580,10 +578,10 @@ msgstr "Privadesa"
 msgid "Location Services"
 msgstr "Serveis d'ubicació"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a "
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a "
 "href='https://location.services.mozilla.com/privacy'>privacy policy</a>)."
 msgstr ""
 "Permet a les aplicacions determinar la vostra ubicació geogràfica. Utilitza "
@@ -591,23 +589,22 @@ msgstr ""
 "href='https://location.services.mozilla.com/privacy'>política de "
 "privadesa</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Informa de problemes automàticament"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Els controls de privadesa es poden canviar en qualsevol moment des de les "
 "preferències."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Repositoris de tercers"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected"
 " external sources, including popular apps and drivers that are important for"
@@ -618,11 +615,11 @@ msgstr ""
 "que són importants per a alguns dispositius. S'inclou algun programari "
 "propietari."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "_Inhabilita repositoris de tercers"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "_Habilita repositoris de tercers"
 
@@ -747,3 +744,33 @@ msgstr ""
 msgid "_Start Setup"
 msgstr "_Inicia la configuració"
 
+#: po/EXTRA_STRINGS.sh:1
+msgid "Force live user mode"
+msgstr "Força el mode d'usuari autònom"
+
+#: po/EXTRA_STRINGS.sh:2
+msgid "Force OEM mode"
+msgstr "Força el mode OEM"
+
+#: po/EXTRA_STRINGS.sh:3
+msgid "Install or Try?"
+msgstr "Instal·la o prova?"
+
+#: po/EXTRA_STRINGS.sh:4
+msgid ""
+"This live media can be used to install GNOME, or it can be used to try GNOME"
+" as a temporary system. Installation can be started at any time using the "
+"install icon in Activities."
+msgstr ""
+"Aquest mitjà autònom es pot utilitzar per a instal·lar el GNOME, o es pot "
+"utilitzar per a provar el GNOME com a sistema temporal. La instal·lació es "
+"pot iniciar en qualsevol moment utilitzant la icona d'instal·lació a "
+"Activitats."
+
+#: po/EXTRA_STRINGS.sh:5
+msgid "Install…"
+msgstr "Instal·la…"
+
+#: po/EXTRA_STRINGS.sh:6
+msgid "Try"
+msgstr "Prova"
