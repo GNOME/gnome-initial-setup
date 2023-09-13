@@ -1,24 +1,30 @@
 # Italian translation of gnome-initial-setup.
-# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022 Free Software Foundation, Inc.
+# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-intial-setup package.
-# Milo Casagrande <milo@milo.name>, 2022.
+# Milo Casagrande <milo@milo.name>, 2022, 2023.
 # Gianvito Cavasoli <gianvito@gmx.it>, 2012-2023.
+# Alessio <alciregi@posteo.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-04-25 15:24+0000\n"
-"PO-Revision-Date: 2023-05-18 12:29+0200\n"
-"Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
+"POT-Creation-Date: 2023-09-08 23:17+0000\n"
+"PO-Revision-Date: 2023-09-13 09:31+0200\n"
+"Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-DL-Team: it\n"
+"X-DL-Module: gnome-initial-setup\n"
+"X-DL-Branch: master\n"
+"X-DL-Domain: po\n"
+"X-DL-State: None\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
@@ -43,6 +49,7 @@ msgid "_Previous"
 msgstr "_Precedente"
 
 #: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Annulla"
 
@@ -259,8 +266,7 @@ msgstr ""
 "contatti, documenti e foto."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
+msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr ""
 "Gli account possono essere aggiunti e rimossi in qualsiasi momento "
 "nell'applicazione Impostazioni."
@@ -276,11 +282,11 @@ msgstr "Account %s"
 msgid "Remove Account"
 msgstr "Rimuovi account"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Anteprima"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Altro…"
@@ -288,7 +294,7 @@ msgstr "Altro…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
 msgid "No inputs found"
 msgstr "Nessun input trovato"
 
@@ -403,7 +409,7 @@ msgstr "Questa password controllerà l'accesso al controllo genitori per %s."
 msgid "The passwords do not match."
 msgstr "Le password non corrispondono."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:437
+#: gnome-initial-setup/pages/password/gis-password-page.c:434
 msgid "Password"
 msgstr "Password"
 
@@ -549,31 +555,28 @@ msgstr ""
 "password ancora più robusta."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Invia resoconti tecnici con le informazioni personali rimosse "
-"automaticamente. I dati sono raccolti da %1$s (<a href='%2$s'>politica sulla "
-"riservatezza</a>)."
+"Invia resoconti tecnici senza informazioni personali. I dati sono raccolti "
+"da %1$s (<a href='%2$s'>politica sulla riservatezza</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"Invia resoconti tecnici con le informazioni personali rimosse "
-"automaticamente. I dati sono raccolti da %s."
+"Invia resoconti tecnici senza informazioni personali. I dati sono raccolti "
+"da %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
@@ -590,21 +593,20 @@ msgstr "Servizi sulla posizione"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
 "Consente alle applicazioni di determinare la posizione geografica. Utilizza "
 "il servizio di posizione di Mozilla (<a href='https://location.services."
 "mozilla.com/privacy'>politica sulla riservatezza</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Segnalazione automatica di problemi"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "I controlli sulla privacy possono essere modificati in qualsiasi momento "
 "nell'applicazione Impostazioni."
@@ -753,3 +755,33 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "_Avvia configurazione"
+
+#: po/EXTRA_STRINGS.sh:1
+msgid "Force live user mode"
+msgstr "Forzare la modalità utente live"
+
+#: po/EXTRA_STRINGS.sh:2
+msgid "Force OEM mode"
+msgstr "Forza modalità OEM"
+
+#: po/EXTRA_STRINGS.sh:3
+msgid "Install or Try?"
+msgstr "Installare o provare?"
+
+#: po/EXTRA_STRINGS.sh:4
+msgid ""
+"This live media can be used to install GNOME, or it can be used to try GNOME "
+"as a temporary system. Installation can be started at any time using the "
+"install icon in Activities."
+msgstr ""
+"Questo supporto live può essere utilizzato per installare o per provare "
+"temporaneamente GNOME. L'installazione può essere avviate in qualsiasi "
+"momento tramite l'icona d'installazione in Attività."
+
+#: po/EXTRA_STRINGS.sh:5
+msgid "Install…"
+msgstr "Installa…"
+
+#: po/EXTRA_STRINGS.sh:6
+msgid "Try"
+msgstr "Prova"
