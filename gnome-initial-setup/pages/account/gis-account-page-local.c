@@ -27,6 +27,7 @@
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
+#include <glib/gstdio.h>
 
 #include <string.h>
 #include <act/act-user-manager.h>
@@ -37,6 +38,7 @@
 
 #include <json-glib/json-glib.h>
 
+#define IMAGE_SIZE 512
 #define VALIDATION_TIMEOUT 600
 
 struct _GisAccountPageLocal
@@ -56,7 +58,6 @@ struct _GisAccountPageLocal
 
   gint timeout_id;
 
-  GdkPixbuf *avatar_pixbuf;
   gchar *avatar_filename;
 
   ActUserManager *act_client;
@@ -82,6 +83,26 @@ static void
 validation_changed (GisAccountPageLocal *page)
 {
   g_signal_emit (page, signals[VALIDATION_CHANGED], 0);
+}
+
+static void
+update_avatar_text (GisAccountPageLocal *page)
+{
+  const gchar *name;
+  name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
+
+  if (*name == '\0') {
+    GtkWidget *entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo));
+
+    name = gtk_editable_get_text (GTK_EDITABLE (entry));
+  }
+
+  if (*name == '\0') {
+    name = NULL;
+  }
+
+  adw_avatar_set_text (ADW_AVATAR (page->avatar_image), name);
+  um_photo_dialog_set_generated_avatar_text (page->photo_dialog, name);
 }
 
 static gboolean
@@ -114,8 +135,6 @@ validate (GisAccountPageLocal *page)
 
   gtk_label_set_text (GTK_LABEL (page->username_explanation), tip);
   g_free (tip);
-
-  um_photo_dialog_generate_avatar (page->photo_dialog, name);
 
   validation_changed (page);
 
@@ -160,6 +179,8 @@ fullname_changed (GtkWidget      *w,
   page->valid_name = FALSE;
 
   /* username_changed() is called consequently due to changes */
+
+  update_avatar_text (page);
 }
 
 static void
@@ -185,40 +206,29 @@ username_changed (GtkComboBoxText     *combo,
   if (page->timeout_id != 0)
     g_source_remove (page->timeout_id);
   page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
+
+  update_avatar_text (page);
 }
 
 static void
-avatar_callback (GdkPixbuf   *pixbuf,
-                 const gchar *filename,
+avatar_callback (const gchar *filename,
                  gpointer     user_data)
 {
   GisAccountPageLocal *page = user_data;
-  g_autoptr(GdkPixbuf) tmp = NULL;
-  g_autoptr(GdkPixbuf) rounded = NULL;
+  g_autoptr(GdkTexture) texture = NULL;
 
-  g_clear_object (&page->avatar_pixbuf);
   g_clear_pointer (&page->avatar_filename, g_free);
 
-  if (pixbuf) {
-    page->avatar_pixbuf = g_object_ref (pixbuf);
-    rounded = round_image (pixbuf);
-  }
-  else if (filename) {
+  if (filename) {
+    g_autoptr(GError) error = NULL;
     page->avatar_filename = g_strdup (filename);
-    tmp = gdk_pixbuf_new_from_file_at_size (filename, 96, 96, NULL);
+    texture = gdk_texture_new_from_filename (filename, &error);
 
-    if (tmp != NULL)
-      rounded = round_image (tmp);
+    if (error)
+      g_warning ("Failed to load user icon from path %s: %s", filename, error->message);
   }
 
-  if (rounded != NULL) {
-    gtk_image_set_from_pixbuf (GTK_IMAGE (page->avatar_image), rounded);
-  }
-  else {
-    /* Fallback. */
-    gtk_image_set_pixel_size (GTK_IMAGE (page->avatar_image), 96);
-    gtk_image_set_from_icon_name (GTK_IMAGE (page->avatar_image), "avatar-default-symbolic");
-  }
+  adw_avatar_set_custom_image (ADW_AVATAR (page->avatar_image), GDK_PAINTABLE (texture));
 }
 
 static void
@@ -264,6 +274,7 @@ gis_account_page_local_constructed (GObject *object)
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->constructed (object);
 
   page->act_client = act_user_manager_get_default ();
+  page->photo_dialog = um_photo_dialog_new (avatar_callback, page);
 
   g_signal_connect (page->fullname_entry, "notify::text",
                     G_CALLBACK (fullname_changed), page);
@@ -298,11 +309,6 @@ gis_account_page_local_constructed (GObject *object)
   gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (page->username_combo))));
   page->has_custom_username = FALSE;
 
-  gtk_image_set_pixel_size (GTK_IMAGE (page->avatar_image), 96);
-  gtk_image_set_from_icon_name (GTK_IMAGE (page->avatar_image), "avatar-default-symbolic");
-
-  page->photo_dialog = um_photo_dialog_new (avatar_callback, page);
-  um_photo_dialog_generate_avatar (page->photo_dialog, "");
   gtk_menu_button_set_popover (GTK_MENU_BUTTON (page->avatar_button),
                                GTK_WIDGET (page->photo_dialog));
 
@@ -314,48 +320,96 @@ gis_account_page_local_dispose (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
 
-  g_clear_object (&page->avatar_pixbuf);
   g_clear_pointer (&page->avatar_filename, g_free);
   g_clear_handle_id (&page->timeout_id, g_source_remove);
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->dispose (object);
 }
 
+/* This function was taken from AdwAvatar and modified so that it's possible to
+ * export a GdkTexture at a different size than the AdwAvatar is rendered
+ * See: https://gitlab.gnome.org/GNOME/libadwaita/-/blob/afd0fab86ff9b4332d165b985a435ea6f822d41b/src/adw-avatar.c#L751
+ * License: LGPL-2.1-or-later */
+static GdkTexture *
+draw_avatar_to_texture (AdwAvatar *avatar, int size)
+{
+  GdkTexture *result;
+  GskRenderNode *node;
+  GtkSnapshot *snapshot;
+  GdkPaintable *paintable;
+  GtkNative *native;
+  GskRenderer *renderer;
+  int real_size;
+  graphene_matrix_t transform;
+  gboolean transform_ok;
+
+  real_size = adw_avatar_get_size (avatar);
+
+  /* This works around the issue that when the custom-image or text of the AdwAvatar changes the
+   * allocation gets invalidateds and therefore we can't snapshot the widget till the allocation
+   * is recalculated */
+  gtk_widget_measure (GTK_WIDGET (avatar), GTK_ORIENTATION_HORIZONTAL, real_size, NULL, NULL, NULL, NULL);
+  gtk_widget_allocate (GTK_WIDGET (avatar), real_size, real_size, -1, NULL);
+
+  transform_ok = gtk_widget_compute_transform (GTK_WIDGET (avatar),
+                                               gtk_widget_get_first_child (GTK_WIDGET (avatar)),
+                                               &transform);
+
+  g_assert (transform_ok);
+
+  snapshot = gtk_snapshot_new ();
+  gtk_snapshot_transform_matrix (snapshot, &transform);
+  GTK_WIDGET_GET_CLASS (avatar)->snapshot (GTK_WIDGET (avatar), snapshot);
+
+  /* Create first a GdkPaintable at the size the avatar was drawn
+   * then create a GdkSnapshot of it at the size requested */
+  paintable = gtk_snapshot_free_to_paintable (snapshot, &GRAPHENE_SIZE_INIT (real_size, real_size));
+  snapshot = gtk_snapshot_new ();
+  gdk_paintable_snapshot (paintable, snapshot, size, size);
+  g_object_unref (paintable);
+
+  node = gtk_snapshot_free_to_node (snapshot);
+
+  native = gtk_widget_get_native (GTK_WIDGET (avatar));
+  renderer = gtk_native_get_renderer (native);
+
+  result = gsk_renderer_render_texture (renderer, node, &GRAPHENE_RECT_INIT (-1, 0, size, size));
+
+  gsk_render_node_unref (node);
+
+  return result;
+}
+
 static void
 set_user_avatar (GisAccountPageLocal *page,
                  ActUser             *user)
 {
-  GFile *file = NULL;
-  GFileIOStream *io_stream = NULL;
-  GOutputStream *stream = NULL;
-  GError *error = NULL;
+  GdkTexture *texture = NULL;
+  g_autoptr(GError) error = NULL;
+  g_autofree gchar *path = NULL;
+  int fd;
 
   if (page->avatar_filename != NULL) {
     act_user_set_icon_file (user, page->avatar_filename);
     return;
   }
 
-  if (page->avatar_pixbuf == NULL) {
+  texture = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+
+  fd = g_file_open_tmp ("usericonXXXXXX", &path, &error);
+
+  if (fd == -1) {
+    g_warning ("Failed to create temporary user icon: %s", error->message);
     return;
   }
 
-  file = g_file_new_tmp ("usericonXXXXXX", &io_stream, &error);
-  if (error != NULL)
-    goto out;
+  gdk_texture_save_to_png (texture, path);
 
-  stream = g_io_stream_get_output_stream (G_IO_STREAM (io_stream));
-  if (!gdk_pixbuf_save_to_stream (page->avatar_pixbuf, stream, "png", NULL, &error, NULL))
-    goto out;
+  close (fd);
 
-  act_user_set_icon_file (user, g_file_get_path (file));
+  act_user_set_icon_file (user, path);
 
- out:
-  if (error != NULL) {
-    g_warning ("failed to save image: %s", error->message);
-    g_error_free (error);
-  }
-  g_clear_object (&io_stream);
-  g_clear_object (&file);
+  g_remove (path);
 }
 
 static gboolean
@@ -504,6 +558,7 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 {
   const gchar *username, *full_name;
   gboolean parental_controls_enabled;
+  GdkTexture *texture = NULL;
 
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
   gis_driver_set_username (GIS_PAGE (page)->driver, username);
@@ -511,24 +566,17 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
   full_name = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
   gis_driver_set_full_name (GIS_PAGE (page)->driver, full_name);
 
-  if (local->avatar_pixbuf != NULL)
-    {
-      g_autoptr(GdkTexture) texture = NULL;
+  texture = GDK_TEXTURE (adw_avatar_get_custom_image (ADW_AVATAR (local->avatar_image)));
 
-      texture = gdk_texture_new_for_pixbuf (local->avatar_pixbuf);
-      gis_driver_set_avatar (GIS_PAGE (page)->driver, GDK_PAINTABLE (texture));
+  if (texture)
+    {
+      gis_driver_set_avatar (GIS_PAGE (page)->driver, texture);
     }
-  else if (local->avatar_filename != NULL)
+  else
     {
-      g_autoptr(GdkTexture) texture = NULL;
-      g_autoptr(GError) error = NULL;
-
-      texture = gdk_texture_new_from_filename (local->avatar_filename, &error);
-
-      if (!error)
-        gis_driver_set_avatar (GIS_PAGE (page)->driver, GDK_PAINTABLE (texture));
-      else
-        g_warning ("Error loading avatar: %s", error->message);
+      texture = draw_avatar_to_texture (ADW_AVATAR (local->avatar_image), IMAGE_SIZE);
+      gis_driver_set_avatar (GIS_PAGE (page)->driver, texture);
+      g_object_unref (texture);
     }
 
 #ifdef HAVE_PARENTAL_CONTROLS

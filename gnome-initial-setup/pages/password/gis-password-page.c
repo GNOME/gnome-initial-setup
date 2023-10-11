@@ -98,7 +98,7 @@ update_header (GisPasswordPage *page)
       title = g_strdup_printf (_("Set a Password for %s"),
                                gis_driver_get_full_name (GIS_PAGE (page)->driver));
       subtitle = g_strdup (_("Be careful not to lose your password."));
-      paintable = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+      paintable = GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
       icon_name = (paintable != NULL) ? NULL : "dialog-password-symbolic";
     }
   else

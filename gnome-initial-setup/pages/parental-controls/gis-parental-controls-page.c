@@ -102,7 +102,7 @@ update_header (GisParentalControlsPage *page)
   title = g_strdup_printf (_("Parental Controls for %s"),
                            gis_driver_get_full_name (GIS_PAGE (page)->driver));
   subtitle = _("Set restrictions on what this user can run or install.");
-  paintable = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+  paintable = GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
   icon_name = (paintable != NULL) ? NULL : "dialog-password-symbolic";
 
   g_object_set (G_OBJECT (page->header),
