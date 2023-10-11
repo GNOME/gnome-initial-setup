@@ -38,6 +38,14 @@
 
 #include <json-glib/json-glib.h>
 
+/* Key and values that are written as metadata to the exported user avatar this
+ * way it's possible to know how the image was initially created.
+ * If set to generated we can regenerated the avatar when the style changes or
+ * when the users full name changes. The other two values don't have a specific use yet */
+#define IMAGE_SOURCE_KEY "tEXt::source"
+#define IMAGE_SOURCE_VALUE_GENERATED "gnome-generated"
+#define IMAGE_SOURCE_VALUE_FACE "gnome-face"
+#define IMAGE_SOURCE_VALUE_CUSTOM "gnome-custom"
 #define IMAGE_SIZE 512
 #define VALIDATION_TIMEOUT 600
 
@@ -57,8 +65,6 @@ struct _GisAccountPageLocal
   UmPhotoDialog *photo_dialog;
 
   gint timeout_id;
-
-  gchar *avatar_filename;
 
   ActUserManager *act_client;
 
@@ -217,11 +223,8 @@ avatar_callback (const gchar *filename,
   GisAccountPageLocal *page = user_data;
   g_autoptr(GdkTexture) texture = NULL;
 
-  g_clear_pointer (&page->avatar_filename, g_free);
-
   if (filename) {
     g_autoptr(GError) error = NULL;
-    page->avatar_filename = g_strdup (filename);
     texture = gdk_texture_new_from_filename (filename, &error);
 
     if (error)
@@ -320,7 +323,6 @@ gis_account_page_local_dispose (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
 
-  g_clear_pointer (&page->avatar_filename, g_free);
   g_clear_handle_id (&page->timeout_id, g_source_remove);
 
   G_OBJECT_CLASS (gis_account_page_local_parent_class)->dispose (object);
@@ -380,6 +382,26 @@ draw_avatar_to_texture (AdwAvatar *avatar, int size)
   return result;
 }
 
+static GdkPixbuf *
+texture_to_pixbuf (GdkTexture *texture)
+{
+  g_autoptr(GdkTextureDownloader) downloader = NULL;
+  g_autoptr(GBytes) bytes = NULL;
+  gsize stride;
+
+  downloader = gdk_texture_downloader_new (texture);
+  gdk_texture_downloader_set_format (downloader, GDK_MEMORY_R8G8B8A8);
+  bytes = gdk_texture_downloader_download_bytes (downloader, &stride);
+
+  return gdk_pixbuf_new_from_bytes (bytes,
+                                    GDK_COLORSPACE_RGB,
+                                    true,
+                                    8,
+                                    gdk_texture_get_width (texture),
+                                    gdk_texture_get_height (texture),
+                                    stride);
+}
+
 static void
 set_user_avatar (GisAccountPageLocal *page,
                  ActUser             *user)
@@ -387,14 +409,18 @@ set_user_avatar (GisAccountPageLocal *page,
   GdkTexture *texture = NULL;
   g_autoptr(GError) error = NULL;
   g_autofree gchar *path = NULL;
+  const gchar *image_source;
   int fd;
 
-  if (page->avatar_filename != NULL) {
-    act_user_set_icon_file (user, page->avatar_filename);
-    return;
-  }
-
   texture = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+
+  if (adw_avatar_get_custom_image (ADW_AVATAR (page->avatar_image)))
+    image_source = IMAGE_SOURCE_VALUE_GENERATED;
+  else
+    image_source = IMAGE_SOURCE_VALUE_FACE;
+
+  /* IMAGE_SOURCE_VALUE_CUSTOM isn't used here since we don't allow custom files
+   * to be set during initial setup */
 
   fd = g_file_open_tmp ("usericonXXXXXX", &path, &error);
 
@@ -403,7 +429,10 @@ set_user_avatar (GisAccountPageLocal *page,
     return;
   }
 
-  gdk_texture_save_to_png (texture, path);
+  g_autoptr(GdkPixbuf) pixbuf = texture_to_pixbuf (texture);
+  if (!gdk_pixbuf_save (pixbuf, path, "png", &error, IMAGE_SOURCE_KEY, image_source, NULL)) {
+    g_warning ("Failed to save temporary user icon: %s", error->message);
+  }
 
   close (fd);
 
