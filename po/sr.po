@@ -7,21 +7,22 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-02-17 21:17+0000\n"
-"PO-Revision-Date: 2023-02-18 07:23+0100\n"
+"POT-Creation-Date: 2023-11-01 10:09+0000\n"
+"PO-Revision-Date: 2023-11-04 06:00+0100\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
 msgstr "Почетно подешавање"
 
@@ -42,6 +43,7 @@ msgid "_Previous"
 msgstr "_Претходно"
 
 #: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Откажи"
 
@@ -89,7 +91,7 @@ msgid "_Domain"
 msgstr "_Домен"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:67
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Username"
 msgstr "_Корисник"
 
@@ -151,28 +153,28 @@ msgstr "Администратор"
 msgid "Failed to create user '%s': "
 msgstr "Нисам успео да направим корисника: „%s“: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:17
-msgid "Avatar image"
-msgstr "Слика аватара"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
+msgid "Edit avatar"
+msgstr "Уреди аватар"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "О вама"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:32
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Доставите име и корисничко име. Можете такође и слику да изаберете."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:44
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
 msgid "_Full Name"
 msgstr "_Име и презиме"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:119
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
 msgid "Set up _parental controls for this user"
 msgstr "_Подеси родитељско управљање за овог корисника"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:125
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "За коришћење од стране родитеља или старатеља који мора подесити своју "
@@ -259,8 +261,7 @@ msgstr ""
 "контактима, документима и фотографијама."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
+msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr "Налози могу бити додати и уклоњени било када у подешавањима програма."
 
 #. translators: This is the title of the "Show Account" dialog. The
@@ -274,11 +275,11 @@ msgstr "%s налог"
 msgid "Remove Account"
 msgstr "Уклони налог"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Преглед"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Још…"
@@ -286,11 +287,11 @@ msgstr "Још…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
 msgid "No inputs found"
 msgstr "Нисам пронашао уносе"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "Куцање"
@@ -405,7 +406,7 @@ msgstr ""
 msgid "The passwords do not match."
 msgstr "Лозинке се не подударају."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:437
+#: gnome-initial-setup/pages/password/gis-password-page.c:434
 msgid "Password"
 msgstr "Лозинка"
 
@@ -543,37 +544,34 @@ msgstr ""
 "јачом."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Шаљи техничке извештаје у којима су приватни подаци самостално уклоњени. "
-"Подаци се прикупљају у складу са %1$s (<a href='%2$s'>политиком приватности</"
-"a>)."
+"Шаљи техничке извештаје без приватних података. Подаци се прикупљају у "
+"складу са (<a href='%2$s'>политиком приватности</a>) дистрибуције %1$s."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"Шаљи техничке извештаје у којима су приватни подаци самостално уклоњени. "
-"Податке прикупља дистрибуција „%s“."
+"Шаљи техничке извештаје без приватних података. Податке прикупља "
+"дистрибуција „%s“."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Политика приватности"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Приватност"
@@ -582,33 +580,31 @@ msgstr "Приватност"
 msgid "Location Services"
 msgstr "Услуге одређивања места"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
 "Омогућава програмима да одреде ваш географски положај. Користи Мозилину "
 "услугу одређивања места (<a href='https://location.services.mozilla.com/"
 "privacy'>политика приватности</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Самостално извештавање о проблемима"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
-"Подешавања приватности можете изменити у било ком тренутку у подешавањима "
-"програма."
+"Подешавања приватности можете изменити у било ком тренутку у Подешавањима."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Ризнице треће стране"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -618,11 +614,11 @@ msgstr ""
 "спољних извора, који садрже популарне програме, као и управљаче који су "
 "потребни за одређене уређаје. Садрже и власнички софтвер."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "Онемо_гући ризнице треће стране"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "О_могући ризнице треће стране"
 
@@ -747,6 +743,39 @@ msgstr ""
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
 msgstr "По_крени подешавање"
+
+#: po/EXTRA_STRINGS.sh:1
+msgid "Force live user mode"
+msgstr "Приморај режим живог корисника"
+
+#: po/EXTRA_STRINGS.sh:2
+msgid "Force OEM mode"
+msgstr "Приморај ОЕМ режим"
+
+#: po/EXTRA_STRINGS.sh:3
+msgid "Install or Try?"
+msgstr "Инсталирање или проба?"
+
+#: po/EXTRA_STRINGS.sh:4
+msgid ""
+"This live media can be used to install GNOME, or it can be used to try GNOME "
+"as a temporary system. Installation can be started at any time using the "
+"install icon in Activities."
+msgstr ""
+"Овај живи медијум се може искористити за инсталирање Гнома или за привремено "
+"испробавање Гнома. Инсталирање можете започети у било ком тренутку кликом на "
+"иконицу у Активностима."
+
+#: po/EXTRA_STRINGS.sh:5
+msgid "Install…"
+msgstr "Инсталирај…"
+
+#: po/EXTRA_STRINGS.sh:6
+msgid "Try"
+msgstr "Испробај"
+
+#~ msgid "Avatar image"
+#~ msgstr "Слика аватара"
 
 #~ msgid "Take a Picture…"
 #~ msgstr "Сликајте се…"
