@@ -3,29 +3,29 @@
 # Copyright © 2016 GNOME i18n Project for Vietnamese.
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2012-2013.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2014-2017, 2021-2023.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2014-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-03-30 19:59+0000\n"
-"PO-Revision-Date: 2023-04-01 08:45+0700\n"
+"POT-Creation-Date: 2023-11-04 05:01+0000\n"
+"PO-Revision-Date: 2023-11-11 14:12+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
-"Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
+"Language-Team: Vietnamese <Vietnamese <gnome-vi-list@gnome.org>>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
 #: gnome-initial-setup/gis-driver.c:802
 msgid "Initial Setup"
-msgstr "Cài đặt khởi đầu"
+msgstr "Cài đặt lần đầu dùng"
 
 #: gnome-initial-setup/gis-assistant.c:403
 msgid "_Next"
@@ -44,6 +44,7 @@ msgid "_Previous"
 msgstr "T_rước"
 
 #: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "T_hôi"
 
@@ -53,7 +54,7 @@ msgstr "Ép buộc chế độ người dùng cũ"
 
 #: gnome-initial-setup/gnome-initial-setup.c:296
 msgid "— GNOME initial setup"
-msgstr "— Cài đặt GNOME lần đầu"
+msgstr "— Cài đặt GNOME lần đầu dùng"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
 msgid "Failed to register account"
@@ -185,7 +186,7 @@ msgstr "Đăng nhập kiểu công t_y"
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:41
 msgid "Go online to set up Enterprise Login."
-msgstr "Lên mạng để thiết lập Đăng nhập Doanh nghiệp."
+msgstr "Lên mạng để cài đặt Đăng nhập Doanh nghiệp."
 
 #: gnome-initial-setup/pages/account/um-realm-manager.c:310
 msgid "Cannot automatically join this type of domain"
@@ -257,10 +258,9 @@ msgstr ""
 "trực tuyến, liên lạc, tài liệu và ảnh."
 
 #: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
+msgid "Accounts can be added and removed at any time from the Settings app."
 msgstr ""
-"Các tài khoản có thể được thêm hay gỡ bỏ bất kỳ lúc nào từ ứng dụng cài đặt."
+"Các tài khoản có thể được thêm hay gỡ bỏ bất kỳ lúc nào từ ứng dụng Cài đặt."
 
 #. translators: This is the title of the "Show Account" dialog. The
 #. * %s is the name of the provider. e.g., 'Google'.
@@ -273,11 +273,11 @@ msgstr "Tài khoản %s"
 msgid "Remove Account"
 msgstr "Xóa bỏ Tài khoản"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Xem trước"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:303
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "Còn nữa…"
@@ -285,7 +285,7 @@ msgstr "Còn nữa…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
 msgid "No inputs found"
 msgstr "Không tìm thấy phương thức nhập liệu nào"
 
@@ -397,9 +397,9 @@ msgstr "Mật khẩu này sẽ điều khiển truy cập của cha mẹ cho %s.
 
 #: gnome-initial-setup/pages/password/gis-password-page.c:243
 msgid "The passwords do not match."
-msgstr "Mật khẩu không khớp nhau."
+msgstr "Mật khẩu không trùng khớp nhau."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:437
+#: gnome-initial-setup/pages/password/gis-password-page.c:434
 msgid "Password"
 msgstr "Mật khẩu"
 
@@ -529,36 +529,34 @@ msgid ""
 msgstr "Thêm các chữ cái, chữ số và dấu chấm câu sẽ làm cho nó mạnh thêm."
 
 #. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
 msgstr ""
-"Gửi các báo cáo kỹ thuật cái mà thông tin cá nhân sẽ bị lược bỏ tự động. Dữ "
-"liệu được thu thập theo %1$s (<a href='%2$s'>chính sách riêng tư</a>)."
+"Gửi các báo cáo kỹ thuật cái mà không chứa thông tin cá nhân. Dữ liệu được "
+"thu thập theo %1$s (<a href='%2$s'>chính sách riêng tư</a>)."
 
 #. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
+#. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
 #, c-format
 msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
 msgstr ""
-"Gửi các báo cáo kỹ thuật cái mà thông tin cá nhân sẽ bị lược bỏ tự động. Dữ "
-"liệu được thu thập theo %s."
+"Gửi các báo cáo kỹ thuật cái mà không chứa thông tin cá nhân. Dữ liệu được "
+"thu thập theo %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:204
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid "Privacy Policy"
 msgstr "Chính sách riêng tư"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:236
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Riêng tư"
@@ -569,23 +567,23 @@ msgstr "Dịch vụ vị trí"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
-"Cho phép các ứng dụng dò tìm vị trí địa lý của bạn. Sẻ dụng Dịch vụ Vị trí "
+"Cho phép các ứng dụng dò tìm vị trí địa lý của bạn. Sử dụng Dịch vụ Vị trí "
 "Mozilla (<a href='https://location.services.mozilla.com/privacy'>chính sách "
 "riêng tư</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
 msgid "Automatic Problem Reporting"
 msgstr "Tự động báo cáo trục trặc"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
-"Điều kiển chính sách riêng tư được thay đổi bất cứ lúc nào từ phần cài đặt."
+"Kiểm soát chính sách riêng tư được thay đổi bất cứ lúc nào từ ứng dụng Cài "
+"đặt."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
@@ -730,7 +728,38 @@ msgstr ""
 
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
 msgid "_Start Setup"
-msgstr "Cài đặt _ban đầu"
+msgstr "_Bắt đầu cài đặt"
+
+#: po/EXTRA_STRINGS.sh:1
+msgid "Force live user mode"
+msgstr "Ép buộc chế độ người live"
+
+#: po/EXTRA_STRINGS.sh:2
+msgid "Force OEM mode"
+msgstr "Buộc chế độ OEM"
+
+#: po/EXTRA_STRINGS.sh:3
+msgid "Install or Try?"
+msgstr "Cài đặt hay Thử?"
+
+#: po/EXTRA_STRINGS.sh:4
+msgid ""
+"This live media can be used to install GNOME, or it can be used to try GNOME "
+"as a temporary system. Installation can be started at any time using the "
+"install icon in Activities."
+msgstr ""
+"Đây là đĩa đa phương tiện sử dụng trực tiếp có thể được dùng để cài GNOME, "
+"hoặc nó có thể thử dùng GNOME như là một hệ thống tạm thời. Việc cài đặt có "
+"thể bắt đầu từ bất kỳ lúc nào bằng cách sử dụng biểu tượng cài đặt trong "
+"Tổng quan hoạt động."
+
+#: po/EXTRA_STRINGS.sh:5
+msgid "Install…"
+msgstr "Cài đặt…"
+
+#: po/EXTRA_STRINGS.sh:6
+msgid "Try"
+msgstr "Thử"
 
 #~ msgid "Take a Picture…"
 #~ msgstr "Chụp ảnh…"
