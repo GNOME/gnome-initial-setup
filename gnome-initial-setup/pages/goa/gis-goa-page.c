@@ -67,31 +67,20 @@ struct _ProviderWidget {
 };
 typedef struct _ProviderWidget ProviderWidget;
 
-G_GNUC_NULL_TERMINATED
 static char *
 run_goa_helper_sync (const char *command,
-                     ...)
+                     GError **error)
 {
-  g_autoptr(GPtrArray) argv = NULL;
+  const char *argv[] = {
+      LIBEXECDIR "/gnome-initial-setup-goa-helper",
+      command,
+      NULL
+  };
   g_autofree char *output = NULL;
-  g_autoptr(GError) error = NULL;
-  const char *param;
-  va_list args;
   int status;
 
-  argv = g_ptr_array_new_with_free_func (g_free);
-  g_ptr_array_add (argv, g_strdup (LIBEXECDIR "/gnome-initial-setup-goa-helper"));
-  g_ptr_array_add (argv, g_strdup (command));
-
-  va_start (args, command);
-  while ((param = va_arg (args, const char*)) != NULL)
-    g_ptr_array_add (argv, g_strdup (param));
-  va_end (args);
-
-  g_ptr_array_add (argv, NULL);
-
   if (!g_spawn_sync (NULL,
-                     (char **) argv->pdata,
+                     (char **) argv,
                      NULL,
                      0,
                      NULL,
@@ -99,17 +88,15 @@ run_goa_helper_sync (const char *command,
                      &output,
                      NULL,
                      &status,
-                     &error))
-    {
-      g_warning ("Failed to run online accounts helper: %s", error->message);
-      return NULL;
-    }
-
-  if (!g_spawn_check_exit_status (status, NULL))
+                     error) ||
+      !g_spawn_check_exit_status (status, error))
     return NULL;
 
   if (output == NULL || *output == '\0')
-    return NULL;
+    {
+      g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "helper produced no output");
+      return NULL;
+    }
 
   return g_steal_pointer (&output);
 }
@@ -308,12 +295,13 @@ populate_provider_list (GisGoaPage *page)
   GStrv providers = conf_providers ? conf_providers :
     (gchar *[]) { "google", "owncloud", "windows_live", "facebook", NULL };
 
-  listed_providers = run_goa_helper_sync ("list-providers", NULL);
-  providers_variant = g_variant_parse (G_VARIANT_TYPE ("a(ssviu)"),
-                                       listed_providers,
-                                       NULL,
-                                       NULL,
-                                       &error);
+  listed_providers = run_goa_helper_sync ("list-providers", &error);
+  if (listed_providers != NULL)
+    providers_variant = g_variant_parse (G_VARIANT_TYPE ("a(ssviu)"),
+                                         listed_providers,
+                                         NULL,
+                                         NULL,
+                                         &error);
 
   if (error)
     {
