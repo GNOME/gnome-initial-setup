@@ -112,7 +112,7 @@ cc_timezone_map_measure (GtkWidget      *widget,
                          gint           *natural_baseline)
 {
   CcTimezoneMap *map = CC_TIMEZONE_MAP (widget);
-  gint size;
+  gint size = -1;
 
   switch (orientation)
     {
@@ -123,6 +123,9 @@ cc_timezone_map_measure (GtkWidget      *widget,
     case GTK_ORIENTATION_VERTICAL:
       size = gdk_texture_get_height (map->orig_background);
       break;
+
+    default:
+      g_assert_not_reached();
     }
 
   if (minimum != NULL)
