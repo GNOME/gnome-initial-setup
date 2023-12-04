@@ -74,7 +74,7 @@ set_external_parent_from_handle (GtkApplication *application,
                                  GtkWindow      *dialog,
                                  const char     *handle_str)
 {
-  GdkDisplay *display;
+  GdkDisplay *display = NULL;
   GtkWindow *fake_parent;
   GdkScreen *screen;
 
@@ -107,6 +107,8 @@ set_external_parent_from_handle (GtkApplication *application,
         }
     }
 #endif
+
+  g_assert (display != NULL);
 
   screen = gdk_display_get_default_screen (gdk_display_get_default ());
   fake_parent = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
