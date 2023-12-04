@@ -784,7 +784,9 @@ static void
 gis_driver_startup (GApplication *app)
 {
   GisDriver *driver = GIS_DRIVER (app);
+#if !WEBKIT_CHECK_VERSION(2, 39, 5)
   WebKitWebContext *context = webkit_web_context_get_default ();
+#endif
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
 
