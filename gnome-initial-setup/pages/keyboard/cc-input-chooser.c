@@ -173,7 +173,8 @@ preview_cb (GtkLabel       *label,
 	InputWidget *widget;
 	const gchar *layout;
 	const gchar *variant;
-	gchar *commandline;
+	g_autofree gchar *commandline = NULL;
+	g_autoptr(GError) error = NULL;
 
 	row = gtk_widget_get_parent (GTK_WIDGET (label));
 	widget = get_input_widget (row);
@@ -185,8 +186,8 @@ preview_cb (GtkLabel       *label,
 		commandline = g_strdup_printf ("tecla \"%s+%s\"", layout, variant);
 	else
 		commandline = g_strdup_printf ("tecla %s", layout);
-	g_spawn_command_line_async (commandline, NULL);
-	g_free (commandline);
+	if (!g_spawn_command_line_async (commandline, &error))
+		g_warning ("Failed to spawn '%s': %s", commandline, error->message);
 
 	return TRUE;
 }
