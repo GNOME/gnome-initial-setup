@@ -761,6 +761,12 @@ window_realize_cb (GtkWidget *widget, gpointer user_data)
   update_screen_size (driver);
 }
 
+static bool
+window_close_request_cb (GtkWidget *widget, gpointer user_data)
+{
+  return true;
+}
+
 static void
 connect_to_gdm (GisDriver *driver)
 {
@@ -806,6 +812,11 @@ gis_driver_startup (GApplication *app)
                     "realize",
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
+
+  g_signal_connect (driver->main_window,
+                    "close-request",
+                    G_CALLBACK (window_close_request_cb),
+                    NULL);
 
   driver->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
   gtk_window_set_child (GTK_WINDOW (driver->main_window),
