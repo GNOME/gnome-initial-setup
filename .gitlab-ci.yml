@@ -1,5 +1,5 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/7811ba9814a3bad379377241c6c6b62d78b20eac/templates/arch.yml'
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/145b1bc7ef1702d2bd71584010d7113c6786a506/templates/arch.yml'
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
@@ -14,7 +14,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2023-04-05.01-main'
+    FDO_DISTRIBUTION_TAG: '2024-01-04.02-main'
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
 build.container.arch@x86_64:
@@ -38,7 +38,6 @@ build.container.arch@x86_64:
       geocode-glib
       git
       gnome-desktop-4
-      gnome-online-accounts
       gsettings-desktop-schemas
       gobject-introspection
       gtk4
@@ -60,7 +59,7 @@ build.container.arch@x86_64:
       meson
       polkit
       sassc
-      webkit2gtk-5.0
+      webkitgtk-6.0
       yelp-tools
 
 .job_template: &job_definition
