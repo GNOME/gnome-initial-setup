@@ -50,6 +50,65 @@ typedef struct _GisPrivacyPagePrivate GisPrivacyPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisPrivacyPage, gis_privacy_page, GIS_TYPE_PAGE);
 
+static void
+notify_progress_cb (GObject *object, GParamSpec *pspec, gpointer user_data)
+{
+  GtkWidget *progress_bar = user_data;
+  WebKitWebView *web_view = WEBKIT_WEB_VIEW (object);
+  gdouble progress;
+
+  progress = webkit_web_view_get_estimated_load_progress (web_view);
+
+  gtk_widget_set_visible (progress_bar, progress != 1.0);
+  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), progress);
+}
+
+static gboolean
+activate_link (GtkLabel       *label,
+               const gchar    *uri,
+               GisPrivacyPage *page)
+{
+  GtkWidget *headerbar;
+  GtkWidget *dialog;
+  GtkWidget *overlay;
+  GtkWidget *view;
+  GtkWidget *progress_bar;
+
+  headerbar = gtk_header_bar_new ();
+  gtk_header_bar_set_show_title_buttons (GTK_HEADER_BAR (headerbar), TRUE);
+
+  dialog = g_object_new (GTK_TYPE_WINDOW,
+                         "destroy-with-parent", TRUE,
+                         "transient-for", gtk_widget_get_root (GTK_WIDGET (page)),
+                         "titlebar", headerbar,
+                         "title", _("Privacy Policy"),
+                         "modal", TRUE,
+                         NULL);
+
+  overlay = gtk_overlay_new ();
+  gtk_window_set_child (GTK_WINDOW (dialog), overlay);
+
+  progress_bar = gtk_progress_bar_new ();
+  gtk_widget_add_css_class (progress_bar, "osd");
+  gtk_widget_set_halign (progress_bar, GTK_ALIGN_FILL);
+  gtk_widget_set_valign (progress_bar, GTK_ALIGN_START);
+  gtk_overlay_add_overlay (GTK_OVERLAY (overlay), progress_bar);
+
+  view = webkit_web_view_new ();
+  gtk_widget_set_size_request (view, 600, 500);
+  gtk_widget_set_hexpand (view, TRUE);
+  gtk_widget_set_vexpand (view, TRUE);
+  g_signal_connect (view, "notify::estimated-load-progress",
+                    G_CALLBACK (notify_progress_cb), progress_bar);
+  gtk_overlay_set_child (GTK_OVERLAY (overlay), view);
+
+  gtk_window_present (GTK_WINDOW (dialog));
+
+  webkit_web_view_load_uri (WEBKIT_WEB_VIEW (view), uri);
+
+  return TRUE;
+}
+
 static gboolean
 update_os_data (GisPrivacyPage *page)
 {
@@ -162,66 +221,6 @@ gis_privacy_page_apply (GisPage *gis_page,
   g_settings_set_boolean (priv->privacy_settings, "report-technical-problems", active);
 
   return FALSE;
-}
-
-static void
-notify_progress_cb (GObject *object, GParamSpec *pspec, gpointer user_data)
-{
-  GtkWidget *progress_bar = user_data;
-  WebKitWebView *web_view = WEBKIT_WEB_VIEW (object);
-  gdouble progress;
-
-  progress = webkit_web_view_get_estimated_load_progress (web_view);
-
-  gtk_widget_set_visible (progress_bar, progress != 1.0);
-  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), progress);
-}
-
-static gboolean
-activate_link (GtkLabel       *label,
-               const gchar    *uri,
-               GisPrivacyPage *page)
-{
-  GtkWidget *headerbar;
-  GtkWidget *dialog;
-  GtkWidget *overlay;
-  GtkWidget *view;
-  GtkWidget *progress_bar;
-
-  headerbar = gtk_header_bar_new ();
-  gtk_header_bar_set_show_title_buttons (GTK_HEADER_BAR (headerbar), TRUE);
-
-  dialog = g_object_new (GTK_TYPE_WINDOW,
-                         "destroy-with-parent", TRUE,
-                         "transient-for", gtk_widget_get_root (GTK_WIDGET (page)),
-                         "titlebar", headerbar,
-                         "title", _("Privacy Policy"),
-                         "modal", TRUE,
-                         NULL);
-
-  overlay = gtk_overlay_new ();
-  gtk_window_set_child (GTK_WINDOW (dialog), overlay);
-
-  progress_bar = gtk_progress_bar_new ();
-  gtk_widget_add_css_class (progress_bar, "osd");
-  gtk_widget_set_halign (progress_bar, GTK_ALIGN_FILL);
-  gtk_widget_set_valign (progress_bar, GTK_ALIGN_START);
-  gtk_overlay_add_overlay (GTK_OVERLAY (overlay), progress_bar);
-
-  view = webkit_web_view_new ();
-  gtk_widget_set_size_request (view, 600, 500);
-  gtk_widget_set_hexpand (view, TRUE);
-  gtk_widget_set_vexpand (view, TRUE);
-  g_signal_connect (view, "notify::estimated-load-progress",
-                    G_CALLBACK (notify_progress_cb), progress_bar);
-  gtk_overlay_set_child (GTK_OVERLAY (overlay), view);
-
-
-  gtk_window_present (GTK_WINDOW (dialog));
-
-  webkit_web_view_load_uri (WEBKIT_WEB_VIEW (view), uri);
-
-  return TRUE;
 }
 
 static void
