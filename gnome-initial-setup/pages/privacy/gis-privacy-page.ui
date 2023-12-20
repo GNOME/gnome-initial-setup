@@ -34,15 +34,13 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="location_privacy_label">
                 <property name="margin-top">12</property>
                 <property name="wrap">True</property>
                 <property name="wrap-mode">word-char</property>
                 <property name="use-markup">True</property>
                 <property name="ellipsize">none</property>
                 <property name="xalign">0.0</property>
-                <property name="label" translatable="yes">Allows apps to determine your geographical location. Uses the Mozilla Location Service (&lt;a href='https://location.services.mozilla.com/privacy'&gt;privacy policy&lt;/a&gt;).</property>
-                <signal name="activate-link" handler="activate_link" object="GisPrivacyPage" swapped="no" />
                 <style>
                   <class name="caption" />
                 </style>
@@ -74,7 +72,6 @@
                 <property name="use-markup">True</property>
                 <property name="ellipsize">none</property>
                 <property name="xalign">0.0</property>
-                <signal name="activate-link" handler="activate_link" object="GisPrivacyPage" swapped="no" />
                 <style>
                   <class name="caption" />
                 </style>

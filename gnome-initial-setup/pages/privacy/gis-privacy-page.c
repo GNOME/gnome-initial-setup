@@ -39,6 +39,7 @@
 struct _GisPrivacyPagePrivate
 {
   GtkWidget *location_switch;
+  GtkWidget *location_privacy_label;
   GtkWidget *reporting_group;
   GtkWidget *reporting_label;
   GtkWidget *reporting_switch;
@@ -50,6 +51,7 @@ typedef struct _GisPrivacyPagePrivate GisPrivacyPagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisPrivacyPage, gis_privacy_page, GIS_TYPE_PAGE);
 
+#ifdef HAVE_WEBKITGTK
 static void
 notify_progress_cb (GObject *object, GParamSpec *pspec, gpointer user_data)
 {
@@ -108,18 +110,22 @@ activate_link (GtkLabel       *label,
 
   return TRUE;
 }
+#endif
 
 static gboolean
 update_os_data (GisPrivacyPage *page)
 {
   GisPrivacyPagePrivate *priv = gis_privacy_page_get_instance_private (page);
   g_autofree char *name = g_get_os_info (G_OS_INFO_KEY_NAME);
-  g_autofree char *privacy_policy = g_get_os_info (G_OS_INFO_KEY_PRIVACY_POLICY_URL);
   g_autofree char *subtitle = NULL;
+#ifdef HAVE_WEBKITGTK
+  g_autofree char *privacy_policy = g_get_os_info (G_OS_INFO_KEY_PRIVACY_POLICY_URL);
+#endif
 
   if (!name)
     return FALSE;
 
+#ifdef HAVE_WEBKITGTK
   if (privacy_policy)
     {
       /* Translators: the first parameter here is the name of a distribution,
@@ -128,16 +134,18 @@ update_os_data (GisPrivacyPage *page)
       subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
                                     "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
                                     name, privacy_policy);
+      gtk_label_set_markup (GTK_LABEL (priv->reporting_label), subtitle);
+      g_signal_connect (priv->location_privacy_label, "activate-link", G_CALLBACK (activate_link), page);
+      return TRUE;
     }
-  else
-    {
-      /* Translators: the parameter here is the name of a distribution,
-       * like "Fedora" or "Ubuntu".
-       */
-      subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
-                                    "Data is collected by %s."), name);
-    }
-  gtk_label_set_markup (GTK_LABEL (priv->reporting_label), subtitle);
+#endif
+
+  /* Translators: the parameter here is the name of a distribution,
+   * like "Fedora" or "Ubuntu".
+   */
+  subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
+                                "Data is collected by %s."), name);
+  gtk_label_set_label (GTK_LABEL (priv->reporting_label), subtitle);
   return TRUE;
 }
 
@@ -179,6 +187,15 @@ gis_privacy_page_constructed (GObject *object)
 
   gtk_switch_set_active (GTK_SWITCH (priv->location_switch), TRUE);
   gtk_switch_set_active (GTK_SWITCH (priv->reporting_switch), TRUE);
+
+#ifdef HAVE_WEBKITGTK
+  gtk_label_set_markup (GTK_LABEL (priv->location_privacy_label),
+                        _("Allows apps to determine your geographical location. Uses the Mozilla Location Service (<a href='https://location.services.mozilla.com/privacy'>privacy policy</a>)."));
+  g_signal_connect (priv->location_privacy_label, "activate-link", G_CALLBACK (activate_link), page);
+#else
+  gtk_label_set_label (GTK_LABEL (priv->location_privacy_label),
+                       _("Allows apps to determine your geographical location. Uses the Mozilla Location Service."));
+#endif
 
   if (update_os_data (page))
     {
@@ -237,10 +254,10 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-privacy-page.ui");
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_switch);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, location_privacy_label);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_group);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_switch);
-  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_privacy_page_locale_changed;
