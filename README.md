@@ -109,11 +109,6 @@ skip=timezone
 existing_user_only=language;keyboard
 # Only show the privacy page in the 'first boot' situation
 new_user_only=privacy
-
-[goa]
-# Offer a different set of GNOME Online Accounts providers on the Online
-# Accounts page
-providers=owncloud;imap_smtp
 ```
 
 License

@@ -35,9 +35,6 @@
 
 #include "gis-page-header.h"
 
-#define GOA_API_IS_SUBJECT_TO_CHANGE
-#include <goa/goa.h>
-
 #include <rest/rest-proxy.h>
 #include <json-glib/json-glib.h>
 
@@ -65,8 +62,6 @@ struct _GisAccountPageLocal
 
   ActUserManager *act_client;
 
-  GoaClient *goa_client;
-
   gboolean valid_name;
   gboolean valid_username;
   ActUserAccountType account_type;
@@ -88,163 +83,6 @@ static void
 validation_changed (GisAccountPageLocal *page)
 {
   g_signal_emit (page, signals[VALIDATION_CHANGED], 0);
-}
-
-static gboolean
-get_profile_sync (const gchar        *access_token,
-                  gchar             **out_name,
-                  gchar             **out_picture,
-                  GCancellable       *cancellable,
-                  GError            **error)
-{
-  GError *identity_error;
-  RestProxy *proxy;
-  RestProxyCall *call;
-  JsonParser *parser;
-  JsonObject *json_object;
-  gboolean ret;
-
-  ret = FALSE;
-
-  identity_error = NULL;
-  proxy = NULL;
-  call = NULL;
-  parser = NULL;
-
-  /* TODO: cancellable */
-
-  proxy = rest_proxy_new ("https://www.googleapis.com/oauth2/v2/userinfo", FALSE);
-  call = rest_proxy_new_call (proxy);
-  rest_proxy_call_set_method (call, "GET");
-  rest_proxy_call_add_param (call, "access_token", access_token);
-
-  if (!rest_proxy_call_sync (call, error))
-    goto out;
-
-  if (rest_proxy_call_get_status_code (call) != 200)
-    {
-      g_set_error (error,
-                   GOA_ERROR,
-                   GOA_ERROR_FAILED,
-                   "Expected status 200 when requesting your identity, instead got status %d (%s)",
-                   rest_proxy_call_get_status_code (call),
-                   rest_proxy_call_get_status_message (call));
-      goto out;
-    }
-
-  parser = json_parser_new ();
-  if (!json_parser_load_from_data (parser,
-                                   rest_proxy_call_get_payload (call),
-                                   rest_proxy_call_get_payload_length (call),
-                                   &identity_error))
-    {
-      g_warning ("json_parser_load_from_data() failed: %s (%s, %d)",
-                   identity_error->message,
-                   g_quark_to_string (identity_error->domain),
-                   identity_error->code);
-      g_set_error (error,
-                   GOA_ERROR,
-                   GOA_ERROR_FAILED,
-                   "Could not parse response");
-      goto out;
-    }
-
-  ret = TRUE;
-
-  json_object = json_node_get_object (json_parser_get_root (parser));
-  if (out_name != NULL)
-    *out_name = g_strdup (json_object_get_string_member (json_object, "name"));
-
-  if (out_picture != NULL)
-    *out_picture = g_strdup (json_object_get_string_member (json_object, "picture"));
-
- out:
-  g_clear_error (&identity_error);
-  if (call != NULL)
-    g_object_unref (call);
-  if (proxy != NULL)
-    g_object_unref (proxy);
-
-  return ret;
-}
-
-static void
-prepopulate_account_page (GisAccountPageLocal *page)
-{
-  gchar *name = NULL;
-  gchar *picture = NULL;
-  GdkPixbuf *pixbuf = NULL;
-
-  if (page->goa_client) {
-    GList *accounts, *l;
-    accounts = goa_client_get_accounts (page->goa_client);
-    for (l = accounts; l != NULL; l = l->next) {
-      GoaOAuth2Based *oa2;
-      oa2 = goa_object_get_oauth2_based (GOA_OBJECT (l->data));
-      if (oa2) {
-        gchar *token = NULL;
-        GError *error = NULL;
-        if (!goa_oauth2_based_call_get_access_token_sync (oa2, &token, NULL, NULL, &error))
-          {
-            g_warning ("Couldn't get oauth2 token: %s", error->message);
-            g_error_free (error);
-          }
-        else if (!get_profile_sync (token, &name, &picture, NULL, &error))
-          {
-            g_warning ("Couldn't get profile information: %s", error->message);
-            g_error_free (error);
-          }
-        /* FIXME: collect information from more than one account
-         * and present at least the pictures in the avatar chooser
-         */
-        break;
-      }
-    }
-    g_list_free_full (accounts, (GDestroyNotify) g_object_unref);
-  }
-
-  if (name) {
-    g_object_set (page->header, "subtitle", _("Please check the name and username. You can choose a picture too."), NULL);
-    gtk_editable_set_text (GTK_EDITABLE (page->fullname_entry), name);
-  }
-
-  if (picture) {
-    GFile *file;
-    GFileInputStream *stream;
-    GError *error = NULL;
-    file = g_file_new_for_uri (picture);
-    stream = g_file_read (file, NULL, &error);
-    if (!stream)
-      {
-        g_warning ("Failed to read picture %s: %s", picture, error->message);
-        g_error_free (error);
-      }
-    else
-      {
-        pixbuf = gdk_pixbuf_new_from_stream_at_scale (G_INPUT_STREAM (stream), -1, 96, TRUE, NULL, NULL);
-        g_object_unref (stream);
-      }
-    g_object_unref (file);
-  }
-
-  if (pixbuf) {
-    GdkPixbuf *rounded = round_image (pixbuf);
-
-    gtk_image_set_from_pixbuf (GTK_IMAGE (page->avatar_image), rounded);
-    g_object_unref (rounded);
-    page->avatar_pixbuf = pixbuf;
-  }
-
-  g_free (name);
-  g_free (picture);
-}
-
-static void
-accounts_changed (GoaClient *client, GoaObject *object, gpointer data)
-{
-  GisAccountPageLocal *page = data;
-
-  prepopulate_account_page (page);
 }
 
 static gboolean
@@ -464,15 +302,6 @@ gis_account_page_local_constructed (GObject *object)
   gtk_image_set_pixel_size (GTK_IMAGE (page->avatar_image), 96);
   gtk_image_set_from_icon_name (GTK_IMAGE (page->avatar_image), "avatar-default-symbolic");
 
-  page->goa_client = goa_client_new_sync (NULL, NULL);
-  if (page->goa_client) {
-    g_signal_connect (page->goa_client, "account-added",
-                      G_CALLBACK (accounts_changed), page);
-    g_signal_connect (page->goa_client, "account-removed",
-                      G_CALLBACK (accounts_changed), page);
-    prepopulate_account_page (page);
-  }
-
   page->photo_dialog = um_photo_dialog_new (avatar_callback, page);
   um_photo_dialog_generate_avatar (page->photo_dialog, "");
   gtk_menu_button_set_popover (GTK_MENU_BUTTON (page->avatar_button),
@@ -486,7 +315,6 @@ gis_account_page_local_dispose (GObject *object)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (object);
 
-  g_clear_object (&page->goa_client);
   g_clear_object (&page->avatar_pixbuf);
   g_clear_pointer (&page->avatar_filename, g_free);
   g_clear_handle_id (&page->timeout_id, g_source_remove);

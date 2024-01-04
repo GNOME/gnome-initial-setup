@@ -50,7 +50,6 @@ dependencies = [
     dependency ('gnome-desktop-4'),
     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
     dependency ('fontconfig'),
-    dependency ('goa-1.0'),
     dependency ('gtk4', version: '>= 4.6'),
     dependency ('glib-2.0', version: '>= 2.63.1'),
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
