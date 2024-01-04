@@ -17,9 +17,8 @@ of steps to:
 4. Adjust some privacy settings
 5. Set the right location/timezone
 6. Configure software sources
-7. Set up online accounts
-8. Create a new user account
-9. Configure parental controls
+7. Create a new user account
+8. Configure parental controls
 
 In terms of the user experience, we want the initial setup to seamlessly
 switch to the regular user session. In particular, we don't want to
