@@ -39,7 +39,6 @@ struct _UmPhotoDialog {
         GtkPopover parent;
 
         GtkWidget *flowbox;
-        GtkWidget *recent_pictures;
 
         GListStore *faces;
 
@@ -201,11 +200,6 @@ setup_photo_popup (UmPhotoDialog *um)
         g_signal_connect (um->flowbox, "child-activated",
                           G_CALLBACK (face_widget_activated), um);
 
-        gtk_flow_box_append (GTK_FLOW_BOX (um->recent_pictures), adw_avatar_new (AVATAR_PIXEL_SIZE, NULL, TRUE));
-
-        g_signal_connect (um->recent_pictures, "child-activated",
-                          G_CALLBACK (face_widget_activated), um);
-
         facesdirs = get_settings_facesdirs ();
         added_faces = add_faces_from_dirs (um->faces, facesdirs, TRUE);
 
@@ -213,16 +207,6 @@ setup_photo_popup (UmPhotoDialog *um)
                 facesdirs = get_system_facesdirs ();
                 add_faces_from_dirs (um->faces, facesdirs, FALSE);
         }
-}
-
-void
-um_photo_dialog_set_generated_avatar_text (UmPhotoDialog *um,
-                                           const gchar   *name)
-{
-        GtkFlowBoxChild *child = gtk_flow_box_get_child_at_index (GTK_FLOW_BOX (um->recent_pictures), 0);
-        GtkWidget *avatar = gtk_flow_box_child_get_child (child);
-
-        adw_avatar_set_text (ADW_AVATAR (avatar), name);
 }
 
 UmPhotoDialog *
@@ -262,7 +246,6 @@ um_photo_dialog_class_init (UmPhotoDialogClass *klass)
         gtk_widget_class_set_template_from_resource (wclass, "/org/gnome/initial-setup/gis-account-avatar-chooser.ui");
 
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, flowbox);
-        gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, recent_pictures);
         gtk_widget_class_bind_template_callback (wclass, webcam_icon_selected);
 
         oclass->dispose = um_photo_dialog_dispose;

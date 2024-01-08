@@ -1,21 +1,9 @@
 <?xml version="1.0"?>
 <interface>
   <template class="UmPhotoDialog" parent="GtkPopover">
-    <property name="height-request">360</property>
-    <property name="width-request">480</property>
     <child>
       <object class="GtkBox">
         <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
-        <child>
-          <object class="GtkFlowBox" id="recent_pictures">
-            <property name="halign">start</property>
-            <property name="margin-top">20</property>
-            <property name="margin-start">20</property>
-            <property name="margin-end">20</property>
-            <property name="margin-bottom">0</property>
-            <property name="selection-mode">none</property>
-          </object>
-        </child>
         <child>
           <object class="GtkFlowBox" id="flowbox">
             <property name="margin-top">12</property>
@@ -23,6 +11,8 @@
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="selection-mode">none</property>
+            <property name="max-children-per-line">5</property>
+            <property name="homogeneous">True</property>
           </object>
         </child>
       </object>

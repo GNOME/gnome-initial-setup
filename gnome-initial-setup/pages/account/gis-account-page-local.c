@@ -109,7 +109,6 @@ update_avatar_text (GisAccountPageLocal *page)
   }
 
   adw_avatar_set_text (ADW_AVATAR (page->avatar_image), name);
-  um_photo_dialog_set_generated_avatar_text (page->photo_dialog, name);
 }
 
 static gboolean
