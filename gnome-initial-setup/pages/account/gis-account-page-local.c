@@ -54,6 +54,7 @@ struct _GisAccountPageLocal
   AdwBin     parent;
 
   GtkWidget *avatar_button;
+  GtkWidget *remove_avatar_button;
   GtkWidget *avatar_image;
   GtkWidget *header;
   GtkWidget *fullname_entry;
@@ -217,6 +218,13 @@ username_changed (GtkComboBoxText     *combo,
 }
 
 static void
+on_remove_avatar_button_clicked (GisAccountPageLocal *page)
+{
+  adw_avatar_set_custom_image (ADW_AVATAR (page->avatar_image), NULL);
+  gtk_widget_set_visible (GTK_WIDGET (page->remove_avatar_button), FALSE);
+}
+
+static void
 avatar_callback (const gchar *filename,
                  gpointer     user_data)
 {
@@ -232,6 +240,7 @@ avatar_callback (const gchar *filename,
   }
 
   adw_avatar_set_custom_image (ADW_AVATAR (page->avatar_image), GDK_PAINTABLE (texture));
+  gtk_widget_set_visible (GTK_WIDGET (page->remove_avatar_button), texture != NULL);
 }
 
 static void
@@ -533,6 +542,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-account-page-local.ui");
 
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_button);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, remove_avatar_button);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, header);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
@@ -540,6 +550,8 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_box);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_check_button);
+  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), on_remove_avatar_button_clicked);
+
 
   object_class->constructed = gis_account_page_local_constructed;
   object_class->dispose = gis_account_page_local_dispose;
