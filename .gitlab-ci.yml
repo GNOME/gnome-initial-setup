@@ -1,5 +1,5 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/145b1bc7ef1702d2bd71584010d7113c6786a506/templates/arch.yml'
+ - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/145b1bc7ef1702d2bd71584010d7113c6786a506/templates/fedora.yml'
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
@@ -8,19 +8,20 @@ stages:
   - prepare
   - build
 
-.arch.container.common:
+.fedora.container.common:
   variables:
     # When branching a stable release, change 'main'
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2024-01-04.02-main'
+    FDO_DISTRIBUTION_TAG: '2024-01-09.01-main'
+    FDO_DISTRIBUTION_VERSION: 39
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
-build.container.arch@x86_64:
+build.container.fedora@x86_64:
   extends:
-  - '.fdo.container-build@arch'
-  - '.arch.container.common'
+  - '.fdo.container-build@fedora'
+  - '.fedora.container.common'
   stage: 'prepare'
   variables:
     # no need to pull the whole tree for rebuilding the image
@@ -28,44 +29,34 @@ build.container.arch@x86_64:
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
     FDO_DISTRIBUTION_PACKAGES: >-
-      accountsservice
-      appstream
-      base-devel
-      flatpak
-      fontconfig
-      gdm
-      geoclue
-      geocode-glib
-      git
-      gnome-desktop-4
-      gsettings-desktop-schemas
-      gobject-introspection
-      gtk4
-      gtk-doc
-      itstool
-      json-glib
-      krb5
-      libadwaita
-      libglib-testing
-      libgweather-4
-      libibus
-      libmalcontent
-      libnm
-      libnma-gtk4
-      libpwquality
-      librest
-      libsecret
-      malcontent
+      @c-development
+      accountsservice-devel
+      ccache
+      desktop-file-utils
+      fontconfig-devel
+      gdm-devel
+      geoclue2-devel
+      geocode-glib-devel
+      glib2-devel
+      gnome-desktop4-devel
+      gsettings-desktop-schemas-devel
+      gtk4-devel
+      ibus-devel
+      krb5-devel
+      libgweather4-devel
+      libadwaita-devel
+      libnma-gtk4-devel
+      libpwquality-devel
+      libsecret-devel
+      malcontent-ui-devel
       meson
-      polkit
-      sassc
-      webkitgtk-6.0
-      yelp-tools
+      polkit-devel
+      webkitgtk6.0-devel
 
 .job_template: &job_definition
   extends:
-    - '.fdo.distribution-image@arch'
-    - '.arch.container.common'
+    - '.fdo.distribution-image@fedora'
+    - '.fedora.container.common'
 
   stage: build
 
