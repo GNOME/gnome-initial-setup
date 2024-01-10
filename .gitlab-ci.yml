@@ -16,6 +16,9 @@ stages:
     # stable branch.
     FDO_DISTRIBUTION_TAG: '2024-01-09.01-main'
     FDO_DISTRIBUTION_VERSION: 39
+    # Workaround for https://gitlab.gnome.org/Infrastructure/Infrastructure/-/issues/1247
+    FDO_DISTRIBUTION_EXEC: |
+      rm -r /var/lib/gdm/.config
 
 # See also https://gitlab.freedesktop.org/freedesktop/ci-templates
 build.container.fedora@x86_64:
