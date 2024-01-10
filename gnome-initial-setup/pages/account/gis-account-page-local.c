@@ -35,7 +35,6 @@
 
 #include "gis-page-header.h"
 
-#include <rest/rest-proxy.h>
 #include <json-glib/json-glib.h>
 
 #define VALIDATION_TIMEOUT 600

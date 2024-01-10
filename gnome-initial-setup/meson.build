@@ -62,7 +62,6 @@ dependencies = [
     dependency ('krb5'),
     dependency ('libsecret-1', version: '>= 0.18.8'),
     dependency ('pwquality'),
-    dependency ('rest-1.0'),
     ibus_dep,
     libmalcontent_dep,
     libmalcontent_ui_dep,
