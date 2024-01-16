@@ -1,3 +1,38 @@
+46.alpha
+--------
+
+* GNOME Online Accounts integration has been removed. See
+  https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/202 for further
+  information.
+
+* The WebKitGTK dependency is now optional.
+
+  - If configured without WebKitGTK, the Privacy page will not show any links
+    to privacy policies.
+
+  - If configured with WebKitGTK, only the webkitgtk-6.0 API version is
+    supported; support for the webkit2gtk-5.0 API has been removed.
+
+* Bugs fixed:
+
+  - The Initial Setup window can no longer be closed with Alt+F4, leaving the
+    user with no way to recover (#200)
+
+  - The avatar picker no longer logs a vast number of criticals, which were
+    triggered by a GLib change. (!210)
+
+* Translation updates:
+  - Bulgarian
+  - English (United Kingdom)
+  - Esperanto
+  - French
+  - Friulian
+  - Occitan (post 1500)
+  - Romanian
+  - Serbian
+  - Turkish
+  - Vietnamese
+
 45.0
 ----
 
