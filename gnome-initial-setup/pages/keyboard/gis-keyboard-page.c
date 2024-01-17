@@ -253,12 +253,12 @@ set_localed_input (GisKeyboardPage *self)
         g_autofree char *variants = NULL;
         g_autofree char *options = NULL;
 
-        if (!priv->localed)
+        if (!priv->localed || !priv->system_layouts || !priv->system_variants)
                 return;
 
         layouts = g_strjoinv (",", priv->system_layouts);
         variants = g_strjoinv (",", priv->system_variants);
-        options = g_strjoinv (",", priv->system_options);
+        options = priv->system_options ? g_strjoinv (",", priv->system_options) : g_strdup ("");
 
         g_dbus_proxy_call (priv->localed,
                            "SetX11Keyboard",
