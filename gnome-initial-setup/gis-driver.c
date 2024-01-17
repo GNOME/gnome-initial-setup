@@ -813,10 +813,13 @@ gis_driver_startup (GApplication *app)
                     G_CALLBACK (window_realize_cb),
                     (gpointer)app);
 
-  g_signal_connect (driver->main_window,
-                    "close-request",
-                    G_CALLBACK (window_close_request_cb),
-                    NULL);
+  /* Only allow closing the window in existing user mode*/
+  if (driver->mode != GIS_DRIVER_MODE_EXISTING_USER) {
+    g_signal_connect (driver->main_window,
+                      "close-request",
+                      G_CALLBACK (window_close_request_cb),
+                      NULL);
+  }
 
   driver->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
   gtk_window_set_child (GTK_WINDOW (driver->main_window),
