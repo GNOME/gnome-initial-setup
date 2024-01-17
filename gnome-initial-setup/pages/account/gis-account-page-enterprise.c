@@ -167,6 +167,36 @@ gis_account_page_enterprise_validate (GisAccountPageEnterprise *page)
 }
 
 static void
+on_cache_user (GObject *source,
+               GAsyncResult *result,
+               gpointer user_data)
+{
+  GisAccountPageEnterprise *page = user_data;
+  GError *error = NULL;
+
+  page->act_user = act_user_manager_cache_user_finish (ACT_USER_MANAGER (source),
+                                                       result,
+                                                       &error);
+  if (error != NULL) {
+    show_error_dialog (page, _("Failed to cache account"), error);
+    g_message ("Couldn't cache account: %s", error->message);
+    g_error_free (error);
+    apply_complete (page, FALSE);
+
+    return;
+  }
+
+  act_user_set_account_type (page->act_user,
+                             ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+  g_signal_emit (page,
+                 signals[USER_CACHED],
+                 0,
+                 page->act_user,
+                 gtk_editable_get_text (GTK_EDITABLE (page->password)));
+  apply_complete (page, TRUE);
+}
+
+static void
 on_permit_user_login (GObject *source,
                       GAsyncResult *result,
                       gpointer user_data)
@@ -190,10 +220,11 @@ on_permit_user_login (GObject *source,
 
     g_debug ("Caching remote user: %s", login);
 
-    page->act_user = act_user_manager_cache_user (page->act_client, login, NULL);
-    act_user_set_account_type (page->act_user, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
-    g_signal_emit (page, signals[USER_CACHED], 0, page->act_user, gtk_editable_get_text (GTK_EDITABLE (page->password)));
-    apply_complete (page, TRUE);
+    act_user_manager_cache_user_async (page->act_client,
+                                       login,
+                                       page->cancellable,
+                                       on_cache_user,
+                                       page);
 
     g_free (login);
   } else {
