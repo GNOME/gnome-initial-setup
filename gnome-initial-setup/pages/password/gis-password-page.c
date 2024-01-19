@@ -46,6 +46,7 @@ struct _GisPasswordPagePrivate
   GtkWidget *password_explanation;
   GtkWidget *confirm_explanation;
   GtkWidget *header;
+  GtkWidget *avatar;
 
   gboolean valid_confirm;
   gboolean valid_password;
@@ -84,6 +85,9 @@ update_header (GisPasswordPage *page)
   g_autofree gchar *subtitle = NULL;
   const gchar *icon_name;
   GdkPaintable *paintable;
+  gboolean small_screen = FALSE;
+
+  g_object_get (G_OBJECT (page), "small-screen", &small_screen, NULL);
 
 #ifndef HAVE_PARENTAL_CONTROLS
   /* Don’t break UI compatibility if parental controls are disabled. */
@@ -118,11 +122,16 @@ update_header (GisPasswordPage *page)
   g_object_set (G_OBJECT (priv->header),
                 "title", title,
                 "subtitle", subtitle,
+                "show_icon", !small_screen && paintable == NULL,
                 NULL);
-  if (paintable != NULL)
-    g_object_set (G_OBJECT (priv->header), "paintable", paintable, NULL);
-  else if (icon_name != NULL)
+
+  g_object_set (G_OBJECT (priv->avatar),
+                "visible", !small_screen && paintable != NULL,
+                "custom-image", paintable, NULL);
+
+  if (icon_name != NULL)
     g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
+
 }
 
 static void
@@ -370,6 +379,9 @@ gis_password_page_constructed (GObject *object)
   g_signal_connect (GIS_PAGE (page)->driver, "notify::avatar",
                     G_CALLBACK (full_name_or_avatar_changed), page);
 
+  g_signal_connect (page, "notify::small-screen",
+                    G_CALLBACK (update_header), NULL);
+
   validate (page);
   update_header (page);
 
@@ -448,6 +460,7 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_explanation);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_explanation);
   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, header);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, avatar);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_password_page_locale_changed;

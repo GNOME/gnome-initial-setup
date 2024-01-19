@@ -41,6 +41,7 @@ struct _GisParentalControlsPage
   GisPage parent_instance;
 
   GtkWidget *header;
+  GtkWidget *avatar;
   GtkWidget *user_controls;
 };
 
@@ -95,24 +96,27 @@ static void
 update_header (GisParentalControlsPage *page)
 {
   g_autofree gchar *title = NULL;
-  const gchar *subtitle, *icon_name;
+  const gchar *subtitle;
   GdkPaintable *paintable;
+  gboolean small_screen = FALSE;
+
+  g_object_get (G_OBJECT (page), "small-screen", &small_screen, NULL);
 
   /* Translators: The placeholder is the user’s full name. */
   title = g_strdup_printf (_("Parental Controls for %s"),
                            gis_driver_get_full_name (GIS_PAGE (page)->driver));
   subtitle = _("Set restrictions on what this user can run or install.");
   paintable = GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
-  icon_name = (paintable != NULL) ? NULL : "dialog-password-symbolic";
 
   g_object_set (G_OBJECT (page->header),
                 "title", title,
                 "subtitle", subtitle,
+                "show_icon", !small_screen && paintable == NULL,
                 NULL);
-  if (paintable != NULL)
-    g_object_set (G_OBJECT (page->header), "paintable", paintable, NULL);
-  else if (icon_name != NULL)
-    g_object_set (G_OBJECT (page->header), "icon-name", icon_name, NULL);
+
+  g_object_set (G_OBJECT (page->avatar),
+                "visible", !small_screen && paintable != NULL,
+                "custom-image", paintable, NULL);
 }
 
 static void
@@ -171,6 +175,8 @@ gis_parental_controls_page_constructed (GObject *object)
                     G_CALLBACK (user_details_changed_cb), page);
   g_signal_connect (GIS_PAGE (page)->driver, "notify::user-display-name",
                     G_CALLBACK (user_details_changed_cb), page);
+  g_signal_connect (page, "notify::small-screen",
+                    G_CALLBACK (update_header), NULL);
 
   update_header (page);
 
@@ -219,6 +225,7 @@ gis_parental_controls_page_class_init (GisParentalControlsPageClass *klass)
 
   gtk_widget_class_bind_template_child (widget_class, GisParentalControlsPage, header);
   gtk_widget_class_bind_template_child (widget_class, GisParentalControlsPage, user_controls);
+  gtk_widget_class_bind_template_child (widget_class, GisParentalControlsPage, avatar);
 }
 
 static void
