@@ -111,7 +111,9 @@ find_next_page (GisAssistant *self,
 static void
 switch_to_next_page (GisAssistant *assistant)
 {
-  switch_to (assistant, find_next_page (assistant, assistant->current_page));
+  GisPage *next = find_next_page (assistant, assistant->current_page);
+  g_assert (next != NULL);
+  switch_to (assistant, next);
 }
 
 static void
