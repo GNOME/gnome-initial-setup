@@ -84,7 +84,6 @@ update_header (GisPasswordPage *page)
   g_autofree gchar *title = NULL;
   g_autofree gchar *subtitle = NULL;
   const gchar *icon_name;
-  GdkPaintable *paintable;
   gboolean small_screen = FALSE;
 
   g_object_get (G_OBJECT (page), "small-screen", &small_screen, NULL);
@@ -93,7 +92,6 @@ update_header (GisPasswordPage *page)
   /* Don’t break UI compatibility if parental controls are disabled. */
   title = g_strdup (_("Set a Password"));
   subtitle = g_strdup (_("Be careful not to lose your password."));
-  paintable = NULL;
   icon_name = "dialog-password-symbolic";
 #else
   if (!priv->parent_mode)
@@ -102,8 +100,7 @@ update_header (GisPasswordPage *page)
       title = g_strdup_printf (_("Set a Password for %s"),
                                gis_driver_get_full_name (GIS_PAGE (page)->driver));
       subtitle = g_strdup (_("Be careful not to lose your password."));
-      paintable = GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
-      icon_name = (paintable != NULL) ? NULL : "dialog-password-symbolic";
+      icon_name = NULL;
     }
   else
     {
@@ -112,26 +109,30 @@ update_header (GisPasswordPage *page)
       subtitle = g_strdup_printf (_("This password will control access to the parental controls for %s."),
                                   gis_driver_get_full_name (GIS_PAGE (page)->driver));
       icon_name = "org.freedesktop.MalcontentControl-symbolic";
-      paintable = NULL;
     }
 #endif
-
-  /* Doesn’t make sense to set both. */
-  g_assert (icon_name == NULL || paintable == NULL);
 
   g_object_set (G_OBJECT (priv->header),
                 "title", title,
                 "subtitle", subtitle,
-                "show_icon", !small_screen && paintable == NULL,
+                "show_icon", !small_screen && icon_name != NULL,
                 NULL);
 
-  g_object_set (G_OBJECT (priv->avatar),
-                "visible", !small_screen && paintable != NULL,
-                "custom-image", paintable, NULL);
+  if (icon_name)
+    {
+      g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
+      g_object_set (G_OBJECT (priv->avatar), "visible", FALSE, NULL);
+    }
+  else
+    {
+      GdkPaintable *paintable = gis_driver_get_has_default_avatar (GIS_PAGE (page)->driver) ? NULL :
+                                GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
 
-  if (icon_name != NULL)
-    g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
-
+      g_object_set (G_OBJECT (priv->avatar),
+                    "visible", !small_screen,
+                    "text", gis_driver_get_full_name (GIS_PAGE (page)->driver),
+                    "custom-image", paintable, NULL);
+    }
 }
 
 static void
@@ -377,6 +378,8 @@ gis_password_page_constructed (GObject *object)
   g_signal_connect (GIS_PAGE (page)->driver, "notify::full-name",
                     G_CALLBACK (full_name_or_avatar_changed), page);
   g_signal_connect (GIS_PAGE (page)->driver, "notify::avatar",
+                    G_CALLBACK (full_name_or_avatar_changed), page);
+  g_signal_connect (GIS_PAGE (page)->driver, "notify::has-default-avatar",
                     G_CALLBACK (full_name_or_avatar_changed), page);
 
   g_signal_connect (page, "notify::small-screen",

@@ -411,8 +411,8 @@ texture_to_pixbuf (GdkTexture *texture)
 }
 
 static void
-set_user_avatar (GisAccountPageLocal *page,
-                 ActUser             *user)
+set_user_avatar (GisPage *page,
+                 ActUser *user)
 {
   GdkTexture *texture = NULL;
   g_autoptr(GError) error = NULL;
@@ -420,9 +420,9 @@ set_user_avatar (GisAccountPageLocal *page,
   const gchar *image_source;
   int fd;
 
-  texture = gis_driver_get_avatar (GIS_PAGE (page)->driver);
+  texture = gis_driver_get_avatar (page->driver);
 
-  if (adw_avatar_get_custom_image (ADW_AVATAR (page->avatar_image)))
+  if (gis_driver_get_has_default_avatar (page->driver))
     image_source = IMAGE_SOURCE_VALUE_GENERATED;
   else
     image_source = IMAGE_SOURCE_VALUE_FACE;
@@ -526,7 +526,7 @@ local_create_user (GisAccountPageLocal  *local,
       return FALSE;
     }
 
-  set_user_avatar (local, main_user);
+  set_user_avatar (page, main_user);
 
   g_signal_emit (local, signals[MAIN_USER_CREATED], 0, main_user, "");
 
@@ -596,26 +596,31 @@ gis_account_page_local_create_user (GisAccountPageLocal  *local,
 gboolean
 gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 {
+  GisDriver *driver = GIS_PAGE (page)->driver;
   const gchar *username, *full_name;
   gboolean parental_controls_enabled;
   GdkTexture *texture = NULL;
 
+  g_object_freeze_notify (G_OBJECT (driver));
+
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
-  gis_driver_set_username (GIS_PAGE (page)->driver, username);
+  gis_driver_set_username (driver, username);
 
   full_name = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
-  gis_driver_set_full_name (GIS_PAGE (page)->driver, full_name);
+  gis_driver_set_full_name (driver, full_name);
 
   texture = GDK_TEXTURE (adw_avatar_get_custom_image (ADW_AVATAR (local->avatar_image)));
 
   if (texture)
     {
-      gis_driver_set_avatar (GIS_PAGE (page)->driver, texture);
+      gis_driver_set_avatar (driver, texture);
+      gis_driver_set_has_default_avatar (driver, FALSE);
     }
   else
     {
       texture = draw_avatar_to_texture (ADW_AVATAR (local->avatar_image), IMAGE_SIZE);
-      gis_driver_set_avatar (GIS_PAGE (page)->driver, texture);
+      gis_driver_set_avatar (driver, texture);
+      gis_driver_set_has_default_avatar (driver, TRUE);
       g_object_unref (texture);
     }
 
@@ -624,7 +629,9 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 #else
   parental_controls_enabled = FALSE;
 #endif
-  gis_driver_set_parental_controls_enabled (GIS_PAGE (page)->driver, parental_controls_enabled);
+  gis_driver_set_parental_controls_enabled (driver, parental_controls_enabled);
+
+  g_object_thaw_notify (G_OBJECT (driver));
 
   return FALSE;
 }

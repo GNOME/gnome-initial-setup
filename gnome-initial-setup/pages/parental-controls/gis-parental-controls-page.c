@@ -106,16 +106,18 @@ update_header (GisParentalControlsPage *page)
   title = g_strdup_printf (_("Parental Controls for %s"),
                            gis_driver_get_full_name (GIS_PAGE (page)->driver));
   subtitle = _("Set restrictions on what this user can run or install.");
-  paintable = GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
 
   g_object_set (G_OBJECT (page->header),
                 "title", title,
                 "subtitle", subtitle,
-                "show_icon", !small_screen && paintable == NULL,
                 NULL);
 
+  paintable = gis_driver_get_has_default_avatar (GIS_PAGE (page)->driver) ? NULL :
+              GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
+
   g_object_set (G_OBJECT (page->avatar),
-                "visible", !small_screen && paintable != NULL,
+                "visible", !small_screen,
+                "text", gis_driver_get_full_name (GIS_PAGE (page)->driver),
                 "custom-image", paintable, NULL);
 }
 
@@ -170,6 +172,8 @@ gis_parental_controls_page_constructed (GObject *object)
   g_signal_connect (GIS_PAGE (page)->driver, "notify::full-name",
                     G_CALLBACK (user_details_changed_cb), page);
   g_signal_connect (GIS_PAGE (page)->driver, "notify::avatar",
+                    G_CALLBACK (user_details_changed_cb), page);
+  g_signal_connect (GIS_PAGE (page)->driver, "notify::has-default-avatar",
                     G_CALLBACK (user_details_changed_cb), page);
   g_signal_connect (GIS_PAGE (page)->driver, "notify::user-locale",
                     G_CALLBACK (user_details_changed_cb), page);

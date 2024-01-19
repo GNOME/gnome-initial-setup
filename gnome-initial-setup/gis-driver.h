@@ -91,6 +91,10 @@ void gis_driver_set_avatar (GisDriver  *driver,
                             GdkTexture *avatar);
 GdkTexture *gis_driver_get_avatar (GisDriver *driver);
 
+void gis_driver_set_has_default_avatar (GisDriver  *driver,
+                                        gboolean    has_default_avatar);
+gboolean gis_driver_get_has_default_avatar (GisDriver  *driver);
+
 gboolean gis_driver_get_gdm_objects (GisDriver        *driver,
                                      GdmGreeter      **greeter,
                                      GdmUserVerifier **user_verifier);
