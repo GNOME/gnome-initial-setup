@@ -846,7 +846,8 @@ connect_to_gdm (GisDriver *driver)
     driver->user_verifier = gdm_client_get_user_verifier_sync (driver->client, NULL, &error);
 
   if (error != NULL) {
-    g_warning ("Failed to open connection to GDM: %s", error->message);
+    /* Not a warning because this is expected if running in a user session */
+    g_message ("Failed to open connection to GDM: %s", error->message);
     g_clear_object (&driver->user_verifier);
     g_clear_object (&driver->greeter);
     g_clear_object (&driver->client);
