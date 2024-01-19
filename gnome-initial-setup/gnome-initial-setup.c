@@ -99,6 +99,16 @@ should_skip_page (const gchar  *page_id,
   if (strcmp (page_id, "welcome") == 0)
     return !should_skip_page ("language", skip_pages);
 
+  /* We have to make sure the welcome page is not the last page because it
+   * unconditionally attempts to load the next page. So, always show the
+   * summary page.
+   *
+   * This doesn't work in existing user mode, but that's OK because we don't
+   * skip arbitrary previously-visited pages when in existing user mode.
+   */
+  if (strcmp (page_id, "summary") == 0)
+    return FALSE;
+
   /* check through our skip pages list for pages we don't want */
   if (skip_pages) {
     while (skip_pages[i]) {
