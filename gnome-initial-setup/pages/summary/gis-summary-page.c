@@ -151,6 +151,11 @@ log_user_in (GisSummaryPage *page)
     return;
   }
 
+  if (!priv->user_account) {
+    g_info ("No new user account (was the account page skipped?); not initiating login");
+    return;
+  }
+
   g_signal_connect (user_verifier, "info",
                     G_CALLBACK (on_info), page);
   g_signal_connect (user_verifier, "problem",
