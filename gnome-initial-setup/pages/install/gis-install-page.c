@@ -131,7 +131,7 @@ log_user_in (GisInstallPage *page)
 
   if (!gis_driver_get_gdm_objects (GIS_PAGE (page)->driver,
                                    &greeter, &user_verifier)) {
-    g_warning ("No GDM connection; not initiating login");
+    g_info ("No GDM connection; not initiating login");
     return;
   }
 
