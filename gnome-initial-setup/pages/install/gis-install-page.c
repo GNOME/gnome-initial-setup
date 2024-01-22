@@ -43,9 +43,7 @@ struct _GisInstallPagePrivate {
   GtkWidget *install_button;
   AdwStatusPage *status_page;
   GDesktopAppInfo *installer;
-
-  ActUser *user_account;
-  const gchar *user_password;
+  char *user_password;
 };
 typedef struct _GisInstallPagePrivate GisInstallPagePrivate;
 
@@ -128,6 +126,24 @@ log_user_in (GisInstallPage *page)
   g_autoptr(GError) error = NULL;
   GdmGreeter *greeter = NULL;
   GdmUserVerifier *user_verifier = NULL;
+  ActUser *user_account = NULL;
+  const char *user_password = NULL;
+
+  gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
+                                   &user_account,
+                                   &user_password);
+  if (user_account == NULL) {
+    g_info ("No new user account (was the account page skipped?); not initiating login");
+    return;
+  }
+  g_assert (priv->user_password == NULL);
+  priv->user_password = g_strdup (user_password);
+
+  if (!gis_driver_get_gdm_objects (GIS_PAGE (page)->driver,
+                                   &greeter, &user_verifier)) {
+    g_info ("No GDM connection; not initiating login");
+    return;
+  }
 
   if (!gis_driver_get_gdm_objects (GIS_PAGE (page)->driver,
                                    &greeter, &user_verifier)) {
@@ -149,7 +165,7 @@ log_user_in (GisInstallPage *page)
 
   gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
                                                            SERVICE_NAME,
-                                                           act_user_get_user_name (priv->user_account),
+                                                           act_user_get_user_name (user_account),
                                                            NULL, &error);
 
   if (error != NULL)
@@ -259,11 +275,6 @@ gis_install_page_shown (GisPage *page)
 {
   GisInstallPage *install = GIS_INSTALL_PAGE (page);
   GisInstallPagePrivate *priv = gis_install_page_get_instance_private (install);
-  g_autoptr(GError) local_error = NULL;
-
-  gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
-                                   &priv->user_account,
-                                   &priv->user_password);
 
   gtk_widget_grab_focus (priv->install_button);
 }
@@ -342,6 +353,17 @@ gis_install_page_constructed (GObject *object)
 }
 
 static void
+gis_install_page_finalize (GObject *object)
+{
+  GisInstallPage *page = GIS_INSTALL_PAGE (object);
+  GisInstallPagePrivate *priv = gis_install_page_get_instance_private (page);
+
+  g_clear_pointer (&priv->user_password, g_free);
+
+  G_OBJECT_CLASS (gis_install_page_parent_class)->finalize (object);
+}
+
+static void
 gis_install_page_locale_changed (GisPage *page)
 {
   g_autofree char *title = g_strdup (_("Install ${PRETTY_NAME}"));
@@ -365,6 +387,7 @@ gis_install_page_class_init (GisInstallPageClass *klass)
   page_class->locale_changed = gis_install_page_locale_changed;
   page_class->shown = gis_install_page_shown;
   object_class->constructed = gis_install_page_constructed;
+  object_class->finalize = gis_install_page_finalize;
 }
 
 static void
