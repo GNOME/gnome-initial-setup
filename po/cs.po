@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2024-01-17 15:41+0000\n"
-"PO-Revision-Date: 2024-01-22 15:46+0100\n"
+"POT-Creation-Date: 2024-01-22 21:10+0000\n"
+"PO-Revision-Date: 2024-01-22 23:06+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:797
+#: gnome-initial-setup/gis-driver.c:841
 msgid "Initial Setup"
 msgstr "Prvotní nastavení"
 
@@ -97,12 +97,12 @@ msgid "_Domain"
 msgstr "_Doména"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
 msgid "_Username"
 msgstr "_Uživatelské jméno"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:25
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "_Heslo"
 
@@ -140,16 +140,16 @@ msgstr "Heslo správce"
 msgid "C_ontinue"
 msgstr "P_okračovat"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:296
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "K dokončení nastavení je zapotřebí pár podrobností."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:382
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
 msgid "Administrator"
 msgstr "Správce"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:388
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:431
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Selhalo vytvoření uživatele „%s“: "
@@ -158,25 +158,29 @@ msgstr "Selhalo vytvoření uživatele „%s“: "
 msgid "Edit avatar"
 msgstr "Upravit avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:52
+msgid "Remove avatar"
+msgstr "Odebrat avatar"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:68
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "O vás"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:69
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Zadejte prosím jméno a uživatelské jméno. Můžete si také zvolit obrázek."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Full Name"
 msgstr "_Celé jméno"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
 msgid "Set up _parental controls for this user"
 msgstr "Nastavit _rodičovskou kontrolu pro tohoto uživatele"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:162
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr "Pro používání rodičem nebo správcem musíte nastavit jejich hesla."
 
@@ -326,54 +330,54 @@ msgid "Turn On"
 msgstr "Zapnout"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:106
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Rodičovská kontrola pro %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:108
 msgid "Set restrictions on what this user can run or install."
 msgstr "Nastavení omezení, co tento uživatel může spouštět nebo instalovat."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
 msgid "Parental Controls"
 msgstr "Rodičovská kontrola"
 
 #. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:90
+#: gnome-initial-setup/pages/password/gis-password-page.c:93
 msgid "Set a Password"
 msgstr "Nastavení hesla"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:91
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:102
 msgid "Be careful not to lose your password."
 msgstr "Dávejte pozor, abyste své heslo nezapomněli."
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:98
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Nastavení hesla pro %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:106
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 msgid "Set a Parent Password"
 msgstr "Nastavení rodičovského hesla"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:108
+#: gnome-initial-setup/pages/password/gis-password-page.c:109
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Tímto heslem se řídí přístup do rodičovské kontroly pro %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:243
+#: gnome-initial-setup/pages/password/gis-password-page.c:253
 msgid "The passwords do not match."
 msgstr "Hesla se neshodují."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:434
+#: gnome-initial-setup/pages/password/gis-password-page.c:449
 msgid "Password"
 msgstr "Heslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Potvrdit heslo"
 
@@ -684,7 +688,7 @@ msgstr "Vyhledejte prosím nejbližší město"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:75
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
 #, c-format
 msgid "Welcome to %s !"
 msgstr "Vítejte v prostředí %s !"
