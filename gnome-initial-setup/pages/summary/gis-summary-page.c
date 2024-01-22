@@ -40,9 +40,7 @@
 struct _GisSummaryPagePrivate {
   GtkWidget *start_button;
   AdwStatusPage *status_page;
-
-  ActUser *user_account;
-  const gchar *user_password;
+  char *user_password;
 };
 typedef struct _GisSummaryPagePrivate GisSummaryPagePrivate;
 
@@ -144,15 +142,22 @@ log_user_in (GisSummaryPage *page)
   g_autoptr(GError) error = NULL;
   GdmGreeter *greeter = NULL;
   GdmUserVerifier *user_verifier = NULL;
+  ActUser *user_account = NULL;
+  const char *user_password = NULL;
+
+  gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
+                                   &user_account,
+                                   &user_password);
+  if (user_account == NULL) {
+    g_info ("No new user account (was the account page skipped?); not initiating login");
+    return;
+  }
+  g_assert (priv->user_password == NULL);
+  priv->user_password = g_strdup (user_password);
 
   if (!gis_driver_get_gdm_objects (GIS_PAGE (page)->driver,
                                    &greeter, &user_verifier)) {
     g_info ("No GDM connection; not initiating login");
-    return;
-  }
-
-  if (!priv->user_account) {
-    g_info ("No new user account (was the account page skipped?); not initiating login");
     return;
   }
 
@@ -171,11 +176,11 @@ log_user_in (GisSummaryPage *page)
   /* We are in NEW_USER mode and we want to make it possible for third
    * parties to find out which user ID we created.
    */
-  add_uid_file (act_user_get_uid (priv->user_account));
+  add_uid_file (act_user_get_uid (user_account));
 
   gdm_user_verifier_call_begin_verification_for_user_sync (user_verifier,
                                                            SERVICE_NAME,
-                                                           act_user_get_user_name (priv->user_account),
+                                                           act_user_get_user_name (user_account),
                                                            NULL, &error);
 
   if (error != NULL)
@@ -214,11 +219,6 @@ gis_summary_page_shown (GisPage *page)
 {
   GisSummaryPage *summary = GIS_SUMMARY_PAGE (page);
   GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (summary);
-  g_autoptr(GError) local_error = NULL;
-
-  gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
-                                   &priv->user_account,
-                                   &priv->user_password);
 
   gtk_widget_grab_focus (priv->start_button);
 }
@@ -265,6 +265,17 @@ gis_summary_page_constructed (GObject *object)
 }
 
 static void
+gis_summary_page_finalize (GObject *object)
+{
+  GisSummaryPage *page = GIS_SUMMARY_PAGE (object);
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (page);
+
+  g_clear_pointer (&priv->user_password, g_free);
+
+  G_OBJECT_CLASS (gis_summary_page_parent_class)->finalize (object);
+}
+
+static void
 gis_summary_page_locale_changed (GisPage *page)
 {
   gis_page_set_title (page, _("Setup Complete"));
@@ -286,6 +297,7 @@ gis_summary_page_class_init (GisSummaryPageClass *klass)
   page_class->locale_changed = gis_summary_page_locale_changed;
   page_class->shown = gis_summary_page_shown;
   object_class->constructed = gis_summary_page_constructed;
+  object_class->finalize = gis_summary_page_finalize;
 }
 
 static void
