@@ -32,16 +32,14 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (UmPhotoDialog, um_photo_dialog, UM, PHOTO_DIALOG, GtkPopover)
 
 typedef struct _UmPhotoDialog UmPhotoDialog;
-typedef void (SelectAvatarCallback) (GdkPixbuf   *pixbuf,
-                                     const gchar *filename,
+typedef void (SelectAvatarCallback) (const gchar *filename,
                                      gpointer     data);
 
 UmPhotoDialog *um_photo_dialog_new      (SelectAvatarCallback  callback,
                                          gpointer              data);
 void           um_photo_dialog_free     (UmPhotoDialog *dialog);
-
-void           um_photo_dialog_generate_avatar (UmPhotoDialog *dialog,
-                                                const gchar   *name);
+void           um_photo_dialog_set_generated_avatar_text (UmPhotoDialog *dialog,
+                                                          const gchar   *name);
 
 G_END_DECLS
 

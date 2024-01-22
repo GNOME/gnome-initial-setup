@@ -11,9 +11,9 @@
             <property name="margin_top">24</property>
             <property name="halign">center</property>
             <child>
-              <object class="GtkImage" id="avatar_image">
-                <property name="pixel_size">96</property>
-                <property name="icon_name">avatar-default-symbolic</property>
+              <object class="AdwAvatar" id="avatar_image">
+                <property name="size">128</property>
+                <property name="show-initials">True</property>
               </object>
             </child>
             <child type="overlay">
@@ -31,6 +31,29 @@
                     </accessibility>
                     <style>
                       <class name="circular"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="AdwBin">
+                <style>
+                  <class name="cutout-button"/>
+                </style>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+                <child>
+                  <object class="GtkButton" id="remove_avatar_button">
+                    <property name="visible">False</property>
+                    <property name="icon-name">user-trash-symbolic</property>
+                    <signal name="clicked" handler="on_remove_avatar_button_clicked" object="GisAccountPageLocal" swapped="yes"/>
+                    <accessibility>
+                      <property name="label" translatable="yes">Remove avatar</property>
+                    </accessibility>
+                    <style>
+                      <class name="circular"/>
+                      <class name="destructive-image-button"/>
                     </style>
                   </object>
                 </child>

@@ -64,9 +64,10 @@ typedef enum {
   PROP_PARENTAL_CONTROLS_ENABLED,
   PROP_FULL_NAME,
   PROP_AVATAR,
+  PROP_HAS_DEFAULT_AVATAR,
 } GisDriverProperty;
 
-static GParamSpec *obj_props[PROP_AVATAR + 1];
+static GParamSpec *obj_props[PROP_HAS_DEFAULT_AVATAR + 1];
 
 struct _GisDriver {
   AdwApplication  parent_instance;
@@ -90,7 +91,8 @@ struct _GisDriver {
   gchar *username;
   gchar *full_name;  /* (owned) (nullable) */
 
-  GdkPaintable *avatar;  /* (owned) (nullable) */
+  GdkTexture *avatar;  /* (owned) (nullable) */
+  gboolean has_default_avatar;
 
   GisDriverMode mode;
   UmAccountMode account_mode;
@@ -298,11 +300,11 @@ gis_driver_get_full_name (GisDriver *driver)
  * Since: 3.36
  */
 void
-gis_driver_set_avatar (GisDriver    *driver,
-                       GdkPaintable *avatar)
+gis_driver_set_avatar (GisDriver  *driver,
+                       GdkTexture *avatar)
 {
   g_return_if_fail (GIS_IS_DRIVER (driver));
-  g_return_if_fail (avatar == NULL || GDK_IS_PAINTABLE (avatar));
+  g_return_if_fail (avatar == NULL || GDK_IS_TEXTURE (avatar));
 
   if (g_set_object (&driver->avatar, avatar))
     g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_AVATAR]);
@@ -317,12 +319,48 @@ gis_driver_set_avatar (GisDriver    *driver,
  * Returns: (nullable) (transfer none): avatar of the main user, or %NULL if not known
  * Since: 3.36
  */
-GdkPaintable *
+GdkTexture *
 gis_driver_get_avatar (GisDriver *driver)
 {
   g_return_val_if_fail (GIS_IS_DRIVER (driver), NULL);
 
   return driver->avatar;
+}
+
+/**
+ * gis_driver_set_has_default_avatar:
+ * @driver: a #GisDriver
+ * @has_default_avatar: whether the generated user avatar should be used
+ *
+ * Set the #GisDriver:has-default-avatar property.
+ *
+ * Since: 46
+ */
+void
+gis_driver_set_has_default_avatar (GisDriver *driver,
+                                   gboolean   has_default_avatar)
+{
+  if (driver->has_default_avatar == has_default_avatar)
+    return;
+
+  driver->has_default_avatar = has_default_avatar;
+
+  g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_HAS_DEFAULT_AVATAR]);
+}
+
+/**
+ * gis_driver_get_has_default_avatar:
+ * @driver: a #GisDriver
+ *
+ * Get the #GisDriver:has-default-avatar property.
+ *
+ * Returns: whether the generated user avatar should be used
+ * Since: 46
+ */
+gboolean
+gis_driver_get_has_default_avatar (GisDriver *driver)
+{
+  return driver->has_default_avatar;
 }
 
 void
@@ -628,6 +666,9 @@ gis_driver_get_property (GObject      *object,
     case PROP_AVATAR:
       g_value_set_object (value, driver->avatar);
       break;
+    case PROP_HAS_DEFAULT_AVATAR:
+      g_value_set_boolean (value, driver->has_default_avatar);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -659,6 +700,9 @@ gis_driver_set_property (GObject      *object,
       break;
     case PROP_AVATAR:
       gis_driver_set_avatar (driver, g_value_get_object (value));
+      break;
+    case PROP_HAS_DEFAULT_AVATAR:
+      gis_driver_set_has_default_avatar (driver, g_value_get_boolean (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -824,6 +868,7 @@ static void
 gis_driver_init (GisDriver *driver)
 {
   load_vendor_conf_file (driver);
+  driver->has_default_avatar = FALSE;
 }
 
 static void
@@ -913,8 +958,24 @@ gis_driver_class_init (GisDriverClass *klass)
     g_param_spec_object ("avatar",
                          "Avatar",
                          "Avatar of the main user.",
-                         GDK_TYPE_PAINTABLE,
+                         GDK_TYPE_TEXTURE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+ /**
+   * GisDriver:has-default-avatar:
+   *
+   * Whether the generated user avatar should be used, If this is %TRUE then,
+   * the default generated avatar should be used, instead of the #GdkTexture
+   * returned by #GisDriver:avatar property.
+   *
+   * Since: 46
+   */
+  obj_props[PROP_HAS_DEFAULT_AVATAR] =
+    g_param_spec_boolean ("has-default-avatar",
+                          "Has Default Avatar",
+                          "Whether the generated user avatar should be used",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }

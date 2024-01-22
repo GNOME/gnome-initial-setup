@@ -27,6 +27,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <adwaita.h>
 
 #include "um-photo-dialog.h"
 #include "um-utils.h"
@@ -38,12 +39,8 @@ struct _UmPhotoDialog {
         GtkPopover parent;
 
         GtkWidget *flowbox;
-        GtkWidget *recent_pictures;
 
-        GListStore *recent_faces;
         GListStore *faces;
-        GFile *generated_avatar;
-        gboolean custom_avatar_was_chosen;
 
         SelectAvatarCallback *callback;
         gpointer              data;
@@ -69,42 +66,23 @@ face_widget_activated (GtkFlowBox      *flowbox,
         image = gtk_flow_box_child_get_child (child);
         filename = g_object_get_data (G_OBJECT (image), "filename");
 
-        um->callback (NULL, filename, um->data);
-        um->custom_avatar_was_chosen = TRUE;
+        um->callback (filename, um->data);
 
         gtk_popover_popdown (GTK_POPOVER (um));
-}
-
-static void
-generated_avatar_activated (GtkFlowBox      *flowbox,
-                            GtkFlowBoxChild *child,
-                            UmPhotoDialog   *um)
-{
-        face_widget_activated (flowbox, child, um);
-        um->custom_avatar_was_chosen = FALSE;
 }
 
 static GtkWidget *
 create_face_widget (gpointer item,
                     gpointer user_data)
 {
-        g_autoptr(GdkPixbuf) pixbuf = NULL;
-        GtkWidget *image;
+        g_autoptr(GdkTexture) texture = NULL;
         g_autofree gchar *path = g_file_get_path (G_FILE (item));
+        GtkWidget *image;
 
-        pixbuf = gdk_pixbuf_new_from_file_at_size (path,
-                                                   AVATAR_PIXEL_SIZE,
-                                                   AVATAR_PIXEL_SIZE,
-                                                   NULL);
+        image = adw_avatar_new (AVATAR_PIXEL_SIZE, NULL, TRUE);
 
-        if (pixbuf != NULL)
-                image = gtk_image_new_from_pixbuf (round_image (pixbuf));
-        else
-                image = gtk_image_new ();
-
-        gtk_image_set_pixel_size (GTK_IMAGE (image), AVATAR_PIXEL_SIZE);
-
-        gtk_widget_set_visible (image, TRUE);
+        texture = gdk_texture_new_from_file (G_FILE (item), NULL);
+        adw_avatar_set_custom_image (ADW_AVATAR (image), GDK_PAINTABLE (texture));
 
         g_object_set_data_full (G_OBJECT (image),
                                 "filename", g_steal_pointer (&path),
@@ -222,49 +200,12 @@ setup_photo_popup (UmPhotoDialog *um)
         g_signal_connect (um->flowbox, "child-activated",
                           G_CALLBACK (face_widget_activated), um);
 
-        um->recent_faces = g_list_store_new (G_TYPE_FILE);
-        gtk_flow_box_bind_model (GTK_FLOW_BOX (um->recent_pictures),
-                                 G_LIST_MODEL (um->recent_faces),
-                                 create_face_widget,
-                                 um,
-                                 NULL);
-        g_signal_connect (um->recent_pictures, "child-activated",
-                          G_CALLBACK (generated_avatar_activated), um);
-        um->custom_avatar_was_chosen = FALSE;
-
         facesdirs = get_settings_facesdirs ();
         added_faces = add_faces_from_dirs (um->faces, facesdirs, TRUE);
 
         if (!added_faces) {
                 facesdirs = get_system_facesdirs ();
                 add_faces_from_dirs (um->faces, facesdirs, FALSE);
-        }
-}
-
-void
-um_photo_dialog_generate_avatar (UmPhotoDialog *um,
-                                 const gchar   *name)
-{
-        cairo_surface_t *surface;
-        gchar *filename;
-
-        surface = generate_user_picture (name);
-
-        /* Save into a tmp file that later gets copied by AccountsService */
-        filename = g_build_filename (g_get_user_runtime_dir (), "avatar.png", NULL);
-        um->generated_avatar = g_file_new_for_path (filename);
-        cairo_surface_write_to_png (surface, g_file_get_path (um->generated_avatar));
-        g_free (filename);
-
-        /* Overwrite the first item */
-        if (g_list_model_get_item (G_LIST_MODEL (um->recent_faces), 0) != NULL)
-                g_list_store_remove (um->recent_faces, 0);
-
-        g_list_store_insert (um->recent_faces, 0,
-                             um->generated_avatar);
-
-        if (!um->custom_avatar_was_chosen) {
-                um->callback (NULL, g_file_get_path (um->generated_avatar), um->data);
         }
 }
 
@@ -305,7 +246,6 @@ um_photo_dialog_class_init (UmPhotoDialogClass *klass)
         gtk_widget_class_set_template_from_resource (wclass, "/org/gnome/initial-setup/gis-account-avatar-chooser.ui");
 
         gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, flowbox);
-        gtk_widget_class_bind_template_child (wclass, UmPhotoDialog, recent_pictures);
         gtk_widget_class_bind_template_callback (wclass, webcam_icon_selected);
 
         oclass->dispose = um_photo_dialog_dispose;
