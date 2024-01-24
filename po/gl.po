@@ -13,16 +13,16 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-08-23 14:24+0000\n"
-"PO-Revision-Date: 2023-08-23 16:32+0200\n"
-"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
+"POT-Creation-Date: 2024-01-22 21:10+0000\n"
+"PO-Revision-Date: 2024-01-24 01:34+0100\n"
+"Last-Translator: Fran Dieguez <fran.dieguez@gnome.org>\n"
 "Language-Team: Galician <Proxecto Trasno <proxecto@trasno.gal>>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Project-Style: gnome\n"
 "X-DL-Team: gl\n"
 "X-DL-Module: gnome-initial-setup\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:802
+#: gnome-initial-setup/gis-driver.c:841
 msgid "Initial Setup"
 msgstr "Configuración inicial"
 
@@ -57,27 +57,31 @@ msgstr "_Anterior"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: gnome-initial-setup/gnome-initial-setup.c:282
+#: gnome-initial-setup/gnome-initial-setup.c:280
 msgid "Force existing user mode"
 msgstr "Forzar o modo de usuario existente"
 
-#: gnome-initial-setup/gnome-initial-setup.c:296
+#: gnome-initial-setup/gnome-initial-setup.c:294
 msgid "— GNOME initial setup"
 msgstr "— Configuración inicial de GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+msgid "Failed to cache account"
+msgstr "Produciuse un erro ao gardar na cache a conta"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
 msgid "Failed to register account"
 msgstr "Produciuse un erro ao rexistrar a conta"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
 msgid "No supported way to authenticate with this domain"
 msgstr "Non hai unha maneira admitida de autenticar con este dominio"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
 msgid "Failed to join domain"
 msgstr "Produciuse un erro ao unirse ao dominio"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
 msgid "Failed to log into domain"
 msgstr "Produciuse un erro ao iniciar sesión no dominio"
 
@@ -101,12 +105,12 @@ msgid "_Domain"
 msgstr "_Dominio"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
 msgid "_Username"
 msgstr "_Nome de usuario"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:25
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "_Contrasinal"
 
@@ -144,20 +148,16 @@ msgstr "Contrasinal do administrador"
 msgid "C_ontinue"
 msgstr "C_ontinuar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
-msgid "Please check the name and username. You can choose a picture too."
-msgstr "Comprobe o nome e nome de usuario. Tamén pode escoller unha imaxe."
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "Precisamos algunha información para completar a configuración."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
 msgid "Administrator"
 msgstr "Administrador"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Produciuse un fallo ao crear o usuario «%s»: "
@@ -166,24 +166,28 @@ msgstr "Produciuse un fallo ao crear o usuario «%s»: "
 msgid "Edit avatar"
 msgstr "Editar avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:52
+msgid "Remove avatar"
+msgstr "Quitar avatar"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:68
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Sobre vostede"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:69
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Forneza o nome e nome de usuario. Tamén pode escoller unha imaxe."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Full Name"
 msgstr "_Nome completo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
 msgid "Set up _parental controls for this user"
 msgstr "Configurar o control _parental para este usuario"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:162
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Para usar un pai ou supervisor, quen ten que configurar o seu contrasinal "
@@ -249,39 +253,6 @@ msgstr ""
 #: gnome-initial-setup/pages/account/um-utils.c:169
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Usarase como nome para o seu cartafol persoal e non pode cambiarse."
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:561
-msgid "Online Accounts"
-msgstr "Contas en liña"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:12
-msgid "Connect Your Online Accounts"
-msgstr "Conecte as súas contas en liña"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:13
-msgid ""
-"Connect your accounts to easily access your email, online calendar, "
-"contacts, documents and photos."
-msgstr ""
-"Conecte as súas contas para acceder de forma doada ao seu correo, calendario "
-"en liña, contactos, documentos e fotos."
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid "Accounts can be added and removed at any time from the Settings app."
-msgstr ""
-"Pode engadir e quitar contas en calquera momento desde a aplicación "
-"Preferencias."
-
-#. translators: This is the title of the "Show Account" dialog. The
-#. * %s is the name of the provider. e.g., 'Google'.
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
-#, c-format
-msgid "%s Account"
-msgstr "Conta de %s"
-
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-msgid "Remove Account"
-msgstr "Retirar conta"
 
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
@@ -367,56 +338,56 @@ msgid "Turn On"
 msgstr "Activar"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:106
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Os controis parentais para %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:108
 msgid "Set restrictions on what this user can run or install."
 msgstr ""
 "Estabelecer as restricións sobre o que este usuario pode executar ou "
 "instalar."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
 msgid "Parental Controls"
 msgstr "Controis parentais"
 
 #. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:90
+#: gnome-initial-setup/pages/password/gis-password-page.c:93
 msgid "Set a Password"
 msgstr "Establecer un contrasinal"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:91
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:102
 msgid "Be careful not to lose your password."
 msgstr "Teña coidado e non perda o seu contrasinal."
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:98
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Establecer un contrasinal para %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:106
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 msgid "Set a Parent Password"
 msgstr "Establecer un contrasinal pai"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:108
+#: gnome-initial-setup/pages/password/gis-password-page.c:109
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Este contrasinal controla o acceso aos controis parentais para %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:243
+#: gnome-initial-setup/pages/password/gis-password-page.c:253
 msgid "The passwords do not match."
 msgstr "Os contrasinais non coinciden."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:434
+#: gnome-initial-setup/pages/password/gis-password-page.c:449
 msgid "Password"
 msgstr "Contrasinal"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Confirmar contrasinal"
 
@@ -548,10 +519,14 @@ msgid ""
 msgstr ""
 "Ao engadir máis letras, números e signos de puntuación será máis forte."
 
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:86
+msgid "Privacy Policy"
+msgstr "Política de privacidade"
+
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:134
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -564,7 +539,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:146
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -573,20 +548,7 @@ msgstr ""
 "Envía os informes técnicos nos que se elimina automaticamente a información "
 "persoal. Os datos son recollidos por %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid "Privacy Policy"
-msgstr "Política de privacidade"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
-msgid "Privacy"
-msgstr "Privacidade"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
-msgid "Location Services"
-msgstr "Servizos de localización"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:193
 msgid ""
 "Allows apps to determine your geographical location. Uses the Mozilla "
 "Location Service (<a href='https://location.services.mozilla.com/"
@@ -596,11 +558,28 @@ msgstr ""
 "Servizo de localización de Mozilla (<a href='https://location.services."
 "mozilla.com/privacy'>política de privacidade</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:197
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service."
+msgstr ""
+"Permítelle ás aplicacións determinar a súa localización xeográfica. Usa o "
+"Servizo de localización de Mozilla."
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:246
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
+msgid "Privacy"
+msgstr "Privacidade"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
+msgid "Location Services"
+msgstr "Servizos de localización"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:58
 msgid "Automatic Problem Reporting"
 msgstr "Informe de problemas automático"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:89
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Os controis de Privacidade poden cambiarse en calquera momento desde a "
@@ -730,7 +709,7 @@ msgstr "Busque pola cidade máis próxima"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:75
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
 #, c-format
 msgid "Welcome to %s !"
 msgstr "Benvida a %s !"
@@ -780,6 +759,34 @@ msgstr "Instalar…"
 #: po/EXTRA_STRINGS.sh:6
 msgid "Try"
 msgstr "Probar"
+
+#~ msgid "Please check the name and username. You can choose a picture too."
+#~ msgstr "Comprobe o nome e nome de usuario. Tamén pode escoller unha imaxe."
+
+#~ msgid "Online Accounts"
+#~ msgstr "Contas en liña"
+
+#~ msgid "Connect Your Online Accounts"
+#~ msgstr "Conecte as súas contas en liña"
+
+#~ msgid ""
+#~ "Connect your accounts to easily access your email, online calendar, "
+#~ "contacts, documents and photos."
+#~ msgstr ""
+#~ "Conecte as súas contas para acceder de forma doada ao seu correo, "
+#~ "calendario en liña, contactos, documentos e fotos."
+
+#~ msgid "Accounts can be added and removed at any time from the Settings app."
+#~ msgstr ""
+#~ "Pode engadir e quitar contas en calquera momento desde a aplicación "
+#~ "Preferencias."
+
+#, c-format
+#~ msgid "%s Account"
+#~ msgstr "Conta de %s"
+
+#~ msgid "Remove Account"
+#~ msgstr "Retirar conta"
 
 #~ msgid "Avatar image"
 #~ msgstr "Imaxe do avatar"
