@@ -4,29 +4,29 @@
 #
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2012, 2013, 2014, 2015, 2016.
-# Sabri Ünal <libreajans@gmail.com>, 2022, 2023.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2013-2023.
+# Sabri Ünal <libreajans@gmail.com>, 2022-2024.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2013-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues\n"
-"POT-Creation-Date: 2023-08-26 18:40+0000\n"
-"PO-Revision-Date: 2023-10-14 11:17+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2024-01-22 21:10+0000\n"
+"PO-Revision-Date: 2024-01-25 08:00+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-POOTLE-MTIME: 1433282659.000000\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:802
+#: gnome-initial-setup/gis-driver.c:841
 msgid "Initial Setup"
 msgstr "İlk Kurulum"
 
@@ -51,27 +51,31 @@ msgstr "_Geri"
 msgid "_Cancel"
 msgstr "İ_ptal"
 
-#: gnome-initial-setup/gnome-initial-setup.c:282
+#: gnome-initial-setup/gnome-initial-setup.c:280
 msgid "Force existing user mode"
 msgstr "Var olan kullanıcı kipine zorla"
 
-#: gnome-initial-setup/gnome-initial-setup.c:296
+#: gnome-initial-setup/gnome-initial-setup.c:294
 msgid "— GNOME initial setup"
 msgstr "— GNOME ilk kurulum"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+msgid "Failed to cache account"
+msgstr "Hesap önbelleklenemedi"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
 msgid "Failed to register account"
 msgstr "Hesap kaydedilemedi"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
 msgid "No supported way to authenticate with this domain"
 msgstr "Bu etki alanıyla kimlik doğrulamak için desteklenen yol yok"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
 msgid "Failed to join domain"
 msgstr "Etki alanına katılamadı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
 msgid "Failed to log into domain"
 msgstr "Etki alanına girilemedi"
 
@@ -95,12 +99,12 @@ msgid "_Domain"
 msgstr "_Etki Alanı"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
 msgid "_Username"
 msgstr "_Kullanıcı Adı"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:25
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "_Parola"
 
@@ -138,21 +142,16 @@ msgstr "Yönetici Parolası"
 msgid "C_ontinue"
 msgstr "_Devam"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
-msgid "Please check the name and username. You can choose a picture too."
-msgstr ""
-"Lütfen adı ve kullanıcı adını gözden geçirin. Fotoğraf da seçebilirsiniz."
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "Kurulumu tamamlamak için birkaç ayrıntıya gereksiniyoruz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
 msgid "Administrator"
 msgstr "Yönetici"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "'%s' kullanıcısı oluşturulamadı: "
@@ -161,26 +160,30 @@ msgstr "'%s' kullanıcısı oluşturulamadı: "
 msgid "Edit avatar"
 msgstr "Avatarı düzenle"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:52
+msgid "Remove avatar"
+msgstr "Avatarı kaldır"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:68
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Hakkınızda"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:69
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Lütfen ad ve kullanıcı adı girin. Fotoğraf da seçebilirsiniz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Full Name"
 msgstr "_Tam Ad"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:156
 msgid "Set up _parental controls for this user"
 msgstr "Bu kullanıcı için _ebeveyn denetimi kur"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:162
 msgid "For use by a parent or supervisor, who must set up their own password."
-msgstr "Ebeveyn veya gözetmen kullanımı için parola ayarlanmalı."
+msgstr "Ebeveyn ya da gözetmen kullanımı için parola ayarlanmalı."
 
 #: gnome-initial-setup/pages/account/gis-account-page.ui:32
 msgid "_Enterprise Login"
@@ -245,39 +248,6 @@ msgstr ""
 "Başlangıç klasörünüzün adlandırılmasında kullanılacaktır ve sonradan "
 "değiştirilemez."
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:561
-msgid "Online Accounts"
-msgstr "Çevrim İçi Hesaplar"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:12
-msgid "Connect Your Online Accounts"
-msgstr "Çevrim İçi Hesaplarınıza Bağlanın"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:13
-msgid ""
-"Connect your accounts to easily access your email, online calendar, "
-"contacts, documents and photos."
-msgstr ""
-"Hesaplarınıza bağlanarak e-postalarınıza, çevrim içi takviminize, "
-"kişilerinize, belgelerinize ve fotoğraflarınıza kolayca erişebilirsiniz."
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid "Accounts can be added and removed at any time from the Settings app."
-msgstr ""
-"İstediğinizde Ayarlar uygulamasından hesap ekleyebilir ya da "
-"kaldırabilirsiniz."
-
-#. translators: This is the title of the "Show Account" dialog. The
-#. * %s is the name of the provider. e.g., 'Google'.
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
-#, c-format
-msgid "%s Account"
-msgstr "%s Hesabı"
-
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-msgid "Remove Account"
-msgstr "Hesabı Kaldır"
-
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Ön İzle"
@@ -301,7 +271,7 @@ msgstr "Yazım"
 
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Select your keyboard layout or an input method."
-msgstr "Klavye düzeni veya giriş yönteminizi seçin."
+msgstr "Klavye düzeni ya da giriş yönteminizi seçin."
 
 #: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
 msgid "Search keyboards and input methods"
@@ -361,54 +331,54 @@ msgid "Turn On"
 msgstr "Aç"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:106
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "%s için Ebeveyn Denetimleri"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:108
 msgid "Set restrictions on what this user can run or install."
-msgstr "Bu kullanıcının ne çalıştırabileceğini veya kurabileceğini kısıtla."
+msgstr "Bu kullanıcının ne çalıştırabileceğini ya da kurabileceğini kısıtla."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
 msgid "Parental Controls"
 msgstr "Ebeveyn Denetimleri"
 
 #. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:90
+#: gnome-initial-setup/pages/password/gis-password-page.c:93
 msgid "Set a Password"
 msgstr "Parola Belirle"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:91
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:102
 msgid "Be careful not to lose your password."
 msgstr "Parolanızı yitirmemeye çalışın."
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:98
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 #, c-format
 msgid "Set a Password for %s"
 msgstr "%s için Parola Belirle"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:106
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 msgid "Set a Parent Password"
 msgstr "Ebeveyn Parolası Belirle"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:108
+#: gnome-initial-setup/pages/password/gis-password-page.c:109
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Bu parola, %s için ebeveyn denetimlerine erişimi denetleyecek."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:243
+#: gnome-initial-setup/pages/password/gis-password-page.c:253
 msgid "The passwords do not match."
 msgstr "Parolalar eşleşmiyor."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:434
+#: gnome-initial-setup/pages/password/gis-password-page.c:449
 msgid "Password"
 msgstr "Parola"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "Parolayı _Doğrula"
 
@@ -514,7 +484,7 @@ msgstr ""
 #: gnome-initial-setup/pages/password/pw-utils.c:113
 msgctxt "Password hint"
 msgid "This is a weak password. Try to avoid sequences like 1234 or abcd."
-msgstr "Bu zayıf bir paroladır. 1234 veya abcd gibi sıralamalardan kaçının."
+msgstr "Bu zayıf bir paroladır. 1234 ya da abcd gibi sıralamalardan kaçının."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:115
 msgctxt "Password hint"
@@ -537,10 +507,14 @@ msgstr ""
 "Daha çok harf, sayı ve noktalama imi kullanmak şifrenizi daha güçlü "
 "yapacaktır."
 
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:86
+msgid "Privacy Policy"
+msgstr "Gizlilik İlkesi"
+
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:134
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -552,7 +526,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:146
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -560,11 +534,25 @@ msgid ""
 msgstr ""
 "Kişisel veri içermeyen teknik raporlar gönderir. Veri %s tarafından toplanır."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid "Privacy Policy"
-msgstr "Gizlilik İlkesi"
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:193
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
+"privacy'>privacy policy</a>)."
+msgstr ""
+"Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum "
+"Hizmeti (<a href='https://location.services.mozilla.com/privacy'>gizlilik "
+"ilkesi</a>) kullanılır."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:197
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service."
+msgstr ""
+"Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum "
+"Hizmetini kullanılır."
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:246
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Gizlilik"
@@ -573,21 +561,11 @@ msgstr "Gizlilik"
 msgid "Location Services"
 msgstr "Konum Hizmetleri"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr ""
-"Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum "
-"Hizmetleri (<a href='https://location.services.mozilla.com/privacy'>gizlilik "
-"ilkesi</a>) kullanılır."
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:58
 msgid "Automatic Problem Reporting"
 msgstr "Kendiliğinden Sorun Bildirimi"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:89
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Gizlilik denetimlerini istediğinizde Ayarlar uygulamasından "
@@ -716,7 +694,7 @@ msgstr "Lütfen yakındaki şehri arayın"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:75
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
 #, c-format
 msgid "Welcome to %s !"
 msgstr "%s’e Hoş Geldiniz !"
@@ -766,3 +744,31 @@ msgstr "Kur…"
 #: po/EXTRA_STRINGS.sh:6
 msgid "Try"
 msgstr "Dene"
+
+#~ msgid "Please check the name and username. You can choose a picture too."
+#~ msgstr ""
+#~ "Lütfen adı ve kullanıcı adını gözden geçirin. Fotoğraf da seçebilirsiniz."
+
+#~ msgid "Online Accounts"
+#~ msgstr "Çevrim İçi Hesaplar"
+
+#~ msgid "Connect Your Online Accounts"
+#~ msgstr "Çevrim İçi Hesaplarınıza Bağlanın"
+
+#~ msgid ""
+#~ "Connect your accounts to easily access your email, online calendar, "
+#~ "contacts, documents and photos."
+#~ msgstr ""
+#~ "Hesaplarınıza bağlanarak e-postalarınıza, çevrim içi takviminize, "
+#~ "kişilerinize, belgelerinize ve fotoğraflarınıza kolayca erişebilirsiniz."
+
+#~ msgid "Accounts can be added and removed at any time from the Settings app."
+#~ msgstr ""
+#~ "İstediğinizde Ayarlar uygulamasından hesap ekleyebilir ya da "
+#~ "kaldırabilirsiniz."
+
+#~ msgid "%s Account"
+#~ msgstr "%s Hesabı"
+
+#~ msgid "Remove Account"
+#~ msgstr "Hesabı Kaldır"
