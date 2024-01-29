@@ -72,6 +72,16 @@ should_show_software_page (void)
   return has_fedora_third_party != NULL;
 }
 
+#ifdef HAVE_WEBKITGTK
+static char *
+external_sources_link (void)
+{
+  if (find_fedora_third_party ())
+    return "https://docs.fedoraproject.org/en-US/workstation-working-group/third-party-repos/";
+  return NULL;
+}
+#endif
+
 static gboolean
 gis_software_page_apply (GisPage      *gis_page,
                          GCancellable *cancellable)
@@ -107,9 +117,20 @@ gis_software_page_locale_changed (GisPage *gis_page)
 {
   GisSoftwarePage *page = GIS_SOFTWARE_PAGE (gis_page);
   GisSoftwarePagePrivate *priv = gis_software_page_get_instance_private (page);
+  g_autofree char *subtitle = NULL;
+  const char *link = NULL;
+
+#ifdef HAVE_WEBKITGTK
+  link = external_sources_link ();
+#endif
 
   gis_page_set_title (GIS_PAGE (page), _("Third-Party Repositories"));
-  g_object_set (priv->header, "subtitle", _("Third-party repositories provide access to additional software from selected external sources, including popular apps and drivers that are important for some devices. Some proprietary software is included."), NULL);
+  if (link != NULL)
+    subtitle = g_strdup_printf (_("Third-party repositories provide access to additional software from selected <a href='%s'>external sources</a>, including popular apps and drivers that are important for some devices. Some proprietary software is included."), link);
+  else
+    subtitle = g_strdup (_("Third-party repositories provide access to additional software from selected external sources, including popular apps and drivers that are important for some devices. Some proprietary software is included."));
+
+  g_object_set (priv->header, "subtitle", subtitle, NULL);
 }
 
 static void
