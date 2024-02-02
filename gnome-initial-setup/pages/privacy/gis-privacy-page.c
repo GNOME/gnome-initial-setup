@@ -135,7 +135,7 @@ update_os_data (GisPrivacyPage *page)
                                     "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
                                     name, privacy_policy);
       gtk_label_set_markup (GTK_LABEL (page->reporting_label), subtitle);
-      g_signal_connect (page->location_privacy_label, "activate-link", G_CALLBACK (activate_link), page);
+      g_signal_connect (page->reporting_label, "activate-link", G_CALLBACK (activate_link), page);
       return TRUE;
     }
 #endif
