@@ -111,6 +111,15 @@ activate_link (GtkLabel       *label,
 
   return TRUE;
 }
+#else
+static gboolean
+activate_link (GtkLabel       *label,
+               const gchar    *uri,
+               GisPrivacyPage *page)
+{
+  /* Fall back to default handler */
+  return FALSE;
+}
 #endif
 
 static gboolean
@@ -135,7 +144,7 @@ update_os_data (GisPrivacyPage *page)
                                     "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
                                     name, privacy_policy);
       gtk_label_set_markup (GTK_LABEL (page->reporting_label), subtitle);
-      g_signal_connect (page->reporting_label, "activate-link", G_CALLBACK (activate_link), page);
+
       return TRUE;
     }
 #endif
@@ -188,7 +197,6 @@ gis_privacy_page_constructed (GObject *object)
 #ifdef HAVE_WEBKITGTK
   gtk_label_set_markup (GTK_LABEL (page->location_privacy_label),
                         _("Allows apps to determine your geographical location. Uses the Mozilla Location Service (<a href='https://location.services.mozilla.com/privacy'>privacy policy</a>)."));
-  g_signal_connect (page->location_privacy_label, "activate-link", G_CALLBACK (activate_link), page);
 #else
   gtk_label_set_label (GTK_LABEL (page->location_privacy_label),
                        _("Allows apps to determine your geographical location. Uses the Mozilla Location Service."));
@@ -253,6 +261,7 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_group);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_label);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPrivacyPage, reporting_switch);
+  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), activate_link);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_privacy_page_locale_changed;
