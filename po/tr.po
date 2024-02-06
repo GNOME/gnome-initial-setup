@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
-"issues\n"
-"POT-Creation-Date: 2024-01-22 21:10+0000\n"
-"PO-Revision-Date: 2024-01-25 08:00+0300\n"
+"issues/\n"
+"POT-Creation-Date: 2024-02-02 14:47+0000\n"
+"PO-Revision-Date: 2024-02-06 21:18+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -507,14 +507,14 @@ msgstr ""
 "Daha çok harf, sayı ve noktalama imi kullanmak şifrenizi daha güçlü "
 "yapacaktır."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:86
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
 msgid "Privacy Policy"
 msgstr "Gizlilik İlkesi"
 
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:134
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -526,7 +526,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:146
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -534,17 +534,17 @@ msgid ""
 msgstr ""
 "Kişisel veri içermeyen teknik raporlar gönderir. Veri %s tarafından toplanır."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:193
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
 msgid ""
 "Allows apps to determine your geographical location. Uses the Mozilla "
 "Location Service (<a href='https://location.services.mozilla.com/"
 "privacy'>privacy policy</a>)."
 msgstr ""
-"Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum "
-"Hizmeti (<a href='https://location.services.mozilla.com/privacy'>gizlilik "
-"ilkesi</a>) kullanılır."
+"Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum Hizmeti "
+"(<a href='https://location.services.mozilla.com/privacy'>gizlilik ilkesi</"
+"a>) kullanılır."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:197
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
 msgid ""
 "Allows apps to determine your geographical location. Uses the Mozilla "
 "Location Service."
@@ -552,7 +552,7 @@ msgstr ""
 "Uygulamaların coğrafi konumunuzu belirlemesini sağlar. Mozilla Konum "
 "Hizmetini kullanılır."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:246
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Gizlilik"
@@ -561,11 +561,11 @@ msgstr "Gizlilik"
 msgid "Location Services"
 msgstr "Konum Hizmetleri"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:58
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "Kendiliğinden Sorun Bildirimi"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:89
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Gizlilik denetimlerini istediğinizde Ayarlar uygulamasından "
@@ -697,7 +697,7 @@ msgstr "Lütfen yakındaki şehri arayın"
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
 #, c-format
 msgid "Welcome to %s !"
-msgstr "%s’e Hoş Geldiniz !"
+msgstr "%s’a Hoş Geldiniz !"
 
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:4
 msgid "Setup"
@@ -724,26 +724,52 @@ msgid "Force OEM mode"
 msgstr "OEM kipine zorla"
 
 #: po/EXTRA_STRINGS.sh:3
-msgid "Install or Try?"
-msgstr "Kurmak Mı Denemek Mi İstersiniz?"
+msgid "Try or Install?"
+msgstr "Dene ya da Kur?"
 
 #: po/EXTRA_STRINGS.sh:4
+#, sh-format
 msgid ""
-"This live media can be used to install GNOME, or it can be used to try GNOME "
-"as a temporary system. Installation can be started at any time using the "
-"install icon in Activities."
+"You can try a temporary version of ${NAME} without making changes to the "
+"computer. If you decide to install later, just launch the installer from the "
+"Activities view.\n"
+"\n"
+"        Alternatively, choose install to launch the installer."
 msgstr ""
-"Bu canlı ortam GNOME kurmada ya da geçici sistem olarak denemede "
-"kullanılabilir. Kurulum, Etkinliklerʼdeki kurulum simgesi kullanılarak "
-"istendiğinde başlatılabilir."
+"Bu bilgisayarda değişiklik yapmadan ${NAME} geçici sürümünü "
+"deneyebilirsiniz. Sonrasında kurmak isterseniz, yalnızca Etkinlikler "
+"görünümünden kurucuyu çalıştırın.\n"
+"\n"
+"        Diğer seçenek olarak, kurmayı seçerek kurucuyu başlatabilirsiniz."
 
-#: po/EXTRA_STRINGS.sh:5
-msgid "Install…"
-msgstr "Kur…"
+#: po/EXTRA_STRINGS.sh:7
+msgid "Install to Disk…"
+msgstr "Diske Kur…"
 
-#: po/EXTRA_STRINGS.sh:6
-msgid "Try"
-msgstr "Dene"
+#: po/EXTRA_STRINGS.sh:8
+#, sh-format
+msgid "Try ${NAME}"
+msgstr "${NAME} Dene"
+
+#: po/EXTRA_STRINGS.sh:9
+#, sh-format
+msgid "Install ${PRETTY_NAME}"
+msgstr "${PRETTY_NAME} Kur"
+
+#~ msgid "Install or Try?"
+#~ msgstr "Kurmak Mı Denemek Mi İstersiniz?"
+
+#~ msgid ""
+#~ "This live media can be used to install GNOME, or it can be used to try "
+#~ "GNOME as a temporary system. Installation can be started at any time "
+#~ "using the install icon in Activities."
+#~ msgstr ""
+#~ "Bu canlı ortam GNOME kurmada ya da geçici sistem olarak denemede "
+#~ "kullanılabilir. Kurulum, Etkinliklerʼdeki kurulum simgesi kullanılarak "
+#~ "istendiğinde başlatılabilir."
+
+#~ msgid "Try"
+#~ msgstr "Dene"
 
 #~ msgid "Please check the name and username. You can choose a picture too."
 #~ msgstr ""
