@@ -236,7 +236,7 @@ update_distro_name (GisSummaryPage *page)
   /* Translators: the parameter here is the name of a distribution,
    * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
    * detect any distribution. */
-  text = g_strdup_printf (_("%s is ready to be used. We hope that you love it!"), name);
+  text = g_strdup_printf (_("%s is ready to be used."), name);
   adw_status_page_set_description (priv->status_page, text);
   g_free (text);
 }
