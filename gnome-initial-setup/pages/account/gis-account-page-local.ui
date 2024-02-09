@@ -25,10 +25,8 @@
                 <property name="valign">end</property>
                 <child>
                   <object class="GtkMenuButton" id="avatar_button">
+                    <property name="tooltip-text" translatable="yes">Change Avatar</property>
                     <property name="icon-name">document-edit-symbolic</property>
-                    <accessibility>
-                      <property name="label" translatable="yes">Edit avatar</property>
-                    </accessibility>
                     <style>
                       <class name="circular"/>
                     </style>
@@ -45,12 +43,10 @@
                 <property name="valign">start</property>
                 <child>
                   <object class="GtkButton" id="remove_avatar_button">
+                    <property name="tooltip-text" translatable="yes">Remove Avatar</property>
                     <property name="visible">False</property>
                     <property name="icon-name">user-trash-symbolic</property>
                     <signal name="clicked" handler="on_remove_avatar_button_clicked" object="GisAccountPageLocal" swapped="yes"/>
-                    <accessibility>
-                      <property name="label" translatable="yes">Remove avatar</property>
-                    </accessibility>
                     <style>
                       <class name="circular"/>
                       <class name="destructive-image-button"/>
