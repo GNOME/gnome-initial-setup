@@ -26,16 +26,7 @@ sources += [
     'gis-keyring.h'
 ]
 
-geocode_glib_2_dep = dependency(
-  'geocode-glib-2.0',
-  fallback: ['geocode-glib', 'geocode_glib_dep'],
-  default_options: [
-    'enable-gtk-doc=false',
-    'enable-installed-tests=false',
-    'enable-introspection=false',
-    'soup2=false',
-  ],
-)
+geocode_glib_2_dep = dependency('geocode-glib-2.0')
 
 gweather_dep = dependency('gweather4')
 
