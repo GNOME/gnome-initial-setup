@@ -1,3 +1,46 @@
+46.beta
+-------
+
+* Avatars are now generated using HdyAvatar. (#111)
+
+  - In addition, the buttons overlaid on the avatar widget now have tooltips.
+    (!237)
+
+* The Welcome page image is now more appropriately sized and not cropped. (#167)
+
+* The Welcome page now uses PRETTY_NAME from os-release rather than combining
+  the NAME + VERSION_ID fields. (!225)
+
+* The summary page no longer expresses our collective hope that users love
+  GNOME, reducing the overall exuberance of the page. (!232)
+
+Bugs fixed:
+
+* On distributions which show the minimise button in general, Initial Setup
+  no longer shows it, making it harder to hide the Initial Setup window and
+  not know how to get it back. (!237)
+
+* Clicking the ABRT privacy policy link, if present, is now handled. This was
+  a regression in 46.alpha.
+
+* The “minimize” button is no longer shown in the header bar (on distributions
+  which override the defaults to show it on most windows.
+
+* While setting up an enterprise user account, the window would previously
+  freeze, potentially triggering the force-quit dialog. This is now fixed.
+  (!216, #79)
+
+* On distributions which reënable the existing-user mode, the window can now
+  be closed with Alt+F4 once again. (!224)
+
+Translation updates:
+
+  - Czech (Daniel Rusek)
+  - Galician (Fran Dieguez)
+  - Georgian (Ekaterine Papava)
+  - Russian (Artur S0)
+  - Turkish (Sabri Ünal, Emin Tufan Çetin)
+
 46.alpha
 --------
 
