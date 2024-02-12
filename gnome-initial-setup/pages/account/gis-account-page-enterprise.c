@@ -178,7 +178,7 @@ on_cache_user (GObject *source,
                                                        result,
                                                        &error);
   if (error != NULL) {
-    show_error_dialog (page, _("Failed to cache account"), error);
+    show_error_dialog (page, _("Failed to register account"), error);
     g_message ("Couldn't cache account: %s", error->message);
     g_error_free (error);
     apply_complete (page, FALSE);
