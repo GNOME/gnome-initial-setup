@@ -36,8 +36,7 @@ struct _GisWelcomePage
 
 typedef struct
 {
-  GtkWidget *header;
-  GtkWidget *title;
+  AdwStatusPage *status_page;
 } GisWelcomePagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisWelcomePage, gis_welcome_page, GIS_TYPE_PAGE)
@@ -62,7 +61,7 @@ update_welcome_title (GisWelcomePage *page)
    */
   text = g_strdup_printf (_("Welcome to %s !"), name);
 
-  gtk_label_set_label (GTK_LABEL (priv->title), text);
+  adw_status_page_set_title (ADW_STATUS_PAGE (priv->status_page), text);
 }
 
 static void
@@ -95,8 +94,7 @@ gis_welcome_page_class_init (GisWelcomePageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-welcome-page.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisWelcomePage, header);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisWelcomePage, title);
+  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisWelcomePage, status_page);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), start_setup);
 
   page_class->page_id = PAGE_ID;
@@ -107,6 +105,8 @@ static void
 gis_welcome_page_init (GisWelcomePage *page)
 {
   gtk_widget_init_template (GTK_WIDGET (page));
+
+  gis_add_style_from_resource ("/org/gnome/initial-setup/gis-welcome-page.css");
 }
 
 GisPage *

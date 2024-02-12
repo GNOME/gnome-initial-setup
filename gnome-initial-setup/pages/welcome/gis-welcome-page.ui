@@ -13,36 +13,23 @@
         <property name="halign">fill</property>
         <property name="valign">fill</property>
         <child>
-          <object class="GtkPicture" id="header">
-            <property name="valign">start</property>
-            <property name="vexpand">True</property>
-            <property name="file">resource:///org/gnome/initial-setup/initial-setup-welcome.svg</property>
+          <object class="GtkBox">
+            <child>
+              <object class="GtkPicture" id="header">
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="content-fit">contain</property>
+                <property name="file">resource:///org/gnome/initial-setup/initial-setup-welcome.svg</property>
+              </object>
+            </child>
+            <style>
+              <class name="welcome-header-box"/>
+            </style>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <property name="vexpand">1</property>
-            <property name="halign">center</property>
-            <property name="spacing">20</property>
-            <child>
-              <object class="GtkLabel" id="title">
-                 <!-- This is set to a translated string at runtime -->
-                 <property name="label">Welcome to the latest GNOME!</property>
-                 <style>
-                   <class name="title-1"/>
-                 </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                 <property name="label" translatable="yes">Setup will guide you through making an account and enabling some features. We’ll have you up and running in no time.</property>
-                 <property name="wrap">1</property>
-                 <property name="width-chars">35</property>
-                 <property name="max-width-chars">35</property>
-                 <property name="justify">center</property>
-              </object>
-            </child>
+          <object class="AdwStatusPage" id="status_page">
+            <property name="description" translatable="yes">Setup will guide you through making an account and enabling some features. We’ll have you up and running in no time.</property>
             <child>
               <object class="GtkButton">
                  <property name="halign">center</property>
@@ -55,6 +42,9 @@
                  </style>
               </object>
             </child>
+            <style>
+              <class name="welcome-status-page"/>
+            </style>
           </object>
         </child>
       </object>
