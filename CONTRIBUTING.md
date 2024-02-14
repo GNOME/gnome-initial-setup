@@ -72,6 +72,60 @@ prompt, so `gnome-initial-setup` silently writes the stamp file and exits.
 [xdg autostart]: https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html
     "The Desktop Application Autostart Specification"
 
+Building
+====================
+
+Recommendations
+----------------
+
+- It's recommended to use a containerized environment, like [Toolbox](#using-toolbx).
+- [Builder](https://flathub.org/apps/org.gnome.Builder) is an IDE for GNOME
+which you can use too.
+
+How to build
+----------------
+
+1. Before building, you need to download the dependencies first. To do this in
+Fedora, for example, you must run `dnf builddep gnome-initial-setup`; in
+Debian-based distros, run `apt build-dep gnome-initial-setup`
+2. Inside the `gnome-initial-setup` directory, run `meson setup _build`
+3. Then, run `cd _build` and `ninja install`[1]
+4. Run `./gnome-initial-setup/gnome-initial-setup`
+
+[1] `ninja install` is only required for the first time. Use `ninja` for
+subsequent times.
+
+<a name="using-toolbx">Using Toolbx (Fedora Linux)</a>
+----------------
+
+[Toolbx](https://containertoolbx.org/) is a containerized environment which is
+separated from your main operating system. This is good to avoid the system 
+breakage. See all reasons to use it [here](https://docs.fedoraproject.org/en-US/fedora-silverblue/toolbox/#toolbox-why-use).
+
+1. Run `toolbox create --release <release-number>`
+Preferably choose the latest Fedora release. The release number is labeled as
+`fedora-toolbox-<fedora_version_number>`, for example
+`toolbox create --release fedora-linux-39`
+2. Enter with `toolbox enter --release <release-number>`. If you have just one
+container, run `toolbox enter`.
+
+You can use [Prompt](https://gitlab.gnome.org/chergert/prompt), which is a 
+terminal for a container-oriented desktop; it has Toolbx integration.
+
+Why the welcome page doesn't appear?
+----------------
+
+The welcome page won't appear because it only shows when language page is
+skipped. To workaround this, open `gnome-initial-setup/gnome-initial-setup.c`
+and edit comment the following lines:
+
+```
+/* if (strcmp (page_id, "welcome") == 0)
+    return !should_skip_page ("language", skip_pages); */
+```
+
+Then, run `ninja` and `./gnome-initial-setup/gnome-initial-setup`
+
 Tips for development
 ====================
 
