@@ -31,6 +31,7 @@
 
 #include <glib/gi18n.h>
 #include <gio/gio.h>
+#include <json-glib/json-glib.h>
 
 #include "gis-page-header.h"
 
@@ -154,6 +155,75 @@ update_page_validation (GisPasswordPage *page)
 }
 
 static void
+homed_passwd_done (GObject      *source_object,
+                   GAsyncResult *res,
+                   gpointer      user_data)
+{
+  GisPage *page = GIS_PAGE (user_data);
+  g_autoptr(GError) error = NULL;
+
+  g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object), res, &error);
+  gis_page_save_complete (page, error);
+}
+
+static char *
+build_homed_password_record (const char *password)
+{
+  g_autoptr(JsonBuilder) builder = NULL;
+  g_autoptr(JsonNode) node = NULL;
+
+  builder = json_builder_new ();
+  json_builder_begin_object (builder);
+  json_builder_set_member_name (builder, "password");
+  json_builder_begin_array (builder);
+  json_builder_add_string_value (builder, password);
+  json_builder_end_array (builder);
+  json_builder_end_object (builder);
+  node = json_builder_get_root (builder);
+  return json_to_string (node, FALSE);
+}
+
+static void
+homed_passwd (GisPage     *gis_page,
+              const gchar *username,
+              const gchar *password)
+{
+  g_autoptr(GDBusConnection) bus = NULL;
+  g_autoptr(GError) error = NULL;
+  g_autofree gchar *new_secret = NULL;
+  g_autofree gchar *old_secret = NULL;
+
+  bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+  if (bus == NULL) {
+    gis_page_save_complete (gis_page, error);
+    return;
+  }
+
+  new_secret = build_homed_password_record (password);
+  /* accountsservice creates homed users w/ blank password */
+  old_secret = build_homed_password_record ("");
+
+  g_dbus_connection_call (bus,
+                          "org.freedesktop.home1",
+                          "/org/freedesktop/home1",
+                          "org.freedesktop.home1.Manager",
+                          "ChangePasswordHome",
+                          g_variant_new ("(sss)",
+                                         username,
+                                         new_secret,
+                                         old_secret),
+                          NULL,
+                          G_DBUS_CALL_FLAGS_NONE,
+                          /* crypto can be very slow; let's give ample time */
+                          /* 2 Minutes matches systemd's default for slow timeouts in */
+                          /* HOME_SLOW_BUS_CALL_TIMEOUT_USEC */
+                          2 * G_TIME_SPAN_MINUTE, 
+                          NULL,
+                          homed_passwd_done,
+                          gis_page);
+}
+
+static void
 gis_password_page_save_data (GisPage  *gis_page)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
@@ -174,12 +244,20 @@ gis_password_page_save_data (GisPage  *gis_page)
     g_assert (!page->parent_mode);
 
     gis_page_save_complete (gis_page, NULL);
-    return TRUE;
+    return;
   }
 
   password = gtk_editable_get_text (GTK_EDITABLE (page->password_entry));
 
-  if (strlen (password) == 0) {
+  if (!page->parent_mode)
+    gis_driver_set_user_permissions (gis_page->driver, act_user, password);
+  else
+    gis_driver_set_parent_permissions (gis_page->driver, act_user, password);
+
+  if (act_user_uses_homed (act_user)) {
+    homed_passwd (gis_page, act_user_get_user_name (act_user), password);
+    return;
+  } else if (strlen (password) == 0) {
     act_user_set_password_mode (act_user, ACT_USER_PASSWORD_MODE_NONE);
   } else {
     const gchar *hint = gtk_editable_get_text (GTK_EDITABLE (page->hint_entry));
@@ -187,13 +265,7 @@ gis_password_page_save_data (GisPage  *gis_page)
     act_user_set_password (act_user, password, sanitized_hint);
   }
 
-  if (!page->parent_mode)
-    gis_driver_set_user_permissions (gis_page->driver, act_user, password);
-  else
-    gis_driver_set_parent_permissions (gis_page->driver, act_user, password);
-
-  act_page_save_complete (gis_page, NULL);
-  return TRUE;
+  gis_page_save_complete (gis_page, NULL);
 }
 
 static void
