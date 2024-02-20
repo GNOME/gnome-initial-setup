@@ -46,7 +46,7 @@ dependencies = [
     dependency ('gio-unix-2.0', version: '>= 2.53.0'),
     dependency ('gdm', version: '>= 3.8.3'),
     gweather_dep,
-    dependency ('libgeoclue-2.0', version: '>= 2.3.1'),
+    dependency ('libgeoclue-2.0', version: '>= 2.6.0'),
     cc.find_library('m', required: false),
     dependency ('pango', version: '>= 1.32.5'),
     dependency ('json-glib-1.0'),

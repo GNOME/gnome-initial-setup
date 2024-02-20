@@ -57,11 +57,6 @@
 #define CLOCK_SCHEMA "org.gnome.desktop.interface"
 #define CLOCK_FORMAT_KEY "clock-format"
 
-/* FIXME: Drop this when we depend on a version of GeoClue which has
- * https://gitlab.freedesktop.org/geoclue/geoclue/-/merge_requests/73 */
-typedef GClueSimple MyGClueSimple;
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (MyGClueSimple, g_object_unref)
-
 static void stop_geolocation (GisTimezonePage *page);
 
 struct _GisTimezonePagePrivate
@@ -180,7 +175,7 @@ on_geoclue_simple_ready (GObject      *source_object,
   GisTimezonePage *page = user_data;
   GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   g_autoptr(GError) local_error = NULL;
-  g_autoptr(MyGClueSimple) geoclue_simple = NULL;
+  g_autoptr(GClueSimple) geoclue_simple = NULL;
 
   /* This function may be called in an idle callback once @page has been
    * disposed, if going through cancellation. So don’t dereference @priv or
