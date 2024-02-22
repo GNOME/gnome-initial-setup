@@ -146,7 +146,7 @@ on_location_notify (GClueSimple *simple,
                     GParamSpec  *pspec,
                     gpointer     user_data)
 {
-  GisTimezonePage *page = user_data;
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   GClueLocation *location;
   gdouble latitude, longitude;
   g_autoptr(GWeatherLocation) world = gweather_location_get_world ();
@@ -168,7 +168,7 @@ on_geoclue_simple_ready (GObject      *source_object,
                          GAsyncResult *res,
                          gpointer      user_data)
 {
-  GisTimezonePage *page = user_data;
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   g_autoptr(GError) local_error = NULL;
   g_autoptr(GClueSimple) geoclue_simple = NULL;
 
@@ -217,9 +217,12 @@ entry_text_changed (GtkEditable *editable,
 }
 
 static void
-entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
+entry_location_changed (GObject    *object,
+                        GParamSpec *param,
+                        gpointer    user_data)
 {
   GisLocationEntry *entry = GIS_LOCATION_ENTRY (object);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   g_autoptr(GWeatherLocation) location = NULL;
 
   location = gis_location_entry_get_location (entry);
@@ -321,10 +324,12 @@ update_timezone (GisTimezonePage *page, TzLocation *location)
 }
 
 static void
-map_location_changed (CcTimezoneMap   *map,
-                      TzLocation      *location,
-                      GisTimezonePage *page)
+map_location_changed (CcTimezoneMap *map,
+                      TzLocation    *location,
+                      gpointer       user_data)
 {
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
+
   gtk_widget_set_visible (page->search_overlay, (location == NULL));
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
@@ -336,10 +341,11 @@ map_location_changed (CcTimezoneMap   *map,
 }
 
 static void
-on_clock_changed (GnomeWallClock  *clock,
-                  GParamSpec      *pspec,
-                  GisTimezonePage *page)
+on_clock_changed (GnomeWallClock *clock,
+                  GParamSpec     *pspec,
+                  gpointer        user_data)
 {
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   TzLocation *location;
 
   if (!gtk_widget_get_mapped (page->map))
