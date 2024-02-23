@@ -29,6 +29,9 @@ typedef struct _GisDriver    GisDriver;
 typedef struct _GisAssistant GisAssistant;
 typedef struct _GisPage      GisPage;
 
+typedef void (* GisSaveDataCallback) (GError *error,
+                                      gpointer user_data);
+
 #include "gis-driver.h"
 #include "gis-assistant.h"
 #include "gis-page.h"

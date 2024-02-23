@@ -138,22 +138,23 @@ gis_account_page_apply (GisPage *gis_page,
   }
 }
 
-static gboolean
-gis_account_page_save_data (GisPage  *gis_page,
-                            GError  **error)
+static void
+gis_account_page_save_data (GisPage *gis_page)
 {
+  g_autoptr (GError) error = NULL;
   GisAccountPage *page = GIS_ACCOUNT_PAGE (gis_page);
 
   switch (page->mode) {
   case UM_LOCAL:
-    return gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (page->page_local), gis_page, error);
+    gis_account_page_local_create_user (GIS_ACCOUNT_PAGE_LOCAL (page->page_local), gis_page, &error);
   case UM_ENTERPRISE:
-    /* Nothing to do. */
-    return TRUE;
+    break;
   default:
     g_assert_not_reached ();
-    return FALSE;
+    return;
   }
+
+  gis_page_save_complete (gis_page, error);
 }
 
 static void

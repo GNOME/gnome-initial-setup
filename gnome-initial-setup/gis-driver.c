@@ -996,17 +996,19 @@ gis_driver_class_init (GisDriverClass *klass)
   g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
-gboolean
-gis_driver_save_data (GisDriver  *driver,
-                      GError    **error)
+void
+gis_driver_save_data (GisDriver *driver,
+                      GisSaveDataCallback cb,
+                      gpointer user_data)
 {
   if (gis_get_mock_mode ())
     {
       g_message ("%s: Skipping saving data due to being in mock mode", G_STRFUNC);
-      return TRUE;
+      (cb) (NULL, user_data);
+      return;
     }
 
-  return gis_assistant_save_data (driver->assistant, error);
+  gis_assistant_save_data (driver->assistant, cb, user_data);
 }
 
 GisDriver *

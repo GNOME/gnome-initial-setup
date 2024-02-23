@@ -197,29 +197,40 @@ done_cb (GtkButton *button, GisSummaryPage *page)
 }
 
 static void
-gis_summary_page_shown (GisPage *page)
+save_data_cb (GError *error,
+              gpointer user_data)
 {
-  GisSummaryPage *summary = GIS_SUMMARY_PAGE (page);
-  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (summary);
-  g_autoptr(GError) local_error = NULL;
+  GisPage *page = GIS_PAGE (user_data);
+  GisSummaryPagePrivate *priv = gis_summary_page_get_instance_private (GIS_SUMMARY_PAGE (page));
 
-  if (!gis_driver_save_data (GIS_PAGE (page)->driver, &local_error))
+  if (error != NULL)
     {
-      g_warning ("Error saving data: %s", local_error->message);
+      g_autofree char *remote_error = NULL;
 
-      AdwDialog *dialog = adw_alert_dialog_new (_("Setup Failed"),
-                                                  local_error->message);
-      adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "close", _("Close"));
-      /* FIXME: Provide some more options for debugging or recovery */
+      remote_error = g_dbus_error_get_remote_error (error);
+      g_dbus_error_strip_remote_error (error);
 
+      GtkWindow *parent = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page)));
+      GtkWidget *dialog = adw_alert_dialog_new (parent,
+                                                _("Setup Failed"));
+      adw_alert_dialog_format_body (ADW_ALERT_DIALOG (dialog),
+                                    _("Error Type: %s\nMessage: %s"),
+                                    remote_error ? remote_error : "local", error->message);
       adw_dialog_present (dialog, GTK_WIDGET (page));
     }
 
-  gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
+  gis_driver_get_user_permissions (page->driver,
                                    &priv->user_account,
                                    &priv->user_password);
 
+  gtk_widget_set_sensitive (priv->start_button, TRUE);
   gtk_widget_grab_focus (priv->start_button);
+}
+
+static void
+gis_summary_page_shown (GisPage *page)
+{
+  gis_driver_save_data (page->driver, save_data_cb, page);
 }
 
 static void
