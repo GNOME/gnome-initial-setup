@@ -56,6 +56,10 @@ struct _GisAssistant
 
   GList *pages;
   GisPage *current_page;
+
+  GisSaveDataCallback save_cb;
+  gpointer            save_data;
+  GList              *save_pages;
 };
 
 G_DEFINE_TYPE (GisAssistant, gis_assistant, GTK_TYPE_BOX)
@@ -397,19 +401,42 @@ gis_assistant_locale_changed (GisAssistant *assistant)
   update_titlebar (assistant);
 }
 
-gboolean
-gis_assistant_save_data (GisAssistant  *assistant,
-                         GError       **error)
+static void
+page_save_cb (GError *error,
+              gpointer user_data)
 {
-  GList *l;
+  GisAssistant *assistant = GIS_ASSISTANT (user_data);
+  GisSaveDataCallback callback;
 
-  for (l = assistant->pages; l != NULL; l = l->next)
-    {
-      if (!gis_page_save_data (l->data, error))
-        return FALSE;
-    }
+  if (error == NULL && assistant->save_pages->next != NULL) {
+    assistant->save_pages = assistant->save_pages->next;
+    gis_page_save_data (assistant->save_pages->data, page_save_cb, user_data);
+    return;
+  }
 
-  return TRUE;
+  callback = assistant->save_cb;
+  assistant->save_cb = NULL;
+  user_data = assistant->save_data;
+  assistant->save_data = NULL;
+
+  (callback) (error, user_data);
+  gtk_widget_set_cursor (GTK_WIDGET (assistant), NULL);
+  return;
+}
+
+void
+gis_assistant_save_data (GisAssistant *assistant,
+                         GisSaveDataCallback cb,
+                         gpointer user_data)
+{
+  g_return_if_fail (assistant->save_cb == NULL);
+
+  assistant->save_cb = cb;
+  assistant->save_data = user_data;
+  assistant->save_pages = assistant->pages;
+
+  gis_page_save_data (assistant->save_pages->data, page_save_cb, assistant);
+  gtk_widget_set_cursor_from_name (GTK_WIDGET (assistant), "wait");
 }
 
 static void

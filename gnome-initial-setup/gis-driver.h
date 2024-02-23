@@ -107,8 +107,9 @@ void gis_driver_add_page (GisDriver *driver,
 
 void gis_driver_hide_window (GisDriver *driver);
 
-gboolean gis_driver_save_data (GisDriver  *driver,
-                               GError    **error);
+void gis_driver_save_data (GisDriver *driver,
+                           GisSaveDataCallback cb,
+                           gpointer user_data);
 
 gboolean gis_driver_conf_get_boolean (GisDriver *driver,
                                       const gchar *group,

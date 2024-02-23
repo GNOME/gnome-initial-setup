@@ -158,9 +158,8 @@ update_page_validation (GisPasswordPage *page)
   gis_page_set_complete (GIS_PAGE (page), page_validate (page));
 }
 
-static gboolean
-gis_password_page_save_data (GisPage  *gis_page,
-                             GError  **error)
+static void
+gis_password_page_save_data (GisPage  *gis_page)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
   ActUser *act_user;
@@ -179,7 +178,8 @@ gis_password_page_save_data (GisPage  *gis_page,
   if (account_mode == UM_ENTERPRISE) {
     g_assert (!page->parent_mode);
 
-    return TRUE;
+    gis_page_save_complete (gis_page, NULL);
+    return;
   }
 
   password = gtk_editable_get_text (GTK_EDITABLE (page->password_entry));
@@ -197,7 +197,8 @@ gis_password_page_save_data (GisPage  *gis_page,
   else
     gis_driver_set_parent_permissions (gis_page->driver, act_user, password);
 
-  return TRUE;
+  gis_page_save_complete (gis_page, NULL);
+  return;
 }
 
 static void

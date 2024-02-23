@@ -34,6 +34,9 @@ struct _GisPagePrivate
   GisPageApplyCallback apply_cb;
   gpointer apply_data;
 
+  GisSaveDataCallback save_cb;
+  gpointer save_data;
+
   guint complete : 1;
   guint skippable : 1;
   guint has_forward : 1;
@@ -364,17 +367,49 @@ gis_page_apply_cancel (GisPage *page)
   g_cancellable_cancel (priv->apply_cancel);
 }
 
-gboolean
-gis_page_save_data (GisPage  *page,
-                    GError  **error)
+void
+gis_page_save_data (GisPage            *page,
+                    GisSaveDataCallback cb,
+                    gpointer            user_data)
 {
-  if (GIS_PAGE_GET_CLASS (page)->save_data == NULL)
+  GisPageClass *klass;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+
+  g_return_if_fail (GIS_IS_PAGE (page));
+  g_return_if_fail (priv->save_cb == NULL);
+
+  klass = GIS_PAGE_GET_CLASS (page);
+
+  if (klass->save_data == NULL)
     {
-      /* Not implemented, which presumably means the page has nothing to save. */
-      return TRUE;
+      (cb) (NULL, user_data);
+      return;
     }
 
-  return GIS_PAGE_GET_CLASS (page)->save_data (page, error);
+  priv->save_cb = cb;
+  priv->save_data = user_data;
+
+  klass->save_data (page);
+}
+
+void
+gis_page_save_complete (GisPage *page,
+                        GError  *error)
+{
+  GisSaveDataCallback callback;
+  gpointer user_data;
+  GisPagePrivate *priv = gis_page_get_instance_private (page);
+
+  g_return_if_fail (GIS_IS_PAGE (page));
+  g_return_if_fail (priv->save_cb != NULL);
+
+  callback = priv->save_cb;
+  priv->save_cb = NULL;
+  user_data = priv->save_data;
+  priv->save_data = NULL;
+
+  if (callback)
+    (callback) (error, user_data);
 }
 
 void
