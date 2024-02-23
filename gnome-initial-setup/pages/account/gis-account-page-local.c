@@ -449,88 +449,136 @@ set_user_avatar (GisPage *page,
   g_remove (path);
 }
 
-static gboolean
-local_create_user (GisAccountPageLocal  *local,
-                   GisPage              *page,
-                   GError              **error)
+typedef struct {
+  GisAccountPageLocal *local;
+  GisPage *page;
+  const char *username;
+  const char *fullname;
+} CreateLocalUserdata;
+
+static void
+local_create_done (GObject      *source_object,
+                   GAsyncResult *res,
+                   gpointer      user_data)
 {
-  const gchar *username;
-  const gchar *fullname;
-  gboolean parental_controls_enabled;
-  g_autoptr(ActUser) main_user = NULL;
-  g_autoptr(ActUser) parent_user = NULL;
+  g_autofree CreateLocalUserdata *data = user_data;
+  g_autoptr(ActUser) user = NULL;
+  g_autoptr(GError) error = NULL;
 
-  username = gtk_editable_get_text (GTK_EDITABLE (local->username_row));
-  fullname = gtk_editable_get_text (GTK_EDITABLE (local->fullname_row));
-  parental_controls_enabled = gis_driver_get_parental_controls_enabled (page->driver);
-
-  /* Always create the admin user first, in case of failure part-way through
-   * this function, which would leave us with no admin user at all. */
-  if (parental_controls_enabled) {
-    g_autoptr(GError) local_error = NULL;
-    g_autoptr(GDBusConnection) connection = NULL;
-    const gchar *parent_username = "administrator";
-    const gchar *parent_fullname = _("Administrator");
-
-    parent_user = act_user_manager_create_user (local->act_client, parent_username, parent_fullname, ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR, error);
-    if (parent_user == NULL)
-      {
-        g_prefix_error (error,
-                        _("Failed to create user '%s': "),
-                        parent_username);
-        return FALSE;
-      }
-
-    /* Make the admin account usable in case g-i-s crashes. If all goes
-     * according to plan a password will be set on it in gis-password-page.c */
-    act_user_set_password_mode (parent_user, ACT_USER_PASSWORD_MODE_SET_AT_LOGIN);
-
-    /* Mark it as the parent user account.
-     * FIXME: This should be async. */
-    connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &local_error);
-    if (connection != NULL) {
-      g_dbus_connection_call_sync (connection,
-                                   "org.freedesktop.Accounts",
-                                   act_user_get_object_path (parent_user),
-                                   "org.freedesktop.DBus.Properties",
-                                   "Set",
-                                   g_variant_new ("(ssv)",
-                                                  "com.endlessm.ParentalControls.AccountInfo",
-                                                  "IsParent",
-                                                  g_variant_new_boolean (TRUE)),
-                                   NULL,  /* reply type */
-                                   G_DBUS_CALL_FLAGS_NONE,
-                                   -1,  /* default timeout */
-                                   NULL,  /* cancellable */
-                                   &local_error);
-    }
-    if (local_error != NULL) {
-      /* Make this non-fatal, since the correct accounts-service interface
-       * might not be installed, depending on which version of malcontent is installed. */
-      g_warning ("Failed to mark user as parent: %s", local_error->message);
-      g_clear_error (&local_error);
-    }
-
-    g_signal_emit (local, signals[PARENT_USER_CREATED], 0, parent_user, "");
+  user = act_user_manager_create_user_finish (ACT_USER_MANAGER (source_object), res, &error);
+  if (user == NULL) {
+    g_prefix_error (&error, _("Failed to create user '%s': "), data->username);
+    gis_page_save_complete (data->page, error);
+    return;
   }
 
-  /* Now create the main user. */
-  main_user = act_user_manager_create_user (local->act_client, username, fullname, local->account_type, error);
-  if (main_user == NULL)
-    {
-      g_prefix_error (error,
-                      _("Failed to create user '%s': "),
-                      username);
-      /* FIXME: Could we delete the @parent_user at this point to reset the state
-       * and allow g-i-s to be run again after a reboot? */
-      return FALSE;
+  set_user_avatar (data->page, user);
+
+  g_signal_emit (data->local, signals[MAIN_USER_CREATED], 0, user, "");
+
+  gis_page_save_complete (data->page, NULL);
+}
+
+static void
+create_local_user (CreateLocalUserdata *data)
+{
+  act_user_manager_create_user_async (data->local->act_client,
+                                      data->username,
+                                      data->fullname,
+                                      data->local->account_type,
+                                      NULL,
+                                      local_create_done,
+                                      data);
+}
+
+static void
+parent_finished_cb (GObject      *source_object,
+                    GAsyncResult *res,
+                    gpointer      user_data)
+{
+  g_autofree CreateLocalUserdata *data = user_data;
+  g_autoptr(GError) error = NULL;
+
+  g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object), res, &error);
+
+  if (error != NULL) {
+      /* Make setting IsParent non-fatal, since the correct accounts-service interface
+       * might not be installed, depending on which version of malcontent is installed. */
+      g_warning ("Failed to mark user as parent: %s", error->message);
     }
 
-  set_user_avatar (page, main_user);
+    create_local_user (g_steal_pointer (&data));
+}
 
-  g_signal_emit (local, signals[MAIN_USER_CREATED], 0, main_user, "");
+static void
+parent_created_cb (GObject      *source_object,
+                   GAsyncResult *res,
+                   gpointer      user_data)
+{
+  g_autofree CreateLocalUserdata *data = user_data;
+  g_autoptr(ActUser) parent_user = NULL;
+  g_autoptr(GDBusConnection) bus = NULL;
+  g_autoptr(GError) error = NULL;
 
-  return TRUE;
+  parent_user = act_user_manager_create_user_finish (ACT_USER_MANAGER (source_object), res, &error);
+
+  if (parent_user == NULL) {
+    g_prefix_error (&error, _("Failed to create parent user: "));
+    gis_page_save_complete (data->page, error);
+    return;
+  }
+
+  /* Make the admin account usable in case g-i-s crashes. If all goes
+   * according to plan a password will be set on it in gis-password-page.c */
+  act_user_set_password_mode (parent_user, ACT_USER_PASSWORD_MODE_SET_AT_LOGIN);
+
+  g_signal_emit (data->local, signals[PARENT_USER_CREATED], 0, parent_user, "");
+
+  /* Mark it as the parent user account */
+  bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+  if (bus == NULL) {
+    gis_page_save_complete (data->page, error);
+    return;
+  }
+  g_dbus_connection_call (bus,
+                          "org.freedesktop.Accounts",
+                          act_user_get_object_path (parent_user),
+                          "org.freedesktop.DBus.Properties",
+                          "Set",
+                          g_variant_new ("(ssv)",
+                                         "com.endlessm.ParentalControls.AccountInfo",
+                                         "IsParent",
+                                         g_variant_new_boolean (TRUE)),
+                          NULL, /* reply type */
+                          G_DBUS_CALL_FLAGS_NONE,
+                          -1, /* default timeout */
+                          NULL, /* cancellable */
+                          parent_finished_cb,
+                          g_steal_pointer (&data));
+}
+
+void
+gis_account_page_local_create_user (GisAccountPageLocal  *local,
+                                    GisPage              *page)
+{
+  g_autofree CreateLocalUserdata *data = NULL;
+
+  data = g_new(CreateLocalUserdata, 1);
+  data->local = local;
+  data->page = page;
+  data->username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
+  data->fullname = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
+
+  if (gis_driver_get_parental_controls_enabled (page->driver))
+    act_user_manager_create_user_async (local->act_client,
+                                        "administrator",
+                                        _("Administrator"),
+                                        ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR,
+                                        NULL,
+                                        parent_created_cb,
+                                        g_steal_pointer (&data));
+  else
+    create_local_user (g_steal_pointer (&data));
 }
 
 static void
@@ -589,14 +637,6 @@ gboolean
 gis_account_page_local_validate (GisAccountPageLocal *page)
 {
   return page->valid_name && page->valid_username;
-}
-
-gboolean
-gis_account_page_local_create_user (GisAccountPageLocal  *local,
-                                    GisPage              *page,
-                                    GError              **error)
-{
-  return local_create_user (local, page, error);
 }
 
 gboolean

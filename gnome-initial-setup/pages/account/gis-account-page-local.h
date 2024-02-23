@@ -30,9 +30,8 @@ G_DECLARE_FINAL_TYPE (GisAccountPageLocal, gis_account_page_local, GIS, ACCOUNT_
 
 gboolean gis_account_page_local_validate (GisAccountPageLocal *local);
 gboolean gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page);
-gboolean gis_account_page_local_create_user (GisAccountPageLocal  *local,
-                                             GisPage              *page,
-                                             GError              **error);
+void gis_account_page_local_create_user (GisAccountPageLocal  *local,
+                                         GisPage              *page);
 void gis_account_page_local_shown (GisAccountPageLocal *local);
 
 G_END_DECLS
