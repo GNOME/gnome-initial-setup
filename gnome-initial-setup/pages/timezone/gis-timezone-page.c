@@ -59,8 +59,10 @@
 
 static void stop_geolocation (GisTimezonePage *page);
 
-struct _GisTimezonePagePrivate
+struct _GisTimezonePage
 {
+  GisPage parent;
+
   GtkWidget *map;
   GtkWidget *search_entry;
   GtkWidget *search_overlay;
@@ -79,9 +81,8 @@ struct _GisTimezonePagePrivate
 
   gulong search_entry_text_changed_id;
 };
-typedef struct _GisTimezonePagePrivate GisTimezonePagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
+G_DEFINE_TYPE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
 
 static void
 set_timezone_cb (GObject      *source,
@@ -104,13 +105,11 @@ static void
 queue_set_timezone (GisTimezonePage *page,
                     const char      *tzid)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-
   /* for now just do it */
-  timedate1_call_set_timezone (priv->dtm,
+  timedate1_call_set_timezone (page->dtm,
                                tzid,
                                TRUE,
-                               priv->dtm_cancellable,
+                               page->dtm_cancellable,
                                set_timezone_cb,
                                page);
 }
@@ -119,11 +118,9 @@ static void
 set_location (GisTimezonePage  *page,
               GWeatherLocation *location)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  g_clear_object (&page->current_location);
 
-  g_clear_object (&priv->current_location);
-
-  gtk_widget_set_visible (priv->search_overlay, (location == NULL));
+  gtk_widget_set_visible (page->search_overlay, (location == NULL));
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
   if (location)
@@ -131,15 +128,15 @@ set_location (GisTimezonePage  *page,
       GTimeZone *zone;
       const char *tzid;
 
-      priv->current_location = g_object_ref (location);
+      page->current_location = g_object_ref (location);
 
       zone = gweather_location_get_timezone (location);
       tzid = g_time_zone_get_identifier (zone);
 
-      cc_timezone_map_set_timezone (CC_TIMEZONE_MAP (priv->map), tzid);
+      cc_timezone_map_set_timezone (CC_TIMEZONE_MAP (page->map), tzid);
 
       /* If this location is manually set, stop waiting for geolocation. */
-      if (!priv->in_geoclue_callback)
+      if (!page->in_geoclue_callback)
         stop_geolocation (page);
     }
 }
@@ -149,8 +146,7 @@ on_location_notify (GClueSimple *simple,
                     GParamSpec  *pspec,
                     gpointer     user_data)
 {
-  GisTimezonePage *page = user_data;
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   GClueLocation *location;
   gdouble latitude, longitude;
   g_autoptr(GWeatherLocation) world = gweather_location_get_world ();
@@ -162,9 +158,9 @@ on_location_notify (GClueSimple *simple,
   longitude = gclue_location_get_longitude (location);
 
   glocation = gweather_location_find_nearest_city (world, latitude, longitude);
-  priv->in_geoclue_callback = TRUE;
+  page->in_geoclue_callback = TRUE;
   set_location (page, glocation);
-  priv->in_geoclue_callback = FALSE;
+  page->in_geoclue_callback = FALSE;
 }
 
 static void
@@ -172,8 +168,7 @@ on_geoclue_simple_ready (GObject      *source_object,
                          GAsyncResult *res,
                          gpointer      user_data)
 {
-  GisTimezonePage *page = user_data;
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   g_autoptr(GError) local_error = NULL;
   g_autoptr(GClueSimple) geoclue_simple = NULL;
 
@@ -188,25 +183,23 @@ on_geoclue_simple_ready (GObject      *source_object,
       return;
     }
 
-  priv->geoclue_simple = g_steal_pointer (&geoclue_simple);
-  priv->geoclue_client = gclue_simple_get_client (priv->geoclue_simple);
-  gclue_client_set_distance_threshold (priv->geoclue_client,
+  page->geoclue_simple = g_steal_pointer (&geoclue_simple);
+  page->geoclue_client = gclue_simple_get_client (page->geoclue_simple);
+  gclue_client_set_distance_threshold (page->geoclue_client,
                                        GEOCODE_LOCATION_ACCURACY_CITY);
 
-  g_signal_connect (priv->geoclue_simple, "notify::location",
+  g_signal_connect (page->geoclue_simple, "notify::location",
                     G_CALLBACK (on_location_notify), page);
 
-  on_location_notify (priv->geoclue_simple, NULL, page);
+  on_location_notify (page->geoclue_simple, NULL, page);
 }
 
 static void
 get_location_from_geoclue_async (GisTimezonePage *page)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-
   gclue_simple_new (DESKTOP_ID,
                     GCLUE_ACCURACY_LEVEL_CITY,
-                    priv->geoclue_cancellable,
+                    page->geoclue_cancellable,
                     on_geoclue_simple_ready,
                     page);
 }
@@ -216,28 +209,29 @@ entry_text_changed (GtkEditable *editable,
                     gpointer     user_data)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
-  stop_geolocation (GIS_TIMEZONE_PAGE (user_data));
-  g_signal_handler_disconnect (priv->search_entry,
-                               priv->search_entry_text_changed_id);
-  priv->search_entry_text_changed_id = 0;
+  stop_geolocation (page);
+  g_signal_handler_disconnect (page->search_entry,
+                               page->search_entry_text_changed_id);
+  page->search_entry_text_changed_id = 0;
 }
 
 static void
-entry_location_changed (GObject *object, GParamSpec *param, GisTimezonePage *page)
+entry_location_changed (GObject    *object,
+                        GParamSpec *param,
+                        gpointer    user_data)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GisLocationEntry *entry = GIS_LOCATION_ENTRY (object);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   g_autoptr(GWeatherLocation) location = NULL;
 
   location = gis_location_entry_get_location (entry);
   if (!location)
     return;
 
-  priv->in_search = TRUE;
+  page->in_search = TRUE;
   set_location (page, location);
-  priv->in_search = FALSE;
+  page->in_search = FALSE;
 }
 
 #define GETTEXT_PACKAGE_TIMEZONES "gnome-control-center-2.0-timezones"
@@ -275,7 +269,6 @@ translated_city_name (TzLocation *loc)
 static void
 update_timezone (GisTimezonePage *page, TzLocation *location)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   char *tz_desc;
   char *bubble_text;
   char *city_country;
@@ -285,7 +278,7 @@ update_timezone (GisTimezonePage *page, TzLocation *location)
   GDateTime *date;
   gboolean use_ampm;
 
-  if (priv->clock_format == G_DESKTOP_CLOCK_FORMAT_12H)
+  if (page->clock_format == G_DESKTOP_CLOCK_FORMAT_12H)
     use_ampm = TRUE;
   else
     use_ampm = FALSE;
@@ -319,7 +312,7 @@ update_timezone (GisTimezonePage *page, TzLocation *location)
                                  tz_desc,
                                  city_country,
                                  time_label);
-  cc_timezone_map_set_bubble_text (CC_TIMEZONE_MAP (priv->map), bubble_text);
+  cc_timezone_map_set_bubble_text (CC_TIMEZONE_MAP (page->map), bubble_text);
 
   g_free (tz_desc);
   g_free (city_country);
@@ -331,37 +324,37 @@ update_timezone (GisTimezonePage *page, TzLocation *location)
 }
 
 static void
-map_location_changed (CcTimezoneMap   *map,
-                      TzLocation      *location,
-                      GisTimezonePage *page)
+map_location_changed (CcTimezoneMap *map,
+                      TzLocation    *location,
+                      gpointer       user_data)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
 
-  gtk_widget_set_visible (priv->search_overlay, (location == NULL));
+  gtk_widget_set_visible (page->search_overlay, (location == NULL));
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
 
-  if (!priv->in_search)
-    gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
+  if (!page->in_search)
+    gtk_editable_set_text (GTK_EDITABLE (page->search_entry), "");
 
   update_timezone (page, location);
   queue_set_timezone (page, location->zone);
 }
 
 static void
-on_clock_changed (GnomeWallClock  *clock,
-                  GParamSpec      *pspec,
-                  GisTimezonePage *page)
+on_clock_changed (GnomeWallClock *clock,
+                  GParamSpec     *pspec,
+                  gpointer        user_data)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   TzLocation *location;
 
-  if (!gtk_widget_get_mapped (priv->map))
+  if (!gtk_widget_get_mapped (page->map))
     return;
 
-  if (gtk_widget_is_visible (priv->search_overlay))
+  if (gtk_widget_is_visible (page->search_overlay))
     return;
 
-  location = cc_timezone_map_get_location (CC_TIMEZONE_MAP (priv->map));
+  location = cc_timezone_map_get_location (CC_TIMEZONE_MAP (page->map));
   if (location)
     update_timezone (page, location);
 }
@@ -376,33 +369,30 @@ entry_mapped (GtkWidget *widget,
 static void
 stop_geolocation (GisTimezonePage *page)
 {
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
-
-  if (priv->geoclue_cancellable)
+  if (page->geoclue_cancellable)
     {
-      g_cancellable_cancel (priv->geoclue_cancellable);
-      g_clear_object (&priv->geoclue_cancellable);
+      g_cancellable_cancel (page->geoclue_cancellable);
+      g_clear_object (&page->geoclue_cancellable);
     }
 
-  if (priv->geoclue_client)
+  if (page->geoclue_client)
     {
-      gclue_client_call_stop (priv->geoclue_client, NULL, NULL, NULL);
-      priv->geoclue_client = NULL;
+      gclue_client_call_stop (page->geoclue_client, NULL, NULL, NULL);
+      page->geoclue_client = NULL;
     }
-  g_clear_object (&priv->geoclue_simple);
+  g_clear_object (&page->geoclue_simple);
 }
 
 static void
 gis_timezone_page_root (GtkWidget *widget)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (widget);
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   GTK_WIDGET_CLASS (gis_timezone_page_parent_class)->root (widget);
 
- if (priv->geoclue_cancellable == NULL)
+ if (page->geoclue_cancellable == NULL)
    {
-     priv->geoclue_cancellable = g_cancellable_new ();
+     page->geoclue_cancellable = g_cancellable_new ();
      get_location_from_geoclue_async (page);
    }
 }
@@ -411,43 +401,42 @@ static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
   GError *error;
   GSettings *settings;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
-  priv->dtm_cancellable = g_cancellable_new ();
+  page->dtm_cancellable = g_cancellable_new ();
 
   error = NULL;
-  priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+  page->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                 G_DBUS_PROXY_FLAGS_NONE,
                                                 "org.freedesktop.timedate1",
                                                 "/org/freedesktop/timedate1",
-                                                priv->dtm_cancellable,
+                                                page->dtm_cancellable,
                                                 &error);
-  if (priv->dtm == NULL) {
+  if (page->dtm == NULL) {
     g_error ("Failed to create proxy for timedated: %s", error->message);
     exit (1);
   }
 
-  priv->clock = g_object_new (GNOME_TYPE_WALL_CLOCK, NULL);
-  g_signal_connect (priv->clock, "notify::clock", G_CALLBACK (on_clock_changed), page);
+  page->clock = g_object_new (GNOME_TYPE_WALL_CLOCK, NULL);
+  g_signal_connect (page->clock, "notify::clock", G_CALLBACK (on_clock_changed), page);
 
   settings = g_settings_new (CLOCK_SCHEMA);
-  priv->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
+  page->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
   g_object_unref (settings);
 
   set_location (page, NULL);
 
-  priv->search_entry_text_changed_id =
-      g_signal_connect (priv->search_entry, "changed",
+  page->search_entry_text_changed_id =
+      g_signal_connect (page->search_entry, "changed",
                         G_CALLBACK (entry_text_changed), page);
-  g_signal_connect (priv->search_entry, "notify::location",
+  g_signal_connect (page->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
-  g_signal_connect (priv->search_entry, "map",
+  g_signal_connect (page->search_entry, "map",
                     G_CALLBACK (entry_mapped), page);
-  g_signal_connect (priv->map, "location-changed",
+  g_signal_connect (page->map, "location-changed",
                     G_CALLBACK (map_location_changed), page);
 
   gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
@@ -457,18 +446,17 @@ static void
 gis_timezone_page_dispose (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
-  GisTimezonePagePrivate *priv = gis_timezone_page_get_instance_private (page);
 
   stop_geolocation (page);
 
-  if (priv->dtm_cancellable != NULL)
+  if (page->dtm_cancellable != NULL)
     {
-      g_cancellable_cancel (priv->dtm_cancellable);
-      g_clear_object (&priv->dtm_cancellable);
+      g_cancellable_cancel (page->dtm_cancellable);
+      g_clear_object (&page->dtm_cancellable);
     }
 
-  g_clear_object (&priv->dtm);
-  g_clear_object (&priv->clock);
+  g_clear_object (&page->dtm);
+  g_clear_object (&page->clock);
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }
@@ -500,9 +488,9 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-timezone-page.ui");
 
-  gtk_widget_class_bind_template_child_private (widget_class, GisTimezonePage, map);
-  gtk_widget_class_bind_template_child_private (widget_class, GisTimezonePage, search_entry);
-  gtk_widget_class_bind_template_child_private (widget_class, GisTimezonePage, search_overlay);
+  gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, map);
+  gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, search_entry);
+  gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, search_overlay);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;

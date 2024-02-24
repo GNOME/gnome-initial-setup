@@ -29,26 +29,8 @@
 G_BEGIN_DECLS
 
 #define GIS_TYPE_TIMEZONE_PAGE               (gis_timezone_page_get_type ())
-#define GIS_TIMEZONE_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_TIMEZONE_PAGE, GisTimezonePage))
-#define GIS_TIMEZONE_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_TIMEZONE_PAGE, GisTimezonePageClass))
-#define GIS_IS_TIMEZONE_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_TIMEZONE_PAGE))
-#define GIS_IS_TIMEZONE_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_TIMEZONE_PAGE))
-#define GIS_TIMEZONE_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_TIMEZONE_PAGE, GisTimezonePageClass))
 
-typedef struct _GisTimezonePage        GisTimezonePage;
-typedef struct _GisTimezonePageClass   GisTimezonePageClass;
-
-struct _GisTimezonePage
-{
-  GisPage parent;
-};
-
-struct _GisTimezonePageClass
-{
-  GisPageClass parent_class;
-};
-
-GType gis_timezone_page_get_type (void);
+G_DECLARE_FINAL_TYPE (GisTimezonePage, gis_timezone_page, GIS, TIMEZONE_PAGE, GisPage)
 
 GisPage *gis_prepare_timezone_page (GisDriver *driver);
 
