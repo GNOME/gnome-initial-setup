@@ -26,6 +26,9 @@
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <hb-glib.h>
+#include <harfbuzz/hb.h>
+#include <pango/pango.h>
 
 #include "cc-common-language.h"
 #include "gis-assistant.h"
@@ -185,12 +188,34 @@ gis_driver_get_assistant (GisDriver *driver)
   return driver->assistant;
 }
 
+static GtkTextDirection
+get_direction_from_lang_id (const char * lang_id)
+{
+  /* Manually parse the direction as the locale was only set in this thread and
+   * `gtk_get_locale_direction()` will not work. */
+  int n_scripts;
+  GtkTextDirection direction = GTK_TEXT_DIR_LTR;
+  PangoLanguage *lang = pango_language_from_string (lang_id);
+  const PangoScript *scripts = pango_language_get_scripts (lang, &n_scripts);
+
+  if (n_scripts > 0)
+    {
+      hb_script_t script = hb_glib_script_to_script ((GUnicodeScript) scripts[0]);
+
+      direction = (hb_script_get_horizontal_direction (script) == HB_DIRECTION_RTL ?
+                   GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+
+    }
+
+  return direction;
+}
+
 static void
 gis_driver_locale_changed (GisDriver *driver)
 {
   GtkTextDirection direction;
 
-  direction = gtk_get_locale_direction ();
+  direction = get_direction_from_lang_id (driver->lang_id);
   gtk_widget_set_default_direction (direction);
 
   rebuild_pages (driver);

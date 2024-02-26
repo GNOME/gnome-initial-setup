@@ -113,21 +113,20 @@ cc_common_language_set_current_language (const char *locale)
 static gboolean
 user_language_has_translations (const char *locale)
 {
-        char *name, *language_code, *territory_code;
+        g_autofree char *name = NULL, *language_code = NULL, *territory_code = NULL;
         gboolean ret;
 
-        gnome_parse_locale (locale,
-                            &language_code,
-                            &territory_code,
-                            NULL, NULL);
+        if (!gnome_parse_locale (locale,
+                                 &language_code,
+                                 &territory_code,
+                                 NULL, NULL))
+                return FALSE;
+
         name = g_strdup_printf ("%s%s%s",
                                 language_code,
                                 territory_code != NULL? "_" : "",
                                 territory_code != NULL? territory_code : "");
-        g_free (language_code);
-        g_free (territory_code);
         ret = gnome_language_has_translations (name);
-        g_free (name);
 
         return ret;
 }
