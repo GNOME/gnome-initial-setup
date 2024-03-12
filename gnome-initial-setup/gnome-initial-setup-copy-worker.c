@@ -90,7 +90,6 @@ main (int    argc,
 
   FILE (".config/gnome-initial-setup-done");
   FILE (".config/dconf/user");
-  FILE (".config/goa-1.0/accounts.conf");
   FILE (".config/monitors.xml");
   FILE (".local/share/keyrings/login.keyring");
 
