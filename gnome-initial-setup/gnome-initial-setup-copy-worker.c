@@ -3,6 +3,8 @@
 /* Copies settings installed from gnome-initial-setup and
  * sticks them in the user's profile */
 
+#include "config.h"
+
 #include <pwd.h>
 #include <string.h>
 #include <gio/gio.h>
@@ -54,6 +56,7 @@ move_file_from_homedir (GFile       *src_base,
 
   g_file_make_directory_with_parents (dest_parent, NULL, NULL);
 
+  g_debug ("Moving %s to %s", g_file_get_path (src), g_file_get_path (dest));
   if (!g_file_move (src, dest, G_FILE_COPY_NONE,
                     NULL, NULL, NULL, &error)) {
     if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND)) {
@@ -74,14 +77,24 @@ main (int    argc,
   char *initial_setup_homedir;
 
   initial_setup_homedir = get_gnome_initial_setup_home_dir ();
-  if (initial_setup_homedir == NULL)
+  if (initial_setup_homedir == NULL) {
+    g_debug ("Could not determine gnome-initial-setup homedir");
     exit (EXIT_SUCCESS);
+  }
 
   src = g_file_new_for_path (initial_setup_homedir);
 
-  if (!g_file_query_exists (src, NULL) ||
-      !file_is_ours (src))
+  if (!g_file_query_exists (src, NULL)) {
+    g_debug ("Initial setup homedir %s does not exist", initial_setup_homedir);
     exit (EXIT_SUCCESS);
+  }
+
+  if (!file_is_ours (src)) {
+    g_warning ("Initial setup homedir %s is not owned by UID %u",
+               initial_setup_homedir,
+               geteuid ());
+    exit (EXIT_SUCCESS);
+  }
 
   dest = g_file_new_for_path (g_get_home_dir ());
 

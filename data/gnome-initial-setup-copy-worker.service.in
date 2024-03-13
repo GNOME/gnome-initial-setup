@@ -1,8 +1,14 @@
 [Unit]
 Description=GNOME Initial Setup Copy Worker
 
-# Make sure we run really early
-Before=gnome-session-pre.target graphical-session-pre.target
+# Make sure we complete very early before any socket or D-Bus activated
+# consumers are started.
+DefaultDependencies=no
+Conflicts=shutdown.target
+Before=basic.target shutdown.target
+
+# But start after tmpfiles to honor any setup there.
+After=systemd-tmpfiles-setup.service
 
 # Never run in GDM
 ConditionUser=!@system
