@@ -162,19 +162,16 @@ gis_assistant_previous_page (GisAssistant *assistant)
 }
 
 static void
-set_suggested_action_sensitive (GtkWidget *widget,
-                                gboolean   sensitive)
-{
-  gtk_widget_set_sensitive (widget, sensitive);
-}
-
-static void
 set_navigation_button (GisAssistant *assistant,
-                       GtkWidget    *widget)
+                       GtkWidget    *widget,
+                       gboolean     sensitive)
 {
   gtk_widget_set_visible (assistant->forward, (widget == assistant->forward));
+  gtk_widget_set_sensitive (assistant->forward, (widget == assistant->forward && sensitive));
   gtk_widget_set_visible (assistant->accept, (widget == assistant->accept));
+  gtk_widget_set_sensitive (assistant->accept, (widget == assistant->accept && sensitive));
   gtk_widget_set_visible (assistant->skip, (widget == assistant->skip));
+  gtk_widget_set_sensitive (assistant->skip, (widget == assistant->skip && sensitive));
 }
 
 void
@@ -213,13 +210,11 @@ update_navigation_buttons (GisAssistant *assistant)
         next_widget = assistant->forward;
 
       if (gis_page_get_complete (page)) {
-        set_suggested_action_sensitive (next_widget, TRUE);
-        set_navigation_button (assistant, next_widget);
+        set_navigation_button (assistant, next_widget, TRUE);
       } else if (gis_page_get_skippable (page)) {
-        set_navigation_button (assistant, assistant->skip);
+        set_navigation_button (assistant, assistant->skip, TRUE);
       } else {
-        set_suggested_action_sensitive (next_widget, FALSE);
-        set_navigation_button (assistant, next_widget);
+        set_navigation_button (assistant, next_widget, FALSE);
       }
 
       if (gis_page_get_has_forward (page)) {
