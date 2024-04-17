@@ -217,8 +217,11 @@ update_navigation_buttons (GisAssistant *assistant)
         set_navigation_button (assistant, next_widget, FALSE);
       }
 
+      /* This really means "page manages its own forward button" */
       if (gis_page_get_has_forward (page)) {
-        gtk_widget_set_visible (next_widget, FALSE);
+        GtkWidget *dummy_widget = NULL;
+        /* Ensure none of the three buttons is visible or sensitive */
+        set_navigation_button (assistant, dummy_widget, FALSE);
       }
     }
 }
