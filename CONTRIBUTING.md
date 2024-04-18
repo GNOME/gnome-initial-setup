@@ -75,6 +75,14 @@ prompt, so `gnome-initial-setup` silently writes the stamp file and exits.
 Tips for development
 ====================
 
+Set the `UNDER_JHBUILD` environment variable to toggle "Mock mode".
+
+In "Mock mode" changes will not be saved to disk.
+
+For example:
+
+`UNDER_JHBUILD=1 ./gnome-initial-setup/gnome-initial-setup`
+
 Enterprise Login
 ----------------
 
