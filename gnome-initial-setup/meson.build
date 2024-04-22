@@ -72,11 +72,15 @@ executable(
     install_dir: get_option('libexecdir')
 )
 
+copy_worker_dependencies = [
+    glib_dep,
+]
+
 copy_worker = executable(
     'gnome-initial-setup-copy-worker',
     ['gnome-initial-setup-copy-worker.c'],
     include_directories: config_h_dir,
-    dependencies: dependencies,
+    dependencies: copy_worker_dependencies,
     install: true,
     install_dir: get_option('libexecdir')
 )

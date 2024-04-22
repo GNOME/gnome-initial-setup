@@ -16,6 +16,3 @@ ConditionPathExists=!%E/gnome-initial-setup-done
 Type=oneshot
 ExecStart=@libexecdir@/gnome-initial-setup-copy-worker
 Restart=no
-# We must not try to use the D-Bus session bus before `basic.target`,
-# so force use of the 'local' GVfs implementation that is safe to use.
-Environment=GIO_USE_VFS=local
