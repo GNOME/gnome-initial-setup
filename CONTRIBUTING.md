@@ -72,16 +72,95 @@ prompt, so `gnome-initial-setup` silently writes the stamp file and exits.
 [xdg autostart]: https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html
     "The Desktop Application Autostart Specification"
 
-Tips for development
-====================
+Developing
+==========
 
-Set the `UNDER_JHBUILD` environment variable to toggle "Mock mode".
+Recommendations
+----------------
 
-In "Mock mode" changes will not be saved to disk.
+- Build in a container, using a tool like `toolbox`. See the
+  [Toolbox documentation](https://docs.fedoraproject.org/en-US/fedora-silverblue/toolbox/)
+  for more details.
+- [GNOME Builder](https://flathub.org/apps/org.gnome.Builder) is an IDE for
+  GNOME with integrated support for Toolbox.
+- [Builder] is an IDE for GNOME
 
-For example:
+Dependencies
+------------
 
-`UNDER_JHBUILD=1 ./gnome-initial-setup/gnome-initial-setup`
+If you are building on a Fedora system or container, you can typically get
+new-enough dependencies with:
+
+```bash
+sudo dnf builddep gnome-initial-setup
+```
+
+On Debian-based distros or containers:
+
+```bash
+sudo apt build-dep gnome-initial-setup
+```
+
+Building with GNOME Builder
+---------------------------
+
+Builder should be able to build & run Initial Setup automatically. However you
+may like to disable the installation of systemd units and sysuser.d snippets by
+opening the build settings (`Alt` + `,`), selecting the current configuration,
+and adding `-Dsystemd=false` under *Configure Options*.
+
+Building by hand
+----------------
+
+Inside the `gnome-initial-setup` directory, run:
+
+```bash
+meson setup _build
+```
+
+To build:
+
+```bash
+cd _build
+ninja
+```
+
+And to run:
+
+```bash
+UNDER_JHBUILD=1 ./gnome-initial-setup/gnome-initial-setup
+```
+
+Mock mode
+---------
+
+Set the `UNDER_JHBUILD` environment variable when running Initial Setup to
+enable “Mock mode”. In this mode, most changes will not be saved to disk.
+
+FAQ
+===
+
+Why does the `welcome` not appear
+---------------------------------
+
+The `welcome` page is only shown when the `language` page is skipped. You can
+either create a suitable
+[vendor configuration](./README.md#vendor-configuration) file at
+`$(sysconfdir)/gnome-initial-setup/vendor.conf` or
+`$(datadir)/gnome-initial-setup/vendor.conf`:
+
+```ini
+[pages]
+skip=language
+```
+
+Or you can comment out the following lines in
+`gnome-initial-setup/gnome-initial-setup.c`:
+
+```c
+/* if (strcmp (page_id, "welcome") == 0)
+    return !should_skip_page ("language", skip_pages); */
+```
 
 Enterprise Login
 ----------------
