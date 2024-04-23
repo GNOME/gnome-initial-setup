@@ -7,6 +7,7 @@
 
 #include <pwd.h>
 #include <string.h>
+#include <locale.h>
 #include <gio/gio.h>
 #include <stdlib.h>
 
@@ -72,31 +73,56 @@ int
 main (int    argc,
       char **argv)
 {
+  g_autofree char *src_path = NULL;
+  g_autofree char *dest_path = NULL;
+  g_autoptr(GOptionContext) context = NULL;
+  g_autoptr(GError) error = NULL;
   GFile *src;
   GFile *dest;
-  char *initial_setup_homedir;
 
-  initial_setup_homedir = get_gnome_initial_setup_home_dir ();
-  if (initial_setup_homedir == NULL) {
-    g_debug ("Could not determine gnome-initial-setup homedir");
-    exit (EXIT_SUCCESS);
+  GOptionEntry entries[] = {
+    { "src", 0, 0, G_OPTION_ARG_FILENAME, &src_path,
+      "Source path (default: home directory)", NULL },
+    { "dest", 0, 0, G_OPTION_ARG_FILENAME, &dest_path,
+      "Destination path (default: gnome-initial-setup home directory)", NULL },
+    { NULL }
+  };
+
+  setlocale (LC_ALL, "");
+
+  context = g_option_context_new ("— GNOME initial setup copy worker");
+  g_option_context_add_main_entries (context, entries, NULL);
+  if (!g_option_context_parse (context, &argc, &argv, &error)) {
+    g_printerr ("Error parsing arguments: %s\n", error->message);
+    exit (EXIT_FAILURE);
   }
 
-  src = g_file_new_for_path (initial_setup_homedir);
+  if (src_path == NULL) {
+    src_path = get_gnome_initial_setup_home_dir ();
+    if (src_path == NULL) {
+      g_debug ("Could not determine gnome-initial-setup homedir");
+      exit (EXIT_SUCCESS);
+    }
+  }
+
+  if (dest_path == NULL)
+    dest_path = g_strdup (g_get_home_dir ());
+
+  src = g_file_new_for_path (src_path);
 
   if (!g_file_query_exists (src, NULL)) {
-    g_debug ("Initial setup homedir %s does not exist", initial_setup_homedir);
+    g_debug ("Initial setup homedir %s does not exist", src_path);
     exit (EXIT_SUCCESS);
   }
 
   if (!file_is_ours (src)) {
     g_warning ("Initial setup homedir %s is not owned by UID %u",
-               initial_setup_homedir,
+               src_path,
                geteuid ());
     exit (EXIT_SUCCESS);
   }
 
-  dest = g_file_new_for_path (g_get_home_dir ());
+  dest = g_file_new_for_path (dest_path);
 
 #define FILE(path) \
   copy_file_from_homedir (src, dest, path);
