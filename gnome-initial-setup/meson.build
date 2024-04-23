@@ -26,6 +26,9 @@ sources += [
     'gis-keyring.h'
 ]
 
+glib_dep = dependency ('glib-2.0', version: '>= 2.63.1')
+gio_dep = dependency ('gio-unix-2.0', version: '>= 2.53.0')
+
 geocode_glib_2_dep = dependency('geocode-glib-2.0')
 
 gweather_dep = dependency('gweather4')
@@ -42,8 +45,8 @@ dependencies = [
     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
     dependency ('fontconfig'),
     dependency ('gtk4', version: '>= 4.10'),
-    dependency ('glib-2.0', version: '>= 2.63.1'),
-    dependency ('gio-unix-2.0', version: '>= 2.53.0'),
+    glib_dep,
+    gio_dep,
     dependency ('gdm', version: '>= 3.8.3'),
     gweather_dep,
     dependency ('libgeoclue-2.0', version: '>= 2.6.0'),
@@ -69,11 +72,39 @@ executable(
     install_dir: get_option('libexecdir')
 )
 
-executable(
+copy_worker = executable(
     'gnome-initial-setup-copy-worker',
     ['gnome-initial-setup-copy-worker.c'],
     include_directories: config_h_dir,
     dependencies: dependencies,
     install: true,
     install_dir: get_option('libexecdir')
+)
+
+test_env = [
+  'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
+  'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
+]
+
+test_copy_worker_dependencies = [
+    glib_dep,
+    gio_dep,
+]
+
+test_copy_worker_env = test_env + [
+  'COPY_WORKER_PATH=@0@'.format(copy_worker.full_path()),
+]
+
+test_copy_worker = executable(
+    'test-copy-worker',
+    ['test-copy-worker.c'],
+    include_directories: config_h_dir,
+    dependencies: test_copy_worker_dependencies,
+)
+
+test(
+    'test-copy-worker',
+    test_copy_worker,
+    env: test_copy_worker_env,
+    protocol: 'tap',
 )
