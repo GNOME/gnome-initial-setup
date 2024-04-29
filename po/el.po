@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
-"issues\n"
-"POT-Creation-Date: 2023-08-23 14:24+0000\n"
-"PO-Revision-Date: 2023-09-09 02:16+0300\n"
+"issues/\n"
+"POT-Creation-Date: 2024-03-19 13:57+0000\n"
+"PO-Revision-Date: 2024-04-30 00:02+0300\n"
 "Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: Ελληνικά <>\n"
 "Language: el\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:802
+#: gnome-initial-setup/gis-driver.c:866
 msgid "Initial Setup"
 msgstr "Αρχική ρύθμιση"
 
@@ -49,27 +49,31 @@ msgstr "_Προηγούμενο"
 msgid "_Cancel"
 msgstr "Ακύ_ρωση"
 
-#: gnome-initial-setup/gnome-initial-setup.c:282
+#: gnome-initial-setup/gnome-initial-setup.c:280
 msgid "Force existing user mode"
 msgstr "Εξαναγκασμός υπάρχουσας λειτουργίας χρήστη"
 
-#: gnome-initial-setup/gnome-initial-setup.c:296
+#: gnome-initial-setup/gnome-initial-setup.c:294
 msgid "— GNOME initial setup"
 msgstr "— Αρχική ρύθμιση GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+msgid "Failed to cache account"
+msgstr "Αποτυχία προσωρινής αποθήκευσης του λογαριασμού"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
 msgid "Failed to register account"
 msgstr "Αποτυχία εγγραφής του λογαριασμού"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
 msgid "No supported way to authenticate with this domain"
 msgstr "Κανένας υποστηριζόμενος τρόπος πιστοποίησης με αυτόν τον τομέα"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
 msgid "Failed to join domain"
 msgstr "Αποτυχία ένταξης στον τομέα"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
 msgid "Failed to log into domain"
 msgstr "Αποτυχία σύνδεσης στον τομέα"
 
@@ -94,12 +98,12 @@ msgid "_Domain"
 msgstr "_Τομέας"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:100
 msgid "_Username"
 msgstr "Όν_ομα χρήστη"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:25
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "_Συνθηματικό"
 
@@ -138,51 +142,49 @@ msgstr "Κωδικός πρόσβασης διαχειριστή"
 msgid "C_ontinue"
 msgstr "_Συνέχεια"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
-msgid "Please check the name and username. You can choose a picture too."
-msgstr ""
-"Παρακαλούμε, ελέγξτε το όνομα σας και το όνομα χρήστη. Μπορείτε επίσης να "
-"επιλέξετε μια εικόνα."
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr ""
 "Χρειαζόμαστε περισσότερες λεπτομέρειες για να ολοκληρώσουμε τη ρύθμιση."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
 msgid "Administrator"
 msgstr "Διαχειριστής"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Αποτυχία δημιουργίας χρήστη «%s»: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
-msgid "Edit avatar"
-msgstr "Επεξεργασία ειδώλου"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:28
+msgid "Change Avatar"
+msgstr "Αλλαγή ειδώλου"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+msgid "Remove Avatar"
+msgstr "Αφαιρέστε το είδωλο"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Σχετικά με εσάς"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:65
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Παρακαλούμε, δώστε ένα όνομα και ένα όνομα χρήστη. Μπορείτε επίσης να "
 "επιλέξετε μια εικόνα."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:77
 msgid "_Full Name"
 msgstr "Ονομα_τεπώνυμο"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:152
 msgid "Set up _parental controls for this user"
 msgstr "Ρύθμιση _γονικού ελέγχου για αυτόν τον χρήστη"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:158
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Για χρήση από γονέα ή επιβλέποντα, ο οποίος πρέπει να δημιουργήσει το δικό "
@@ -251,40 +253,6 @@ msgstr ""
 "Αυτό θα χρησιμοποιηθεί σαν όνομα για τον προσωπικό σας φάκελο και δεν μπορεί "
 "να αλλαχθεί."
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:561
-msgid "Online Accounts"
-msgstr "Διαδικτυακοί λογαριασμοί"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:12
-msgid "Connect Your Online Accounts"
-msgstr "Σύνδεση σε δικτυακούς λογαριασμούς"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:13
-msgid ""
-"Connect your accounts to easily access your email, online calendar, "
-"contacts, documents and photos."
-msgstr ""
-"Η σύνδεση των λογαριασμών σας θα σας επιτρέψει εύκολη πρόσβαση στην "
-"αλληλογραφία σας, στο διαδικτυακό ημερολόγιο, στις επαφές, στα έγγραφα και "
-"τις φωτογραφίες σας."
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid "Accounts can be added and removed at any time from the Settings app."
-msgstr ""
-"Λογαριασμοί μπορούν να προστεθούν και να διαγραφούν οποιαδήποτε στιγμή από "
-"τις Ρυθμίσεις."
-
-#. translators: This is the title of the "Show Account" dialog. The
-#. * %s is the name of the provider. e.g., 'Google'.
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
-#, c-format
-msgid "%s Account"
-msgstr "%s λογαριασμός"
-
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-msgid "Remove Account"
-msgstr "Αφαίρεση λογαριασμού"
-
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Προεπισκόπηση"
@@ -318,7 +286,7 @@ msgstr "Αναζήτηση πληκτρολογίων και μεθόδων ει
 msgid "No languages found"
 msgstr "Δε βρέθηκαν γλώσσες"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:262
+#: gnome-initial-setup/pages/language/gis-language-page.c:261
 msgid "Welcome"
 msgstr "Καλώς ήλθατε"
 
@@ -369,58 +337,58 @@ msgid "Turn On"
 msgstr "Ενεργοποίηση"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:106
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Γονικός έλεγχος για %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:108
 msgid "Set restrictions on what this user can run or install."
 msgstr ""
 "Ορίστε περιορισμούς για το τι μπορεί να εκτελέσει ή να εγκαταστήσει αυτός ο "
 "χρήστης."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
 msgid "Parental Controls"
 msgstr "Γονικός έλεγχος"
 
 #. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:90
+#: gnome-initial-setup/pages/password/gis-password-page.c:93
 msgid "Set a Password"
 msgstr "Ορισμός κωδικού πρόσβασης"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:91
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:102
 msgid "Be careful not to lose your password."
 msgstr "Προσέξτε να μην χάσετε το κωδικό πρόσβασής σας."
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:98
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Ορισμός συνθηματικού για %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:106
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 msgid "Set a Parent Password"
 msgstr "Ορισμός συνθηματικού γονέα"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:108
+#: gnome-initial-setup/pages/password/gis-password-page.c:109
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr ""
 "Αυτό το συνθηματικό θα ελέγχει την πρόσβαση στους γονικούς ελέγχους για το "
 "%s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:243
+#: gnome-initial-setup/pages/password/gis-password-page.c:253
 msgid "The passwords do not match."
 msgstr "Δεν ταιριάζουν τα συνθηματικά."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:434
+#: gnome-initial-setup/pages/password/gis-password-page.c:449
 msgid "Password"
 msgstr "Συνθηματικό"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Επιβεβαίωση συνθηματικού"
 
@@ -571,10 +539,14 @@ msgstr ""
 "Η προσθήκη περισσότερων γραμμάτων, αριθμών και σημείων στίξης θα κάνει το "
 "συνθηματικό ισχυρότερο."
 
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
+msgid "Privacy Policy"
+msgstr "Πολιτική ιδιωτικότητας"
+
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -587,7 +559,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -597,19 +569,6 @@ msgstr ""
 "στοιχεία. Τα δεδομένα συλλέγονται από την %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid "Privacy Policy"
-msgstr "Πολιτική ιδιωτικότητας"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
-msgid "Privacy"
-msgstr "Ιδιωτικότητα"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
-msgid "Location Services"
-msgstr "Υπηρεσίες τοποθεσίας"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
 "Allows apps to determine your geographical location. Uses the Mozilla "
 "Location Service (<a href='https://location.services.mozilla.com/"
@@ -619,11 +578,28 @@ msgstr ""
 "Υπηρεσία τοποθεσίας Mozilla (<a href='https://location.services.mozilla.com/"
 "privacy'>πολιτική απορρήτου</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service."
+msgstr ""
+"Επιτρέπει τις εφαρμογές να καθορίσουν την τοποθεσία σας. Χρησιμοποιεί την "
+"Υπηρεσία τοποθεσίας Mozilla."
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
+msgid "Privacy"
+msgstr "Ιδιωτικότητα"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
+msgid "Location Services"
+msgstr "Υπηρεσίες τοποθεσίας"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "Αυτόματη αναφορά προβλήματος"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Οι ρυθμίσεις ιδιωτικότητας μπορούν να αλλαχθούν οποιαδήποτε στιγμή από τις "
@@ -666,8 +642,8 @@ msgstr "Ξε_κινήστε τη χρήση του %s"
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
-msgid "%s is ready to be used. We hope that you love it!"
-msgstr "Το %s είναι έτοιμο προς χρήση. Ελπίζουμε ότι θα το αγαπήσετε!"
+msgid "%s is ready to be used."
+msgstr "Το %s είναι έτοιμο προς χρήση."
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:263
 msgid "Setup Complete"
@@ -698,7 +674,7 @@ msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -707,28 +683,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:484
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
 msgid "Time Zone"
 msgstr "Ζώνη ώρας"
@@ -753,7 +729,7 @@ msgstr "Παρακαλούμε, αναζητήστε μια κοντινή πό�
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:75
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
 msgstr "Καλώς ήλθατε στο %s !"
@@ -762,7 +738,7 @@ msgstr "Καλώς ήλθατε στο %s !"
 msgid "Setup"
 msgstr "Ρύθμιση"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:39
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -770,7 +746,7 @@ msgstr ""
 "Η ρύθμιση θα σας καθοδηγήσει στη δημιουργία λογαριασμού και την ενεργοποίηση "
 "ορισμένων λειτουργιών. Θα χρησιμοποιείτε το σύστημα σε χρόνο μηδέν."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "Έ_ναρξη ρύθμισης"
 
@@ -783,27 +759,85 @@ msgid "Force OEM mode"
 msgstr "Εξαναγκασμός λειτουργίας OEM"
 
 #: po/EXTRA_STRINGS.sh:3
-msgid "Install or Try?"
-msgstr "Εγκατάσταση ή δοκιμή;"
+msgid "Try or Install?"
+msgstr "Δοκιμή ή Εγκατάσταση;"
 
 #: po/EXTRA_STRINGS.sh:4
+#, sh-format
 msgid ""
-"This live media can be used to install GNOME, or it can be used to try GNOME "
-"as a temporary system. Installation can be started at any time using the "
-"install icon in Activities."
+"You can try a temporary version of ${NAME} without making changes to the "
+"computer. If you decide to install later, just launch the installer from the "
+"Activities view.\n"
+"\n"
+"        Alternatively, choose install to launch the installer."
 msgstr ""
-"Αυτό το μέσο μπορεί να χρησιμοποιηθεί για να εγκαταστήσετε το GNOME ή μπορεί "
-"να χρησιμοποιηθεί για να δοκιμάσετε το GNOME ως προσωρινό σύστημα. Η "
-"εγκατάσταση μπορεί να ξεκινήσει ανά πάσα στιγμή χρησιμοποιώντας το εικονίδιο "
-"εγκατάστασης στις Δραστηριότητες."
+"Μπορείτε να δοκιμάσετε μια προσωρινή έκδοση του ${NAME} χωρίς να κάνετε "
+"αλλαγές στον υπολογιστή. Αν αποφασίσετε να εγκαταστήσετε αργότερα, απλά "
+"ξεκινήστε το πρόγραμμα εγκατάστασης από την προβολή Δραστηριότητες.\n"
+"\n"
+"        Εναλλακτικά, επιλέξτε εγκατάσταση για να εκκινήσετε το πρόγραμμα "
+"εγκατάστασης."
 
-#: po/EXTRA_STRINGS.sh:5
-msgid "Install…"
-msgstr "Γίνεται εγκατάσταση…"
+#: po/EXTRA_STRINGS.sh:7
+msgid "Install to Disk…"
+msgstr "Εγκατάσταση στο δίσκο…"
 
-#: po/EXTRA_STRINGS.sh:6
-msgid "Try"
-msgstr "Δοκιμή"
+#: po/EXTRA_STRINGS.sh:8
+#, sh-format
+msgid "Try ${NAME}"
+msgstr "Δοκιμάστε ${NAME}"
+
+#: po/EXTRA_STRINGS.sh:9
+#, sh-format
+msgid "Install ${PRETTY_NAME}"
+msgstr "Εγκατάσταση ${PRETTY_NAME}"
+
+#~ msgid "Please check the name and username. You can choose a picture too."
+#~ msgstr ""
+#~ "Παρακαλούμε, ελέγξτε το όνομα σας και το όνομα χρήστη. Μπορείτε επίσης να "
+#~ "επιλέξετε μια εικόνα."
+
+#~ msgid "Edit avatar"
+#~ msgstr "Επεξεργασία ειδώλου"
+
+#~ msgid "Online Accounts"
+#~ msgstr "Διαδικτυακοί λογαριασμοί"
+
+#~ msgid "Connect Your Online Accounts"
+#~ msgstr "Σύνδεση σε δικτυακούς λογαριασμούς"
+
+#~ msgid ""
+#~ "Connect your accounts to easily access your email, online calendar, "
+#~ "contacts, documents and photos."
+#~ msgstr ""
+#~ "Η σύνδεση των λογαριασμών σας θα σας επιτρέψει εύκολη πρόσβαση στην "
+#~ "αλληλογραφία σας, στο διαδικτυακό ημερολόγιο, στις επαφές, στα έγγραφα "
+#~ "και τις φωτογραφίες σας."
+
+#~ msgid "Accounts can be added and removed at any time from the Settings app."
+#~ msgstr ""
+#~ "Λογαριασμοί μπορούν να προστεθούν και να διαγραφούν οποιαδήποτε στιγμή "
+#~ "από τις Ρυθμίσεις."
+
+#, c-format
+#~ msgid "%s Account"
+#~ msgstr "%s λογαριασμός"
+
+#~ msgid "Install or Try?"
+#~ msgstr "Εγκατάσταση ή δοκιμή;"
+
+#~ msgid ""
+#~ "This live media can be used to install GNOME, or it can be used to try "
+#~ "GNOME as a temporary system. Installation can be started at any time "
+#~ "using the install icon in Activities."
+#~ msgstr ""
+#~ "Αυτό το μέσο μπορεί να χρησιμοποιηθεί για να εγκαταστήσετε το GNOME ή "
+#~ "μπορεί να χρησιμοποιηθεί για να δοκιμάσετε το GNOME ως προσωρινό σύστημα. "
+#~ "Η εγκατάσταση μπορεί να ξεκινήσει ανά πάσα στιγμή χρησιμοποιώντας το "
+#~ "εικονίδιο εγκατάστασης στις Δραστηριότητες."
+
+#~ msgid "Try"
+#~ msgstr "Δοκιμή"
 
 #~ msgid "Avatar image"
 #~ msgstr "Προσωπική εικόνα"
