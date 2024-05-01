@@ -1,3 +1,32 @@
+46.1
+----
+
+Bugs fixed:
+
+- gnome-initial-setup-copy-worker, which runs after Initial Setup has created
+  the first user on the system, is now ordered before GNOME Keyring, assuming
+  both Initial Setup and GNOME Keyring have been configured with systemd
+  support. This avoids a race between gnome-initial-setup-copy-worker copying
+  the login keyring that was created during Initial Setup, and GNOME Keyring
+  creating a login keyring if none exists on disk.
+
+- Keyboard navigation now works better on the Wi-Fi page.
+
+Other improvements:
+
+- The CONTRIBUTING file has been updated with more development tips.
+
+Translation updates:
+
+- Catalan (Jordi Mas i Hernandez)
+- Friulian (Fabio Tomat)
+- Greek (Efstathios Iosifidis)
+- Kabyle (Rachida SACI)
+- Occitan (Quentin PAGÈS)
+- Panjabi (A S Alam)
+- Portuguese (Brazil) (Juliano de Souza Camargo)
+- Serbian (Милош Поповић)
+
 46.0
 ----
 
