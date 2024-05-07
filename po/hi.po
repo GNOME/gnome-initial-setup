@@ -5,26 +5,27 @@
 # chandan kumar <chandankumar.093047@gmail.com>, 2012, 2013.
 # Rajesh Ranjan <rajeshkajha@yahoo.com>, 2013, 2014.
 # Hemish <hemish04082005@gmail.com>, 2022-2023.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
-"issues\n"
-"POT-Creation-Date: 2023-02-23 14:48+0000\n"
-"PO-Revision-Date: 2023-02-25 14:25+0530\n"
-"Last-Translator: Hemish <hemish04082005@gmail.com>\n"
-"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net https://indlinux."
-"org/hindi>\n"
+"issues/\n"
+"POT-Creation-Date: 2024-03-19 13:57+0000\n"
+"PO-Revision-Date: 2024-04-14 20:05+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 46.0\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
+#: gnome-initial-setup/gis-driver.c:866
 msgid "Initial Setup"
 msgstr "प्रारंभिक सेटअप"
 
@@ -45,30 +46,35 @@ msgid "_Previous"
 msgstr "पिछला (_P)"
 
 #: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "रद्द (_C)"
 
-#: gnome-initial-setup/gnome-initial-setup.c:282
+#: gnome-initial-setup/gnome-initial-setup.c:280
 msgid "Force existing user mode"
 msgstr "मौजूदा उपयोक्ता मोड बलपूर्वक लागू करें"
 
-#: gnome-initial-setup/gnome-initial-setup.c:296
+#: gnome-initial-setup/gnome-initial-setup.c:294
 msgid "— GNOME initial setup"
 msgstr "— गनोम प्रारंभिक सेटअप"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+msgid "Failed to cache account"
+msgstr "खाता कैश करने में विफल"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
 msgid "Failed to register account"
 msgstr "खाता बनाने में विफल"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
 msgid "No supported way to authenticate with this domain"
 msgstr "इस डोमेन के साथ प्रमाणित करने के लिए कोई तरीका उपलब्ध नहीं है।"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
 msgid "Failed to join domain"
 msgstr "डोमेन में शामिल होने में विफल"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
 msgid "Failed to log into domain"
 msgstr "डोमेन में लॉगिन में विफल"
 
@@ -92,12 +98,12 @@ msgid "_Domain"
 msgstr "डोमेन (_D)"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:100
 msgid "_Username"
 msgstr "उपयोक्ता नाम (_U)"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:25
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "पासवर्ड (_P)"
 
@@ -135,46 +141,46 @@ msgstr "एडमिनिस्ट्रेटर का पासवर्ड"
 msgid "C_ontinue"
 msgstr "जारी रखें (_o)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
-msgid "Please check the name and username. You can choose a picture too."
-msgstr "कृपया नाम और उपयोगकर्ता नाम की जाँच कर लें। आप एक तस्वीर भी चुन सकते हैं।"
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "सेटअप पूरा करने के लिए हमें कुछ विवरणों की आवश्यकता है."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
 msgid "Administrator"
 msgstr "एडमिनिस्ट्रेटर का नाम (_N)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "उपयोक्ता '%s' बनाने में विफल: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
-msgid "Edit avatar"
-msgstr "अवतार संशोधित करें"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:28
+msgid "Change Avatar"
+msgstr "अवतार बदलें"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+msgid "Remove Avatar"
+msgstr "अवतार हटाएँ"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "आपका परिचय"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:65
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "कृपया एक नाम और उपयोगकर्ता नाम प्रदान करें। आप एक तस्वीर भी चुन सकते हैं।"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:77
 msgid "_Full Name"
 msgstr "पूरा नाम (_F)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:152
 msgid "Set up _parental controls for this user"
 msgstr "इस उपयोगकर्ता के लिए पेरेंटल कंट्रोल सेट करें (_p)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:158
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "माता-पिता या सूपरवॉइज़र द्वारा उपयोग के लिए, जिन्हें अपना पासवर्ड सेट करना होगा।"
@@ -242,43 +248,11 @@ msgstr ""
 "इसे आपके होम फ़ोल्डर का नाम देने के लिए उपयोग में लिया जाएगा और यह बाद में बदला नहीं जा "
 "सकता है।"
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:561
-msgid "Online Accounts"
-msgstr "ऑनलाइन खाते"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:12
-msgid "Connect Your Online Accounts"
-msgstr "अपने ऑनलाइन खाते जोङें"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:13
-msgid ""
-"Connect your accounts to easily access your email, online calendar, "
-"contacts, documents and photos."
-msgstr ""
-"आप अपने खातों को जोङ कर अपने ईमेल, ऑनलाइन पंचांग, संपर्क, दस्तावेज़ तथा चित्र आदि का "
-"आसानी से उपयोग कर सकते हैं।"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid ""
-"Accounts can be added and removed at any time from the Settings application."
-msgstr "खातों को सेटिंग एप्लिकेशन से किसी भी समय जोड़ा और हटाया जा सकता है।"
-
-#. translators: This is the title of the "Show Account" dialog. The
-#. * %s is the name of the provider. e.g., 'Google'.
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
-#, c-format
-msgid "%s Account"
-msgstr "खाता %s"
-
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-msgid "Remove Account"
-msgstr "खाता हटाएँ"
-
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:236
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "दिखाएँ"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:295
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:222
 msgid "More…"
 msgstr "अधिक…"
@@ -286,11 +260,11 @@ msgstr "अधिक…"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:317
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
 msgid "No inputs found"
 msgstr "कोई इनपुट नहीं मिले"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:504
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
 msgid "Typing"
 msgstr "टाइपिंग"
@@ -307,7 +281,7 @@ msgstr "कुंजीपट लेऑउट या इनपुट तरी�
 msgid "No languages found"
 msgstr "कोई भाषाएँ नहीं मिलीं"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:262
+#: gnome-initial-setup/pages/language/gis-language-page.c:261
 msgid "Welcome"
 msgstr "सुस्वागतम"
 
@@ -357,54 +331,54 @@ msgid "Turn On"
 msgstr "चालू करें"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:106
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "%s के लिए पैरेंटल कंट्रोल"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:108
 msgid "Set restrictions on what this user can run or install."
 msgstr "यह उपयोगकर्ता क्या चला या इंस्टॉल कर सकता है, इस पर प्रतिबंध सेट करें।"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
 msgid "Parental Controls"
 msgstr "पैरेंटल कंट्रोल"
 
 #. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:90
+#: gnome-initial-setup/pages/password/gis-password-page.c:93
 msgid "Set a Password"
 msgstr "पासवर्ड चुनें"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:91
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:102
 msgid "Be careful not to lose your password."
 msgstr "सावधान रहें कि आपका अपना पासवर्ड न खो दें।"
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:98
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 #, c-format
 msgid "Set a Password for %s"
 msgstr "%s के लिए पासवर्ड चुनें"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:106
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 msgid "Set a Parent Password"
 msgstr "पेरेंट पासवर्ड सेट करें"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:108
+#: gnome-initial-setup/pages/password/gis-password-page.c:109
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "यह पासवर्ड %s के लिए पैरेंटल कंट्रोल तक पहुंच को नियंत्रित करेगा।"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:243
+#: gnome-initial-setup/pages/password/gis-password-page.c:253
 msgid "The passwords do not match."
 msgstr "यह पासवर्ड मेल नहीं खाते"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:437
+#: gnome-initial-setup/pages/password/gis-password-page.c:449
 msgid "Password"
 msgstr "पासवर्ड"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "पासवर्ड की पुष्टि करें (_C)"
 
@@ -530,37 +504,54 @@ msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "और अक्षर, अंक तथा विराम चिह्नों को जोड़ना पासवर्ड को और शक्तिशाली बनाएगा।"
 
-#. Translators: the first parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:72
-#, c-format
-msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."
-msgstr ""
-"यह तकनीकी रिपोर्ट भेजता है जिसमें व्यक्तिगत जानकारी स्वचालित रूप से हटा दी जाती है। यह "
-"डेटा %1$s (<a href='%2$s'>गोपनीयता नीति</a>) द्वारा एकत्र किया जाता है।"
-
-#. Translators: the parameter here is the name of a distribution,
-#. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
-#. * detect any distribution.
-#.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
-#, c-format
-msgid ""
-"Sends technical reports that have personal information automatically "
-"removed. Data is collected by %s."
-msgstr ""
-"यह तकनीकी रिपोर्ट भेजता है जिसमें व्यक्तिगत जानकारी स्वचालित रूप से हटा दी जाती है। यह "
-"डेटा %s द्वारा एकत्र किया जाता है।"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
 msgid "Privacy Policy"
 msgstr "गोपनीयता नीति"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:235
+#. Translators: the first parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu".
+#.
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
+#, c-format
+msgid ""
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %1$s (<a href='%2$s'>privacy policy</a>)."
+msgstr ""
+"तकनीकी रिपोर्ट भेजता है जिसमें व्यक्तिगत जानकारी नहीं होती। डेटा %1$s (<a "
+"href='%2$s'>गोपनीयता नीति</a>) द्वारा एकत्र किया जाता है।"
+
+#. Translators: the parameter here is the name of a distribution,
+#. * like "Fedora" or "Ubuntu".
+#.
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
+#, c-format
+msgid ""
+"Sends technical reports that do not contain personal information. Data is "
+"collected by %s."
+msgstr ""
+"तकनीकी रिपोर्ट भेजता है जिसमें व्यक्तिगत जानकारी नहीं होती। डेटा %s द्वारा एकत्र किया "
+"जाता है।"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service (<a href='https://location.services.mozilla.com/"
+"privacy'>privacy policy</a>)."
+msgstr ""
+"यह ऐप को आपका भौगोलिक स्थान का पता लगाने देता है। यह मोज़िला स्थान सेवा (<a "
+"href='https://location.services.mozilla.com/privacy'>गोपनीयता नीति</a>) का "
+"उपयोग करता है।"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service."
+msgstr ""
+"यह ऐप को आपका भौगोलिक स्थान का पता लगाने देता है। यह मोज़िला स्थान सेवा (<a "
+"href='https://location.services.mozilla.com/privacy'>गोपनीयता नीति</a>) का "
+"उपयोग करता है।"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "गोपनीयता"
@@ -569,31 +560,20 @@ msgstr "गोपनीयता"
 msgid "Location Services"
 msgstr "स्थान सेवाएँ"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:28
-msgid ""
-"Allows applications to determine your geographical location. Uses the "
-"Mozilla Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr ""
-"यह एप्‍लिकेशन्स को आपका भौगोलिक स्थान का पता लगाने देता है। यह मोज़िला स्थान सेवा (<a "
-"href='https://location.services.mozilla.com/privacy'>गोपनीयता नीति</a>) का "
-"उपयोग करता है।"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "स्वचालित समस्या रिपोर्टिंग"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:62
-msgid ""
-"Privacy controls can be changed at any time from the Settings application."
-msgstr "सेटिंग एप्लिकेशन से किसी भी समय गोपनीयता नियंत्रणों को बदला जा सकता है।"
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
+msgid "Privacy controls can be changed at any time from the Settings app."
+msgstr "सेटिंग ऐप से किसी भी समय गोपनीयता नियंत्रणों को बदला जा सकता है।"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:109
+#: gnome-initial-setup/pages/software/gis-software-page.c:111
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "तृतीय पक्षिय रेपॉज़िटॉरिज़"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:110
+#: gnome-initial-setup/pages/software/gis-software-page.c:112
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -603,11 +583,11 @@ msgstr ""
 "लोकप्रिय ऐप्स और ड्राइवर शामिल हैं जो कुछ उपकरणों के लिए महत्वपूर्ण होते हैं। इनमें कुछ "
 "मालिकाना (प्रॉपरॉइट्रेरी) सॉफ्टवेयर शामिल हैं।"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:120
+#: gnome-initial-setup/pages/software/gis-software-page.c:122
 msgid "_Disable Third-Party Repositories"
 msgstr "तृतीय पक्षिय रेपॉज़िटॉरिज़ को अक्षम करें (_D)"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:125
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 msgid "_Enable Third-Party Repositories"
 msgstr "तृतीय पक्षिय रेपॉज़िटॉरिज़ को सक्षम करें (_E)"
 
@@ -624,8 +604,8 @@ msgstr "%s का उपयोग करना प्रारंभ करे�
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
-msgid "%s is ready to be used. We hope that you love it!"
-msgstr "%s उपयोग के लिए तैयार है। हमें उम्मीद है कि आप इसे पसंद करेंगे!"
+msgid "%s is ready to be used."
+msgstr "%s उपयोग के लिए तैयार है।"
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:263
 msgid "Setup Complete"
@@ -656,7 +636,7 @@ msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -665,28 +645,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:484
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
 msgid "Time Zone"
 msgstr "समय क्षेत्र"
@@ -711,7 +691,7 @@ msgstr "कृपया कोई आस-पड़ोस का शहर ढू
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:75
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
 msgstr "%s में आपका स्वागत है!"
@@ -720,7 +700,7 @@ msgstr "%s में आपका स्वागत है!"
 msgid "Setup"
 msgstr "सेटअप"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:39
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -728,9 +708,77 @@ msgstr ""
 "सेटअप एक खाता बनाने और कुछ सुविधाओं को सक्षम करने में आपका मार्गदर्शन करेगा। यह सब थोङे "
 "ही समय में हो जाएगा।"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "सेटअप आरंभ करें (_S)"
+
+#: po/EXTRA_STRINGS.sh:1
+msgid "Force live user mode"
+msgstr "लाइव उपयोगकर्ता मोड को बाध्य करें"
+
+#: po/EXTRA_STRINGS.sh:2
+msgid "Force OEM mode"
+msgstr "OEM मोड को बाध्य करें"
+
+#: po/EXTRA_STRINGS.sh:3
+msgid "Try or Install?"
+msgstr "आजमायें या इंस्टॉल करें?"
+
+#: po/EXTRA_STRINGS.sh:4
+#, sh-format
+msgid ""
+"You can try a temporary version of ${NAME} without making changes to the "
+"computer. If you decide to install later, just launch the installer from the "
+"Activities view.\n"
+"\n"
+"        Alternatively, choose install to launch the installer."
+msgstr ""
+"आप कंप्यूटर में परिवर्तन किए बिना ${NAME} का अस्थायी संस्करण आज़मा सकते हैं। यदि आप बाद में "
+"इंस्टॉल करने का निर्णय लेते हैं, तो बस गतिविधि दृश्य से स्थापनाकर्ता लॉन्च करें।\n"
+"\n"
+"        वैकल्पिक रूप से, स्थापनाकर्ता लॉन्च करने के लिए इंस्टॉल चुनें।"
+
+#: po/EXTRA_STRINGS.sh:7
+msgid "Install to Disk…"
+msgstr "डिस्क पर स्थापित करें…"
+
+#: po/EXTRA_STRINGS.sh:8
+#, sh-format
+msgid "Try ${NAME}"
+msgstr "${NAME} आजमायें"
+
+#: po/EXTRA_STRINGS.sh:9
+#, sh-format
+msgid "Install ${PRETTY_NAME}"
+msgstr "${PRETTY_NAME} स्थापित करें"
+
+#~ msgid "Please check the name and username. You can choose a picture too."
+#~ msgstr "कृपया नाम और उपयोगकर्ता नाम की जाँच कर लें। आप एक तस्वीर भी चुन सकते हैं।"
+
+#~ msgid "Edit avatar"
+#~ msgstr "अवतार संशोधित करें"
+
+#~ msgid "Online Accounts"
+#~ msgstr "ऑनलाइन खाते"
+
+#~ msgid "Connect Your Online Accounts"
+#~ msgstr "अपने ऑनलाइन खाते जोङें"
+
+#~ msgid ""
+#~ "Connect your accounts to easily access your email, online calendar, "
+#~ "contacts, documents and photos."
+#~ msgstr ""
+#~ "आप अपने खातों को जोङ कर अपने ईमेल, ऑनलाइन पंचांग, संपर्क, दस्तावेज़ तथा चित्र आदि का "
+#~ "आसानी से उपयोग कर सकते हैं।"
+
+#~ msgid ""
+#~ "Accounts can be added and removed at any time from the Settings "
+#~ "application."
+#~ msgstr "खातों को सेटिंग एप्लिकेशन से किसी भी समय जोड़ा और हटाया जा सकता है।"
+
+#, c-format
+#~ msgid "%s Account"
+#~ msgstr "खाता %s"
 
 #~ msgid "Take a Picture…"
 #~ msgstr "एक तस्वीर खीचें…"
