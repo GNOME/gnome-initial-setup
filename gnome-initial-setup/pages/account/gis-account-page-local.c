@@ -201,6 +201,7 @@ username_changed (GtkComboBoxText     *combo,
   if (*username == '\0')
     page->has_custom_username = FALSE;
   else if (gtk_widget_has_focus (entry) ||
+           gtk_widget_get_focus_child (entry) ||
            gtk_combo_box_get_active (GTK_COMBO_BOX (page->username_combo)) > 0)
     page->has_custom_username = TRUE;
 
