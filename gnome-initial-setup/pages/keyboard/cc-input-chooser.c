@@ -780,6 +780,7 @@ cc_input_chooser_finalize (GObject *object)
 	g_hash_table_unref (priv->inputs);
         g_clear_pointer (&priv->input_widget_boxes, g_ptr_array_unref);
 #ifdef HAVE_IBUS
+	g_signal_handlers_disconnect_by_func (priv->ibus, fetch_ibus_engines, chooser);
         g_clear_object (&priv->ibus);
         if (priv->ibus_cancellable)
                 g_cancellable_cancel (priv->ibus_cancellable);
