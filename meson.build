@@ -33,6 +33,10 @@ conf.set('G_LOG_USE_STRUCTURED', true)
 conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_64')
 conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_64')
 
+if cc.has_header('sys/xattr.h')
+    conf.set('HAVE_XATTR', 1)
+endif
+
 enable_systemd = get_option('systemd')
 if enable_systemd
     systemd_dep = dependency('systemd', version: '>= 242', required: false)
