@@ -264,35 +264,20 @@ on_focusout (GisPasswordPage *page)
 }
 
 static void
-password_changed (GtkWidget      *w,
+password_changed (GtkWidget      *entry,
                   GParamSpec     *pspec,
                   GisPasswordPage *page)
 {
   g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
 
-  clear_password_validation_error (w);
-  clear_password_validation_error (page->confirm_entry);
-
-  update_page_validation (page);
-
-  g_clear_handle_id (&page->timeout_id, g_source_remove);
-  page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
-}
-
-static void
-confirm_changed (GtkWidget      *w,
-                 GParamSpec     *pspec,
-                 GisPasswordPage *page)
-{
-  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
-
-  clear_password_validation_error (w);
+  clear_password_validation_error (entry);
+  if (entry == page->password_entry)
+    clear_password_validation_error (page->confirm_entry);
 
   page->valid_confirm = FALSE;
   update_page_validation (page);
 
-  if (page->timeout_id != 0)
-    g_source_remove (page->timeout_id);
+  g_clear_handle_id (&page->timeout_id, g_source_remove);
   page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
 }
 
@@ -352,7 +337,7 @@ gis_password_page_constructed (GObject *object)
   track_focus_out (page, page->password_entry);
 
   g_signal_connect (page->confirm_entry, "notify::text",
-                    G_CALLBACK (confirm_changed), page);
+                    G_CALLBACK (password_changed), page);
   g_signal_connect_swapped (page->confirm_entry, "activate",
                             G_CALLBACK (confirm), page);
   track_focus_out (page, page->confirm_entry);
