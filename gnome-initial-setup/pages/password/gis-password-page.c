@@ -38,8 +38,10 @@
 
 #define VALIDATION_TIMEOUT 600
 
-struct _GisPasswordPagePrivate
+struct _GisPasswordPage
 {
+  GisPage parent;
+
   GtkWidget *password_entry;
   GtkWidget *confirm_entry;
   GtkWidget *password_strength;
@@ -54,9 +56,8 @@ struct _GisPasswordPagePrivate
   const gchar *username;
   gboolean parent_mode;
 };
-typedef struct _GisPasswordPagePrivate GisPasswordPagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GisPasswordPage, gis_password_page, GIS_TYPE_PAGE);
+G_DEFINE_TYPE (GisPasswordPage, gis_password_page, GIS_TYPE_PAGE);
 
 typedef enum
 {
@@ -80,7 +81,6 @@ set_password_validation_error (GtkWidget *entry)
 static void
 update_header (GisPasswordPage *page)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   g_autofree gchar *title = NULL;
   g_autofree gchar *subtitle = NULL;
   const gchar *icon_name;
@@ -88,7 +88,7 @@ update_header (GisPasswordPage *page)
 
   g_object_get (G_OBJECT (page), "small-screen", &small_screen, NULL);
 
-  if (!priv->parent_mode)
+  if (!page->parent_mode)
     {
       /* Translators: The placeholder is for the user’s full name. */
       title = g_strdup_printf (_("Set a Password for %s"),
@@ -105,7 +105,7 @@ update_header (GisPasswordPage *page)
       icon_name = "org.freedesktop.MalcontentControl-symbolic";
     }
 
-  g_object_set (G_OBJECT (priv->header),
+  g_object_set (G_OBJECT (page->header),
                 "title", title,
                 "subtitle", subtitle,
                 "show_icon", !small_screen && icon_name != NULL,
@@ -113,15 +113,15 @@ update_header (GisPasswordPage *page)
 
   if (icon_name)
     {
-      g_object_set (G_OBJECT (priv->header), "icon-name", icon_name, NULL);
-      g_object_set (G_OBJECT (priv->avatar), "visible", FALSE, NULL);
+      g_object_set (G_OBJECT (page->header), "icon-name", icon_name, NULL);
+      g_object_set (G_OBJECT (page->avatar), "visible", FALSE, NULL);
     }
   else
     {
       GdkPaintable *paintable = gis_driver_get_has_default_avatar (GIS_PAGE (page)->driver) ? NULL :
                                 GDK_PAINTABLE (gis_driver_get_avatar (GIS_PAGE (page)->driver));
 
-      g_object_set (G_OBJECT (priv->avatar),
+      g_object_set (G_OBJECT (page->avatar),
                     "visible", !small_screen,
                     "text", gis_driver_get_full_name (GIS_PAGE (page)->driver),
                     "custom-image", paintable, NULL);
@@ -132,14 +132,12 @@ static void
 set_parent_mode (GisPasswordPage *page,
                  gboolean         parent_mode)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-
   g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
 
-  if (priv->parent_mode == parent_mode)
+  if (page->parent_mode == parent_mode)
     return;
 
-  priv->parent_mode = parent_mode;
+  page->parent_mode = parent_mode;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_PARENT_MODE]);
 
   update_header (page);
@@ -148,9 +146,7 @@ set_parent_mode (GisPasswordPage *page,
 static gboolean
 page_validate (GisPasswordPage *page)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-
-  return priv->valid_confirm;
+  return page->valid_confirm;
 }
 
 static void
@@ -164,7 +160,6 @@ gis_password_page_save_data (GisPage  *gis_page,
                              GError  **error)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   ActUser *act_user;
   UmAccountMode account_mode;
   const gchar *password = NULL;
@@ -173,32 +168,32 @@ gis_password_page_save_data (GisPage  *gis_page,
 
   account_mode = gis_driver_get_account_mode (gis_page->driver);
 
-  if (!priv->parent_mode)
+  if (!page->parent_mode)
     gis_driver_get_user_permissions (gis_page->driver, &act_user, &password);
   else
     gis_driver_get_parent_permissions (gis_page->driver, &act_user, &password);
 
   if (account_mode == UM_ENTERPRISE) {
-    g_assert (!priv->parent_mode);
+    g_assert (!page->parent_mode);
 
     if (password != NULL)
       gis_update_login_keyring_password (password);
     return TRUE;
   }
 
-  password = gtk_editable_get_text (GTK_EDITABLE (priv->password_entry));
+  password = gtk_editable_get_text (GTK_EDITABLE (page->password_entry));
 
   if (strlen (password) == 0)
     act_user_set_password_mode (act_user, ACT_USER_PASSWORD_MODE_NONE);
   else
     act_user_set_password (act_user, password, "");
 
-  if (!priv->parent_mode)
+  if (!page->parent_mode)
     gis_driver_set_user_permissions (gis_page->driver, act_user, password);
   else
     gis_driver_set_parent_permissions (gis_page->driver, act_user, password);
 
-  if (!priv->parent_mode)
+  if (!page->parent_mode)
     gis_update_login_keyring_password (password);
 
   return TRUE;
@@ -208,44 +203,42 @@ static void
 gis_password_page_shown (GisPage *gis_page)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (gis_page);
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
 
-  gtk_widget_grab_focus (priv->password_entry);
+  gtk_widget_grab_focus (page->password_entry);
 }
 
 static gboolean
 validate (GisPasswordPage *page)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
   const gchar *password;
   const gchar *verify;
   gint strength_level;
   const gchar *hint;
 
-  g_clear_handle_id (&priv->timeout_id, g_source_remove);
+  g_clear_handle_id (&page->timeout_id, g_source_remove);
 
-  password = gtk_editable_get_text (GTK_EDITABLE (priv->password_entry));
-  verify = gtk_editable_get_text (GTK_EDITABLE (priv->confirm_entry));
+  password = gtk_editable_get_text (GTK_EDITABLE (page->password_entry));
+  verify = gtk_editable_get_text (GTK_EDITABLE (page->confirm_entry));
 
-  pw_strength (password, NULL, priv->username, &hint, &strength_level);
-  gtk_level_bar_set_value (GTK_LEVEL_BAR (priv->password_strength), strength_level);
-  gtk_label_set_label (GTK_LABEL (priv->password_explanation), hint);
+  pw_strength (password, NULL, page->username, &hint, &strength_level);
+  gtk_level_bar_set_value (GTK_LEVEL_BAR (page->password_strength), strength_level);
+  gtk_label_set_label (GTK_LABEL (page->password_explanation), hint);
 
-  gtk_label_set_label (GTK_LABEL (priv->confirm_explanation), "");
-  priv->valid_confirm = FALSE;
+  gtk_label_set_label (GTK_LABEL (page->confirm_explanation), "");
+  page->valid_confirm = FALSE;
 
-  priv->valid_password = (strlen (password) && strength_level > 1);
-  if (priv->valid_password)
-    clear_password_validation_error (priv->password_entry);
+  page->valid_password = (strlen (password) && strength_level > 1);
+  if (page->valid_password)
+    clear_password_validation_error (page->password_entry);
   else
-    set_password_validation_error (priv->password_entry);
+    set_password_validation_error (page->password_entry);
 
   if (strlen (password) > 0 && strlen (verify) > 0) {
-    priv->valid_confirm = (strcmp (password, verify) == 0);
-    if (!priv->valid_confirm)
-      gtk_label_set_label (GTK_LABEL (priv->confirm_explanation), _("The passwords do not match."));
+    page->valid_confirm = (strcmp (password, verify) == 0);
+    if (!page->valid_confirm)
+      gtk_label_set_label (GTK_LABEL (page->confirm_explanation), _("The passwords do not match."));
     else
-      clear_password_validation_error (priv->password_entry);
+      clear_password_validation_error (page->password_entry);
   }
 
   /*
@@ -263,6 +256,8 @@ validate (GisPasswordPage *page)
 static void
 on_focusout (GisPasswordPage *page)
 {
+  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
+
   validate (page);
 }
 
@@ -271,17 +266,16 @@ password_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisPasswordPage *page)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
 
   clear_password_validation_error (w);
-  clear_password_validation_error (priv->confirm_entry);
+  clear_password_validation_error (page->confirm_entry);
 
-  priv->valid_password = FALSE;
+  page->valid_password = FALSE;
   update_page_validation (page);
 
-  if (priv->timeout_id != 0)
-    g_source_remove (priv->timeout_id);
-  priv->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
+  g_clear_handle_id (&page->timeout_id, g_source_remove);
+  page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
 }
 
 static void
@@ -289,28 +283,27 @@ confirm_changed (GtkWidget      *w,
                  GParamSpec     *pspec,
                  GisPasswordPage *page)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
+  g_return_if_fail (GIS_IS_PASSWORD_PAGE (page));
 
   clear_password_validation_error (w);
 
-  priv->valid_confirm = FALSE;
+  page->valid_confirm = FALSE;
   update_page_validation (page);
 
-  if (priv->timeout_id != 0)
-    g_source_remove (priv->timeout_id);
-  priv->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
+  if (page->timeout_id != 0)
+    g_source_remove (page->timeout_id);
+  page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
 }
 
 static void
 username_changed (GObject *obj, GParamSpec *pspec, GisPasswordPage *page)
 {
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
-  priv->username = gis_driver_get_username (GIS_DRIVER (obj));
+  page->username = gis_driver_get_username (GIS_DRIVER (obj));
 
-  gtk_widget_set_visible (GTK_WIDGET (page), priv->username != NULL);
+  gtk_widget_set_visible (GTK_WIDGET (page), page->username != NULL);
 
-  clear_password_validation_error (priv->password_entry);
-  clear_password_validation_error (priv->confirm_entry);
+  clear_password_validation_error (page->password_entry);
+  clear_password_validation_error (page->confirm_entry);
 
   validate (page);
 }
@@ -348,21 +341,20 @@ static void
 gis_password_page_constructed (GObject *object)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (object);
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
 
   G_OBJECT_CLASS (gis_password_page_parent_class)->constructed (object);
 
-  g_signal_connect (priv->password_entry, "notify::text",
+  g_signal_connect (page->password_entry, "notify::text",
                     G_CALLBACK (password_changed), page);
-  g_signal_connect_swapped (priv->password_entry, "activate",
+  g_signal_connect_swapped (page->password_entry, "activate",
                             G_CALLBACK (confirm), page);
-  track_focus_out (page, priv->password_entry);
+  track_focus_out (page, page->password_entry);
 
-  g_signal_connect (priv->confirm_entry, "notify::text",
+  g_signal_connect (page->confirm_entry, "notify::text",
                     G_CALLBACK (confirm_changed), page);
-  g_signal_connect_swapped (priv->confirm_entry, "activate",
+  g_signal_connect_swapped (page->confirm_entry, "activate",
                             G_CALLBACK (confirm), page);
-  track_focus_out (page, priv->confirm_entry);
+  track_focus_out (page, page->confirm_entry);
 
   g_signal_connect (GIS_PAGE (page)->driver, "notify::username",
                     G_CALLBACK (username_changed), page);
@@ -389,12 +381,11 @@ gis_password_page_get_property (GObject    *object,
                                 GParamSpec *pspec)
 {
   GisPasswordPage *page = GIS_PASSWORD_PAGE (object);
-  GisPasswordPagePrivate *priv = gis_password_page_get_instance_private (page);
 
   switch ((GisPasswordPageProperty) prop_id)
     {
     case PROP_PARENT_MODE:
-      g_value_set_boolean (value, priv->parent_mode);
+      g_value_set_boolean (value, page->parent_mode);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -448,13 +439,13 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/gis-password-page.ui");
 
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_entry);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_strength);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_explanation);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_explanation);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, header);
-  gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), GisPasswordPage, avatar);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_strength);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_explanation);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_explanation);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, header);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, avatar);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_password_page_locale_changed;
