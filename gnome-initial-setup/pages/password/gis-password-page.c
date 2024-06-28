@@ -235,10 +235,12 @@ validate (GisPasswordPage *page)
 
   if (strlen (password) > 0 && strlen (verify) > 0) {
     page->valid_confirm = (strcmp (password, verify) == 0);
-    if (!page->valid_confirm)
+    if (page->valid_confirm) {
+      clear_password_validation_error (page->confirm_entry);
+    } else {
+      set_password_validation_error (page->confirm_entry);
       gtk_label_set_label (GTK_LABEL (page->confirm_explanation), _("The passwords do not match."));
-    else
-      clear_password_validation_error (page->password_entry);
+    }
   }
 
   /*
