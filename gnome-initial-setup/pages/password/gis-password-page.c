@@ -260,12 +260,10 @@ validate (GisPasswordPage *page)
   return G_SOURCE_REMOVE;
 }
 
-static gboolean
+static void
 on_focusout (GisPasswordPage *page)
 {
   validate (page);
-
-  return FALSE;
 }
 
 static void
