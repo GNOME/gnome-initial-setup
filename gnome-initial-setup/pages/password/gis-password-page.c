@@ -88,12 +88,6 @@ update_header (GisPasswordPage *page)
 
   g_object_get (G_OBJECT (page), "small-screen", &small_screen, NULL);
 
-#ifndef HAVE_PARENTAL_CONTROLS
-  /* Don’t break UI compatibility if parental controls are disabled. */
-  title = g_strdup (_("Set a Password"));
-  subtitle = g_strdup (_("Be careful not to lose your password."));
-  icon_name = "dialog-password-symbolic";
-#else
   if (!priv->parent_mode)
     {
       /* Translators: The placeholder is for the user’s full name. */
@@ -110,7 +104,6 @@ update_header (GisPasswordPage *page)
                                   gis_driver_get_full_name (GIS_PAGE (page)->driver));
       icon_name = "org.freedesktop.MalcontentControl-symbolic";
     }
-#endif
 
   g_object_set (G_OBJECT (priv->header),
                 "title", title,
