@@ -29,26 +29,8 @@
 G_BEGIN_DECLS
 
 #define GIS_TYPE_PASSWORD_PAGE               (gis_password_page_get_type ())
-#define GIS_PASSWORD_PAGE(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIS_TYPE_PASSWORD_PAGE, GisPasswordPage))
-#define GIS_PASSWORD_PAGE_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass),  GIS_TYPE_PASSWORD_PAGE, GisPasswordPageClass))
-#define GIS_IS_PASSWORD_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIS_TYPE_PASSWORD_PAGE))
-#define GIS_IS_PASSWORD_PAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GIS_TYPE_PASSWORD_PAGE))
-#define GIS_PASSWORD_PAGE_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj),  GIS_TYPE_PASSWORD_PAGE, GisPasswordPageClass))
 
-typedef struct _GisPasswordPage        GisPasswordPage;
-typedef struct _GisPasswordPageClass   GisPasswordPageClass;
-
-struct _GisPasswordPage
-{
-  GisPage parent;
-};
-
-struct _GisPasswordPageClass
-{
-  GisPageClass parent_class;
-};
-
-GType gis_password_page_get_type (void);
+G_DECLARE_FINAL_TYPE (GisPasswordPage, gis_password_page, GIS, PASSWORD_PAGE, GisPage)
 
 GisPage *gis_prepare_password_page (GisDriver *driver);
 GisPage *gis_prepare_parent_password_page (GisDriver *driver);
