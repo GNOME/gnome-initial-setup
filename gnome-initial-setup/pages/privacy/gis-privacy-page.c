@@ -121,13 +121,8 @@ gis_privacy_page_constructed (GObject *object)
   gtk_switch_set_active (GTK_SWITCH (page->location_switch), TRUE);
   gtk_switch_set_active (GTK_SWITCH (page->reporting_switch), TRUE);
 
-#ifdef HAVE_WEBKITGTK
-  gtk_label_set_markup (GTK_LABEL (page->location_privacy_label),
-                        _("Allows apps to determine your geographical location. Uses the Mozilla Location Service (<a href='https://location.services.mozilla.com/privacy'>privacy policy</a>)."));
-#else
   gtk_label_set_label (GTK_LABEL (page->location_privacy_label),
-                       _("Allows apps to determine your geographical location. Uses the Mozilla Location Service."));
-#endif
+                       _("Allows apps to determine your geographical location."));
 
   if (update_os_data (page))
     {
