@@ -25,6 +25,7 @@
 #include <glib/gi18n.h>
 
 #include "gis-page-header.h"
+#include "gis-webkit.h"
 
 enum {
   PROP_0,
@@ -126,7 +127,7 @@ gis_page_header_set_property (GObject      *object,
       break;
 
     case PROP_SUBTITLE:
-      gtk_label_set_label (GTK_LABEL (header->subtitle), g_value_get_string (value));
+      gtk_label_set_markup (GTK_LABEL (header->subtitle), g_value_get_string (value));
       gtk_widget_set_visible (header->subtitle, is_valid_string (g_value_get_string (value)));
       break;
 
@@ -159,6 +160,7 @@ gis_page_header_class_init (GisPageHeaderClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPageHeader, icon);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPageHeader, subtitle);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPageHeader, title);
+  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), gis_activate_link);
 
   gobject_class->get_property = gis_page_header_get_property;
   gobject_class->set_property = gis_page_header_set_property;

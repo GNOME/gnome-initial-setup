@@ -99,8 +99,8 @@ update_header (GisPasswordPage *page)
     {
       title = g_strdup (_("Set a Parent Password"));
       /* Translators: The placeholder is the full name of the child user on the system. */
-      subtitle = g_strdup_printf (_("This password will control access to the parental controls for %s."),
-                                  gis_driver_get_full_name (GIS_PAGE (page)->driver));
+      subtitle = g_markup_printf_escaped (_("This password will control access to the parental controls for %s."),
+                                          gis_driver_get_full_name (GIS_PAGE (page)->driver));
       icon_name = "org.freedesktop.MalcontentControl-symbolic";
     }
 
