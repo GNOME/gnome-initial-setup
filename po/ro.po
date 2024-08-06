@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
-"issues\n"
-"POT-Creation-Date: 2023-08-23 14:24+0000\n"
-"PO-Revision-Date: 2023-10-09 18:13+0300\n"
+"issues/\n"
+"POT-Creation-Date: 2024-07-11 21:09+0000\n"
+"PO-Revision-Date: 2024-08-06 11:36+0300\n"
 "Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
 "gmail [dot] com>\n"
 "Language-Team: Gnome Romanian Translation Team\n"
@@ -19,57 +19,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:802
+#: gnome-initial-setup/gis-driver.c:866
 msgid "Initial Setup"
 msgstr "Configurare inițială"
 
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:401
 msgid "_Next"
 msgstr "_Următorul"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:402
 msgid "_Accept"
 msgstr "_Acceptă"
 
-#: gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:403
 msgid "_Skip"
 msgstr "_Omite"
 
-#: gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:404
 msgid "_Previous"
 msgstr "_Precedentul"
 
-#: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:405
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Anulează"
 
-#: gnome-initial-setup/gnome-initial-setup.c:282
+#: gnome-initial-setup/gnome-initial-setup.c:280
 msgid "Force existing user mode"
 msgstr "Forțează modul de utilizator existent"
 
-#: gnome-initial-setup/gnome-initial-setup.c:296
+#: gnome-initial-setup/gnome-initial-setup.c:294
 msgid "— GNOME initial setup"
 msgstr "— Configurare inițială GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:200
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+msgid "Failed to cache account"
+msgstr "Nu s-a putut memora contul în cache"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
 msgid "Failed to register account"
 msgstr "Eșec la înregistrarea contului"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:389
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
 msgid "No supported way to authenticate with this domain"
 msgstr "Nicio metodă suportată pentru autentificarea cu acest domeniu"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:428
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
 msgid "Failed to join domain"
 msgstr "Eșec la alăturarea la domeniu"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:495
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
 msgid "Failed to log into domain"
 msgstr "Eșec la conectarea la domeniu"
 
@@ -93,12 +97,12 @@ msgid "_Domain"
 msgstr "_Domeniu"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:100
 msgid "_Username"
 msgstr "_Nume de utilizator"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:25
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "_Parolă"
 
@@ -137,46 +141,46 @@ msgstr "Parola administratorului"
 msgid "C_ontinue"
 msgstr "C_ontinuă"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:207
-msgid "Please check the name and username. You can choose a picture too."
-msgstr "Verificați numele și numele de utilizator. Puteți alege și o imagine."
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
 msgid "We need a few details to complete setup."
 msgstr "Avem nevoie de câteva detalii pentru a finaliza configurarea."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:555
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
 msgid "Administrator"
 msgstr "Administrator"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:561
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:604
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Nu s-a putut crea utilizatorul „%s”: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:30
-msgid "Edit avatar"
-msgstr "Editează avatarul"
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:28
+msgid "Change Avatar"
+msgstr "Schimbă avatarul"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+msgid "Remove Avatar"
+msgstr "Elimină avatarul"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Despre tine"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:65
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Furnizați un nume și un nume de utilizator. Puteți alege și o imagine."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:58
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:77
 msgid "_Full Name"
 msgstr "_Numele complet"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:133
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:152
 msgid "Set up _parental controls for this user"
 msgstr "Configurează controale _parentale pentru acest utilizator"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:139
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:158
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "De utilizat de către un părinte sau tutor, care trebuie să-și configureze "
@@ -247,38 +251,6 @@ msgstr ""
 "Acesta va fi folosit pentru denumirea dosarului personal și nu poate fi "
 "modificat."
 
-#: gnome-initial-setup/pages/goa/gis-goa-page.c:561
-msgid "Online Accounts"
-msgstr "Conturi online"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:12
-msgid "Connect Your Online Accounts"
-msgstr "Conectați-vă la conturile online"
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:13
-msgid ""
-"Connect your accounts to easily access your email, online calendar, "
-"contacts, documents and photos."
-msgstr ""
-"Conectați-vă conturile pentru a accesa cu ușurință adresa de poștă "
-"electronică, contactele, calendarul, documentele și fotografiile."
-
-#: gnome-initial-setup/pages/goa/gis-goa-page.ui:40
-msgid "Accounts can be added and removed at any time from the Settings app."
-msgstr ""
-"Conturile pot fi adăugate și eliminate oricând din aplicația Configurări."
-
-#. translators: This is the title of the "Show Account" dialog. The
-#. * %s is the name of the provider. e.g., 'Google'.
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:428
-#, c-format
-msgid "%s Account"
-msgstr "%s cont"
-
-#: gnome-initial-setup/pages/goa/gnome-initial-setup-goa-helper.c:431
-msgid "Remove Account"
-msgstr "Elimină contul"
-
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
 msgid "Preview"
 msgstr "Previzualizează"
@@ -312,7 +284,7 @@ msgstr "Caută tastaturile și metodele de intrare"
 msgid "No languages found"
 msgstr "Nu s-au găsit limbi"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:262
+#: gnome-initial-setup/pages/language/gis-language-page.c:261
 msgid "Welcome"
 msgstr "Bine ați venit"
 
@@ -363,55 +335,55 @@ msgid "Turn On"
 msgstr "Pornește"
 
 #. Translators: The placeholder is the user’s full name.
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:102
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:106
 #, c-format
 msgid "Parental Controls for %s"
 msgstr "Controale parentale pentru %s"
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:104
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:108
 msgid "Set restrictions on what this user can run or install."
 msgstr ""
 "Stabilește restricții despre ce acest utilizator poate rula sau instala."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:199
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
 msgid "Parental Controls"
 msgstr "Controale parentale"
 
 #. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:90
+#: gnome-initial-setup/pages/password/gis-password-page.c:93
 msgid "Set a Password"
 msgstr "Stabiliți o parolă"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:91
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:102
 msgid "Be careful not to lose your password."
 msgstr "Aveți grijă să nu pierdeți parola."
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:98
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Stabiliți o parolă pentru %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:106
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 msgid "Set a Parent Password"
 msgstr "Stabiliți o parolă părinte"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:108
+#: gnome-initial-setup/pages/password/gis-password-page.c:109
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Această parolă va controla accesul la controalele parentale pentru %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:243
+#: gnome-initial-setup/pages/password/gis-password-page.c:253
 msgid "The passwords do not match."
 msgstr "Parolele nu se potrivesc."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:434
+#: gnome-initial-setup/pages/password/gis-password-page.c:449
 msgid "Password"
 msgstr "Parolă"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:62
+#: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Confirmă parola"
 
@@ -553,10 +525,14 @@ msgstr ""
 "Adăugând mai multe litere, numere și semne de punctuație va face parola mai "
 "puternică."
 
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
+msgid "Privacy Policy"
+msgstr "Politică de confidențialitate"
+
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -568,7 +544,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:80
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -578,19 +554,6 @@ msgstr ""
 "colectate de %s."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid "Privacy Policy"
-msgstr "Politică de confidențialitate"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:232
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
-msgid "Privacy"
-msgstr "Confidențialitate"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
-msgid "Location Services"
-msgstr "Servicii de locație"
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:44
 msgid ""
 "Allows apps to determine your geographical location. Uses the Mozilla "
 "Location Service (<a href='https://location.services.mozilla.com/"
@@ -600,11 +563,28 @@ msgstr ""
 "Serviciul de Locație Mozilla (<a href='https://location.services.mozilla.com/"
 "privacy'>politică de confidențialitate</a>)."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:60
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
+msgid ""
+"Allows apps to determine your geographical location. Uses the Mozilla "
+"Location Service."
+msgstr ""
+"Permite aplicațiilor să vă determine locația geografică. Utilizează "
+"Serviciul de locație Mozilla."
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
+msgid "Privacy"
+msgstr "Confidențialitate"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
+msgid "Location Services"
+msgstr "Servicii de locație"
+
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
 msgid "Automatic Problem Reporting"
 msgstr "Raportarea automată a problemelor"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:92
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Controalele de confidențialitate pot fi modificate oricând din aplicația "
@@ -646,8 +626,8 @@ msgstr "Începeți _să utilizați %s"
 #. * detect any distribution.
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
-msgid "%s is ready to be used. We hope that you love it!"
-msgstr "%s este gata de utilizat. Sperăm să vă placă!"
+msgid "%s is ready to be used."
+msgstr "%s este gata de utilizare."
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:263
 msgid "Setup Complete"
@@ -678,7 +658,7 @@ msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -687,28 +667,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:484
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
 msgid "Time Zone"
 msgstr "Fus orar"
@@ -733,7 +713,7 @@ msgstr "Căutați un oraș apropiat"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:75
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
 msgstr "Bine ați venit la %s!"
@@ -742,7 +722,7 @@ msgstr "Bine ați venit la %s!"
 msgid "Setup"
 msgstr "Configurare"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:39
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -750,7 +730,7 @@ msgstr ""
 "Configurarea vă va ghida prin crearea unui cont și activarea unor "
 "funcționalități. Vă vom avea în funcțiune în cel mai scurt timp."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "Î_ncepe configurarea"
 
@@ -763,26 +743,80 @@ msgid "Force OEM mode"
 msgstr "Forțează modul OEM"
 
 #: po/EXTRA_STRINGS.sh:3
-msgid "Install or Try?"
-msgstr "Instalați sau încercați?"
+msgid "Try or Install?"
+msgstr "Încercați sau instalați?"
 
 #: po/EXTRA_STRINGS.sh:4
+#, sh-format
 msgid ""
-"This live media can be used to install GNOME, or it can be used to try GNOME "
-"as a temporary system. Installation can be started at any time using the "
-"install icon in Activities."
+"You can try a temporary version of ${NAME} without making changes to the "
+"computer. If you decide to install later, just launch the installer from the "
+"Activities view.\n"
+"\n"
+"        Alternatively, choose install to launch the installer."
 msgstr ""
-"Această media live poate fi utilizată pentru a instala GNOME sau poate fi "
-"utilizată pentru a încerca GNOME ca sistem temporar. Instalarea poate fi "
-"începută oricând utilizând iconița de instalare din Activități."
+"Puteți încerca o versiune temporară a ${NAME} fără a face modificări "
+"calculatorului. Dacă decideți să instalați mai târziu, lansați instalatorul "
+"de la vizualizarea Activități.\n"
+"\n"
+"        Alternativ, alegeți să instalați pentru a lansa instalatorul."
 
-#: po/EXTRA_STRINGS.sh:5
-msgid "Install…"
-msgstr "Instalează…"
+#: po/EXTRA_STRINGS.sh:7
+msgid "Install to Disk…"
+msgstr "Instalează pe disc…"
 
-#: po/EXTRA_STRINGS.sh:6
-msgid "Try"
-msgstr "Încearcă"
+#: po/EXTRA_STRINGS.sh:8
+#, sh-format
+msgid "Try ${NAME}"
+msgstr "Încearcă ${NAME}"
+
+#: po/EXTRA_STRINGS.sh:9
+#, sh-format
+msgid "Install ${PRETTY_NAME}"
+msgstr "Instalează ${PRETTY_NAME}"
+
+#~ msgid "Please check the name and username. You can choose a picture too."
+#~ msgstr ""
+#~ "Verificați numele și numele de utilizator. Puteți alege și o imagine."
+
+#~ msgid "Edit avatar"
+#~ msgstr "Editează avatarul"
+
+#~ msgid "Online Accounts"
+#~ msgstr "Conturi online"
+
+#~ msgid "Connect Your Online Accounts"
+#~ msgstr "Conectați-vă la conturile online"
+
+#~ msgid ""
+#~ "Connect your accounts to easily access your email, online calendar, "
+#~ "contacts, documents and photos."
+#~ msgstr ""
+#~ "Conectați-vă conturile pentru a accesa cu ușurință adresa de poștă "
+#~ "electronică, contactele, calendarul, documentele și fotografiile."
+
+#~ msgid "Accounts can be added and removed at any time from the Settings app."
+#~ msgstr ""
+#~ "Conturile pot fi adăugate și eliminate oricând din aplicația Configurări."
+
+#, c-format
+#~ msgid "%s Account"
+#~ msgstr "%s cont"
+
+#~ msgid "Install or Try?"
+#~ msgstr "Instalați sau încercați?"
+
+#~ msgid ""
+#~ "This live media can be used to install GNOME, or it can be used to try "
+#~ "GNOME as a temporary system. Installation can be started at any time "
+#~ "using the install icon in Activities."
+#~ msgstr ""
+#~ "Această media live poate fi utilizată pentru a instala GNOME sau poate fi "
+#~ "utilizată pentru a încerca GNOME ca sistem temporar. Instalarea poate fi "
+#~ "începută oricând utilizând iconița de instalare din Activități."
+
+#~ msgid "Try"
+#~ msgstr "Încearcă"
 
 #~ msgid "Take a Picture…"
 #~ msgstr "Faceți o fotografie…"
