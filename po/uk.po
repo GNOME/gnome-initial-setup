@@ -8,42 +8,42 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issu"
 "es/\n"
-"POT-Creation-Date: 2024-02-09 16:24+0000\n"
-"PO-Revision-Date: 2024-02-13 21:02+0200\n"
+"POT-Creation-Date: 2024-07-26 16:03+0000\n"
+"PO-Revision-Date: 2024-08-23 15:49+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:841
+#: gnome-initial-setup/gis-driver.c:866
 msgid "Initial Setup"
 msgstr "Перший запуск"
 
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:401
 msgid "_Next"
 msgstr "_Далі"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:402
 msgid "_Accept"
 msgstr "_Ухвалити"
 
-#: gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:403
 msgid "_Skip"
 msgstr "_Пропустити"
 
-#: gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:404
 msgid "_Previous"
 msgstr "_Назад"
 
-#: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:405
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Скасувати"
@@ -57,7 +57,6 @@ msgid "— GNOME initial setup"
 msgstr "— Перший запуск GNOME"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
-#| msgid "Failed to register account"
 msgid "Failed to cache account"
 msgstr "Не вдалося кешувати обліковий запис"
 
@@ -140,16 +139,16 @@ msgstr "Пароль адміністратора"
 msgid "C_ontinue"
 msgstr "Пр_одовжити"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
 msgid "We need a few details to complete setup."
 msgstr "Нам потрібно кілька дрібничок, щоб завершити."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
 msgid "Administrator"
 msgstr "Адміністратор"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Не вдалося створити запис користувача «%s»: "
@@ -159,7 +158,6 @@ msgid "Change Avatar"
 msgstr "Змінити аватар"
 
 #: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
-#| msgid "Remove Account"
 msgid "Remove Avatar"
 msgstr "Вилучити аватар"
 
@@ -282,7 +280,7 @@ msgstr "Шукати клавіатури і способи введення"
 msgid "No languages found"
 msgstr "Не знайдено жодної мови"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:262
+#: gnome-initial-setup/pages/language/gis-language-page.c:261
 msgid "Welcome"
 msgstr "Вітаємо"
 
@@ -347,45 +345,48 @@ msgstr ""
 msgid "Parental Controls"
 msgstr "Батьківський контроль"
 
-#. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:93
-msgid "Set a Password"
-msgstr "Вказати пароль"
-
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
-#: gnome-initial-setup/pages/password/gis-password-page.c:102
-msgid "Be careful not to lose your password."
-msgstr "Будьте обережні, не втратьте пароль."
-
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Вказати пароль для %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:107
+#: gnome-initial-setup/pages/password/gis-password-page.c:96
+msgid "Be careful not to lose your password."
+msgstr "Будьте обережні, не втратьте пароль."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 msgid "Set a Parent Password"
 msgstr "Вказати батьківський пароль"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:109
+#: gnome-initial-setup/pages/password/gis-password-page.c:103
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr ""
 "За допомогою цього пароля буде обмежено доступ до батьківського контролю для "
 "%s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:253
+#: gnome-initial-setup/pages/password/gis-password-page.c:246
 msgid "The passwords do not match."
 msgstr "Пароль не збігається."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:449
+#: gnome-initial-setup/pages/password/gis-password-page.c:421
 msgid "Password"
 msgstr "Пароль"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Підтвердити пароль"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+#| msgid "Password"
+msgid "Password _Reminder"
+msgstr "_Нагадування щодо пароля"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+msgid "Password reminder will be shown in case you forget your password."
+msgstr "Якщо ви забудете ваш пароль, буде показано нагадування щодо пароля."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -510,14 +511,10 @@ msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "Додавання літер, цифр і розділових знаків зробить пароль надійнішим!"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
-msgid "Privacy Policy"
-msgstr "Правила конфіденційності"
-
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -529,7 +526,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -538,29 +535,16 @@ msgstr ""
 "Надсилає технічні звіти, які не міститимуть особистих даних. Дані буде "
 "зібрано %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr ""
-"Дозволяє програмам визначати географічні координати місця, де ви "
-"перебуваєте. Використовує Mozilla Location Service (<a href='https://"
-"location.services.mozilla.com/privacy'>умови конфіденційності</a>)."
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
 #| msgid ""
 #| "Allows apps to determine your geographical location. Uses the Mozilla "
-#| "Location Service (<a href='https://location.services.mozilla.com/"
-#| "privacy'>privacy policy</a>)."
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service."
+#| "Location Service."
+msgid "Allows apps to determine your geographical location."
 msgstr ""
 "Дозволяє програмам визначати географічні координати місця, де ви "
-"перебуваєте. Використовує Mozilla Location Service."
+"перебуваєте."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Конфіденційність"
@@ -577,12 +561,29 @@ msgstr "Автоматичне звітування про проблеми"
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "Правила конфіденційності можна змінити в будь-яку мить у Параметрах."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:111
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Сторонні сховища"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:129
+#, c-format
+#| msgid ""
+#| "Third-party repositories provide access to additional software from "
+#| "selected external sources, including popular apps and drivers that are "
+#| "important for some devices. Some proprietary software is included."
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"<a href='%s'>external sources</a>, including popular apps and drivers that "
+"are important for some devices. Some proprietary software is included."
+msgstr ""
+"Сторонні сховища надають доступ до додаткового програмного забезпечення з "
+"вибраних <a href='%s'>зовнішніх джерел</a>. Там можна знайти популярні"
+" програми, а також "
+"драйвери, які важливі для працездатності деяких пристроїв. Також там може "
+"зберігатися програмне забезпечення із закритим кодом."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -593,18 +594,27 @@ msgstr ""
 "драйвери, які важливі для працездатності деяких пристроїв. Також там може "
 "зберігатися програмне забезпечення із закритим кодом."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:122
+#: gnome-initial-setup/pages/software/gis-software-page.c:143
 msgid "_Disable Third-Party Repositories"
 msgstr "Ви_мкнути сторонні сховища"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:127
+#: gnome-initial-setup/pages/software/gis-software-page.c:148
 msgid "_Enable Third-Party Repositories"
 msgstr "_Увімкнути сторонні сховища"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+#| msgid "Setup Complete"
+msgid "Setup Failed"
+msgstr "Помилка встановлення"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
+msgid "Close"
+msgstr "Закрити"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:232
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Почати роботу з %s"
@@ -612,13 +622,12 @@ msgstr "_Почати роботу з %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
 #, c-format
-#| msgid "%s is ready to be used. We hope that you love it!"
 msgid "%s is ready to be used."
 msgstr "%s готова до використання."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:263
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
 msgid "Setup Complete"
 msgstr "Налаштовування завершено"
 
@@ -647,7 +656,7 @@ msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -656,28 +665,28 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:484
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
 msgid "Time Zone"
 msgstr "Часовий пояс"
@@ -702,7 +711,7 @@ msgstr "Пошукайте міста поблизу"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
 msgstr "Вітаємо у %s!"
@@ -711,7 +720,7 @@ msgstr "Вітаємо у %s!"
 msgid "Setup"
 msgstr "Налаштування"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:39
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -720,7 +729,7 @@ msgstr ""
 "та вмикання деяких можливостей. Щоб почати роботу, вам знадобиться зовсім "
 "трохи часу."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "_Почати налаштовування"
 
@@ -745,15 +754,14 @@ msgid ""
 "\n"
 "        Alternatively, choose install to launch the installer."
 msgstr ""
-"Ви можете спробувати тимчасову версію ${NAME} без внесення змін до робочих"
-" процедур вашого комп'ютера. Якщо ви пізніше захочете встановити систему,"
-" просто запустіть засіб встановлення з меню «Дії».\n"
+"Ви можете спробувати тимчасову версію ${NAME} без внесення змін до робочих "
+"процедур вашого комп'ютера. Якщо ви пізніше захочете встановити систему, "
+"просто запустіть засіб встановлення з меню «Дії».\n"
 "\n"
-"        Крім того, ви можете вибрати «Встановити», щоб запустити засіб"
-" встановлення."
+"        Крім того, ви можете вибрати «Встановити», щоб запустити засіб "
+"встановлення."
 
 #: po/EXTRA_STRINGS.sh:7
-#| msgid "Install…"
 msgid "Install to Disk…"
 msgstr "Встановити на диск…"
 
@@ -766,6 +774,21 @@ msgstr "Спробувати ${NAME}"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "Встановити ${PRETTY_NAME}"
+
+#~ msgid "Set a Password"
+#~ msgstr "Вказати пароль"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "Правила конфіденційності"
+
+#~ msgid ""
+#~ "Allows apps to determine your geographical location. Uses the Mozilla "
+#~ "Location Service (<a href='https://location.services.mozilla.com/"
+#~ "privacy'>privacy policy</a>)."
+#~ msgstr ""
+#~ "Дозволяє програмам визначати географічні координати місця, де ви "
+#~ "перебуваєте. Використовує Mozilla Location Service (<a href='https://"
+#~ "location.services.mozilla.com/privacy'>умови конфіденційності</a>)."
 
 #~ msgid "Please check the name and username. You can choose a picture too."
 #~ msgstr "Перевірте користувача. Можете також вибрати малюнок."
