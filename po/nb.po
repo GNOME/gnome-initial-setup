@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2024-03-03 21:11+0100\n"
-"PO-Revision-Date: 2024-03-06 20:14+0100\n"
+"POT-Creation-Date: 2024-07-26 16:03+0000\n"
+"PO-Revision-Date: 2024-08-26 21:25+0200\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: \n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
@@ -25,23 +25,23 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Oppsett"
 
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:401
 msgid "_Next"
 msgstr "_Neste"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:402
 msgid "_Accept"
 msgstr "_Godta"
 
-#: gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:403
 msgid "_Skip"
 msgstr "_Hopp hover"
 
-#: gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:404
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:405
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Avbryt"
@@ -134,16 +134,16 @@ msgstr "_Passord"
 msgid "C_ontinue"
 msgstr "_Fortsett"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
 msgid "We need a few details to complete setup."
-msgstr "Det er nødvendig med litt mer informasjon for å fullføre oppsettet."
+msgstr "Systemet trenger litt mer informasjon for å fullføre oppsettet."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
 msgid "Administrator"
 msgstr "Administrator"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Oppretting av «%s» mislyktes: "
@@ -335,43 +335,45 @@ msgstr "Sett begrensninger på hva som kan installeres og åpnes av brukeren."
 msgid "Parental Controls"
 msgstr "Foreldrestyring"
 
-#. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:93
-msgid "Set a Password"
-msgstr "Lag et passord"
-
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
-#: gnome-initial-setup/pages/password/gis-password-page.c:102
-msgid "Be careful not to lose your password."
-msgstr "Pass på å ikke miste passordet."
-
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Lag et passord til %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:107
+#: gnome-initial-setup/pages/password/gis-password-page.c:96
+msgid "Be careful not to lose your password."
+msgstr "Pass på å ikke miste passordet."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 msgid "Set a Parent Password"
 msgstr "Lag et foreldrepassord"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:109
+#: gnome-initial-setup/pages/password/gis-password-page.c:103
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Dette passordet vil gi tilgang til foreldrestyring for %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:253
+#: gnome-initial-setup/pages/password/gis-password-page.c:246
 msgid "The passwords do not match."
 msgstr "Passordene er ulike."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:449
+#: gnome-initial-setup/pages/password/gis-password-page.c:421
 msgid "Password"
 msgstr "Passord"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Bekreft passord"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+msgid "Password _Reminder"
+msgstr "Påminnelse"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+msgid "Password reminder will be shown in case you forget your password."
+msgstr "En påminnelse vil vises i tilfelle du glemmer passordet."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -499,14 +501,10 @@ msgstr ""
 "Å legge til flere bokstaver, tall og spesialtegn vil gjøre passordet "
 "sterkere."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
-msgid "Privacy Policy"
-msgstr "Personvernerklæring"
-
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -518,7 +516,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -526,25 +524,11 @@ msgid ""
 msgstr ""
 "Send tekniske rapporter uten personlige data. Informasjonen samles inn av %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr ""
-"Gi apper tilgang til posisjonen din. Posisjonsdata blir sendt til Mozilla "
-"Location Services som en del av dette. Les <a href='https://location."
-"services.mozilla.com/privacy'>personvernerklæringen</a> for å lære mer."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
+msgid "Allows apps to determine your geographical location."
+msgstr "Gi apper tilgang til enhetens posisjon."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service."
-msgstr ""
-"Gi apper tilgang til posisjonen din. Posisjonsdata blir sendt til Mozilla "
-"Location Services som en del av dette."
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Personvern"
@@ -561,12 +545,23 @@ msgstr "Automatisk feilmelding"
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "Personverninnstillinger kan endres når som helst fra Innstillinger."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:111
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Eksterne kilder"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:129
+#, c-format
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"<a href='%s'>external sources</a>, including popular apps and drivers that "
+"are important for some devices. Some proprietary software is included."
+msgstr ""
+"<a href='%s'>Eksterne kilder</a> gir tilgang til innhold som ikke tilbys av "
+"systemets egne kilder. Dette kan være populære apper og innhold som er "
+"nødvendig for noen enheter. Innholdet fra disse kildene kan være proprietært."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -576,18 +571,26 @@ msgstr ""
 "egne kilder. Dette kan være populære apper og innhold som er nødvendig for "
 "noen enheter. Innholdet fra disse kildene kan være proprietært."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:122
+#: gnome-initial-setup/pages/software/gis-software-page.c:143
 msgid "_Disable Third-Party Repositories"
 msgstr "Slå _av eksterne kilder"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:127
+#: gnome-initial-setup/pages/software/gis-software-page.c:148
 msgid "_Enable Third-Party Repositories"
 msgstr "Slå _på eksterne kilder"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+msgid "Setup Failed"
+msgstr "Oppsett mislyktes"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
+msgid "Close"
+msgstr "Lukk"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:232
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Kom i gang med %s"
@@ -595,12 +598,12 @@ msgstr "_Kom i gang med %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
 #, c-format
 msgid "%s is ready to be used."
-msgstr "%s er klar for bruk."
+msgstr "%s er klart til bruk."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:263
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
 msgid "Setup Complete"
 msgstr "Oppsett fullført"
 
@@ -744,3 +747,18 @@ msgstr "Prøv ${NAME}"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "Installer ${PRETTY_NAME}"
+
+#~ msgid "Set a Password"
+#~ msgstr "Lag et passord"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "Personvernerklæring"
+
+#~ msgid ""
+#~ "Allows apps to determine your geographical location. Uses the Mozilla "
+#~ "Location Service (<a href='https://location.services.mozilla.com/"
+#~ "privacy'>privacy policy</a>)."
+#~ msgstr ""
+#~ "Gi apper tilgang til posisjonen din. Posisjonsdata blir sendt til Mozilla "
+#~ "Location Services som en del av dette. Les <a href='https://location."
+#~ "services.mozilla.com/privacy'>personvernerklæringen</a> for å lære mer."
