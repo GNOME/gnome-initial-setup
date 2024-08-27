@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/\n"
-"POT-Creation-Date: 2024-02-09 16:24+0000\n"
-"PO-Revision-Date: 2024-02-16 00:50+0330\n"
+"POT-Creation-Date: 2024-07-26 16:03+0000\n"
+"PO-Revision-Date: 2024-08-27 14:50+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
-#: data/gnome-initial-setup.desktop.in.in:3 gnome-initial-setup/gis-driver.c:841
+#: data/gnome-initial-setup.desktop.in.in:3 gnome-initial-setup/gis-driver.c:866
 msgid "Initial Setup"
 msgstr "برپایی نخستین"
 
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:401
 msgid "_Next"
 msgstr "_بعدی"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:402
 msgid "_Accept"
 msgstr "_پذیرش"
 
-#: gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:403
 msgid "_Skip"
 msgstr "_پرش"
 
-#: gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:404
 msgid "_Previous"
 msgstr "_پیشین"
 
-#: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:405
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_لغو"
@@ -136,16 +136,16 @@ msgstr "گذرواژهٔ مدیر"
 msgid "C_ontinue"
 msgstr "ا_دامه"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
 msgid "We need a few details to complete setup."
 msgstr "برای کامل کردن راه‌اندازی نیاز به کمی جزئیات داریم."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
 msgid "Administrator"
 msgstr "مدیر"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "شکست در ایجاد کاربر «%s»: "
@@ -272,7 +272,7 @@ msgstr "جست‌وجوی صفحه‌کلیدها و روش‌های ورودی"
 msgid "No languages found"
 msgstr "هیچ زبانی پیدا نشد"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:262
+#: gnome-initial-setup/pages/language/gis-language-page.c:261
 msgid "Welcome"
 msgstr "خوش‌آمدید"
 
@@ -335,43 +335,45 @@ msgstr "تنظیم محدودیت روی آن‌چه این کاربر می‌ت
 msgid "Parental Controls"
 msgstr "واپایش‌های والدین"
 
-#. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:93
-msgid "Set a Password"
-msgstr "تنظیم یک گذرواژه"
-
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
-#: gnome-initial-setup/pages/password/gis-password-page.c:102
-msgid "Be careful not to lose your password."
-msgstr "مراقب باشید گذرواژه‌تان را گم نکنید."
-
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 #, c-format
 msgid "Set a Password for %s"
 msgstr "برپایی یک گذرواژه برای %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:107
+#: gnome-initial-setup/pages/password/gis-password-page.c:96
+msgid "Be careful not to lose your password."
+msgstr "مراقب باشید گذرواژه‌تان را گم نکنید."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 msgid "Set a Parent Password"
 msgstr "برپایی یک گذرواژهٔ والد"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:109
+#: gnome-initial-setup/pages/password/gis-password-page.c:103
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "این گذرواژه، دسترسی به واپایش‌های والدین را برای %s وامی‌پاید."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:253
+#: gnome-initial-setup/pages/password/gis-password-page.c:246
 msgid "The passwords do not match."
 msgstr "گذرواژه‌ها مطابقت ندارند."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:449
+#: gnome-initial-setup/pages/password/gis-password-page.c:421
 msgid "Password"
 msgstr "گذرواژه"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "تأیید _گذرواژه"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+msgid "Password _Reminder"
+msgstr "_یادآور گذرواژه"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+msgid "Password reminder will be shown in case you forget your password."
+msgstr "در صورتی که گذرواژه‌تان را فراموش کنید یادآور گذرواژه نشان داده خواهد شد."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -487,14 +489,10 @@ msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "افزودن حروف، اعداد و نشانه‌های بیش‌تر، گذرواژه را قوی‌تر می‌کند."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
-msgid "Privacy Policy"
-msgstr "سیاست محرمانگی"
-
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -506,7 +504,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -515,23 +513,11 @@ msgstr ""
 "گزارش‌های فنی‌ای که اطّلاعات شخصیشان برداشته شده را می‌فرستد. داده‌ها به دست %s جمع "
 "می‌شوند."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla Location "
-"Service (<a href='https://location.services.mozilla.com/privacy'>privacy policy</"
-"a>)."
-msgstr ""
-"می‌گذارد کاره‌ها از مکان جغرافیاییتان آگاه شوند. از خدمت مکانی موزیلا استفاده می‌کند "
-"(<a href='https://location.services.mozilla.com/privacy'>سیاست محرمانگی</a>)."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
+msgid "Allows apps to determine your geographical location."
+msgstr "می‌گذارد کاره‌ها از مکان جغرافیاییتان آگاه شوند."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla Location "
-"Service."
-msgstr ""
-"می‌گذارد کاره‌ها از مکان جغرافیاییتان آگاه شوند. از خدمت مکانی موزیلا استفاده می‌کند."
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "محرمانگی"
@@ -548,12 +534,23 @@ msgstr "گزارش خودکار اشکالات"
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "واپایش‌های محرمانگی می‌توانند در هر زمانی از کارهٔ تنظیمات تغییر یابند."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:111
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "مخزن‌های سوم‌شخص"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:129
+#, c-format
+msgid ""
+"Third-party repositories provide access to additional software from selected <a "
+"href='%s'>external sources</a>, including popular apps and drivers that are "
+"important for some devices. Some proprietary software is included."
+msgstr ""
+"مخزن‌های سوم‌شخص دسترسی به نرم‌افزارهای اضافی از <a href='%s'>منبع‌های خارجی</a> "
+"گزیده را شامل کاره‌های محبوب و راه‌اندازهایی که برای برخی افزاره‌ها مهمند، فراهم "
+"می‌کنند.شامل چند نرم‌افزار مالکیتی."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for some "
@@ -563,18 +560,26 @@ msgstr ""
 "محبوب و راه‌اندازهایی که برای برخی افزاره‌ها مهمند، فراهم می‌کنند.شامل چند نرم‌افزار "
 "مالکیتی."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:122
+#: gnome-initial-setup/pages/software/gis-software-page.c:143
 msgid "_Disable Third-Party Repositories"
 msgstr "_از کار انداختن مخزن‌های سوم‌شخص"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:127
+#: gnome-initial-setup/pages/software/gis-software-page.c:148
 msgid "_Enable Third-Party Repositories"
 msgstr "_به کار انداختن مخزن‌های سوم‌شخص"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+msgid "Setup Failed"
+msgstr "برپایی شکست خورد"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
+msgid "Close"
+msgstr "بستن"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:232
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
 msgid "_Start Using %s"
 msgstr "_استفاده از %s را شروع کنید"
@@ -582,12 +587,12 @@ msgstr "_استفاده از %s را شروع کنید"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
 #, c-format
 msgid "%s is ready to be used."
 msgstr "%s آمادهٔ استفاده است."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:263
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
 msgid "Setup Complete"
 msgstr "برپا سازی کامل شد"
 
@@ -616,7 +621,7 @@ msgid "%s, %s"
 msgstr "%s، %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -625,28 +630,28 @@ msgstr "%s، %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
 msgid "%l:%M %p"
 msgstr "%Ol:%OM %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
 msgid "%R"
 msgstr "%OH:%OM"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:484
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
 msgid "Time Zone"
 msgstr "منظقهٔ زمانی"
@@ -671,7 +676,7 @@ msgstr "لطفاًً برای شهری نزدیک جست‌وجو کنید"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
 msgstr "به %s خوش‌آمدید!"
@@ -680,7 +685,7 @@ msgstr "به %s خوش‌آمدید!"
 msgid "Setup"
 msgstr "برپاسازی"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:39
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. We’ll "
 "have you up and running in no time."
@@ -688,7 +693,7 @@ msgstr ""
 "برپاسازی، در طول ایجاد حساب و به کار انداختن ویژگی‌ها راهنماییتان می‌کند. بدون هیچ "
 "تأخیری، به راهتان می‌اندازیم."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "_آغاز برپاسازی"
 
@@ -732,6 +737,21 @@ msgstr "آزمودن ${NAME}"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "نصب ${PRETTY_NAME}"
+
+#~ msgid "Set a Password"
+#~ msgstr "تنظیم یک گذرواژه"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "سیاست محرمانگی"
+
+#~ msgid ""
+#~ "Allows apps to determine your geographical location. Uses the Mozilla Location "
+#~ "Service (<a href='https://location.services.mozilla.com/privacy'>privacy "
+#~ "policy</a>)."
+#~ msgstr ""
+#~ "می‌گذارد کاره‌ها از مکان جغرافیاییتان آگاه شوند. از خدمت مکانی موزیلا استفاده "
+#~ "می‌کند (<a href='https://location.services.mozilla.com/privacy'>سیاست محرمانگی</"
+#~ "a>)."
 
 #~ msgid "Please check the name and username. You can choose a picture too."
 #~ msgstr "لطفاً نام و نام‌کاربری را بررسی کنید. می‌توانید تصویری هم برگزینید."
