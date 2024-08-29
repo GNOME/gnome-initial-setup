@@ -9,40 +9,40 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2024-02-09 16:24+0000\n"
-"PO-Revision-Date: 2024-03-02 02:20+0900\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"POT-Creation-Date: 2024-07-26 16:03+0000\n"
+"PO-Revision-Date: 2024-08-25 01:06+0900\n"
+"Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
 "Language-Team: 한국어 <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:841
+#: gnome-initial-setup/gis-driver.c:866
 msgid "Initial Setup"
 msgstr "초기 설정"
 
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:401
 msgid "_Next"
 msgstr "다음(_N)"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:402
 msgid "_Accept"
 msgstr "수락(_A)"
 
-#: gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:403
 msgid "_Skip"
 msgstr "건너뛰기(_S)"
 
-#: gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:404
 msgid "_Previous"
 msgstr "이전(_P)"
 
-#: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:405
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "취소(_C)"
@@ -137,16 +137,16 @@ msgstr "관리자 암호"
 msgid "C_ontinue"
 msgstr "계속(_O)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
 msgid "We need a few details to complete setup."
 msgstr "설정을 완료하려면 몇 가지 세부 정보가 필요합니다."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
 msgid "Administrator"
 msgstr "관리자"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "'%s' 사용자 계정 만들기 실패: "
@@ -275,7 +275,7 @@ msgstr "키보드 배치 또는 입력기 검색"
 msgid "No languages found"
 msgstr "발견한 언어가 없습니다"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:262
+#: gnome-initial-setup/pages/language/gis-language-page.c:261
 msgid "Welcome"
 msgstr "환영합니다"
 
@@ -338,43 +338,45 @@ msgstr "이 사용자가 실행하거나 설치할 항목의 제한 여부를 �
 msgid "Parental Controls"
 msgstr "자녀 보호"
 
-#. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:93
-msgid "Set a Password"
-msgstr "암호 지정"
-
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
-#: gnome-initial-setup/pages/password/gis-password-page.c:102
-msgid "Be careful not to lose your password."
-msgstr "암호를 잃지 않도록 주의하십시오."
-
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 #, c-format
 msgid "Set a Password for %s"
 msgstr "%s 암호 설정"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:107
+#: gnome-initial-setup/pages/password/gis-password-page.c:96
+msgid "Be careful not to lose your password."
+msgstr "암호를 잃지 않도록 주의하십시오."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 msgid "Set a Parent Password"
 msgstr "자녀 보호 암호 설정"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:109
+#: gnome-initial-setup/pages/password/gis-password-page.c:103
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "이 암호로 %s의 자녀 보호 설정을 제어합니다."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:253
+#: gnome-initial-setup/pages/password/gis-password-page.c:246
 msgid "The passwords do not match."
 msgstr "암호가 일치하지 않습니다."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:449
+#: gnome-initial-setup/pages/password/gis-password-page.c:421
 msgid "Password"
 msgstr "암호"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "암호 확인(_C)"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+msgid "Password _Reminder"
+msgstr "암호 연상기(_R)"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+msgid "Password reminder will be shown in case you forget your password."
+msgstr "암호를 잊었다면 암호 연상 프로그램이 나타납니다."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -489,14 +491,10 @@ msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "문자, 숫자, 문장부호를 더 넣으면 더 강력한 암호가 만들어집니다."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
-msgid "Privacy Policy"
-msgstr "개인 정보 정책"
-
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -508,7 +506,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -517,22 +515,11 @@ msgstr ""
 "보내는 기술 보고서에는 개인 정보가 들어있지 않습니다. 데이터는 %s에서 수집합"
 "니다."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr ""
-"앱에서 위치 정보를 확인하도록 허용합니다. 모질라 위치 서비스를 활용합니다(<a "
-"href='https://location.services.mozilla.com/privacy'>개인정보 취급 정책</a>)."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
+msgid "Allows apps to determine your geographical location."
+msgstr "앱의 위치 정보 확인을 허용합니다."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service."
-msgstr "앱의 위치 정보 확인을 허용합니다. 모질라 위치 서비스를 사용합니다."
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "개인 정보"
@@ -549,12 +536,23 @@ msgstr "자동 문제 보고"
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "설정 앱에서 언제든 개인 정보 처리 방식을 바꿀 수 있습니다."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:111
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "서드 파티 저장소"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:129
+#, c-format
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"<a href='%s'>external sources</a>, including popular apps and drivers that "
+"are important for some devices. Some proprietary software is included."
+msgstr ""
+"서드파티 저장소에서는 일부 장치에 중요한 잘 알려진 앱, 드라이버를 제공하는 선"
+"택 <a href='%s'>외부 저장소</a>에서 추가 프로그램에 접근할 수 있게 해줍니다. "
+"일부 상업용 프로그램도 들어있습니다."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -564,18 +562,26 @@ msgstr ""
 "택 외부 저장소에서 추가 프로그램에 접근할 수 있게 해줍니다. 일부 상업용 프로"
 "그램도 들어있습니다."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:122
+#: gnome-initial-setup/pages/software/gis-software-page.c:143
 msgid "_Disable Third-Party Repositories"
 msgstr "서드 파티 저장소 미사용(_D)"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:127
+#: gnome-initial-setup/pages/software/gis-software-page.c:148
 msgid "_Enable Third-Party Repositories"
 msgstr "서드 파티 저장소 사용(_E)"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+msgid "Setup Failed"
+msgstr "설치 실패"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
+msgid "Close"
+msgstr "닫기"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:232
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
 msgid "_Start Using %s"
 msgstr "%s 시작(_S)"
@@ -583,12 +589,12 @@ msgstr "%s 시작(_S)"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
 #, c-format
 msgid "%s is ready to be used."
 msgstr "%s을(를) 사용할 수 있도록 준비했습니다."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:263
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
 msgid "Setup Complete"
 msgstr "설치 완료"
 
@@ -617,7 +623,7 @@ msgid "%s, %s"
 msgstr "%2$s %1$s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:271
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -626,28 +632,28 @@ msgstr "%2$s %1$s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:308
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:312
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
 msgid "%l:%M %p"
 msgstr "%p %l:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s(%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:484
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
 msgid "Time Zone"
 msgstr "시간대"
@@ -672,7 +678,7 @@ msgstr "인근 도시를 검색하십시오"
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
 #.
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:63
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
 msgstr "%s 사용을 환영합니다!"
@@ -681,7 +687,7 @@ msgstr "%s 사용을 환영합니다!"
 msgid "Setup"
 msgstr "설정"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:39
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -689,7 +695,7 @@ msgstr ""
 "설정 과정에서 계정을 만들고 몇가지 기능을 사용할 수 있게 안내해드립니다. 이"
 "후 바로 사용하실 수 있도록 준비해드리겠습니다."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:49
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "설정 시작(_S)"
 
@@ -733,6 +739,21 @@ msgstr "${NAME} 체험"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "${PRETTY_NAME} 설치"
+
+#~ msgid "Set a Password"
+#~ msgstr "암호 지정"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "개인 정보 정책"
+
+#~ msgid ""
+#~ "Allows apps to determine your geographical location. Uses the Mozilla "
+#~ "Location Service (<a href='https://location.services.mozilla.com/"
+#~ "privacy'>privacy policy</a>)."
+#~ msgstr ""
+#~ "앱에서 위치 정보를 확인하도록 허용합니다. 모질라 위치 서비스를 활용합니다"
+#~ "(<a href='https://location.services.mozilla.com/privacy'>개인정보 취급 정"
+#~ "책</a>)."
 
 #~ msgid "Please check the name and username. You can choose a picture too."
 #~ msgstr "이름과 사용자 이름을 확인하십시오. 그림을 선택할 수도 있습니다."
