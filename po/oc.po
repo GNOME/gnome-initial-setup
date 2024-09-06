@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2024-04-09 16:49+0000\n"
-"PO-Revision-Date: 2024-04-09 21:31+0200\n"
+"POT-Creation-Date: 2024-07-26 16:03+0000\n"
+"PO-Revision-Date: 2024-09-06 21:08+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
@@ -25,23 +25,23 @@ msgstr ""
 msgid "Initial Setup"
 msgstr "Configuracion iniciala"
 
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:401
 msgid "_Next"
 msgstr "_Seguent"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:402
 msgid "_Accept"
 msgstr "_Acceptar"
 
-#: gnome-initial-setup/gis-assistant.c:405
+#: gnome-initial-setup/gis-assistant.c:403
 msgid "_Skip"
 msgstr "Pa_ssar"
 
-#: gnome-initial-setup/gis-assistant.c:406
+#: gnome-initial-setup/gis-assistant.c:404
 msgid "_Previous"
 msgstr "_Precedent"
 
-#: gnome-initial-setup/gis-assistant.c:407
+#: gnome-initial-setup/gis-assistant.c:405
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
 msgid "_Cancel"
 msgstr "_Anullar"
@@ -137,16 +137,16 @@ msgstr "Senhal de l'administrator"
 msgid "C_ontinue"
 msgstr "C_ontunhar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
 msgid "We need a few details to complete setup."
 msgstr "Nos cal qualques detalhs per acabar la configuracion."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:473
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
 msgid "Administrator"
 msgstr "Administrator"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:479
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:522
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Impossible de crear l'utilizaire « %s » : "
@@ -346,43 +346,45 @@ msgstr ""
 msgid "Parental Controls"
 msgstr "Contraròtle parental"
 
-#. Don’t break UI compatibility if parental controls are disabled.
-#: gnome-initial-setup/pages/password/gis-password-page.c:93
-msgid "Set a Password"
-msgstr "Definir un senhal"
-
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
-#: gnome-initial-setup/pages/password/gis-password-page.c:102
-msgid "Be careful not to lose your password."
-msgstr "Atencion de pèrdre pas vòstre senhal."
-
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:100
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Definir un senhal per %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:107
+#: gnome-initial-setup/pages/password/gis-password-page.c:96
+msgid "Be careful not to lose your password."
+msgstr "Atencion de pèrdre pas vòstre senhal."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 msgid "Set a Parent Password"
 msgstr "Definir un senhal pel contraròtle parent"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:109
+#: gnome-initial-setup/pages/password/gis-password-page.c:103
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Aqueste senhal contrarotlarà l'accès al contraròtle parent per %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:253
+#: gnome-initial-setup/pages/password/gis-password-page.c:246
 msgid "The passwords do not match."
 msgstr "Los senhals correspondon pas."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:449
+#: gnome-initial-setup/pages/password/gis-password-page.c:421
 msgid "Password"
 msgstr "Senhal"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:68
 msgid "_Confirm Password"
 msgstr "_Confirmar lo senhal"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+msgid "Password _Reminder"
+msgstr "_Rapèl de senhal"
+
+#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+msgid "Password reminder will be shown in case you forget your password."
+msgstr "S‘aficharà un rapèl de senhal se per cas oblidatz lo senhal."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -512,14 +514,10 @@ msgstr ""
 "L'apondon de mai de letras, de chifras o de pontuacion rendrà lo senhal "
 "encara mai fòrt."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:87
-msgid "Privacy Policy"
-msgstr "Politica de confidencialitat"
-
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:144
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -532,7 +530,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:156
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -541,25 +539,11 @@ msgstr ""
 "Envia de rapòrts tecnics que contenon pas cap d’informacions personalas. Las "
 "donadas son reculhidas per %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:200
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service (<a href='https://location.services.mozilla.com/"
-"privacy'>privacy policy</a>)."
-msgstr ""
-"Autoriza las aplicacions a geolocalizar vòstra posicion actuala. Utiliza lo "
-"servici de localizacion de Mozilla (<a href='https://location.services."
-"mozilla.com/privacy'>politica de confidencialitat</a>)."
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
+msgid "Allows apps to determine your geographical location."
+msgstr "Autoriza las aplicacions a determinar vòstra posicion actuala."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:203
-msgid ""
-"Allows apps to determine your geographical location. Uses the Mozilla "
-"Location Service."
-msgstr ""
-"Autoriza las aplicacions a geolocalizar vòstra posicion actuala. Utiliza lo "
-"servici de localizacion de Mozilla."
-
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:250
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
 msgid "Privacy"
 msgstr "Confidencialitat"
@@ -578,12 +562,24 @@ msgstr ""
 "Los paramètres de confidencialitat son modificables a tot moment dins "
 "Paramètres."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:111
+#: gnome-initial-setup/pages/software/gis-software-page.c:127
 #: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Depauses tèrces"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:112
+#: gnome-initial-setup/pages/software/gis-software-page.c:129
+#, c-format
+msgid ""
+"Third-party repositories provide access to additional software from selected "
+"<a href='%s'>external sources</a>, including popular apps and drivers that "
+"are important for some devices. Some proprietary software is included."
+msgstr ""
+"Los depauses tèrces fornisson un accès a de logicials addicionals a partir "
+"de <a href='%s'>fonts extèrnas selecionadas</a>, aquò inclutz d’aplicacions "
+"popularas e tanben de micrologicials que son importants per d’unes "
+"periferics. Qualques logicials proprietaris son incluses."
+
+#: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "external sources, including popular apps and drivers that are important for "
@@ -594,18 +590,26 @@ msgstr ""
 "tanben de micrologicials que son importants per d’unes periferics. Qualques "
 "logicials proprietaris son incluses."
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:122
+#: gnome-initial-setup/pages/software/gis-software-page.c:143
 msgid "_Disable Third-Party Repositories"
 msgstr "_Desactivar los depauses tèrces"
 
-#: gnome-initial-setup/pages/software/gis-software-page.c:127
+#: gnome-initial-setup/pages/software/gis-software-page.c:148
 msgid "_Enable Third-Party Repositories"
 msgstr "_Activar los depauses tèrces"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+msgid "Setup Failed"
+msgstr "La configuracion a fracassat"
+
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
+msgid "Close"
+msgstr "Tampar"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:232
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Començar d'utilizar %s"
@@ -613,12 +617,12 @@ msgstr "_Començar d'utilizar %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
 #, c-format
 msgid "%s is ready to be used."
 msgstr "%s es ja utilizat."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:263
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
 msgid "Setup Complete"
 msgstr "Configuracion acabada"
 
@@ -764,6 +768,21 @@ msgstr "Ensajar ${NAME}"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "Installar ${PRETTY_NAME}"
+
+#~ msgid "Set a Password"
+#~ msgstr "Definir un senhal"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "Politica de confidencialitat"
+
+#~ msgid ""
+#~ "Allows apps to determine your geographical location. Uses the Mozilla "
+#~ "Location Service (<a href='https://location.services.mozilla.com/"
+#~ "privacy'>privacy policy</a>)."
+#~ msgstr ""
+#~ "Autoriza las aplicacions a geolocalizar vòstra posicion actuala. Utiliza "
+#~ "lo servici de localizacion de Mozilla (<a href='https://location.services."
+#~ "mozilla.com/privacy'>politica de confidencialitat</a>)."
 
 #~ msgid "Please check the name and username. You can choose a picture too."
 #~ msgstr ""
