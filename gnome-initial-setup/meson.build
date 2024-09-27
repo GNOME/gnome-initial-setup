@@ -45,7 +45,7 @@ dependencies = [
     dependency ('gnome-desktop-4'),
     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
     dependency ('fontconfig'),
-    dependency ('gtk4', version: '>= 4.10'),
+    dependency ('gtk4', version: '>= 4.17'),
     glib_dep,
     gio_dep,
     dependency ('gdm', version: '>= 3.8.3'),
