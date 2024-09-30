@@ -47,7 +47,7 @@ struct _GisPasswordPage
   GtkWidget *password_strength;
   GtkWidget *password_explanation;
   GtkWidget *confirm_explanation;
-  GtkWidget *reminder_entry;
+  GtkWidget *hint_entry;
   GtkWidget *header;
   GtkWidget *avatar;
 
@@ -186,9 +186,9 @@ gis_password_page_save_data (GisPage  *gis_page,
   if (strlen (password) == 0) {
     act_user_set_password_mode (act_user, ACT_USER_PASSWORD_MODE_NONE);
   } else {
-    const gchar *reminder = gtk_editable_get_text (GTK_EDITABLE (page->reminder_entry));
-    g_autofree gchar *sanitized_reminder = g_strstrip (g_strdup (reminder));
-    act_user_set_password (act_user, password, sanitized_reminder);
+    const gchar *hint = gtk_editable_get_text (GTK_EDITABLE (page->hint_entry));
+    g_autofree gchar *sanitized_hint = g_strstrip (g_strdup (hint));
+    act_user_set_password (act_user, password, sanitized_hint);
   }
 
   if (!page->parent_mode)
@@ -434,7 +434,7 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_strength);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, password_explanation);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, confirm_explanation);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, reminder_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, hint_entry);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, header);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisPasswordPage, avatar);
 
