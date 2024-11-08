@@ -300,6 +300,8 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
+  adw_init ();
+
   g_message ("Starting gnome-initial-setup");
   if (gis_get_mock_mode ())
     g_message ("Mock mode: changes will not be saved to disk");
