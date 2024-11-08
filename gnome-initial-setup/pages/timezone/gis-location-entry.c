@@ -570,6 +570,10 @@ fill_location_entry_model (GtkListStore *store, GWeatherLocation *loc,
          */
     case GWEATHER_LOCATION_WEATHER_STATION:
         /* <location> with no parent <city> */
+        if (gweather_location_get_timezone (loc) == NULL) {
+            break;
+        }
+
         /* Translators: this is the name of a location followed by a region, for example:
          * 'London, United Kingdom'
          * You shouldn't need to translate this string unless the language has a different comma.
