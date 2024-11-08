@@ -12,12 +12,21 @@ entry_location_changed (GObject    *object,
   GtkLabel *label = GTK_LABEL (data);
   GisLocationEntry *entry = GIS_LOCATION_ENTRY (object);
   g_autoptr(GWeatherLocation) location = NULL;
-  const gchar *message = NULL;
 
   location = gis_location_entry_get_location (entry);
-  message = location != NULL ? gweather_location_get_name (location) : "No location selected";
-  g_message ("%s: %s", G_STRLOC, message);
-  gtk_label_set_text (label, message);
+  if (location != NULL)
+    {
+      const gchar *name = gweather_location_get_name (location);
+      GTimeZone *zone = gweather_location_get_timezone (location);
+      const char *tzid = zone ? g_time_zone_get_identifier (zone) : "no timezone";
+      g_autofree gchar *message = g_strdup_printf ("%s (%s)", name, tzid);
+
+      gtk_label_set_text (label, message);
+    }
+  else
+    {
+      gtk_label_set_text (label, "No location selected");
+    }
 }
 
 static void
