@@ -14,7 +14,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2024-10-18.01-main'
+    FDO_DISTRIBUTION_TAG: '2024-11-08.01-main'
     FDO_DISTRIBUTION_VERSION: 42
     # Workaround for https://gitlab.gnome.org/Infrastructure/Infrastructure/-/issues/1247
     FDO_DISTRIBUTION_EXEC: |
@@ -59,7 +59,7 @@ build.container.fedora@x86_64:
     FDO_DISTRIBUTION_EXEC: |-
       dnf builddep -y gtk4 && \
       dnf install -y sassc && \
-      git clone --depth 1 https://gitlab.gnome.org/GNOME/gtk.git /tmp/gtk && \
+      git clone --depth 1 -b 4.17.0 https://gitlab.gnome.org/GNOME/gtk.git /tmp/gtk && \
       meson setup /tmp/gtk /tmp/gtk/_build --prefix=/usr/local \
           --wrap-mode nofallback \
           -Dbuild-demos=false \
