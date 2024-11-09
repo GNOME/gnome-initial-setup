@@ -856,6 +856,9 @@ gis_driver_startup (GApplication *app)
 
   G_APPLICATION_CLASS (gis_driver_parent_class)->startup (app);
 
+  adw_style_manager_set_color_scheme (adw_style_manager_get_default (),
+                                      ADW_COLOR_SCHEME_PREFER_LIGHT);
+
   if (driver->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
 
