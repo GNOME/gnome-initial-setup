@@ -318,8 +318,6 @@ main (int argc, char *argv[])
     gis_ensure_login_keyring ();
 
   driver = gis_driver_new (mode);
-  adw_style_manager_set_color_scheme (adw_style_manager_get_default (),
-                                      ADW_COLOR_SCHEME_PREFER_LIGHT);
 
   /* On first login, GNOME Shell offers to run a tour. If we also run Initial
    * Setup, the two immovable, centred windows will sit atop one another.
