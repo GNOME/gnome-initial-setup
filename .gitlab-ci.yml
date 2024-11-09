@@ -14,7 +14,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2024-10-18.01-main'
+    FDO_DISTRIBUTION_TAG: '2024-11-09.01-main'
     FDO_DISTRIBUTION_VERSION: 42
     # Workaround for https://gitlab.gnome.org/Infrastructure/Infrastructure/-/issues/1247
     FDO_DISTRIBUTION_EXEC: |
@@ -40,7 +40,6 @@ build.container.fedora@x86_64:
       gdm-devel
       geoclue2-devel
       geocode-glib-devel
-      git
       glib2-devel
       gnome-desktop4-devel
       gsettings-desktop-schemas-devel
@@ -56,21 +55,6 @@ build.container.fedora@x86_64:
       meson
       polkit-devel
       webkitgtk6.0-devel
-    FDO_DISTRIBUTION_EXEC: |-
-      dnf builddep -y gtk4 && \
-      dnf install -y sassc && \
-      git clone --depth 1 https://gitlab.gnome.org/GNOME/gtk.git /tmp/gtk && \
-      meson setup /tmp/gtk /tmp/gtk/_build --prefix=/usr/local \
-          --wrap-mode nofallback \
-          -Dbuild-demos=false \
-          -Dbuild-examples=false \
-          -Dbuild-tests=false \
-          -Dbuild-testsuite=false \
-          -Dprint-cups=disabled && \
-      meson install -C /tmp/gtk/_build && \
-      rm -rf /tmp/gtk && \
-      rm -r /var/lib/gdm/.config
-
 
 .job_template: &job_definition
   extends:
