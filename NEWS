@@ -1,3 +1,26 @@
+47.2
+----
+
+* Previously, the timezone page would list duplicate entries for some cities,
+  and selecting the wrong one would crash Initial Setup. In this release these
+  problematic entries are not shown. (#219, Yao Wei (魏銘廷))
+
+* Previous versions would crash on startup when run with GTK 4.17, which has
+  made it a fatal error to use certain functions before gtk_init() has been
+  called. This crash is fixed in this release. (#223)
+
+Translation updates:
+
+- Catalan (Jordi Mas i Hernandez)
+- Dutch (Nathan Follens)
+- English (United Kingdom) (Andi Chandler)
+- French (Vincent Chatelain)
+- Friulian (Fabio Tomat)
+- Hebrew (Yaron Shahrabani)
+- Indonesian (Andika Triwidada)
+- Lithuanian (Aurimas Černius)
+- Serbian (Марко Костић)
+
 47.1
 ----
 
