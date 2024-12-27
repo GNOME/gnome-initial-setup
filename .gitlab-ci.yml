@@ -1,5 +1,5 @@
 include:
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/593a0a5fe35a523a646a7efae5471c9759b8fba3/templates/fedora.yml'
+ - remote: 'https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates/-/raw/593a0a5fe35a523a646a7efae5471c9759b8fba3/templates/fedora.yml'
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
@@ -20,7 +20,7 @@ stages:
     FDO_DISTRIBUTION_EXEC: |
       rm -r /var/lib/gdm/.config
 
-# See also https://gitlab.freedesktop.org/freedesktop/ci-templates
+# See also https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates
 build.container.fedora@x86_64:
   extends:
   - '.fdo.container-build@fedora'
