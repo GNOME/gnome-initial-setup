@@ -1,6 +1,6 @@
 project('gnome-initial-setup',
         ['c'],
-        version: '48.alpha',
+        version: '48.beta',
         license: 'GPL-2.0-or-later',
         meson_version: '>= 0.53.0',
 )
@@ -89,7 +89,6 @@ config_h_dir = include_directories('.')
 subdir('data')
 subdir('gnome-initial-setup')
 subdir('po')
-subdir('build-aux')
 
 summary(
   {
