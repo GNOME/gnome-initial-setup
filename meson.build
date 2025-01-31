@@ -89,7 +89,6 @@ config_h_dir = include_directories('.')
 subdir('data')
 subdir('gnome-initial-setup')
 subdir('po')
-subdir('build-aux')
 
 summary(
   {
