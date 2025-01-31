@@ -14,7 +14,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2024-11-09.01-main'
+    FDO_DISTRIBUTION_TAG: '2025-01-31.01-main'
     FDO_DISTRIBUTION_VERSION: 42
     # Workaround for https://gitlab.gnome.org/Infrastructure/Infrastructure/-/issues/1247
     FDO_DISTRIBUTION_EXEC: |
@@ -40,6 +40,7 @@ build.container.fedora@x86_64:
       gdm-devel
       geoclue2-devel
       geocode-glib-devel
+      git
       glib2-devel
       gnome-desktop4-devel
       gsettings-desktop-schemas-devel
@@ -64,6 +65,8 @@ build.container.fedora@x86_64:
   stage: build
 
   script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+
     # In general, we would like warnings to be fatal. However, code copied from
     # gnome-control-center uses many deprecated functions. Until we have a good
     # answer to sharing that code (#68), make those warnings non-fatal.
@@ -81,14 +84,13 @@ build.container.fedora@x86_64:
     - ninja -v
     # Check that strings can be extracted
     - ninja -v gnome-initial-setup-pot
-    # Check the package can be installed
-    - DESTDIR=$(mktemp -d) ninja -v install
-    - meson test
+    - meson dist
   artifacts:
-    when: on_failure
-    name: "gnome-initial-setup-${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
+    when: always
+    name: "${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
       - "${CI_PROJECT_DIR}/_build/meson-logs"
+      - "${CI_PROJECT_DIR}/_build/meson-dist/*.tar.xz"
 
 build-minimal:
   <<: *job_definition
