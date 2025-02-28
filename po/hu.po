@@ -1,17 +1,17 @@
 # Hungarian translation for gnome-initial-setup.
-# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023, 2024 Free Software Foundation, Inc.
+# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013, 2016, 2017.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
-# Balázs Meskó <mesko.balazs at fsf dot hu>, 2020, 2021, 2024.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Balázs Meskó <mesko.balazs at fsf dot hu>, 2020, 2021, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
 "s/\n"
-"POT-Creation-Date: 2024-07-26 16:03+0000\n"
-"PO-Revision-Date: 2024-08-03 16:20+0200\n"
+"POT-Creation-Date: 2025-02-12 22:14+0000\n"
+"PO-Revision-Date: 2025-02-28 20:43+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:866
+#: gnome-initial-setup/gis-driver.c:869
 msgid "Initial Setup"
 msgstr "Kiinduló beállítások"
 
@@ -379,12 +379,13 @@ msgid "_Confirm Password"
 msgstr "Jelszó _megerősítése"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:92
-#| msgid "Password"
-msgid "Password _Reminder"
+#| msgid "Password _Reminder"
+msgid "Password _Hint"
 msgstr "Jelszó-_emlékeztető"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:103
-msgid "Password reminder will be shown in case you forget your password."
+#| msgid "Password reminder will be shown in case you forget your password."
+msgid "Password hint will be shown in case you forget your password."
 msgstr "Jelszó-emlékeztető jelenik meg, ha elfelejti a jelszavát."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
@@ -544,12 +545,10 @@ msgstr ""
 "Az adatokat a(z) %s gyűjti."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
-#| msgid ""
-#| "Allows apps to determine your geographical location. Uses the Mozilla "
-#| "Location Service."
 msgid "Allows apps to determine your geographical location."
 msgstr ""
-"Lehetővé teszi az alkalmazások számára a földrajzi helyzetének meghatározását."
+"Lehetővé teszi az alkalmazások számára a földrajzi helyzetének "
+"meghatározását."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
@@ -577,19 +576,15 @@ msgstr "Harmadik féltől származó tárolók"
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:129
 #, c-format
-#| msgid ""
-#| "Third-party repositories provide access to additional software from "
-#| "selected external sources, including popular apps and drivers that are "
-#| "important for some devices. Some proprietary software is included."
 msgid ""
 "Third-party repositories provide access to additional software from selected "
 "<a href='%s'>external sources</a>, including popular apps and drivers that "
 "are important for some devices. Some proprietary software is included."
 msgstr ""
-"A harmadik féltől származó tárolók további szoftvereket biztosítanak a"
-" kiválasztott <a href='%s'>külső forrásokból</a>. Szerepelnek köztük népszerű"
-" alkalmazások, valamint illesztőprogramok, amelyek egyes eszközök esetén"
-" fontosak. Tulajdonosi (zárt) szoftvereket is tartalmazhatnak."
+"A harmadik féltől származó tárolók további szoftvereket biztosítanak a "
+"kiválasztott <a href='%s'>külső forrásokból</a>. Szerepelnek köztük népszerű "
+"alkalmazások, valamint illesztőprogramok, amelyek egyes eszközök esetén "
+"fontosak. Tulajdonosi (zárt) szoftvereket is tartalmazhatnak."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
@@ -611,7 +606,6 @@ msgid "_Enable Third-Party Repositories"
 msgstr "Harmadik féltől származó tárolók _engedélyezése"
 
 #: gnome-initial-setup/pages/summary/gis-summary-page.c:211
-#| msgid "Setup Complete"
 msgid "Setup Failed"
 msgstr "A beállítás sikertelen"
 
@@ -652,13 +646,8 @@ msgstr "Városok keresése"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#. <location> with no parent <city>
-#. Translators: this is the name of a location followed by a region, for example:
-#. * 'London, United Kingdom'
-#. * You shouldn't need to translate this string unless the language has a different comma.
-#.
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:577
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:581
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -780,3 +769,4 @@ msgstr "A(z) ${NAME} kipróbálása"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "A(z) ${PRETTY_NAME} telepítése"
+
