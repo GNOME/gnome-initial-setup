@@ -6,7 +6,7 @@
 // being interrupted by password dialogs
 
 polkit.addRule(function(action, subject) {
-    if (subject.user !== 'gnome-initial-setup')
+    if (!subject.isInGroup('gnome-initial-setup'))
         return undefined;
 
     var actionMatches = (action.id.indexOf('org.freedesktop.hostname1.') === 0 ||
