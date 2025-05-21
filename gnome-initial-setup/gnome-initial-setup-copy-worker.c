@@ -45,17 +45,6 @@ file_is_ours (const char *path)
   return buf.st_uid == geteuid ();
 }
 
-static void
-copy_file_mode (GStatBuf   *src_stat,
-                const char *dest,
-                int         dest_fd)
-{
-  if (fchmod (dest_fd, src_stat->st_mode) == -1) {
-    g_warning ("Could not set file permissions for %s: %s", dest, g_strerror (errno));
-    return;
-  }
-}
-
 /* Copy the source file modification time. Like g_file_copy, access time
  * is not changed.
  */
@@ -146,7 +135,8 @@ copy_file_xattrs (const char *src,
 static void
 copy_file (const char *src,
            const char *dest,
-           GStatBuf   *src_stat)
+           GStatBuf   *src_stat,
+           mode_t      mode)
 {
   int src_fd = -1;
   int dest_fd = -1;
@@ -197,7 +187,9 @@ copy_file (const char *src,
     }
   }
 
-  copy_file_mode (src_stat, dest, dest_fd);
+  if (fchmod (dest_fd, mode) == -1)
+    g_warning ("Could not set file permissions for %s: %s", dest, g_strerror (errno));
+
   copy_file_modtime (src_stat, dest, dest_fd);
   copy_file_xattrs (src, src_fd, dest, dest_fd);
 
@@ -211,7 +203,8 @@ copy_file (const char *src,
 static void
 copy_file_from_homedir (const gchar *src_base,
                         const gchar *dest_base,
-                        const gchar *path)
+                        const gchar *path,
+                        mode_t       mode)
 {
   g_autofree gchar *dest = g_build_filename (dest_base, path, NULL);
   g_autofree gchar *dest_parent = g_path_get_dirname (dest);
@@ -241,7 +234,7 @@ copy_file_from_homedir (const gchar *src_base,
     return;
   }
 
-  copy_file (src, dest, &src_stat);
+  copy_file (src, dest, &src_stat, mode);
 }
 
 int
@@ -293,13 +286,13 @@ main (int    argc,
     exit (EXIT_SUCCESS);
   }
 
-#define FILE(path) \
-  copy_file_from_homedir (src, dest, path);
+#define FILE(path, mode) \
+  copy_file_from_homedir (src, dest, path, mode);
 
-  FILE (".config/gnome-initial-setup-done");
-  FILE (".config/dconf/user");
-  FILE (".config/monitors.xml");
-  FILE (".local/share/keyrings/login.keyring");
+  FILE (".config/gnome-initial-setup-done", 0644);
+  FILE (".config/dconf/user", 0644);
+  FILE (".config/monitors.xml", 0644);
+  FILE (".local/share/keyrings/login.keyring", 0600);
 
   return EXIT_SUCCESS;
 }
