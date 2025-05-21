@@ -29,19 +29,6 @@
 #define O_BINARY 0
 #endif
 
-static char *
-get_gnome_initial_setup_home_dir (void)
-{
-  struct passwd pw, *pwp;
-  char buf[4096];
-
-  getpwnam_r ("gnome-initial-setup", &pw, buf, sizeof (buf), &pwp);
-  if (pwp != NULL)
-    return g_strdup (pwp->pw_dir);
-  else
-    return NULL;
-}
-
 static gboolean
 file_is_ours (const char *path)
 {
@@ -268,9 +255,9 @@ main (int    argc,
 
   GOptionEntry entries[] = {
     { "src", 0, 0, G_OPTION_ARG_FILENAME, &src,
-      "Source path (default: home directory)", NULL },
+      "Source path (default: /run/gnome-initial-setup)", NULL },
     { "dest", 0, 0, G_OPTION_ARG_FILENAME, &dest,
-      "Destination path (default: gnome-initial-setup home directory)", NULL },
+      "Destination path (default: home directory)", NULL },
     { NULL }
   };
 
@@ -284,7 +271,7 @@ main (int    argc,
   }
 
   if (src == NULL) {
-    src = get_gnome_initial_setup_home_dir ();
+    src = g_strdup ("/run/gnome-initial-setup");
     if (src == NULL) {
       g_debug ("Could not determine gnome-initial-setup homedir");
       exit (EXIT_SUCCESS);
