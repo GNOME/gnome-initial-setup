@@ -7,10 +7,11 @@ Before=default.target graphical-session-pre.target
 # Run before any systemd activated consumers.
 Before=gnome-keyring-daemon.service
 
+ConditionPathExists=!%E/gnome-initial-setup-done
+
 # Never run in GDM
 ConditionUser=!@system
-
-ConditionPathExists=!%E/gnome-initial-setup-done
+ConditionEnvironment=XDG_SESSION_CLASS=user
 
 [Service]
 Type=oneshot
