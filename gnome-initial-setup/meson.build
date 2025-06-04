@@ -15,7 +15,6 @@ sources += [
     'gis-page-header.c',
     'gis-pkexec.c',
     'gis-driver.c',
-    'gis-keyring.c',
     'gis-util.c',
     'gis-webkit.c',
     'gnome-initial-setup.h',
@@ -24,7 +23,6 @@ sources += [
     'gis-page-header.h',
     'gis-pkexec.h',
     'gis-driver.h',
-    'gis-keyring.h'
 ]
 
 glib_dep = dependency ('glib-2.0', version: '>= 2.63.1')
