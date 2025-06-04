@@ -309,14 +309,6 @@ main (int argc, char *argv[])
   skipped_pages = g_ptr_array_new_with_free_func (destroy_page);
   mode = get_mode ();
 
-  /* When we are running as the gnome-initial-setup user we
-   * dont have a normal user session and need to initialize
-   * the keyring manually so that we can pass the credentials
-   * along to the new user in the handoff.
-   */
-  if (mode == GIS_DRIVER_MODE_NEW_USER && !gis_get_mock_mode ())
-    gis_ensure_login_keyring ();
-
   driver = gis_driver_new (mode);
 
   /* On first login, GNOME Shell offers to run a tour. If we also run Initial

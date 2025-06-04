@@ -294,7 +294,6 @@ main (int    argc,
   FILE (".config/gnome-initial-setup-done");
   FILE (".config/dconf/user");
   FILE (".config/monitors.xml");
-  FILE (".local/share/keyrings/login.keyring");
 
   return EXIT_SUCCESS;
 }
