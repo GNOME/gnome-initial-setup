@@ -117,7 +117,7 @@ validate (GisAccountPageLocal *page)
   GtkWidget *entry;
   const gchar *name, *username;
   gboolean parental_controls_enabled;
-  gchar *tip;
+  g_autofree gchar *tip = NULL;
 
   g_clear_handle_id (&page->timeout_id, g_source_remove);
 
@@ -139,8 +139,10 @@ validate (GisAccountPageLocal *page)
   if (page->valid_username)
     set_entry_validation_checkmark (GTK_ENTRY (entry));
 
+  const gchar *current_label = gtk_label_get_text (GTK_LABEL (page->username_explanation));
+  if (!g_str_equal (tip, current_label) && !g_str_equal (current_label, ""))
+    gtk_accessible_announce (GTK_ACCESSIBLE (page), tip, GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_MEDIUM);
   gtk_label_set_text (GTK_LABEL (page->username_explanation), tip);
-  g_free (tip);
 
   validation_changed (page);
 
