@@ -217,6 +217,7 @@ validate (GisPasswordPage *page)
   const gchar *verify;
   gint strength_level;
   const gchar *hint;
+  g_autoptr(GString) announce_message = g_string_new ("");
 
   g_clear_handle_id (&page->timeout_id, g_source_remove);
 
@@ -224,7 +225,15 @@ validate (GisPasswordPage *page)
   verify = gtk_editable_get_text (GTK_EDITABLE (page->confirm_entry));
 
   pw_strength (password, NULL, page->username, &hint, &strength_level);
+  if (strength_level != gtk_level_bar_get_value (GTK_LEVEL_BAR (page->password_strength)))
+    g_string_append_printf (announce_message, _("Password strength: %d."), strength_level);
   gtk_level_bar_set_value (GTK_LEVEL_BAR (page->password_strength), strength_level);
+  if (!g_str_equal (hint, gtk_label_get_label (GTK_LABEL (page->password_explanation))))
+    g_string_append_printf (announce_message, " %s.", hint);
+  if (announce_message->len != 0)
+    gtk_accessible_announce (GTK_ACCESSIBLE (page),
+                             announce_message->str,
+                             GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_MEDIUM);
   gtk_label_set_label (GTK_LABEL (page->password_explanation), hint);
 
   gtk_label_set_label (GTK_LABEL (page->confirm_explanation), "");
@@ -244,6 +253,9 @@ validate (GisPasswordPage *page)
     } else {
       set_password_validation_error (page->confirm_entry);
       gtk_label_set_label (GTK_LABEL (page->confirm_explanation), _("The passwords do not match."));
+      gtk_accessible_announce (GTK_ACCESSIBLE (page),
+                               _("The passwords do not match."),
+                               GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_MEDIUM);
     }
   }
 
@@ -360,6 +372,9 @@ gis_password_page_constructed (GObject *object)
 
   validate (page);
   update_header (page);
+  gtk_accessible_update_relation (GTK_ACCESSIBLE (page),
+                                  GTK_ACCESSIBLE_RELATION_LABELLED_BY,
+                                  page->header, NULL, -1);
 
   gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
