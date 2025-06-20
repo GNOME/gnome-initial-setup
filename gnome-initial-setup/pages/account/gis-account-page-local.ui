@@ -67,6 +67,10 @@
         </child>
         <child>
           <object class="GtkGrid" id="form">
+            <property name="accessible_role">group</property>
+            <accessibility>
+              <relation name="labelled-by">header</relation>
+            </accessibility>
             <property name="column_spacing">12</property>
             <property name="row_spacing">6</property>
             <property name="margin_top">42</property>
@@ -149,12 +153,15 @@
                 </layout>
                 <child>
                   <object class="GtkCheckButton" id="enable_parental_controls_check_button">
+                    <accessibility>
+                      <relation name="described-by">parental_label</relation>
+                    </accessibility>
                     <property name="label" translatable="yes">Set up _parental controls for this user</property>
                     <property name="use-underline">True</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="parental_label">
                     <property name="label" translatable="yes">For use by a parent or supervisor, who must set up their own password.</property>
                     <property name="yalign">0</property>
                     <property name="xalign">0</property>
