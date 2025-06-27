@@ -11,6 +11,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GisPageHeader" id="header">
+                    <property name="accessible-role">group</property>
                     <property name="margin_top">24</property>
                     <property name="title" translatable="yes">Typing</property>
                     <property name="subtitle" translatable="yes">Select your keyboard layout or an input method.</property>
@@ -20,8 +21,12 @@
                 </child>
                 <child>
                   <object class="CcInputChooser" id="input_chooser">
+                    <property name="accessible-role">group</property>
                     <property name="margin_top">18</property>
                     <property name="margin_bottom">18</property>
+                    <accessibility>
+                      <relation name="labelled-by">header</relation>
+                    </accessibility>
                   </object>
                 </child>
               </object>
