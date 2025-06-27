@@ -70,6 +70,7 @@ static guint signals[LAST_SIGNAL] = { 0 };
 typedef struct {
         GtkWidget *box;
         GtkWidget *checkmark;
+        GtkWidget *a11y_label;
 
         gchar *locale_id;
         gchar *locale_name;
@@ -111,6 +112,15 @@ language_widget_free (gpointer data)
         g_free (widget->locale_untranslated_name);
         g_free (widget->sort_key);
         g_free (widget);
+}
+
+static void
+language_widget_set_selected (LanguageWidget *widget, gboolean selected)
+{
+        gtk_widget_set_opacity (widget->checkmark, selected ? 1.0 : 0.0);
+        gtk_accessible_update_state (GTK_ACCESSIBLE (widget->a11y_label),
+                                     GTK_ACCESSIBLE_STATE_CHECKED, selected,
+                                     -1);
 }
 
 static GtkWidget *
@@ -183,6 +193,12 @@ language_widget_new (const char *locale_id,
         g_free (language_name);
         g_free (country);
         g_free (country_name);
+        widget->a11y_label = label;
+        // this allows to have the "checked" and "unchecked" states
+        g_object_set (G_OBJECT (label),
+                      "accessible-role",
+                      GTK_ACCESSIBLE_ROLE_CHECKBOX,
+                      NULL);
 
         return widget->box;
 }
@@ -206,7 +222,7 @@ sync_all_checkmarks (CcLanguageChooser *chooser)
                         return;
 
                 should_be_visible = g_str_equal (widget->locale_id, priv->language);
-                gtk_widget_set_opacity (widget->checkmark, should_be_visible ? 1.0 : 0.0);
+                language_widget_set_selected (widget, should_be_visible);
 
                 row = gtk_widget_get_next_sibling (row);
         }
@@ -219,6 +235,10 @@ more_widget_new (void)
         GtkWidget *arrow;
 
         widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+        g_object_set (G_OBJECT (widget),
+                      "accessible-role",
+                      GTK_ACCESSIBLE_ROLE_GROUP,
+                      NULL);
         gtk_widget_set_tooltip_text (widget, _("More…"));
 
         arrow = g_object_new (GTK_TYPE_IMAGE,
@@ -441,6 +461,8 @@ row_activated (GtkListBox        *box,
                 widget = get_language_widget (child);
                 if (widget == NULL)
                         return;
+                // set it here to ensure that screen readers say it correctly
+                language_widget_set_selected (widget, TRUE);
                 if (g_strcmp0 (priv->language, widget->locale_id) == 0)
 			g_idle_add (confirm_choice, chooser);
                 else
@@ -528,16 +550,25 @@ cc_language_chooser_set_property (GObject      *object,
         }
 }
 
+static gboolean
+cc_language_chooser_grab_focus (GtkWidget *chooser)
+{
+        CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (CC_LANGUAGE_CHOOSER (chooser));
+        return gtk_widget_grab_focus (GTK_WIDGET (priv->filter_entry));
+}
+
 static void
 cc_language_chooser_class_init (CcLanguageChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/control-center/language-chooser.ui");
 
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, filter_entry);
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcLanguageChooser, language_list);
 
+        widget_class->grab_focus = cc_language_chooser_grab_focus;
 	object_class->finalize = cc_language_chooser_finalize;
         object_class->get_property = cc_language_chooser_get_property;
         object_class->set_property = cc_language_chooser_set_property;
