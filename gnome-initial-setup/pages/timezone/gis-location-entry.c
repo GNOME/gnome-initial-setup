@@ -219,6 +219,13 @@ constructed (GObject *object)
     G_OBJECT_CLASS (gis_location_entry_parent_class)->constructed (object);
 }
 
+static gboolean
+grab_focus (GtkWidget *self)
+{
+    GisLocationEntryPrivate *priv = gis_location_entry_get_instance_private (GIS_LOCATION_ENTRY (self));
+    return gtk_widget_grab_focus (priv->entry);
+}
+
 static void
 gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
 {
@@ -254,6 +261,7 @@ gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
                              GWEATHER_TYPE_LOCATION,
                              G_PARAM_READWRITE));
 
+    widget_class->grab_focus = grab_focus;
     gtk_editable_install_properties (object_class, LAST_PROP);
 
     gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);

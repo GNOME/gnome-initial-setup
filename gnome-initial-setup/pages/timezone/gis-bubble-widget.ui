@@ -6,6 +6,7 @@
         <property name="visible">True</property>
         <child>
           <object class="GtkBox" id="box">
+            <property name="accessible-role">group</property>
             <property name="orientation">vertical</property>
             <property name="width-request">128</property>
             <property name="height-request">128</property>
@@ -13,6 +14,7 @@
             <property name="valign">center</property>
             <child>
               <object class="GtkImage" id="icon">
+                <property name="accessible-role">none</property>
                 <property name="vexpand">True</property>
                 <property name="pixel-size">64</property>
               </object>
