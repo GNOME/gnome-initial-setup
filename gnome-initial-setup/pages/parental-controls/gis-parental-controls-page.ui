@@ -17,6 +17,7 @@
             </child>
             <child>
               <object class="GisPageHeader" id="header">
+                <property name="accessible-role">group</property>
                 <!-- title and subtitle are set in code, so are not set here -->
                 <property name="show_icon">False</property>
               </object>
@@ -26,6 +27,10 @@
 
         <child>
           <object class="AdwPreferencesGroup">
+            <property name="accessible-role">group</property>
+            <accessibility>
+              <relation name="labelled-by">header</relation>
+            </accessibility>
             <child>
               <object class="MctUserControls" id="user_controls" />
             </child>
