@@ -172,6 +172,13 @@ gis_privacy_page_locale_changed (GisPage *page)
 }
 
 static void
+gis_privacy_page_shown (GisPage *gis_page)
+{
+  GisPrivacyPage *page = GIS_PRIVACY_PAGE (gis_page);
+  gtk_widget_grab_focus (GTK_WIDGET (page->location_switch));
+}
+
+static void
 gis_privacy_page_class_init (GisPrivacyPageClass *klass)
 {
   GisPageClass *page_class = GIS_PAGE_CLASS (klass);
@@ -188,6 +195,7 @@ gis_privacy_page_class_init (GisPrivacyPageClass *klass)
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_privacy_page_locale_changed;
   page_class->apply = gis_privacy_page_apply;
+  page_class->shown = gis_privacy_page_shown;
   object_class->constructed = gis_privacy_page_constructed;
   object_class->dispose = gis_privacy_page_dispose;
 }

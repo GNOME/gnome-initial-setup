@@ -8,6 +8,7 @@
 
         <child>
           <object class="AdwPreferencesGroup">
+            <property name="accessible-role">group</property>
             <child>
               <object class="GisPageHeader" id="header">
                 <property name="margin_top">24</property>
@@ -21,6 +22,11 @@
 
         <child>
           <object class="AdwPreferencesGroup">
+            <property name="accessible-role">group</property>
+            <accessibility>
+              <relation name="labelled-by">header</relation>
+              <relation name="described-by">header</relation>
+            </accessibility>
             <child>
               <object class="AdwActionRow">
                 <property name="use-markup">True</property>
