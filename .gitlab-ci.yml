@@ -9,7 +9,6 @@ include:
     inputs:
       job-stage: "deploy"
       dist-job-name: "build-maximal"
-      tarball-artifact-path: "_build/meson-dist/$CI_PROJECT_NAME-$CI_COMMIT_TAG.tar.xz"
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
@@ -95,13 +94,14 @@ build.container.fedora@x86_64:
     - ninja -v
     # Check that strings can be extracted
     - ninja -v gnome-initial-setup-pot
-    - meson dist
+    - meson dist --include-subprojects
+    - mv "${CI_PROJECT_DIR}/_build/meson-dist/" "${CI_PROJECT_DIR}/public-dist/"
   artifacts:
     when: always
     name: "${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
       - "${CI_PROJECT_DIR}/_build/meson-logs"
-      - "${CI_PROJECT_DIR}/_build/meson-dist/*.tar.xz"
+      - "public-dist"
 
 build-minimal:
   <<: *job_definition
