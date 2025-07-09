@@ -1,8 +1,21 @@
 [Unit]
-# Must be in sync with @this_component@.session
-@wants_required_components@
+Wants=org.gnome.SettingsDaemon.A11ySettings.target
+Wants=org.gnome.SettingsDaemon.Color.target
+Wants=org.gnome.SettingsDaemon.Datetime.target
+Wants=org.gnome.SettingsDaemon.Housekeeping.target
+Wants=org.gnome.SettingsDaemon.Keyboard.target
+Wants=org.gnome.SettingsDaemon.MediaKeys.target
+Wants=org.gnome.SettingsDaemon.Power.target
+Wants=org.gnome.SettingsDaemon.PrintNotifications.target
+Wants=org.gnome.SettingsDaemon.Rfkill.target
+Wants=org.gnome.SettingsDaemon.ScreensaverProxy.target
+Wants=org.gnome.SettingsDaemon.Sharing.target
+Wants=org.gnome.SettingsDaemon.Smartcard.target
+Wants=org.gnome.SettingsDaemon.Sound.target
+Wants=org.gnome.SettingsDaemon.UsbProtection.target
+Wants=org.gnome.SettingsDaemon.XSettings.target
 
-Requires=@requires_component@.target
+Requires=org.gnome.Shell.target
 
 # Only difference to a standard GNOME session is the @this_component@ service
 Requires=@this_component@.service
