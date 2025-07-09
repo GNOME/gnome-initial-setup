@@ -83,7 +83,6 @@ build.container.fedora@x86_64:
     - meson setup
         --wrap-mode=nofallback
         --fatal-meson-warnings
-        -Dsystemd=${EXPLICIT_FEATURES}
         --auto-features ${AUTO_FEATURES}
         ${OPTIONS}
         -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
