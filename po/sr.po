@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-31 21:39+0000\n"
-"PO-Revision-Date: 2024-11-05 07:00+0100\n"
+"POT-Creation-Date: 2025-05-10 16:10+0000\n"
+"PO-Revision-Date: 2025-07-11 20:01+0200\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <Serbian <gnome-sr@googlegroups.com>>\n"
 "Language: sr\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/gnome-initial-setup-first-login.desktop.in.in:3
 #: data/gnome-initial-setup.desktop.in.in:3
-#: gnome-initial-setup/gis-driver.c:866
+#: gnome-initial-setup/gis-driver.c:869
 msgid "Initial Setup"
 msgstr "Почетно подешавање"
 
@@ -326,11 +326,11 @@ msgstr ""
 "ажурирања. Такође помаже са самосталним подешавањем ваше локације и "
 "часовника."
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:56
+#: gnome-initial-setup/pages/network/gis-network-page.ui:57
 msgid "No wireless available"
 msgstr "Нема доступних бежичних мрежа"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:69
+#: gnome-initial-setup/pages/network/gis-network-page.ui:70
 msgid "Turn On"
 msgstr "Укључи"
 
@@ -385,11 +385,11 @@ msgstr "Потврди лозин_ку"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:92
 msgid "Password _Hint"
-msgstr "_Наговештај лозинке"
+msgstr "_Подсетник за лозинку"
 
 #: gnome-initial-setup/pages/password/gis-password-page.ui:103
 msgid "Password hint will be shown in case you forget your password."
-msgstr "Наговештај о лозинци биће приказан у случају заборављања лозинке."
+msgstr "Подсетник за лозинку ће се приказати уколико заборавите лозинку."
 
 #: gnome-initial-setup/pages/password/pw-utils.c:81
 msgctxt "Password hint"
@@ -578,9 +578,9 @@ msgid ""
 "<a href='%s'>external sources</a>, including popular apps and drivers that "
 "are important for some devices. Some proprietary software is included."
 msgstr ""
-"Ризнице треће стране омогућавају приступ додатним програма из <a "
-"href='%s'>пробраних спољних извора</a>, који садрже популарне програме, као "
-"и управљаче који су потребни за одређене уређаје. Садрже и власнички софтвер."
+"Ризнице треће стране омогућавају приступ додатним програмима из пробраних<a "
+"href='%s'>спољних извора</a>, који садрже популарне програме, као и "
+"управљаче који су потребни за одређене уређаје. Садрже и власнички софтвер."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:131
 msgid ""
@@ -588,7 +588,7 @@ msgid ""
 "external sources, including popular apps and drivers that are important for "
 "some devices. Some proprietary software is included."
 msgstr ""
-"Ризнице треће стране омогућавају приступ додатним програма из пробраних "
+"Ризнице треће стране омогућавају приступ додатним програмима из пробраних "
 "спољних извора, који садрже популарне програме, као и управљаче који су "
 "потребни за одређене уређаје. Садрже и власнички софтвер."
 
@@ -641,13 +641,8 @@ msgstr "Потражи градове"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#. <location> with no parent <city>
-#. Translators: this is the name of a location followed by a region, for example:
-#. * 'London, United Kingdom'
-#. * You shouldn't need to translate this string unless the language has a different comma.
-#.
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:577
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:581
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
