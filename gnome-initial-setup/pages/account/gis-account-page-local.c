@@ -578,6 +578,10 @@ gis_account_page_local_init (GisAccountPageLocal *page)
 {
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
+  g_object_set (G_OBJECT (page),
+              "accessible-role",
+              GTK_ACCESSIBLE_ROLE_GROUP,
+              NULL);
 }
 
 gboolean

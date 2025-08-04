@@ -238,6 +238,10 @@ gis_page_class_init (GisPageClass *klass)
 static void
 gis_page_init (GisPage *page)
 {
+  g_object_set (G_OBJECT (page),
+                "accessible-role",
+                GTK_ACCESSIBLE_ROLE_GROUP,
+                NULL);
 }
 
 char *
