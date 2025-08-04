@@ -269,13 +269,14 @@ translated_city_name (TzLocation *loc)
 static void
 update_timezone (GisTimezonePage *page, TzLocation *location)
 {
-  char *tz_desc;
-  char *bubble_text;
-  char *city_country;
-  char *utc_label;
-  char *time_label;
-  GTimeZone *zone;
-  GDateTime *date;
+  g_autofree char *tz_desc = NULL;
+  g_autofree char *bubble_text = NULL;
+  g_autofree char *accessible_text = NULL;
+  g_autofree char *city_country = NULL;
+  g_autofree char *utc_label = NULL;
+  g_autofree char *time_label = NULL;
+  g_autoptr (GTimeZone) zone = NULL;
+  g_autoptr (GDateTime) date = NULL;
   gboolean use_ampm;
 
   if (page->clock_format == G_DESKTOP_CLOCK_FORMAT_12H)
@@ -285,7 +286,6 @@ update_timezone (GisTimezonePage *page, TzLocation *location)
 
   zone = g_time_zone_new (location->zone);
   date = g_date_time_new_now (zone);
-  g_time_zone_unref (zone);
 
   /* Update the text bubble in the timezone map */
   city_country = translated_city_name (location);
@@ -312,15 +312,11 @@ update_timezone (GisTimezonePage *page, TzLocation *location)
                                  tz_desc,
                                  city_country,
                                  time_label);
-  cc_timezone_map_set_bubble_text (CC_TIMEZONE_MAP (page->map), bubble_text);
-
-  g_free (tz_desc);
-  g_free (city_country);
-  g_free (utc_label);
-  g_free (time_label);
-  g_free (bubble_text);
-
-  g_date_time_unref (date);
+  accessible_text = g_strdup_printf (_("Current timezone: %s at %s; current time: %s"),
+                                     tz_desc,
+                                     city_country,
+                                     time_label);
+  cc_timezone_map_set_bubble_text (CC_TIMEZONE_MAP (page->map), bubble_text, accessible_text);
 }
 
 static void
@@ -357,13 +353,6 @@ on_clock_changed (GnomeWallClock *clock,
   location = cc_timezone_map_get_location (CC_TIMEZONE_MAP (page->map));
   if (location)
     update_timezone (page, location);
-}
-
-static void
-entry_mapped (GtkWidget *widget,
-              gpointer   user_data)
-{
-  gtk_widget_grab_focus (widget);
 }
 
 static void
@@ -434,8 +423,6 @@ gis_timezone_page_constructed (GObject *object)
                         G_CALLBACK (entry_text_changed), page);
   g_signal_connect (page->search_entry, "notify::location",
                     G_CALLBACK (entry_location_changed), page);
-  g_signal_connect (page->search_entry, "map",
-                    G_CALLBACK (entry_mapped), page);
   g_signal_connect (page->map, "location-changed",
                     G_CALLBACK (map_location_changed), page);
 
@@ -479,6 +466,13 @@ gis_timezone_page_apply (GisPage      *page,
   return FALSE;
 }
 
+void
+gis_timezone_page_shown (GisPage *gis_page)
+{
+        GisTimezonePage *page = GIS_TIMEZONE_PAGE (gis_page);
+        gtk_widget_grab_focus (GTK_WIDGET (page->search_entry));
+}
+
 static void
 gis_timezone_page_class_init (GisTimezonePageClass *klass)
 {
@@ -495,6 +489,7 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
   page_class->apply = gis_timezone_page_apply;
+  page_class->shown = gis_timezone_page_shown;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
   widget_class->root = gis_timezone_page_root;

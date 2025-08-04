@@ -515,8 +515,13 @@ cc_timezone_map_set_timezone (CcTimezoneMap *map,
 
 void
 cc_timezone_map_set_bubble_text (CcTimezoneMap *map,
-                                 const gchar   *text)
+                                 const gchar   *text,
+                                 const gchar   *accessible)
 {
+  if (0 != g_strcmp0 (map->bubble_text, text)) {
+    gtk_accessible_announce (GTK_ACCESSIBLE (map), accessible, GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_HIGH);
+  }
+
   g_free (map->bubble_text);
   map->bubble_text = g_strdup (text);
 

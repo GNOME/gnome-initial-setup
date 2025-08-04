@@ -3,6 +3,10 @@
   <template class="GisTimezonePage" parent="GisPage">
     <child>
       <object class="GtkBox" id="box">
+        <property name="accessible-role">group</property>
+        <accessibility>
+          <relation name="labelled-by">header</relation>
+        </accessibility>
         <property name="orientation">vertical</property>
         <property name="halign">center</property>
         <property name="valign">fill</property>
@@ -17,6 +21,7 @@
         </child>
         <child>
           <object class="GtkBox" id="page_box">
+            <property name="accessible-role">group</property>
             <property name="margin_top">18</property>
             <property name="valign">center</property>
             <property name="orientation">vertical</property>
