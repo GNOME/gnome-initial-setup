@@ -27,8 +27,6 @@
 #include "password-resources.h"
 #include "gis-password-page.h"
 
-#include "gis-keyring.h"
-
 #include "pw-utils.h"
 
 #include <glib/gi18n.h>
@@ -176,8 +174,6 @@ gis_password_page_save_data (GisPage  *gis_page,
   if (account_mode == UM_ENTERPRISE) {
     g_assert (!page->parent_mode);
 
-    if (password != NULL)
-      gis_update_login_keyring_password (password);
     return TRUE;
   }
 
@@ -195,9 +191,6 @@ gis_password_page_save_data (GisPage  *gis_page,
     gis_driver_set_user_permissions (gis_page->driver, act_user, password);
   else
     gis_driver_set_parent_permissions (gis_page->driver, act_user, password);
-
-  if (!page->parent_mode)
-    gis_update_login_keyring_password (password);
 
   return TRUE;
 }
