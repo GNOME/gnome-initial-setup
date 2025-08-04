@@ -9,10 +9,10 @@ option('ibus',
        value: 'auto'
 )
 
-option('systemd',
-  type: 'boolean',
-  value: true,
-  description: 'Enable systemd integration'
+option('gdm-rundir',
+   type: 'string',
+   value: '/run/gdm',
+   description: 'GDM\'s runtime directory. The dynamic gnome-initial-setup user\'s home dir is exported here',
 )
 
 option('parental_controls',

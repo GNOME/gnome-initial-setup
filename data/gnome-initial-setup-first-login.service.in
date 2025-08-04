@@ -4,11 +4,11 @@ Description=GNOME Initial Setup
 BindsTo=gnome-session.target
 After=gnome-session.target
 
-# Never run in GDM
-Conflicts=gnome-session@gnome-login.target
-
-Conflicts=gnome-session@gnome-initial-setup.target
 ConditionPathExists=!%E/gnome-initial-setup-done
+
+# Never run in GDM
+ConditionUser=!@system
+ConditionEnvironment=XDG_SESSION_CLASS=user
 
 [Service]
 Type=oneshot

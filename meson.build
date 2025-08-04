@@ -18,6 +18,7 @@ libexec_dir = join_paths(prefix, get_option('libexecdir'))
 sysconf_dir = join_paths(prefix, get_option('sysconfdir'))
 pkgdata_dir = join_paths(data_dir, meson.project_name())
 pkgsysconf_dir = join_paths(sysconf_dir, meson.project_name())
+gdm_export_dir = join_paths(prefix, get_option('gdm-rundir'), 'gnome-initial-setup')
 
 conf = configuration_data()
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
@@ -27,6 +28,7 @@ conf.set_quoted('DATADIR', data_dir)
 conf.set_quoted('PKGSYSCONFDIR', pkgsysconf_dir)
 conf.set_quoted('SYSCONFDIR', sysconf_dir)
 conf.set_quoted('LIBEXECDIR', libexec_dir)
+conf.set_quoted('GDM_EXPORT_DIR', gdm_export_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
 conf.set('G_LOG_USE_STRUCTURED', true)
@@ -37,16 +39,14 @@ if cc.has_header('sys/xattr.h')
     conf.set('HAVE_XATTR', 1)
 endif
 
-enable_systemd = get_option('systemd')
-if enable_systemd
-    systemd_dep = dependency('systemd', version: '>= 242', required: false)
-    assert(systemd_dep.found(), 'Systemd support explicitly required, but systemd not found')
 
-    systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
-                                                   pkgconfig_define: ['prefix', prefix])
-    systemd_sysusersdir = systemd_dep.get_variable(pkgconfig: 'sysusersdir',
-                                                   pkgconfig_define: ['prefix', prefix])
-endif
+systemd_dep = dependency('systemd', version: '>= 242', required: false)
+systemd_userunitdir = systemd_dep.get_variable(pkgconfig: 'systemduserunitdir',
+                                               pkgconfig_define: ['prefix', prefix],
+                                               default_value: get_option('prefix') / 'lib' / 'systemd' / 'user')
+systemd_sysusersdir = systemd_dep.get_variable(pkgconfig: 'sysusersdir',
+                                               pkgconfig_define: ['prefix', prefix],
+                                               default_value: get_option('prefix') / 'lib' / 'sysusers.d')
 
 vendor_conf_file = get_option('vendor-conf-file')
 if vendor_conf_file != ''
@@ -92,7 +92,6 @@ subdir('po')
 
 summary(
   {
-    'systemd support': enable_systemd,
     'IBus': have_ibus,
     'Parental Controls': have_parental_controls,
     'WebKitGTK': have_webkitgtk,
