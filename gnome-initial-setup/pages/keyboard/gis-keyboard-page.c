@@ -503,6 +503,13 @@ gis_keyboard_page_locale_changed (GisPage *page)
 }
 
 static void
+gis_keyboard_page_shown (GisPage *page)
+{
+  GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (GIS_KEYBOARD_PAGE (page));
+  gtk_widget_grab_focus (GTK_WIDGET (priv->input_chooser));
+}
+
+static void
 gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -515,6 +522,7 @@ gis_keyboard_page_class_init (GisKeyboardPageClass * klass)
         page_class->page_id = PAGE_ID;
         page_class->apply = gis_keyboard_page_apply;
         page_class->skip = gis_keyboard_page_skip;
+        page_class->shown = gis_keyboard_page_shown;
         page_class->locale_changed = gis_keyboard_page_locale_changed;
         object_class->constructed = gis_keyboard_page_constructed;
 	object_class->finalize = gis_keyboard_page_finalize;

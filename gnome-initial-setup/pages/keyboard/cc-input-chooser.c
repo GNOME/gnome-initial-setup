@@ -191,6 +191,15 @@ preview_cb (GtkLabel       *label,
 	return TRUE;
 }
 
+static void
+input_widget_set_selected (InputWidget *widget, gboolean selected)
+{
+        gtk_widget_set_opacity (widget->checkmark, selected ? 1.0 : 0.0);
+        gtk_accessible_update_state (GTK_ACCESSIBLE (widget->label),
+                                     GTK_ACCESSIBLE_STATE_CHECKED, selected,
+                                     -1);
+}
+
 static GtkWidget *
 input_widget_new (CcInputChooser *chooser,
 		   const char *type,
@@ -235,6 +244,11 @@ input_widget_new (CcInputChooser *chooser,
         gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);
         gtk_label_set_max_width_chars (GTK_LABEL (widget->label), 40);
         gtk_label_set_xalign (GTK_LABEL (widget->label), 0);
+        // this allows to have the "checked" and "unchecked" states
+        g_object_set (G_OBJECT (widget->label),
+                      "accessible-role",
+                      GTK_ACCESSIBLE_ROLE_CHECKBOX,
+                      NULL);
 	gtk_box_append (GTK_BOX (widget->box), widget->label);
 
         widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
@@ -281,7 +295,7 @@ sync_all_checkmarks (CcInputChooser *chooser)
 	        else
 	                should_be_visible = g_strcmp0 (widget->id, priv->id) == 0 &&
                                             g_strcmp0 (widget->type, priv->type) == 0;
-                gtk_widget_set_opacity (widget->checkmark, should_be_visible ? 1.0 : 0.0);
+                input_widget_set_selected (widget, should_be_visible);
 
                 if (widget->is_extra && should_be_visible) {
                         g_debug ("Marking selected layout %s (%s:%s) as non-extra",
@@ -304,6 +318,10 @@ more_widget_new (void)
         GtkWidget *arrow;
 
         widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+        g_object_set (G_OBJECT (widget),
+                      "accessible-role",
+                      GTK_ACCESSIBLE_ROLE_GROUP,
+                      NULL);
         gtk_widget_set_tooltip_text (widget, _("More…"));
 
         arrow = gtk_image_new_from_icon_name ("view-more-symbolic");
@@ -570,6 +588,7 @@ row_activated (GtkListBox        *box,
                 widget = get_input_widget (child);
                 if (widget == NULL)
                         return;
+                input_widget_set_selected (widget, TRUE);
                 if (g_strcmp0 (priv->id, widget->id) == 0 &&
                     g_strcmp0 (priv->type, widget->type) == 0)
                         confirm_choice (chooser);
@@ -808,16 +827,25 @@ cc_input_chooser_get_property (GObject      *object,
         }
 }
 
+static gboolean
+cc_input_chooser_grab_focus (GtkWidget *chooser)
+{
+        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (CC_INPUT_CHOOSER (chooser));
+        return gtk_widget_grab_focus (GTK_WIDGET (priv->filter_entry));
+}
+
 static void
 cc_input_chooser_class_init (CcInputChooserClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass), "/org/gnome/initial-setup/input-chooser.ui");
 
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcInputChooser, filter_entry);
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), CcInputChooser, input_list);
 
+        widget_class->grab_focus = cc_input_chooser_grab_focus;
 	object_class->finalize = cc_input_chooser_finalize;
         object_class->get_property = cc_input_chooser_get_property;
         object_class->constructed = cc_input_chooser_constructed;
@@ -826,7 +854,7 @@ cc_input_chooser_class_init (CcInputChooserClass *klass)
                 g_param_spec_string ("showing-extra", "", "", "",
                                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
-	signals[CHANGED] = 
+	signals[CHANGED] =
 		g_signal_new ("changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
