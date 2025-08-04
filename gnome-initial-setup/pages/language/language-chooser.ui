@@ -6,6 +6,10 @@
     <child>
       <object class="GtkSearchEntry" id="filter_entry">
         <property name="hexpand">True</property>
+        <property name="accessible-role">search-box</property>
+        <accessibility>
+          <property name="label" translatable="yes">Search languages</property>
+        </accessibility>
       </object>
     </child>
     <child>
@@ -13,6 +17,9 @@
         <property name="vexpand">True</property>
         <property name="halign">fill</property>
         <property name="valign">start</property>
+        <accessibility>
+          <property name="label" translatable="yes">Available languages</property>
+        </accessibility>
         <style>
           <class name="boxed-list" />
         </style>
