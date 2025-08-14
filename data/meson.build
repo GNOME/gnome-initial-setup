@@ -1,5 +1,21 @@
 subdir('dconf')
 
+desktop_conf = configuration_data()
+desktop_conf.set('LIBEXECDIR', libexec_dir)
+
+i18n.merge_file(
+    input: configure_file(
+        input: files('gnome-initial-setup.desktop.in.in'),
+        output: 'gnome-initial-setup.desktop.in',
+        configuration: desktop_conf
+    ),
+    output: 'gnome-initial-setup.desktop',
+    install_dir: join_paths(data_dir, 'applications'),
+    po_dir: po_dir,
+    install: true,
+    type: 'desktop'
+)
+
 data_conf = configuration_data()
 data_conf.set('bindir', bin_dir)
 data_conf.set('libexecdir', libexec_dir)
