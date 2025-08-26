@@ -1,5 +1,5 @@
 # gnome-initial-setup ja.po.
-# Copyright (C) 2012-2017, 2019-2022 gnome-initial-setup's COPYRIGHT HOLDER
+# Copyright (C) 2012-2017, 2019-2022, 2025 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2012.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012-2016, 2017.
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2025-06-13 10:21+0000\n"
-"PO-Revision-Date: 2025-06-14 16:21+0900\n"
+"POT-Creation-Date: 2025-08-16 23:40+0000\n"
+"PO-Revision-Date: 2025-08-17 11:14+0900\n"
 "Last-Translator: Makoto Sakaguchi <ycco34vx@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -23,8 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.6\n"
 
-#: data/gnome-initial-setup-first-login.desktop.in.in:3
-#: data/gnome-initial-setup.desktop.in.in:3
+#: data/gnome-initial-setup.desktop.in.in:2
 #: gnome-initial-setup/gis-driver.c:869
 msgid "Initial Setup"
 msgstr "初期設定"
@@ -98,7 +97,7 @@ msgid "_Domain"
 msgstr "ドメイン(_D)"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:100
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
 msgid "_Username"
 msgstr "ユーザー名(_U)"
 
@@ -141,16 +140,16 @@ msgstr "管理者パスワード"
 msgid "C_ontinue"
 msgstr "続行(_O)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:321
 msgid "We need a few details to complete setup."
 msgstr "セットアップを完了するために、いくつかの詳細情報が必要です。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:476
 msgid "Administrator"
 msgstr "管理者"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:482
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:525
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "ユーザー '%s' の作成に失敗しました: "
@@ -172,15 +171,15 @@ msgstr "あなたについて"
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "名前とユーザー名を入力してください。画像の選択もできます。"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:77
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Full Name"
 msgstr "フルネーム(_F)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:152
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:159
 msgid "Set up _parental controls for this user"
 msgstr "このユーザーのペアレンタルコントロールを設定する(_P)"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:158
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:165
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr "保護者または監督者向けです。自身のパスワードを設定する必要があります。"
 
@@ -246,28 +245,28 @@ msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "これはホームフォルダーの名前として使用され、後から変更することはできません。"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:257
 msgid "Preview"
 msgstr "プレビュー"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:222
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "More…"
 msgstr "さらに…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:347
 msgid "No inputs found"
 msgstr "入力方法が見つかりません"
 
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Typing"
 msgstr "入力"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:17
 msgid "Select your keyboard layout or an input method."
 msgstr "キーボードレイアウトまたは入力メソッドを選択してください。"
 
@@ -275,13 +274,18 @@ msgstr "キーボードレイアウトまたは入力メソッドを選択して
 msgid "Search keyboards and input methods"
 msgstr "キーボードと入力メソッドを検索"
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:242
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:262
 msgid "No languages found"
 msgstr "利用可能な言語が見つかりません"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:261
+#: gnome-initial-setup/pages/language/gis-language-page.c:268
+#: gnome-initial-setup/pages/language/gis-language-page.ui:14
 msgid "Welcome"
 msgstr "ようこそ"
+
+#: gnome-initial-setup/pages/language/gis-language-page.ui:41
+msgid "Select a language from the list, or search an specific language."
+msgstr "一覧から言語を選択するか、特定の言語を検索してください。"
 
 #. Translators: This is meant to be a warm, engaging welcome message,
 #. * like greeting somebody at the door. If the exclamation mark is not
@@ -290,6 +294,14 @@ msgstr "ようこそ"
 #: gnome-initial-setup/pages/language/gis-welcome-widget.c:132
 msgid "Welcome!"
 msgstr "ようこそ!"
+
+#: gnome-initial-setup/pages/language/language-chooser.ui:11
+msgid "Search languages"
+msgstr "言語を検索"
+
+#: gnome-initial-setup/pages/language/language-chooser.ui:21
+msgid "Available languages"
+msgstr "利用可能な言語"
 
 #: gnome-initial-setup/pages/network/gis-network-page.c:297
 msgctxt "Wireless access point"
@@ -343,31 +355,37 @@ msgid "Parental Controls"
 msgstr "ペアレンタルコントロール"
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:92
 #, c-format
 msgid "Set a Password for %s"
 msgstr "%s のパスワードを設定"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:96
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 msgid "Be careful not to lose your password."
 msgstr "パスワードを紛失しないようご注意ください。"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:101
+#: gnome-initial-setup/pages/password/gis-password-page.c:99
 msgid "Set a Parent Password"
 msgstr "保護者パスワードを設定"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:103
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr ""
 "このパスワードで %s のペアレンタルコントロールへのアクセスを管理します。"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:246
+#: gnome-initial-setup/pages/password/gis-password-page.c:222
+#, c-format
+msgid "Password strength: %d."
+msgstr "パスワードの強度: %d。"
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:248
+#: gnome-initial-setup/pages/password/gis-password-page.c:250
 msgid "The passwords do not match."
 msgstr "パスワードが一致しません。"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:421
+#: gnome-initial-setup/pages/password/gis-password-page.c:429
 msgid "Password"
 msgstr "パスワード"
 
@@ -541,19 +559,19 @@ msgid "Allows apps to determine your geographical location."
 msgstr "アプリが位置情報を取得することを許可します。"
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:15
 msgid "Privacy"
 msgstr "プライバシー"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:33
 msgid "Location Services"
 msgstr "位置情報サービス"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:65
 msgid "Automatic Problem Reporting"
 msgstr "問題の自動報告"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:97
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "プライバシーの設定は、「設定」アプリからいつでも変更できます。"
 
@@ -619,7 +637,7 @@ msgstr "%s を使用する準備ができました。"
 msgid "Setup Complete"
 msgstr "セットアップ完了"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:7
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:8
 msgid "All done!"
 msgstr "完了しました!"
 
@@ -632,8 +650,8 @@ msgstr "都市を検索"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:581
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:589
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -669,12 +687,17 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#, c-format
+msgid "Current timezone: %s at %s; current time: %s"
+msgstr "現在のタイムゾーン: %s (%s)、現在の時刻: %s"
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:454
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "タイムゾーン"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:13
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
@@ -682,7 +705,7 @@ msgstr ""
 "位置情報が検出できる場合は、タイムゾーンが自動的に設定されます。都市を検索し"
 "て自分で設定することもできます。"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:44
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:49
 msgid "Please search for a nearby city"
 msgstr "近くの都市を検索してください"
 
