@@ -210,6 +210,7 @@ validate (GisPasswordPage *page)
   const gchar *verify;
   gint strength_level;
   const gchar *hint;
+  const gchar *strength_level_hint;
   g_autoptr(GString) announce_message = g_string_new ("");
 
   g_clear_handle_id (&page->timeout_id, g_source_remove);
@@ -217,9 +218,9 @@ validate (GisPasswordPage *page)
   password = gtk_editable_get_text (GTK_EDITABLE (page->password_entry));
   verify = gtk_editable_get_text (GTK_EDITABLE (page->confirm_entry));
 
-  pw_strength (password, NULL, page->username, &hint, &strength_level);
+  pw_strength (password, NULL, page->username, &hint, &strength_level, &strength_level_hint);
   if (strength_level != gtk_level_bar_get_value (GTK_LEVEL_BAR (page->password_strength)))
-    g_string_append_printf (announce_message, _("Password strength: %d."), strength_level);
+    g_string_append_printf (announce_message, _("Password strength: %s."), strength_level_hint);
   gtk_level_bar_set_value (GTK_LEVEL_BAR (page->password_strength), strength_level);
   if (!g_str_equal (hint, gtk_label_get_label (GTK_LABEL (page->password_explanation))))
     g_string_append_printf (announce_message, " %s.", hint);
