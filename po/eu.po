@@ -9,8 +9,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/\n"
-"POT-Creation-Date: 2025-02-20 09:36+0000\n"
-"PO-Revision-Date: 2025-03-01 10:00+0100\n"
+"POT-Creation-Date: 2025-08-30 03:02+0000\n"
+"PO-Revision-Date: 2025-08-31 10:00+0100\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -19,8 +19,7 @@ msgstr "Project-Id-Version: gnome-initial-setup master\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: data/gnome-initial-setup-first-login.desktop.in.in:3
-#: data/gnome-initial-setup.desktop.in.in:3
+#: data/gnome-initial-setup.desktop.in.in:2
 #: gnome-initial-setup/gis-driver.c:869
 msgid "Initial Setup"
 msgstr "Hasierako konfigurazioa"
@@ -91,7 +90,7 @@ msgid "_Domain"
 msgstr "_Domeinua"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:100
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
 msgid "_Username"
 msgstr "_Erabiltzaile-izena:"
 
@@ -131,16 +130,16 @@ msgstr "Administratzailearen pasahitza"
 msgid "C_ontinue"
 msgstr "_Jarraitu"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:319
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:321
 msgid "We need a few details to complete setup."
 msgstr "Xehetasun gutxi batzuk behar dira konfigurazioa amaitzeko."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:474
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:476
 msgid "Administrator"
 msgstr "Administratzailea"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:480
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:523
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:482
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:525
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Huts egin du '%s' erabiltzailea sortzeak: "
@@ -162,15 +161,15 @@ msgstr "Zuri buruz"
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Eman izena eta erabiltzaile-izena. Argazki bat ere aukera dezakezu."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:77
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
 msgid "_Full Name"
 msgstr "_Izen osoa"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:152
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:159
 msgid "Set up _parental controls for this user"
 msgstr "Konfiguratu _gurasoen kontrola erabiltzaile honentzat"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:158
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:165
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr "Guraso edo gainbegirale batek erabiltzeko, bere pasahitz propioa izan behar du."
 
@@ -233,28 +232,28 @@ msgstr "Erabiltzaile-izenak honako karaktereak soilik eduki ditzake:  alfabetoko
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Zure karpeta nagusia izendatzeko erabiliko da, eta ezin da aldatu."
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:243
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:257
 msgid "Preview"
 msgstr "Aurrebista"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:307
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:222
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:242
 msgid "More…"
 msgstr "Gehiago…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:347
 msgid "No inputs found"
 msgstr "Ez da sarrerarik aurkitu"
 
 #: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:15
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Typing"
 msgstr "Idazketa"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:17
 msgid "Select your keyboard layout or an input method."
 msgstr "Hautatu teklatuaren diseinua edo sarrerako metodoa."
 
@@ -262,13 +261,18 @@ msgstr "Hautatu teklatuaren diseinua edo sarrerako metodoa."
 msgid "Search keyboards and input methods"
 msgstr "Bilatu teklatuak eta sarrerako metodoak"
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:242
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:262
 msgid "No languages found"
 msgstr "Ez da hizkuntzarik aurkitu"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:261
+#: gnome-initial-setup/pages/language/gis-language-page.c:268
+#: gnome-initial-setup/pages/language/gis-language-page.ui:14
 msgid "Welcome"
 msgstr "Ongi etorri"
+
+#: gnome-initial-setup/pages/language/gis-language-page.ui:41
+msgid "Select a language from the list, or search an specific language."
+msgstr "Hautatu hizkuntza bat zerrendatik, edo bilatu hizkuntza zehatz bat."
 
 #. Translators: This is meant to be a warm, engaging welcome message,
 #. * like greeting somebody at the door. If the exclamation mark is not
@@ -277,6 +281,14 @@ msgstr "Ongi etorri"
 #: gnome-initial-setup/pages/language/gis-welcome-widget.c:132
 msgid "Welcome!"
 msgstr "Ongi etorri!"
+
+#: gnome-initial-setup/pages/language/language-chooser.ui:11
+msgid "Search languages"
+msgstr "Bilatu hizkuntzak"
+
+#: gnome-initial-setup/pages/language/language-chooser.ui:21
+msgid "Available languages"
+msgstr "Erabilgarri dauden hizkuntzak"
 
 #: gnome-initial-setup/pages/network/gis-network-page.c:297
 msgctxt "Wireless access point"
@@ -328,30 +340,36 @@ msgid "Parental Controls"
 msgstr "Gurasoen kontrola"
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:92
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Ezarri pasahitz bat %s erabiltzailearentzat"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:96
+#: gnome-initial-setup/pages/password/gis-password-page.c:94
 msgid "Be careful not to lose your password."
 msgstr "Kontuz ibili zure pasahitza ez galtzeko."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:101
+#: gnome-initial-setup/pages/password/gis-password-page.c:99
 msgid "Set a Parent Password"
 msgstr "Ezarri gurasoen pasahitz bat"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:103
+#: gnome-initial-setup/pages/password/gis-password-page.c:101
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Pasahitz honek gurasoen kontrolaren atzipena kontrolatuko du %s erabiltzailearentzat"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:246
+#: gnome-initial-setup/pages/password/gis-password-page.c:222
+#, c-format
+msgid "Password strength: %d."
+msgstr "Pasahitzaren sendotasuna: %d."
+
+#: gnome-initial-setup/pages/password/gis-password-page.c:248
+#: gnome-initial-setup/pages/password/gis-password-page.c:250
 msgid "The passwords do not match."
 msgstr "Pasahitzak ez datoz bat."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:421
+#: gnome-initial-setup/pages/password/gis-password-page.c:429
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -503,19 +521,19 @@ msgid "Allows apps to determine your geographical location."
 msgstr "Onartu aplikazioek zure kokaleku geografikoa ezagutu dezaten."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:14
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:15
 msgid "Privacy"
 msgstr "Pribatutasuna"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:27
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:33
 msgid "Location Services"
 msgstr "Kokaleku-zerbitzuak"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:59
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:65
 msgid "Automatic Problem Reporting"
 msgstr "Eman erroreen berri automatikoki"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:91
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:97
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "Pribatutasunaren kontrolak edozein unetan aldatu daitezke ezarpenetan."
 
@@ -575,7 +593,7 @@ msgstr "%s erabiltzeko prest dago."
 msgid "Setup Complete"
 msgstr "Konfigurazioa osatu da"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:7
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:8
 msgid "All done!"
 msgstr "Eginda"
 
@@ -588,8 +606,8 @@ msgstr "Bilatu hiriak"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:549
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:581
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:589
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
@@ -625,18 +643,23 @@ msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:467
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:12
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#, c-format
+msgid "Current timezone: %s at %s; current time: %s"
+msgstr "Uneko ordu-zona: %s / %s; uneko ordua: %s"
+
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:454
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Ordu-zona"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:13
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
 msgstr "Ordu-zona automatikoki konfiguratuko da zure kokalekua aurkitzen bada. Herri bat ere bilatu dezakezu zuk zeuk konfiguratzeko."
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:44
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:49
 msgid "Please search for a nearby city"
 msgstr "Bilatu hurbileko herri bat"
 
@@ -717,8 +740,8 @@ msgstr "Instalatu ${PRETTY_NAME}"
 #~ "privacy'>privacy policy</a>)."
 #~ msgstr ""
 #~ "Aplikazioek zure kokaleku geografikoa ezagutu dezaten ahalbidetzen du. "
-#~ "Mozilla Location Service erabiltzen du (<a href='https://location."
-#~ "services.mozilla.com/privacy'>pribatutasun-politika</a>)."
+#~ "Mozilla Location Service erabiltzen du (<a href='https://"
+#~ "location.services.mozilla.com/privacy'>pribatutasun-politika</a>)."
 
 #~ msgid "Please check the name and username. You can choose a picture too."
 #~ msgstr ""
