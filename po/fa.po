@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/\n"
-"POT-Creation-Date: 2025-08-16 23:40+0000\n"
-"PO-Revision-Date: 2025-08-17 12:42+0330\n"
+"POT-Creation-Date: 2025-09-04 12:15+0000\n"
+"PO-Revision-Date: 2025-09-04 16:37+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2 gnome-initial-setup/gis-driver.c:869
 msgid "Initial Setup"
@@ -367,17 +367,17 @@ msgstr "برپایی یک گذرواژهٔ والد"
 msgid "This password will control access to the parental controls for %s."
 msgstr "این گذرواژه، دسترسی به واپایش‌های والدین را برای %s وامی‌پاید."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:222
+#: gnome-initial-setup/pages/password/gis-password-page.c:223
 #, c-format
-msgid "Password strength: %d."
-msgstr "قدرت گذرواژه: %Id."
+msgid "Password strength: %s."
+msgstr "قدرت گذرواژه: %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:248
-#: gnome-initial-setup/pages/password/gis-password-page.c:250
+#: gnome-initial-setup/pages/password/gis-password-page.c:249
+#: gnome-initial-setup/pages/password/gis-password-page.c:251
 msgid "The passwords do not match."
 msgstr "گذرواژه‌ها مطابقت ندارند."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:429
+#: gnome-initial-setup/pages/password/gis-password-page.c:430
 msgid "Password"
 msgstr "گذرواژه"
 
@@ -506,6 +506,27 @@ msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "افزودن حروف، اعداد و نشانه‌های بیش‌تر، گذرواژه را قوی‌تر می‌کند."
+
+#. TRANSLATORS: this string describes a password as being poor
+#: gnome-initial-setup/pages/password/pw-utils.c:146
+msgid "poor"
+msgstr "بد"
+
+#. TRANSLATORS: this string describes a password as being weak
+#: gnome-initial-setup/pages/password/pw-utils.c:150
+msgid "weak"
+msgstr "ضعیف"
+
+#. TRANSLATORS: this string describes a password as being strong
+#: gnome-initial-setup/pages/password/pw-utils.c:154
+#: gnome-initial-setup/pages/password/pw-utils.c:157
+msgid "strong"
+msgstr "قوی"
+
+#. TRANSLATORS: this string describes a password as being excellent
+#: gnome-initial-setup/pages/password/pw-utils.c:161
+msgid "excellent"
+msgstr "عالی"
 
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
@@ -1008,10 +1029,6 @@ msgstr "نصب ${PRETTY_NAME}"
 #~ msgctxt "Password strength"
 #~ msgid "Good"
 #~ msgstr "خوب"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strong"
-#~ msgstr "قوی"
 
 #~ msgid "Login"
 #~ msgstr "ورود به سیستم"
