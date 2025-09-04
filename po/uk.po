@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issu"
 "es/\n"
-"POT-Creation-Date: 2025-08-16 11:20+0000\n"
-"PO-Revision-Date: 2025-08-16 17:21+0300\n"
+"POT-Creation-Date: 2025-09-04 15:21+0000\n"
+"PO-Revision-Date: 2025-09-04 18:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -297,7 +297,6 @@ msgid "Welcome!"
 msgstr "Вітаємо!"
 
 #: gnome-initial-setup/pages/language/language-chooser.ui:11
-#| msgid "Search cities"
 msgid "Search languages"
 msgstr "Шукати мови"
 
@@ -380,17 +379,18 @@ msgstr ""
 "За допомогою цього пароля буде обмежено доступ до батьківського контролю для "
 "%s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:222
+#: gnome-initial-setup/pages/password/gis-password-page.c:223
 #, c-format
-msgid "Password strength: %d."
-msgstr "Складність пароля: %d."
+#| msgid "Password strength: %d."
+msgid "Password strength: %s."
+msgstr "Складність пароля: %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:248
-#: gnome-initial-setup/pages/password/gis-password-page.c:250
+#: gnome-initial-setup/pages/password/gis-password-page.c:249
+#: gnome-initial-setup/pages/password/gis-password-page.c:251
 msgid "The passwords do not match."
 msgstr "Пароль не збігається."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:429
+#: gnome-initial-setup/pages/password/gis-password-page.c:430
 msgid "Password"
 msgstr "Пароль"
 
@@ -528,6 +528,27 @@ msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "Додавання літер, цифр і розділових знаків зробить пароль надійнішим!"
+
+#. TRANSLATORS: this string describes a password as being poor
+#: gnome-initial-setup/pages/password/pw-utils.c:146
+msgid "poor"
+msgstr "низькоякісний"
+
+#. TRANSLATORS: this string describes a password as being weak
+#: gnome-initial-setup/pages/password/pw-utils.c:150
+msgid "weak"
+msgstr "простий"
+
+#. TRANSLATORS: this string describes a password as being strong
+#: gnome-initial-setup/pages/password/pw-utils.c:154
+#: gnome-initial-setup/pages/password/pw-utils.c:157
+msgid "strong"
+msgstr "складний"
+
+#. TRANSLATORS: this string describes a password as being excellent
+#: gnome-initial-setup/pages/password/pw-utils.c:161
+msgid "excellent"
+msgstr "чудовий"
 
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
