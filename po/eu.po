@@ -9,8 +9,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/\n"
-"POT-Creation-Date: 2025-08-30 03:02+0000\n"
-"PO-Revision-Date: 2025-08-31 10:00+0100\n"
+"POT-Creation-Date: 2025-09-04 13:09+0000\n"
+"PO-Revision-Date: 2025-09-04 10:00+0100\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -359,17 +359,17 @@ msgstr "Ezarri gurasoen pasahitz bat"
 msgid "This password will control access to the parental controls for %s."
 msgstr "Pasahitz honek gurasoen kontrolaren atzipena kontrolatuko du %s erabiltzailearentzat"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:222
+#: gnome-initial-setup/pages/password/gis-password-page.c:223
 #, c-format
-msgid "Password strength: %d."
-msgstr "Pasahitzaren sendotasuna: %d."
+msgid "Password strength: %s."
+msgstr "Pasahitzaren sendotasuna: %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:248
-#: gnome-initial-setup/pages/password/gis-password-page.c:250
+#: gnome-initial-setup/pages/password/gis-password-page.c:249
+#: gnome-initial-setup/pages/password/gis-password-page.c:251
 msgid "The passwords do not match."
 msgstr "Pasahitzak ez datoz bat."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:429
+#: gnome-initial-setup/pages/password/gis-password-page.c:430
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -495,6 +495,27 @@ msgctxt "Password hint"
 msgid ""
 "Adding more letters, numbers and punctuation will make the password stronger."
 msgstr "Hizki, zenbaki eta ikur gehiago gehitzeak sendoagoa egingo du."
+
+#. TRANSLATORS: this string describes a password as being poor
+#: gnome-initial-setup/pages/password/pw-utils.c:146
+msgid "poor"
+msgstr "txarra"
+
+#. TRANSLATORS: this string describes a password as being weak
+#: gnome-initial-setup/pages/password/pw-utils.c:150
+msgid "weak"
+msgstr "ahula"
+
+#. TRANSLATORS: this string describes a password as being strong
+#: gnome-initial-setup/pages/password/pw-utils.c:154
+#: gnome-initial-setup/pages/password/pw-utils.c:157
+msgid "strong"
+msgstr "sendoa"
+
+#. TRANSLATORS: this string describes a password as being excellent
+#: gnome-initial-setup/pages/password/pw-utils.c:161
+msgid "excellent"
+msgstr "bikaina"
 
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
@@ -1011,10 +1032,6 @@ msgstr "Instalatu ${PRETTY_NAME}"
 #~ msgctxt "Password strength"
 #~ msgid "Good"
 #~ msgstr "Ona"
-
-#~ msgctxt "Password strength"
-#~ msgid "Strong"
-#~ msgstr "Indartsua"
 
 #~ msgid "Login"
 #~ msgstr "Saio-hasiera"
