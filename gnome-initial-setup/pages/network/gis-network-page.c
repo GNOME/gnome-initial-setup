@@ -27,8 +27,11 @@
 #include "network-resources.h"
 #include "gis-network-page.h"
 
-#include <glib/gi18n.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
 
 #include "network-dialogs.h"
 
@@ -51,6 +54,7 @@ struct _GisNetworkPagePrivate {
 
   NMClient *nm_client;
   NMDevice *nm_device;
+  gboolean is_complete;
   gboolean refreshing;
   GtkSizeGroup *icons;
 
@@ -117,6 +121,24 @@ get_strongest_unique_aps (const GPtrArray *aps)
 
  out:
   return unique;
+}
+
+static gboolean
+on_key_pressed (GtkEventControllerKey *controller,
+                guint keyval,
+                guint keycode,
+                GdkModifierType state,
+                gpointer user_data)
+{
+    GisNetworkPage *page = user_data;
+    GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+    if ((keyval == GDK_KEY_Return || keyval == GDK_KEY_KP_Enter) && 
+        priv->is_complete) {
+        gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static guint
@@ -590,6 +612,8 @@ sync_complete (GisNetworkPage *page)
   activated = priv->nm_device != NULL
     && nm_device_get_state (priv->nm_device) == NM_DEVICE_STATE_ACTIVATED;
 
+  priv->is_complete = activated; 
+
   if (priv->ever_shown) {
     visible = TRUE;
   } else if (!has_device) {
@@ -758,6 +782,10 @@ gis_network_page_constructed (GObject *object)
                           priv->turn_on_switch, "active",
                           G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
   monitor_network_devices (page);
+
+  GtkEventController *controller = gtk_event_controller_key_new ();
+  g_signal_connect (controller, "key-pressed", G_CALLBACK (on_key_pressed), page);
+  gtk_widget_add_controller (GTK_WIDGET (page), controller);
 }
 
 static void

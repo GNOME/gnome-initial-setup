@@ -26,8 +26,11 @@
 #include "config.h"
 #include "gis-timezone-page.h"
 
-#include <glib/gi18n.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -71,6 +74,7 @@ struct _GisTimezonePage
   GClueClient *geoclue_client;
   GClueSimple *geoclue_simple;
   gboolean in_geoclue_callback;
+  gboolean is_complete;
   GWeatherLocation *current_location;
   Timedate1 *dtm;
   GCancellable *dtm_cancellable;
@@ -81,6 +85,19 @@ struct _GisTimezonePage
 
   gulong search_entry_text_changed_id;
 };
+
+static gboolean
+on_key_pressed (GtkWidget *controller,
+                gpointer user_data)
+{
+    GisTimezonePage *page = user_data;
+
+    if (page->is_complete) {
+        gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
+        return TRUE;
+    }
+    return FALSE;
+}
 
 G_DEFINE_TYPE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
 
@@ -122,6 +139,7 @@ set_location (GisTimezonePage  *page,
 
   gtk_widget_set_visible (page->search_overlay, (location == NULL));
   gis_page_set_complete (GIS_PAGE (page), (location != NULL));
+  page->is_complete = (location != NULL);
 
   if (location)
     {
@@ -138,6 +156,8 @@ set_location (GisTimezonePage  *page,
       /* If this location is manually set, stop waiting for geolocation. */
       if (!page->in_geoclue_callback)
         stop_geolocation (page);
+
+      gis_page_set_complete (GIS_PAGE (page), TRUE);
     }
 }
 
@@ -425,6 +445,8 @@ gis_timezone_page_constructed (GObject *object)
                     G_CALLBACK (entry_location_changed), page);
   g_signal_connect (page->map, "location-changed",
                     G_CALLBACK (map_location_changed), page);
+  g_signal_connect (gis_location_entry_get_entry (GIS_LOCATION_ENTRY (page->search_entry)), "activate",
+                    G_CALLBACK (on_key_pressed), page);
 
   gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
