@@ -59,8 +59,8 @@ struct _GisAccountPageLocal
   GtkWidget *header;
   GtkWidget *fullname_entry;
   GtkWidget *username_combo;
-  GtkWidget *enable_parental_controls_box;
-  GtkWidget *enable_parental_controls_check_button;
+  GtkWidget *enable_parental_controls_group;
+  GtkWidget *enable_parental_controls_switch_row;
   gboolean   has_custom_username;
   GtkWidget *username_explanation;
   UmPhotoDialog *photo_dialog;
@@ -126,7 +126,7 @@ validate (GisAccountPageLocal *page)
   name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
   username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (page->username_combo));
 #ifdef HAVE_PARENTAL_CONTROLS
-  parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (page->enable_parental_controls_check_button));
+  parental_controls_enabled = adw_switch_row_get_active (ADW_SWITCH_ROW (page->enable_parental_controls_switch_row));
 #else
   parental_controls_enabled = FALSE;
 #endif
@@ -253,11 +253,12 @@ confirm (GisAccountPageLocal *page)
 }
 
 static void
-enable_parental_controls_check_button_toggled_cb (GtkCheckButton *check_button,
-                                                  gpointer        user_data)
+enable_parental_controls_active_toggled (AdwSwitchRow *switch_row,
+                                         GParamSpec   *pspec,
+                                         gpointer      user_data)
 {
   GisAccountPageLocal *page = GIS_ACCOUNT_PAGE_LOCAL (user_data);
-  gboolean parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (page->enable_parental_controls_check_button));
+  gboolean parental_controls_enabled = adw_switch_row_get_active (ADW_SWITCH_ROW (page->enable_parental_controls_switch_row));
 
   /* This sets the account type of the main user. When we save_data(), we create
    * two users if parental controls are enabled: the first user is always an
@@ -304,12 +305,12 @@ gis_account_page_local_constructed (GObject *object)
                             "activate", G_CALLBACK (confirm), page);
   g_signal_connect_swapped (page->fullname_entry, "activate",
                             G_CALLBACK (confirm), page);
-  g_signal_connect (page->enable_parental_controls_check_button, "toggled",
-                    G_CALLBACK (enable_parental_controls_check_button_toggled_cb), page);
+  g_signal_connect (page->enable_parental_controls_switch_row, "notify::active",
+                    G_CALLBACK (enable_parental_controls_active_toggled), page);
 
   /* Disable parental controls if support is not compiled in. */
 #ifndef HAVE_PARENTAL_CONTROLS
-  gtk_widget_set_visible (page->enable_parental_controls_box, FALSE);
+  gtk_widget_set_visible (page->enable_parental_controls_group, FALSE);
 #endif
 
   page->valid_name = FALSE;
@@ -550,8 +551,8 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_box);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_check_button);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_group);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_switch_row);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), on_remove_avatar_button_clicked);
 
 
@@ -632,7 +633,7 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
     }
 
 #ifdef HAVE_PARENTAL_CONTROLS
-  parental_controls_enabled = gtk_check_button_get_active (GTK_CHECK_BUTTON (local->enable_parental_controls_check_button));
+  parental_controls_enabled = adw_switch_row_get_active (ADW_SWITCH_ROW (local->enable_parental_controls_switch_row));
 #else
   parental_controls_enabled = FALSE;
 #endif
