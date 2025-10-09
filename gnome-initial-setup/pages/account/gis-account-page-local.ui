@@ -145,33 +145,17 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="enable_parental_controls_box">
-                <property name="orientation">vertical</property>
+              <object class="AdwPreferencesGroup" id="enable_parental_controls_group">
                 <layout>
-                  <property name="column">1</property>
+                  <property name="column">0</property>
                   <property name="row">6</property>
+                  <property name="column-span">2</property>
                 </layout>
                 <child>
-                  <object class="GtkCheckButton" id="enable_parental_controls_check_button">
-                    <accessibility>
-                      <relation name="described-by">parental_label</relation>
-                    </accessibility>
-                    <property name="label" translatable="yes">Set up _parental controls for this user</property>
-                    <property name="use-underline">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="parental_label">
-                    <property name="label" translatable="yes">For use by a parent or supervisor, who must set up their own password.</property>
-                    <property name="yalign">0</property>
-                    <property name="xalign">0</property>
-                    <property name="margin-start">24</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                    <attributes>
-                      <attribute name="scale" value="0.8"/>
-                    </attributes>
+                  <object class="AdwSwitchRow" id="enable_parental_controls_switch_row">
+                    <property name="title" translatable="yes">Set up _parental controls for this user</property>
+                    <property name="subtitle" translatable="yes">For use by a parent or supervisor, who must set up their own password.</property>
+                    <property name="use_underline">True</property>
                   </object>
                 </child>
               </object>
@@ -182,4 +166,3 @@
     </child>
   </template>
 </interface>
-
