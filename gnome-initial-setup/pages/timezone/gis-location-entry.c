@@ -882,3 +882,9 @@ gis_location_entry_new (GWeatherLocation *top)
                          "top", top,
                          NULL);
 }
+
+GtkWidget *
+gis_location_entry_get_entry (GisLocationEntry *self)
+{
+    return self->priv->entry;
+}

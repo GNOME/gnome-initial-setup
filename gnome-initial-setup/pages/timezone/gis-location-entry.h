@@ -42,5 +42,7 @@ GWeatherLocation *      gis_location_entry_get_location    (GisLocationEntry *en
 gboolean                gis_location_entry_set_city        (GisLocationEntry *entry,
                                                             const char       *city_name,
                                                             const char       *code);
+GtkWidget *             gis_location_entry_get_entry        (GisLocationEntry *self);
+
 
 G_END_DECLS
