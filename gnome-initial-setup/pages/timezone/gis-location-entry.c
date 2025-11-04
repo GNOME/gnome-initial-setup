@@ -570,14 +570,6 @@ fill_location_entry_model (GtkListStore *store, GWeatherLocation *loc,
         break;
 
     case GWEATHER_LOCATION_CITY:
-        /* If there are multiple (<location>) children, we use the one
-         * closest to the city center.
-         *
-         * Locations are already sorted by increasing distance from
-         * the city.
-         */
-    case GWEATHER_LOCATION_WEATHER_STATION:
-        /* <location> with no parent <city> */
         if (gweather_location_get_timezone (loc) == NULL) {
             break;
         }
@@ -606,6 +598,9 @@ fill_location_entry_model (GtkListStore *store, GWeatherLocation *loc,
         g_free (display_name);
         g_free (local_compare_name);
         g_free (english_compare_name);
+        break;
+
+    case GWEATHER_LOCATION_WEATHER_STATION:
         break;
 
     case GWEATHER_LOCATION_NAMED_TIMEZONE:
