@@ -23,26 +23,29 @@
  *     Will Thompson <wjt@endlessos.org>
  */
 
-#include "gis-pkexec.h"
+#include "gis-elevate.h"
 
-gboolean
-gis_pkexec (const gchar  *command,
-            const gchar  *arg1,
-            const gchar  *user,
-            GError      **error)
+static gboolean
+elevate (const char  *tool,
+         const char  *command,
+         const char  *arg1,
+         const char  *user,
+         GError     **error)
 {
   g_autoptr(GSubprocessLauncher) launcher = NULL;
   g_autoptr(GSubprocess) process = NULL;
-  const gchar * const root_argv[] = { "pkexec", command, arg1, NULL };
-  const gchar * const user_argv[] = { "pkexec", "--user", user, command, arg1, NULL };
-  const gchar * const *argv = user == NULL ? root_argv : user_argv;
+  const char * const root_argv[] = { tool, command, arg1, NULL };
+  const char * const user_argv[] = { tool, "--user", user, command, arg1, NULL };
+  const char * const *argv = user == NULL ? root_argv : user_argv;
 
   launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_NONE);
 
-  /* pkexec won't let us run the program if $SHELL isn't in /etc/shells,
-   * so remove it from the environment.
-   */
-  g_subprocess_launcher_unsetenv (launcher, "SHELL");
+  if (g_strcmp0 (tool, "pkexec") == 0) {
+    /* pkexec won't let us run the program if $SHELL isn't in /etc/shells,
+     * so remove it from the environment.
+     */
+    g_subprocess_launcher_unsetenv (launcher, "SHELL");
+  }
   process = g_subprocess_launcher_spawnv (launcher, argv, error);
 
   if (!process) {
@@ -55,5 +58,24 @@ gis_pkexec (const gchar  *command,
     return FALSE;
   }
 
+  return TRUE;
+}
+
+gboolean
+gis_elevate (const char  *command,
+             const char  *arg1,
+             const char  *user,
+             GError     **error)
+{
+  g_autoptr(GError) local_error = NULL;
+
+  if (!elevate ("run0", command, arg1, user, &local_error)) {
+    /* If run0 is not found, fall back to pkexec */
+    if (g_error_matches (local_error, G_SPAWN_ERROR, G_SPAWN_ERROR_NOENT)) {
+      return elevate ("pkexec", command, arg1, user, error);
+    }
+    g_propagate_error (error, g_steal_pointer (&local_error));
+    return FALSE;
+  }
   return TRUE;
 }

@@ -33,7 +33,7 @@ typedef struct _GisPage      GisPage;
 #include "gis-driver.h"
 #include "gis-assistant.h"
 #include "gis-page.h"
-#include "gis-pkexec.h"
+#include "gis-elevate.h"
 #include "gis-util.h"
 
 void gis_ensure_stamp_files (GisDriver *driver);

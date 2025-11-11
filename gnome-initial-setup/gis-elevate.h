@@ -23,19 +23,19 @@
  *     Will Thompson <wjt@endlessos.org>
  */
 
-#ifndef __GIS_PKEXEC_H__
-#define __GIS_PKEXEC_H__
+#ifndef __GIS_ELEVATE_H__
+#define __GIS_ELEVATE_H__
 
 #include "gnome-initial-setup.h"
 
 G_BEGIN_DECLS
 
 gboolean
-gis_pkexec (const gchar  *command,
-            const gchar  *arg1,
-            const gchar  *user,
-            GError      **error);
+gis_elevate (const char  *command,
+             const char  *arg1,
+             const char  *user,
+             GError     **error);
 
 G_END_DECLS
 
-#endif /* __GIS_PKEXEC_H__ */
+#endif /* __GIS_ELEVATE_H__ */

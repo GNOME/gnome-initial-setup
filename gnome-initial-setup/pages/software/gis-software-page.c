@@ -96,7 +96,7 @@ gis_software_page_apply (GisPage      *gis_page,
       program = find_fedora_third_party ();
       if (program)
         {
-          gis_pkexec (program, "enable", "root", &error);
+          gis_elevate (program, "enable", "root", &error);
           if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
             g_warning ("%s failed: %s", program, error->message);
         }
