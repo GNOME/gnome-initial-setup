@@ -8,10 +8,26 @@ include:
   - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
     inputs:
       job-stage: "deploy"
-      dist-job-name: "build-maximal"
+      dist-job-name: "build-gnomeos"
+  - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
+    inputs:
+      meson-options: "$MESON_OPTIONS"
+      clang: "disabled"
+      grcov-c: "disabled"
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
+  AUTO_FEATURES: "enabled"
+  OPTIONS: ""
+  # In general, we would like warnings to be fatal. However, code copied from
+  # gnome-control-center uses many deprecated functions. Until we have a good
+  # answer to sharing that code (#68), make those warnings non-fatal.
+  MESON_OPTIONS: >-
+    --wrap-mode=nofallback
+    --fatal-meson-warnings
+    --auto-features ${AUTO_FEATURES}
+    ${OPTIONS}
+    -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
 
 stages:
   - prepare
@@ -74,18 +90,8 @@ build.container.fedora@x86_64:
   script:
     - git config --global --add safe.directory $CI_PROJECT_DIR
 
-    # In general, we would like warnings to be fatal. However, code copied from
-    # gnome-control-center uses many deprecated functions. Until we have a good
-    # answer to sharing that code (#68), make those warnings non-fatal.
-    - meson setup
-        --wrap-mode=nofallback
-        --fatal-meson-warnings
-        --auto-features ${AUTO_FEATURES}
-        ${OPTIONS}
-        -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
-        ${EXTRA_PARAMETERS}
-        _build
-        .
+    - meson setup $MESON_OPTIONS _build .
+
     - cd _build
     - ninja -v
     # Check that strings can be extracted
