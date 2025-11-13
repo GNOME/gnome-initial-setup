@@ -2,7 +2,7 @@ include:
   - project: "GNOME/citemplates"
     file: "templates/default-rules.yml"
   - project: "Infrastructure/freedesktop-ci-templates"
-    ref: "593a0a5fe35a523a646a7efae5471c9759b8fba3"
+    ref: "fb9d50ccb3cbbb4c6dc5f9ef53a0ad3cb0d8a177"
     file:
       - "templates/fedora.yml"
   - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
@@ -26,9 +26,6 @@ stages:
     # stable branch.
     FDO_DISTRIBUTION_TAG: '2025-11-24.00-main'
     FDO_DISTRIBUTION_VERSION: 43
-    # Workaround for https://gitlab.gnome.org/Infrastructure/Infrastructure/-/issues/1247
-    FDO_DISTRIBUTION_EXEC: |
-      rm -r /var/lib/gdm/.config
 
 # See also https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates
 build.container.fedora@x86_64:
