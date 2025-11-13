@@ -14,6 +14,7 @@ include:
       meson-options: "$MESON_OPTIONS"
       clang: "disabled"
       grcov-c: "disabled"
+      before-script: "bash .gitlab-ci/install-accountsservice.sh"
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
@@ -40,7 +41,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2025-11-24.00-main'
+    FDO_DISTRIBUTION_TAG: '2025-11-24.01-main'
     FDO_DISTRIBUTION_VERSION: 43
 
 # See also https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates
@@ -54,6 +55,7 @@ build.container.fedora@x86_64:
     GIT_STRATEGY: none
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
+    FDO_DISTRIBUTION_EXEC: "bash .gitlab-ci/install-accountsservice.sh"
     FDO_DISTRIBUTION_PACKAGES: >-
       @c-development
       accountsservice-devel
@@ -69,6 +71,7 @@ build.container.fedora@x86_64:
       gsettings-desktop-schemas-devel
       gtk4-devel
       ibus-devel
+      json-c-devel
       krb5-devel
       libgweather4-devel
       libadwaita-devel
