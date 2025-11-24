@@ -60,6 +60,9 @@
 #define CLOCK_SCHEMA "org.gnome.desktop.interface"
 #define CLOCK_FORMAT_KEY "clock-format"
 
+#define LOCATION_SCHEMA "org.gnome.system.location"
+#define LOCATION_ENABLED_KEY "enabled"
+
 static void stop_geolocation (GisTimezonePage *page);
 
 struct _GisTimezonePage
@@ -84,6 +87,7 @@ struct _GisTimezonePage
   gboolean in_search;
 
   gulong search_entry_text_changed_id;
+  GSettings *location_settings;
 };
 
 static gboolean
@@ -393,17 +397,38 @@ stop_geolocation (GisTimezonePage *page)
 }
 
 static void
+start_geolocation (GisTimezonePage *page)
+{
+  if (page->geoclue_cancellable == NULL)
+    {
+      page->geoclue_cancellable = g_cancellable_new ();
+      get_location_from_geoclue_async (page);
+    }
+}
+
+static void
+on_location_settings_changed (GSettings  *settings,
+                              const char *key,
+                              gpointer    user_data)
+{
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
+  gboolean enabled = g_settings_get_boolean (settings, LOCATION_ENABLED_KEY);
+
+  if (enabled)
+    start_geolocation (page);
+  else
+    stop_geolocation (page);
+}
+
+static void
 gis_timezone_page_root (GtkWidget *widget)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (widget);
 
   GTK_WIDGET_CLASS (gis_timezone_page_parent_class)->root (widget);
 
- if (page->geoclue_cancellable == NULL)
-   {
-     page->geoclue_cancellable = g_cancellable_new ();
-     get_location_from_geoclue_async (page);
-   }
+  if (g_settings_get_boolean (page->location_settings, LOCATION_ENABLED_KEY))
+    start_geolocation (page);
 }
 
 static void
@@ -436,6 +461,9 @@ gis_timezone_page_constructed (GObject *object)
   page->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
   g_object_unref (settings);
 
+  page->location_settings = g_settings_new (LOCATION_SCHEMA);
+  g_signal_connect_object (page->location_settings, "changed::" LOCATION_ENABLED_KEY,
+                           G_CALLBACK (on_location_settings_changed), page, 0);
   set_location (page, NULL);
 
   page->search_entry_text_changed_id =
@@ -466,6 +494,7 @@ gis_timezone_page_dispose (GObject *object)
 
   g_clear_object (&page->dtm);
   g_clear_object (&page->clock);
+  g_clear_object (&page->location_settings);
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }
