@@ -83,13 +83,11 @@ build.container.fedora@x86_64:
       polkit-devel
       webkitgtk6.0-devel
 
-.job_template: &job_definition
+fedora build:
   extends:
     - '.fdo.distribution-image@fedora'
     - '.fedora.container.common'
-
   stage: build
-
   script:
     - git config --global --add safe.directory $CI_PROJECT_DIR
 
@@ -107,15 +105,9 @@ build.container.fedora@x86_64:
     paths:
       - "${CI_PROJECT_DIR}/_build/meson-logs"
       - "public-dist"
-
-build-minimal:
-  <<: *job_definition
-  variables:
-    AUTO_FEATURES: 'disabled'
-    OPTIONS: ''
-
-build-maximal:
-  <<: *job_definition
-  variables:
-    AUTO_FEATURES: 'enabled'
-    OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
+  parallel:
+    matrix:
+      - AUTO_FEATURES: "disabled"
+        OPTIONS: ""
+      - AUTO_FEATURES: "enabled"
+        OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
