@@ -156,8 +156,14 @@ gis_parental_controls_page_constructed (GObject *object)
 
   /* Set up the user controls. We can’t set #MctUserControls:user because
    * there’s no way to represent a not-yet-created user using an #ActUser. */
+#ifdef HAVE_MALCONTENT_0_14
+  mct_user_controls_set_user_account_type (MCT_USER_CONTROLS (page->user_controls),
+                                           MCT_USER_TYPE_CHILD);
+#else
   mct_user_controls_set_user_account_type (MCT_USER_CONTROLS (page->user_controls),
                                            ACT_USER_ACCOUNT_TYPE_STANDARD);
+#endif
+
   update_user_controls (page);
 
   app_filter = mct_app_filter_builder_end (&builder);
