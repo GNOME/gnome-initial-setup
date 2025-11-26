@@ -111,13 +111,11 @@ build.container.fedora@x86_64:
 build-minimal:
   <<: *job_definition
   variables:
-    EXPLICIT_FEATURES: 'false'
     AUTO_FEATURES: 'disabled'
     OPTIONS: ''
 
 build-maximal:
   <<: *job_definition
   variables:
-    EXPLICIT_FEATURES: 'true'
     AUTO_FEATURES: 'enabled'
     OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
