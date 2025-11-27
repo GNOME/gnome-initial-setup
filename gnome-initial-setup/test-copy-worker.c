@@ -161,7 +161,7 @@ spawn_copy_worker (const char  *src,
                    const char  *dest)
 {
   const char *worker_path;
-  char *worker_argv[4];
+  g_autofree char *worker_argv[4];
   g_autofree char *worker_src_arg = NULL;
   g_autofree char *worker_dest_arg = NULL;
   g_auto(GStrv) worker_envp = NULL;

@@ -2,16 +2,33 @@ include:
   - project: "GNOME/citemplates"
     file: "templates/default-rules.yml"
   - project: "Infrastructure/freedesktop-ci-templates"
-    ref: "593a0a5fe35a523a646a7efae5471c9759b8fba3"
+    ref: "fb9d50ccb3cbbb4c6dc5f9ef53a0ad3cb0d8a177"
     file:
       - "templates/fedora.yml"
   - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
     inputs:
       job-stage: "deploy"
-      dist-job-name: "build-maximal"
+      dist-job-name: "build-gnomeos"
+  - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
+    inputs:
+      meson-options: "$MESON_OPTIONS"
+      clang: "disabled"
+      grcov-c: "disabled"
+      before-script: "bash .gitlab-ci/install-accountsservice.sh"
 
 variables:
   FDO_UPSTREAM_REPO: gnome/gnome-initial-setup
+  AUTO_FEATURES: "enabled"
+  OPTIONS: ""
+  # In general, we would like warnings to be fatal. However, code copied from
+  # gnome-control-center uses many deprecated functions. Until we have a good
+  # answer to sharing that code (#68), make those warnings non-fatal.
+  MESON_OPTIONS: >-
+    --wrap-mode=nofallback
+    --fatal-meson-warnings
+    --auto-features ${AUTO_FEATURES}
+    ${OPTIONS}
+    -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
 
 stages:
   - prepare
@@ -24,11 +41,8 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2025-01-31.01-main'
-    FDO_DISTRIBUTION_VERSION: 42
-    # Workaround for https://gitlab.gnome.org/Infrastructure/Infrastructure/-/issues/1247
-    FDO_DISTRIBUTION_EXEC: |
-      rm -r /var/lib/gdm/.config
+    FDO_DISTRIBUTION_TAG: '2025-11-24.01-main'
+    FDO_DISTRIBUTION_VERSION: 43
 
 # See also https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates
 build.container.fedora@x86_64:
@@ -41,6 +55,7 @@ build.container.fedora@x86_64:
     GIT_STRATEGY: none
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
+    FDO_DISTRIBUTION_EXEC: "bash .gitlab-ci/install-accountsservice.sh"
     FDO_DISTRIBUTION_PACKAGES: >-
       @c-development
       accountsservice-devel
@@ -56,6 +71,7 @@ build.container.fedora@x86_64:
       gsettings-desktop-schemas-devel
       gtk4-devel
       ibus-devel
+      json-c-devel
       krb5-devel
       libgweather4-devel
       libadwaita-devel
@@ -67,28 +83,16 @@ build.container.fedora@x86_64:
       polkit-devel
       webkitgtk6.0-devel
 
-.job_template: &job_definition
+fedora build:
   extends:
     - '.fdo.distribution-image@fedora'
     - '.fedora.container.common'
-
   stage: build
-
   script:
     - git config --global --add safe.directory $CI_PROJECT_DIR
 
-    # In general, we would like warnings to be fatal. However, code copied from
-    # gnome-control-center uses many deprecated functions. Until we have a good
-    # answer to sharing that code (#68), make those warnings non-fatal.
-    - meson setup
-        --wrap-mode=nofallback
-        --fatal-meson-warnings
-        --auto-features ${AUTO_FEATURES}
-        ${OPTIONS}
-        -Dwerror=true -Dc_args=-Wno-error=deprecated-declarations
-        ${EXTRA_PARAMETERS}
-        _build
-        .
+    - meson setup $MESON_OPTIONS _build .
+
     - cd _build
     - ninja -v
     # Check that strings can be extracted
@@ -101,17 +105,9 @@ build.container.fedora@x86_64:
     paths:
       - "${CI_PROJECT_DIR}/_build/meson-logs"
       - "public-dist"
-
-build-minimal:
-  <<: *job_definition
-  variables:
-    EXPLICIT_FEATURES: 'false'
-    AUTO_FEATURES: 'disabled'
-    OPTIONS: ''
-
-build-maximal:
-  <<: *job_definition
-  variables:
-    EXPLICIT_FEATURES: 'true'
-    AUTO_FEATURES: 'enabled'
-    OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
+  parallel:
+    matrix:
+      - AUTO_FEATURES: "disabled"
+        OPTIONS: ""
+      - AUTO_FEATURES: "enabled"
+        OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
