@@ -12,7 +12,6 @@ include:
   - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
     inputs:
       meson-options: "$MESON_OPTIONS"
-      clang: "disabled"
       grcov-c: "disabled"
       before-script: "bash .gitlab-ci/install-accountsservice.sh"
 
