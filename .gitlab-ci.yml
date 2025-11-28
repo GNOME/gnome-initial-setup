@@ -12,7 +12,6 @@ include:
   - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
     inputs:
       meson-options: "$MESON_OPTIONS"
-      clang: "disabled"
       grcov-c: "disabled"
       before-script: "bash .gitlab-ci/install-accountsservice.sh"
 
@@ -41,7 +40,7 @@ stages:
     # to the release number/branch to ensure that
     # a new image will be created, tailored for the
     # stable branch.
-    FDO_DISTRIBUTION_TAG: '2025-11-24.01-main'
+    FDO_DISTRIBUTION_TAG: '2025-11-28.00-main'
     FDO_DISTRIBUTION_VERSION: 43
 
 # See also https://gitlab.gnome.org/Infrastructure/freedesktop-ci-templates
@@ -55,7 +54,10 @@ build.container.fedora@x86_64:
     GIT_STRATEGY: none
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
-    FDO_DISTRIBUTION_EXEC: "bash .gitlab-ci/install-accountsservice.sh"
+    FDO_DISTRIBUTION_EXEC: >-
+      bash .gitlab-ci/install-accountsservice.sh &&
+      dnf builddep -y malcontent-ui-libs &&
+      bash .gitlab-ci/install-malcontent.sh
     FDO_DISTRIBUTION_PACKAGES: >-
       @c-development
       accountsservice-devel
@@ -66,6 +68,8 @@ build.container.fedora@x86_64:
       geoclue2-devel
       geocode-glib-devel
       git
+      gi-docgen
+      gtk-doc
       glib2-devel
       gnome-desktop4-devel
       gsettings-desktop-schemas-devel
@@ -78,7 +82,6 @@ build.container.fedora@x86_64:
       libnma-gtk4-devel
       libpwquality-devel
       libsecret-devel
-      malcontent-ui-devel
       meson
       polkit-devel
       webkitgtk6.0-devel
