@@ -79,7 +79,7 @@ libmalcontent_ui_dep = dependency ('malcontent-ui-1',
 have_parental_controls = libmalcontent_dep.found() and libmalcontent_ui_dep.found()
 conf.set('HAVE_PARENTAL_CONTROLS', have_parental_controls)
 
-have_malcontent_014 = dependency ('malcontent-0', version: '>= 0.14.alpha', required: false).found()
+have_malcontent_014 = libmalcontent_dep.version().version_compare('>= 0.14.alpha')
 conf.set('HAVE_MALCONTENT_0_14', have_malcontent_014,
          description: 'Defined to 1 if malcontent ≥ 0.14 is available')
 
