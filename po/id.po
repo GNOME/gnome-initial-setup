@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2025-08-20 02:49+0000\n"
-"PO-Revision-Date: 2025-08-20 11:32+0700\n"
+"POT-Creation-Date: 2025-11-28 10:48+0000\n"
+"PO-Revision-Date: 2026-01-18 18:10+0700\n"
 "Last-Translator: Ega Natha <ega8642@gmail.com>\n"
 "Language-Team: Indonesian\n"
 "Language: id\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 48.0\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
 #: gnome-initial-setup/gis-driver.c:869
@@ -285,8 +285,8 @@ msgid "Welcome"
 msgstr "Selamat Datang"
 
 #: gnome-initial-setup/pages/language/gis-language-page.ui:41
-msgid "Select a language from the list, or search an specific language."
-msgstr "Pilih bahasa dari daftar, atau cari bahasa secara spesifik."
+msgid "Select a language from the list, or search for a specific language."
+msgstr "Pilih suatu bahasa dari daftar, atau cari bahasa tertentu."
 
 #. Translators: This is meant to be a warm, engaging welcome message,
 #. * like greeting somebody at the door. If the exclamation mark is not
@@ -304,20 +304,20 @@ msgstr "Cari bahasa"
 msgid "Available languages"
 msgstr "Bahasa yang tersedia"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:297
+#: gnome-initial-setup/pages/network/gis-network-page.c:319
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Lainnya…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:379
+#: gnome-initial-setup/pages/network/gis-network-page.c:401
 msgid "Wireless networking is disabled"
 msgstr "﻿Jaringan nirkabel dinonaktifkan"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:386
+#: gnome-initial-setup/pages/network/gis-network-page.c:408
 msgid "Checking for available wireless networks"
 msgstr "Memeriksa ketersediaan jaringan nirkabel"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:781
+#: gnome-initial-setup/pages/network/gis-network-page.c:809
 msgid "Network"
 msgstr "Jaringan"
 
@@ -354,7 +354,7 @@ msgstr ""
 "Tetapkan batasan pada apa yang dapat dijalankan atau dipasang oleh pengguna "
 "ini."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:215
 msgid "Parental Controls"
 msgstr "Pengawasan Orang Tua"
 
@@ -378,17 +378,17 @@ msgstr "Atur Kata Sandi Orang Tua"
 msgid "This password will control access to the parental controls for %s."
 msgstr "Kata sandi ini akan mengontrol akses ke pengawasan orang tua untuk %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:222
+#: gnome-initial-setup/pages/password/gis-password-page.c:223
 #, c-format
-msgid "Password strength: %d."
-msgstr "Kekuatan kata sandi: %d."
+msgid "Password strength: %s."
+msgstr "Kekuatan kata sandi: %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:248
-#: gnome-initial-setup/pages/password/gis-password-page.c:250
+#: gnome-initial-setup/pages/password/gis-password-page.c:249
+#: gnome-initial-setup/pages/password/gis-password-page.c:251
 msgid "The passwords do not match."
 msgstr "Kata sandi tak cocok."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:429
+#: gnome-initial-setup/pages/password/gis-password-page.c:430
 msgid "Password"
 msgstr "Kata Sandi"
 
@@ -543,6 +543,27 @@ msgstr ""
 "Menambah lebih banyak huruf, angka, dan tanda baca akan membuatnya lebih "
 "kuat."
 
+#. TRANSLATORS: this string describes a password as being poor
+#: gnome-initial-setup/pages/password/pw-utils.c:146
+msgid "poor"
+msgstr "buruk"
+
+#. TRANSLATORS: this string describes a password as being weak
+#: gnome-initial-setup/pages/password/pw-utils.c:150
+msgid "weak"
+msgstr "lemah"
+
+#. TRANSLATORS: this string describes a password as being strong
+#: gnome-initial-setup/pages/password/pw-utils.c:154
+#: gnome-initial-setup/pages/password/pw-utils.c:157
+msgid "strong"
+msgstr "kuat"
+
+#. TRANSLATORS: this string describes a password as being excellent
+#: gnome-initial-setup/pages/password/pw-utils.c:161
+msgid "excellent"
+msgstr "sempurna"
+
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
@@ -666,13 +687,13 @@ msgstr "Cari kota"
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:589
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:582
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:284
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -681,33 +702,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:324
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:327
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:330
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
 #, c-format
 msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Zona Waktu saat ini: %s di %s; Waktu saat ini: %s"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:454
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:505
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Zona Waktu"
