@@ -52,6 +52,25 @@ notify_title_cb (GObject    *object,
   gtk_window_set_title (dialog, webkit_web_view_get_title (web_view));
 }
 
+static GtkWidget *
+create_webview (void)
+{
+  GtkWidget *view;
+  WebKitSettings *view_settings;
+
+  view = webkit_web_view_new ();
+  view_settings = webkit_web_view_get_settings (WEBKIT_WEB_VIEW (view));
+
+  webkit_settings_set_enable_page_cache (view_settings, FALSE);
+  webkit_settings_set_enable_webrtc (view_settings, FALSE);
+  webkit_settings_set_enable_html5_local_storage (view_settings, FALSE);
+  webkit_settings_set_enable_html5_database (view_settings, FALSE);
+  webkit_settings_set_enable_developer_extras (view_settings, FALSE);
+  webkit_settings_set_enable_fullscreen (view_settings, FALSE);
+
+  return webkit_web_view_new ();
+}
+
 gboolean
 gis_activate_link (GtkLabel    *label,
                    const gchar *uri,
@@ -85,7 +104,7 @@ gis_activate_link (GtkLabel    *label,
   gtk_widget_set_valign (progress_bar, GTK_ALIGN_START);
   gtk_overlay_add_overlay (GTK_OVERLAY (overlay), progress_bar);
 
-  view = webkit_web_view_new ();
+  view = create_webview ();
   gtk_widget_set_hexpand (view, TRUE);
   gtk_widget_set_vexpand (view, TRUE);
   g_signal_connect_object (view, "notify::estimated-load-progress",
