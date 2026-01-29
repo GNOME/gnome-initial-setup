@@ -328,38 +328,35 @@ language_visible (GtkListBoxRow *row,
         CcLanguageChooser *chooser = user_data;
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
         LanguageWidget *widget;
+        gboolean searching;
         gboolean visible;
         GtkWidget *child;
         const char *search_term;
 
         child = gtk_list_box_row_get_child (row);
+        search_term = gtk_editable_get_text (GTK_EDITABLE (priv->filter_entry));
+        searching = (search_term != NULL && *search_term != '\0');
+
         if (child == priv->more_item)
-                return !priv->showing_extra;
+                return (!priv->showing_extra && !searching);
 
         widget = get_language_widget (child);
 
-        if (!priv->showing_extra && widget->is_extra)
+        if (widget == NULL)
                 return FALSE;
 
-        search_term = gtk_editable_get_text (GTK_EDITABLE (priv->filter_entry));
-        if (!search_term || !*search_term)
-                return TRUE;
-
-        visible = FALSE;
+        if (!searching)
+                return !widget->is_extra || priv->showing_extra;
 
         visible = g_str_match_string (search_term, widget->locale_name, TRUE);
         if (visible)
-                goto out;
+                return TRUE;
 
         visible = g_str_match_string (search_term, widget->locale_current_name, TRUE);
         if (visible)
-                goto out;
+                return TRUE;
 
         visible = g_str_match_string (search_term, widget->locale_untranslated_name, TRUE);
-        if (visible)
-                goto out;
-
- out:
         return visible;
 }
 
