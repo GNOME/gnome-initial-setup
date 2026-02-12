@@ -2,15 +2,15 @@
 # Copyright (C) 2012 gnome-initial-setup's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-initial-setup package.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2022-2024.
-# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2024-2025.
+# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2024-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2025-09-09 17:17+0000\n"
-"PO-Revision-Date: 2025-09-10 10:47+0200\n"
+"POT-Creation-Date: 2026-01-29 16:10+0000\n"
+"PO-Revision-Date: 2026-02-12 15:28+0100\n"
 "Last-Translator: Daniel Mustieles García <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 48.0\n"
+"X-Generator: Gtranslator 49.0\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
 #: gnome-initial-setup/gis-driver.c:869
@@ -255,7 +255,6 @@ msgstr "Más…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
-#.
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:347
 msgid "No inputs found"
 msgstr "No se han encontrado fuentes de entrada"
@@ -283,13 +282,12 @@ msgid "Welcome"
 msgstr "Bienvenido"
 
 #: gnome-initial-setup/pages/language/gis-language-page.ui:41
-msgid "Select a language from the list, or search an specific language."
-msgstr "Seleccione un idioma de la lista o busque un idioma concreto."
+msgid "Select a language from the list, or search for a specific language."
+msgstr "Seleccione un idioma de la lista o busque un idioma específico"
 
 #. Translators: This is meant to be a warm, engaging welcome message,
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
-#.
 #: gnome-initial-setup/pages/language/gis-welcome-widget.c:132
 msgid "Welcome!"
 msgstr "Bienvenido."
@@ -302,20 +300,20 @@ msgstr "Seleccionar idiomas"
 msgid "Available languages"
 msgstr "Idiomas disponibles"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:297
+#: gnome-initial-setup/pages/network/gis-network-page.c:319
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Otro…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:379
+#: gnome-initial-setup/pages/network/gis-network-page.c:401
 msgid "Wireless networking is disabled"
 msgstr "La rede inalámbrica está desactivada"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:386
+#: gnome-initial-setup/pages/network/gis-network-page.c:408
 msgid "Checking for available wireless networks"
 msgstr "Comprobando si hay redes inalámbricas disponibles"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:781
+#: gnome-initial-setup/pages/network/gis-network-page.c:809
 msgid "Network"
 msgstr "Red"
 
@@ -351,7 +349,7 @@ msgid "Set restrictions on what this user can run or install."
 msgstr ""
 "Establecer restricciones sobre qué puede ejecutar o instalar este usuario."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:215
 msgid "Parental Controls"
 msgstr "Controles parentales"
 
@@ -369,7 +367,8 @@ msgstr "Tenga cuidado de no perder su contraseña."
 msgid "Set a Parent Password"
 msgstr "Establecer una contraseña de adulto"
 
-#. Translators: The placeholder is the full name of the child user on the system.
+#. Translators: The placeholder is the full name of the child user on the
+#. system.
 #: gnome-initial-setup/pages/password/gis-password-page.c:101
 #, c-format
 msgid "This password will control access to the parental controls for %s."
@@ -554,7 +553,6 @@ msgstr "excelente"
 
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
-#.
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
 #, c-format
 msgid ""
@@ -566,7 +564,6 @@ msgstr ""
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
-#.
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
 #, c-format
 msgid ""
@@ -672,18 +669,19 @@ msgid "Search cities"
 msgstr "Buscar ciudades"
 
 #. Recurse, adding the ADM1 name to the country name
-#. Translators: this is the name of a location followed by a region, for example:
+#. Translators: this is the name of a location followed by a region, for
+#. example:
 #. * 'London, United Kingdom'
-#. * You shouldn't need to translate this string unless the language has a different comma.
-#.
+#. * You shouldn't need to translate this string unless the language has a
+#. different comma.
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:589
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:582
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:284
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -691,34 +689,33 @@ msgstr "%s, %s"
 
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
-#.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:324
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:327
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:330
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
 #, c-format
 msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Zona horaria actual: %s en %s; hora actual: %s"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:454
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:505
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Zona horaria "
@@ -742,7 +739,6 @@ msgstr "Busque una ciudad cercana"
 #. * space (U200a) to improve the spacing in the title, which you can
 #. * keep or remove. The %s is getting replaced with the name and version
 #. * of the OS, e.g. "GNOME 3.38"
-#.
 #: gnome-initial-setup/pages/welcome/gis-welcome-page.c:62
 #, c-format
 msgid "Welcome to %s !"
@@ -805,466 +801,565 @@ msgstr "Probar ${NAME}"
 msgid "Install ${PRETTY_NAME}"
 msgstr "Instalar ${PRETTY_NAME}"
 
+#, fuzzy
 #~ msgid "Set a Password"
 #~ msgstr "Establecer una contraseña"
 
+#, fuzzy
 #~ msgid "Privacy Policy"
-#~ msgstr "Política de privacidad"
+#~ msgstr "política de privacidad"
 
+#, fuzzy
 #~ msgid ""
 #~ "Allows apps to determine your geographical location. Uses the Mozilla "
 #~ "Location Service (<a href='https://location.services.mozilla.com/"
 #~ "privacy'>privacy policy</a>)."
-#~ msgstr ""
-#~ "Permite a las aplicaciones determinar su ubicación geográfica. Usa el "
-#~ "servicio de ubicación de Mozilla (<a href='https://location.services."
-#~ "mozilla.com/privacy'>política de privacidad</a>)."
+#~ msgstr "Permite que las aplicaciones determinen su ubicación geográfica. "
 
+#, fuzzy
 #~ msgid "Please check the name and username. You can choose a picture too."
-#~ msgstr ""
-#~ "Verifique el nombre y el nombre de usuario. También puede elegir una foto."
+#~ msgstr "Por favor verifique el nombre y el nombre de usuario. "
 
+#, fuzzy
 #~ msgid "Edit avatar"
 #~ msgstr "Editar avatar"
 
+#, fuzzy
 #~ msgid "Online Accounts"
 #~ msgstr "Cuentas en línea"
 
+#, fuzzy
 #~ msgid "Connect Your Online Accounts"
-#~ msgstr "Conectar a sus cuentas en línea"
+#~ msgstr "Conecte sus cuentas en línea"
 
+#, fuzzy
 #~ msgid ""
 #~ "Connect your accounts to easily access your email, online calendar, "
 #~ "contacts, documents and photos."
 #~ msgstr ""
-#~ "Conectarse a sus cuentas le permitirá acceder fácilmente a su correo-e, "
-#~ "calendario en línea, contactos, documentos y fotos."
+#~ "Conecte sus cuentas para acceder fácilmente a su correo electrónico, "
+#~ "calendario en línea, contactos, documentos y fotografías."
 
+#, fuzzy
 #~ msgid "Accounts can be added and removed at any time from the Settings app."
 #~ msgstr ""
-#~ "Se pueden añadir o quitar cuentas en cualquier momento desde la "
-#~ "aplicación de Configuración."
+#~ "Las cuentas se pueden agregar y eliminar en cualquier momento desde la "
+#~ "aplicación Configuración."
 
-#, c-format
+#, fuzzy, c-format
 #~ msgid "%s Account"
-#~ msgstr "Cuenta de %s"
+#~ msgstr "%s cuenta"
 
-#, c-format
+#, fuzzy, c-format
 #~ msgid "%s is ready to be used. We hope that you love it!"
-#~ msgstr "%s está lista para usarse. Esperamos que lo disfrute."
+#~ msgstr "%s está listo para ser utilizado. "
 
+#, fuzzy
 #~ msgid "Install or Try?"
 #~ msgstr "¿Instalar o probar?"
 
+#, fuzzy
 #~ msgid ""
 #~ "This live media can be used to install GNOME, or it can be used to try "
 #~ "GNOME as a temporary system. Installation can be started at any time "
 #~ "using the install icon in Activities."
 #~ msgstr ""
-#~ "Este medio en vivo se puede usar para instalar GNOME o se puede usar para "
-#~ "probarlo en un sistema temporal. La instalación se puede iniciar en "
-#~ "cualquier momento usando el icono Instalar en Actividades"
+#~ "Este medio en vivo se puede utilizar para instalar GNOME o para probar "
+#~ "GNOME como sistema temporal. "
 
+#, fuzzy
 #~ msgid "Try"
-#~ msgstr "Probar"
+#~ msgstr "Intentar"
 
+#, fuzzy
 #~ msgid "Avatar image"
-#~ msgstr "Imagen de avatar"
+#~ msgstr "imagen de avatar"
 
+#, fuzzy
 #~ msgid "Take a Picture…"
-#~ msgstr "Hacer una foto…"
+#~ msgstr "Toma una foto…"
 
+#, fuzzy
 #~ msgid "_Confirm"
 #~ msgstr "_Confirmar"
 
+#, fuzzy
 #~ msgid "This is a weak password."
 #~ msgstr "Esta es una contraseña débil."
 
-#, c-format
+#, fuzzy, c-format
 #~ msgid ""
 #~ "Sending reports of technical problems helps us to improve %s. Reports are "
 #~ "sent anonymously and are scrubbed of personal data."
-#~ msgstr ""
-#~ "Enviar informes de problemas técnicos nos ayuda a mejorar %s. Los "
-#~ "informes se envían de manera anónima y no contienen datos personales."
+#~ msgstr "Enviar informes de problemas técnicos nos ayuda a mejorar %s. "
 
-#, c-format
+#, fuzzy, c-format
 #~ msgid "Problem data will be collected by %s:"
-#~ msgstr "%s recopilará datos del problema:"
+#~ msgstr "Los datos del problema serán recopilados por %s:"
 
+#, fuzzy
 #~ msgid "Uses Mozilla Location Service:"
-#~ msgstr "Usa el servicio de ubicación de Mozilla:"
+#~ msgstr "Utiliza el servicio de ubicación de Mozilla:"
 
+#, fuzzy
 #~ msgid "Loading…"
 #~ msgstr "Cargando…"
 
+#, fuzzy
 #~ msgid ""
 #~ "Connecting to the Internet will enable you to set the time, add your "
 #~ "details, and enable you to access your email, calendar, and contacts. It "
 #~ "is also necessary for enterprise login accounts."
 #~ msgstr ""
-#~ "Conectarse a Internet le permitirá establecer la hora, añadir detalles y "
-#~ "activar su acceso a su correo, su calendario y sus contactos. También es "
-#~ "necesario para las cuentas con inicio de sesión empresarial."
+#~ "Conectarse a Internet le permitirá configurar la hora, agregar sus datos "
+#~ "y acceder a su correo electrónico, calendario y contactos. "
 
+#, fuzzy
 #~ msgid "preferences-system"
-#~ msgstr "preferences-system"
+#~ msgstr "sistema de preferencias"
 
+#, fuzzy
 #~ msgid "License Agreements"
-#~ msgstr "Acuerdo de licencia"
+#~ msgstr "Acuerdos de licencia"
 
+#, fuzzy
 #~ msgid ""
 #~ "I have _agreed to the terms and conditions in this end user license "
 #~ "agreement."
 #~ msgstr ""
-#~ "He leído y _acepto los términos y las condiciones de este contrato de "
-#~ "licencia del usuario final."
+#~ "He _aceptado los términos y condiciones de este acuerdo de licencia de "
+#~ "usuario final."
 
+#, fuzzy
 #~ msgid "No regions found"
-#~ msgstr "No se han encontrado regiones"
+#~ msgstr "No se encontraron regiones"
 
+#, fuzzy
 #~ msgid "Region"
 #~ msgstr "Región"
 
+#, fuzzy
 #~ msgid "Choose your country or region."
 #~ msgstr "Elija su país o región."
 
+#, fuzzy
 #~ msgid "Software Repositories"
 #~ msgstr "Repositorios de software"
 
+#, fuzzy
 #~ msgid "Access additional software from selected third party sources."
-#~ msgstr ""
-#~ "Acceso a software adicional de los repositorios de terceros seleccionados."
+#~ msgstr "Acceda a software adicional de fuentes de terceros seleccionadas."
 
+#, fuzzy
 #~ msgid ""
 #~ "Some of this software is proprietary and therefore has restrictions on "
 #~ "use, sharing, and access to source code."
 #~ msgstr ""
-#~ "Parte de este software es propietario y por lo tanto tiene restricciones "
-#~ "de uso, compartición y acceso al código fuente."
+#~ "Parte de este software es propietario y, por lo tanto, tiene "
+#~ "restricciones de uso, intercambio y acceso al código fuente."
 
+#, fuzzy
 #~ msgid "Additional Software Repositories"
-#~ msgstr "Repositorios de software adicional"
+#~ msgstr "Repositorios de software adicionales"
 
+#, fuzzy
 #~ msgid "<a href=\"more\">Find out more…</a>"
-#~ msgstr "<a href=\"more\">Saber más…</a>"
+#~ msgstr "<a href=\"more\">Más información...</a>"
 
+#, fuzzy
 #~ msgid ""
 #~ "Proprietary software typically has restrictions on how it can be used and "
 #~ "on access to source code. This prevents anyone but the software owner "
 #~ "from inspecting, improving or learning from its code."
 #~ msgstr ""
-#~ "Normalmente, el software propietario tiene restricciones sobre cómo se "
-#~ "puede usar y sobre el acceso al código fuente. Esto evita que cualquiera "
-#~ "que no sea el propietario del software pueda inspeccionarlo, mejorar o "
-#~ "aprender de él."
+#~ "El software propietario suele tener restricciones sobre cómo se puede "
+#~ "utilizar y sobre el acceso al código fuente. "
 
+#, fuzzy
 #~ msgid ""
 #~ "In contrast, Free Software can be freely run, copied, distributed, "
 #~ "studied and modified."
 #~ msgstr ""
-#~ "En contraste, el software libre se puede ejecutar, copiar, distribuir, "
-#~ "estudiar y modificar libremente."
+#~ "En cambio, el Software Libre puede ejecutarse, copiarse, distribuirse, "
+#~ "estudiarse y modificarse libremente."
 
+#, fuzzy
 #~ msgid "Ready to Go"
-#~ msgstr "Listo para empezar"
+#~ msgstr "Listo para comenzar"
 
+#, fuzzy
 #~ msgid "You’re ready to go!"
-#~ msgstr "Ya está todo listo."
+#~ msgstr "¡Estás listo para comenzar!"
 
+#, fuzzy
 #~ msgid "Disable image"
 #~ msgstr "Desactivar imagen"
 
+#, fuzzy
 #~ msgctxt "Password hint"
 #~ msgid "Try to avoid common words."
 #~ msgstr "Trate de evitar palabras comunes."
 
+#, fuzzy
 #~ msgctxt "Password hint"
 #~ msgid "Try to use more numbers."
-#~ msgstr "Pruebe a usar más números."
+#~ msgstr "Intenta usar más números."
 
+#, fuzzy
 #~ msgctxt "Password hint"
 #~ msgid ""
 #~ "Password needs to be longer. Try to add more letters, numbers and "
 #~ "punctuation."
-#~ msgstr "Pruebe a usar una mezcla de letras, números y signos de puntuación."
+#~ msgstr "La contraseña debe ser más larga. "
 
+#, fuzzy
 #~ msgid ""
 #~ "Proprietary software sources provide access to additional software, "
 #~ "including web browsers and games. This software typically has "
 #~ "restrictions on use and access to source code, and is not provided by %s."
 #~ msgstr ""
-#~ "Las fuentes de software propietario proporcionan acceso a software "
-#~ "adicional, incluyendo navegadores web y juegos. Normalmente, este "
-#~ "software tiene restricciones de uso y de acceso al código fuente, y no lo "
-#~ "proporciona %s."
+#~ "Las fuentes de software patentado brindan acceso a software adicional, "
+#~ "incluidos navegadores web y juegos. "
 
+#, fuzzy
 #~ msgid "Proprietary Software Sources"
 #~ msgstr "Fuentes de software propietario"
 
-#~| msgid "A user with the username '%s' already exists."
+#, fuzzy
 #~ msgid "A user with the username ‘%s’ already exists."
-#~ msgstr "Ya existe un usuario con nombre de usuario «%s»."
+#~ msgstr "Ya existe un usuario con el nombre de usuario '%s'."
 
+#, fuzzy
 #~ msgid "_Verify"
 #~ msgstr "_Verificar"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Strength: Weak"
-#~ msgstr "Fortaleza: débil"
+#~ msgstr "Fuerza: Débil"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Strength: Low"
-#~ msgstr "Fortaleza: baja"
+#~ msgstr "Fuerza: Baja"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Strength: Medium"
-#~ msgstr "Fortaleza: media"
+#~ msgstr "Fuerza: Media"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Strength: Good"
-#~ msgstr "Fortaleza: buena"
+#~ msgstr "Fuerza: Buena"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Strength: High"
-#~ msgstr "Fortaleza: alta"
+#~ msgstr "Fuerza: Alta"
 
+#, fuzzy
 #~ msgid "Are these the right details? You can change them if you want."
-#~ msgstr ""
-#~ "¿Son correctos estos detalles? Puede cambiarlos más tarde si quiere."
+#~ msgstr "¿Son estos los detalles correctos? "
 
+#, fuzzy
 #~ msgid "You can review your online accounts (and add others) after setup."
 #~ msgstr ""
-#~ "Puede revisar sus cuentas en línea (y añadir otras) después de la "
+#~ "Puede revisar sus cuentas en línea (y agregar otras) después de la "
 #~ "configuración."
 
+#, fuzzy
 #~ msgid ""
 #~ "We think that your time zone is %s. Press Next to continue or search for "
 #~ "a city to manually set the time zone."
-#~ msgstr ""
-#~ "Parece ser que su zona horaria es %s. Pulse Siguiente para continuar o "
-#~ "busque una ciudad para establecer la zona horaria manualmente."
+#~ msgstr "Creemos que su zona horaria es %s. "
 
+#, fuzzy
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
 
+#, fuzzy
 #~ msgid "Your username cannot be changed after setup."
 #~ msgstr ""
-#~ "Una vez terminada la configuración no se puede cambiar el nombre de "
-#~ "usuario."
+#~ "Su nombre de usuario no se puede cambiar después de la configuración."
 
+#, fuzzy
 #~ msgid ""
 #~ "In order to use enterprise logins, this computer needs to be enrolled in "
 #~ "the domain. Please have your network administrator type their domain "
 #~ "password here, and choose a unique computer name for your computer."
 #~ msgstr ""
-#~ "Para usar los inicios de sesión empresariales, este equipo debe estar "
-#~ "incluido en el dominio. Pida al administrador de su red que escriba aquí "
-#~ "la contraseña del dominio y elija un nombre de equipo único para su "
-#~ "equipo."
+#~ "Para poder utilizar inicios de sesión empresariales, esta computadora "
+#~ "debe estar inscrita en el dominio. "
 
+#, fuzzy
 #~ msgid "No password"
 #~ msgstr "Sin contraseña"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Too short"
-#~ msgstr "Demasiado corta"
+#~ msgstr "demasiado corto"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Not good enough"
-#~ msgstr "Todavía no es suficientemente buena"
+#~ msgstr "No es lo suficientemente bueno"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Weak"
-#~ msgstr "Débil"
+#~ msgstr "Débil"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Fair"
-#~ msgstr "Normal"
+#~ msgstr "Justo"
 
+#, fuzzy
 #~ msgctxt "Password strength"
 #~ msgid "Good"
-#~ msgstr "Buena"
+#~ msgstr "Bien"
 
+#, fuzzy
 #~ msgid "Login"
-#~ msgstr "Iniciar sesión"
+#~ msgstr "Acceso"
 
+#, fuzzy
 #~ msgid "Create an Enterprise Account"
-#~ msgstr "Crear una cuenta corporativa"
+#~ msgstr "Crear una cuenta empresarial"
 
+#, fuzzy
 #~ msgid "Create a Local Account"
 #~ msgstr "Crear una cuenta local"
 
+#, fuzzy
 #~ msgid "page 1"
-#~ msgstr "página 1"
+#~ msgstr "pagina 1"
 
+#, fuzzy
 #~ msgid "Other"
-#~ msgstr "Otra"
+#~ msgstr "Otro"
 
+#, fuzzy
 #~ msgid "No input source selected"
-#~ msgstr "No se ha seleccionado ninguna fuente de entrada"
+#~ msgstr "No se seleccionó ninguna fuente de entrada"
 
+#, fuzzy
 #~ msgid "Add an Input Source"
-#~ msgstr "Añadir fuente de entrada"
+#~ msgstr "Agregar una fuente de entrada"
 
+#, fuzzy
 #~ msgid "Thank You"
 #~ msgstr "Gracias"
 
+#, fuzzy
 #~ msgid "That's it!"
-#~ msgstr "Esto es todo."
+#~ msgstr "¡Eso es todo!"
 
+#, fuzzy
 #~ msgid "_Start using GNOME 3"
 #~ msgstr "_Empezar a usar GNOME 3"
 
+#, fuzzy
 #~ msgctxt "Online Account"
 #~ msgid "Other"
-#~ msgstr "Otra"
+#~ msgstr "Otro"
 
+#, fuzzy
 #~ msgid "Mail"
 #~ msgstr "Correo"
 
+#, fuzzy
 #~ msgid "Contacts"
 #~ msgstr "Contactos"
 
+#, fuzzy
 #~ msgid "Chat"
-#~ msgstr "Chat"
+#~ msgstr "Charlar"
 
+#, fuzzy
 #~ msgid "Resources"
 #~ msgstr "Recursos"
 
+#, fuzzy
 #~ msgid "Error creating account"
-#~ msgstr "Error al crear la cuenta"
+#~ msgstr "Error al crear cuenta"
 
+#, fuzzy
 #~ msgid "Error removing account"
-#~ msgstr "Error al quitar la cuenta"
+#~ msgstr "Error al eliminar la cuenta"
 
+#, fuzzy
 #~ msgid "Are you sure you want to remove the account?"
-#~ msgstr "¿Está seguro de que quiere quitar la cuenta?"
+#~ msgstr "¿Estás seguro de que deseas eliminar la cuenta?"
 
+#, fuzzy
 #~ msgid "This will not remove the account on the server."
-#~ msgstr "Esto no quitará la cuenta en el servidor."
+#~ msgstr "Esto no eliminará la cuenta en el servidor."
 
+#, fuzzy
 #~ msgid "_Remove"
-#~ msgstr "Quita_r"
+#~ msgstr "_Eliminar"
 
+#, fuzzy
 #~ msgid "Connect to your existing data in the cloud"
-#~ msgstr "Conectarse a sus datos en la nube"
+#~ msgstr "Conéctese a sus datos existentes en la nube"
 
+#, fuzzy
 #~ msgid "_Add Account"
-#~ msgstr "_Añadir cuenta"
+#~ msgstr "_Agregar cuenta"
 
+#, fuzzy
 #~ msgid "Select keyboard layouts"
-#~ msgstr "Seleccionar las distribuciones del teclado"
+#~ msgstr "Seleccionar diseños de teclado"
 
+#, fuzzy
 #~ msgid "Login settings are used by all users when logging into the system"
 #~ msgstr ""
-#~ "La configuración de inicio de sesión la usan todos los usuarios cuando "
-#~ "inician sesión en el sistema"
+#~ "Todos los usuarios utilizan la configuración de inicio de sesión al "
+#~ "iniciar sesión en el sistema."
 
+#, fuzzy
 #~ msgid "Search for a location"
 #~ msgstr "Buscar una ubicación"
 
+#, fuzzy
 #~ msgid "_Determine your location automatically"
-#~ msgstr "_Determinar su ubicación automáticamente"
+#~ msgstr "_Determina tu ubicación automáticamente"
 
+#, fuzzy
 #~ msgid "No network devices found."
-#~ msgstr "No se han encontrado dispositivos de red."
+#~ msgstr "No se encontraron dispositivos de red."
 
+#, fuzzy
 #~ msgid "You may change these options at any time in Settings."
 #~ msgstr "Puede cambiar estas opciones en cualquier momento en Configuración."
 
+#, fuzzy
 #~ msgid "Select input sources"
-#~ msgstr "Seleccionar las fuentes de entrada"
+#~ msgstr "Seleccionar fuentes de entrada"
 
+#, fuzzy
 #~ msgid "_Back"
-#~ msgstr "A_trás"
+#~ msgstr "_Atrás"
 
+#, fuzzy
 #~ msgid "Sorry"
-#~ msgstr "Disculpe"
+#~ msgstr "Lo siento"
 
+#, fuzzy
 #~ msgid "Input methods can't be used on the login screen"
 #~ msgstr ""
-#~ "Los métodos de entrada no se pueden usar en la pantalla de inicio de "
-#~ "sesión"
+#~ "Los métodos de entrada no se pueden utilizar en la pantalla de inicio de "
+#~ "sesión"
 
+#, fuzzy
 #~ msgid "Your session needs to be restarted for changes to take effect"
-#~ msgstr "Debe reiniciar la sesión para que se apliquen los cambios"
+#~ msgstr ""
+#~ "Es necesario reiniciar su sesión para que los cambios surtan efecto."
 
+#, fuzzy
 #~ msgid "Restart Now"
 #~ msgstr "Reiniciar ahora"
 
+#, fuzzy
 #~ msgctxt "Language"
 #~ msgid "None"
 #~ msgstr "Ninguno"
 
+#, fuzzy
 #~ msgid "Select an input source"
-#~ msgstr "Seleccionar una fuente de entrada"
+#~ msgstr "Seleccione una fuente de entrada"
 
+#, fuzzy
 #~ msgid "Unspecified"
 #~ msgstr "No especificado"
 
+#, fuzzy
 #~ msgid "_Use Local Login"
-#~ msgstr "_Usar inicio de sesión local"
+#~ msgstr "_Usar inicio de sesión local"
 
+#, fuzzy
 #~ msgid "Keyboard Layout"
-#~ msgstr "Distribución de teclado"
+#~ msgstr "Distribución del teclado"
 
+#, fuzzy
 #~ msgid "Remove Input Source"
-#~ msgstr "Quitar fuente de entrada"
+#~ msgstr "Eliminar fuente de entrada"
 
+#, fuzzy
 #~ msgid "Move Input Source Up"
-#~ msgstr "Subir fuente de entrada"
+#~ msgstr "Mover fuente de entrada hacia arriba"
 
+#, fuzzy
 #~ msgid "English"
-#~ msgstr "Inglés"
+#~ msgstr "Inglés"
 
+#, fuzzy
 #~ msgid "British English"
-#~ msgstr "Inglés británico"
+#~ msgstr "inglés británico"
 
+#, fuzzy
 #~ msgid "German"
-#~ msgstr "Alemán"
+#~ msgstr "Alemán"
 
+#, fuzzy
 #~ msgid "French"
 #~ msgstr "Francés"
 
+#, fuzzy
 #~ msgid "Spanish"
-#~ msgstr "Español"
+#~ msgstr "Español"
 
+#, fuzzy
 #~ msgid "Chinese (simplified)"
 #~ msgstr "Chino (simplificado)"
 
+#, fuzzy
 #~ msgid "Use %s"
 #~ msgstr "Usar %s"
 
+#, fuzzy
 #~ msgid "_Login Name"
-#~ msgstr "Nombre de _inicio de sesión"
+#~ msgstr "_Nombre de inicio de sesión"
 
+#, fuzzy
 #~ msgid "Link other accounts"
-#~ msgstr "Enlazar otras cuentas"
+#~ msgstr "Vincular otras cuentas"
 
+#, fuzzy
 #~ msgid "Remove"
-#~ msgstr "Quitar"
+#~ msgstr "Eliminar"
 
+#, fuzzy
 #~ msgid "Enjoy GNOME!"
-#~ msgstr "Disfrute de GNOME"
+#~ msgstr "¡Disfruta de GNOME!"
 
+#, fuzzy
 #~ msgid "New to GNOME 3 and need help finding your way around?"
-#~ msgstr "¿Es nuevo en GNOME 3 y necesita buscar ayuda para empezar?"
+#~ msgstr "¿Eres nuevo en GNOME 3 y necesitas ayuda para orientarte?"
 
+#, fuzzy
 #~ msgid "_Take a Tour"
-#~ msgstr "_Hacer un tour"
+#~ msgstr "_Haga un recorrido"
 
+#, fuzzy
 #~ msgid "Choose How to Login"
-#~ msgstr "Elegir cómo iniciar sesión"
+#~ msgstr "Elija cómo iniciar sesión"
 
+#, fuzzy
 #~ msgid "Show _all"
-#~ msgstr "Mostrar _todos"
+#~ msgstr "Mostrar _todo"
 
+#, fuzzy
 #~ msgid "_Require a password to use this account"
 #~ msgstr "_Requerir una contraseña para usar esta cuenta"
 
+#, fuzzy
 #~ msgid "_Act as administrator of this computer"
-#~ msgstr "_Actuar como administrador de este equipo"
+#~ msgstr "_Actuar como administrador de esta computadora"
 
+#, fuzzy
 #~ msgid "_Done"
 #~ msgstr "_Hecho"
