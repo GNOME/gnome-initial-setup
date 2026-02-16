@@ -4,13 +4,13 @@
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2013, 2014, 2015, 2016, 2017, 2018.
 # Asier Saratsua Garmendia  <asiersarasua@ni.eus>, 2013, 2019, 2020, 2021, 2022, 2023, 2024.
-# Asier Saratsua Garmendia  <asiersarasua@ni.eus>, 2025.
+# Asier Saratsua Garmendia  <asiersarasua@ni.eus>, 2025, 2026.
 #
 msgid ""
 msgstr "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issues/\n"
-"POT-Creation-Date: 2025-09-04 13:09+0000\n"
-"PO-Revision-Date: 2025-09-04 10:00+0100\n"
+"POT-Creation-Date: 2026-01-29 16:10+0000\n"
+"PO-Revision-Date: 2026-02-16 10:00+0100\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -271,8 +271,9 @@ msgid "Welcome"
 msgstr "Ongi etorri"
 
 #: gnome-initial-setup/pages/language/gis-language-page.ui:41
-msgid "Select a language from the list, or search an specific language."
-msgstr "Hautatu hizkuntza bat zerrendatik, edo bilatu hizkuntza zehatz bat."
+#| msgid "Select a language from the list, or search an specific language."
+msgid "Select a language from the list, or search for a specific language."
+msgstr "Hautatu hizkuntza bat zerrendatik, edo bilatu hizkuntza jakin bat."
 
 #. Translators: This is meant to be a warm, engaging welcome message,
 #. * like greeting somebody at the door. If the exclamation mark is not
@@ -290,20 +291,20 @@ msgstr "Bilatu hizkuntzak"
 msgid "Available languages"
 msgstr "Erabilgarri dauden hizkuntzak"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:297
+#: gnome-initial-setup/pages/network/gis-network-page.c:319
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Bestelakoa…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:379
+#: gnome-initial-setup/pages/network/gis-network-page.c:401
 msgid "Wireless networking is disabled"
 msgstr "Haririk gabeko sarea desgaituta dago"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:386
+#: gnome-initial-setup/pages/network/gis-network-page.c:408
 msgid "Checking for available wireless networks"
 msgstr "Haririk gabeko sarerik erabilgarri dagoen begiratzen"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:781
+#: gnome-initial-setup/pages/network/gis-network-page.c:809
 msgid "Network"
 msgstr "Sarea"
 
@@ -335,7 +336,7 @@ msgstr "Gurasoen kontrola %s erabiltzailearentzat"
 msgid "Set restrictions on what this user can run or install."
 msgstr "Ezarri mugak erabiltzaile horrek exekutatu edo instalatu dezakeen inguruan."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:215
 msgid "Parental Controls"
 msgstr "Gurasoen kontrola"
 
@@ -628,13 +629,13 @@ msgstr "Bilatu hiriak"
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:589
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:582
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:284
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -643,33 +644,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:324
 msgid "%l:%M %p"
 msgstr "%l:%M %p%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:327
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:330
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
 #, c-format
 msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Uneko ordu-zona: %s / %s; uneko ordua: %s"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:454
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:505
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Ordu-zona"
