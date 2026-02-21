@@ -194,6 +194,11 @@ generate_username_choices (const gchar  *name,
 
         ascii_name = g_convert_with_fallback (name, -1, "ASCII//TRANSLIT", "UTF-8",
                                               unicode_fallback, NULL, NULL, NULL);
+        /* Without ASCII//TRANSLIT (e.g. musl), g_convert_with_fallback
+         * returns NULL
+         */
+        if (ascii_name == NULL)
+                ascii_name = g_str_to_ascii (name, NULL);
 
         lc_name = g_ascii_strdown (ascii_name, -1);
 
