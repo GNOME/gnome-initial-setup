@@ -1,17 +1,17 @@
 # Hungarian translation for gnome-initial-setup.
-# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025 Free Software Foundation, Inc.
+# Copyright (C) 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025, 2026 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013, 2016, 2017.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2020, 2021, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/issue"
 "s/\n"
-"POT-Creation-Date: 2025-09-08 11:55+0000\n"
-"PO-Revision-Date: 2025-09-08 16:40+0200\n"
+"POT-Creation-Date: 2026-01-29 16:10+0000\n"
+"PO-Revision-Date: 2026-02-22 12:36+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
 #: gnome-initial-setup/gis-driver.c:869
@@ -284,7 +284,8 @@ msgid "Welcome"
 msgstr "Üdvözlet"
 
 #: gnome-initial-setup/pages/language/gis-language-page.ui:41
-msgid "Select a language from the list, or search an specific language."
+#| msgid "Select a language from the list, or search an specific language."
+msgid "Select a language from the list, or search for a specific language."
 msgstr "Válasszon egy nyelvet a listából, vagy keressen egy adott nyelvet."
 
 #. Translators: This is meant to be a warm, engaging welcome message,
@@ -303,20 +304,20 @@ msgstr "Nyelvek keresése"
 msgid "Available languages"
 msgstr "Elérhető nyelvek"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:297
+#: gnome-initial-setup/pages/network/gis-network-page.c:319
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Egyéb…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:379
+#: gnome-initial-setup/pages/network/gis-network-page.c:401
 msgid "Wireless networking is disabled"
 msgstr "Vezeték nélküli hálózatok letiltva"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:386
+#: gnome-initial-setup/pages/network/gis-network-page.c:408
 msgid "Checking for available wireless networks"
 msgstr "Elérhető vezeték nélküli hálózatok keresése"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:781
+#: gnome-initial-setup/pages/network/gis-network-page.c:809
 msgid "Network"
 msgstr "Hálózat"
 
@@ -353,7 +354,7 @@ msgstr ""
 "Állítson be korlátozásokat, hogy ez a felhasználó mit futtathat vagy "
 "telepíthet."
 
-#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:209
+#: gnome-initial-setup/pages/parental-controls/gis-parental-controls-page.c:215
 msgid "Parental Controls"
 msgstr "Szülői felügyeleti eszközök"
 
@@ -380,7 +381,6 @@ msgstr ""
 
 #: gnome-initial-setup/pages/password/gis-password-page.c:223
 #, c-format
-#| msgid "Password strength: %d."
 msgid "Password strength: %s."
 msgstr "Jelszó erőssége: %s."
 
@@ -685,13 +685,13 @@ msgstr "Városok keresése"
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:589
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:582
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:260
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:284
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -700,33 +700,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:296
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:300
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:324
 msgid "%l:%M %p"
 msgstr "%H:%M"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:303
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:327
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:306
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:330
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:315
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
 #, c-format
 msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Jelenlegi időzóna: %s – %s, jelenlegi idő: %s"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:454
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:505
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Időzóna"
