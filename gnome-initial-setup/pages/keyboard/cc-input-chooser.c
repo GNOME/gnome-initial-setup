@@ -467,25 +467,30 @@ input_visible (GtkListBoxRow *row,
         CcInputChooser *chooser = user_data;
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
         InputWidget *widget;
-        gboolean visible;
         GtkWidget *child;
         const char *search_term;
 
         child = gtk_list_box_row_get_child (row);
-        if (child == priv->more_item)
-                return !priv->showing_extra && g_hash_table_size (priv->inputs) > MIN_ROWS;
+        search_term = gtk_editable_get_text (GTK_EDITABLE (priv->filter_entry));
+
+        if (child == priv->more_item) {
+                /* Do not show the "more" row while filtering. */
+                if (search_term && *search_term)
+                        return FALSE;
+
+                return !priv->showing_extra &&
+                       g_hash_table_size (priv->inputs) > MIN_ROWS;
+        }
 
         widget = get_input_widget (child);
+
+        if (search_term && *search_term)
+                return g_str_match_string (search_term, widget->name, TRUE);
 
         if (!priv->showing_extra && widget->is_extra)
                 return FALSE;
 
-        search_term = gtk_editable_get_text (GTK_EDITABLE (priv->filter_entry));
-        if (!search_term || !*search_term)
-                return TRUE;
-
-        visible = g_str_match_string (search_term, widget->name, TRUE);
-        return visible;
+        return TRUE;
 }
 
 static gint
