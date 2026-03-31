@@ -51,7 +51,7 @@ static void set_property (GObject *object, guint prop_id,
 static void get_property (GObject *object, guint prop_id,
                           GValue *value, GParamSpec *pspec);
 
-static void set_location_internal (GisLocationEntry *entry,
+static void set_location_internal (GisLocationEntry      *entry,
                                    GtkTreeModel          *model,
                                    GtkTreeIter           *iter,
                                    GWeatherLocation      *loc);
@@ -62,6 +62,15 @@ fill_location_entry_model (GtkListStore *store, GWeatherLocation *loc,
                            const char *parent_compare_local_name,
                            const char *parent_compare_english_name,
                            gboolean show_named_timezones);
+
+static gboolean on_entry_key_pressed (GtkEventControllerKey *controller,
+                                      guint                  keyval,
+                                      guint                  keycode,
+                                      GdkModifierType        state,
+                                      gpointer               user_data);
+
+static void on_entry_focus_leave (GtkEventControllerFocus *controller,
+                            gpointer                 user_data);
 
 enum LOC
 {
@@ -110,6 +119,8 @@ gis_location_entry_init (GisLocationEntry *entry)
 {
     GtkEntryCompletion *completion;
     GisLocationEntryPrivate *priv;
+    GtkEventController *key;
+    GtkEventController *focus;
 
     priv = entry->priv = gis_location_entry_get_instance_private (entry);
 
@@ -136,6 +147,16 @@ gis_location_entry_init (GisLocationEntry *entry)
 
     g_signal_connect (entry, "changed",
                       G_CALLBACK (entry_changed), NULL);
+    
+    key = gtk_event_controller_key_new ();
+    g_signal_connect (key, "key-pressed",
+                    G_CALLBACK (on_entry_key_pressed), entry);
+    gtk_widget_add_controller (priv->entry, key);
+
+    focus = gtk_event_controller_focus_new ();
+    g_signal_connect (focus, "leave",
+                    G_CALLBACK (on_entry_focus_leave), entry);
+    gtk_widget_add_controller (priv->entry, focus);
 }
 
 static void
@@ -726,15 +747,12 @@ matcher (GtkEntryCompletion *completion, const char *key,
     return match;
 }
 
-static gboolean
-match_selected (GtkEntryCompletion *completion,
-                GtkTreeModel       *model,
-                GtkTreeIter        *iter,
-                gpointer            entry)
+static void
+commit_selected_iter (GisLocationEntry *entry,
+                      GtkTreeModel     *model,
+                      GtkTreeIter      *iter)
 {
-    GisLocationEntryPrivate *priv;
-
-    priv = ((GisLocationEntry *)entry)->priv;
+    GisLocationEntryPrivate *priv = entry->priv;
 
     if (model != priv->model) {
         GeocodePlace *place;
@@ -742,7 +760,7 @@ match_selected (GtkEntryCompletion *completion,
         GeocodeLocation *loc;
         GWeatherLocation *location;
         GWeatherLocation *scope = NULL;
-        const char* country_code;
+        const char *country_code;
 
         gtk_tree_model_get (model, iter,
                             PLACE_GIS_LOCATION_ENTRY_COL_PLACE, &place,
@@ -750,7 +768,8 @@ match_selected (GtkEntryCompletion *completion,
                             -1);
 
         country_code = geocode_place_get_country_code (place);
-        if (country_code != NULL && gweather_location_get_level (priv->top) == GWEATHER_LOCATION_WORLD)
+        if (country_code != NULL &&
+            gweather_location_get_level (priv->top) == GWEATHER_LOCATION_WORLD)
             scope = gweather_location_find_by_country_code (priv->top, country_code);
         if (!scope)
             scope = priv->top;
@@ -769,6 +788,79 @@ match_selected (GtkEntryCompletion *completion,
     } else {
         set_location_internal (entry, model, iter, NULL);
     }
+}
+
+static gboolean
+maybe_commit_completion (GisLocationEntry *entry)
+{
+    GtkEntryCompletion *completion;
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    const char *text;
+
+    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
+    gtk_entry_completion_insert_prefix (completion);
+    model = gtk_entry_completion_get_model (completion);
+    text = gtk_editable_get_text (GTK_EDITABLE (entry->priv->entry));
+
+    if (!text || *text == '\0')
+        return FALSE;
+
+    if (!gtk_tree_model_get_iter_first (model, &iter))
+        return FALSE;
+
+    do {
+        g_autofree char *display_name = NULL;
+
+        gtk_tree_model_get (model, &iter,
+                            LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME, &display_name,
+                            -1);
+
+        if (display_name && g_strcmp0 (display_name, text) == 0) {
+            commit_selected_iter (entry, model, &iter);
+            return TRUE;
+        }
+    } while (gtk_tree_model_iter_next (model, &iter));
+
+    return FALSE;
+}
+
+static gboolean
+on_entry_key_pressed (GtkEventControllerKey *controller,
+                      guint                  keyval,
+                      guint                  keycode,
+                      GdkModifierType        state,
+                      gpointer               user_data)
+{
+    GisLocationEntry *entry = GIS_LOCATION_ENTRY (user_data);
+
+    if (keyval != GDK_KEY_Return &&
+        keyval != GDK_KEY_KP_Enter &&
+        keyval != GDK_KEY_Tab &&
+        keyval != GDK_KEY_ISO_Left_Tab)
+        return FALSE;
+
+    maybe_commit_completion (entry);
+
+    return FALSE;
+}
+
+static void
+on_entry_focus_leave (GtkEventControllerFocus *controller,
+                gpointer                 user_data)
+{
+    GisLocationEntry *entry = GIS_LOCATION_ENTRY (user_data);
+
+    maybe_commit_completion (entry);
+}
+
+static gboolean
+match_selected (GtkEntryCompletion *completion,
+                GtkTreeModel       *model,
+                GtkTreeIter        *iter,
+                gpointer            entry)
+{
+    commit_selected_iter (GIS_LOCATION_ENTRY (entry), model, iter);
     return TRUE;
 }
 
