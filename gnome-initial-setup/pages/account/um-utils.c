@@ -34,18 +34,6 @@
 #include "um-utils.h"
 
 void
-set_entry_validation_checkmark (GtkEntry *entry)
-{
-        gtk_entry_set_icon_from_icon_name (entry,
-                                           GTK_ENTRY_ICON_SECONDARY,
-                                           "object-select-symbolic");
-        gtk_accessible_update_state (GTK_ACCESSIBLE (entry),
-                                     GTK_ACCESSIBLE_STATE_INVALID,
-                                     GTK_ACCESSIBLE_INVALID_FALSE,
-                                     -1);
-                                        }
-
-void
 set_entry_validation_error (GtkEntry    *entry,
                             const gchar *text)
 {
@@ -55,11 +43,7 @@ set_entry_validation_error (GtkEntry    *entry,
         gtk_entry_set_icon_tooltip_text (entry,
                                          GTK_ENTRY_ICON_SECONDARY,
                                          text);
-        gtk_accessible_update_state (GTK_ACCESSIBLE (entry),
-                                     GTK_ACCESSIBLE_STATE_INVALID,
-                                     GTK_ACCESSIBLE_INVALID_TRUE,
-                                     -1);
-                                        }
+}
 
 void
 clear_entry_validation_error (GtkEntry *entry)
@@ -67,8 +51,6 @@ clear_entry_validation_error (GtkEntry *entry)
         gtk_entry_set_icon_from_paintable (entry,
                                            GTK_ENTRY_ICON_SECONDARY,
                                            NULL);
-        gtk_accessible_reset_state (GTK_ACCESSIBLE (entry),
-                                     GTK_ACCESSIBLE_STATE_INVALID);
 }
 
 #define MAXNAMELEN  (UT_NAMESIZE - 1)
