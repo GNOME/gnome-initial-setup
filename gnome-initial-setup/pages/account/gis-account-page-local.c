@@ -58,7 +58,7 @@ struct _GisAccountPageLocal
   GtkWidget *avatar_image;
   GtkWidget *header;
   GtkWidget *fullname_entry;
-  GtkWidget *username_combo;
+  GtkWidget *username_entry;
   GtkWidget *enable_parental_controls_group;
   GtkWidget *enable_parental_controls_switch_row;
   gboolean   has_custom_username;
@@ -98,11 +98,8 @@ update_avatar_text (GisAccountPageLocal *page)
   const gchar *name;
   name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
 
-  if (*name == '\0') {
-    GtkWidget *entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo));
-
-    name = gtk_editable_get_text (GTK_EDITABLE (entry));
-  }
+  if (*name == '\0')
+    name = gtk_editable_get_text (GTK_EDITABLE (page->username_entry));
 
   if (*name == '\0') {
     name = NULL;
@@ -114,17 +111,14 @@ update_avatar_text (GisAccountPageLocal *page)
 static gboolean
 validate (GisAccountPageLocal *page)
 {
-  GtkWidget *entry;
   const gchar *name, *username;
   gboolean parental_controls_enabled;
   g_autofree gchar *tip = NULL;
 
   g_clear_handle_id (&page->timeout_id, g_source_remove);
 
-  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo));
-
   name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (page->username_combo));
+  username = gtk_editable_get_text (GTK_EDITABLE (page->username_entry));
 #ifdef HAVE_PARENTAL_CONTROLS
   parental_controls_enabled = adw_switch_row_get_active (ADW_SWITCH_ROW (page->enable_parental_controls_switch_row));
 #else
@@ -137,7 +131,7 @@ validate (GisAccountPageLocal *page)
 
   page->valid_username = is_valid_username (username, parental_controls_enabled, &tip);
   if (page->valid_username)
-    set_entry_validation_checkmark (GTK_ENTRY (entry));
+    set_entry_validation_checkmark (GTK_ENTRY (page->username_entry));
 
   const gchar *current_label = gtk_label_get_text (GTK_LABEL (page->username_explanation));
   if (!g_str_equal (tip, current_label) && !g_str_equal (current_label, ""))
@@ -162,24 +156,27 @@ fullname_changed (GtkWidget      *w,
                   GParamSpec     *pspec,
                   GisAccountPageLocal *page)
 {
-  GtkWidget *entry;
-  GtkTreeModel *model;
   const char *name;
+#ifdef HAVE_PARENTAL_CONTROLS
+  gboolean parental_controls_enabled = adw_switch_row_get_active (ADW_SWITCH_ROW (page->enable_parental_controls_switch_row));
+#else
+  gboolean parental_controls_enabled = FALSE;
+#endif
+  g_autofree gchar *username = NULL;
 
   name = gtk_editable_get_text (GTK_EDITABLE (w));
 
-  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo));
-  model = gtk_combo_box_get_model (GTK_COMBO_BOX (page->username_combo));
-
-  gtk_list_store_clear (GTK_LIST_STORE (model));
-
   if ((name == NULL || strlen (name) == 0) && !page->has_custom_username) {
-    gtk_editable_set_text (GTK_EDITABLE (entry), "");
+    gtk_editable_set_text (GTK_EDITABLE (page->username_entry), "");
   }
   else if (name != NULL && strlen (name) != 0) {
-    generate_username_choices (name, GTK_LIST_STORE (model));
-    if (!page->has_custom_username)
-      gtk_combo_box_set_active (GTK_COMBO_BOX (page->username_combo), 0);
+    username = generate_username (name, parental_controls_enabled);
+    if (!page->has_custom_username) {
+      if (username != NULL)
+        gtk_editable_set_text (GTK_EDITABLE (page->username_entry), username);
+      else
+        gtk_editable_set_text (GTK_EDITABLE (page->username_entry), "");
+    }
   }
 
   clear_entry_validation_error (GTK_ENTRY (w));
@@ -192,19 +189,18 @@ fullname_changed (GtkWidget      *w,
 }
 
 static void
-username_changed (GtkComboBoxText     *combo,
+username_changed (GObject    *object,
+                  GParamSpec *pspec,
                   GisAccountPageLocal *page)
 {
-  GtkWidget *entry;
+  GtkWidget *entry = GTK_WIDGET (object);
   const gchar *username;
 
-  entry = gtk_combo_box_get_child (GTK_COMBO_BOX (combo));
   username = gtk_editable_get_text (GTK_EDITABLE (entry));
   if (*username == '\0')
     page->has_custom_username = FALSE;
   else if (gtk_widget_has_focus (entry) ||
-           gtk_widget_get_focus_child (entry) ||
-           gtk_combo_box_get_active (GTK_COMBO_BOX (page->username_combo)) > 0)
+           gtk_widget_get_focus_child (entry))
     page->has_custom_username = TRUE;
 
   clear_entry_validation_error (GTK_ENTRY (entry));
@@ -297,12 +293,12 @@ gis_account_page_local_constructed (GObject *object)
 
   g_signal_connect_swapped (page->fullname_entry, "activate",
                             G_CALLBACK (validate), page);
-  g_signal_connect (page->username_combo, "changed",
+  g_signal_connect (page->username_entry, "notify::text",
                     G_CALLBACK (username_changed), page);
-  track_focus_out (page, page->username_combo);
+  track_focus_out (page, page->username_entry);
 
-  g_signal_connect_swapped (gtk_combo_box_get_child (GTK_COMBO_BOX (page->username_combo)),
-                            "activate", G_CALLBACK (confirm), page);
+  g_signal_connect_swapped (page->username_entry, "activate",
+                            G_CALLBACK (confirm), page);
   g_signal_connect_swapped (page->fullname_entry, "activate",
                             G_CALLBACK (confirm), page);
   g_signal_connect (page->enable_parental_controls_switch_row, "notify::active",
@@ -321,7 +317,7 @@ gis_account_page_local_constructed (GObject *object)
 
   g_object_set (page->header, "subtitle", _("We need a few details to complete setup."), NULL);
   gtk_editable_set_text (GTK_EDITABLE (page->fullname_entry), "");
-  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (page->username_combo))));
+  gtk_editable_set_text (GTK_EDITABLE (page->username_entry), "");
   page->has_custom_username = FALSE;
 
   gtk_menu_button_set_popover (GTK_MENU_BUTTON (page->avatar_button),
@@ -464,7 +460,7 @@ local_create_user (GisAccountPageLocal  *local,
   g_autoptr(ActUser) main_user = NULL;
   g_autoptr(ActUser) parent_user = NULL;
 
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
+  username = gtk_editable_get_text (GTK_EDITABLE (local->username_entry));
   fullname = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
   parental_controls_enabled = gis_driver_get_parental_controls_enabled (page->driver);
 
@@ -549,7 +545,7 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, header);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_combo);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_entry);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_group);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_switch_row);
@@ -611,7 +607,7 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 
   g_object_freeze_notify (G_OBJECT (driver));
 
-  username = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (local->username_combo));
+  username = gtk_editable_get_text (GTK_EDITABLE (local->username_entry));
   gis_driver_set_username (driver, username);
 
   full_name = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
