@@ -37,8 +37,8 @@ gboolean is_valid_username                (const gchar     *name,
                                            gboolean         parental_controls_enabled,
                                            gchar          **tip);
 
-void     generate_username_choices        (const gchar     *name,
-                                           GtkListStore    *store);
+gchar *  generate_username                (const gchar     *name,
+                                           gboolean         parental_controls_enabled);
 
 cairo_surface_t *generate_user_picture    (const gchar     *name);
 

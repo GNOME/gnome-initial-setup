@@ -172,9 +172,9 @@ is_valid_username (const gchar *username, gboolean parental_controls_enabled, gc
         return valid;
 }
 
-void
-generate_username_choices (const gchar  *name,
-                           GtkListStore *store)
+gchar *
+generate_username (const gchar *name,
+                   gboolean     parental_controls_enabled)
 {
         gboolean in_use, same_as_initial;
         char *lc_name, *ascii_name, *stripped_name;
@@ -188,9 +188,8 @@ generate_username_choices (const gchar  *name,
         int len;
         int nwords1, nwords2, i;
         GHashTable *items;
-        GtkTreeIter iter;
-
-        gtk_list_store_clear (store);
+        gchar *result = NULL;
+        gchar *tip = NULL;
 
         ascii_name = g_convert_with_fallback (name, -1, "ASCII//TRANSLIT", "UTF-8",
                                               unicode_fallback, NULL, NULL, NULL);
@@ -226,7 +225,7 @@ generate_username_choices (const gchar  *name,
                 g_free (ascii_name);
                 g_free (lc_name);
                 g_free (stripped_name);
-                return;
+                return NULL;
         }
 
         /* we split name on spaces, and then on dashes, so that we can treat
@@ -315,70 +314,120 @@ generate_username_choices (const gchar  *name,
 
                 g_strfreev (words2);
         }
-        item2 = g_string_append (item2, last_word->str);
-        item3 = g_string_append (item3, first_word->str);
-        item4 = g_string_prepend (item4, last_word->str);
 
         items = g_hash_table_new (g_str_hash, g_str_equal);
 
         in_use = is_username_used (item0->str);
         if (!in_use && !g_ascii_isdigit (item0->str[0])) {
-                gtk_list_store_append (store, &iter);
-                gtk_list_store_set (store, &iter, 0, item0->str, -1);
-                g_hash_table_insert (items, item0->str, item0->str);
+                if (is_valid_username (item0->str, parental_controls_enabled, &tip)) {
+                        result = g_strdup (item0->str);
+                        g_free (tip);
+                        tip = NULL;
+                } else {
+                        g_free (tip);
+                        tip = NULL;
+                        g_hash_table_insert (items, item0->str, item0->str);
+                }
         }
 
-        in_use = is_username_used (item1->str);
-        same_as_initial = (g_strcmp0 (item0->str, item1->str) == 0);
-        if (!same_as_initial && nwords2 > 0 && !in_use && !g_ascii_isdigit (item1->str[0])) {
-                gtk_list_store_append (store, &iter);
-                gtk_list_store_set (store, &iter, 0, item1->str, -1);
-                g_hash_table_insert (items, item1->str, item1->str);
+        if (result == NULL) {
+                in_use = is_username_used (item1->str);
+                same_as_initial = (g_strcmp0 (item0->str, item1->str) == 0);
+                if (!same_as_initial && nwords2 > 0 && !in_use && !g_ascii_isdigit (item1->str[0])) {
+                        if (is_valid_username (item1->str, parental_controls_enabled, &tip)) {
+                                result = g_strdup (item1->str);
+                                g_free (tip);
+                                tip = NULL;
+                        } else {
+                                g_free (tip);
+                                tip = NULL;
+                                g_hash_table_insert (items, item1->str, item1->str);
+                        }
+                }
         }
 
-        /* if there's only one word, would be the same as item1 */
-        if (nwords2 > 1) {
-                /* add other items */
+        /* Finishing item2–item4 is only needed for the remaining variants. */
+        if (result == NULL && nwords2 > 1) {
+                item2 = g_string_append (item2, last_word->str);
+                item3 = g_string_append (item3, first_word->str);
+                item4 = g_string_prepend (item4, last_word->str);
+
                 in_use = is_username_used (item2->str);
                 if (!in_use && !g_ascii_isdigit (item2->str[0]) &&
                     !g_hash_table_lookup (items, item2->str)) {
-                        gtk_list_store_append (store, &iter);
-                        gtk_list_store_set (store, &iter, 0, item2->str, -1);
-                        g_hash_table_insert (items, item2->str, item2->str);
+                        if (is_valid_username (item2->str, parental_controls_enabled, &tip)) {
+                                result = g_strdup (item2->str);
+                                g_free (tip);
+                                tip = NULL;
+                        } else {
+                                g_free (tip);
+                                tip = NULL;
+                                g_hash_table_insert (items, item2->str, item2->str);
+                        }
                 }
 
-                in_use = is_username_used (item3->str);
-                if (!in_use && !g_ascii_isdigit (item3->str[0]) &&
-                    !g_hash_table_lookup (items, item3->str)) {
-                        gtk_list_store_append (store, &iter);
-                        gtk_list_store_set (store, &iter, 0, item3->str, -1);
-                        g_hash_table_insert (items, item3->str, item3->str);
+                if (result == NULL) {
+                        in_use = is_username_used (item3->str);
+                        if (!in_use && !g_ascii_isdigit (item3->str[0]) &&
+                            !g_hash_table_lookup (items, item3->str)) {
+                                if (is_valid_username (item3->str, parental_controls_enabled, &tip)) {
+                                        result = g_strdup (item3->str);
+                                        g_free (tip);
+                                        tip = NULL;
+                                } else {
+                                        g_free (tip);
+                                        tip = NULL;
+                                        g_hash_table_insert (items, item3->str, item3->str);
+                                }
+                        }
                 }
 
-                in_use = is_username_used (item4->str);
-                if (!in_use && !g_ascii_isdigit (item4->str[0]) &&
-                    !g_hash_table_lookup (items, item4->str)) {
-                        gtk_list_store_append (store, &iter);
-                        gtk_list_store_set (store, &iter, 0, item4->str, -1);
-                        g_hash_table_insert (items, item4->str, item4->str);
+                if (result == NULL) {
+                        in_use = is_username_used (item4->str);
+                        if (!in_use && !g_ascii_isdigit (item4->str[0]) &&
+                            !g_hash_table_lookup (items, item4->str)) {
+                                if (is_valid_username (item4->str, parental_controls_enabled, &tip)) {
+                                        result = g_strdup (item4->str);
+                                        g_free (tip);
+                                        tip = NULL;
+                                } else {
+                                        g_free (tip);
+                                        tip = NULL;
+                                        g_hash_table_insert (items, item4->str, item4->str);
+                                }
+                        }
                 }
 
-                /* add the last word */
-                in_use = is_username_used (last_word->str);
-                if (!in_use && !g_ascii_isdigit (last_word->str[0]) &&
-                    !g_hash_table_lookup (items, last_word->str)) {
-                        gtk_list_store_append (store, &iter);
-                        gtk_list_store_set (store, &iter, 0, last_word->str, -1);
-                        g_hash_table_insert (items, last_word->str, last_word->str);
+                if (result == NULL) {
+                        in_use = is_username_used (last_word->str);
+                        if (!in_use && !g_ascii_isdigit (last_word->str[0]) &&
+                            !g_hash_table_lookup (items, last_word->str)) {
+                                if (is_valid_username (last_word->str, parental_controls_enabled, &tip)) {
+                                        result = g_strdup (last_word->str);
+                                        g_free (tip);
+                                        tip = NULL;
+                                } else {
+                                        g_free (tip);
+                                        tip = NULL;
+                                        g_hash_table_insert (items, last_word->str, last_word->str);
+                                }
+                        }
                 }
 
-                /* ...and the first one */
-                in_use = is_username_used (first_word->str);
-                if (!in_use && !g_ascii_isdigit (first_word->str[0]) &&
-                    !g_hash_table_lookup (items, first_word->str)) {
-                        gtk_list_store_append (store, &iter);
-                        gtk_list_store_set (store, &iter, 0, first_word->str, -1);
-                        g_hash_table_insert (items, first_word->str, first_word->str);
+                if (result == NULL) {
+                        in_use = is_username_used (first_word->str);
+                        if (!in_use && !g_ascii_isdigit (first_word->str[0]) &&
+                            !g_hash_table_lookup (items, first_word->str)) {
+                                if (is_valid_username (first_word->str, parental_controls_enabled, &tip)) {
+                                        result = g_strdup (first_word->str);
+                                        g_free (tip);
+                                        tip = NULL;
+                                } else {
+                                        g_free (tip);
+                                        tip = NULL;
+                                        g_hash_table_insert (items, first_word->str, first_word->str);
+                                }
+                        }
                 }
         }
 
@@ -391,4 +440,6 @@ generate_username_choices (const gchar  *name,
         g_string_free (item2, TRUE);
         g_string_free (item3, TRUE);
         g_string_free (item4, TRUE);
+
+        return result;
 }
