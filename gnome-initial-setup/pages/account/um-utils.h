@@ -29,7 +29,6 @@ G_BEGIN_DECLS
 
 void     set_entry_validation_error       (GtkEntry    *entry,
                                            const gchar *text);
-void     set_entry_validation_checkmark   (GtkEntry    *entry);
 void     clear_entry_validation_error     (GtkEntry    *entry);
 
 gboolean is_valid_name                    (const gchar     *name);

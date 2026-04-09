@@ -57,8 +57,10 @@ struct _GisAccountPageLocal
   GtkWidget *remove_avatar_button;
   GtkWidget *avatar_image;
   GtkWidget *header;
-  GtkWidget *fullname_entry;
-  GtkWidget *username_entry;
+  GtkWidget *fullname_row;
+  GtkWidget *username_row;
+  GtkWidget *fullname_validity_icon;
+  GtkWidget *username_validity_icon;
   GtkWidget *enable_parental_controls_group;
   GtkWidget *enable_parental_controls_switch_row;
   gboolean   has_custom_username;
@@ -96,10 +98,10 @@ static void
 update_avatar_text (GisAccountPageLocal *page)
 {
   const gchar *name;
-  name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
+  name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_row));
 
   if (*name == '\0')
-    name = gtk_editable_get_text (GTK_EDITABLE (page->username_entry));
+    name = gtk_editable_get_text (GTK_EDITABLE (page->username_row));
 
   if (*name == '\0') {
     name = NULL;
@@ -117,8 +119,8 @@ validate (GisAccountPageLocal *page)
 
   g_clear_handle_id (&page->timeout_id, g_source_remove);
 
-  name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_entry));
-  username = gtk_editable_get_text (GTK_EDITABLE (page->username_entry));
+  name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_row));
+  username = gtk_editable_get_text (GTK_EDITABLE (page->username_row));
 #ifdef HAVE_PARENTAL_CONTROLS
   parental_controls_enabled = adw_switch_row_get_active (ADW_SWITCH_ROW (page->enable_parental_controls_switch_row));
 #else
@@ -126,12 +128,10 @@ validate (GisAccountPageLocal *page)
 #endif
 
   page->valid_name = is_valid_name (name);
-  if (page->valid_name)
-    set_entry_validation_checkmark (GTK_ENTRY (page->fullname_entry));
+  gtk_widget_set_visible (page->fullname_validity_icon, page->valid_name);
 
   page->valid_username = is_valid_username (username, parental_controls_enabled, &tip);
-  if (page->valid_username)
-    set_entry_validation_checkmark (GTK_ENTRY (page->username_entry));
+  gtk_widget_set_visible (page->username_validity_icon, page->valid_username);
 
   const gchar *current_label = gtk_label_get_text (GTK_LABEL (page->username_explanation));
   if (!g_str_equal (tip, current_label) && !g_str_equal (current_label, ""))
@@ -167,19 +167,19 @@ fullname_changed (GtkWidget      *w,
   name = gtk_editable_get_text (GTK_EDITABLE (w));
 
   if ((name == NULL || strlen (name) == 0) && !page->has_custom_username) {
-    gtk_editable_set_text (GTK_EDITABLE (page->username_entry), "");
+    gtk_editable_set_text (GTK_EDITABLE (page->username_row), "");
   }
   else if (name != NULL && strlen (name) != 0) {
     username = generate_username (name, parental_controls_enabled);
     if (!page->has_custom_username) {
       if (username != NULL)
-        gtk_editable_set_text (GTK_EDITABLE (page->username_entry), username);
+        gtk_editable_set_text (GTK_EDITABLE (page->username_row), username);
       else
-        gtk_editable_set_text (GTK_EDITABLE (page->username_entry), "");
+        gtk_editable_set_text (GTK_EDITABLE (page->username_row), "");
     }
   }
 
-  clear_entry_validation_error (GTK_ENTRY (w));
+  gtk_widget_set_visible (page->fullname_validity_icon, FALSE);
 
   page->valid_name = FALSE;
 
@@ -193,17 +193,17 @@ username_changed (GObject    *object,
                   GParamSpec *pspec,
                   GisAccountPageLocal *page)
 {
-  GtkWidget *entry = GTK_WIDGET (object);
+  GtkWidget *row = GTK_WIDGET (object);
   const gchar *username;
 
-  username = gtk_editable_get_text (GTK_EDITABLE (entry));
+  username = gtk_editable_get_text (GTK_EDITABLE (row));
   if (*username == '\0')
     page->has_custom_username = FALSE;
-  else if (gtk_widget_has_focus (entry) ||
-           gtk_widget_get_focus_child (entry))
+  else if (gtk_widget_has_focus (row) ||
+           gtk_widget_get_focus_child (row))
     page->has_custom_username = TRUE;
 
-  clear_entry_validation_error (GTK_ENTRY (entry));
+  gtk_widget_set_visible (page->username_validity_icon, FALSE);
 
   page->valid_username = FALSE;
   validation_changed (page);
@@ -287,19 +287,19 @@ gis_account_page_local_constructed (GObject *object)
   page->act_client = act_user_manager_get_default ();
   page->photo_dialog = um_photo_dialog_new (avatar_callback, page);
 
-  g_signal_connect (page->fullname_entry, "notify::text",
+  g_signal_connect (page->fullname_row, "notify::text",
                     G_CALLBACK (fullname_changed), page);
-  track_focus_out (page, page->fullname_entry);
+  track_focus_out (page, page->fullname_row);
 
-  g_signal_connect_swapped (page->fullname_entry, "activate",
+  g_signal_connect_swapped (page->fullname_row, "entry-activated",
                             G_CALLBACK (validate), page);
-  g_signal_connect (page->username_entry, "notify::text",
+  g_signal_connect (page->username_row, "notify::text",
                     G_CALLBACK (username_changed), page);
-  track_focus_out (page, page->username_entry);
+  track_focus_out (page, page->username_row);
 
-  g_signal_connect_swapped (page->username_entry, "activate",
+  g_signal_connect_swapped (page->username_row, "entry-activated",
                             G_CALLBACK (confirm), page);
-  g_signal_connect_swapped (page->fullname_entry, "activate",
+  g_signal_connect_swapped (page->fullname_row, "entry-activated",
                             G_CALLBACK (confirm), page);
   g_signal_connect (page->enable_parental_controls_switch_row, "notify::active",
                     G_CALLBACK (enable_parental_controls_active_toggled), page);
@@ -316,8 +316,8 @@ gis_account_page_local_constructed (GObject *object)
   page->account_type = ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
 
   g_object_set (page->header, "subtitle", _("We need a few details to complete setup."), NULL);
-  gtk_editable_set_text (GTK_EDITABLE (page->fullname_entry), "");
-  gtk_editable_set_text (GTK_EDITABLE (page->username_entry), "");
+  gtk_editable_set_text (GTK_EDITABLE (page->fullname_row), "");
+  gtk_editable_set_text (GTK_EDITABLE (page->username_row), "");
   page->has_custom_username = FALSE;
 
   gtk_menu_button_set_popover (GTK_MENU_BUTTON (page->avatar_button),
@@ -460,8 +460,8 @@ local_create_user (GisAccountPageLocal  *local,
   g_autoptr(ActUser) main_user = NULL;
   g_autoptr(ActUser) parent_user = NULL;
 
-  username = gtk_editable_get_text (GTK_EDITABLE (local->username_entry));
-  fullname = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
+  username = gtk_editable_get_text (GTK_EDITABLE (local->username_row));
+  fullname = gtk_editable_get_text (GTK_EDITABLE (local->fullname_row));
   parental_controls_enabled = gis_driver_get_parental_controls_enabled (page->driver);
 
   /* Always create the admin user first, in case of failure part-way through
@@ -544,8 +544,10 @@ gis_account_page_local_class_init (GisAccountPageLocalClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, remove_avatar_button);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, avatar_image);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, header);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_row);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, fullname_validity_icon);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_row);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_validity_icon);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, username_explanation);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_group);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageLocal, enable_parental_controls_switch_row);
@@ -607,10 +609,10 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 
   g_object_freeze_notify (G_OBJECT (driver));
 
-  username = gtk_editable_get_text (GTK_EDITABLE (local->username_entry));
+  username = gtk_editable_get_text (GTK_EDITABLE (local->username_row));
   gis_driver_set_username (driver, username);
 
-  full_name = gtk_editable_get_text (GTK_EDITABLE (local->fullname_entry));
+  full_name = gtk_editable_get_text (GTK_EDITABLE (local->fullname_row));
   gis_driver_set_full_name (driver, full_name);
 
   texture = GDK_TEXTURE (adw_avatar_get_custom_image (ADW_AVATAR (local->avatar_image)));
@@ -643,5 +645,5 @@ gis_account_page_local_apply (GisAccountPageLocal *local, GisPage *page)
 void
 gis_account_page_local_shown (GisAccountPageLocal *local)
 {
-  gtk_widget_grab_focus (local->fullname_entry);
+  gtk_widget_grab_focus (local->fullname_row);
 }
