@@ -428,14 +428,12 @@ set_locale_id (CcLanguageChooser *chooser,
         g_object_notify_by_pspec (G_OBJECT (chooser), obj_props[PROP_LANGUAGE]);
 }
 
-static gboolean
+static void
 confirm_choice (gpointer data)
 {
         GtkWidget *widget = data;
 
         g_signal_emit (widget, signals[CONFIRM], 0);
-
-        return G_SOURCE_REMOVE;
 }
 
 static void
@@ -460,7 +458,7 @@ row_activated (GtkListBox        *box,
                 // set it here to ensure that screen readers say it correctly
                 language_widget_set_selected (widget, TRUE);
                 if (g_strcmp0 (priv->language, widget->locale_id) == 0)
-			g_idle_add (confirm_choice, chooser);
+			g_idle_add_once (confirm_choice, chooser);
                 else
                         set_locale_id (chooser, widget->locale_id);
         }
