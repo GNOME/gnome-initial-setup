@@ -87,8 +87,7 @@ gis_welcome_widget_stop (GisWelcomeWidget *widget)
   if (priv->timeout_id == 0)
     return;
 
-  g_source_remove (priv->timeout_id);
-  priv->timeout_id = 0;
+  g_clear_handle_id (&priv->timeout_id, g_source_remove);
 }
 
 static void
