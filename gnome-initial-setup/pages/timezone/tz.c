@@ -270,7 +270,7 @@ tz_info_free (TzInfo *tzinfo)
 {
 	g_return_if_fail (tzinfo != NULL);
 	
-	if (tzinfo->tzname) g_free (tzinfo->tzname);
+	g_free (tzinfo->tzname);
 	g_free (tzinfo);
 }
 
@@ -407,12 +407,9 @@ static void
 free_tzdata (TzLocation *tz)
 {
 	
-	if (tz->country)
-	  g_free(tz->country);
-	if (tz->zone)
-	  g_free(tz->zone);
-	if (tz->comment)
-	  g_free(tz->comment);
+	g_free(tz->country);
+	g_free(tz->zone);
+	g_free(tz->comment);
 	
 	g_free(tz);
 }
