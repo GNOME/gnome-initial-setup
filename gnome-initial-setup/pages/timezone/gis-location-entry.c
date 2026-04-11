@@ -265,19 +265,19 @@ gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
         g_param_spec_object ("top",
                              NULL, NULL,
                              GWEATHER_TYPE_LOCATION,
-                             G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+                             G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (
         object_class, PROP_SHOW_NAMED_TIMEZONES,
         g_param_spec_boolean ("show-named-timezones",
                               NULL, NULL,
                               FALSE,
-                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (
         object_class, PROP_LOCATION,
         g_param_spec_object ("location",
                              NULL, NULL,
                              GWEATHER_TYPE_LOCATION,
-                             G_PARAM_READWRITE));
+                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
     widget_class->grab_focus = grab_focus;
     gtk_editable_install_properties (object_class, LAST_PROP);
