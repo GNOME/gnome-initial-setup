@@ -38,8 +38,6 @@ typedef void (SelectAvatarCallback) (const gchar *filename,
 UmPhotoDialog *um_photo_dialog_new      (SelectAvatarCallback  callback,
                                          gpointer              data);
 void           um_photo_dialog_free     (UmPhotoDialog *dialog);
-void           um_photo_dialog_set_generated_avatar_text (UmPhotoDialog *dialog,
-                                                          const gchar   *name);
 
 G_END_DECLS
 
