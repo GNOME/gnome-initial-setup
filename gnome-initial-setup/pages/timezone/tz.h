@@ -79,7 +79,6 @@ char      *tz_location_get_country    (TzLocation *loc);
 gchar     *tz_location_get_zone       (TzLocation *loc);
 gchar     *tz_location_get_comment    (TzLocation *loc);
 glong      tz_location_get_base_utc_offset (TzLocation *loc);
-gint       tz_location_set_locally    (TzLocation *loc);
 TzInfo    *tz_info_from_location      (TzLocation *loc);
 void       tz_info_free               (TzInfo *tz_info);
 
