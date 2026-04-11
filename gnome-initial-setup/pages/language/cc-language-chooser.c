@@ -421,8 +421,7 @@ set_locale_id (CcLanguageChooser *chooser,
         if (g_strcmp0 (priv->language, new_locale_id) == 0)
                 return;
 
-        g_free (priv->language);
-        priv->language = g_strdup (new_locale_id);
+        g_set_str (&priv->language, new_locale_id);
 
         sync_all_checkmarks (chooser);
 

@@ -247,8 +247,7 @@ void
 gis_page_set_title (GisPage *page, char *title)
 {
   GisPagePrivate *priv = gis_page_get_instance_private (page);
-  g_clear_pointer (&priv->title, g_free);
-  priv->title = g_strdup (title);
+  g_set_str (&priv->title, title);
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_TITLE]);
 }
 

@@ -227,8 +227,7 @@ gis_driver_locale_changed (GisDriver *driver)
 void
 gis_driver_set_user_language (GisDriver *driver, const gchar *lang_id, gboolean update_locale)
 {
-  g_free (driver->lang_id);
-  driver->lang_id = g_strdup (lang_id);
+  g_set_str (&driver->lang_id, lang_id);
 
   cc_common_language_set_current_language (lang_id);
 
@@ -260,8 +259,7 @@ gis_driver_get_user_language (GisDriver *driver)
 void
 gis_driver_set_username (GisDriver *driver, const gchar *username)
 {
-  g_free (driver->username);
-  driver->username = g_strdup (username);
+  g_set_str (&driver->username, username);
 
   g_object_notify (G_OBJECT (driver), "username");
 }
@@ -292,8 +290,7 @@ gis_driver_set_full_name (GisDriver   *driver,
   if (g_strcmp0 (driver->full_name, full_name) == 0)
     return;
 
-  g_free (driver->full_name);
-  driver->full_name = g_strdup (full_name);
+  g_set_str (&driver->full_name, full_name);
 
   g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_FULL_NAME]);
 }
@@ -394,8 +391,7 @@ gis_driver_set_user_permissions (GisDriver   *driver,
                                  const gchar *password)
 {
   g_set_object (&driver->user_account, user);
-  g_free (driver->user_password);
-  driver->user_password = g_strdup (password);
+  g_set_str (&driver->user_password, password);
 }
 
 void
@@ -427,8 +423,7 @@ gis_driver_set_parent_permissions (GisDriver   *driver,
                                    const gchar *password)
 {
   g_set_object (&driver->parent_account, parent);
-  g_free (driver->parent_password);
-  driver->parent_password = g_strdup (password);
+  g_set_str (&driver->parent_password, password);
 }
 
 /**
