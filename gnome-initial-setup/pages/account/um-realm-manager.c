@@ -834,6 +834,7 @@ um_realm_login (UmRealmObject *realm,
         g_return_if_fail (kerberos != NULL);
 
         task = g_task_new (realm, cancellable, callback, user_data);
+        g_task_set_source_tag (task, um_realm_login);
         login = g_slice_new0 (LoginClosure);
         login->domain = g_strdup (um_realm_kerberos_get_domain_name (kerberos));
         login->realm = g_strdup (um_realm_kerberos_get_realm_name (kerberos));
