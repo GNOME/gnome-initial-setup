@@ -37,7 +37,6 @@ typedef void (SelectAvatarCallback) (const gchar *filename,
 
 UmPhotoDialog *um_photo_dialog_new      (SelectAvatarCallback  callback,
                                          gpointer              data);
-void           um_photo_dialog_free     (UmPhotoDialog *dialog);
 
 G_END_DECLS
 
