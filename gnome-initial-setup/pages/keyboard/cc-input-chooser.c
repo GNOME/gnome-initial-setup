@@ -669,9 +669,8 @@ fetch_ibus_engines_result (GObject       *object,
 {
         CcInputChooserPrivate *priv;
         GList *list, *l;
-        GError *error;
+        GError *error = NULL;
 
-        error = NULL;
         list = ibus_bus_list_engines_async_finish (IBUS_BUS (object), result, &error);
         if (!list && error) {
                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))

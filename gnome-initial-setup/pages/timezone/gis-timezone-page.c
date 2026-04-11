@@ -435,14 +435,13 @@ static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
-  GError *error;
+  GError *error = NULL;
   GSettings *settings;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
   page->dtm_cancellable = g_cancellable_new ();
 
-  error = NULL;
   page->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                 G_DBUS_PROXY_FLAGS_NONE,
                                                 "org.freedesktop.timedate1",
