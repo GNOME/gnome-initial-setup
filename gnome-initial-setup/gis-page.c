@@ -200,25 +200,25 @@ gis_page_class_init (GisPageClass *klass)
   klass->apply = gis_page_real_apply;
 
   obj_props[PROP_DRIVER] =
-    g_param_spec_object ("driver", "", "", GIS_TYPE_DRIVER,
+    g_param_spec_object ("driver", NULL, NULL, GIS_TYPE_DRIVER,
                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
   obj_props[PROP_TITLE] =
-    g_param_spec_string ("title", "", "", "",
+    g_param_spec_string ("title", NULL, NULL, "",
                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_COMPLETE] =
-    g_param_spec_boolean ("complete", "", "", FALSE,
+    g_param_spec_boolean ("complete", NULL, NULL, FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_SKIPPABLE] =
-    g_param_spec_boolean ("skippable", "", "", FALSE,
+    g_param_spec_boolean ("skippable", NULL, NULL, FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_HAS_FORWARD] =
-    g_param_spec_boolean ("has-forward", "", "", FALSE,
+    g_param_spec_boolean ("has-forward", NULL, NULL, FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_APPLYING] =
-    g_param_spec_boolean ("applying", "", "", FALSE,
+    g_param_spec_boolean ("applying", NULL, NULL, FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
   obj_props[PROP_SMALL_SCREEN] =
-    g_param_spec_boolean ("small-screen", "", "", FALSE,
+    g_param_spec_boolean ("small-screen", NULL, NULL, FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);

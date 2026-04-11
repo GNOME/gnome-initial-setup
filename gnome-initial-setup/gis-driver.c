@@ -924,18 +924,18 @@ gis_driver_class_init (GisDriverClass *klass)
                   G_TYPE_NONE, 0);
 
   obj_props[PROP_MODE] =
-    g_param_spec_enum ("mode", "", "",
+    g_param_spec_enum ("mode", NULL, NULL,
                        GIS_TYPE_DRIVER_MODE,
                        GIS_DRIVER_MODE_EXISTING_USER,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_USERNAME] =
-    g_param_spec_string ("username", "", "",
+    g_param_spec_string ("username", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_SMALL_SCREEN] =
-    g_param_spec_boolean ("small-screen", "", "",
+    g_param_spec_boolean ("small-screen", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -951,8 +951,7 @@ gis_driver_class_init (GisDriverClass *klass)
    */
   obj_props[PROP_PARENTAL_CONTROLS_ENABLED] =
     g_param_spec_boolean ("parental-controls-enabled",
-                          "Parental Controls Enabled",
-                          "Whether parental controls are enabled for the main user.",
+                          NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -965,8 +964,7 @@ gis_driver_class_init (GisDriverClass *klass)
    */
   obj_props[PROP_FULL_NAME] =
     g_param_spec_string ("full-name",
-                         "Full Name",
-                         "Full name of the main user.",
+                         NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -979,8 +977,7 @@ gis_driver_class_init (GisDriverClass *klass)
    */
   obj_props[PROP_AVATAR] =
     g_param_spec_object ("avatar",
-                         "Avatar",
-                         "Avatar of the main user.",
+                         NULL, NULL,
                          GDK_TYPE_TEXTURE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -995,8 +992,7 @@ gis_driver_class_init (GisDriverClass *klass)
    */
   obj_props[PROP_HAS_DEFAULT_AVATAR] =
     g_param_spec_boolean ("has-default-avatar",
-                          "Has Default Avatar",
-                          "Whether the generated user avatar should be used",
+                          NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

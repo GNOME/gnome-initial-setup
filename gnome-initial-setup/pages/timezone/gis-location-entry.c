@@ -263,22 +263,19 @@ gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
     g_object_class_install_property (
         object_class, PROP_TOP,
         g_param_spec_object ("top",
-                             "Top Location",
-                             "The GWeatherLocation whose children will be used to fill in the entry",
+                             NULL, NULL,
                              GWEATHER_TYPE_LOCATION,
                              G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
     g_object_class_install_property (
         object_class, PROP_SHOW_NAMED_TIMEZONES,
         g_param_spec_boolean ("show-named-timezones",
-                              "Show named timezones",
-                              "Whether UTC and other named timezones are shown in the list of locations",
+                              NULL, NULL,
                               FALSE,
                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
     g_object_class_install_property (
         object_class, PROP_LOCATION,
         g_param_spec_object ("location",
-                             "Location",
-                             "The selected GWeatherLocation",
+                             NULL, NULL,
                              GWEATHER_TYPE_LOCATION,
                              G_PARAM_READWRITE));
 

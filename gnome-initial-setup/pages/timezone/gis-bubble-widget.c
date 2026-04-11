@@ -105,8 +105,8 @@ gis_bubble_widget_class_init (GisBubbleWidgetClass *klass)
   object_class->set_property = gis_bubble_widget_set_property;
   object_class->get_property = gis_bubble_widget_get_property;
 
-  obj_props[PROP_LABEL] = g_param_spec_string ("label", "", "", NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-  obj_props[PROP_ICON_NAME] = g_param_spec_string ("icon-name", "", "", NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+  obj_props[PROP_LABEL] = g_param_spec_string ("label", NULL, NULL, NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+  obj_props[PROP_ICON_NAME] = g_param_spec_string ("icon-name", NULL, NULL, NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, PROP_LAST, obj_props);
 

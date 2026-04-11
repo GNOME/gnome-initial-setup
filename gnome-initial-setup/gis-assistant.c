@@ -475,7 +475,7 @@ gis_assistant_class_init (GisAssistantClass *klass)
 
   obj_props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         "", "",
+                         NULL, NULL,
                          NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

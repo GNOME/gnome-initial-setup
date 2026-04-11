@@ -167,31 +167,31 @@ gis_page_header_class_init (GisPageHeaderClass *klass)
 
   obj_props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         "", "",
+                         NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
-                         "", "",
+                         NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
-                         "", "",
+                         NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_PAINTABLE] =
     g_param_spec_object ("paintable",
-                         "", "",
+                         NULL, NULL,
                          GDK_TYPE_PAINTABLE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   obj_props[PROP_SHOW_ICON] =
     g_param_spec_boolean ("show-icon",
-                          "", "",
+                          NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

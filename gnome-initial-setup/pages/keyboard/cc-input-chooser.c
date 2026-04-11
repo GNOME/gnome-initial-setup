@@ -855,7 +855,7 @@ cc_input_chooser_class_init (CcInputChooserClass *klass)
         object_class->constructed = cc_input_chooser_constructed;
 
         obj_props[PROP_SHOWING_EXTRA] =
-                g_param_spec_string ("showing-extra", "", "", "",
+                g_param_spec_string ("showing-extra", NULL, NULL, "",
                                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
 	signals[CHANGED] =

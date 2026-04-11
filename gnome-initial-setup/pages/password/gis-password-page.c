@@ -468,8 +468,7 @@ gis_password_page_class_init (GisPasswordPageClass *klass)
    * Since: 3.36
    */
   obj_props[PROP_PARENT_MODE] =
-    g_param_spec_boolean ("parent-mode", "Parent Mode",
-                          "Whether to collect a password for the main user account or a parent account.",
+    g_param_spec_boolean ("parent-mode", NULL, NULL,
                           FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 

@@ -579,11 +579,11 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
                                          G_TYPE_NONE, 0);
 
         obj_props[PROP_LANGUAGE] =
-                g_param_spec_string ("language", "", "", "",
+                g_param_spec_string ("language", NULL, NULL, "",
                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
         obj_props[PROP_SHOWING_EXTRA] =
-                g_param_spec_string ("showing-extra", "", "", "",
+                g_param_spec_string ("showing-extra", NULL, NULL, "",
                                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
         g_object_class_install_properties (object_class, PROP_LAST, obj_props);
