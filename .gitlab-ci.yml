@@ -114,3 +114,25 @@ fedora build:
         OPTIONS: ""
       - AUTO_FEATURES: "enabled"
         OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
+
+goblint:
+  image:
+    name: "ghcr.io/bilelmoussaoui/goblint:latest"
+    entrypoint: [""]
+  stage: "prepare"
+  needs: []
+  script:
+    - goblint --format json > goblint.json
+    - goblint --format text
+  artifacts:
+    paths:
+      - "goblint.json"
+    # Not implemented
+    # reports:
+    #   codequality: "goblint.json"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "goblint.toml"
+        - "**/*.c"
+        - "**/*.h"
