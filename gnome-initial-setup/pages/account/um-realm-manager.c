@@ -427,7 +427,7 @@ um_realm_calculate_login (UmRealmCommon *realm,
                 string = g_string_new (formats[0]);
                 string_replace (string, "%U", username);
                 string_replace (string, "%D", um_realm_common_get_name (realm));
-                login = g_string_free (string, FALSE);
+                login = g_string_free_and_steal (string);
         }
 
         return login;
