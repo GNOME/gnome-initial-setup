@@ -114,3 +114,4 @@ License
 
 GNOME Initial Setup is distributed under the terms of the GNU General Public License,
 version 2 or later. See the [COPYING](COPYING) file for details.
+Contribution by Aneshya Das
