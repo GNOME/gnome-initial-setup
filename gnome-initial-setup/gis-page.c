@@ -36,7 +36,6 @@ struct _GisPagePrivate
 
   guint complete : 1;
   guint skippable : 1;
-  guint needs_accept : 1;
   guint has_forward : 1;
   guint padding : 5;
 };
@@ -51,7 +50,6 @@ enum
   PROP_TITLE,
   PROP_COMPLETE,
   PROP_SKIPPABLE,
-  PROP_NEEDS_ACCEPT,
   PROP_APPLYING,
   PROP_SMALL_SCREEN,
   PROP_HAS_FORWARD,
@@ -81,9 +79,6 @@ gis_page_get_property (GObject    *object,
       break;
     case PROP_SKIPPABLE:
       g_value_set_boolean (value, priv->skippable);
-      break;
-    case PROP_NEEDS_ACCEPT:
-      g_value_set_boolean (value, priv->needs_accept);
       break;
     case PROP_HAS_FORWARD:
       g_value_set_boolean (value, priv->has_forward);
@@ -130,9 +125,6 @@ gis_page_set_property (GObject      *object,
       break;
     case PROP_SKIPPABLE:
       priv->skippable = g_value_get_boolean (value);
-      break;
-    case PROP_NEEDS_ACCEPT:
-      priv->needs_accept = g_value_get_boolean (value);
       break;
     case PROP_HAS_FORWARD:
       priv->has_forward = g_value_get_boolean (value);
@@ -219,9 +211,6 @@ gis_page_class_init (GisPageClass *klass)
   obj_props[PROP_SKIPPABLE] =
     g_param_spec_boolean ("skippable", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
-  obj_props[PROP_NEEDS_ACCEPT] =
-    g_param_spec_boolean ("needs-accept", "", "", FALSE,
-                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
   obj_props[PROP_HAS_FORWARD] =
     g_param_spec_boolean ("has-forward", "", "", FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
@@ -291,21 +280,6 @@ gis_page_set_skippable (GisPage *page, gboolean skippable)
   GisPagePrivate *priv = gis_page_get_instance_private (page);
   priv->skippable = skippable;
   g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_SKIPPABLE]);
-}
-
-gboolean
-gis_page_get_needs_accept (GisPage *page)
-{
-  GisPagePrivate *priv = gis_page_get_instance_private (page);
-  return priv->needs_accept;
-}
-
-void
-gis_page_set_needs_accept (GisPage *page, gboolean needs_accept)
-{
-  GisPagePrivate *priv = gis_page_get_instance_private (page);
-  priv->needs_accept = needs_accept;
-  g_object_notify_by_pspec (G_OBJECT (page), obj_props[PROP_NEEDS_ACCEPT]);
 }
 
 gboolean
