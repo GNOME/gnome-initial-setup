@@ -183,6 +183,7 @@ update_distro_logo (GisLanguagePage *page)
 {
   GisLanguagePagePrivate *priv = gis_language_page_get_instance_private (page);
   g_autofree char *id = g_get_os_info (G_OS_INFO_KEY_ID);
+  g_autofree char *logo = g_get_os_info ("LOGO");
   gsize i;
 
   static const struct {
@@ -197,6 +198,11 @@ update_distro_logo (GisLanguagePage *page)
     { "SLED",                           "suse-logo-icon" },
     { "SLES",                           "suse-logo-icon" },
   };
+
+  if (logo != NULL && *logo != '\0') {
+    g_object_set (priv->logo, "icon-name", logo, NULL);
+    return;
+  }
 
   for (i = 0; i < G_N_ELEMENTS (id_to_logo); i++)
     {
