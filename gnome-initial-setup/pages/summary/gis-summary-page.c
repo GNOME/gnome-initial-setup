@@ -206,14 +206,12 @@ gis_summary_page_shown (GisPage *page)
     {
       g_warning ("Error saving data: %s", local_error->message);
 
-      GtkWindow *parent = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page)));
-      GtkWidget *dialog = adw_message_dialog_new (parent,
-                                                  _("Setup Failed"),
+      AdwDialog *dialog = adw_alert_dialog_new (_("Setup Failed"),
                                                   local_error->message);
-      adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (dialog), "close", _("Close"));
+      adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "close", _("Close"));
       /* FIXME: Provide some more options for debugging or recovery */
 
-      gtk_window_present (GTK_WINDOW (dialog));
+      adw_dialog_present (dialog, GTK_WIDGET (page));
     }
 
   gis_driver_get_user_permissions (GIS_PAGE (page)->driver,
