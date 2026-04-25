@@ -57,9 +57,6 @@ gis_bubble_widget_get_property (GObject    *object,
     case PROP_ICON_NAME:
       g_value_set_string (value, gtk_image_get_icon_name (GTK_IMAGE (priv->icon)));
       break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
     }
 }
 
@@ -81,9 +78,6 @@ gis_bubble_widget_set_property (GObject      *object,
       g_object_set (GTK_IMAGE (priv->icon),
                     "icon-name", g_value_get_string (value),
                     NULL);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
 }

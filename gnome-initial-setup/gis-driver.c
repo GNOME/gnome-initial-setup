@@ -689,9 +689,6 @@ gis_driver_get_property (GObject      *object,
     case PROP_HAS_DEFAULT_AVATAR:
       g_value_set_boolean (value, driver->has_default_avatar);
       break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
     }
 }
 

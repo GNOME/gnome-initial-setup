@@ -386,9 +386,6 @@ gis_password_page_get_property (GObject    *object,
     case PROP_PARENT_MODE:
       g_value_set_boolean (value, page->parent_mode);
       break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
     }
 }
 
@@ -404,9 +401,6 @@ gis_password_page_set_property (GObject      *object,
     {
     case PROP_PARENT_MODE:
       set_parent_mode (page, g_value_get_boolean (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
 }

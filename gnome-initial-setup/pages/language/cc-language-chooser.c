@@ -519,9 +519,6 @@ cc_language_chooser_get_property (GObject      *object,
         case PROP_SHOWING_EXTRA:
                 g_value_set_boolean (value, cc_language_chooser_get_showing_extra (chooser));
                 break;
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
         }
 }
 

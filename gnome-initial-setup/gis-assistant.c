@@ -443,10 +443,6 @@ gis_assistant_get_property (GObject    *object,
     case PROP_TITLE:
       g_value_set_string (value, gis_assistant_get_title (assistant));
       break;
-
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
     }
 }
 

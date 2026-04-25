@@ -102,10 +102,6 @@ gis_page_header_get_property (GObject    *object,
     case PROP_SHOW_ICON:
       g_value_set_boolean (value, gtk_widget_get_visible (header->icon));
       break;
-
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
     }
 }
 
@@ -139,10 +135,6 @@ gis_page_header_set_property (GObject      *object,
 
     case PROP_SHOW_ICON:
       gtk_widget_set_visible (header->icon, g_value_get_boolean (value));
-      break;
-
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
 }
