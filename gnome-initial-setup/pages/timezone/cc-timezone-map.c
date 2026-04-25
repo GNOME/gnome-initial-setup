@@ -145,8 +145,7 @@ cc_timezone_map_size_allocate (GtkWidget *widget,
   else
     texture = map->orig_background;
 
-  g_clear_object (&map->background);
-  map->background = g_object_ref (texture);
+  g_set_object (&map->background, texture);
 
   GTK_WIDGET_CLASS (cc_timezone_map_parent_class)->size_allocate (widget,
                                                                   width,
