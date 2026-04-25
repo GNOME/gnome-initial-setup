@@ -19,8 +19,7 @@
  *     Matthias Clasen <mclasen@redhat.com>
  */
 
-#ifndef __GIS_INPUT_CHOOSER_H__
-#define __GIS_INPUT_CHOOSER_H__
+#pragma once
 
 #include <gtk/gtk.h>
 #include <glib-object.h>
@@ -61,5 +60,3 @@ void	      cc_input_chooser_get_layout (CcInputChooser *chooser,
 gboolean      cc_input_chooser_get_showing_extra (CcInputChooser *chooser);
 
 G_END_DECLS
-
-#endif /* __GIS_INPUT_CHOOSER_H__ */

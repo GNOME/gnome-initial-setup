@@ -19,8 +19,7 @@
  *     Matthias Clasen <mclasen@redhat.com>
  */
 
-#ifndef __GIS_PRIVACY_PAGE_H__
-#define __GIS_PRIVACY_PAGE_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -34,5 +33,3 @@ G_DECLARE_FINAL_TYPE (GisPrivacyPage, gis_privacy_page, GIS, PRIVACY_PAGE, GisPa
 GisPage *gis_prepare_privacy_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* __GIS_PRIVACY_PAGE_H__ */

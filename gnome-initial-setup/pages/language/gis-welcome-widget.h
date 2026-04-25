@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_WELCOME_WIDGET_H__
-#define __GIS_WELCOME_WIDGET_H__
+#pragma once
 
 #include <adwaita.h>
 
@@ -52,5 +51,3 @@ void gis_welcome_widget_show_locale (GisWelcomeWidget *widget,
                                      const char       *locale_id);
 
 G_END_DECLS
-
-#endif /* __GIS_WELCOME_WIDGET_H__ */

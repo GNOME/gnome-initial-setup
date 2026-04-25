@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GNOME_INITIAL_SETUP_H__
-#define __GNOME_INITIAL_SETUP_H__
+#pragma once
 
 #include <gtk/gtk.h>
 #include <gio/gio.h>
@@ -38,6 +37,4 @@ typedef struct _GisPage      GisPage;
 
 void gis_ensure_stamp_files (GisDriver *driver);
 gboolean gis_get_mock_mode (void);
-
-#endif /* __GNOME_INITIAL_SETUP_H__ */
 

@@ -20,8 +20,7 @@
  * Written by: Matthias Clasen <mclasen@redhat.com>
  */
 
-#ifndef __CC_COMMON_LANGUAGE_H__
-#define __CC_COMMON_LANGUAGE_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -33,5 +32,3 @@ gchar   *cc_common_language_get_current_language    (void);
 GHashTable *cc_common_language_get_initial_languages   (void);
 
 G_END_DECLS
-
-#endif

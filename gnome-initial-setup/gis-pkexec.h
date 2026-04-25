@@ -23,8 +23,7 @@
  *     Will Thompson <wjt@endlessos.org>
  */
 
-#ifndef __GIS_PKEXEC_H__
-#define __GIS_PKEXEC_H__
+#pragma once
 
 #include "gnome-initial-setup.h"
 
@@ -37,5 +36,3 @@ gis_pkexec (const gchar  *command,
             GError      **error);
 
 G_END_DECLS
-
-#endif /* __GIS_PKEXEC_H__ */

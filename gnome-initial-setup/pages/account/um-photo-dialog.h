@@ -20,8 +20,7 @@
  * Written by: Matthias Clasen <mclasen@redhat.com>
  */
 
-#ifndef __UM_PHOTO_DIALOG_H__
-#define __UM_PHOTO_DIALOG_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -39,5 +38,3 @@ UmPhotoDialog *um_photo_dialog_new      (SelectAvatarCallback  callback,
                                          gpointer              data);
 
 G_END_DECLS
-
-#endif

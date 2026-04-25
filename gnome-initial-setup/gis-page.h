@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_PAGE_H__
-#define __GIS_PAGE_H__
+#pragma once
 
 #include "gnome-initial-setup.h"
 
@@ -86,5 +85,3 @@ void         gis_page_shown (GisPage *page);
 void         gis_page_skip (GisPage *page);
 
 G_END_DECLS
-
-#endif /* __GIS_PAGE_H__ */

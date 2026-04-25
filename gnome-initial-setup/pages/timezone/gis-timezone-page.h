@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_TIMEZONE_PAGE_H__
-#define __GIS_TIMEZONE_PAGE_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -35,5 +34,3 @@ G_DECLARE_FINAL_TYPE (GisTimezonePage, gis_timezone_page, GIS, TIMEZONE_PAGE, Gi
 GisPage *gis_prepare_timezone_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* __GIS_TIMEZONE_PAGE_H__ */

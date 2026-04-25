@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_DRIVER_H__
-#define __GIS_DRIVER_H__
+#pragma once
 
 #include "gis-assistant.h"
 #include "gis-page.h"
@@ -128,5 +127,3 @@ gchar *gis_driver_conf_get_string (GisDriver *driver,
 GisDriver *gis_driver_new (GisDriverMode mode);
 
 G_END_DECLS
-
-#endif /* __GIS_DRIVER_H__ */

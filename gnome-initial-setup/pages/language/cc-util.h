@@ -18,11 +18,8 @@
  */
 
 
-#ifndef _CC_UTIL_H
-#define _CC_UTIL_H
+#pragma once
 
 #include <glib.h>
 
 char *cc_util_normalize_casefold_and_unaccent (const char *str);
-
-#endif

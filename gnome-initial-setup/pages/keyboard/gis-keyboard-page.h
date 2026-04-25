@@ -19,8 +19,7 @@
  */
 
 
-#ifndef _GIS_KEYBOARD_PAGE_H
-#define _GIS_KEYBOARD_PAGE_H
+#pragma once
 
 #include "gnome-initial-setup.h"
 
@@ -66,5 +65,3 @@ GType gis_keyboard_page_get_type (void) G_GNUC_CONST;
 GisPage *gis_prepare_keyboard_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* _GIS_KEYBOARD_PAGE_H */

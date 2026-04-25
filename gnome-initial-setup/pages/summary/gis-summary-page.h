@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_SUMMARY_PAGE_H__
-#define __GIS_SUMMARY_PAGE_H__
+#pragma once
 
 #include "gnome-initial-setup.h"
 
@@ -51,5 +50,3 @@ GType gis_summary_page_get_type (void);
 GisPage *gis_prepare_summary_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* __GIS_SUMMARY_PAGE_H__ */

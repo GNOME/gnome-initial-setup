@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_PASSWORD_PAGE_H__
-#define __GIS_PASSWORD_PAGE_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -36,5 +35,3 @@ GisPage *gis_prepare_password_page (GisDriver *driver);
 GisPage *gis_prepare_parent_password_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* __GIS_PASSWORD_PAGE_H__ */

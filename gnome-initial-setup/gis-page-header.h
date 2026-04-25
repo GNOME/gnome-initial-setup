@@ -20,8 +20,7 @@
  *     Adrien Plazas <kekun.plazas@laposte.net>
  */
 
-#ifndef __GIS_PAGE_HEADER_H__
-#define __GIS_PAGE_HEADER_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -32,5 +31,3 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (GisPageHeader, gis_page_header, GIS, PAGE_HEADER, GtkBox)
 
 G_END_DECLS
-
-#endif /* __GIS_PAGE_HEADER_H__ */

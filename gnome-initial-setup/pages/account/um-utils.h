@@ -20,8 +20,7 @@
  * Written by: Matthias Clasen <mclasen@redhat.com>
  */
 
-#ifndef __UM_UTILS_H__
-#define __UM_UTILS_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -40,5 +39,3 @@ gchar *  generate_username                (const gchar     *name,
                                            gboolean         parental_controls_enabled);
 
 G_END_DECLS
-
-#endif

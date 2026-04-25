@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_BUBBLE_WIDGET_H__
-#define __GIS_BUBBLE_WIDGET_H__
+#pragma once
 
 #include <adwaita.h>
 
@@ -49,5 +48,3 @@ struct _GisBubbleWidgetClass
 GType gis_bubble_widget_get_type (void);
 
 G_END_DECLS
-
-#endif /* __GIS_BUBBLE_WIDGET_H__ */

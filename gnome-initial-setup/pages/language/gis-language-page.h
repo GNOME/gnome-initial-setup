@@ -19,8 +19,7 @@
  *     Jasper St. Pierre <jstpierre@mecheye.net>
  */
 
-#ifndef __GIS_LANGUAGE_PAGE_H__
-#define __GIS_LANGUAGE_PAGE_H__
+#pragma once
 
 #include <glib-object.h>
 
@@ -53,5 +52,3 @@ GType gis_language_page_get_type (void);
 GisPage *gis_prepare_language_page (GisDriver *driver);
 
 G_END_DECLS
-
-#endif /* __GIS_LANGUAGE_PAGE_H__ */
