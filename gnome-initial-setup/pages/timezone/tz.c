@@ -96,7 +96,7 @@ tz_load_db (void)
 		if (tmpstrarr[3] && *tmpstrarr[3] == '-' && tmpstrarr[4])
 			loc->comment = g_strdup (tmpstrarr[4]);
 
-		if (tmpstrarr[3] && *tmpstrarr[3] != '-' && !islower(loc->zone)) {
+		if (tmpstrarr[3] && *tmpstrarr[3] != '-' && !g_ascii_islower (loc->zone)) {
 			TzLocation *locgrp;
 
 			/* duplicate entry */
