@@ -339,10 +339,8 @@ gis_page_apply_complete (GisPage *page,
   g_return_if_fail (GIS_IS_PAGE (page));
   g_return_if_fail (priv->applying == TRUE);
 
-  callback = priv->apply_cb;
-  priv->apply_cb = NULL;
-  user_data = priv->apply_data;
-  priv->apply_data = NULL;
+  callback = g_steal_pointer (&priv->apply_cb);
+  user_data = g_steal_pointer (&priv->apply_data);
 
   g_clear_object (&priv->apply_cancel);
   priv->applying = FALSE;
