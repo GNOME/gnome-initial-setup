@@ -235,9 +235,7 @@ entry_text_changed (GtkEditable *editable,
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
 
   stop_geolocation (page);
-  g_signal_handler_disconnect (page->search_entry,
-                               page->search_entry_text_changed_id);
-  page->search_entry_text_changed_id = 0;
+  g_clear_signal_handler (&page->search_entry_text_changed_id, page->search_entry);
 }
 
 static void
