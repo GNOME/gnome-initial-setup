@@ -261,7 +261,7 @@ gis_driver_set_username (GisDriver *driver, const gchar *username)
 {
   g_set_str (&driver->username, username);
 
-  g_object_notify (G_OBJECT (driver), "username");
+  g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_USERNAME]);
 }
 
 const gchar *
@@ -760,7 +760,7 @@ recompute_small_screen (GisDriver *driver)
     }
 
   if (driver->small_screen != old_value)
-    g_object_notify (G_OBJECT (driver), "small-screen");
+    g_object_notify_by_pspec (G_OBJECT (driver), obj_props[PROP_SMALL_SCREEN]);
 }
 
 static void
