@@ -28,11 +28,9 @@
 
 #include "gis-assistant.h"
 
-enum {
-  PROP_0,
-  PROP_TITLE,
-  PROP_LAST,
-};
+typedef enum {
+  PROP_TITLE = 1,
+} GisAssistantProps;
 
 enum {
   PAGE_CHANGED,
@@ -40,7 +38,7 @@ enum {
 };
 
 static guint signals[LAST_SIGNAL];
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_TITLE + 1];
 
 struct _GisAssistant
 {
@@ -440,7 +438,7 @@ gis_assistant_get_property (GObject    *object,
 {
   GisAssistant *assistant = GIS_ASSISTANT (object);
 
-  switch (prop_id)
+  switch ((GisAssistantProps) prop_id)
     {
     case PROP_TITLE:
       g_value_set_string (value, gis_assistant_get_title (assistant));
@@ -495,5 +493,5 @@ gis_assistant_class_init (GisAssistantClass *klass)
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 0);
 
-  g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
+  g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }

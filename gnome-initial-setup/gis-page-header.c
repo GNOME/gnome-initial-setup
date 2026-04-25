@@ -27,17 +27,15 @@
 #include "gis-page-header.h"
 #include "gis-webkit.h"
 
-enum {
-  PROP_0,
-  PROP_TITLE,
+typedef enum {
+  PROP_TITLE = 1,
   PROP_SUBTITLE,
   PROP_ICON_NAME,
   PROP_PAINTABLE,
   PROP_SHOW_ICON,
-  PROP_LAST,
-};
+} GisPageHeaderProps;
 
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_SHOW_ICON + 1];
 
 struct _GisPageHeader
 {
@@ -83,7 +81,7 @@ gis_page_header_get_property (GObject    *object,
 {
   GisPageHeader *header = GIS_PAGE_HEADER (object);
 
-  switch (prop_id)
+  switch ((GisPageHeaderProps) prop_id)
     {
     case PROP_TITLE:
       g_value_set_string (value, gtk_label_get_label (GTK_LABEL (header->title)));
@@ -119,7 +117,7 @@ gis_page_header_set_property (GObject      *object,
 {
   GisPageHeader *header = GIS_PAGE_HEADER (object);
 
-  switch (prop_id)
+  switch ((GisPageHeaderProps) prop_id)
     {
     case PROP_TITLE:
       gtk_label_set_label (GTK_LABEL (header->title), g_value_get_string (value));
@@ -195,5 +193,5 @@ gis_page_header_class_init (GisPageHeaderClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
-  g_object_class_install_properties (gobject_class, PROP_LAST, obj_props);
+  g_object_class_install_properties (gobject_class, G_N_ELEMENTS (obj_props), obj_props);
 }

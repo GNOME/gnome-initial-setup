@@ -70,13 +70,11 @@ struct _CcInputChooserPrivate
 typedef struct _CcInputChooserPrivate CcInputChooserPrivate;
 G_DEFINE_TYPE_WITH_PRIVATE (CcInputChooser, cc_input_chooser, GTK_TYPE_BOX);
 
-enum {
-        PROP_0,
-        PROP_SHOWING_EXTRA,
-        PROP_LAST
-};
+typedef enum {
+        PROP_SHOWING_EXTRA = 1,
+} CcInputChooserProps;
 
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_SHOWING_EXTRA + 1];
 
 enum {
 	CHANGED,
@@ -821,7 +819,7 @@ cc_input_chooser_get_property (GObject      *object,
                                   GParamSpec   *pspec)
 {
         CcInputChooser *chooser = CC_INPUT_CHOOSER (object);
-        switch (prop_id) {
+        switch ((CcInputChooserProps) prop_id) {
         case PROP_SHOWING_EXTRA:
                 g_value_set_boolean (value, cc_input_chooser_get_showing_extra (chooser));
                 break;
@@ -876,7 +874,7 @@ cc_input_chooser_class_init (CcInputChooserClass *klass)
                               g_cclosure_marshal_VOID__VOID,
                               G_TYPE_NONE, 0);
 
-        g_object_class_install_properties (object_class, PROP_LAST, obj_props);
+        g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
 static void

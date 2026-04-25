@@ -43,20 +43,18 @@ typedef struct _GisPagePrivate GisPagePrivate;
 
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (GisPage, gis_page, ADW_TYPE_BIN);
 
-enum
+typedef enum
 {
-  PROP_0,
-  PROP_DRIVER,
+  PROP_DRIVER = 1,
   PROP_TITLE,
   PROP_COMPLETE,
   PROP_SKIPPABLE,
   PROP_APPLYING,
   PROP_SMALL_SCREEN,
   PROP_HAS_FORWARD,
-  PROP_LAST,
-};
+} GisPageProps;
 
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_HAS_FORWARD + 1];
 
 static void
 gis_page_get_property (GObject    *object,
@@ -66,7 +64,7 @@ gis_page_get_property (GObject    *object,
 {
   GisPage *page = GIS_PAGE (object);
   GisPagePrivate *priv = gis_page_get_instance_private (page);
-  switch (prop_id)
+  switch ((GisPageProps) prop_id)
     {
     case PROP_DRIVER:
       g_value_set_object (value, page->driver);
@@ -112,7 +110,7 @@ gis_page_set_property (GObject      *object,
 {
   GisPage *page = GIS_PAGE (object);
   GisPagePrivate *priv = gis_page_get_instance_private (page);
-  switch (prop_id)
+  switch ((GisPageProps) prop_id)
     {
     case PROP_DRIVER:
       page->driver = g_value_dup_object (value);
@@ -221,7 +219,7 @@ gis_page_class_init (GisPageClass *klass)
     g_param_spec_boolean ("small-screen", NULL, NULL, FALSE,
                           G_PARAM_STATIC_STRINGS | G_PARAM_READABLE);
 
-  g_object_class_install_properties (object_class, PROP_LAST, obj_props);
+  g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
 static void

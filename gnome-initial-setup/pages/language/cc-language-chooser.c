@@ -51,14 +51,12 @@ struct _CcLanguageChooserPrivate
 typedef struct _CcLanguageChooserPrivate CcLanguageChooserPrivate;
 G_DEFINE_TYPE_WITH_PRIVATE (CcLanguageChooser, cc_language_chooser, GTK_TYPE_BOX);
 
-enum {
-        PROP_0,
-        PROP_LANGUAGE,
+typedef enum {
+        PROP_LANGUAGE = 1,
         PROP_SHOWING_EXTRA,
-        PROP_LAST,
-};
+} CcLanguageChooserProps;
 
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_SHOWING_EXTRA + 1];
 
 enum {
         CONFIRM,
@@ -514,7 +512,7 @@ cc_language_chooser_get_property (GObject      *object,
                                   GParamSpec   *pspec)
 {
         CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
-        switch (prop_id) {
+        switch ((CcLanguageChooserProps) prop_id) {
         case PROP_LANGUAGE:
                 g_value_set_string (value, cc_language_chooser_get_language (chooser));
                 break;
@@ -534,7 +532,7 @@ cc_language_chooser_set_property (GObject      *object,
                                   GParamSpec   *pspec)
 {
         CcLanguageChooser *chooser = CC_LANGUAGE_CHOOSER (object);
-        switch (prop_id) {
+        switch ((CcLanguageChooserProps) prop_id) {
         case PROP_LANGUAGE:
                 cc_language_chooser_set_language (chooser, g_value_get_string (value));
                 break;
@@ -584,7 +582,7 @@ cc_language_chooser_class_init (CcLanguageChooserClass *klass)
                 g_param_spec_string ("showing-extra", NULL, NULL, "",
                                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
-        g_object_class_install_properties (object_class, PROP_LAST, obj_props);
+        g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
 }
 
 static void

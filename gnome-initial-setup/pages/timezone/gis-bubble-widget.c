@@ -33,14 +33,12 @@ typedef struct _GisBubbleWidgetPrivate GisBubbleWidgetPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GisBubbleWidget, gis_bubble_widget, ADW_TYPE_BIN);
 
-enum {
-  PROP_0,
-  PROP_LABEL,
+typedef enum {
+  PROP_LABEL = 1,
   PROP_ICON_NAME,
-  PROP_LAST,
-};
+} GisBubbleWidgetProps;
 
-static GParamSpec *obj_props[PROP_LAST];
+static GParamSpec *obj_props[PROP_ICON_NAME + 1];
 
 static void
 gis_bubble_widget_get_property (GObject    *object,
@@ -51,7 +49,7 @@ gis_bubble_widget_get_property (GObject    *object,
   GisBubbleWidget *widget = GIS_BUBBLE_WIDGET (object);
   GisBubbleWidgetPrivate *priv = gis_bubble_widget_get_instance_private (widget);
 
-  switch (prop_id)
+  switch ((GisBubbleWidgetProps) prop_id)
     {
     case PROP_LABEL:
       g_value_set_string (value, gtk_label_get_label (GTK_LABEL (priv->label)));
@@ -74,7 +72,7 @@ gis_bubble_widget_set_property (GObject      *object,
   GisBubbleWidget *widget = GIS_BUBBLE_WIDGET (object);
   GisBubbleWidgetPrivate *priv = gis_bubble_widget_get_instance_private (widget);
 
-  switch (prop_id)
+  switch ((GisBubbleWidgetProps) prop_id)
     {
     case PROP_LABEL:
       gtk_label_set_label (GTK_LABEL (priv->label), g_value_get_string (value));
@@ -108,7 +106,7 @@ gis_bubble_widget_class_init (GisBubbleWidgetClass *klass)
   obj_props[PROP_LABEL] = g_param_spec_string ("label", NULL, NULL, NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
   obj_props[PROP_ICON_NAME] = g_param_spec_string ("icon-name", NULL, NULL, NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
-  g_object_class_install_properties (object_class, PROP_LAST, obj_props);
+  g_object_class_install_properties (object_class, G_N_ELEMENTS (obj_props), obj_props);
 
   gis_add_style_from_resource ("/org/gnome/initial-setup/gis-bubble-widget.css");
 }

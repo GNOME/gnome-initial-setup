@@ -36,17 +36,13 @@ G_DEFINE_TYPE_WITH_CODE (GisLocationEntry, gis_location_entry, GTK_TYPE_WIDGET,
                          G_ADD_PRIVATE (GisLocationEntry)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_EDITABLE, editable_iface_init));
 
-enum {
-    PROP_0,
-
-    PROP_TOP,
+typedef enum {
+    PROP_TOP = 1,
     PROP_SHOW_NAMED_TIMEZONES,
     PROP_LOCATION,
+} GisLocationEntryProps;
 
-    LAST_PROP
-};
-
-static GParamSpec *props[LAST_PROP] = { NULL, };
+static GParamSpec *props[PROP_LOCATION + 1] = { NULL, };
 
 static void set_property (GObject *object, guint prop_id,
                           const GValue *value, GParamSpec *pspec);
@@ -275,10 +271,10 @@ gis_location_entry_class_init (GisLocationEntryClass *location_entry_class)
                                                 GWEATHER_TYPE_LOCATION,
                                                 G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
-    g_object_class_install_properties (object_class, LAST_PROP, props);
+    g_object_class_install_properties (object_class, G_N_ELEMENTS (props), props);
 
     widget_class->grab_focus = grab_focus;
-    gtk_editable_install_properties (object_class, LAST_PROP);
+    gtk_editable_install_properties (object_class, PROP_LOCATION);
 
     gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 }
@@ -292,7 +288,7 @@ set_property (GObject *object, guint prop_id,
     if (gtk_editable_delegate_set_property (object, prop_id, value, pspec))
       return;
 
-    switch (prop_id) {
+    switch ((GisLocationEntryProps) prop_id) {
     case PROP_TOP:
         entry->priv->top = g_value_dup_object (value);
         break;
@@ -318,7 +314,7 @@ get_property (GObject *object, guint prop_id,
     if (gtk_editable_delegate_get_property (object, prop_id, value, pspec))
       return;
 
-    switch (prop_id) {
+    switch ((GisLocationEntryProps) prop_id) {
     case PROP_SHOW_NAMED_TIMEZONES:
         g_value_set_boolean (value, entry->priv->show_named_timezones);
         break;
