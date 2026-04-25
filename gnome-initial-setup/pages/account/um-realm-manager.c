@@ -748,8 +748,7 @@ kinit_thread_func (GTask *task,
         if (temp_fd == -1) {
                 g_warning ("Couldn't create credential cache file: %s: %s",
                            filename, g_strerror (errno));
-                g_free (filename);
-                filename = NULL;
+                g_clear_pointer (&filename, g_free);
         } else {
                 close (temp_fd);
         }

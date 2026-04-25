@@ -184,8 +184,7 @@ dispose (GObject *object)
 
     if (priv->cancellable) {
         g_cancellable_cancel (priv->cancellable);
-        g_object_unref (priv->cancellable);
-        priv->cancellable = NULL;
+        g_clear_object (&priv->cancellable);
     }
 
     gtk_editable_finish_delegate (GTK_EDITABLE (entry));
@@ -337,8 +336,7 @@ entry_changed (GisLocationEntry *entry)
 
     if (entry->priv->cancellable) {
         g_cancellable_cancel (entry->priv->cancellable);
-        g_object_unref (entry->priv->cancellable);
-        entry->priv->cancellable = NULL;
+        g_clear_object (&entry->priv->cancellable);
     }
 
     gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
@@ -932,8 +930,7 @@ _no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry) {
 
     if (entry->priv->cancellable) {
         g_cancellable_cancel (entry->priv->cancellable);
-        g_object_unref (entry->priv->cancellable);
-        entry->priv->cancellable = NULL;
+        g_clear_object (&entry->priv->cancellable);
     }
 
     entry->priv->cancellable = g_cancellable_new ();
