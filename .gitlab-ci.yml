@@ -116,21 +116,24 @@ fedora build:
         OPTIONS: '-Dvendor-conf-file=/var/lib/weird-vendor-specific-path.ini'
 
 goblint:
-  image:
-    name: "ghcr.io/bilelmoussaoui/goblint:latest"
-    entrypoint: [""]
+  # image:
+  #   name: "ghcr.io/bilelmoussaoui/goblint:latest"
+  #   entrypoint: [""]
+  image: "rust:1.92-slim"
   stage: "prepare"
   needs: []
   script:
-    - goblint --format json > goblint.json
+    - cargo install --git https://github.com/alatiera/goblint --branch alatiera/gitlab-codequality goblint
+    - goblint --format gitlab-codequality > goblint-codequality.json
     - goblint --format text
   artifacts:
     paths:
-      - "goblint.json"
-    # Not implemented
-    # reports:
-    #   codequality: "goblint.json"
+      - "goblint-codequality.json"
+    reports:
+      codequality: "goblint-codequality.json"
+    expire_in: "1 week"
   rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
         - "goblint.toml"
