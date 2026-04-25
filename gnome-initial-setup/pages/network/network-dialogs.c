@@ -453,11 +453,10 @@ toplevel_shown (GtkWindow       *toplevel,
                 nma_mobile_wizard_present (wizard);
 }
 
-static gboolean
+static void
 show_wizard_idle_cb (NMAMobileWizard *wizard)
 {
         nma_mobile_wizard_present (wizard);
-        return FALSE;
 }
 
 void
@@ -506,7 +505,7 @@ cc_network_panel_connect_to_3g_network (GtkWidget        *toplevel,
         g_object_get (G_OBJECT (toplevel), "visible", &visible, NULL);
         if (visible) {
                 g_debug ("Scheduling showing the Mobile wizard");
-                g_idle_add ((GSourceFunc) show_wizard_idle_cb, wizard);
+                g_idle_add_once ((GSourceOnceFunc) show_wizard_idle_cb, wizard);
         } else {
                 g_debug ("Will show wizard a bit later, toplevel is not visible");
                 g_signal_connect (G_OBJECT (toplevel), "notify::visible",
