@@ -130,6 +130,7 @@ show_error_dialog (GisAccountPageEnterprise *page,
                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
+                                   /* goblint-ignore-next-line: untranslated_string */
                                    "%s", message);
 
   if (error != NULL) {
