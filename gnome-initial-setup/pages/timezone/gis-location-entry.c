@@ -28,6 +28,8 @@ struct _GisLocationEntryPrivate {
     gboolean          show_named_timezones;
     GCancellable     *cancellable;
     GtkTreeModel     *model;
+    GtkTreeModel     *active_model;
+    gboolean          active_model_is_geocode;
 };
 
 static void editable_iface_init (GtkEditableInterface *iface);
@@ -88,14 +90,18 @@ enum PLACE
     PLACE_GIS_LOCATION_ENTRY_COL_LOCAL_COMPARE_NAME
 };
 
-static gboolean matcher (GtkEntryCompletion *completion, const char *key,
-                         GtkTreeIter *iter, gpointer user_data);
-static gboolean match_selected (GtkEntryCompletion *completion,
-                                GtkTreeModel       *model,
-                                GtkTreeIter        *iter,
-                                gpointer            entry);
+static gboolean model_row_matches (GtkTreeModel *model,
+                                   GtkTreeIter  *iter,
+                                   const char   *key);
+static gboolean active_model_contains_exact_text (GisLocationEntry *entry,
+                                                  const char       *text,
+                                                  GtkTreeIter      *iter_out);
 static void     entry_changed (GisLocationEntry *entry);
-static void _no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry);
+static void     trigger_geocode_search (GisLocationEntry *entry);
+static void     restore_local_model (GisLocationEntry *entry);
+static void     set_active_model (GisLocationEntry *entry,
+                                  GtkTreeModel     *model,
+                                  gboolean          is_geocode);
 
 static GtkEditable*
 gis_location_entry_get_delegate (GtkEditable *editable)
@@ -115,45 +121,31 @@ editable_iface_init (GtkEditableInterface *iface)
 static void
 gis_location_entry_init (GisLocationEntry *entry)
 {
-    GtkEntryCompletion *completion;
     GisLocationEntryPrivate *priv;
     GtkEventController *key;
     GtkEventController *focus;
 
     priv = entry->priv = gis_location_entry_get_instance_private (entry);
 
-    priv->entry = gtk_entry_new ();
-    gtk_entry_set_placeholder_text (GTK_ENTRY (priv->entry), _("Search cities"));
+    priv->entry = gtk_search_entry_new ();
+    gtk_editable_set_text (GTK_EDITABLE (priv->entry), "");
     gtk_widget_set_parent (priv->entry, GTK_WIDGET (entry));
     gtk_editable_init_delegate (GTK_EDITABLE (entry));
 
-    completion = gtk_entry_completion_new ();
-
-    gtk_entry_completion_set_popup_set_width (completion, TRUE);
-    gtk_entry_completion_set_text_column (completion, LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME);
-    gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
-    gtk_entry_completion_set_inline_completion (completion, TRUE);
-
-    g_signal_connect (completion, "match-selected",
-                      G_CALLBACK (match_selected), entry);
-
-    g_signal_connect (completion, "no-matches",
-                      G_CALLBACK (_no_matches), entry);
-
-    gtk_entry_set_completion (GTK_ENTRY (entry->priv->entry), completion);
-    g_object_unref (completion);
+    gtk_search_entry_set_key_capture_widget (GTK_SEARCH_ENTRY (priv->entry), GTK_WIDGET (entry));
+    gtk_widget_set_tooltip_text (priv->entry, _("Search cities"));
 
     g_signal_connect (entry, "changed",
                       G_CALLBACK (entry_changed), NULL);
-    
+
     key = gtk_event_controller_key_new ();
     g_signal_connect (key, "key-pressed",
-                    G_CALLBACK (on_entry_key_pressed), entry);
+                      G_CALLBACK (on_entry_key_pressed), entry);
     gtk_widget_add_controller (priv->entry, key);
 
     focus = gtk_event_controller_focus_new ();
     g_signal_connect (focus, "leave",
-                    G_CALLBACK (on_entry_focus_leave), entry);
+                      G_CALLBACK (on_entry_focus_leave), entry);
     gtk_widget_add_controller (priv->entry, focus);
 }
 
@@ -169,6 +161,7 @@ finalize (GObject *object)
     g_clear_object (&priv->location);
     g_clear_object (&priv->top);
     g_clear_object (&priv->model);
+    g_clear_object (&priv->active_model);
 
     G_OBJECT_CLASS (gis_location_entry_parent_class)->finalize (object);
 }
@@ -211,13 +204,26 @@ tree_compare_local_name (GtkTreeModel *model,
     return g_utf8_collate (name_a, name_b);
 }
 
+static void
+set_active_model (GisLocationEntry *entry,
+                  GtkTreeModel     *model,
+                  gboolean          is_geocode)
+{
+    g_set_object (&entry->priv->active_model, model);
+    entry->priv->active_model_is_geocode = is_geocode;
+}
+
+static void
+restore_local_model (GisLocationEntry *entry)
+{
+    set_active_model (entry, entry->priv->model, FALSE);
+}
 
 static void
 constructed (GObject *object)
 {
     GisLocationEntry *entry;
     GtkListStore *store = NULL;
-    GtkEntryCompletion *completion;
 
     entry = GIS_LOCATION_ENTRY (object);
 
@@ -230,9 +236,7 @@ constructed (GObject *object)
     fill_location_entry_model (store, entry->priv->top, NULL, NULL, NULL, NULL, entry->priv->show_named_timezones);
 
     entry->priv->model = GTK_TREE_MODEL (store);
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
-    gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
-    gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (store));
+    restore_local_model (entry);
 
     G_OBJECT_CLASS (gis_location_entry_parent_class)->constructed (object);
 }
@@ -329,23 +333,38 @@ get_property (GObject *object, guint prop_id,
 static void
 entry_changed (GisLocationEntry *entry)
 {
-    GtkEntryCompletion *completion;
     const gchar *text;
-
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    gboolean found_local_match = FALSE;
 
     if (entry->priv->cancellable) {
         g_cancellable_cancel (entry->priv->cancellable);
         g_clear_object (&entry->priv->cancellable);
     }
 
-    gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
-    gtk_entry_completion_set_model (completion, entry->priv->model);
+    restore_local_model (entry);
 
     text = gtk_editable_get_text (GTK_EDITABLE (entry));
 
-    if (!text || *text == '\0')
+    if (!text || *text == '\0') {
         set_location_internal (entry, NULL, NULL, NULL);
+        return;
+    }
+
+    model = entry->priv->model;
+
+    if (gtk_tree_model_get_iter_first (model, &iter)) {
+        do {
+            if (model_row_matches (model, &iter, text)) {
+                found_local_match = TRUE;
+                break;
+            }
+        } while (gtk_tree_model_iter_next (model, &iter));
+    }
+
+    if (!found_local_match)
+        trigger_geocode_search (entry);
 }
 
 static void
@@ -411,33 +430,31 @@ void
 gis_location_entry_set_location (GisLocationEntry *entry,
                                  GWeatherLocation *loc)
 {
-    GtkEntryCompletion *completion;
     GtkTreeModel *model;
     GtkTreeIter iter;
     g_autoptr(GWeatherLocation) cmploc = NULL;
 
     g_return_if_fail (GIS_IS_LOCATION_ENTRY (entry));
 
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
-    model = gtk_entry_completion_get_model (completion);
+    model = entry->priv->model;
 
     if (loc == NULL) {
         set_location_internal (entry, model, NULL, NULL);
         return;
     }
+    if (model != NULL && gtk_tree_model_get_iter_first (model, &iter)) {
+        do {
+            gtk_tree_model_get (model, &iter,
+                                LOC_GIS_LOCATION_ENTRY_COL_LOCATION, &cmploc,
+                                -1);
+            if (gweather_location_equal (loc, cmploc)) {
+                set_location_internal (entry, model, &iter, NULL);
+                return;
+            }
 
-    gtk_tree_model_get_iter_first (model, &iter);
-    do {
-        gtk_tree_model_get (model, &iter,
-                            LOC_GIS_LOCATION_ENTRY_COL_LOCATION, &cmploc,
-                            -1);
-        if (gweather_location_equal (loc, cmploc)) {
-            set_location_internal (entry, model, &iter, NULL);
-            return;
-        }
-
-        g_clear_object (&cmploc);
-    } while (gtk_tree_model_iter_next (model, &iter));
+            g_clear_object (&cmploc);
+        } while (gtk_tree_model_iter_next (model, &iter));
+    }
 
     set_location_internal (entry, model, NULL, loc);
 }
@@ -482,7 +499,6 @@ gis_location_entry_set_city (GisLocationEntry *entry,
                              const char       *city_name,
                              const char       *code)
 {
-    GtkEntryCompletion *completion;
     GtkTreeModel *model;
     GtkTreeIter iter;
     const char *cmpcode;
@@ -490,26 +506,27 @@ gis_location_entry_set_city (GisLocationEntry *entry,
     g_return_val_if_fail (GIS_IS_LOCATION_ENTRY (entry), FALSE);
     g_return_val_if_fail (code != NULL, FALSE);
 
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
-    model = gtk_entry_completion_get_model (completion);
+    model = entry->priv->model;
+
+    if (model == NULL)
+        return FALSE;
 
     gtk_tree_model_get_iter_first (model, &iter);
     do {
-      g_autoptr(GWeatherLocation) cmploc = NULL;
+        g_autoptr(GWeatherLocation) cmploc = NULL;
+
         gtk_tree_model_get (model, &iter,
                             LOC_GIS_LOCATION_ENTRY_COL_LOCATION, &cmploc,
                             -1);
 
         cmpcode = gweather_location_get_code (cmploc);
-        if (!cmpcode || strcmp (cmpcode, code) != 0) {
+        if (!cmpcode || strcmp (cmpcode, code) != 0)
             continue;
-        }
 
         if (city_name) {
             g_autofree gchar *cmpname = gweather_location_get_city_name (cmploc);
-            if (!cmpname || strcmp (cmpname, city_name) != 0) {
+            if (!cmpname || strcmp (cmpname, city_name) != 0)
                 continue;
-            }
         }
 
         set_location_internal (entry, model, &iter, NULL);
@@ -517,7 +534,6 @@ gis_location_entry_set_city (GisLocationEntry *entry,
     } while (gtk_tree_model_iter_next (model, &iter));
 
     set_location_internal (entry, model, NULL, NULL);
-
     return FALSE;
 }
 
@@ -716,13 +732,15 @@ match_compare_name (const char *key, const char *name)
 }
 
 static gboolean
-matcher (GtkEntryCompletion *completion, const char *key,
-         GtkTreeIter *iter, gpointer user_data)
+model_row_matches (GtkTreeModel *model,
+                   GtkTreeIter  *iter,
+                   const char   *key)
 {
-    char *local_compare_name, *english_compare_name;
+    char *local_compare_name = NULL;
+    char *english_compare_name = NULL;
     gboolean match;
 
-    gtk_tree_model_get (gtk_entry_completion_get_model (completion), iter,
+    gtk_tree_model_get (model, iter,
                         LOC_GIS_LOCATION_ENTRY_COL_LOCAL_COMPARE_NAME, &local_compare_name,
                         LOC_GIS_LOCATION_ENTRY_COL_ENGLISH_COMPARE_NAME, &english_compare_name,
                         -1);
@@ -733,6 +751,7 @@ matcher (GtkEntryCompletion *completion, const char *key,
 
     g_free (local_compare_name);
     g_free (english_compare_name);
+
     return match;
 }
 
@@ -780,20 +799,21 @@ commit_selected_iter (GisLocationEntry *entry,
 }
 
 static gboolean
-maybe_commit_completion (GisLocationEntry *entry)
+active_model_contains_exact_text (GisLocationEntry *entry,
+                                  const char       *text,
+                                  GtkTreeIter      *iter_out)
 {
-    GtkEntryCompletion *completion;
     GtkTreeModel *model;
     GtkTreeIter iter;
-    const char *text;
+    int display_col;
 
-    completion = gtk_entry_get_completion (GTK_ENTRY (entry->priv->entry));
-    gtk_entry_completion_insert_prefix (completion);
-    model = gtk_entry_completion_get_model (completion);
-    text = gtk_editable_get_text (GTK_EDITABLE (entry->priv->entry));
-
-    if (!text || *text == '\0')
+    model = entry->priv->active_model;
+    if (model == NULL || text == NULL || *text == '\0')
         return FALSE;
+
+    display_col = entry->priv->active_model_is_geocode
+        ? PLACE_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME
+        : LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME;
 
     if (!gtk_tree_model_get_iter_first (model, &iter))
         return FALSE;
@@ -801,17 +821,34 @@ maybe_commit_completion (GisLocationEntry *entry)
     do {
         g_autofree char *display_name = NULL;
 
-        gtk_tree_model_get (model, &iter,
-                            LOC_GIS_LOCATION_ENTRY_COL_DISPLAY_NAME, &display_name,
-                            -1);
+        gtk_tree_model_get (model, &iter, display_col, &display_name, -1);
 
         if (display_name && g_strcmp0 (display_name, text) == 0) {
-            commit_selected_iter (entry, model, &iter);
+            if (iter_out != NULL)
+                *iter_out = iter;
             return TRUE;
         }
     } while (gtk_tree_model_iter_next (model, &iter));
 
     return FALSE;
+}
+
+static gboolean
+maybe_commit_completion (GisLocationEntry *entry)
+{
+    GtkTreeIter iter;
+    const char *text;
+
+    text = gtk_editable_get_text (GTK_EDITABLE (entry->priv->entry));
+
+    if (!text || *text == '\0')
+        return FALSE;
+
+    if (!active_model_contains_exact_text (entry, text, &iter))
+        return FALSE;
+
+    commit_selected_iter (entry, entry->priv->active_model, &iter);
+    return TRUE;
 }
 
 static gboolean
@@ -841,23 +878,6 @@ on_entry_focus_leave (GtkEventControllerFocus *controller,
     GisLocationEntry *entry = GIS_LOCATION_ENTRY (user_data);
 
     maybe_commit_completion (entry);
-}
-
-static gboolean
-match_selected (GtkEntryCompletion *completion,
-                GtkTreeModel       *model,
-                GtkTreeIter        *iter,
-                gpointer            entry)
-{
-    commit_selected_iter (GIS_LOCATION_ENTRY (entry), model, iter);
-    return TRUE;
-}
-
-static gboolean
-new_matcher (GtkEntryCompletion *completion, const char *key,
-             GtkTreeIter        *iter,       gpointer    user_data)
-{
-    return TRUE;
 }
 
 static void
@@ -895,38 +915,48 @@ _got_places (GObject      *source_object,
     GisLocationEntry *self = NULL;
     g_autoptr(GError) error = NULL;
     g_autoptr(GtkListStore) store = NULL;
-    GtkEntryCompletion *completion;
 
     places = geocode_forward_search_finish (GEOCODE_FORWARD (source_object), result, &error);
     if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
-        /* return without touching anything if cancelled (the entry might have been disposed) */
         g_debug ("Geocode query cancelled");
         return;
     }
 
+    if (error != NULL) {
+        g_warning ("Geocode query failed: %s", error->message);
+        restore_local_model (self);
+        g_clear_object (&self->priv->cancellable);
+        return;
+    }
+
     self = GIS_LOCATION_ENTRY (user_data);
-    completion = gtk_entry_get_completion (GTK_ENTRY (self->priv->entry));
 
     if (places == NULL) {
         g_debug ("No geocode results, restoring default model");
-        gtk_entry_completion_set_match_func (completion, matcher, NULL, NULL);
-        gtk_entry_completion_set_model (completion, self->priv->model);
+        restore_local_model (self);
     } else {
-        store = gtk_list_store_new (5, G_TYPE_STRING, GEOCODE_TYPE_PLACE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+        store = gtk_list_store_new (4,
+                                    G_TYPE_STRING,
+                                    GEOCODE_TYPE_PLACE,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING);
         gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
                                                  tree_compare_local_name, NULL, NULL);
         g_list_foreach (places, fill_store, store);
-        gtk_entry_completion_set_match_func (completion, new_matcher, NULL, NULL);
-        gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (store));
+        set_active_model (self, GTK_TREE_MODEL (store), TRUE);
     }
 
     g_clear_object (&self->priv->cancellable);
 }
 
 static void
-_no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry) {
+trigger_geocode_search (GisLocationEntry *entry)
+{
     const gchar *key = gtk_editable_get_text (GTK_EDITABLE (entry->priv->entry));
     GeocodeForward *forward;
+
+    if (key == NULL || *key == '\0')
+        return;
 
     if (entry->priv->cancellable) {
         g_cancellable_cancel (entry->priv->cancellable);
@@ -936,8 +966,9 @@ _no_matches (GtkEntryCompletion *completion, GisLocationEntry *entry) {
     entry->priv->cancellable = g_cancellable_new ();
 
     g_debug ("Starting geocode query for %s", key);
-    forward = geocode_forward_new_for_string(key);
+    forward = geocode_forward_new_for_string (key);
     geocode_forward_search_async (forward, entry->priv->cancellable, _got_places, entry);
+    g_object_unref (forward);
 }
 
 /**
