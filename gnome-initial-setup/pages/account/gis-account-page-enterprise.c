@@ -121,28 +121,23 @@ show_error_dialog (GisAccountPageEnterprise *page,
                    const gchar *message,
                    GError *error)
 {
-  GtkWidget *dialog;
+  GtkAlertDialog *dialog;
+  GtkWindow *parent;
 
   if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
     return;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page))),
-                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                   GTK_MESSAGE_ERROR,
-                                   GTK_BUTTONS_CLOSE,
-                                   /* goblint-ignore-next-line: untranslated_string */
-                                   "%s", message);
+  parent = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (page)));
+
+  dialog = gtk_alert_dialog_new ("%s", message);
+  gtk_alert_dialog_set_modal (dialog, TRUE);
 
   if (error != NULL) {
     g_dbus_error_strip_remote_error (error);
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                              "%s", error->message);
+    gtk_alert_dialog_set_detail (dialog, error->message);
   }
 
-  g_signal_connect (dialog, "response",
-                    G_CALLBACK (gtk_window_destroy),
-                    NULL);
-  gtk_window_present (GTK_WINDOW (dialog));
+  gtk_alert_dialog_show (dialog, parent);
 }
 
 gboolean
