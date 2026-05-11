@@ -58,8 +58,7 @@ struct _CcInputChooserPrivate
 
         gboolean showing_extra;
 	gchar *locale;
-        gchar *id;
-	gchar *type;
+	GList *selected_inputs;
 	GnomeXkbInfo *xkb_info;
 #ifdef HAVE_IBUS
         IBusBus *ibus;
@@ -282,17 +281,15 @@ sync_all_checkmarks (CcInputChooser *chooser)
                 InputWidget *widget;
                 GtkWidget *child;
                 gboolean should_be_visible;
+                g_autofree gchar *key = NULL;
 
                 child = g_ptr_array_index (priv->input_widget_boxes, i);
                 widget = get_input_widget (child);
                 g_assert (widget != NULL);
                 g_assert (widget->box == child);
 
-	        if (priv->id == NULL || priv->type == NULL)
-		        should_be_visible = FALSE;
-	        else
-	                should_be_visible = g_strcmp0 (widget->id, priv->id) == 0 &&
-                                            g_strcmp0 (widget->type, priv->type) == 0;
+                key = g_strdup_printf ("%s::%s", widget->type, widget->id);
+                should_be_visible = (g_list_find_custom (priv->selected_inputs, key, (GCompareFunc) g_strcmp0) != NULL);
                 input_widget_set_selected (widget, should_be_visible);
 
                 if (widget->is_extra && should_be_visible) {
@@ -432,9 +429,8 @@ get_locale_infos (CcInputChooser *chooser)
 
 	if (gnome_get_input_source_from_locale (priv->locale, &type, &id)) {
                 add_row_to_list (chooser, type, id);
-		if (!priv->id) {
-			priv->id = g_strdup (id);
-			priv->type = g_strdup (type);
+		if (g_list_length (priv->selected_inputs) == 0) {
+			cc_input_chooser_set_input (chooser, id, type);
 		}
 	}
 
@@ -544,32 +540,25 @@ show_more (CcInputChooser *chooser)
 static void
 set_input (CcInputChooser *chooser,
            const gchar    *id,
-	   const gchar    *type)
+           const gchar    *type)
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
+        g_autofree gchar *key = NULL;
+        GList *found;
 
-        if (g_strcmp0 (priv->id, id) == 0 &&
-            g_strcmp0 (priv->type, type) == 0)
-                return;
+        key = g_strdup_printf ("%s::%s", type, id);
+        found = g_list_find_custom (priv->selected_inputs, key, (GCompareFunc) g_strcmp0);
 
-        g_free (priv->id);
-	g_free (priv->type);
-        priv->id = g_strdup (id);
-	priv->type = g_strdup (type);
+        if (found != NULL) {
+                g_free (found->data);
+                priv->selected_inputs = g_list_delete_link (priv->selected_inputs, found);
+        } else {
+                priv->selected_inputs = g_list_append (priv->selected_inputs, g_strdup (key));
+        }
 
         sync_all_checkmarks (chooser);
 
-	g_signal_emit (chooser, signals[CHANGED], 0);
-}
-
-static gboolean
-confirm_choice (gpointer data)
-{
-        GtkWidget *widget = data;
-
-        g_signal_emit (widget, signals[CONFIRM], 0);
-
-        return G_SOURCE_REMOVE;
+        g_signal_emit (chooser, signals[CHANGED], 0);
 }
 
 static void
@@ -591,12 +580,8 @@ row_activated (GtkListBox        *box,
                 widget = get_input_widget (child);
                 if (widget == NULL)
                         return;
-                input_widget_set_selected (widget, TRUE);
-                if (g_strcmp0 (priv->id, widget->id) == 0 &&
-                    g_strcmp0 (priv->type, widget->type) == 0)
-                        confirm_choice (chooser);
-                else
-                        set_input (chooser, widget->id, widget->type);
+
+                set_input (chooser, widget->id, widget->type);
         }
 }
 
@@ -800,6 +785,7 @@ cc_input_chooser_finalize (GObject *object)
 	g_clear_object (&priv->xkb_info);
 	g_hash_table_unref (priv->inputs);
         g_clear_pointer (&priv->input_widget_boxes, g_ptr_array_unref);
+        g_list_free_full (priv->selected_inputs, g_free);
 #ifdef HAVE_IBUS
 	g_signal_handlers_disconnect_by_func (priv->ibus, fetch_ibus_engines, chooser);
         g_clear_object (&priv->ibus);
@@ -881,6 +867,7 @@ cc_input_chooser_init (CcInputChooser *chooser)
 
         gtk_widget_init_template (GTK_WIDGET (chooser));
         priv->input_widget_boxes = g_ptr_array_new_with_free_func (g_object_unref);
+        priv->selected_inputs = NULL;
 }
 
 void
@@ -890,41 +877,83 @@ cc_input_chooser_clear_filter (CcInputChooser *chooser)
         gtk_editable_set_text (GTK_EDITABLE (priv->filter_entry), "");
 }
 
-const gchar *
-cc_input_chooser_get_input_id (CcInputChooser *chooser)
+gboolean
+cc_input_chooser_has_selection (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
-        return priv->id;
-}
-
-const gchar *
-cc_input_chooser_get_input_type (CcInputChooser *chooser)
-{
-        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
-        return priv->type;
-}
-
-void
-cc_input_chooser_get_layout (CcInputChooser *chooser,
-			     const gchar    **layout,
-			     const gchar    **variant)
-{
-        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
-
-        if (!get_layout (chooser, priv->type, priv->id, layout, variant)) {
-                if (layout != NULL)
-                        *layout = NULL;
-                if (variant != NULL)
-                        *variant = NULL;
-        }
+        return priv->selected_inputs != NULL;
 }
 
 void
 cc_input_chooser_set_input (CcInputChooser *chooser,
                             const gchar    *id,
-			    const gchar    *type)
+                            const gchar    *type)
 {
-        set_input (chooser, id, type);
+        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
+        g_autofree gchar *key = NULL;
+
+        g_list_free_full (priv->selected_inputs, g_free);
+        priv->selected_inputs = NULL;
+
+        if (id != NULL && type != NULL) {
+                key = g_strdup_printf ("%s::%s", type, id);
+                priv->selected_inputs = g_list_append (priv->selected_inputs, g_strdup (key));
+        }
+
+        sync_all_checkmarks (chooser);
+
+        g_signal_emit (chooser, signals[CHANGED], 0);
+}
+
+void
+cc_input_chooser_get_layouts (CcInputChooser *chooser,
+                              GString       **layouts,
+                              GString       **variants,
+                              GList         **added_layouts)
+{
+        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
+        GString *layouts_str;
+        GString *variants_str;
+        GList *lv_list = NULL;
+        GList *l;
+
+        layouts_str = g_string_new ("");
+        variants_str = g_string_new ("");
+
+        for (l = priv->selected_inputs; l; l = l->next) {
+                const gchar *input_str = l->data;
+                g_auto(GStrv) parts = g_strsplit (input_str, "::", 2);
+                const gchar *layout = NULL;
+                const gchar *variant = NULL;
+
+                if (!parts[0] || !parts[1] || !g_str_equal (parts[0], "xkb"))
+                        continue;
+
+                gnome_xkb_info_get_layout_info (priv->xkb_info, parts[1], NULL, NULL, &layout, &variant);
+
+                if (layout == NULL)
+                        layout = "";
+                if (variant == NULL)
+                        variant = "";
+
+                if (layouts_str->str[0]) {
+                        g_string_append_c (layouts_str, ',');
+                        g_string_append_c (variants_str, ',');
+                }
+                g_string_append (layouts_str, layout);
+                g_string_append (variants_str, variant);
+
+                if (added_layouts != NULL) {
+                        gchar *lv_string = g_strdup_printf ("%s+%s", layout, variant);
+                        lv_list = g_list_prepend (lv_list, lv_string);
+                }
+        }
+
+        *layouts = layouts_str;
+        *variants = variants_str;
+
+        if (added_layouts != NULL)
+                *added_layouts = g_list_reverse (lv_list);
 }
 
 gboolean
@@ -932,4 +961,11 @@ cc_input_chooser_get_showing_extra (CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
         return priv->showing_extra;
+}
+
+GList *
+cc_input_chooser_get_selected_inputs (CcInputChooser *chooser)
+{
+        CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
+        return g_list_copy_deep (priv->selected_inputs, (GCopyFunc) g_strdup, NULL);
 }

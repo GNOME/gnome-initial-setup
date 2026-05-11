@@ -82,33 +82,42 @@ static void
 set_input_settings (GisKeyboardPage *self)
 {
         GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-        const gchar *type;
-        const gchar *id;
         GVariantBuilder builder;
-        GSList *l;
-        gboolean is_xkb_source = FALSE;
+        GSList *sl;
+        GList *selected, *l;
 
-        type = cc_input_chooser_get_input_type (CC_INPUT_CHOOSER (priv->input_chooser));
-        id = cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser));
+        selected = cc_input_chooser_get_selected_inputs (CC_INPUT_CHOOSER (priv->input_chooser));
 
         g_variant_builder_init (&builder, G_VARIANT_TYPE ("a(ss)"));
 
-        if (g_str_equal (type, "xkb")) {
-                g_variant_builder_add (&builder, "(ss)", type, id);
-                is_xkb_source = TRUE;
+        /* Add selected XKB sources */
+        for (l = selected; l; l = l->next) {
+                const gchar *input_str = l->data;
+                g_auto(GStrv) parts = g_strsplit (input_str, "::", 2);
+
+                if (parts[0] && parts[1] && g_str_equal (parts[0], "xkb"))
+                        g_variant_builder_add (&builder, "(ss)", parts[0], parts[1]);
         }
 
-        for (l = priv->system_sources; l; l = l->next) {
-                const gchar *sid = l->data;
+        /* Add system_sources */
+        for (sl = priv->system_sources; sl; sl = sl->next) {
+                const gchar *sid = sl->data;
+                g_autofree gchar *key = g_strdup_printf ("xkb::%s", sid);
 
-                if (g_str_equal (id, sid) && g_str_equal (type, "xkb"))
-                        continue;
-
-                g_variant_builder_add (&builder, "(ss)", "xkb", sid);
+                if (!g_list_find_custom (selected, key, (GCompareFunc) g_strcmp0))
+                        g_variant_builder_add (&builder, "(ss)", "xkb", sid);
         }
 
-        if (!is_xkb_source)
-                g_variant_builder_add (&builder, "(ss)", type, id);
+        /* Add selected non-XKB sources (IBus) */
+        for (l = selected; l; l = l->next) {
+                const gchar *input_str = l->data;
+                g_auto(GStrv) parts = g_strsplit (input_str, "::", 2);
+
+                if (parts[0] && parts[1] && !g_str_equal (parts[0], "xkb"))
+                        g_variant_builder_add (&builder, "(ss)", parts[0], parts[1]);
+        }
+
+        g_list_free_full (selected, g_free);
 
 	g_settings_set_value (priv->input_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
 	g_settings_set_uint (priv->input_settings, KEY_CURRENT_INPUT_SOURCE, 0);
@@ -120,31 +129,25 @@ static void
 set_localed_input (GisKeyboardPage *self)
 {
 	GisKeyboardPagePrivate *priv = gis_keyboard_page_get_instance_private (self);
-	const gchar *layout, *variant;
-        GString *layouts;
-        GString *variants;
+        GString *layouts = NULL;
+        GString *variants = NULL;
         GSList *l;
+        GList *added_layouts = NULL;
 
         if (!priv->localed)
                 return;
 
-	cc_input_chooser_get_layout (CC_INPUT_CHOOSER (priv->input_chooser), &layout, &variant);
-        if (layout == NULL)
-                layout = "";
-        if (variant == NULL)
-                variant = "";
-
-        layouts = g_string_new (layout);
-        variants = g_string_new (variant);
+        cc_input_chooser_get_layouts (CC_INPUT_CHOOSER (priv->input_chooser),
+                                      &layouts, &variants, &added_layouts);
 
 #define LAYOUT(a) (a[0])
 #define VARIANT(a) (a[1] ? a[1] : "")
         for (l = priv->system_sources; l; l = l->next) {
                 const gchar *sid = l->data;
                 gchar **lv = g_strsplit (sid, "+", -1);
+                g_autofree gchar *key = g_strdup_printf ("%s+%s", LAYOUT (lv), VARIANT (lv));
 
-                if (!g_str_equal (LAYOUT (lv), layout) ||
-                    !g_str_equal (VARIANT (lv), variant)) {
+                if (!g_list_find_custom (added_layouts, key, (GCompareFunc) g_strcmp0)) {
                         if (layouts->str[0]) {
                                 g_string_append_c (layouts, ',');
                                 g_string_append_c (variants, ',');
@@ -156,6 +159,8 @@ set_localed_input (GisKeyboardPage *self)
         }
 #undef LAYOUT
 #undef VARIANT
+
+        g_list_free_full (added_layouts, g_free);
 
         g_dbus_proxy_call (priv->localed,
                            "SetX11Keyboard",
@@ -416,7 +421,7 @@ update_page_complete (GisKeyboardPage *self)
         gboolean complete;
 
         complete = (priv->localed != NULL &&
-                    cc_input_chooser_get_input_id (CC_INPUT_CHOOSER (priv->input_chooser)) != NULL);
+                    cc_input_chooser_has_selection (CC_INPUT_CHOOSER (priv->input_chooser)));
         gis_page_set_complete (GIS_PAGE (self), complete);
 }
 

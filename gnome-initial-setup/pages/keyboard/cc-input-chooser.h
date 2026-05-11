@@ -49,14 +49,15 @@ struct _CcInputChooserClass
 GType cc_input_chooser_get_type (void);
 
 void          cc_input_chooser_clear_filter (CcInputChooser *chooser);
-const gchar * cc_input_chooser_get_input_id (CcInputChooser  *chooser);
-const gchar * cc_input_chooser_get_input_type (CcInputChooser  *chooser);
+GList *       cc_input_chooser_get_selected_inputs (CcInputChooser *chooser);
+gboolean      cc_input_chooser_has_selection (CcInputChooser *chooser);
 void          cc_input_chooser_set_input (CcInputChooser *chooser,
                                           const gchar    *id,
                                           const gchar    *type);
-void	      cc_input_chooser_get_layout (CcInputChooser *chooser,
-					   const gchar    **layout,
-					   const gchar    **variant);
+void          cc_input_chooser_get_layouts (CcInputChooser *chooser,
+                                            GString       **layouts,
+                                            GString       **variants,
+                                            GList         **added_layouts);
 gboolean      cc_input_chooser_get_showing_extra (CcInputChooser *chooser);
 
 G_END_DECLS
