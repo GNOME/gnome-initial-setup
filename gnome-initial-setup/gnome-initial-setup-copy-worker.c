@@ -94,6 +94,8 @@ copy_file_xattrs (const char *src,
       break;
 
     buf_size = attrs_size;
+    if (G_UNLIKELY (buf_size <= 0))
+      break;
     attrs = g_realloc (attrs, buf_size);
   }
 
@@ -122,6 +124,8 @@ copy_file_xattrs (const char *src,
         break;
 
       buf_size = value_size;
+      if (G_UNLIKELY (buf_size <= 0))
+        break;
       value = g_realloc (value, buf_size);
     }
 
