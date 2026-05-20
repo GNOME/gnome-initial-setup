@@ -155,6 +155,10 @@ void
 gis_assistant_previous_page (GisAssistant *assistant)
 {
   g_return_if_fail (assistant->current_page != NULL);
+
+  if (gis_page_handle_previous (assistant->current_page))
+    return;
+
   switch_to (assistant, find_prev_page (assistant, assistant->current_page));
 }
 

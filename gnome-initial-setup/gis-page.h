@@ -62,6 +62,7 @@ struct _GisPageClass
                              GError  **error);
   void         (*shown) (GisPage *page);
   void         (*skip) (GisPage *page);
+  gboolean     (*handle_previous) (GisPage *page);
 };
 
 GType gis_page_get_type (void);
@@ -83,5 +84,6 @@ gboolean     gis_page_save_data (GisPage  *page,
                                  GError  **error);
 void         gis_page_shown (GisPage *page);
 void         gis_page_skip (GisPage *page);
+gboolean     gis_page_handle_previous (GisPage *page);
 
 G_END_DECLS

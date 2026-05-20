@@ -26,18 +26,15 @@
 #include "config.h"
 #include "gis-timezone-page.h"
 
-#include <gdk/gdk.h>
-#include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <adwaita.h>
 
 #include <stdlib.h>
 #include <string.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-languages.h>
-#include <libgnome-desktop/gnome-wall-clock.h>
 #include <gdesktop-enums.h>
 #include <geoclue.h>
 #include <geocode-glib/geocode-glib.h>
@@ -45,16 +42,9 @@
 #include <libgweather/gweather.h>
 
 #include "timedated.h"
-#include "cc-datetime-resources.h"
-#include "timezone-resources.h"
-
-#include "cc-timezone-map.h"
-#include "gis-bubble-widget.h"
 
 #include "gis-page-header.h"
-#include "gis-location-entry.h"
 
-#define DEFAULT_TZ "Europe/London"
 #define DESKTOP_ID "gnome-datetime-panel"
 
 #define CLOCK_SCHEMA "org.gnome.desktop.interface"
@@ -69,9 +59,17 @@ struct _GisTimezonePage
 {
   GisPage parent;
 
-  GtkWidget *map;
-  GtkWidget *search_entry;
-  GtkWidget *search_overlay;
+  GtkWidget          *search_entry;
+  GtkWidget          *listbox;
+  GListStore         *countries;
+  GListStore         *cities;
+  GtkFilter          *filter;
+  GtkFilterListModel *filter_model;
+  GtkSliceListModel  *slice_model;
+  GWeatherLocation   *selected_country;
+  GWeatherLocation   *world;
+  gboolean            showing_cities;
+  char *casefolded_search_text;
 
   GCancellable *geoclue_cancellable;
   GClueClient *geoclue_client;
@@ -81,26 +79,20 @@ struct _GisTimezonePage
   GWeatherLocation *current_location;
   Timedate1 *dtm;
   GCancellable *dtm_cancellable;
-
-  GnomeWallClock *clock;
+  
   GDesktopClockFormat clock_format;
-  gboolean in_search;
 
-  gulong search_entry_text_changed_id;
   GSettings *location_settings;
 };
 
-static gboolean
-on_key_pressed (GtkWidget *controller,
-                gpointer user_data)
+static void
+search_entry_activated (GtkEditable *editable,
+                        gpointer     user_data)
 {
-    GisTimezonePage *page = user_data;
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
 
-    if (page->is_complete) {
-        gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
-        return TRUE;
-    }
-    return FALSE;
+  if (page->is_complete)
+    gis_assistant_next_page (gis_driver_get_assistant (GIS_PAGE (page)->driver));
 }
 
 G_DEFINE_TYPE (GisTimezonePage, gis_timezone_page, GIS_TYPE_PAGE);
@@ -121,7 +113,6 @@ set_timezone_cb (GObject      *source,
   }
 }
 
-
 static void
 queue_set_timezone (GisTimezonePage *page,
                     const char      *tzid)
@@ -139,30 +130,31 @@ static void
 set_location (GisTimezonePage  *page,
               GWeatherLocation *location)
 {
+  GTimeZone *zone;
+
   g_clear_object (&page->current_location);
 
-  gtk_widget_set_visible (page->search_overlay, (location == NULL));
-  gis_page_set_complete (GIS_PAGE (page), (location != NULL));
-  page->is_complete = (location != NULL);
+  if (!location) {
+    page->is_complete = FALSE;
+    gis_page_set_complete (GIS_PAGE (page), FALSE);
+    return;
+  }
 
-  if (location)
-    {
-      GTimeZone *zone;
-      const char *tzid;
+  zone = gweather_location_get_timezone (location);
+  if (!zone) {
+    page->is_complete = FALSE;
+    gis_page_set_complete (GIS_PAGE (page), FALSE);
+    return;
+  }
 
-      page->current_location = g_object_ref (location);
+  page->current_location = g_object_ref (location);
+  page->is_complete = TRUE;
+  gis_page_set_complete (GIS_PAGE (page), TRUE);
 
-      zone = gweather_location_get_timezone (location);
-      tzid = g_time_zone_get_identifier (zone);
+  queue_set_timezone (page, g_time_zone_get_identifier (zone));
 
-      cc_timezone_map_set_timezone (CC_TIMEZONE_MAP (page->map), tzid);
-
-      /* If this location is manually set, stop waiting for geolocation. */
-      if (!page->in_geoclue_callback)
-        stop_geolocation (page);
-
-      gis_page_set_complete (GIS_PAGE (page), TRUE);
-    }
+  if (!page->in_geoclue_callback)
+    stop_geolocation (page);
 }
 
 static void
@@ -173,7 +165,6 @@ on_location_notify (GClueSimple *simple,
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
   GClueLocation *location;
   gdouble latitude, longitude;
-  g_autoptr(GWeatherLocation) world = gweather_location_get_world ();
   g_autoptr(GWeatherLocation) glocation = NULL;
 
   location = gclue_simple_get_location (simple);
@@ -181,7 +172,7 @@ on_location_notify (GClueSimple *simple,
   latitude = gclue_location_get_latitude (location);
   longitude = gclue_location_get_longitude (location);
 
-  glocation = gweather_location_find_nearest_city (world, latitude, longitude);
+  glocation = gweather_location_find_nearest_city (page->world, latitude, longitude);
   page->in_geoclue_callback = TRUE;
   set_location (page, glocation);
   page->in_geoclue_callback = FALSE;
@@ -228,153 +219,346 @@ get_location_from_geoclue_async (GisTimezonePage *page)
                     page);
 }
 
+static char *
+get_location_display_name (GWeatherLocation *location)
+{
+  GWeatherLocation *parent;
+  const char *city_name;
+  const char *country_name = NULL;
+  const char *adm1_name = NULL;
+
+  city_name = gweather_location_get_name (location);
+  if (!city_name)
+    return NULL;
+
+  for (parent = gweather_location_get_parent (location);
+       parent != NULL;
+       parent = gweather_location_get_parent (parent)) {
+    switch (gweather_location_get_level (parent)) {
+    case GWEATHER_LOCATION_COUNTRY:
+      country_name = gweather_location_get_name (parent);
+      break;
+    case GWEATHER_LOCATION_ADM1:
+      adm1_name = gweather_location_get_name (parent);
+      break;
+    default:
+      break;
+    }
+  }
+
+  if (adm1_name && country_name)
+    return g_strdup_printf (_("%s, %s, %s"), city_name, adm1_name, country_name);
+
+  if (country_name)
+    return g_strdup_printf (_("%s, %s"), city_name, country_name);
+
+  return g_strdup (city_name);
+}
+
+static void
+fill_countries_model (GListStore       *store,
+                      GWeatherLocation *location)
+{
+  g_autoptr(GWeatherLocation) child = NULL;
+
+  switch (gweather_location_get_level (location)) {
+  case GWEATHER_LOCATION_WORLD:
+  case GWEATHER_LOCATION_REGION:
+    while ((child = gweather_location_next_child (location, child)))
+      fill_countries_model (store, child);
+    break;
+
+  case GWEATHER_LOCATION_COUNTRY:
+    g_list_store_append (store, location);
+    break;
+
+  case GWEATHER_LOCATION_ADM1:
+  case GWEATHER_LOCATION_CITY:
+  case GWEATHER_LOCATION_NAMED_TIMEZONE:
+  case GWEATHER_LOCATION_WEATHER_STATION:
+    break;
+
+  case GWEATHER_LOCATION_DETACHED:
+    g_assert_not_reached ();
+  }
+}
+
+static void
+fill_cities_model (GListStore       *store,
+                   GWeatherLocation *location)
+{
+  g_autoptr(GWeatherLocation) child = NULL;
+
+  switch (gweather_location_get_level (location)) {
+  case GWEATHER_LOCATION_WORLD:
+  case GWEATHER_LOCATION_REGION:
+  case GWEATHER_LOCATION_COUNTRY:
+  case GWEATHER_LOCATION_ADM1:
+    while ((child = gweather_location_next_child (location, child)))
+      fill_cities_model (store, child);
+    break;
+
+  case GWEATHER_LOCATION_CITY:
+    if (gweather_location_get_timezone (location) == NULL)
+      break;
+
+    g_list_store_append (store, location);
+    break;
+
+  case GWEATHER_LOCATION_NAMED_TIMEZONE:
+  case GWEATHER_LOCATION_WEATHER_STATION:
+    break;
+
+  case GWEATHER_LOCATION_DETACHED:
+    g_assert_not_reached ();
+  }
+}
+
+static gboolean
+location_is_in_country (GWeatherLocation *location,
+                        GWeatherLocation *country)
+{
+  GWeatherLocation *parent;
+
+  if (!location || !country)
+    return FALSE;
+
+  for (parent = gweather_location_get_parent (location);
+       parent != NULL;
+       parent = gweather_location_get_parent (parent)) {
+    if (gweather_location_equal (parent, country))
+      return TRUE;
+  }
+
+  return FALSE;
+}
+
+static gboolean
+location_filter_match_cb (gpointer item,
+                          gpointer user_data)
+{
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
+  GWeatherLocation *location = GWEATHER_LOCATION (item);
+  g_autofree char *name = NULL;
+  g_autofree char *normalized_name = NULL;
+  g_autofree char *casefolded_name = NULL;
+
+  if (page->showing_cities && page->selected_country != NULL) {
+    if (!location_is_in_country (location, page->selected_country))
+      return FALSE;
+  }
+
+  if (!page->casefolded_search_text || *page->casefolded_search_text == '\0')
+    return TRUE;
+
+  if (gweather_location_get_level (location) == GWEATHER_LOCATION_CITY)
+    name = get_location_display_name (location);
+  else
+    name = g_strdup (gweather_location_get_name (location));
+
+  if (!name)
+    return FALSE;
+
+  normalized_name = g_utf8_normalize (name, -1, G_NORMALIZE_ALL);
+  if (!normalized_name)
+    return FALSE;
+
+  casefolded_name = g_utf8_casefold (normalized_name, -1);
+  if (!casefolded_name)
+    return FALSE;
+
+  return strstr (casefolded_name, page->casefolded_search_text) != NULL;
+}
+
+static void
+show_countries (GisTimezonePage *page)
+{
+  page->showing_cities = FALSE;
+  g_clear_object (&page->selected_country);
+
+  gtk_slice_list_model_set_offset (page->slice_model, 0);
+
+  gtk_filter_list_model_set_model (page->filter_model,
+                                   G_LIST_MODEL (page->countries));
+
+  gtk_slice_list_model_set_size (page->slice_model, G_MAXUINT);
+
+  if (page->filter)
+    gtk_filter_changed (page->filter, GTK_FILTER_CHANGE_DIFFERENT);
+}
+
+static void
+show_cities_for_country (GisTimezonePage  *page,
+                         GWeatherLocation *country)
+{
+  g_clear_object (&page->selected_country);
+  page->selected_country = g_object_ref (country);
+  page->showing_cities = TRUE;
+
+  gtk_slice_list_model_set_offset (page->slice_model, 0);
+  gtk_slice_list_model_set_size (page->slice_model, 20);
+
+  gtk_filter_list_model_set_model (page->filter_model,
+                                   G_LIST_MODEL (page->cities));
+
+  if (page->filter)
+    gtk_filter_changed (page->filter, GTK_FILTER_CHANGE_DIFFERENT);
+}
+
+static void
+show_all_cities_for_search (GisTimezonePage *page)
+{
+  g_clear_object (&page->selected_country);
+  page->showing_cities = TRUE;
+
+  gtk_slice_list_model_set_offset (page->slice_model, 0);
+  gtk_slice_list_model_set_size (page->slice_model, 20);
+
+  gtk_filter_list_model_set_model (page->filter_model,
+                                   G_LIST_MODEL (page->cities));
+
+  if (page->filter)
+    gtk_filter_changed (page->filter, GTK_FILTER_CHANGE_DIFFERENT);
+}
+
 static void
 entry_text_changed (GtkEditable *editable,
                     gpointer     user_data)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
+  const char *text;
 
   stop_geolocation (page);
-  g_clear_signal_handler (&page->search_entry_text_changed_id, page->search_entry);
+
+  text = gtk_editable_get_text (editable);
+
+  g_clear_pointer (&page->casefolded_search_text, g_free);
+
+  if (text && *text != '\0') {
+    g_autofree char *normalized_text = NULL;
+
+    normalized_text = g_utf8_normalize (text, -1, G_NORMALIZE_ALL);
+    if (normalized_text)
+      page->casefolded_search_text = g_utf8_casefold (normalized_text, -1);
+  }
+
+  if (!text || *text == '\0') {
+    show_countries (page);
+    return;
+  }
+
+  if (!page->showing_cities || page->selected_country != NULL) {
+    show_all_cities_for_search (page);
+    return;
+  }
+
+  gtk_slice_list_model_set_offset (page->slice_model, 0);
+
+  if (page->filter)
+    gtk_filter_changed (page->filter, GTK_FILTER_CHANGE_DIFFERENT);
+}
+
+static char *
+format_location_time (GisTimezonePage  *page,
+                      GWeatherLocation *location)
+{
+  GTimeZone *zone;
+  g_autoptr(GDateTime) date = NULL;
+
+  zone = gweather_location_get_timezone (location);
+  if (!zone)
+    return NULL;
+
+  date = g_date_time_new_now (zone);
+
+  if (page->clock_format == G_DESKTOP_CLOCK_FORMAT_12H)
+    return g_date_time_format (date, _("%l:%M %p"));
+
+  return g_date_time_format (date, _("%R"));
+}
+
+static GtkWidget *
+create_location_row_widget (gpointer item,
+                            gpointer user_data)
+{
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
+  GWeatherLocation *location = GWEATHER_LOCATION (item);
+  GtkWidget *row;
+  g_autofree char *display_name = NULL;
+  g_autofree char *time = NULL;
+
+  row = adw_action_row_new ();
+
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
+
+  g_object_set_data_full (G_OBJECT (row),
+                          "location",
+                          g_object_ref (location),
+                          g_object_unref);
+
+  switch (gweather_location_get_level (location)) {
+  case GWEATHER_LOCATION_COUNTRY:
+    adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row),
+                                   gweather_location_get_name (location));
+    break;
+
+  case GWEATHER_LOCATION_CITY:
+    display_name = get_location_display_name (location);
+    adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), display_name);
+
+    time = format_location_time (page, location);
+    if (time)
+      adw_action_row_set_subtitle (ADW_ACTION_ROW (row), time);
+
+    if (page->current_location &&
+        gweather_location_equal (location, page->current_location)) {
+      GtkWidget *check;
+
+      check = gtk_image_new_from_icon_name ("object-select-symbolic");
+      adw_action_row_add_suffix (ADW_ACTION_ROW (row), check);
+    }
+
+    break;
+
+  default:
+    adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row),
+                                   gweather_location_get_name (location));
+    break;
+  }
+
+  return row;
 }
 
 static void
-entry_location_changed (GObject    *object,
-                        GParamSpec *param,
-                        gpointer    user_data)
+row_activated_cb (GtkListBox    *listbox,
+                  GtkListBoxRow *row,
+                  gpointer       user_data)
 {
-  GisLocationEntry *entry = GIS_LOCATION_ENTRY (object);
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
-  g_autoptr(GWeatherLocation) location = NULL;
+  GWeatherLocation *location;
 
-  location = gis_location_entry_get_location (entry);
+  (void) listbox;
+
+  location = g_object_get_data (G_OBJECT (row), "location");
   if (!location)
     return;
 
-  page->in_search = TRUE;
-  set_location (page, location);
-  page->in_search = FALSE;
-}
+  switch (gweather_location_get_level (location)) {
+  case GWEATHER_LOCATION_COUNTRY:
+    show_cities_for_country (page, location);
+    break;
 
-#define GETTEXT_PACKAGE_TIMEZONES "gnome-control-center-2.0-timezones"
+  case GWEATHER_LOCATION_CITY:
+    set_location (page, location);
 
-static char *
-translated_city_name (TzLocation *loc)
-{
-  char *country;
-  char *name;
-  char *zone_translated;
-  char **split_translated;
-  gint length;
+    if (page->filter)
+      gtk_filter_changed (page->filter, GTK_FILTER_CHANGE_DIFFERENT);
 
-  /* Load the translation for it */
-  zone_translated = g_strdup (dgettext (GETTEXT_PACKAGE_TIMEZONES, loc->zone));
-  g_strdelimit (zone_translated, "_", ' ');
-  split_translated = g_regex_split_simple ("[\\x{2044}\\x{2215}\\x{29f8}\\x{ff0f}/]",
-                                           zone_translated,
-                                           0, 0);
-  g_free (zone_translated);
+    break;
 
-  length = g_strv_length (split_translated);
-
-  country = gnome_get_country_from_code (loc->country, NULL);
-  /* Translators: "city, country" */
-  name = g_strdup_printf (C_("timezone loc", "%s, %s"),
-                          split_translated[length-1],
-                          country);
-  g_free (country);
-  g_strfreev (split_translated);
-
-  return name;
-}
-
-static void
-update_timezone (GisTimezonePage *page, TzLocation *location)
-{
-  g_autofree char *tz_desc = NULL;
-  g_autofree char *bubble_text = NULL;
-  g_autofree char *accessible_text = NULL;
-  g_autofree char *city_country = NULL;
-  g_autofree char *utc_label = NULL;
-  g_autofree char *time_label = NULL;
-  g_autoptr (GTimeZone) zone = NULL;
-  g_autoptr (GDateTime) date = NULL;
-  gboolean use_ampm;
-
-  if (page->clock_format == G_DESKTOP_CLOCK_FORMAT_12H)
-    use_ampm = TRUE;
-  else
-    use_ampm = FALSE;
-
-  zone = g_time_zone_new (location->zone);
-  date = g_date_time_new_now (zone);
-
-  /* Update the text bubble in the timezone map */
-  city_country = translated_city_name (location);
-
- /* Translators: UTC here means the Coordinated Universal Time.
-  * %:::z will be replaced by the offset from UTC e.g. UTC+02
-  */
-  utc_label = g_date_time_format (date, _("UTC%:::z"));
-
-  if (use_ampm)
-    /* Translators: This is the time format used in 12-hour mode. */
-    time_label = g_date_time_format (date, _("%l:%M %p"));
-  else
-    /* Translators: This is the time format used in 24-hour mode. */
-    time_label = g_date_time_format (date, _("%R"));
-
-  /* Translators: "timezone (utc shift)" */
-  tz_desc = g_strdup_printf (C_("timezone map", "%s (%s)"),
-                             g_date_time_get_timezone_abbreviation (date),
-                             utc_label);
-  bubble_text = g_strdup_printf ("<b>%s</b>\n"
-                                 "<small>%s</small>\n"
-                                 "<b>%s</b>",
-                                 tz_desc,
-                                 city_country,
-                                 time_label);
-  accessible_text = g_strdup_printf (_("Current timezone: %s at %s; current time: %s"),
-                                     tz_desc,
-                                     city_country,
-                                     time_label);
-  cc_timezone_map_set_bubble_text (CC_TIMEZONE_MAP (page->map), bubble_text, accessible_text);
-}
-
-static void
-map_location_changed (CcTimezoneMap *map,
-                      TzLocation    *location,
-                      gpointer       user_data)
-{
-  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
-
-  gtk_widget_set_visible (page->search_overlay, (location == NULL));
-  gis_page_set_complete (GIS_PAGE (page), (location != NULL));
-
-  if (!page->in_search)
-    gtk_editable_set_text (GTK_EDITABLE (page->search_entry), "");
-
-  update_timezone (page, location);
-  queue_set_timezone (page, location->zone);
-}
-
-static void
-on_clock_changed (GnomeWallClock *clock,
-                  GParamSpec     *pspec,
-                  gpointer        user_data)
-{
-  GisTimezonePage *page = GIS_TIMEZONE_PAGE (user_data);
-  TzLocation *location;
-
-  if (!gtk_widget_get_mapped (page->map))
-    return;
-
-  if (gtk_widget_is_visible (page->search_overlay))
-    return;
-
-  location = cc_timezone_map_get_location (CC_TIMEZONE_MAP (page->map));
-  if (location)
-    update_timezone (page, location);
+  default:
+    break;
+  }
 }
 
 static void
@@ -433,8 +617,8 @@ static void
 gis_timezone_page_constructed (GObject *object)
 {
   GisTimezonePage *page = GIS_TIMEZONE_PAGE (object);
-  GError *error = NULL;
-  GSettings *settings;
+  g_autoptr(GError) error = NULL;
+  GSettings *clock_settings;
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->constructed (object);
 
@@ -451,27 +635,46 @@ gis_timezone_page_constructed (GObject *object)
     exit (1);
   }
 
-  page->clock = g_object_new (GNOME_TYPE_WALL_CLOCK, NULL);
-  g_signal_connect (page->clock, "notify::clock", G_CALLBACK (on_clock_changed), page);
+  clock_settings = g_settings_new (CLOCK_SCHEMA);
+  page->clock_format = g_settings_get_enum (clock_settings, CLOCK_FORMAT_KEY);
+  g_object_unref (clock_settings);
 
-  settings = g_settings_new (CLOCK_SCHEMA);
-  page->clock_format = g_settings_get_enum (settings, CLOCK_FORMAT_KEY);
-  g_object_unref (settings);
+  page->world = gweather_location_get_world ();
+
+  page->countries = g_list_store_new (GWEATHER_TYPE_LOCATION);
+  page->cities = g_list_store_new (GWEATHER_TYPE_LOCATION);
+
+  fill_countries_model (page->countries, page->world);
+  fill_cities_model (page->cities, page->world);
+
+  page->filter =
+    GTK_FILTER (gtk_custom_filter_new (location_filter_match_cb,
+                                       page,
+                                       NULL));
+
+  page->filter_model =
+    gtk_filter_list_model_new (G_LIST_MODEL (g_object_ref (page->countries)),
+                               g_object_ref (page->filter));
+
+  page->slice_model =
+    gtk_slice_list_model_new (G_LIST_MODEL (g_object_ref (page->filter_model)),
+                              0,
+                              G_MAXUINT);
+  
+  gtk_list_box_bind_model (GTK_LIST_BOX (page->listbox),
+                           G_LIST_MODEL (page->slice_model),
+                           create_location_row_widget,
+                           page,
+                           NULL);
 
   page->location_settings = g_settings_new (LOCATION_SCHEMA);
-  g_signal_connect_object (page->location_settings, "changed::" LOCATION_ENABLED_KEY,
-                           G_CALLBACK (on_location_settings_changed), page, 0);
-  set_location (page, NULL);
+  g_signal_connect_object (page->location_settings,
+                           "changed::" LOCATION_ENABLED_KEY,
+                           G_CALLBACK (on_location_settings_changed),
+                           page,
+                           0);
 
-  page->search_entry_text_changed_id =
-      g_signal_connect (page->search_entry, "changed",
-                        G_CALLBACK (entry_text_changed), page);
-  g_signal_connect (page->search_entry, "notify::location",
-                    G_CALLBACK (entry_location_changed), page);
-  g_signal_connect (page->map, "location-changed",
-                    G_CALLBACK (map_location_changed), page);
-  g_signal_connect (gis_location_entry_get_entry (GIS_LOCATION_ENTRY (page->search_entry)), "activate",
-                    G_CALLBACK (on_key_pressed), page);
+  set_location (page, NULL);
 
   gtk_widget_set_visible (GTK_WIDGET (page), TRUE);
 }
@@ -489,9 +692,17 @@ gis_timezone_page_dispose (GObject *object)
       g_clear_object (&page->dtm_cancellable);
     }
 
+  g_clear_object (&page->current_location);
+  g_clear_object (&page->countries);
+  g_clear_object (&page->cities);
+  g_clear_object (&page->selected_country);
+  g_clear_object (&page->slice_model);
+  g_clear_object (&page->filter_model);
+  g_clear_object (&page->filter);
+  g_clear_object (&page->world);
   g_clear_object (&page->dtm);
-  g_clear_object (&page->clock);
   g_clear_object (&page->location_settings);
+  g_clear_pointer (&page->casefolded_search_text, g_free);
 
   G_OBJECT_CLASS (gis_timezone_page_parent_class)->dispose (object);
 }
@@ -514,6 +725,19 @@ gis_timezone_page_apply (GisPage      *page,
   return FALSE;
 }
 
+static gboolean
+gis_timezone_page_handle_previous (GisPage *gis_page)
+{
+  GisTimezonePage *page = GIS_TIMEZONE_PAGE (gis_page);
+
+  if (page->showing_cities && page->selected_country != NULL) {
+    show_countries (page);
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
 void
 gis_timezone_page_shown (GisPage *gis_page)
 {
@@ -530,14 +754,18 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/initial-setup/gis-timezone-page.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, map);
   gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, search_entry);
-  gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, search_overlay);
+  gtk_widget_class_bind_template_child (widget_class, GisTimezonePage, listbox);
+
+  gtk_widget_class_bind_template_callback (widget_class, entry_text_changed);
+  gtk_widget_class_bind_template_callback (widget_class, search_entry_activated);
+  gtk_widget_class_bind_template_callback (widget_class, row_activated_cb);
 
   page_class->page_id = PAGE_ID;
   page_class->locale_changed = gis_timezone_page_locale_changed;
   page_class->apply = gis_timezone_page_apply;
   page_class->shown = gis_timezone_page_shown;
+  page_class->handle_previous = gis_timezone_page_handle_previous;
   object_class->constructed = gis_timezone_page_constructed;
   object_class->dispose = gis_timezone_page_dispose;
   widget_class->root = gis_timezone_page_root;
@@ -546,10 +774,7 @@ gis_timezone_page_class_init (GisTimezonePageClass *klass)
 static void
 gis_timezone_page_init (GisTimezonePage *page)
 {
-  g_type_ensure (CC_TYPE_TIMEZONE_MAP);
-  g_type_ensure (GIS_TYPE_BUBBLE_WIDGET);
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
-  g_type_ensure (GIS_TYPE_LOCATION_ENTRY);
 
   gtk_widget_init_template (GTK_WIDGET (page));
 }

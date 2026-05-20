@@ -133,6 +133,21 @@ gis_page_set_property (GObject      *object,
     }
 }
 
+gboolean
+gis_page_handle_previous (GisPage *page)
+{
+  GisPageClass *klass;
+
+  g_return_val_if_fail (GIS_IS_PAGE (page), FALSE);
+
+  klass = GIS_PAGE_GET_CLASS (page);
+
+  if (klass->handle_previous)
+    return klass->handle_previous (page);
+
+  return FALSE;
+}
+
 static void
 gis_page_finalize (GObject *object)
 {
