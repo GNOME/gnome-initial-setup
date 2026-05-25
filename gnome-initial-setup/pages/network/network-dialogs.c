@@ -140,41 +140,51 @@ wireless_dialog_response_cb (GtkDialog *foo,
 		}
 	}
 
-	if (fuzzy_match) {
-		nm_client_activate_connection_async (closure->client,
-		                                     fuzzy_match,
-		                                     device,
-		                                     ap ? nm_object_get_path (NM_OBJECT (ap)) : NULL,
-		                                     NULL,
-		                                     activate_existing_cb,
-		                                     NULL);
-	} else {
-		NMSetting *s_con;
-		NMSettingWireless *s_wifi;
-		const char *mode = NULL;
+	{
+		const char *ap_path = NULL;
 
-		/* Entirely new connection */
-
-		/* Don't autoconnect adhoc networks by default for now */
-		s_wifi = (NMSettingWireless *) nm_connection_get_setting (connection, NM_TYPE_SETTING_WIRELESS);
-		if (s_wifi)
-			mode = nm_setting_wireless_get_mode (s_wifi);
-		if (g_strcmp0 (mode, "adhoc") == 0) {
-			s_con = nm_connection_get_setting (connection, NM_TYPE_SETTING_CONNECTION);
-			if (!s_con) {
-				s_con = nm_setting_connection_new ();
-				nm_connection_add_setting (connection, s_con);
-			}
-			g_object_set (G_OBJECT (s_con), NM_SETTING_CONNECTION_AUTOCONNECT, FALSE, NULL);
+		if (ap != NULL) {
+			ap_path = nm_object_get_path (NM_OBJECT (ap));
+			if (ap_path != NULL && ap_path[0] == '\0')
+				ap_path = NULL;
 		}
 
-		nm_client_add_and_activate_connection_async (closure->client,
-		                                             connection,
-		                                             device,
-		                                             ap ? nm_object_get_path (NM_OBJECT (ap)) : NULL,
-		                                             NULL,
-		                                             activate_new_cb,
-		                                             NULL);
+		if (fuzzy_match) {
+			nm_client_activate_connection_async (closure->client,
+			                                     fuzzy_match,
+			                                     device,
+			                                     ap_path,
+			                                     NULL,
+			                                     activate_existing_cb,
+			                                     NULL);
+		} else {
+			NMSetting *s_con;
+			NMSettingWireless *s_wifi;
+			const char *mode = NULL;
+
+			/* Entirely new connection */
+
+			/* Don't autoconnect adhoc networks by default for now */
+			s_wifi = (NMSettingWireless *) nm_connection_get_setting (connection, NM_TYPE_SETTING_WIRELESS);
+			if (s_wifi)
+				mode = nm_setting_wireless_get_mode (s_wifi);
+			if (g_strcmp0 (mode, "adhoc") == 0) {
+				s_con = nm_connection_get_setting (connection, NM_TYPE_SETTING_CONNECTION);
+				if (!s_con) {
+					s_con = nm_setting_connection_new ();
+					nm_connection_add_setting (connection, s_con);
+				}
+				g_object_set (G_OBJECT (s_con), NM_SETTING_CONNECTION_AUTOCONNECT, FALSE, NULL);
+			}
+
+			nm_client_add_and_activate_connection_async (closure->client,
+			                                             connection,
+			                                             device,
+			                                             ap_path,
+			                                             NULL,
+			                                             activate_new_cb,
+			                                             NULL);
+		}
 	}
 
 	/* Balance nma_wifi_dialog_get_connection() */

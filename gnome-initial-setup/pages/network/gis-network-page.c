@@ -212,6 +212,11 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
 
   if (ssid == NULL)
     return;
+
+  /* Skip access points with invalid DBus object paths. */
+  if (object_path == NULL || object_path[0] == '\0')
+    return;
+
   ssid_text = nm_utils_ssid_to_utf8 (g_bytes_get_data (ssid, NULL), g_bytes_get_size (ssid));
 
   if (active)
@@ -299,7 +304,10 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
   if (activating || activated)
     strength = G_MAXUINT;
 
-  g_object_set_data (G_OBJECT (row), "object-path", (gpointer) object_path);
+  /* Copy object_path; it points into the NM AP object which may be
+   * freed on the next Wi-Fi scan, creating a dangling pointer. */
+  g_object_set_data_full (G_OBJECT (row), "object-path",
+                          g_strdup (object_path), g_free);
   g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
 
@@ -321,7 +329,8 @@ add_access_point_other (GisNetworkPage *page)
   gtk_widget_set_margin_bottom (widget, 12);
   gtk_box_append (GTK_BOX (row), widget);
 
-  g_object_set_data (G_OBJECT (row), "object-path", "ap-other...");
+  g_object_set_data_full (G_OBJECT (row), "object-path",
+                        g_strdup ("ap-other..."), g_free);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (0));
 
   gtk_list_box_append (GTK_LIST_BOX (priv->network_list), row);
@@ -378,9 +387,12 @@ refresh_wireless_list (GisNetworkPage *page)
 
   g_debug ("Refreshing Wi-Fi networks list");
 
-  priv->refreshing = TRUE;
+  if (priv->nm_device == NULL || !NM_IS_DEVICE_WIFI (priv->nm_device)) {
+    priv->refreshing = FALSE;
+    return G_SOURCE_REMOVE;
+  }
 
-  g_assert (NM_IS_DEVICE_WIFI (priv->nm_device));
+  priv->refreshing = TRUE;
 
   cancel_periodic_refresh (page);
 
@@ -531,6 +543,22 @@ row_activated (GtkListBox *box,
   if (g_strcmp0 (object_path, "ap-other...") == 0) {
     connect_to_hidden_network (page);
     goto out;
+  }
+
+  if (object_path == NULL || object_path[0] == '\0' || ssid_target == NULL
+      || priv->nm_device == NULL || priv->nm_client == NULL) {
+    g_warning ("Cannot activate network: missing or invalid data");
+    goto out;
+  }
+
+  /* Verify the device still has a valid DBus object path. */
+  {
+    const char *device_path = nm_object_get_path (NM_OBJECT (priv->nm_device));
+    if (device_path == NULL || device_path[0] == '\0') {
+      g_warning ("Network device has no valid DBus path, may have been removed");
+      g_clear_object (&priv->nm_device);
+      goto out;
+    }
   }
 
   list = nm_client_get_connections (priv->nm_client);
@@ -684,6 +712,10 @@ device_notify_managed (NMDevice   *device,
                        void       *user_data)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
+
+  if (priv->nm_device == device && !nm_device_get_managed (device))
+    g_clear_object (&priv->nm_device);
 
   find_best_device (page);
 }
@@ -710,9 +742,12 @@ client_device_removed (NMClient *client,
                        void     *user_data)
 {
   GisNetworkPage *page = GIS_NETWORK_PAGE (user_data);
+  GisNetworkPagePrivate *priv = gis_network_page_get_instance_private (page);
 
-  /* TODO: reset page if priv->nm_device == device */
   g_signal_handlers_disconnect_by_func (device, device_notify_managed, page);
+
+  if (priv->nm_device == device)
+    g_clear_object (&priv->nm_device);
 
   find_best_device (page);
 }
