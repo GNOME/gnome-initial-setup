@@ -129,6 +129,8 @@ gis_driver_finalize (GObject *object)
   g_free (driver->lang_id);
   g_free (driver->username);
   g_free (driver->full_name);
+  if (driver->user_password != NULL)
+    explicit_bzero (driver->user_password, strlen (driver->user_password));
   g_free (driver->user_password);
 
   g_clear_object (&driver->avatar);
@@ -137,6 +139,8 @@ gis_driver_finalize (GObject *object)
   g_clear_pointer (&driver->vendor_conf_file, g_key_file_free);
 
   g_clear_object (&driver->parent_account);
+  if (driver->parent_password != NULL)
+    explicit_bzero (driver->parent_password, strlen (driver->parent_password));
   g_free (driver->parent_password);
 
   if (driver->locale != (locale_t) 0)
