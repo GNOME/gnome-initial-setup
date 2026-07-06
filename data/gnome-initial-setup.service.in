@@ -2,6 +2,7 @@
 Description=GNOME Initial Setup
 RefuseManualStart=true
 RefuseManualStop=true
+ConditionPathExists=!/run/gnomeos/is-live
 
 BindsTo=gnome-session.target
 After=gnome-session.target
