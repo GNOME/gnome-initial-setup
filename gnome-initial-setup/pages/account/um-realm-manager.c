@@ -33,6 +33,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <string.h>
 
 
 struct _UmRealmManager {
@@ -658,7 +659,10 @@ login_closure_free (gpointer data)
         g_free (login->domain);
         g_free (login->realm);
         g_free (login->user);
-        g_free (login->password);
+        if (login->password != NULL) {
+                explicit_bzero (login->password, strlen (login->password));
+                g_free (login->password);
+        }
         g_bytes_unref (login->credentials);
         g_slice_free (LoginClosure, login);
 }
