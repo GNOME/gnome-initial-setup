@@ -68,12 +68,17 @@ static void
 clear_password_validation_error (GtkWidget *entry)
 {
   gtk_widget_remove_css_class (entry, "error");
+  gtk_accessible_reset_state (GTK_ACCESSIBLE (entry), GTK_ACCESSIBLE_STATE_INVALID);
 }
 
 static void
 set_password_validation_error (GtkWidget *entry)
 {
   gtk_widget_add_css_class (entry, "error");
+  gtk_accessible_update_state (GTK_ACCESSIBLE (entry),
+                               GTK_ACCESSIBLE_STATE_INVALID,
+                               GTK_ACCESSIBLE_INVALID_TRUE,
+                               -1);
 }
 
 static void
