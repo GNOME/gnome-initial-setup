@@ -60,7 +60,7 @@ struct _GisKeyboardPageClass
   GisPageClass parent_class;
 };
 
-GType gis_keyboard_page_get_type (void) G_GNUC_CONST;
+GType gis_keyboard_page_get_type (void);
 
 GisPage *gis_prepare_keyboard_page (GisDriver *driver);
 
