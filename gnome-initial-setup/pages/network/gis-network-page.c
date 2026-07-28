@@ -305,10 +305,16 @@ add_access_point (GisNetworkPage *page, NMAccessPoint *ap, NMAccessPoint *active
     strength = G_MAXUINT;
 
   /* Copy object_path; it points into the NM AP object which may be
-   * freed on the next Wi-Fi scan, creating a dangling pointer. */
+   * freed on the next Wi-Fi scan, creating a dangling pointer.
+   * Take a reference on ssid for the same reason: the GBytes is owned
+   * by the NM access point and would otherwise be freed when the AP
+   * is replaced on the next scan, leaving the row with a dangling
+   * pointer that crashes row_activated(). */
   g_object_set_data_full (G_OBJECT (row), "object-path",
                           g_strdup (object_path), g_free);
-  g_object_set_data (G_OBJECT (row), "ssid", (gpointer) ssid);
+  g_object_set_data_full (G_OBJECT (row), "ssid",
+                          g_bytes_ref (ssid),
+                          (GDestroyNotify) g_bytes_unref);
   g_object_set_data (G_OBJECT (row), "strength", GUINT_TO_POINTER (strength));
 
   gtk_list_box_append (GTK_LIST_BOX (priv->network_list), row);
