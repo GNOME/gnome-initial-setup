@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2025-11-28 10:48+0000\n"
-"PO-Revision-Date: 2026-01-10 13:57+0100\n"
+"POT-Creation-Date: 2026-07-30 01:13+0000\n"
+"PO-Revision-Date: 2026-08-09 11:07+0000\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -20,31 +20,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Minairó 0.1.0\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
-#: gnome-initial-setup/gis-driver.c:869
+#: gnome-initial-setup/gis-driver.c:861
 msgid "Initial Setup"
 msgstr "Configuració inicial"
 
-#: gnome-initial-setup/gis-assistant.c:401
+#: gnome-initial-setup/gis-assistant.c:393
 msgid "_Next"
 msgstr "_Següent"
 
-#: gnome-initial-setup/gis-assistant.c:402
-msgid "_Accept"
-msgstr "_Accepta"
-
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:394
 msgid "_Skip"
 msgstr "_Omet"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:395
 msgid "_Previous"
 msgstr "A_nterior"
 
-#: gnome-initial-setup/gis-assistant.c:405
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
+#: gnome-initial-setup/gis-assistant.c:396
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:263
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -91,12 +87,12 @@ msgstr ""
 "accedir a recursos de l'empresa a Internet."
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:153
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
 msgid "_Domain"
 msgstr "_Domini"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:88
 msgid "_Username"
 msgstr "Nom d'_usuari"
 
@@ -105,15 +101,15 @@ msgstr "Nom d'_usuari"
 msgid "_Password"
 msgstr "Contrase_nya"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:99
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:108
 msgid "Enterprise domain or realm name"
 msgstr "Domini corporatiu o nom del regne"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:126
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:135
 msgid "Domain Administrator Login"
 msgstr "Entrada de l'administrador del domini"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:141
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -123,62 +119,66 @@ msgstr ""
 "part del domini. Demaneu a l'administrador de xarxa que introdueixi aquí la "
 "contrasenya de domini i trieu un nom d'ordinador únic per l'ordinador."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:179
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
 msgid "_Computer"
 msgstr "_Ordinador"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:203
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
 msgid "Administrator _Name"
 msgstr "_Nom de l'administrador"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:227
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
 msgid "Administrator Password"
 msgstr "Contrasenya de l'administrador"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:260
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:269
 msgid "C_ontinue"
 msgstr "C_ontinua"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:321
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "Necessitem algunes dades per a completar la configuració."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:476
-msgid "Administrator"
-msgstr "Administrador"
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:482
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:525
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:470
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "No s'ha pogut crear l'usuari «%s»: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:28
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:526
+#| msgid "Failed to create user '%s': "
+msgid "Failed to create parent user: "
+msgstr "No s'ha pogut crear l'usuari pare: "
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:575
+msgid "Administrator"
+msgstr "Administrador"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:27
 msgid "Change Avatar"
 msgstr "Canvieu l'avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 msgid "Remove Avatar"
 msgstr "Suprimeix l'avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:63
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Quant a vós"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:65
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr "Introduïu un nom i nom d'usuari. Podeu triar també una fotografia."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:74
 msgid "_Full Name"
 msgstr "_Nom complet"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:159
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:121
 msgid "Set up _parental controls for this user"
 msgstr "_Establiu els controls parentals per a aquest usuari"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:165
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:122
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Per a ser usat per un adult, qui ha d'establir la seva pròpia contrasenya."
@@ -200,39 +200,39 @@ msgstr "No es pot unir automàticament a aquest tipus de domini"
 msgid "No such domain or realm found"
 msgstr "No s'ha trobat el domini o el regne"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:782
-#: gnome-initial-setup/pages/account/um-realm-manager.c:796
+#: gnome-initial-setup/pages/account/um-realm-manager.c:781
+#: gnome-initial-setup/pages/account/um-realm-manager.c:795
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "No s'ha pogut entrar com a %s al domini %s"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:788
+#: gnome-initial-setup/pages/account/um-realm-manager.c:787
 msgid "Invalid password, please try again"
 msgstr "La contrasenya no és vàlida, torneu-ho a intentar"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:801
+#: gnome-initial-setup/pages/account/um-realm-manager.c:800
 #, c-format
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "No s'ha pogut connectar al domini %s: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:145
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "El nom d'usuari no està disponible. Proveu-ne un altre."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
+#: gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "The username is too long."
 msgstr "El nom d'usuari és massa llarg."
 
-#: gnome-initial-setup/pages/account/um-utils.c:159
+#: gnome-initial-setup/pages/account/um-utils.c:151
 msgid "The username must start with a lower case letter from a-z."
 msgstr "El nom d'usuari ha de començar amb una lletra en minúscula d'a-z."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:154
 msgid "That username isn’t available. Please try another."
 msgstr "El nom d'usuari no està disponible. Proveu-ne un altre."
 
-#: gnome-initial-setup/pages/account/um-utils.c:165
+#: gnome-initial-setup/pages/account/um-utils.c:157
 msgid ""
 "The username should only consist of lower case letters from a-z, digits, and "
 "the following characters: - _"
@@ -240,24 +240,24 @@ msgstr ""
 "El nom d'usuari només ha de tenir lletres minúscules d'a-z, dígits i els "
 "caràcters següents: - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:169
+#: gnome-initial-setup/pages/account/um-utils.c:161
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Es farà servir per a anomenar la vostra carpeta personal i no es pot canviar."
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:257
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:255
 msgid "Preview"
 msgstr "Previsualitza"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:242
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:323
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:240
 msgid "More…"
 msgstr "Més…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:347
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:345
 msgid "No inputs found"
 msgstr "No s'ha trobat cap font d'entrada"
 
@@ -274,11 +274,11 @@ msgstr "Seleccioneu la disposició de teclat o un mètode d'entrada."
 msgid "Search keyboards and input methods"
 msgstr "Cerca teclats i mètodes d'entrada"
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:262
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:260
 msgid "No languages found"
 msgstr "No s'ha trobat cap idioma"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:268
+#: gnome-initial-setup/pages/language/gis-language-page.c:274
 #: gnome-initial-setup/pages/language/gis-language-page.ui:14
 msgid "Welcome"
 msgstr "Us donem la benvinguda"
@@ -291,7 +291,7 @@ msgstr "Seleccioneu una llengua de la llista o cerqueu-ne una específica."
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
 #.
-#: gnome-initial-setup/pages/language/gis-welcome-widget.c:132
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:131
 msgid "Welcome!"
 msgstr "Us donem la benvinguda!"
 
@@ -303,20 +303,20 @@ msgstr "Cerca una llengua"
 msgid "Available languages"
 msgstr "Llengües disponibles"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:319
+#: gnome-initial-setup/pages/network/gis-network-page.c:333
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Altres…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:401
+#: gnome-initial-setup/pages/network/gis-network-page.c:419
 msgid "Wireless networking is disabled"
 msgstr "La xarxa sense fil està inhabilitada"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:408
+#: gnome-initial-setup/pages/network/gis-network-page.c:426
 msgid "Checking for available wireless networks"
 msgstr "S'està comprovant si hi ha xarxes sense fil disponibles"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:809
+#: gnome-initial-setup/pages/network/gis-network-page.c:850
 msgid "Network"
 msgstr "Xarxa"
 
@@ -357,48 +357,48 @@ msgid "Parental Controls"
 msgstr "Controls parentals"
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:92
+#: gnome-initial-setup/pages/password/gis-password-page.c:98
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Establiu la contrasenya per %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 msgid "Be careful not to lose your password."
 msgstr "Tingueu cura de no perdre la contrasenya."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:99
+#: gnome-initial-setup/pages/password/gis-password-page.c:105
 msgid "Set a Parent Password"
 msgstr "Establiu la contrasenya parental"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:101
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Aquesta contrasenya controlarà l'accés als controls parentals per %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:223
+#: gnome-initial-setup/pages/password/gis-password-page.c:301
 #, c-format
 msgid "Password strength: %s."
 msgstr "Força de la contrasenya: %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:249
-#: gnome-initial-setup/pages/password/gis-password-page.c:251
+#: gnome-initial-setup/pages/password/gis-password-page.c:327
+#: gnome-initial-setup/pages/password/gis-password-page.c:329
 msgid "The passwords do not match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:430
+#: gnome-initial-setup/pages/password/gis-password-page.c:502
 msgid "Password"
 msgstr "Contrasenya"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:68
+#: gnome-initial-setup/pages/password/gis-password-page.ui:71
 msgid "_Confirm Password"
 msgstr "_Confirma la contrasenya"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+#: gnome-initial-setup/pages/password/gis-password-page.ui:98
 msgid "Password _Hint"
 msgstr "_Pista per la contrasenya"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+#: gnome-initial-setup/pages/password/gis-password-page.ui:109
 msgid "Password hint will be shown in case you forget your password."
 msgstr ""
 "La pista per la contrasenya us serà mostrada en cas que oblideu la vostra "
@@ -639,18 +639,23 @@ msgstr "_Inhabilita repositoris de tercers"
 msgid "_Enable Third-Party Repositories"
 msgstr "_Habilita repositoris de tercers"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
 msgid "Setup Failed"
 msgstr "Ha fallat la configuració"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
-msgid "Close"
-msgstr "Tanca"
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:217
+#, c-format
+msgid ""
+"Error Type: %s\n"
+"Message: %s"
+msgstr ""
+"Tipus d'error: %s\n"
+"Missatge: %s"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:249
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Comenceu a utilitzar %s"
@@ -658,12 +663,12 @@ msgstr "_Comenceu a utilitzar %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:256
 #, c-format
 msgid "%s is ready to be used."
 msgstr "%s està a punt per a ser usat."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:280
 msgid "Setup Complete"
 msgstr "S'ha completat la configuració"
 
@@ -671,7 +676,7 @@ msgstr "S'ha completat la configuració"
 msgid "All done!"
 msgstr "S'ha acabat!"
 
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:117
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:126
 msgid "Search cities"
 msgstr "Cerca ciutats"
 
@@ -680,14 +685,14 @@ msgstr "Cerca ciutats"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:582
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:567
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:592
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:284
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -696,33 +701,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:324
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:322
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:327
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:325
 msgid "%R"
 msgstr "%-H:%M"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:330
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:328
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:337
 #, c-format
 msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Fus horari actual: %s a %s; hora actual: %s"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:505
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:502
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Fus horari"
@@ -808,63 +813,3 @@ msgstr "Proveu ${NAME}"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "Instal·leu ${PRETTY_NAME}"
-
-#~ msgid "Set a Password"
-#~ msgstr "Establiu la contrasenya"
-
-#~ msgid "Privacy Policy"
-#~ msgstr "Política de privadesa"
-
-#~ msgid ""
-#~ "Allows apps to determine your geographical location. Uses the Mozilla "
-#~ "Location Service (<a href='https://location.services.mozilla.com/"
-#~ "privacy'>privacy policy</a>)."
-#~ msgstr ""
-#~ "Permet a les aplicacions determinar la vostra ubicació geogràfica. "
-#~ "Utilitza el servei d'ubicació de Mozilla (<a href='https://"
-#~ "location.services.mozilla.com/privacy'>política de privadesa</a>)."
-
-#~ msgid "Please check the name and username. You can choose a picture too."
-#~ msgstr ""
-#~ "Comproveu el nom i el nom d'usuari. Podeu triar també una fotografia."
-
-#~ msgid "Edit avatar"
-#~ msgstr "Edita l'avatar"
-
-#~ msgid "Online Accounts"
-#~ msgstr "Comptes en línia"
-
-#~ msgid "Connect Your Online Accounts"
-#~ msgstr "Connecteu els vostres comptes en línia"
-
-#~ msgid ""
-#~ "Connect your accounts to easily access your email, online calendar, "
-#~ "contacts, documents and photos."
-#~ msgstr ""
-#~ "Connecteu els vostres comptes per a poder accedir fàcilment al correu, el "
-#~ "calendari en línia, els contactes, els documents i les fotos."
-
-#~ msgid "Accounts can be added and removed at any time from the Settings app."
-#~ msgstr ""
-#~ "Es poden afegir o suprimir comptes en qualsevol moment des de les "
-#~ "preferències."
-
-#, c-format
-#~ msgid "%s Account"
-#~ msgstr "Compte %s"
-
-#~ msgid "Install or Try?"
-#~ msgstr "Instal·la o prova?"
-
-#~ msgid ""
-#~ "This live media can be used to install GNOME, or it can be used to try "
-#~ "GNOME as a temporary system. Installation can be started at any time "
-#~ "using the install icon in Activities."
-#~ msgstr ""
-#~ "Aquest mitjà autònom es pot utilitzar per a instal·lar el GNOME, o es pot "
-#~ "utilitzar per a provar el GNOME com a sistema temporal. La instal·lació "
-#~ "es pot iniciar en qualsevol moment utilitzant la icona d'instal·lació a "
-#~ "Activitats."
-
-#~ msgid "Try"
-#~ msgstr "Prova"
