@@ -3,8 +3,8 @@
 
 set -eu
 
-# Current tip of main
-commit="4a74a4c9aa0b9235f829d35098e891231e9f2b36"
+# accountsservice version 26.27.3
+commit="4e254d9624cc48224c9920b9509df0b144f7be0c"
 
 tmp_source_dir="$(mktemp --tmpdir --directory accountservice-XXXXXX)"
 
