@@ -38,7 +38,7 @@ dependencies = [
     dependency ('libnm', version: '>= 1.2'),
     dependency ('libnma-gtk4', version: '>= 1.0'),
     dependency ('polkit-gobject-1', version: '>= 0.103'),
-    dependency ('accountsservice'),
+    dependency ('accountsservice', version: '>= 26.12.8'),
     geocode_glib_2_dep,
     dependency ('gnome-desktop-4'),
     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
