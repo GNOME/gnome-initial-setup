@@ -171,7 +171,8 @@ preview_cb (GtkLabel       *label,
 	InputWidget *widget;
 	const gchar *layout;
 	const gchar *variant;
-	gchar *commandline;
+	gchar *layout_variant;
+	gchar *argv[3];
 
 	row = gtk_widget_get_parent (GTK_WIDGET (label));
 	widget = get_input_widget (row);
@@ -180,11 +181,16 @@ preview_cb (GtkLabel       *label,
 		return TRUE;
 
 	if (variant[0])
-		commandline = g_strdup_printf ("tecla \"%s+%s\"", layout, variant);
+		layout_variant = g_strdup_printf ("%s+%s", layout, variant);
 	else
-		commandline = g_strdup_printf ("tecla %s", layout);
-	g_spawn_command_line_async (commandline, NULL);
-	g_free (commandline);
+		layout_variant = g_strdup (layout);
+
+	argv[0] = "tecla";
+	argv[1] = layout_variant;
+	argv[2] = NULL;
+
+	g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
+	g_free (layout_variant);
 
 	return TRUE;
 }
