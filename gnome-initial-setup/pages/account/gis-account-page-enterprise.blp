@@ -121,6 +121,16 @@ template $GisAccountPageEnterprise : Adw.Bin {
           row: 4;
         }
       }
+
+      Gtk.CheckButton grant_admin_privileges {
+        label: _("_Grant administrative privileges to first user");
+        use-underline: true;
+
+        layout {
+          column: 1;
+          row: 5;
+        }
+      }
     }
   }
 }

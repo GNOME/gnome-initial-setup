@@ -54,6 +54,7 @@ struct _GisAccountPageEnterprise
   GtkWidget *password;
   GtkWidget *domain;
   GtkWidget *domain_entry;
+  GtkWidget *grant_admin_privileges;
   GtkTreeModel *realms_model;
 
   GtkWidget *join_dialog;
@@ -187,7 +188,9 @@ on_cache_user (GObject *source,
   }
 
   act_user_set_account_type (page->act_user,
-                             ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR);
+                             gtk_check_button_get_active (GTK_CHECK_BUTTON (page->grant_admin_privileges)) ?
+                               ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR :
+                               ACT_USER_ACCOUNT_TYPE_STANDARD);
   g_signal_emit (page,
                  signals[USER_CACHED],
                  0,
@@ -861,6 +864,7 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, login);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, password);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, grant_admin_privileges);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, header);
 
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_dialog);
