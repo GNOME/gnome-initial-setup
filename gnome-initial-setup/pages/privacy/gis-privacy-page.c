@@ -64,12 +64,13 @@ update_os_data (GisPrivacyPage *page)
 #ifdef HAVE_WEBKITGTK
   if (privacy_policy)
     {
+      g_autofree char *escaped_privacy_policy = g_markup_escape_text (privacy_policy, -1);
       /* Translators: the first parameter here is the name of a distribution,
        * like "Fedora" or "Ubuntu".
        */
       subtitle = g_strdup_printf (_("Sends technical reports that do not contain personal information. "
                                     "Data is collected by %1$s (<a href='%2$s'>privacy policy</a>)."),
-                                    name, privacy_policy);
+                                    name, escaped_privacy_policy);
       gtk_label_set_markup (GTK_LABEL (page->reporting_label), subtitle);
 
       return TRUE;
