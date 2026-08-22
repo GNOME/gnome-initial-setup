@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2025-11-28 10:48+0000\n"
-"PO-Revision-Date: 2026-01-10 17:29+0200\n"
+"POT-Creation-Date: 2026-07-30 01:13+0000\n"
+"PO-Revision-Date: 2026-08-22 15:59+0300\n"
 "Last-Translator: Aurimas Černius <aurimas.cernius@mailo.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -18,31 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
-#: gnome-initial-setup/gis-driver.c:869
+#: gnome-initial-setup/gis-driver.c:861
 msgid "Initial Setup"
 msgstr "Pradinis nustatymas"
 
-#: gnome-initial-setup/gis-assistant.c:401
+#: gnome-initial-setup/gis-assistant.c:393
 msgid "_Next"
 msgstr "_Pirmyn"
 
-#: gnome-initial-setup/gis-assistant.c:402
-msgid "_Accept"
-msgstr "_Priimti"
-
-#: gnome-initial-setup/gis-assistant.c:403
+#: gnome-initial-setup/gis-assistant.c:394
 msgid "_Skip"
 msgstr "Pra_leisti"
 
-#: gnome-initial-setup/gis-assistant.c:404
+#: gnome-initial-setup/gis-assistant.c:395
 msgid "_Previous"
 msgstr "_Ankstesnis"
 
-#: gnome-initial-setup/gis-assistant.c:405
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:254
+#: gnome-initial-setup/gis-assistant.c:396
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:263
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
@@ -89,12 +85,12 @@ msgstr ""
 "internete pasiekti."
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:153
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
 msgid "_Domain"
 msgstr "_Domenas"
 
 #: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:104
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:88
 msgid "_Username"
 msgstr "Na_udotojo vardas"
 
@@ -103,15 +99,15 @@ msgstr "Na_udotojo vardas"
 msgid "_Password"
 msgstr "Sla_ptažodis"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:99
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:108
 msgid "Enterprise domain or realm name"
 msgstr "Kompanijos domeno ir srities pavadinimas"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:126
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:135
 msgid "Domain Administrator Login"
 msgstr "Domeno administratoriaus prisijungimas"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:141
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -121,63 +117,66 @@ msgstr ""
 "į domeną. Paprašykite tinklo administratoriaus, kad čia įvestų domeno "
 "slaptažodį ir parinktų jūsų kompiuteriui unikalų vardą."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:179
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
 msgid "_Computer"
 msgstr "_Kompiuteris"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:203
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
 msgid "Administrator _Name"
 msgstr "Admi_nistratoriaus vardas"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:227
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
 msgid "Administrator Password"
 msgstr "Administratoriaus slaptažodis"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:260
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:269
 msgid "C_ontinue"
 msgstr "_Tęsti"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:321
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "Nustatymo užbaigimui reikia papildomos informacijos."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:476
-msgid "Administrator"
-msgstr "Administratorius"
-
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:482
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:525
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:470
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Nepavyko sukurti naudotojo „%s“: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:28
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:526
+msgid "Failed to create parent user: "
+msgstr "Nepavyko sukurti tėvo naudotojo: "
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:575
+msgid "Administrator"
+msgstr "Administratorius"
+
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:27
 msgid "Change Avatar"
 msgstr "Keisti atvaizdą"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:46
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 msgid "Remove Avatar"
 msgstr "Pašalinti atvaizdą"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:63
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Apie jus"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:65
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Pateikite vardą bei naudotojo vardą. Taip pat galite pasirinkti paveikslėlį."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:81
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:74
 msgid "_Full Name"
 msgstr "_Vardas ir pavardė"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:159
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:121
 msgid "Set up _parental controls for this user"
 msgstr "Nustatyti _tėvų valdymą šiam naudotojui"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:165
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:122
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr "Skirta tėvams ar prižiūrėtojams, kurie turi nustatyti savo slaptažodį."
 
@@ -198,39 +197,39 @@ msgstr "Negalima automatiškai prisijungti prie šio tipo domeno"
 msgid "No such domain or realm found"
 msgstr "Nerastas toks domenas arba sritis"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:782
-#: gnome-initial-setup/pages/account/um-realm-manager.c:796
+#: gnome-initial-setup/pages/account/um-realm-manager.c:781
+#: gnome-initial-setup/pages/account/um-realm-manager.c:795
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Nepavyksta prisijungti prie %2$s domeno kaip %1$s"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:788
+#: gnome-initial-setup/pages/account/um-realm-manager.c:787
 msgid "Invalid password, please try again"
 msgstr "Netinkamas slaptažodis, mėginkite dar kartą"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:801
+#: gnome-initial-setup/pages/account/um-realm-manager.c:800
 #, c-format
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Nepavyko prisijungti prie domeno %s: %s"
 
-#: gnome-initial-setup/pages/account/um-utils.c:153
+#: gnome-initial-setup/pages/account/um-utils.c:145
 msgid "Sorry, that user name isn’t available. Please try another."
 msgstr "Atleiskite, jūsų naudotojo vardas yra neprieinamas. Bandykite kitą."
 
-#: gnome-initial-setup/pages/account/um-utils.c:156
+#: gnome-initial-setup/pages/account/um-utils.c:148
 #, c-format
 msgid "The username is too long."
 msgstr "Naudotojo vardas yra per ilgas."
 
-#: gnome-initial-setup/pages/account/um-utils.c:159
+#: gnome-initial-setup/pages/account/um-utils.c:151
 msgid "The username must start with a lower case letter from a-z."
 msgstr "Naudotojo vardas turi prasidėti mažąja raide a-z."
 
-#: gnome-initial-setup/pages/account/um-utils.c:162
+#: gnome-initial-setup/pages/account/um-utils.c:154
 msgid "That username isn’t available. Please try another."
 msgstr "Šis naudotojo vardas yra neprieinamas. Bandykite kitą."
 
-#: gnome-initial-setup/pages/account/um-utils.c:165
+#: gnome-initial-setup/pages/account/um-utils.c:157
 msgid ""
 "The username should only consist of lower case letters from a-z, digits, and "
 "the following characters: - _"
@@ -238,25 +237,25 @@ msgstr ""
 "Naudotojo vardas turi būti sudarytas tik iš mažųjų nuo a iki z, skaitmenų "
 "bei šių simbolių: - _"
 
-#: gnome-initial-setup/pages/account/um-utils.c:169
+#: gnome-initial-setup/pages/account/um-utils.c:161
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Tai taip pat bus naudojama jūsų namų aplankui pavadinti ir negalės būti "
 "pakeista."
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:257
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:255
 msgid "Preview"
 msgstr "Peržiūra"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:325
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:242
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:323
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:240
 msgid "More…"
 msgstr "Daugiau…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:347
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:345
 msgid "No inputs found"
 msgstr "Nerasta įvesties šaltinių"
 
@@ -273,11 +272,11 @@ msgstr "Pasirinkite savo klaviatūros išdėstymą arba įvesties metodą."
 msgid "Search keyboards and input methods"
 msgstr "Ieškoti klaviatūrų bei įvesties metodų"
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:262
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:260
 msgid "No languages found"
 msgstr "Nerasta kalbų"
 
-#: gnome-initial-setup/pages/language/gis-language-page.c:268
+#: gnome-initial-setup/pages/language/gis-language-page.c:274
 #: gnome-initial-setup/pages/language/gis-language-page.ui:14
 msgid "Welcome"
 msgstr "Sveiki"
@@ -290,7 +289,7 @@ msgstr "Pasirinkite iš sąrašo kalbą arba ieškokite jos."
 #. * like greeting somebody at the door. If the exclamation mark is not
 #. * suitable for this in your language you may replace it.
 #.
-#: gnome-initial-setup/pages/language/gis-welcome-widget.c:132
+#: gnome-initial-setup/pages/language/gis-welcome-widget.c:131
 msgid "Welcome!"
 msgstr "Sveiki!"
 
@@ -302,20 +301,20 @@ msgstr "Ieškoti kalbų"
 msgid "Available languages"
 msgstr "Galimos kalbos"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:319
+#: gnome-initial-setup/pages/network/gis-network-page.c:333
 msgctxt "Wireless access point"
 msgid "Other…"
 msgstr "Kita…"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:401
+#: gnome-initial-setup/pages/network/gis-network-page.c:419
 msgid "Wireless networking is disabled"
 msgstr "Belaidis tinklas išjungtas"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:408
+#: gnome-initial-setup/pages/network/gis-network-page.c:426
 msgid "Checking for available wireless networks"
 msgstr "Ieškoma prieinamų belaidžių tinklų"
 
-#: gnome-initial-setup/pages/network/gis-network-page.c:809
+#: gnome-initial-setup/pages/network/gis-network-page.c:850
 msgid "Network"
 msgstr "Tinklas"
 
@@ -355,48 +354,48 @@ msgid "Parental Controls"
 msgstr "Tėvų valdymas"
 
 #. Translators: The placeholder is for the user’s full name.
-#: gnome-initial-setup/pages/password/gis-password-page.c:92
+#: gnome-initial-setup/pages/password/gis-password-page.c:98
 #, c-format
 msgid "Set a Password for %s"
 msgstr "Nusistatyti slaptažodį paskyrai %s"
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:94
+#: gnome-initial-setup/pages/password/gis-password-page.c:100
 msgid "Be careful not to lose your password."
 msgstr "Atsargiai, nepraraskite savo slaptažodžio."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:99
+#: gnome-initial-setup/pages/password/gis-password-page.c:105
 msgid "Set a Parent Password"
 msgstr "Nusistatyti slaptažodį tėvams"
 
 #. Translators: The placeholder is the full name of the child user on the system.
-#: gnome-initial-setup/pages/password/gis-password-page.c:101
+#: gnome-initial-setup/pages/password/gis-password-page.c:107
 #, c-format
 msgid "This password will control access to the parental controls for %s."
 msgstr "Šis slaptažodis valdys prieiga prie %s tėvų valdymo."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:223
+#: gnome-initial-setup/pages/password/gis-password-page.c:301
 #, c-format
 msgid "Password strength: %s."
 msgstr "Slaptažodžio stiprumas: %s."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:249
-#: gnome-initial-setup/pages/password/gis-password-page.c:251
+#: gnome-initial-setup/pages/password/gis-password-page.c:327
+#: gnome-initial-setup/pages/password/gis-password-page.c:329
 msgid "The passwords do not match."
 msgstr "Slaptažodžiai nesutampa."
 
-#: gnome-initial-setup/pages/password/gis-password-page.c:430
+#: gnome-initial-setup/pages/password/gis-password-page.c:502
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:68
+#: gnome-initial-setup/pages/password/gis-password-page.ui:71
 msgid "_Confirm Password"
 msgstr "Patvirtinti slaptažodį"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:92
+#: gnome-initial-setup/pages/password/gis-password-page.ui:98
 msgid "Password _Hint"
 msgstr "Slaptažodžio _užuomina"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:103
+#: gnome-initial-setup/pages/password/gis-password-page.ui:109
 msgid "Password hint will be shown in case you forget your password."
 msgstr "Slaptažodžio užuomina bus rodoma jei pamiršite savo slaptažodį."
 
@@ -629,18 +628,23 @@ msgstr "_Išjungti trečiųjų šalių saugyklas"
 msgid "_Enable Third-Party Repositories"
 msgstr "Į_jungti trečiųjų šalių saugyklas"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:211
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
 msgid "Setup Failed"
 msgstr "Nustatymas neapvyko"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:213
-msgid "Close"
-msgstr "Užverti"
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:217
+#, c-format
+msgid ""
+"Error Type: %s\n"
+"Message: %s"
+msgstr ""
+"Klaidos tipas: %s\n"
+"Pranešimas: %s"
 
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:239
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:249
 #, c-format
 msgid "_Start Using %s"
 msgstr "_Pradėti naudoti %s"
@@ -648,12 +652,12 @@ msgstr "_Pradėti naudoti %s"
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu". It falls back to "GNOME" if we can't
 #. * detect any distribution.
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:246
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:256
 #, c-format
 msgid "%s is ready to be used."
 msgstr "%s paruošta naudojimui."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.c:270
+#: gnome-initial-setup/pages/summary/gis-summary-page.c:280
 msgid "Setup Complete"
 msgstr "Nustatymas baigtas"
 
@@ -661,7 +665,7 @@ msgstr "Nustatymas baigtas"
 msgid "All done!"
 msgstr "Viskas biagta!"
 
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:117
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:126
 msgid "Search cities"
 msgstr "Ieškoti miestų"
 
@@ -670,14 +674,14 @@ msgstr "Ieškoti miestų"
 #. * 'London, United Kingdom'
 #. * You shouldn't need to translate this string unless the language has a different comma.
 #.
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:557
-#: gnome-initial-setup/pages/timezone/gis-location-entry.c:582
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:567
+#: gnome-initial-setup/pages/timezone/gis-location-entry.c:592
 #, c-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #. Translators: "city, country"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:284
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:282
 #, c-format
 msgctxt "timezone loc"
 msgid "%s, %s"
@@ -686,33 +690,33 @@ msgstr "%s, %s"
 #. Translators: UTC here means the Coordinated Universal Time.
 #. * %:::z will be replaced by the offset from UTC e.g. UTC+02
 #.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:320
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:318
 msgid "UTC%:::z"
 msgstr "UTC%:::z"
 
 #. Translators: This is the time format used in 12-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:324
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:322
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
 #. Translators: This is the time format used in 24-hour mode.
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:327
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:325
 msgid "%R"
 msgstr "%R"
 
 #. Translators: "timezone (utc shift)"
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:330
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:328
 #, c-format
 msgctxt "timezone map"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:339
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:337
 #, c-format
 msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Dabartinė laiko juosta: %s %s; dabartinis laikas: %s"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:505
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.c:502
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Laiko juosta"
@@ -798,6 +802,12 @@ msgstr "Bandyti ${NAME}"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "Įdiegti ${PRETTY_NAME}"
+
+#~ msgid "_Accept"
+#~ msgstr "_Priimti"
+
+#~ msgid "Close"
+#~ msgstr "Užverti"
 
 #~ msgid "Set a Password"
 #~ msgstr "Nusistatykite slaptažodį"
