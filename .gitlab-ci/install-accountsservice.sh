@@ -4,7 +4,7 @@
 set -eu
 
 # Current tip of main
-commit="4a74a4c9aa0b9235f829d35098e891231e9f2b36"
+commit="88e3de5283c831789835e52851d58ba57a58eeca"
 
 tmp_source_dir="$(mktemp --tmpdir --directory accountservice-XXXXXX)"
 
