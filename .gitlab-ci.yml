@@ -54,6 +54,7 @@ build.container.fedora@x86_64:
     # Expiry sets fdo.expires on the image
     FDO_EXPIRES_AFTER: 8w
     FDO_DISTRIBUTION_EXEC: >-
+      dnf config-manager setopt fedora-cisco-openh264.enabled=0 &&
       bash .gitlab-ci/install-accountsservice.sh &&
       dnf builddep -y malcontent-ui-libs &&
       bash .gitlab-ci/install-malcontent.sh
