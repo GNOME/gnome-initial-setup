@@ -1,9 +1,29 @@
 sources = []
 
+blueprint_compiler = find_program('blueprint-compiler')
+
+blueprints = custom_target(
+    'blueprints',
+    input: files(
+        'gis-assistant.blp',
+        'gis-page-header.blp',
+    ),
+    output: '.',
+    command: [
+        blueprint_compiler,
+        'batch-compile',
+        '--minify',
+        '@OUTPUT@',
+        '@CURRENT_SOURCE_DIR@',
+        '@INPUT@',
+    ],
+)
+
 resources = gnome.compile_resources(
     'gis-assistant-resources',
     files('gis-assistant.gresource.xml'),
-    c_name: 'gis_assistant'
+    c_name: 'gis_assistant',
+    dependencies: blueprints,
 )
 
 sources += [

@@ -1,0 +1,32 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisKeyboardPage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      Gtk.Box page {
+        orientation: vertical;
+
+        $GisPageHeader header {
+          accessible-role: group;
+          margin-top: 24;
+          title: _("Typing");
+          subtitle: _("Select your keyboard layout or an input method.");
+          icon-name: "input-keyboard-symbolic";
+
+          show-icon: bind template.small-screen inverted;
+        }
+
+        $CcInputChooser input_chooser {
+          accessible-role: group;
+          margin-top: 18;
+          margin-bottom: 18;
+
+          accessibility {
+            labelled-by: [header];
+          }
+        }
+      }
+    }
+  }
+}

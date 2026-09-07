@@ -10,10 +10,28 @@ sources += gnome.compile_resources(
     c_name: 'datetime'
 )
 
+timezone_blueprints = custom_target(
+    'timezone-blueprints',
+    input: files(
+        'gis-bubble-widget.blp',
+        'gis-timezone-page.blp',
+    ),
+    output: '.',
+    command: [
+        blueprint_compiler,
+        'batch-compile',
+        '--minify',
+        '@OUTPUT@',
+        '@CURRENT_SOURCE_DIR@',
+        '@INPUT@',
+    ],
+)
+
 sources += gnome.compile_resources(
     'timezone-resources',
     files('timezone.gresource.xml'),
-    c_name: 'timezone'
+    c_name: 'timezone',
+    dependencies: timezone_blueprints,
 )
 
 sources += files(
@@ -29,7 +47,8 @@ sources += files(
     'gis-timezone-page.h'
 )
 
-executable('test-gis-location-entry',
+executable(
+    'test-gis-location-entry',
     files(
         'gis-location-entry.c',
         'gis-location-entry.h',

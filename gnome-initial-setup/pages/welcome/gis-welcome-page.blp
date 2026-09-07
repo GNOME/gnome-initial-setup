@@ -1,0 +1,51 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisWelcomePage : $GisPage {
+  title: _("Setup");
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-start: 0;
+  margin-end: 0;
+  has-forward: true;
+
+  Gtk.Box box {
+    orientation: vertical;
+    halign: fill;
+    valign: fill;
+
+    Gtk.Box {
+      Gtk.Picture header {
+        hexpand: true;
+        vexpand: true;
+        content-fit: contain;
+        file: "resource:///org/gnome/initial-setup/initial-setup-welcome.svg";
+      }
+
+      styles [
+        "welcome-header-box"
+      ]
+    }
+
+    Adw.StatusPage status_page {
+      description: _("Setup will guide you through making an account and enabling some features. We’ll have you up and running in no time.");
+
+      Gtk.Button {
+        halign: center;
+        label: _("_Start Setup");
+        use-underline: true;
+
+        clicked => $start_setup();
+
+        styles [
+          "suggested-action",
+          "pill"
+        ]
+      }
+
+      styles [
+        "welcome-status-page"
+      ]
+    }
+  }
+}

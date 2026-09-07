@@ -1,0 +1,35 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisSoftwarePage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      $GisPageHeader header {
+        margin-top: 24;
+        title: _("Third-Party Repositories");
+        icon-name: "gis-software-symbolic";
+
+        show-icon: bind template.small-screen inverted;
+      }
+    }
+
+    Adw.PreferencesGroup {
+      Gtk.Button enable_disable_button {
+        halign: center;
+        margin-top: 36;
+        margin-bottom: 36;
+        margin-start: 36;
+        margin-end: 36;
+        use-underline: true;
+        visible: true;
+
+        clicked => $enable_disable_button_clicked_cb();
+
+        styles [
+          "suggested-action",
+          "pill"
+        ]
+      }
+    }
+  }
+}

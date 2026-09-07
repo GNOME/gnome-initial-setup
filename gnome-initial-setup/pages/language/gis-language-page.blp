@@ -1,0 +1,48 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisLanguagePage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      Gtk.Box box {
+        orientation: vertical;
+        accessible-role: group;
+
+        accessibility {
+          label: _("Welcome");
+        }
+
+        Gtk.Box {
+          orientation: vertical;
+
+          hexpand: bind language_chooser.visible inverted;
+          vexpand: bind language_chooser.visible inverted;
+
+          Gtk.Image logo {
+            visible: bind template.small-screen inverted;
+            margin-top: 24;
+            pixel-size: 96;
+            icon-name: "start-here-symbolic";
+          }
+
+          $GisWelcomeWidget welcome_widget {
+            margin-top: 18;
+            margin-bottom: 40;
+          }
+        }
+
+        $CcLanguageChooser language_chooser {
+          accessible-role: group;
+
+          accessibility {
+            label: _("Select a language from the list, or search for a specific language.");
+          }
+
+          margin-bottom: 18;
+          width-request: 400;
+          valign: start;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisNetworkPage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      Gtk.Box box {
+        orientation: vertical;
+        margin-bottom: 32;
+
+        $GisPageHeader header {
+          margin-top: 24;
+          title: _("Wi-Fi");
+          subtitle: _("Connecting to the internet helps you get new apps, information, and other upgrades. It also helps set the time and your location automatically.");
+          icon-name: "network-wireless-symbolic";
+
+          show-icon: bind template.small-screen inverted;
+        }
+
+        Gtk.ListBox network_list {
+          valign: start;
+          vexpand: true;
+          margin-top: 18;
+          tab-behavior: item;
+
+          styles [
+            "boxed-list"
+          ]
+        }
+
+        Gtk.Grid no_network_grid {
+          margin-top: 18;
+          halign: center;
+          valign: start;
+          row-spacing: 10;
+
+          Gtk.Spinner no_network_spinner {
+            halign: center;
+            valign: center;
+            margin-start: 6;
+            margin-end: 6;
+            spinning: true;
+
+            layout {
+              column: 0;
+              row: 0;
+              column-span: 1;
+              row-span: 1;
+            }
+          }
+
+          Gtk.Label no_network_label {
+            halign: center;
+            valign: center;
+            label: _("No wireless available");
+
+            layout {
+              column: 1;
+              row: 0;
+              column-span: 2;
+              row-span: 1;
+            }
+          }
+
+          Gtk.Label turn_on_label {
+            halign: start;
+            valign: center;
+            label: _("Turn On");
+
+            layout {
+              column: 1;
+              row: 1;
+              column-span: 1;
+              row-span: 1;
+            }
+          }
+
+          Gtk.Switch turn_on_switch {
+            halign: end;
+            valign: center;
+
+            layout {
+              column: 2;
+              row: 1;
+              column-span: 1;
+              row-span: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

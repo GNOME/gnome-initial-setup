@@ -1,0 +1,17 @@
+using Gtk 4.0;
+
+template $UmPhotoDialog : Gtk.Popover {
+  Gtk.Box {
+    orientation: vertical;
+
+    Gtk.FlowBox flowbox {
+      margin-top: 12;
+      margin-bottom: 12;
+      margin-start: 12;
+      margin-end: 12;
+      selection-mode: none;
+      max-children-per-line: 5;
+      homogeneous: true;
+    }
+  }
+}

@@ -1,0 +1,97 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisPrivacyPage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      accessible-role: group;
+
+      $GisPageHeader header {
+        margin-top: 24;
+        title: _("Privacy");
+        icon-name: "preferences-system-privacy-symbolic";
+
+        show-icon: bind template.small-screen inverted;
+      }
+    }
+
+    Adw.PreferencesGroup {
+      accessible-role: group;
+
+      accessibility {
+        labelled-by: [header];
+        described-by: [header];
+      }
+
+      Adw.ActionRow {
+        use-markup: true;
+        title: _("Location Services");
+        activatable-widget: location_switch;
+
+        Gtk.Switch location_switch {
+          valign: center;
+        }
+      }
+
+      Gtk.Label location_privacy_label {
+        margin-top: 12;
+        wrap: true;
+        wrap-mode: word_char;
+        use-markup: true;
+        ellipsize: none;
+        xalign: 0.0;
+
+        activate-link => $gis_activate_link(template) not-swapped;
+
+        styles [
+          "caption"
+        ]
+      }
+    }
+
+    Adw.PreferencesGroup reporting_group {
+      margin-top: 12;
+      visible: false;
+
+      Adw.ActionRow reporting_row {
+        title: _("Automatic Problem Reporting");
+        activatable-widget: reporting_switch;
+
+        Gtk.Switch reporting_switch {
+          valign: center;
+        }
+      }
+
+      Gtk.Label reporting_label {
+        margin-top: 12;
+        wrap: true;
+        wrap-mode: word_char;
+        use-markup: true;
+        ellipsize: none;
+        xalign: 0.0;
+
+        activate-link => $gis_activate_link(template) not-swapped;
+
+        styles [
+          "caption"
+        ]
+      }
+    }
+
+    Adw.PreferencesGroup {
+      Gtk.Label footer_label {
+        valign: end;
+        vexpand: true;
+        label: _("Privacy controls can be changed at any time from the Settings app.");
+        xalign: 0.5;
+        justify: center;
+        wrap: true;
+        margin-bottom: 18;
+
+        styles [
+          "dim-label"
+        ]
+      }
+    }
+  }
+}

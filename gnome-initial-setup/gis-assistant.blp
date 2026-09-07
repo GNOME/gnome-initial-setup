@@ -1,0 +1,73 @@
+using Gtk 4.0;
+
+Gtk.HeaderBar titlebar {
+  show-title-buttons: false;
+
+  [title]
+  Gtk.Label title {
+    attributes: "weight bold";
+  }
+
+  Gtk.Button cancel {
+    use-underline: true;
+  }
+
+  Gtk.Button back {
+    use-underline: true;
+  }
+
+  Gtk.Label placeholder {}
+
+  [end]
+  Gtk.Spinner spinner {}
+
+  [end]
+  Gtk.Button skip {
+    visible: false;
+    use-underline: true;
+  }
+
+  [end]
+  Gtk.Button forward {
+    visible: false;
+    use-underline: true;
+
+    styles [
+      "suggested-action"
+    ]
+  }
+}
+
+Gtk.SizeGroup headerheight {
+  mode: vertical;
+
+  widgets [
+    title,
+    placeholder
+  ]
+}
+
+Gtk.SizeGroup navigation_buttons_width {
+  mode: horizontal;
+
+  widgets [
+    back,
+    cancel,
+    forward,
+    skip
+  ]
+}
+
+template $GisAssistant : Gtk.Box {
+  orientation: vertical;
+
+  Gtk.Stack stack {
+    transition-type: slide_left_right;
+    vexpand: true;
+    hexpand: true;
+    hhomogeneous: false;
+    vhomogeneous: false;
+
+    notify::visible-child => $visible_child_changed(template);
+  }
+}

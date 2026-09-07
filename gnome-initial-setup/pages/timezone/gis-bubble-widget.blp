@@ -1,0 +1,30 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisBubbleWidget : Adw.Bin {
+  Gtk.AspectFrame aspect_frame {
+    visible: true;
+
+    Gtk.Box box {
+      accessible-role: group;
+      orientation: vertical;
+      width-request: 128;
+      height-request: 128;
+      halign: center;
+      valign: center;
+
+      Gtk.Image icon {
+        accessible-role: none;
+        vexpand: true;
+        pixel-size: 64;
+      }
+
+      Gtk.Label label {
+        visible: true;
+        vexpand: true;
+        wrap: true;
+        justify: center;
+      }
+    }
+  }
+}

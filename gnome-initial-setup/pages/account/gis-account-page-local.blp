@@ -1,0 +1,124 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisAccountPageLocal : Adw.Bin {
+  Gtk.Box area {
+    valign: fill;
+    orientation: vertical;
+
+    Gtk.Overlay {
+      margin-top: 24;
+      halign: center;
+
+      Adw.Avatar avatar_image {
+        size: 128;
+        show-initials: true;
+      }
+
+      [overlay]
+      Adw.Bin {
+        halign: end;
+        valign: end;
+
+        styles [
+          "cutout-button"
+        ]
+
+        Gtk.MenuButton avatar_button {
+          tooltip-text: _("Change Avatar");
+          icon-name: "document-edit-symbolic";
+
+          styles [
+            "circular"
+          ]
+        }
+      }
+
+      [overlay]
+      Adw.Bin {
+        halign: end;
+        valign: start;
+
+        styles [
+          "cutout-button"
+        ]
+
+        Gtk.Button remove_avatar_button {
+          tooltip-text: _("Remove Avatar");
+          visible: false;
+          icon-name: "user-trash-symbolic";
+
+          clicked => $on_remove_avatar_button_clicked(template);
+
+          styles [
+            "circular",
+            "destructive-image-button"
+          ]
+        }
+      }
+    }
+
+    $GisPageHeader header {
+      show-icon: false;
+      margin-top: 18;
+      title: _("About You");
+      subtitle: _("Please provide a name and username. You can choose a picture too.");
+    }
+
+    Adw.PreferencesPage account_preferences_page {
+      margin-top: 42;
+
+      Adw.PreferencesGroup account_identity_group {
+        Adw.EntryRow fullname_row {
+          title: _("_Full Name");
+          use-underline: true;
+          max-length: 255;
+          activates-default: true;
+
+          [suffix]
+          Gtk.Image fullname_validity_icon {
+            icon-name: "object-select-symbolic";
+            visible: false;
+          }
+        }
+
+        Adw.EntryRow username_row {
+          title: _("_Username");
+          use-underline: true;
+          max-length: 255;
+          activates-default: true;
+
+          accessibility {
+            described-by: [username_explanation];
+          }
+
+          [suffix]
+          Gtk.Image username_validity_icon {
+            icon-name: "object-select-symbolic";
+            visible: false;
+          }
+        }
+
+        Gtk.Label username_explanation {
+          xalign: 0;
+          margin-top: 6;
+          wrap: true;
+          wrap-mode: word_char;
+
+          styles [
+            "caption",
+            "dim-label"
+          ]
+        }
+      }
+
+      Adw.PreferencesGroup enable_parental_controls_group {
+        Adw.SwitchRow enable_parental_controls_switch_row {
+          title: _("Set up _parental controls for this user");
+          subtitle: _("For use by a parent or supervisor, who must set up their own password.");
+          use-underline: true;
+        }
+      }
+    }
+  }
+}

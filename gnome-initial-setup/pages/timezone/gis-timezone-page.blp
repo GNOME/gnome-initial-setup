@@ -1,0 +1,58 @@
+using Gtk 4.0;
+
+template $GisTimezonePage : $GisPage {
+  Gtk.Box box {
+    accessible-role: group;
+
+    accessibility {
+      labelled-by: [header];
+    }
+
+    orientation: vertical;
+    halign: center;
+    valign: fill;
+
+    $GisPageHeader header {
+      margin-top: 24;
+      title: _("Time Zone");
+      subtitle: _("The time zone will be set automatically if your location can be found. You can also search for a city to set it yourself.");
+      icon-name: "find-location-symbolic";
+
+      show-icon: bind template.small-screen inverted;
+    }
+
+    Gtk.Box page_box {
+      accessible-role: group;
+      margin-top: 18;
+      valign: center;
+      orientation: vertical;
+      spacing: 14;
+
+      $GisLocationEntry search_entry {
+        halign: center;
+        max-width-chars: 55;
+      }
+
+      Gtk.Frame map_frame {
+        margin-bottom: 18;
+        hexpand: true;
+        label-xalign: 0;
+
+        Gtk.Overlay map_overlay {
+          $CcTimezoneMap map {
+            hexpand: true;
+          }
+
+          [overlay]
+          $GisBubbleWidget search_overlay {
+            label: _("Please search for a nearby city");
+            icon-name: "edit-find-symbolic";
+            halign: center;
+            valign: center;
+            can-target: false;
+          }
+        }
+      }
+    }
+  }
+}

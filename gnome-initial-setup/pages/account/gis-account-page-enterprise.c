@@ -861,7 +861,6 @@ gis_account_page_enterprise_class_init (GisAccountPageEnterpriseClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, login);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, password);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, domain);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, realms_model);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, header);
 
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAccountPageEnterprise, join_dialog);
@@ -883,6 +882,13 @@ gis_account_page_enterprise_init (GisAccountPageEnterprise *page)
 {
   g_type_ensure (GIS_TYPE_PAGE_HEADER);
   gtk_widget_init_template (GTK_WIDGET (page));
+
+  page->realms_model = GTK_TREE_MODEL (gtk_list_store_new (2,
+                                                           G_TYPE_STRING,
+                                                           G_TYPE_OBJECT));
+  gtk_combo_box_set_model (GTK_COMBO_BOX (page->domain),
+                           page->realms_model);
+  g_object_unref (page->realms_model);
 
   page->domain_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (page->domain));
 }

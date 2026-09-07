@@ -1,0 +1,21 @@
+using Gtk 4.0;
+
+template $CcInputChooser : Gtk.Box {
+  orientation: vertical;
+  spacing: 12;
+
+  Gtk.SearchEntry filter_entry {
+    placeholder-text: _("Search keyboards and input methods");
+    hexpand: true;
+  }
+
+  Gtk.ListBox input_list {
+    vexpand: true;
+    halign: fill;
+    valign: start;
+
+    styles [
+      "boxed-list"
+    ]
+  }
+}

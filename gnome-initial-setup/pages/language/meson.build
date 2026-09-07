@@ -1,7 +1,26 @@
+language_blueprints = custom_target(
+    'language-blueprints',
+    input: files(
+        'gis-language-page.blp',
+        'gis-welcome-widget.blp',
+        'language-chooser.blp',
+    ),
+    output: '.',
+    command: [
+        blueprint_compiler,
+        'batch-compile',
+        '--minify',
+        '@OUTPUT@',
+        '@CURRENT_SOURCE_DIR@',
+        '@INPUT@',
+    ],
+)
+
 sources += gnome.compile_resources(
     'language-resources',
     files('language.gresource.xml'),
-    c_name: 'language'
+    c_name: 'language',
+    dependencies: language_blueprints,
 )
 
 sources += files(

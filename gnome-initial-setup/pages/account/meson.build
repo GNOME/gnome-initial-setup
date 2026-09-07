@@ -8,10 +8,30 @@ sources += gnome.gdbus_codegen(
   annotations: ['org.freedesktop.realmd.Realm', 'org.gtk.GDBus.C.Name', 'Common']
 )
 
+account_blueprints = custom_target(
+    'account-blueprints',
+    input: files(
+        'gis-account-avatar-chooser.blp',
+        'gis-account-page-enterprise.blp',
+        'gis-account-page-local.blp',
+        'gis-account-page.blp',
+    ),
+    output: '.',
+    command: [
+        blueprint_compiler,
+        'batch-compile',
+        '--minify',
+        '@OUTPUT@',
+        '@CURRENT_SOURCE_DIR@',
+        '@INPUT@',
+    ],
+)
+
 sources += gnome.compile_resources(
    'account-resources',
    files('account.gresource.xml'),
-   c_name: 'account'
+   c_name: 'account',
+   dependencies: account_blueprints,
 )
 
 sources += files(

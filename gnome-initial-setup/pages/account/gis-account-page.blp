@@ -1,0 +1,40 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisAccountPage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      Gtk.Stack stack {
+        valign: start;
+        vexpand: true;
+
+        $GisAccountPageLocal page_local {}
+
+        $GisAccountPageEnterprise page_enterprise {}
+      }
+    }
+
+    Adw.PreferencesGroup {
+      Gtk.Stack offline_stack {
+        valign: end;
+
+        Gtk.ToggleButton page_toggle {
+          use-underline: true;
+          label: _("_Enterprise Login");
+          halign: center;
+          valign: center;
+        }
+
+        Gtk.Label offline_label {
+          halign: center;
+          valign: center;
+          label: _("Go online to set up Enterprise Login.");
+
+          styles [
+            "dim-label"
+          ]
+        }
+      }
+    }
+  }
+}

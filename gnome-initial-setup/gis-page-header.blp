@@ -1,0 +1,37 @@
+using Gtk 4.0;
+
+template $GisPageHeader : Gtk.Box {
+  orientation: vertical;
+  spacing: 18;
+
+  Gtk.Image icon {
+    pixel-size: 96;
+
+    styles [
+      "dim-label"
+    ]
+  }
+
+  Gtk.Box box {
+    orientation: vertical;
+    spacing: 6;
+
+    Gtk.Label title {
+      justify: center;
+      max-width-chars: 65;
+      wrap: true;
+
+      styles [
+        "title-1"
+      ]
+    }
+
+    Gtk.Label subtitle {
+      justify: center;
+      max-width-chars: 65;
+      wrap: true;
+
+      activate-link => $gis_activate_link(template) not-swapped;
+    }
+  }
+}

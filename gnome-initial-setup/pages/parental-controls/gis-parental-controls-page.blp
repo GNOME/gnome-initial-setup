@@ -1,0 +1,31 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GisParentalControlsPage : $GisPage {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      margin-top: 24;
+
+      Adw.Avatar avatar {
+        margin-bottom: 18;
+        size: 96;
+        show-initials: true;
+      }
+
+      $GisPageHeader header {
+        accessible-role: group;
+        show-icon: false;
+      }
+    }
+
+    Adw.PreferencesGroup {
+      accessible-role: group;
+
+      accessibility {
+        labelled-by: [header];
+      }
+
+      $MctUserControls user_controls {}
+    }
+  }
+}

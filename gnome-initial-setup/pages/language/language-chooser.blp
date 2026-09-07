@@ -1,0 +1,29 @@
+using Gtk 4.0;
+
+template $CcLanguageChooser : Gtk.Box {
+  orientation: vertical;
+  spacing: 18;
+
+  Gtk.SearchEntry filter_entry {
+    hexpand: true;
+    accessible-role: search_box;
+
+    accessibility {
+      label: _("Search languages");
+    }
+  }
+
+  Gtk.ListBox language_list {
+    vexpand: true;
+    halign: fill;
+    valign: start;
+
+    accessibility {
+      label: _("Available languages");
+    }
+
+    styles [
+      "boxed-list"
+    ]
+  }
+}
