@@ -20,6 +20,9 @@ pkgdata_dir = join_paths(data_dir, meson.project_name())
 pkgsysconf_dir = join_paths(sysconf_dir, meson.project_name())
 gdm_export_dir = join_paths(prefix, get_option('gdm-rundir'), 'gnome-initial-setup')
 
+glib_version = '2.76'
+glib_version_macro = 'GLIB_VERSION_' + glib_version.underscorify()
+
 conf = configuration_data()
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('GNOMELOCALEDIR', locale_dir)
@@ -32,8 +35,8 @@ conf.set_quoted('GDM_EXPORT_DIR', gdm_export_dir)
 conf.set('SECRET_API_SUBJECT_TO_CHANGE', true)
 conf.set_quoted('G_LOG_DOMAIN', 'InitialSetup')
 conf.set('G_LOG_USE_STRUCTURED', true)
-conf.set('GLIB_VERSION_MIN_REQUIRED', 'GLIB_VERSION_2_76')
-conf.set('GLIB_VERSION_MAX_ALLOWED', 'GLIB_VERSION_2_76')
+conf.set('GLIB_VERSION_MIN_REQUIRED', glib_version_macro)
+conf.set('GLIB_VERSION_MAX_ALLOWED', glib_version_macro)
 
 if cc.has_header('sys/xattr.h')
     conf.set('HAVE_XATTR', 1)

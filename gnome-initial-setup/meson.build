@@ -25,8 +25,8 @@ sources += [
     'gis-driver.h',
 ]
 
-glib_dep = dependency ('glib-2.0', version: '>= 2.63.1')
-gio_dep = dependency ('gio-unix-2.0', version: '>= 2.53.0')
+glib_dep = dependency ('glib-2.0', version: '>= ' + glib_version)
+gio_dep = dependency ('gio-unix-2.0', version: '>= ' + glib_version)
 
 geocode_glib_2_dep = dependency('geocode-glib-2.0')
 
