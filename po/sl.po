@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the gnome-initial-setup package.
 #
 # Matej Urbančič <mateju@svn.gnome.org>, 2012–2024.
+# Martin Srebotnjak <miles@filmsi.net>, 2024-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2026-07-30 01:13+0000\n"
-"PO-Revision-Date: 2026-07-31 08:38+0200\n"
+"POT-Creation-Date: 2026-09-17 20:18+0000\n"
+"PO-Revision-Date: 2026-09-18 16:17+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -40,7 +41,7 @@ msgid "_Previous"
 msgstr "_Predhodni"
 
 #: gnome-initial-setup/gis-assistant.c:396
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:263
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:273
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -52,31 +53,31 @@ msgstr "Vsili obstoječi uporabniški način"
 msgid "— GNOME initial setup"
 msgstr "– začetne nastavitve GNOME"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to cache account"
 msgstr "Predpomnjenje računa je spodletelo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:234
 msgid "Failed to register account"
 msgstr "Vpisovanje računa je spodletelo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:423
 msgid "No supported way to authenticate with this domain"
 msgstr "Ni podprtega načina za overitev s to domeno"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:462
 msgid "Failed to join domain"
 msgstr "Pridruževanje domeni je spodletelo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:529
 msgid "Failed to log into domain"
 msgstr "Prijava v domeno je spodletela"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:12
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:12
 msgid "Enterprise Login"
 msgstr "Poslovna prijava"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:13
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:13
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -86,30 +87,34 @@ msgstr ""
 "uporabniškim računom. Ta račun je mogoče uporabiti tudi za dostop do "
 "poslovnih virov na internetu."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:26
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:169
 msgid "_Domain"
 msgstr "_Domena"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:88
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:39
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:86
 msgid "_Username"
 msgstr "_Uporabniško ime"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:52
+#: gnome-initial-setup/pages/password/gis-password-page.blp:22
 msgid "_Password"
 msgstr "_Geslo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:108
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:109
 msgid "Enterprise domain or realm name"
 msgstr "Poslovna domena ali ime območja"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:135
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:126
+msgid "_Grant administrative privileges to first user"
+msgstr "_Prvemu uporabniku dodeli skrbniške pravice"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:142
 msgid "Domain Administrator Login"
 msgstr "Prijava domenskega skrbnika"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:158
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -119,19 +124,19 @@ msgstr ""
 "Skrbnik omrežja mora vpisati domensko geslo in določiti enoznačno ime "
 "računalnika."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:196
 msgid "_Computer"
 msgstr "_Računalnik"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:221
 msgid "Administrator _Name"
 msgstr "Ime _skrbnika"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:246
 msgid "Administrator Password"
 msgstr "Skrbniško geslo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:269
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:279
 msgid "C_ontinue"
 msgstr "_Nadaljuj"
 
@@ -154,41 +159,41 @@ msgstr "Ustvarjanje nadrejenega uporabnika ni uspelo: "
 msgid "Administrator"
 msgstr "Skrbnik"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:27
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:28
 msgid "Change Avatar"
 msgstr "Spremeni sliko podobe"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:47
 msgid "Remove Avatar"
 msgstr "Odstrani podobo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:63
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:64
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "O vas"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:65
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Navesti je treba ime in uporabniško ime. Izberete lahko tudi sličico profila."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:74
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:73
 msgid "_Full Name"
 msgstr "Polno _ime"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:121
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:117
 msgid "Set up _parental controls for this user"
 msgstr "Nastavitve _starševskega nadzora za uporabnika"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:122
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:118
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr "Za starše ali nadzornike, ki imajo nastavljen svoje geslo."
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:32
+#: gnome-initial-setup/pages/account/gis-account-page.blp:23
 msgid "_Enterprise Login"
 msgstr "_Poslovna prijava"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:41
+#: gnome-initial-setup/pages/account/gis-account-page.blp:31
 msgid "Go online to set up Enterprise Login."
 msgstr "Vzpostavi povezavo za nastavitev poslovnega računa."
 
@@ -196,22 +201,22 @@ msgstr "Vzpostavi povezavo za nastavitev poslovnega računa."
 msgid "Cannot automatically join this type of domain"
 msgstr "Ni se mogoče samodejno pridružiti tej vrsti domene"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#: gnome-initial-setup/pages/account/um-realm-manager.c:374
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Ni mogoče najti take domene ali takega področja"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:781
-#: gnome-initial-setup/pages/account/um-realm-manager.c:795
+#: gnome-initial-setup/pages/account/um-realm-manager.c:788
+#: gnome-initial-setup/pages/account/um-realm-manager.c:802
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Ni se mogoče prijaviti kot %s v domeno %s."
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:787
+#: gnome-initial-setup/pages/account/um-realm-manager.c:794
 msgid "Invalid password, please try again"
 msgstr "Geslo je neveljavno, poskusite znova."
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:800
+#: gnome-initial-setup/pages/account/um-realm-manager.c:807
 #, c-format
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Ni se mogoče povezati z domeno %s: %s"
@@ -247,11 +252,11 @@ msgstr ""
 "S tem imenom bo poimenovana osebna mapa. Izbire kasneje ni mogoče "
 "spreminjati."
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:255
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:260
 msgid "Preview"
 msgstr "Predogled"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:323
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:326
 #: gnome-initial-setup/pages/language/cc-language-chooser.c:240
 msgid "More…"
 msgstr "Več …"
@@ -259,20 +264,20 @@ msgstr "Več …"
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:345
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:348
 msgid "No inputs found"
 msgstr "Ni najdenih vhodnih naprav"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:507
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.blp:13
 msgid "Typing"
 msgstr "Tipkanje"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:17
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.blp:14
 msgid "Select your keyboard layout or an input method."
 msgstr "Izbor razporeditve tipkovnice ali načina vnosa."
 
-#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
+#: gnome-initial-setup/pages/keyboard/input-chooser.blp:8
 msgid "Search keyboards and input methods"
 msgstr "Poišči tipkovnice in vnosne načine"
 
@@ -281,11 +286,11 @@ msgid "No languages found"
 msgstr "Ni najdenih jezikov"
 
 #: gnome-initial-setup/pages/language/gis-language-page.c:274
-#: gnome-initial-setup/pages/language/gis-language-page.ui:14
+#: gnome-initial-setup/pages/language/gis-language-page.blp:12
 msgid "Welcome"
 msgstr "Dobrodošli"
 
-#: gnome-initial-setup/pages/language/gis-language-page.ui:41
+#: gnome-initial-setup/pages/language/gis-language-page.blp:38
 msgid "Select a language from the list, or search for a specific language."
 msgstr "Izberite jezik s seznama ali poiščite določen jezik."
 
@@ -297,11 +302,11 @@ msgstr "Izberite jezik s seznama ali poiščite določen jezik."
 msgid "Welcome!"
 msgstr "Dobrodošli!"
 
-#: gnome-initial-setup/pages/language/language-chooser.ui:11
+#: gnome-initial-setup/pages/language/language-chooser.blp:12
 msgid "Search languages"
 msgstr "Išči jezike"
 
-#: gnome-initial-setup/pages/language/language-chooser.ui:21
+#: gnome-initial-setup/pages/language/language-chooser.blp:22
 msgid "Available languages"
 msgstr "Razpoložljivi jeziki"
 
@@ -322,11 +327,11 @@ msgstr "Preveri za dostopne brezžične omrežne povezave"
 msgid "Network"
 msgstr "Omrežje"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:15
+#: gnome-initial-setup/pages/network/gis-network-page.blp:13
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:16
+#: gnome-initial-setup/pages/network/gis-network-page.blp:14
 msgid ""
 "Connecting to the internet helps you get new apps, information, and other "
 "upgrades. It also helps set the time and your location automatically."
@@ -335,11 +340,11 @@ msgstr ""
 "podrobnosti in posodobitev. Samodejno se nastavi tudi krajevni čas in "
 "geolokacijski podatki."
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:57
+#: gnome-initial-setup/pages/network/gis-network-page.blp:55
 msgid "No wireless available"
 msgstr "Ni razpoložljivega brezžičnega omrežja"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:70
+#: gnome-initial-setup/pages/network/gis-network-page.blp:68
 msgid "Turn On"
 msgstr "Vklopi"
 
@@ -391,15 +396,15 @@ msgstr "Gesli se ne skladata."
 msgid "Password"
 msgstr "Geslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:71
+#: gnome-initial-setup/pages/password/gis-password-page.blp:60
 msgid "_Confirm Password"
 msgstr "_Potrdi geslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:98
+#: gnome-initial-setup/pages/password/gis-password-page.blp:86
 msgid "Password _Hint"
 msgstr "_Namig za geslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:109
+#: gnome-initial-setup/pages/password/gis-password-page.blp:96
 msgid "Password hint will be shown in case you forget your password."
 msgstr "Če pozabite geslo, se prikaže namig za geslo."
 
@@ -551,7 +556,7 @@ msgstr "izvrstna"
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -563,7 +568,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:83
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -571,29 +576,29 @@ msgid ""
 msgstr ""
 "Pošlje tehnična poročila brez zasebnih podatkov. Podatke zbira skupnost %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:126
 msgid "Allows apps to determine your geographical location."
 msgstr "Omogoča programom določiti geolokacijo."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:15
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:172
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:11
 msgid "Privacy"
 msgstr "Zasebnost"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:33
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:28
 msgid "Location Services"
 msgstr "Storitve določanja položaja"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:65
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:57
 msgid "Automatic Problem Reporting"
 msgstr "Samodejna poročila o težavah"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:97
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:85
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "Določila zasebnosti je mogoče prilagajati med nastavitvami."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:127
-#: gnome-initial-setup/pages/software/gis-software-page.ui:11
+#: gnome-initial-setup/pages/software/gis-software-page.blp:9
 msgid "Third-Party Repositories"
 msgstr "Skladišča tretjih virov"
 
@@ -661,7 +666,7 @@ msgstr "Okolje %s je pripravljno za uporabo!"
 msgid "Setup Complete"
 msgstr "Nastavitev je končana."
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:8
+#: gnome-initial-setup/pages/summary/gis-summary-page.blp:8
 msgid "All done!"
 msgstr "Končano!"
 
@@ -717,11 +722,11 @@ msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Trenutni časovni pas: %s pri %s; trenutni čas: %s"
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:502
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:17
 msgid "Time Zone"
 msgstr "Časovni pas"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:18
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
@@ -729,7 +734,7 @@ msgstr ""
 "Časovno območje je nastavljeno samodejno, če je vaše trenutno mesto mogoče "
 "določiti. Mesto je mogoče izbrati tudi ročno."
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:49
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:48
 msgid "Please search for a nearby city"
 msgstr "Poiščite bližnje mesto"
 
@@ -746,11 +751,11 @@ msgstr "Poiščite bližnje mesto"
 msgid "Welcome to %s !"
 msgstr "Dobrodošli v namestitvi %s!"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:4
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:5
 msgid "Setup"
 msgstr "Nastavitev"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:31
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -758,7 +763,7 @@ msgstr ""
 "Čarovnik omogoča vodenje prek postopka ustvarjanja računa in omogočanja "
 "zmožnosti. Postopek je kratek in enostaven."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:35
 msgid "_Start Setup"
 msgstr "_Začni z nastavitvijo"
 
