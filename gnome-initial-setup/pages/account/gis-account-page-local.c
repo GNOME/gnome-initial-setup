@@ -94,8 +94,8 @@ validation_changed (GisAccountPageLocal *page)
   g_signal_emit (page, signals[VALIDATION_CHANGED], 0);
 }
 
-static void
-update_avatar_text (GisAccountPageLocal *page)
+static const gchar *
+get_avatar_name (GisAccountPageLocal *page)
 {
   const gchar *name;
   name = gtk_editable_get_text (GTK_EDITABLE (page->fullname_row));
@@ -103,11 +103,26 @@ update_avatar_text (GisAccountPageLocal *page)
   if (*name == '\0')
     name = gtk_editable_get_text (GTK_EDITABLE (page->username_row));
 
-  if (*name == '\0') {
-    name = NULL;
-  }
+  if (*name == '\0')
+    return NULL;
 
-  adw_avatar_set_text (ADW_AVATAR (page->avatar_image), name);
+  return name;
+}
+
+static void
+update_avatar_text (GisAccountPageLocal *page)
+{
+  adw_avatar_set_text (ADW_AVATAR (page->avatar_image), get_avatar_name (page));
+}
+
+static void
+maybe_update_avatar_text (GisAccountPageLocal *page)
+{
+  const gchar *current_text;
+
+  current_text = adw_avatar_get_text (ADW_AVATAR (page->avatar_image));
+  if (*current_text == '\0' || get_avatar_name (page) == NULL)
+    update_avatar_text (page);
 }
 
 static gboolean
@@ -138,9 +153,17 @@ validate (GisAccountPageLocal *page)
     gtk_accessible_announce (GTK_ACCESSIBLE (page), tip, GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_MEDIUM);
   gtk_label_set_text (GTK_LABEL (page->username_explanation), tip);
 
+  update_avatar_text (page);
   validation_changed (page);
 
   return G_SOURCE_REMOVE;
+}
+
+static void
+queue_validate (GisAccountPageLocal *page)
+{
+  g_clear_handle_id (&page->timeout_id, g_source_remove);
+  page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc) validate, page);
 }
 
 static gboolean
@@ -182,10 +205,10 @@ fullname_changed (GtkWidget      *w,
   gtk_widget_set_visible (page->fullname_validity_icon, FALSE);
 
   page->valid_name = FALSE;
+  validation_changed (page);
 
   /* username_changed() is called consequently due to changes */
-
-  update_avatar_text (page);
+  queue_validate (page);
 }
 
 static void
@@ -207,12 +230,9 @@ username_changed (GObject    *object,
 
   page->valid_username = FALSE;
   validation_changed (page);
+  queue_validate (page);
 
-  if (page->timeout_id != 0)
-    g_source_remove (page->timeout_id);
-  page->timeout_id = g_timeout_add (VALIDATION_TIMEOUT, (GSourceFunc)validate, page);
-
-  update_avatar_text (page);
+  maybe_update_avatar_text (page);
 }
 
 static void
