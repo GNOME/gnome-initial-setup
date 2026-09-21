@@ -1,7 +1,10 @@
 using Gtk 4.0;
+using Adw 1;
 
-Gtk.HeaderBar titlebar {
-  show-title-buttons: false;
+Adw.HeaderBar titlebar {
+  styles [
+    "flat"
+  ]
 
   [title]
   Gtk.Label title {
