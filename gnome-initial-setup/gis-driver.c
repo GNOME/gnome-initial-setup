@@ -157,23 +157,13 @@ assistant_page_changed (GtkScrolledWindow *sw)
 static void
 prepare_main_window (GisDriver *driver)
 {
-  GtkWidget *child, *sw;
+  GtkWidget *sw;
 
-  child = gtk_window_get_child (GTK_WINDOW (driver->main_window));
-  g_object_ref (child);
-  gtk_window_set_child (GTK_WINDOW (driver->main_window), NULL);
-  sw = gtk_scrolled_window_new ();
-  gtk_window_set_child (GTK_WINDOW (driver->main_window), sw);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), child);
-  g_object_unref (child);
-
+  sw = gis_assistant_get_scrolled_window (driver->assistant);
   g_signal_connect_swapped (driver->assistant,
                             "page-changed",
                             G_CALLBACK (assistant_page_changed),
                             sw);
-
-  gtk_window_set_titlebar (driver->main_window,
-                           gis_assistant_get_titlebar (driver->assistant));
 }
 
 static void
@@ -770,7 +760,7 @@ update_screen_size (GisDriver *driver)
   if (!gtk_widget_get_realized (GTK_WIDGET (driver->main_window)))
     return;
 
-  sw = gtk_window_get_child (GTK_WINDOW (driver->main_window));
+  sw = gis_assistant_get_scrolled_window (driver->assistant);
 
   if (driver->small_screen)
     {
@@ -854,7 +844,7 @@ gis_driver_startup (GApplication *app)
   if (driver->mode == GIS_DRIVER_MODE_NEW_USER)
     connect_to_gdm (driver);
 
-  driver->main_window = g_object_new (GTK_TYPE_APPLICATION_WINDOW,
+  driver->main_window = g_object_new (ADW_TYPE_APPLICATION_WINDOW,
                                     "application", app,
                                     "icon-name", "preferences-system",
                                     "deletable", FALSE,
@@ -875,8 +865,8 @@ gis_driver_startup (GApplication *app)
   }
 
   driver->assistant = g_object_new (GIS_TYPE_ASSISTANT, NULL);
-  gtk_window_set_child (GTK_WINDOW (driver->main_window),
-                        GTK_WIDGET (driver->assistant));
+  adw_application_window_set_content (ADW_APPLICATION_WINDOW (driver->main_window),
+                                      GTK_WIDGET (driver->assistant));
 
   gis_driver_set_user_language (driver, setlocale (LC_MESSAGES, NULL), FALSE);
 

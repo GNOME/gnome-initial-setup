@@ -50,8 +50,8 @@ struct _GisAssistant
   GtkWidget *cancel;
 
   GtkWidget *spinner;
-  GtkWidget *titlebar;
   GtkWidget *title;
+  GtkWidget *scrolled_window;
   GtkWidget *stack;
 
   GList *pages;
@@ -348,9 +348,9 @@ gis_assistant_get_title (GisAssistant *assistant)
 }
 
 GtkWidget *
-gis_assistant_get_titlebar (GisAssistant *assistant)
+gis_assistant_get_scrolled_window (GisAssistant *assistant)
 {
-  return assistant->titlebar;
+  return assistant->scrolled_window;
 }
 
 static void
@@ -486,8 +486,8 @@ gis_assistant_class_init (GisAssistantClass *klass)
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, cancel);
 
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, spinner);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, titlebar);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, title);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, scrolled_window);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass), GisAssistant, stack);
 
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), visible_child_changed);

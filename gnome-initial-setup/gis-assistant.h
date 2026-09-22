@@ -34,12 +34,12 @@ void      gis_assistant_add_page          (GisAssistant *assistant,
 void      gis_assistant_remove_page       (GisAssistant *assistant,
                                            GisPage      *page);
 
-void      gis_assistant_next_page         (GisAssistant *assistant);
-void      gis_assistant_previous_page     (GisAssistant *assistant);
-GisPage * gis_assistant_get_current_page  (GisAssistant *assistant);
-GList   * gis_assistant_get_all_pages     (GisAssistant *assistant);
-const gchar *gis_assistant_get_title      (GisAssistant *assistant);
-GtkWidget *gis_assistant_get_titlebar     (GisAssistant *assistant);
+void      gis_assistant_next_page            (GisAssistant *assistant);
+void      gis_assistant_previous_page        (GisAssistant *assistant);
+GisPage * gis_assistant_get_current_page     (GisAssistant *assistant);
+GList   * gis_assistant_get_all_pages        (GisAssistant *assistant);
+const gchar *gis_assistant_get_title         (GisAssistant *assistant);
+GtkWidget *gis_assistant_get_scrolled_window (GisAssistant *assistant);
 
 void      gis_assistant_locale_changed    (GisAssistant *assistant);
 

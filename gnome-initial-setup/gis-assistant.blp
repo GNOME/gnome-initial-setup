@@ -1,47 +1,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-Adw.HeaderBar titlebar {
-  styles [
-    "flat"
-  ]
-
-  [title]
-  Gtk.Label title {
-    attributes: "weight bold";
-  }
-
-  Gtk.Button cancel {
-    use-underline: true;
-  }
-
-  Gtk.Button back {
-    use-underline: true;
-  }
-
-  Gtk.Label placeholder {}
-
-  [end]
-  Gtk.Spinner spinner {}
-
-  [end]
-  Gtk.Button skip {
-    visible: false;
-    use-underline: true;
-  }
-
-  [end]
-  Gtk.Button forward {
-    visible: false;
-    use-underline: true;
-
-    styles [
-      "suggested-action"
-    ]
-  }
-}
-
-Gtk.SizeGroup headerheight {
+Gtk.SizeGroup {
   mode: vertical;
 
   widgets [
@@ -50,7 +10,7 @@ Gtk.SizeGroup headerheight {
   ]
 }
 
-Gtk.SizeGroup navigation_buttons_width {
+Gtk.SizeGroup {
   mode: horizontal;
 
   widgets [
@@ -64,13 +24,56 @@ Gtk.SizeGroup navigation_buttons_width {
 template $GisAssistant : Gtk.Box {
   orientation: vertical;
 
-  Gtk.Stack stack {
-    transition-type: slide_left_right;
-    vexpand: true;
-    hexpand: true;
-    hhomogeneous: false;
-    vhomogeneous: false;
+  Adw.ToolbarView {
 
-    notify::visible-child => $visible_child_changed(template);
+    [top]
+    Adw.HeaderBar {
+
+      [title]
+      Gtk.Label title {
+        attributes: "weight bold";
+      }
+
+      Gtk.Button cancel {
+        use-underline: true;
+      }
+
+      Gtk.Button back {
+        use-underline: true;
+      }
+
+      Gtk.Label placeholder {}
+
+      [end]
+      Gtk.Spinner spinner {}
+
+      [end]
+      Gtk.Button skip {
+        visible: false;
+        use-underline: true;
+      }
+
+      [end]
+      Gtk.Button forward {
+        visible: false;
+        use-underline: true;
+
+        styles [
+          "suggested-action"
+        ]
+      }
+    }
+
+    content: Gtk.ScrolledWindow scrolled_window {
+      Gtk.Stack stack {
+        transition-type: slide_left_right;
+        vexpand: true;
+        hexpand: true;
+        hhomogeneous: false;
+        vhomogeneous: false;
+
+        notify::visible-child => $visible_child_changed(template);
+      }
+    };
   }
 }
