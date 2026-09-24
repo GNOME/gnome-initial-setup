@@ -237,11 +237,8 @@ input_widget_new (CcInputChooser *chooser,
 	widget->is_extra = is_extra;
 
 	widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        gtk_widget_set_margin_top (widget->box, 12);
-        gtk_widget_set_margin_bottom (widget->box, 12);
-        gtk_widget_set_margin_start (widget->box, 12);
-        gtk_widget_set_margin_end (widget->box, 12);
         gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
+        gtk_widget_add_css_class (widget->box, "header");
 
 	widget->label = gtk_label_new (widget->name);
         gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);

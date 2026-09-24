@@ -125,7 +125,7 @@ static GtkWidget *
 language_widget_new (const char *locale_id,
                      gboolean    is_extra)
 {
-	GtkWidget *label;
+	GtkWidget *label, *text_box;
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
         gchar *language = NULL;
         gchar *language_name;
@@ -151,31 +151,32 @@ language_widget_new (const char *locale_id,
         locale_untranslated_name = gnome_get_language_from_locale (locale_id, "C");
 
         widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        gtk_widget_set_margin_top (widget->box, 12);
-        gtk_widget_set_margin_bottom (widget->box, 12);
-        gtk_widget_set_margin_start (widget->box, 12);
-        gtk_widget_set_margin_end (widget->box, 12);
         gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
+        gtk_widget_add_css_class (widget->box, "header");
+
+        text_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
+        gtk_widget_set_valign (text_box, GTK_ALIGN_CENTER);
+        gtk_box_append (GTK_BOX (widget->box), text_box);
 
         label = gtk_label_new (language_name);
         gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
-        gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
         gtk_label_set_xalign (GTK_LABEL (label), 0);
-        gtk_box_append (GTK_BOX (widget->box), label);
-
-        widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
-        gtk_box_append (GTK_BOX (widget->box), widget->checkmark);
+        gtk_box_append (GTK_BOX (text_box), label);
 
         if (country_name) {
-                label = gtk_label_new (country_name);
-                gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
-                gtk_label_set_max_width_chars (GTK_LABEL (label), 30);
-                gtk_widget_add_css_class (label, "dim-label");
-                gtk_label_set_xalign (GTK_LABEL (label), 0);
-                gtk_widget_set_hexpand (label, TRUE);
-                gtk_widget_set_halign (label, GTK_ALIGN_END);
-                gtk_box_append (GTK_BOX (widget->box), label);
+                GtkWidget *subtitle;
+
+                subtitle = gtk_label_new (country_name);
+                gtk_label_set_ellipsize (GTK_LABEL (subtitle), PANGO_ELLIPSIZE_END);
+                gtk_widget_add_css_class (subtitle, "dim-label");
+                gtk_widget_add_css_class (subtitle, "caption");
+                gtk_label_set_xalign (GTK_LABEL (subtitle), 0);
+                gtk_box_append (GTK_BOX (text_box), subtitle);
         }
+
+        widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
+        gtk_widget_set_valign (widget->checkmark, GTK_ALIGN_CENTER);
+        gtk_box_append (GTK_BOX (widget->box), widget->checkmark);
 
         widget->locale_id = g_strdup (locale_id);
         widget->locale_name = locale_name;
