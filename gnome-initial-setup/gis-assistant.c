@@ -243,8 +243,8 @@ update_applying_state (GisAssistant *assistant)
 static void
 update_titlebar (GisAssistant *assistant)
 {
-  gtk_label_set_label (GTK_LABEL (assistant->title),
-                       gis_assistant_get_title (assistant));
+  adw_window_title_set_title (ADW_WINDOW_TITLE (assistant->title),
+                              gis_assistant_get_title (assistant));
 }
 
 static void
