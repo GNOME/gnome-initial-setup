@@ -2,3 +2,6 @@
 Requires=gnome-session-basic-services.target
 Requires=org.gnome.Shell@initial-setup.service
 Requires=@this_component@.service
+
+# oo7-daemon is not bus-activatable, so pull it in explicitly
+Wants=oo7-daemon.service
