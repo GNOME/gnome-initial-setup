@@ -26,6 +26,7 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#include <adwaita.h>
 #include <gtk/gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -50,7 +51,7 @@ struct _CcInputChooserPrivate
 {
         GtkWidget *filter_entry;
         GtkWidget *input_list;
-        GPtrArray *input_widget_boxes;
+        GPtrArray *input_widget_rows;
 	GHashTable *inputs;
 
         GtkWidget *no_results;
@@ -84,8 +85,7 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 typedef struct {
-        GtkWidget *box;
-        GtkWidget *label;
+        GtkWidget *row;
         GtkWidget *checkmark;
 
         gchar *id;
@@ -95,14 +95,14 @@ typedef struct {
 } InputWidget;
 
 /*
- * Invariant: for each box in priv->input_widget_boxes,
+ * Invariant: for each row in priv->input_widget_rows,
  * get_input_widget (row) is non-null and
- * get_input_widget (row)->box == box
+ * get_input_widget (row)->row == row
  */
 static InputWidget *
-get_input_widget (GtkWidget *widget)
+get_input_widget (GtkWidget *row)
 {
-        return g_object_get_data (G_OBJECT (widget), "input-widget");
+        return g_object_get_data (G_OBJECT (row), "input-widget");
 }
 
 static GtkWidget *
@@ -173,8 +173,11 @@ preview_cb (GtkLabel       *label,
 	gchar *layout_variant;
 	gchar *argv[3];
 
-	row = gtk_widget_get_parent (GTK_WIDGET (label));
+	row = gtk_widget_get_ancestor (GTK_WIDGET (label), ADW_TYPE_ACTION_ROW);
 	widget = get_input_widget (row);
+
+	if (widget == NULL)
+		return TRUE;
 
 	if (!get_layout (chooser, widget->type, widget->id, &layout, &variant))
 		return TRUE;
@@ -198,7 +201,7 @@ static void
 input_widget_set_selected (InputWidget *widget, gboolean selected)
 {
         gtk_widget_set_opacity (widget->checkmark, selected ? 1.0 : 0.0);
-        gtk_accessible_update_state (GTK_ACCESSIBLE (widget->label),
+        gtk_accessible_update_state (GTK_ACCESSIBLE (widget->row),
                                      GTK_ACCESSIBLE_STATE_CHECKED, selected,
                                      -1);
 }
@@ -236,39 +239,28 @@ input_widget_new (CcInputChooser *chooser,
 	widget->type = g_strdup (type);
 	widget->is_extra = is_extra;
 
-	widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
-        gtk_widget_add_css_class (widget->box, "header");
-
-	widget->label = gtk_label_new (widget->name);
-        gtk_label_set_ellipsize (GTK_LABEL (widget->label), PANGO_ELLIPSIZE_END);
-        gtk_label_set_max_width_chars (GTK_LABEL (widget->label), 40);
-        gtk_label_set_xalign (GTK_LABEL (widget->label), 0);
-        // this allows to have the "checked" and "unchecked" states
-        g_object_set (G_OBJECT (widget->label),
-                      "accessible-role",
-                      GTK_ACCESSIBLE_ROLE_CHECKBOX,
-                      NULL);
-	gtk_box_append (GTK_BOX (widget->box), widget->label);
-
-        widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
-	gtk_box_append (GTK_BOX (widget->box), widget->checkmark);
+	widget->row = g_object_new (ADW_TYPE_ACTION_ROW,
+	                            "title", widget->name,
+	                            "use-markup", FALSE,
+	                            "activatable", TRUE,
+	                            "accessible-role", GTK_ACCESSIBLE_ROLE_CHECKBOX,
+	                            NULL);
 
 	text = g_strdup_printf ("<a href='preview'>%s</a>", _("Preview"));
-	label = gtk_label_new ("");
+	label = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label), text);
-        gtk_label_set_xalign (GTK_LABEL (label), 0);
-        gtk_widget_set_hexpand (label, TRUE);
-        gtk_widget_set_halign (label, GTK_ALIGN_END);
 	g_free (text);
 	g_signal_connect (label, "activate-link",
 			  G_CALLBACK (preview_cb), chooser);
-	gtk_box_append (GTK_BOX (widget->box), label);
+	adw_action_row_add_suffix (ADW_ACTION_ROW (widget->row), label);
 
-	g_object_set_data_full (G_OBJECT (widget->box), "input-widget", widget,
+	widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
+	adw_action_row_add_suffix (ADW_ACTION_ROW (widget->row), widget->checkmark);
+
+	g_object_set_data_full (G_OBJECT (widget->row), "input-widget", widget,
 				input_widget_free);
 
-	return widget->box;
+	return widget->row;
 }
 
 static void
@@ -280,16 +272,16 @@ sync_all_checkmarks (CcInputChooser *chooser)
 
         priv = cc_input_chooser_get_instance_private (chooser);
 
-        for (i = 0; i < priv->input_widget_boxes->len; i++) {
+        for (i = 0; i < priv->input_widget_rows->len; i++) {
                 InputWidget *widget;
                 GtkWidget *child;
                 gboolean should_be_visible;
                 g_autofree gchar *key = NULL;
 
-                child = g_ptr_array_index (priv->input_widget_boxes, i);
+                child = g_ptr_array_index (priv->input_widget_rows, i);
                 widget = get_input_widget (child);
                 g_assert (widget != NULL);
-                g_assert (widget->box == child);
+                g_assert (widget->row == child);
 
                 key = g_strdup_printf ("%s::%s", widget->type, widget->id);
                 should_be_visible = (g_list_find_custom (priv->selected_inputs, key, (GCompareFunc) g_strcmp0) != NULL);
@@ -312,26 +304,25 @@ sync_all_checkmarks (CcInputChooser *chooser)
 static GtkWidget *
 more_widget_new (void)
 {
-        GtkWidget *widget;
+        GtkWidget *row;
         GtkWidget *arrow;
 
-        widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-        g_object_set (G_OBJECT (widget),
-                      "accessible-role",
-                      GTK_ACCESSIBLE_ROLE_GROUP,
-                      NULL);
-        gtk_widget_set_tooltip_text (widget, _("More…"));
-
-        arrow = gtk_image_new_from_icon_name ("view-more-symbolic");
+        arrow = g_object_new (GTK_TYPE_IMAGE,
+                              "icon-name", "view-more-symbolic",
+                              "margin-top", 12,
+                              "margin-bottom", 12,
+                              NULL);
         gtk_widget_add_css_class (arrow, "dim-label");
-        gtk_widget_set_margin_top (widget, 12);
-        gtk_widget_set_margin_bottom (widget, 12);
-        gtk_widget_set_hexpand (arrow, TRUE);
-        gtk_widget_set_halign (arrow, GTK_ALIGN_CENTER);
-        gtk_widget_set_valign (arrow, GTK_ALIGN_CENTER);
-        gtk_box_append (GTK_BOX (widget), arrow);
 
-        return widget;
+        row = g_object_new (GTK_TYPE_LIST_BOX_ROW,
+                            "child", arrow,
+                            "tooltip-text", _("More…"),
+                            NULL);
+        gtk_accessible_update_property (GTK_ACCESSIBLE (row),
+                                        GTK_ACCESSIBLE_PROPERTY_LABEL, _("More…"),
+                                        -1);
+
+        return row;
 }
 
 static GtkWidget *
@@ -356,17 +347,17 @@ choose_non_extras (CcInputChooser *chooser)
 
         priv = cc_input_chooser_get_instance_private (chooser);
 
-        for (i = 0; i < priv->input_widget_boxes->len; i++) {
+        for (i = 0; i < priv->input_widget_rows->len; i++) {
                 InputWidget *widget;
                 GtkWidget *child;
 
                 if (++count > MIN_ROWS)
                         break;
 
-                child = g_ptr_array_index (priv->input_widget_boxes, i);
+                child = g_ptr_array_index (priv->input_widget_rows, i);
                 widget = get_input_widget (child);
                 g_assert (widget != NULL);
-                g_assert (widget->box == child);
+                g_assert (widget->row == child);
 
                 g_debug ("Picking %s (%s:%s) as non-extra",
                          widget->name, widget->type, widget->id);
@@ -405,7 +396,7 @@ add_rows_to_list (CcInputChooser  *chooser,
 		g_hash_table_add (priv->inputs, key);
 
 		widget = input_widget_new (chooser, type, id, TRUE);
-		g_ptr_array_add (priv->input_widget_boxes, g_object_ref_sink (widget));
+		g_ptr_array_add (priv->input_widget_rows, g_object_ref_sink (widget));
 		gtk_list_box_append (GTK_LIST_BOX (priv->input_list), widget);
 	}
 }
@@ -464,13 +455,11 @@ input_visible (GtkListBoxRow *row,
         CcInputChooser *chooser = user_data;
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
         InputWidget *widget;
-        GtkWidget *child;
         const char *search_term;
 
-        child = gtk_list_box_row_get_child (row);
         search_term = gtk_editable_get_text (GTK_EDITABLE (priv->filter_entry));
 
-        if (child == priv->more_item) {
+        if (GTK_WIDGET (row) == priv->more_item) {
                 /* Do not show the "more" row while filtering. */
                 if (search_term && *search_term)
                         return FALSE;
@@ -479,7 +468,10 @@ input_visible (GtkListBoxRow *row,
                        g_hash_table_size (priv->inputs) > MIN_ROWS;
         }
 
-        widget = get_input_widget (child);
+        widget = get_input_widget (GTK_WIDGET (row));
+
+        if (widget == NULL)
+                return FALSE;
 
         if (search_term && *search_term)
                 return g_str_match_string (search_term, widget->name, TRUE);
@@ -497,8 +489,8 @@ sort_inputs (GtkListBoxRow *a,
 {
         InputWidget *la, *lb;
 
-        la = get_input_widget (gtk_list_box_row_get_child (a));
-        lb = get_input_widget (gtk_list_box_row_get_child (b));
+        la = get_input_widget (GTK_WIDGET (a));
+        lb = get_input_widget (GTK_WIDGET (b));
 
         if (la == NULL)
                 return 1;
@@ -570,17 +562,15 @@ row_activated (GtkListBox        *box,
                CcInputChooser *chooser)
 {
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
-        GtkWidget *child;
         InputWidget *widget;
 
         if (row == NULL)
                 return;
 
-        child = gtk_list_box_row_get_child (row);
-        if (child == priv->more_item) {
+        if (GTK_WIDGET (row) == priv->more_item) {
                 show_more (chooser);
         } else {
-                widget = get_input_widget (child);
+                widget = get_input_widget (GTK_WIDGET (row));
                 if (widget == NULL)
                         return;
 
@@ -602,14 +592,14 @@ update_ibus_active_sources (CcInputChooser *chooser)
 
         priv = cc_input_chooser_get_instance_private (chooser);
 
-        for (i = 0; i < priv->input_widget_boxes->len; i++) {
+        for (i = 0; i < priv->input_widget_rows->len; i++) {
                 GtkWidget *child;
                 InputWidget *row;
 
-                child = g_ptr_array_index (priv->input_widget_boxes, i);
+                child = g_ptr_array_index (priv->input_widget_rows, i);
                 row = get_input_widget (child);
                 g_assert (row != NULL);
-                g_assert (row->box == child);
+                g_assert (row->row == child);
 
                 type = row->type;
                 id = row->id;
@@ -619,7 +609,7 @@ update_ibus_active_sources (CcInputChooser *chooser)
                 engine_desc = g_hash_table_lookup (priv->ibus_engines, id);
                 if (engine_desc) {
                         name = engine_get_display_name (engine_desc);
-                        gtk_label_set_text (GTK_LABEL (row->label), name);
+                        adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row->row), name);
                         g_clear_pointer (&row->name, g_free);
                         row->name = g_steal_pointer (&name);
                         invalidate = TRUE;
@@ -787,7 +777,7 @@ cc_input_chooser_finalize (GObject *object)
 
 	g_clear_object (&priv->xkb_info);
 	g_hash_table_unref (priv->inputs);
-        g_clear_pointer (&priv->input_widget_boxes, g_ptr_array_unref);
+        g_clear_pointer (&priv->input_widget_rows, g_ptr_array_unref);
         g_list_free_full (priv->selected_inputs, g_free);
 #ifdef HAVE_IBUS
 	g_signal_handlers_disconnect_by_func (priv->ibus, fetch_ibus_engines, chooser);
@@ -869,7 +859,7 @@ cc_input_chooser_init (CcInputChooser *chooser)
         CcInputChooserPrivate *priv = cc_input_chooser_get_instance_private (chooser);
 
         gtk_widget_init_template (GTK_WIDGET (chooser));
-        priv->input_widget_boxes = g_ptr_array_new_with_free_func (g_object_unref);
+        priv->input_widget_rows = g_ptr_array_new_with_free_func (g_object_unref);
         priv->selected_inputs = NULL;
 }
 
