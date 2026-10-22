@@ -27,6 +27,7 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
+#include <adwaita.h>
 #include <gtk/gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
@@ -66,9 +67,8 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 typedef struct {
-        GtkWidget *box;
+        GtkWidget *row;
         GtkWidget *checkmark;
-        GtkWidget *a11y_label;
 
         gchar *locale_id;
         gchar *locale_name;
@@ -79,9 +79,9 @@ typedef struct {
 } LanguageWidget;
 
 static LanguageWidget *
-get_language_widget (GtkWidget *widget)
+get_language_widget (GtkWidget *row)
 {
-        return g_object_get_data (G_OBJECT (widget), "language-widget");
+        return g_object_get_data (G_OBJECT (row), "language-widget");
 }
 
 static GtkWidget *
@@ -101,7 +101,7 @@ language_widget_free (gpointer data)
 {
         LanguageWidget *widget = data;
 
-        /* This is called when the box is destroyed,
+        /* This is called when the row is destroyed,
          * so don't bother destroying the widget and
          * children again. */
         g_free (widget->locale_id);
@@ -116,7 +116,7 @@ static void
 language_widget_set_selected (LanguageWidget *widget, gboolean selected)
 {
         gtk_widget_set_opacity (widget->checkmark, selected ? 1.0 : 0.0);
-        gtk_accessible_update_state (GTK_ACCESSIBLE (widget->a11y_label),
+        gtk_accessible_update_state (GTK_ACCESSIBLE (widget->row),
                                      GTK_ACCESSIBLE_STATE_CHECKED, selected,
                                      -1);
 }
@@ -125,7 +125,6 @@ static GtkWidget *
 language_widget_new (const char *locale_id,
                      gboolean    is_extra)
 {
-	GtkWidget *label, *text_box;
         gchar *locale_name, *locale_current_name, *locale_untranslated_name;
         gchar *language = NULL;
         gchar *language_name;
@@ -150,33 +149,18 @@ language_widget_new (const char *locale_id,
         locale_current_name = gnome_get_language_from_locale (locale_id, NULL);
         locale_untranslated_name = gnome_get_language_from_locale (locale_id, "C");
 
-        widget->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        gtk_widget_set_halign (widget->box, GTK_ALIGN_FILL);
-        gtk_widget_add_css_class (widget->box, "header");
+        widget->row = g_object_new (ADW_TYPE_ACTION_ROW,
+                                    "title", language_name,
+                                    "use-markup", FALSE,
+                                    "activatable", TRUE,
+                                    "accessible-role", GTK_ACCESSIBLE_ROLE_CHECKBOX,
+                                    NULL);
 
-        text_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
-        gtk_widget_set_valign (text_box, GTK_ALIGN_CENTER);
-        gtk_box_append (GTK_BOX (widget->box), text_box);
-
-        label = gtk_label_new (language_name);
-        gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
-        gtk_label_set_xalign (GTK_LABEL (label), 0);
-        gtk_box_append (GTK_BOX (text_box), label);
-
-        if (country_name) {
-                GtkWidget *subtitle;
-
-                subtitle = gtk_label_new (country_name);
-                gtk_label_set_ellipsize (GTK_LABEL (subtitle), PANGO_ELLIPSIZE_END);
-                gtk_widget_add_css_class (subtitle, "dim-label");
-                gtk_widget_add_css_class (subtitle, "caption");
-                gtk_label_set_xalign (GTK_LABEL (subtitle), 0);
-                gtk_box_append (GTK_BOX (text_box), subtitle);
-        }
+        if (country_name)
+                adw_action_row_set_subtitle (ADW_ACTION_ROW (widget->row), country_name);
 
         widget->checkmark = gtk_image_new_from_icon_name ("object-select-symbolic");
-        gtk_widget_set_valign (widget->checkmark, GTK_ALIGN_CENTER);
-        gtk_box_append (GTK_BOX (widget->box), widget->checkmark);
+        adw_action_row_add_suffix (ADW_ACTION_ROW (widget->row), widget->checkmark);
 
         widget->locale_id = g_strdup (locale_id);
         widget->locale_name = locale_name;
@@ -185,21 +169,15 @@ language_widget_new (const char *locale_id,
         widget->is_extra = is_extra;
         widget->sort_key = cc_util_normalize_casefold_and_unaccent (locale_name);
 
-        g_object_set_data_full (G_OBJECT (widget->box), "language-widget", widget,
+        g_object_set_data_full (G_OBJECT (widget->row), "language-widget", widget,
                                 language_widget_free);
 
         g_free (language);
         g_free (language_name);
         g_free (country);
         g_free (country_name);
-        widget->a11y_label = label;
-        // this allows to have the "checked" and "unchecked" states
-        g_object_set (G_OBJECT (label),
-                      "accessible-role",
-                      GTK_ACCESSIBLE_ROLE_CHECKBOX,
-                      NULL);
 
-        return widget->box;
+        return widget->row;
 }
 
 static void
@@ -211,17 +189,14 @@ sync_all_checkmarks (CcLanguageChooser *chooser)
         row = gtk_widget_get_first_child (priv->language_list);
         while (row) {
                 LanguageWidget *widget;
-                GtkWidget *child;
                 gboolean should_be_visible;
 
-                child = gtk_list_box_row_get_child (GTK_LIST_BOX_ROW (row));
-                widget = get_language_widget (child);
+                widget = get_language_widget (row);
 
-                if (widget == NULL)
-                        return;
-
-                should_be_visible = g_str_equal (widget->locale_id, priv->language);
-                language_widget_set_selected (widget, should_be_visible);
+                if (widget != NULL) {
+                        should_be_visible = g_str_equal (widget->locale_id, priv->language);
+                        language_widget_set_selected (widget, should_be_visible);
+                }
 
                 row = gtk_widget_get_next_sibling (row);
         }
@@ -230,27 +205,25 @@ sync_all_checkmarks (CcLanguageChooser *chooser)
 static GtkWidget *
 more_widget_new (void)
 {
-        GtkWidget *widget;
+        GtkWidget *row;
         GtkWidget *arrow;
-
-        widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        g_object_set (G_OBJECT (widget),
-                      "accessible-role",
-                      GTK_ACCESSIBLE_ROLE_GROUP,
-                      NULL);
-        gtk_widget_set_tooltip_text (widget, _("More…"));
 
         arrow = g_object_new (GTK_TYPE_IMAGE,
                               "icon-name", "view-more-symbolic",
-                              "hexpand", TRUE,
-                              "halign", GTK_ALIGN_CENTER,
+                              "margin-top", 12,
+                              "margin-bottom", 12,
                               NULL);
         gtk_widget_add_css_class (arrow, "dim-label");
-        gtk_widget_set_margin_top (widget, 12);
-        gtk_widget_set_margin_bottom (widget, 12);
-        gtk_box_append (GTK_BOX (widget), arrow);
 
-        return widget;
+        row = g_object_new (GTK_TYPE_LIST_BOX_ROW,
+                            "child", arrow,
+                            "tooltip-text", _("More…"),
+                            NULL);
+        gtk_accessible_update_property (GTK_ACCESSIBLE (row),
+                                        GTK_ACCESSIBLE_PROPERTY_LABEL, _("More…"),
+                                        -1);
+
+        return row;
 }
 
 static GtkWidget *
@@ -329,17 +302,15 @@ language_visible (GtkListBoxRow *row,
         LanguageWidget *widget;
         gboolean searching;
         gboolean visible;
-        GtkWidget *child;
         const char *search_term;
 
-        child = gtk_list_box_row_get_child (row);
         search_term = gtk_editable_get_text (GTK_EDITABLE (priv->filter_entry));
         searching = (search_term != NULL && *search_term != '\0');
 
-        if (child == priv->more_item)
+        if (GTK_WIDGET (row) == priv->more_item)
                 return (!priv->showing_extra && !searching);
 
-        widget = get_language_widget (child);
+        widget = get_language_widget (GTK_WIDGET (row));
 
         if (widget == NULL)
                 return FALSE;
@@ -367,8 +338,8 @@ sort_languages (GtkListBoxRow *a,
         LanguageWidget *la, *lb;
         int ret;
 
-        la = get_language_widget (gtk_list_box_row_get_child (a));
-        lb = get_language_widget (gtk_list_box_row_get_child (b));
+        la = get_language_widget (GTK_WIDGET (a));
+        lb = get_language_widget (GTK_WIDGET (b));
 
         if (la == NULL)
                 return 1;
@@ -441,17 +412,15 @@ row_activated (GtkListBox        *box,
                CcLanguageChooser *chooser)
 {
         CcLanguageChooserPrivate *priv = cc_language_chooser_get_instance_private (chooser);
-        GtkWidget *child;
         LanguageWidget *widget;
 
         if (row == NULL)
                 return;
 
-        child = gtk_list_box_row_get_child (row);
-        if (child == priv->more_item) {
+        if (GTK_WIDGET (row) == priv->more_item) {
                 show_more (chooser);
         } else {
-                widget = get_language_widget (child);
+                widget = get_language_widget (GTK_WIDGET (row));
                 if (widget == NULL)
                         return;
                 // set it here to ensure that screen readers say it correctly
