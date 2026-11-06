@@ -6,25 +6,26 @@
 # Lucas Lommer <llommer@svn.gnome.org>, 2013 (GNOMEBUG#697691 fix).
 # Marek Černocký <marek@manet.cz>, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Vojtěch Perník <translations@pervoj.cz>, 2024.
+# Patrik Sivek <patriksivek@gnome.org>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2026-07-30 01:13+0000\n"
-"PO-Revision-Date: 2026-07-30 12:04+0200\n"
-"Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
-"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"POT-Creation-Date: 2026-09-25 07:05+0000\n"
+"PO-Revision-Date: 2026-10-27 22:27+0100\n"
+"Last-Translator: Patrik Sivek <patriksivek@gnome.org>\n"
+"Language-Team: Czech\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Gtranslator 51.0\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
-#: gnome-initial-setup/gis-driver.c:861
+#: gnome-initial-setup/gis-driver.c:851
 msgid "Initial Setup"
 msgstr "Prvotní nastavení"
 
@@ -41,7 +42,7 @@ msgid "_Previous"
 msgstr "_Předchozí"
 
 #: gnome-initial-setup/gis-assistant.c:396
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:263
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:273
 msgid "_Cancel"
 msgstr "_Zrušit"
 
@@ -53,31 +54,31 @@ msgstr "Vynutit režim existujícího uživatele"
 msgid "— GNOME initial setup"
 msgstr "– Prvotní nastavení"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
 msgid "Failed to cache account"
 msgstr "Selhalo uložení účtu do mezipaměti"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:234
 msgid "Failed to register account"
 msgstr "Registrace účtu selhala"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:423
 msgid "No supported way to authenticate with this domain"
 msgstr "Není žádný podporovaný způsob, jak provést ověření vůči této doméně"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:462
 msgid "Failed to join domain"
 msgstr "Připojení do domény selhalo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:529
 msgid "Failed to log into domain"
 msgstr "Přihlášení do domény selhalo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:12
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:12
 msgid "Enterprise Login"
 msgstr "Podnikové přihlašování"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:13
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:13
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -87,30 +88,34 @@ msgstr ""
 "spravovaný uživatelský účet. Můžete tento účet také používat k přístupu k "
 "firemním prostředkům na Internetu."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:26
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:169
 msgid "_Domain"
 msgstr "_Doména"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:88
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:39
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:86
 msgid "_Username"
 msgstr "_Uživatelské jméno"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
-#: gnome-initial-setup/pages/password/gis-password-page.ui:31
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:52
+#: gnome-initial-setup/pages/password/gis-password-page.blp:22
 msgid "_Password"
 msgstr "_Heslo"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:108
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:109
 msgid "Enterprise domain or realm name"
 msgstr "Název podnikové domény nebo sféry"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:135
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:126
+msgid "_Grant administrative privileges to first user"
+msgstr "_Udělit oprávnění správce prvnímu uživateli"
+
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:142
 msgid "Domain Administrator Login"
 msgstr "Přihlášení správce domény"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:158
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -120,74 +125,74 @@ msgstr ""
 "nějaké domény. Požádejte prosím správce sítě o zadání jeho hesla k doméně "
 "sem a zvolte pro svůj počítač jedinečný název."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:196
 msgid "_Computer"
 msgstr "_Počítač"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:221
 msgid "Administrator _Name"
 msgstr "J_méno správce"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:246
 msgid "Administrator Password"
 msgstr "Heslo správce"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:269
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:279
 msgid "C_ontinue"
 msgstr "P_okračovat"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:338
 msgid "We need a few details to complete setup."
 msgstr "K dokončení nastavení je zapotřebí pár podrobností."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:470
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:490
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "Selhalo vytvoření uživatele „%s“: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:526
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:546
 msgid "Failed to create parent user: "
 msgstr "Selhalo vytvoření rodičovského uživatele: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:575
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:595
 msgid "Administrator"
 msgstr "Správce"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:27
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:28
 msgid "Change Avatar"
 msgstr "Změnit avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:47
 msgid "Remove Avatar"
 msgstr "Odebrat avatar"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:63
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:64
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "O vás"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:65
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Zadejte prosím jméno a uživatelské jméno. Můžete si také zvolit obrázek."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:74
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:73
 msgid "_Full Name"
 msgstr "_Celé jméno"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:121
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:117
 msgid "Set up _parental controls for this user"
 msgstr "Nastavit _rodičovskou kontrolu pro tohoto uživatele"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.ui:122
+#: gnome-initial-setup/pages/account/gis-account-page-local.blp:118
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr "Pro používání rodičem nebo správcem musíte nastavit jejich hesla."
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:32
+#: gnome-initial-setup/pages/account/gis-account-page.blp:23
 msgid "_Enterprise Login"
 msgstr "Po_dnikové přihlašování"
 
-#: gnome-initial-setup/pages/account/gis-account-page.ui:41
+#: gnome-initial-setup/pages/account/gis-account-page.blp:31
 msgid "Go online to set up Enterprise Login."
 msgstr "Přejděte on-line, abyste mohli nastavit podnikové přihlašování."
 
@@ -195,22 +200,22 @@ msgstr "Přejděte on-line, abyste mohli nastavit podnikové přihlašování."
 msgid "Cannot automatically join this type of domain"
 msgstr "Nelze automaticky připojit tento typ domény"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:373
+#: gnome-initial-setup/pages/account/um-realm-manager.c:374
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Doména nebo sféra nenalezena"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:781
-#: gnome-initial-setup/pages/account/um-realm-manager.c:795
+#: gnome-initial-setup/pages/account/um-realm-manager.c:788
+#: gnome-initial-setup/pages/account/um-realm-manager.c:802
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Nelze se přihlásit jako „%s“ do domény „%s“"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:787
+#: gnome-initial-setup/pages/account/um-realm-manager.c:794
 msgid "Invalid password, please try again"
 msgstr "Špatné heslo, zkuste to prosím znovu"
 
-#: gnome-initial-setup/pages/account/um-realm-manager.c:800
+#: gnome-initial-setup/pages/account/um-realm-manager.c:807
 #, c-format
 msgid "Couldn’t connect to the %s domain: %s"
 msgstr "Nelze se připojit k doméně „%s“: %s"
@@ -246,12 +251,12 @@ msgid "This will be used to name your home folder and can’t be changed."
 msgstr ""
 "Bude použito jako název vaší domovské složky a nelze jej později změnit."
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:255
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:257
 msgid "Preview"
 msgstr "Náhled"
 
 #: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:323
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:240
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:241
 msgid "More…"
 msgstr "Více…"
 
@@ -262,29 +267,29 @@ msgstr "Více…"
 msgid "No inputs found"
 msgstr "Nenalezena žádná vstupní zařízení"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:507
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.blp:13
 msgid "Typing"
 msgstr "Psaní"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:17
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.blp:14
 msgid "Select your keyboard layout or an input method."
 msgstr "Vyberte své rozložení klávesnice nebo některou vstupní metodu."
 
-#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
+#: gnome-initial-setup/pages/keyboard/input-chooser.blp:8
 msgid "Search keyboards and input methods"
 msgstr "hledat klávesnice a vstupní metody"
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:260
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:261
 msgid "No languages found"
 msgstr "Žádné jazyky nenalezeny"
 
 #: gnome-initial-setup/pages/language/gis-language-page.c:274
-#: gnome-initial-setup/pages/language/gis-language-page.ui:14
+#: gnome-initial-setup/pages/language/gis-language-page.blp:12
 msgid "Welcome"
 msgstr "Vítejte"
 
-#: gnome-initial-setup/pages/language/gis-language-page.ui:41
+#: gnome-initial-setup/pages/language/gis-language-page.blp:38
 msgid "Select a language from the list, or search for a specific language."
 msgstr "Vyberte jazyk ze seznamu nebo vyhledejte konkrétní jazyk."
 
@@ -296,11 +301,11 @@ msgstr "Vyberte jazyk ze seznamu nebo vyhledejte konkrétní jazyk."
 msgid "Welcome!"
 msgstr "Vítejte!"
 
-#: gnome-initial-setup/pages/language/language-chooser.ui:11
+#: gnome-initial-setup/pages/language/language-chooser.blp:12
 msgid "Search languages"
 msgstr "Hledat jazyky"
 
-#: gnome-initial-setup/pages/language/language-chooser.ui:21
+#: gnome-initial-setup/pages/language/language-chooser.blp:22
 msgid "Available languages"
 msgstr "Dostupné jazyky"
 
@@ -321,11 +326,11 @@ msgstr "Hledají se dostupné bezdrátové sítě"
 msgid "Network"
 msgstr "Síť"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:15
+#: gnome-initial-setup/pages/network/gis-network-page.blp:13
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:16
+#: gnome-initial-setup/pages/network/gis-network-page.blp:14
 msgid ""
 "Connecting to the internet helps you get new apps, information, and other "
 "upgrades. It also helps set the time and your location automatically."
@@ -333,11 +338,11 @@ msgstr ""
 "Díky připojení k Internetu můžete získávat nové aplikace, informace a "
 "aktualizace. Také pomůže s nastavením času a automatickým zjišťováním polohy."
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:57
+#: gnome-initial-setup/pages/network/gis-network-page.blp:55
 msgid "No wireless available"
 msgstr "Žádné bezdrátové připojení není k dispozici"
 
-#: gnome-initial-setup/pages/network/gis-network-page.ui:70
+#: gnome-initial-setup/pages/network/gis-network-page.blp:68
 msgid "Turn On"
 msgstr "Zapnout"
 
@@ -389,15 +394,15 @@ msgstr "Hesla se neshodují."
 msgid "Password"
 msgstr "Heslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:71
+#: gnome-initial-setup/pages/password/gis-password-page.blp:60
 msgid "_Confirm Password"
 msgstr "_Potvrdit heslo"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:98
+#: gnome-initial-setup/pages/password/gis-password-page.blp:86
 msgid "Password _Hint"
 msgstr "_Nápověda k heslu"
 
-#: gnome-initial-setup/pages/password/gis-password-page.ui:109
+#: gnome-initial-setup/pages/password/gis-password-page.blp:96
 msgid "Password hint will be shown in case you forget your password."
 msgstr "Nápověda k heslu se zobrazí v případě, že zapomenete své heslo."
 
@@ -547,7 +552,7 @@ msgstr "výborná"
 #. Translators: the first parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:70
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:71
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -559,7 +564,7 @@ msgstr ""
 #. Translators: the parameter here is the name of a distribution,
 #. * like "Fedora" or "Ubuntu".
 #.
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:82
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:83
 #, c-format
 msgid ""
 "Sends technical reports that do not contain personal information. Data is "
@@ -567,29 +572,29 @@ msgid ""
 msgstr ""
 "Zasílá technická hlášení, která neobsahují osobní údaje. Data shromažďuje %s."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:125
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:126
 msgid "Allows apps to determine your geographical location."
 msgstr "Umožňují aplikacím určit vaši geografickou polohu."
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:171
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:15
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.c:172
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:11
 msgid "Privacy"
 msgstr "Soukromí"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:33
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:28
 msgid "Location Services"
 msgstr "Geolokační služby"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:65
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:57
 msgid "Automatic Problem Reporting"
 msgstr "Automatické hlášení problémů"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:97
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:85
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr "Řízení soukromí můžete kdykoliv změnit v aplikaci Nastavení."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:127
-#: gnome-initial-setup/pages/software/gis-software-page.ui:11
+#: gnome-initial-setup/pages/software/gis-software-page.blp:9
 msgid "Third-Party Repositories"
 msgstr "Repozitáře třetích stran"
 
@@ -655,8 +660,8 @@ msgstr "Systém %s je připravený k používání."
 msgid "Setup Complete"
 msgstr "Nastavení dokončeno"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.ui:8
-msgid "All done!"
+#: gnome-initial-setup/pages/summary/gis-summary-page.blp:8
+msgid "All Done!"
 msgstr "Vše hotovo!"
 
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:126
@@ -711,11 +716,11 @@ msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Aktuální časové pásmo: %s v %s; aktuální čas: %s"
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:502
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:17
 msgid "Time Zone"
 msgstr "Časové pásmo"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:18
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
@@ -723,7 +728,7 @@ msgstr ""
 "Časové pásmo bude nastaveno automaticky v případě, že bude nalezeno vaše "
 "místo. Můžete také vyhledat město, abyste si časové pásmo nastavili sami."
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:49
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:48
 msgid "Please search for a nearby city"
 msgstr "Vyhledejte prosím nejbližší město"
 
@@ -740,11 +745,11 @@ msgstr "Vyhledejte prosím nejbližší město"
 msgid "Welcome to %s !"
 msgstr "Vítejte v prostředí %s !"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:4
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:5
 msgid "Setup"
 msgstr "Nastavení"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:31
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -752,7 +757,7 @@ msgstr ""
 "Nastavení vás provede vytvořením účtu a zapnutím některých funkcí. Vše vám "
 "zabere jen chviličku."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:35
 msgid "_Start Setup"
 msgstr "Začít na_stavovat"
 
