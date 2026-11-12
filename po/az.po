@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-initial-setup\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-initial-setup/"
 "issues/\n"
-"POT-Creation-Date: 2026-11-09 14:25+0000\n"
-"PO-Revision-Date: 2026-10-19 02:31+0300\n"
+"POT-Creation-Date: 2026-09-01 12:31+0000\n"
+"PO-Revision-Date: 2026-11-12 11:40+0400\n"
 "Last-Translator: Ramal Rəhimov <jhoaluman@gmail.com>\n"
 "Language-Team: Azerbaijani <contact@azelinux.com>\n"
 "Language: az\n"
@@ -17,9 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.10\n"
 
 #: data/gnome-initial-setup.desktop.in.in:2
-#: gnome-initial-setup/gis-driver.c:851
+#: gnome-initial-setup/gis-driver.c:861
 msgid "Initial Setup"
 msgstr "İlkin quraşdırma"
 
@@ -36,7 +37,7 @@ msgid "_Previous"
 msgstr "_Əvvəlki"
 
 #: gnome-initial-setup/gis-assistant.c:396
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:273
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:263
 msgid "_Cancel"
 msgstr "_Ləğv et"
 
@@ -48,31 +49,31 @@ msgstr "Mövcud istifadəçi rejimini məcburi et"
 msgid "— GNOME initial setup"
 msgstr "— GNOME ilkin quraşdırması"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:182
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:181
 msgid "Failed to cache account"
 msgstr "Hesabı keşləmək mümkün olmadı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:234
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:231
 msgid "Failed to register account"
 msgstr "Hesabı qeydiyyatdan keçirmək mümkün olmadı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:423
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:420
 msgid "No supported way to authenticate with this domain"
 msgstr "Bu domenlə autentifikasiya üçün dəstəklənən üsul yoxdur"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:462
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:459
 msgid "Failed to join domain"
 msgstr "Domenə qoşulmaq mümkün olmadı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:529
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.c:526
 msgid "Failed to log into domain"
 msgstr "Domenə daxil olmaq mümkün olmadı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:12
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:12
 msgid "Enterprise Login"
 msgstr "Korporativ giriş"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:13
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:13
 msgid ""
 "Enterprise login allows an existing centrally managed user account to be "
 "used on this device. You can also use this account to access company "
@@ -82,34 +83,30 @@ msgstr ""
 "bu qurğuda istifadə edilməsinə imkan verir. Bu hesabdan internetdəki şirkət "
 "resurslarına çıxış üçün də istifadə edə bilərsiniz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:26
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:169
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:27
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:162
 msgid "_Domain"
 msgstr "_Domen"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:39
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:86
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:40
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:88
 msgid "_Username"
 msgstr "_İstifadəçi adı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:52
-#: gnome-initial-setup/pages/password/gis-password-page.blp:22
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:53
+#: gnome-initial-setup/pages/password/gis-password-page.ui:31
 msgid "_Password"
 msgstr "_Şifrə"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:109
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:108
 msgid "Enterprise domain or realm name"
 msgstr "Korporativ domen və ya realm adı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:126
-msgid "_Grant administrative privileges to first user"
-msgstr "İlk istifadəçiyə _inzibatçı səlahiyyətləri ver"
-
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:142
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:135
 msgid "Domain Administrator Login"
 msgstr "Domen inzibatçısının girişi"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:158
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:150
 msgid ""
 "In order to use enterprise logins, this computer needs to be enrolled in a "
 "domain. Please have your network administrator type the domain password "
@@ -119,75 +116,75 @@ msgstr ""
 "edilməlidir. Lütfən, şəbəkə inzibatçınızdan domen şifrəsini buraya daxil "
 "etməsini xahiş edin və kompüteriniz üçün unikal kompüter adı seçin."
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:196
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:188
 msgid "_Computer"
 msgstr "_Kompüter"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:221
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:212
 msgid "Administrator _Name"
 msgstr "İnzibatçının _adı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:246
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:236
 msgid "Administrator Password"
 msgstr "İnzibatçı şifrəsi"
 
-#: gnome-initial-setup/pages/account/gis-account-page-enterprise.blp:279
+#: gnome-initial-setup/pages/account/gis-account-page-enterprise.ui:269
 msgid "C_ontinue"
 msgstr "_Davam et"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:338
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:318
 msgid "We need a few details to complete setup."
 msgstr "Quraşdırmanı tamamlamaq üçün bir neçə məlumat lazımdır."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:490
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:470
 #, c-format
 msgid "Failed to create user '%s': "
 msgstr "'%s' istifadəçisini yaratmaq mümkün olmadı: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:546
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:526
 msgid "Failed to create parent user: "
 msgstr "Valideyn istifadəçini yaratmaq mümkün olmadı: "
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.c:595
+#: gnome-initial-setup/pages/account/gis-account-page-local.c:575
 msgid "Administrator"
 msgstr "İnzibatçı"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:28
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:27
 msgid "Change Avatar"
 msgstr "Avatarı dəyiş"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:47
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:45
 msgid "Remove Avatar"
 msgstr "Avatarı sil"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:64
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:63
 #: gnome-initial-setup/pages/account/gis-account-page.c:274
 msgid "About You"
 msgstr "Sizin haqqınızda"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:65
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:64
 msgid "Please provide a name and username. You can choose a picture too."
 msgstr ""
 "Lütfən, ad və istifadəçi adı daxil edin. Həmçinin şəkil də seçə bilərsiniz."
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:73
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:74
 msgid "_Full Name"
 msgstr "_Tam ad"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:117
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:121
 msgid "Set up _parental controls for this user"
 msgstr "Bu istifadəçi üçün _valideyn nəzarətini qur"
 
-#: gnome-initial-setup/pages/account/gis-account-page-local.blp:118
+#: gnome-initial-setup/pages/account/gis-account-page-local.ui:122
 msgid "For use by a parent or supervisor, who must set up their own password."
 msgstr ""
 "Öz şifrəsini qurmalı olan valideyn və ya nəzarətçi tərəfindən istifadə üçün."
 
-#: gnome-initial-setup/pages/account/gis-account-page.blp:23
+#: gnome-initial-setup/pages/account/gis-account-page.ui:32
 msgid "_Enterprise Login"
 msgstr "_Korporativ giriş"
 
-#: gnome-initial-setup/pages/account/gis-account-page.blp:31
+#: gnome-initial-setup/pages/account/gis-account-page.ui:41
 msgid "Go online to set up Enterprise Login."
 msgstr "Korporativ girişi qurmaq üçün internetə qoşulun."
 
@@ -245,47 +242,45 @@ msgstr ""
 msgid "This will be used to name your home folder and can’t be changed."
 msgstr "Bu, ev qovluğunuzun adı üçün istifadə olunacaq və dəyişdirilə bilməz."
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:249
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:261
 msgid "Preview"
 msgstr "Önizləmə"
 
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:319
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:322
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:220
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:223
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:329
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:240
 msgid "More…"
 msgstr "Daha çox…"
 
 #. Translators: a search for input methods or keyboard layouts
 #. * did not yield any results
 #.
-#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:336
+#: gnome-initial-setup/pages/keyboard/cc-input-chooser.c:351
 msgid "No inputs found"
 msgstr "Daxiletmə tapılmadı"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:507
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.blp:13
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.c:502
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:16
 msgid "Typing"
 msgstr "Yazı"
 
-#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.blp:14
+#: gnome-initial-setup/pages/keyboard/gis-keyboard-page.ui:17
 msgid "Select your keyboard layout or an input method."
 msgstr "Klaviatura düzümünüzü və ya daxiletmə metodunu seçin."
 
-#: gnome-initial-setup/pages/keyboard/input-chooser.blp:8
+#: gnome-initial-setup/pages/keyboard/input-chooser.ui:8
 msgid "Search keyboards and input methods"
 msgstr "Klaviaturalarda və daxiletmə metodlarında axtar"
 
-#: gnome-initial-setup/pages/language/cc-language-chooser.c:234
+#: gnome-initial-setup/pages/language/cc-language-chooser.c:260
 msgid "No languages found"
 msgstr "Dil tapılmadı"
 
 #: gnome-initial-setup/pages/language/gis-language-page.c:274
-#: gnome-initial-setup/pages/language/gis-language-page.blp:12
+#: gnome-initial-setup/pages/language/gis-language-page.ui:14
 msgid "Welcome"
 msgstr "Xoş gəlmisiniz"
 
-#: gnome-initial-setup/pages/language/gis-language-page.blp:38
+#: gnome-initial-setup/pages/language/gis-language-page.ui:41
 msgid "Select a language from the list, or search for a specific language."
 msgstr "Siyahıdan dil seçin və ya müəyyən bir dili axtarın."
 
@@ -297,11 +292,11 @@ msgstr "Siyahıdan dil seçin və ya müəyyən bir dili axtarın."
 msgid "Welcome!"
 msgstr "Xoş gəlmisiniz!"
 
-#: gnome-initial-setup/pages/language/language-chooser.blp:12
+#: gnome-initial-setup/pages/language/language-chooser.ui:11
 msgid "Search languages"
 msgstr "Dillərdə axtar"
 
-#: gnome-initial-setup/pages/language/language-chooser.blp:22
+#: gnome-initial-setup/pages/language/language-chooser.ui:21
 msgid "Available languages"
 msgstr "Mövcud dillər"
 
@@ -322,11 +317,11 @@ msgstr "Əlçatan simsiz şəbəkələr yoxlanılır"
 msgid "Network"
 msgstr "Şəbəkə"
 
-#: gnome-initial-setup/pages/network/gis-network-page.blp:13
+#: gnome-initial-setup/pages/network/gis-network-page.ui:15
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: gnome-initial-setup/pages/network/gis-network-page.blp:14
+#: gnome-initial-setup/pages/network/gis-network-page.ui:16
 msgid ""
 "Connecting to the internet helps you get new apps, information, and other "
 "upgrades. It also helps set the time and your location automatically."
@@ -335,11 +330,11 @@ msgstr ""
 "etməyinizə kömək edir. Həmçinin vaxtın və məkanınızın avtomatik təyin "
 "edilməsinə kömək edir."
 
-#: gnome-initial-setup/pages/network/gis-network-page.blp:55
+#: gnome-initial-setup/pages/network/gis-network-page.ui:57
 msgid "No wireless available"
 msgstr "Simsiz şəbəkə yoxdur"
 
-#: gnome-initial-setup/pages/network/gis-network-page.blp:68
+#: gnome-initial-setup/pages/network/gis-network-page.ui:70
 msgid "Turn On"
 msgstr "Yandır"
 
@@ -393,15 +388,15 @@ msgstr "Şifrələr uyğun gəlmir."
 msgid "Password"
 msgstr "Şifrə"
 
-#: gnome-initial-setup/pages/password/gis-password-page.blp:60
+#: gnome-initial-setup/pages/password/gis-password-page.ui:71
 msgid "_Confirm Password"
 msgstr "Şifrəni _təsdiqləyin"
 
-#: gnome-initial-setup/pages/password/gis-password-page.blp:86
+#: gnome-initial-setup/pages/password/gis-password-page.ui:98
 msgid "Password _Hint"
 msgstr "Şifrə _ipucu"
 
-#: gnome-initial-setup/pages/password/gis-password-page.blp:96
+#: gnome-initial-setup/pages/password/gis-password-page.ui:109
 msgid "Password hint will be shown in case you forget your password."
 msgstr "Şifrənizi unutsanız, şifrə ipucu göstəriləcək."
 
@@ -582,26 +577,26 @@ msgid "Allows apps to determine your geographical location."
 msgstr "Tətbiqlərə coğrafi məkanınızı müəyyən etməyə imkan verir."
 
 #: gnome-initial-setup/pages/privacy/gis-privacy-page.c:172
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:11
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:15
 msgid "Privacy"
 msgstr "Məxfilik"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:28
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:33
 msgid "Location Services"
 msgstr "Məkan xidmətləri"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:57
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:65
 msgid "Automatic Problem Reporting"
 msgstr "Avtomatik problem hesabatı"
 
-#: gnome-initial-setup/pages/privacy/gis-privacy-page.blp:85
+#: gnome-initial-setup/pages/privacy/gis-privacy-page.ui:97
 msgid "Privacy controls can be changed at any time from the Settings app."
 msgstr ""
 "Məxfilik tənzimləmələri istənilən vaxt Tənzimləmələr tətbiqindən dəyişdirilə "
 "bilər."
 
 #: gnome-initial-setup/pages/software/gis-software-page.c:127
-#: gnome-initial-setup/pages/software/gis-software-page.blp:9
+#: gnome-initial-setup/pages/software/gis-software-page.ui:11
 msgid "Third-Party Repositories"
 msgstr "Üçüncü tərəf repozitoriyaları"
 
@@ -668,8 +663,8 @@ msgstr "%s istifadəyə hazırdır."
 msgid "Setup Complete"
 msgstr "Quraşdırma tamamlandı"
 
-#: gnome-initial-setup/pages/summary/gis-summary-page.blp:8
-msgid "All Done!"
+#: gnome-initial-setup/pages/summary/gis-summary-page.ui:8
+msgid "All done!"
 msgstr "Hər şey hazırdır!"
 
 #: gnome-initial-setup/pages/timezone/gis-location-entry.c:126
@@ -724,11 +719,11 @@ msgid "Current timezone: %s at %s; current time: %s"
 msgstr "Cari saat qurşağı: %s, %s; cari vaxt: %s"
 
 #: gnome-initial-setup/pages/timezone/gis-timezone-page.c:502
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:17
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:16
 msgid "Time Zone"
 msgstr "Saat qurşağı"
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:18
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:17
 msgid ""
 "The time zone will be set automatically if your location can be found. You "
 "can also search for a city to set it yourself."
@@ -736,7 +731,7 @@ msgstr ""
 "Məkanınız tapıla bilsə, saat qurşağı avtomatik təyin ediləcək. Onu özünüz "
 "təyin etmək üçün şəhər də axtara bilərsiniz."
 
-#: gnome-initial-setup/pages/timezone/gis-timezone-page.blp:48
+#: gnome-initial-setup/pages/timezone/gis-timezone-page.ui:49
 msgid "Please search for a nearby city"
 msgstr "Lütfən, yaxınlıqdakı şəhəri axtarın"
 
@@ -753,11 +748,11 @@ msgstr "Lütfən, yaxınlıqdakı şəhəri axtarın"
 msgid "Welcome to %s !"
 msgstr "%s sisteminə xoş gəlmisiniz!"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:5
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:4
 msgid "Setup"
 msgstr "Quraşdırma"
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:31
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:32
 msgid ""
 "Setup will guide you through making an account and enabling some features. "
 "We’ll have you up and running in no time."
@@ -765,7 +760,7 @@ msgstr ""
 "Quraşdırma sizə hesab yaratmaqda və bəzi xüsusiyyətləri aktivləşdirməkdə "
 "bələdçilik edəcək. Qısa zamanda hər şeyi işlək vəziyyətə gətirəcəyik."
 
-#: gnome-initial-setup/pages/welcome/gis-welcome-page.blp:35
+#: gnome-initial-setup/pages/welcome/gis-welcome-page.ui:36
 msgid "_Start Setup"
 msgstr "Quraşdırmaya _başla"
 
@@ -809,3 +804,6 @@ msgstr "${NAME} sistemini sına"
 #, sh-format
 msgid "Install ${PRETTY_NAME}"
 msgstr "${PRETTY_NAME} sistemini quraşdır"
+
+#~ msgid "_Grant administrative privileges to first user"
+#~ msgstr "İlk istifadəçiyə _inzibatçı səlahiyyətləri ver"
