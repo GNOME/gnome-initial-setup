@@ -68,7 +68,7 @@ create_webview (void)
   webkit_settings_set_enable_developer_extras (view_settings, FALSE);
   webkit_settings_set_enable_fullscreen (view_settings, FALSE);
 
-  return webkit_web_view_new ();
+  return view;
 }
 
 gboolean
